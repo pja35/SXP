@@ -1,0 +1,3 @@
+These specifications will be done in [[XML]].
+
+Actually, they may already exist. A bibliography of existing XML formats for describing items to be exchanged via an electronic [[Contracts|contract]]... is the first thing we need.
