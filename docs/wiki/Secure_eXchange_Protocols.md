@@ -45,7 +45,7 @@ facilitating exchanges. As such it has [advantages and
 disandvantages](/wiki/ExclusivelyMoneyBasedEconomy "wikilink"). Our view is
 that whatever can be made in order to facilitate exchanges, is worth
 doing for the economy. [More on why we should do
-this](/wiki/WhyDoThis "wikilink").
+this](/wiki/Why_Do_This "wikilink").
 
 How would that work?
 --------------------

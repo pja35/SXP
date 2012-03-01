@@ -16,7 +16,7 @@ Exclusively money-based economy seems quite natural to all of us. Yet, taking a 
 * Whenever money runs out, many exchanges that could still have taken place, can no longer take place.
 * Money favours deals in which the relative value of items is made uniform across large regions and populations. 
 Money is not a way to measure people's merit. Nor is it an absolute scale on which to measure all things. Money is a  instrument for facilitating exchanges. As such it has  [[ExclusivelyMoneyBasedEconomy|advantages and disandvantages]]. Our view is that whatever can be made in order to facilitate exchanges, is worth doing for the economy. 
-[[WhyDoThis|More on why we should do this]].
+[[Why Do This|More on why we should do this]].
 
 ==How would that work?==
 Let us explain what is meant by an open, ubiquous, peer-to-peer, secure protocol suite for multi-party exchanges of contracts.
