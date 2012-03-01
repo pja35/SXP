@@ -42,7 +42,7 @@ taking a step back and thinking about, it has a few downsides:
 Money is not a way to measure people's merit. Nor is it an absolute
 scale on which to measure all things. Money is a instrument for
 facilitating exchanges. As such it has [advantages and
-disandvantages](/wiki/ExclusivelyMoneyBasedEconomy "wikilink"). Our view is
+disandvantages](/wiki/Exclusively_Money_Based_Economy "wikilink"). Our view is
 that whatever can be made in order to facilitate exchanges, is worth
 doing for the economy. [More on why we should do
 this](/wiki/Why_Do_This "wikilink").
