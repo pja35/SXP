@@ -186,7 +186,7 @@ Current needs
 We call on:
 
 -   Economists to help us refine the
-    [discussions](/wiki/DiscussionPages "wikilink"), and thus take the best
+    [discussions](/wiki/Discussion_Pages "wikilink"), and thus take the best
     design decisions
 -   Security protocol experts, peer-to-peer protocol experts, to help us
     design the protocols
