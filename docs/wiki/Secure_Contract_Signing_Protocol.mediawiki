@@ -1,4 +1,4 @@
-The Secure Contract Signing protocol of [[MainPage|SXP]] is a [[Protocols|Protocol]].
+The Secure Contract Signing protocol of [[Main Page|SXP]] is a [[Protocols|Protocol]].
 
 Current status: It remains to be defined. It is the first important technical task ahead of us.
 

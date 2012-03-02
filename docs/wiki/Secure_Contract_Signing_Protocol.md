@@ -4,7 +4,7 @@ permalink: wiki/Secure_Contract_Signing_Protocol/
 layout: wiki
 ---
 
-The Secure Contract Signing protocol of [SXP](/wiki/MainPage "wikilink") is a
+The Secure Contract Signing protocol of [SXP](/wiki/Main_Page "wikilink") is a
 [Protocol](/wiki/Protocols "wikilink").
 
 Current status: It remains to be defined. It is the first important
