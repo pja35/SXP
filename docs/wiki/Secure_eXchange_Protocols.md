@@ -224,4 +224,4 @@ Questions that bother us
     wealth cumulation and participate in all deals? Or would more
     dynamical, blended and local currencies start to emerge?
 
-[More on these questions.](/wiki/QuestionsThatBotherUs "wikilink")
+[More on these questions.](/wiki/Questions_That_Bother_Us "wikilink")
