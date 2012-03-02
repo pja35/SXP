@@ -206,8 +206,8 @@ Get started
 
 Contributing to this project means setting up an account on this Wiki,
 and making it grow in an orderly fashion, by bringing your own
-expertise. Here are some more informations about [ Getting
-Started](/wiki/GettingStarted "wikilink").
+expertise. Here are some more informations about [Getting
+Started](/wiki/Getting_Started "wikilink").
 
 Questions that bother us
 ------------------------
