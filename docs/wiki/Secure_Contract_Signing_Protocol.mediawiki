@@ -1,0 +1,37 @@
+The Secure Contract Signing protocol of [[MainPage|SXP]] is a [[Protocols|Protocol]].
+
+Current status: It remains to be defined. It is the first important technical task ahead of us.
+
+==== What should it do? ====
+Allow several parties to sign a contract securely.
+* But what do we mean by secure in this case?
+* Are we going to rely on a Trusted Third Party?
+
+==== Some related papers we must understand first ====
+
+[[http://books.google.fr/books?hl=en&lr=&id=DUFqRPNqBrQC&oi=fnd&pg=PA365&dq=%22optimistic+fair%22&ots=HSsEcwYi5v&sig=d4Z6to7fQ06fl-OXlLkQKLIP8Cc#v=onepage&q=%22optimistic%20fair%22&f=false| Review of optimisitc fair exchange]] by Asokan, Schunter, (2009).
+Comment on the usefulness of this paper to the project [[AsokanSchunter|here]].
+
+[[http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=5381051|An Optimistic Fair Protocol for Aggregate Exchange]] by Liu (2009).
+Comment on the usefulness of this paper to the project [[Liu|here]].
+
+[[http://www.springerlink.com/content/408876235155l787/|Payment Scheme for Multi-Party Cascading P2P Exchange]] by Liu, Zhao, (2007).
+Comment on the usefulness of this paper to the project [[LiuZhao|here]].
+
+[[http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=1428498| An exchange protocol for alternative currencies]] by Hao,   Havey,  Turner, (2005).
+Comment on the usefulness of this paper to the project [[HaoHaveyTurner|here]].
+
+[[http://www.springerlink.com/content/72552jg5jk322154/|An Optimistic Fair Protocol for P2P Chained Transaction]] by Liu, Fu, Zhang, (2005).
+Comment on the usefulness of this paper to the project [[LiuFuZhang|here]].
+
+[[http://www.springerlink.com/content/p3543433t71uh2n6/|A Fair and Reliable P2P E-Commerce Model Based on Collaboration with Distributed Peers]] by Sur,  Jung, Yang, Rhee  (2005).
+Comment on the usefulness of this paper to the project [[SurJungYangRhee|here]].
+
+[[http://www.springerlink.com/content/28b0t21f4e5fhfb9/|Optimistic Fair Exchange Based on Publicly Verifiable Secret Sharing]] by Avoine, Vaudenay  (2004).
+Comment on the usefulness of this paper to the project [[AvoineVaudenay|here]].
+
+[[http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.58.9931&rep=rep1&type=pdf|Formal Analysis of Optimistic Fair Exchange Protocols]] by Kremer, (2004).
+Comment on the usefulness of this thesis to the project [[Kremer|here]].
+
+[[http://www.springerlink.com/content/beq9v0d41wd7g462/| A multi-party optimistic non-repudiation protocol]] by Markowitch, Kremer, (2001).
+Comment on the usefulness of this paper to the project [[MarkowitchKremer|here]].
