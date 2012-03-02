@@ -151,7 +151,7 @@ non-negociable part of this project. The next tasks belong to stage 2,
 here are some of the most obvious tasks:
 
 -   designing the [Secure Contract Signing
-    protocol](/wiki/SecureContractSigningProtocol "wikilink");
+    protocol](/wiki/Secure_Contract_Signing_Protocol "wikilink");
 -   designing how to describe [Contracts](/wiki/Contracts "wikilink").
 
 Methodology
