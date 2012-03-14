@@ -16,3 +16,5 @@ Lanzamiento
 -----------
 
 ### Hackers
+
+Anonmous, foros, P2P
