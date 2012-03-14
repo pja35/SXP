@@ -29,7 +29,9 @@ Newsletter creation (Miguel)
 
 ### Researchers (Pablo)
 
-GdR IM Autores des protocoles P2P researchers
+-   GdR IM
+-   Autores des protocoles
+-   P2P researchers
 
 ### S/W libre (Miguel)
 
