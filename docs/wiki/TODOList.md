@@ -4,8 +4,8 @@ permalink: wiki/TODOList/
 layout: wiki
 ---
 
-Wiki Dise~no
-------------
+Wiki Diseño
+-----------
 
 - Logo - Peque~nas mejoras si es posible - Trancar Pàginas
 
