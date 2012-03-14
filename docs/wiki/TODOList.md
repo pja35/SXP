@@ -16,8 +16,8 @@ Wiki Contenido
 
 -   XML formats page (Miguel)
 
-Lanzamiento
------------
+Preparar lanzamiento hacia...
+-----------------------------
 
 -   Newsletter creation (Miguel)
 
