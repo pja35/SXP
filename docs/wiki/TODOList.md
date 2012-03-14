@@ -14,6 +14,8 @@ Wiki Diseño (Alex)
 Wiki Contenido
 --------------
 
+-   XML formats page (Miguel)
+
 Lanzamiento
 -----------
 
