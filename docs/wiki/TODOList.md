@@ -4,10 +4,12 @@ permalink: wiki/TODOList/
 layout: wiki
 ---
 
-Wiki Diseño
------------
+Wiki Diseño (Alex)
+------------------
 
-- Logo - Peque~nas mejoras si es posible - Trancar Pàginas
+-   Logo
+-   Pequeñas mejoras si es posible
+-   Trancar Pàginas
 
 Wiki Contenido
 --------------
