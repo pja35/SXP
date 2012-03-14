@@ -4,8 +4,8 @@ permalink: wiki/TODOList/
 layout: wiki
 ---
 
-ANtes del 30 de Marzo
----------------------
+Antes del 30 de Marzo
+=====================
 
 Wiki Diseño (Alex)
 ------------------
