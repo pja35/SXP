@@ -35,4 +35,8 @@ Newsletter creation (Miguel)
 
 ### S/W libre (Miguel)
 
-Bote Global Square Proyectos P2P Partidos Piratas
+-   Bote
+-   Global Square
+-   Proyectos P2P
+-   Partidos Piratas
+
