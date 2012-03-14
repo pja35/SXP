@@ -19,7 +19,7 @@ Wiki Contenido
 Lanzamiento
 -----------
 
-Newsletter creation (Miguel)
+-   Newsletter creation (Miguel)
 
 ### Hackers (Alex)
 
