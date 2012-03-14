@@ -1,0 +1,18 @@
+---
+title: TODOList
+permalink: wiki/TODOList/
+layout: wiki
+---
+
+Wiki Dise~no
+------------
+
+- Logo - Peque~nas mejoras si es posible - Trancar Pàginas
+
+Wiki Contenido
+--------------
+
+Lanzamiento
+-----------
+
+### Hackers
