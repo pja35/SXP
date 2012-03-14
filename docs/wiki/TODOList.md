@@ -21,7 +21,11 @@ Newsletter creation (Miguel)
 
 ### Hackers (Alex)
 
-Anonmous, foros, P2P Bruce Schneier Newsletters
+-   Anonmous
+-   Foros
+-   P2P
+-   Bruce Schneier
+-   Newsletters
 
 ### Researchers (Pablo)
 
