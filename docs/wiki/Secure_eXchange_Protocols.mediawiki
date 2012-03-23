@@ -39,7 +39,7 @@ In the real world shops or markets have several beneficial roles: they facilitat
 [[Markets|More on markets.]]
 
 ===Multi-party exchanges: Deals. ===
-Since they will run the same protocols, markets will be interoperable. Hence cross-market exchanges will often happen. Part of the diffucilty is to compute possible multi-party exchange chains, also referred to as deals. The protocol will promote openness for facilitating the computation of the best possible deals. 
+Since they will run the same protocols, markets will be interoperable. Hence cross-market exchanges will often happen. Part of the diffucilty is to compute possible multi-party exchange chains, also referred to as deals. The protocol will promote openness for facilitating the computation of the best possible deals across one or several markets. 
 [[Deals|More on deals]].
 
 ===Peer-to-peer.===
