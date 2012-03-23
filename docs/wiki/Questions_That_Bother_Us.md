@@ -27,7 +27,8 @@ currencies start to emerge?*
 
 Attempted answers...
 
-### Possibly related papers
+Possibly related papers
+-----------------------
 
 [ Price stability in peer-to-peer resource
 markets](http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5662594 "wikilink")
