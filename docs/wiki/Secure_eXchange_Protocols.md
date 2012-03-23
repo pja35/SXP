@@ -179,8 +179,8 @@ converge to a consensus reached by its contributors.
 A protocol is a common language. Hence it seems to be a good thing to
 elaborate it jointly. Since these protocols hope to serve as a basis for
 an exchange-based economy, it is important that designers be warned of
-all foreseeable caveats. Again only a consensus-based design can provide
-this degree of awareness.
+all foreseeable caveats. We believe that only a consensus-based design
+can provide this degree of awareness.
 
 Current needs
 -------------
