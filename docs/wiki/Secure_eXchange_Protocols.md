@@ -187,17 +187,16 @@ Current needs
 
 We call on:
 
--   Economists to help us refine the
-    [discussions](/wiki/Discussion_Pages "wikilink"), and thus take the best
-    design decisions
 -   Security protocol experts, peer-to-peer protocol experts, to help us
     design the protocols
--   Xml experts, to help us design contracts specifications
--   Infographists, publicists to help put these ideas forward in a
-    graphical, clear manner
+-   XML experts, to help us design contracts specifications
+-   Economists to help us refine the
+    [discussions](/wiki/Discussion_Pages "wikilink"), which may help us to
+    take some design decisions
+-   Infographists, publicists to help put these ideas forward in a clear
+    manner, perhaps in small cartoon/video
 -   Lawyers, to help us out with setting the appropriate free software
     [license](/wiki/Licence "wikilink")
--   Journalists, to propagate this call
 -   All good wills, to do whatever they understood might be useful
 
 One day we may ask for donations to help the project management and
