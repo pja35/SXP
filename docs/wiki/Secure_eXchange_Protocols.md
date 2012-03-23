@@ -147,8 +147,10 @@ Status
 The project is at the end of stage 1: we know just the aims of this
 project. The founders' main role is to ensure that these original aims
 will not be altered in the course of the project. Stage 1 is the only
-non-negociable part of this project. The next tasks belong to stage 2,
-here are some of the most obvious tasks:
+non-negociable part of this project.
+
+The next tasks belong to stage 2, which is still very much a research
+stage. Here are some of the most obvious tasks:
 
 -   designing the [Secure Contract Signing
     protocol](/wiki/Secure_Contract_Signing_Protocol "wikilink");
