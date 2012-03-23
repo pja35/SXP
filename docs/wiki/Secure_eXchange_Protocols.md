@@ -85,7 +85,7 @@ chains.](/wiki/Chains "wikilink")
 In the real world shops or markets have several beneficial roles: they
 facilitate offer/demand encounter, they secure the producer/consumer
 exchange, they guarantee the quality of the items, they generate VAT for
-the good functioning of states. The protocol will allow for virtual
+the good functioning of states. The protocols will allow for virtual
 counterparts of these markets, accomplishing just the same role. [More
 on markets.](/wiki/Markets "wikilink")
 
