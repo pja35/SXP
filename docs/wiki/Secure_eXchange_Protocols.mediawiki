@@ -98,8 +98,8 @@ We call on:
 * All good wills, to do whatever they understood might be useful
 One day we may ask for donations to help the project management and development, and which will be handled with full transparency.
 
-==Get started==
-Contributing to this project means setting up an account on this Wiki, and making it grow in an orderly fashion, by bringing your own expertise. Here are some more informations about [[Getting Started]].
+==Getting started==
+Contributing to this project means setting up an account on this Wiki, and making this website grow in an orderly fashion, by bringing in your own expertise. Here are some more informations about [[Getting Started]].
 
 ==Questions that bother us==
 * Say that humanity had all these mobile phones, PDAs etc., but suddenly forgot all about money. Would humanity immediately reinvent this concept and trust paper notes back again? Or would it make use of its powerful information technologies in order to settle with some advanced, decentralized, electronic bartering system?

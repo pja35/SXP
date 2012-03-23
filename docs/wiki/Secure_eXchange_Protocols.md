@@ -202,12 +202,12 @@ We call on:
 One day we may ask for donations to help the project management and
 development, and which will be handled with full transparency.
 
-Get started
------------
+Getting started
+---------------
 
 Contributing to this project means setting up an account on this Wiki,
-and making it grow in an orderly fashion, by bringing your own
-expertise. Here are some more informations about [Getting
+and making this website grow in an orderly fashion, by bringing in your
+own expertise. Here are some more informations about [Getting
 Started](/wiki/Getting_Started "wikilink").
 
 Questions that bother us
