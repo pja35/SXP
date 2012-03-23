@@ -10,7 +10,7 @@
 
 == Wiki Contenido ==
 
-* XML formats page (Miguel)
+* XML formats page (Pablo)
 
 == Preparar lanzamiento hacia... ==
 

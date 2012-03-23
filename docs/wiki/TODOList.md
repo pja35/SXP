@@ -16,7 +16,7 @@ Antes del 30 de Marzo:
 Wiki Contenido
 --------------
 
--   XML formats page (Miguel)
+-   XML formats page (Pablo)
 
 Preparar lanzamiento hacia...
 -----------------------------
