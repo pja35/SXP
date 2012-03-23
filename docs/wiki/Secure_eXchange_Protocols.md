@@ -91,7 +91,7 @@ counterparts of these markets, accomplishing just the same purposes.
 
 ### Multi-party exchanges: Deals.
 
-Since they will run the same protocol, markets will be interoperable.
+Since they will run the same protocols, markets will be interoperable.
 Hence cross-market exchanges will often happen. Part of the diffucilty
 is to compute possible multi-party exchange chains, also referred to as
 deals. The protocol will promote openness for facilitating the
