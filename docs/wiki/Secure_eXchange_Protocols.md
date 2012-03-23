@@ -64,10 +64,10 @@ protocols.](/wiki/Protocols "wikilink")
 ### Contracts.
 
 An electronic contract is a legally binding document, electronically
-signed by the different parties, where the parties engage in doing
-something in due time. Being able to exchange contracts means being able
-to exchange anything from goods to services, by being able to settle a
-barter, a payment, or any combination of both. [More on
+signed by the different parties, where the parties engage in doing or
+giving something in due time. Being able to exchange contracts means
+being able to exchange anything from goods to services, by being able to
+settle a barter, a payment, or any combination of both. [More on
 contracts.](/wiki/Contracts "wikilink")
 
 ### Multi-party exchanges: Chains.
