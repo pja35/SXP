@@ -13,13 +13,6 @@ Antes del 30 de Marzo:
 
 ------------------------------------------------------------------------
 
-Wiki Diseño (Alex)
-------------------
-
--   Logo
--   Pequeñas mejoras si es posible
--   Trancar Pàginas
-
 Wiki Contenido
 --------------
 
