@@ -66,9 +66,9 @@ protocols.](/wiki/Protocols "wikilink")
 An electronic contract is a legally binding document, electronically
 signed by the different parties, where the parties engage in doing or
 giving something in due time. Hence, being able to exchange contracts
-means being able to exchange anything from goods to services. Thus the
-protocol will serve to settle a barter, a payment, or any combination of
-both. [More on contracts.](/wiki/Contracts "wikilink")
+means being able to exchange anything from goods to services. A protocol
+will serve to settle a barter, a payment, or any combination of both.
+[More on contracts.](/wiki/Contracts "wikilink")
 
 ### Multi-party exchanges: Chains.
 
