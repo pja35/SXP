@@ -2,9 +2,12 @@
 title: XML
 permalink: wiki/XML/
 layout: wiki
+tags:
+ - Glossary
 ---
 
-### What is XML?
+What is XML?
+------------
 
 XML is a tunable tag language for describing things in a hierarchical,
 formatted manner. For instance HTML, the language of all webpages, is a
