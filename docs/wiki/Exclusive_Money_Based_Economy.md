@@ -4,10 +4,10 @@ permalink: wiki/Exclusive_Money_Based_Economy/
 layout: wiki
 ---
 
-Money is not a way to measure people's merit. Nor is it an absolute
-scale on which to measure all things. Money is a instrument for
-facilitating exchanges. As such it has advantages and disadvantages,
-which this page seeks to list.
+Of course money is not an absolute of people's merit, and nor is it an
+absolute scale on which to measure all things. What is it, then? Mainly,
+it is an instrument for facilitating exchanges. As such it has both
+advantages and disadvantages, which this page seeks to list.
 
 Advantages
 ----------
