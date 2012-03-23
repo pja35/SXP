@@ -17,7 +17,7 @@ Allow several parties to sign a contract securely.
 -   But what do we mean by secure in this case?
 -   Are we going to rely on a Trusted Third Party?
 
-#### Some related papers we must understand first
+### Some related papers we must understand first
 
 [ Review of optimisitc fair
 exchange](http://books.google.fr/books?hl=en&lr=&id=DUFqRPNqBrQC&oi=fnd&pg=PA365&dq=%22optimistic+fair%22&ots=HSsEcwYi5v&sig=d4Z6to7fQ06fl-OXlLkQKLIP8Cc#v=onepage&q=%22optimistic%20fair%22&f=false "wikilink")
