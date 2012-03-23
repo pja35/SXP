@@ -2,6 +2,8 @@
 title: Contracts
 permalink: wiki/Contracts/
 layout: wiki
+tags:
+ - Glossary
 ---
 
 An electronic contract is a legally binding document, electronically
@@ -22,4 +24,3 @@ More concretely, SXP will include:
     Signing protocol.](/wiki/Secure_Contract_Signing_Protocol "wikilink")
 -   an authentication architecture for identifying parties.
 
-[Glossary](/wiki/Glossary "wikilink")
