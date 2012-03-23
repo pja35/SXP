@@ -75,8 +75,8 @@ both. [More on contracts.](/wiki/Contracts "wikilink")
 A clear disadvanatage of bartering versus paying is that in a barter,
 both parties must be interested in each others items, whereas in a
 payment, the vendor can take the money and spend it, later, on some
-other item. Here however we will compensate for this downside by
-allowing exchanges between many parties at the same time, and
+other item. Here we will seek to compensate for this downside by
+allowing exchanges between many parties at the same time, as well as
 facilitating further exchanges of newly acquired items. [More on
 chains.](/wiki/Chains "wikilink")
 
