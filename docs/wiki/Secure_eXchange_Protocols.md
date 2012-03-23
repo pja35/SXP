@@ -40,12 +40,13 @@ a step back, it has a few downsides:
 -   Money favours deals in which the relative value of items is made
     uniform across large regions and populations.
 
-Money is not a way to measure people's merit. Nor is it an absolute
-scale on which to measure all things. Money is a instrument for
-facilitating exchanges. As such it has [advantages and
-disandvantages](/wiki/Exclusively_Money_Based_Economy "wikilink"). Our view is
-that whatever can be made in order to facilitate exchanges, is worth
-doing for the economy. [More on why we should do
+Of course money is not an absolute of people's merit, and nor is it an
+absolute scale on which to measure all things. What it is, then? Mainly,
+it is an instrument for facilitating exchanges. As such it has both
+[advantages and
+disandvantages](/wiki/Exclusively_Money_Based_Economy "wikilink"). We take the
+view that whatever can be made in order to facilitate exchanges, is
+worth doing for the economy. [More on why we should do
 this](/wiki/Why_Do_This "wikilink").
 
 How would that work?
