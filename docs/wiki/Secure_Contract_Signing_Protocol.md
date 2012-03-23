@@ -7,8 +7,8 @@ layout: wiki
 The Secure Contract Signing protocol of [SXP](/wiki/Main_Page "wikilink") is a
 [Protocol](/wiki/Protocols "wikilink").
 
-Current status: It remains to be defined. It is the first important
-technical task ahead of us.
+**Current status: It remains to be defined. It is the first important
+technical task ahead of us.**
 
 #### What should it do?
 
