@@ -22,8 +22,10 @@ a virtual market, in which others can tell what they have to offer and
 what they need. The market, or anyone for that matter, can propose
 deals, whereby one person gives an item to another who gives an item to
 a third etc. If everyone agrees to it, the deal can be secured via
-electronic contracts, signed by the different parties. Hence our motto
-could be: "Exchange anything with everyone anywhere - securely".
+electronic contracts, signed by the different parties.
+
+*Hence our motto could be: "Securely exchange anything, anywhere, with
+everyone."*
 
 Why do this?
 ------------
