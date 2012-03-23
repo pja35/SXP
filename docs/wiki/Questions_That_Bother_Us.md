@@ -4,7 +4,7 @@ permalink: wiki/Questions_That_Bother_Us/
 layout: wiki
 ---
 
-#### Money versus Electronic Bartering Systems
+### Money versus Electronic Bartering Systems
 
 *Say that mankind had all these mobile phones, PDAs etc., but suddenly
 forgot all about money. Would mankind immediately reinvent the concept,
