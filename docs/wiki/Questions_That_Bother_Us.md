@@ -15,7 +15,8 @@ some advanced, decentralized electronic bartering system?*
 
 Attempted answers...
 
-### Spontaneous forms of Money within Electronic Bartering Systems
+Spontaneous forms of Money within Electronic Bartering Systems
+--------------------------------------------------------------
 
 *Say that mankind had all these mobile phones, PDAs etc., and say that
 all of its trades were taking place via some advanced, decentralized,
