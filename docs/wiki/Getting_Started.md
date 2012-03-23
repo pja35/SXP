@@ -42,10 +42,4 @@ edit button at top of the page.
 
 If you are not sure how a wiki works, you can check out the [ MediaWiki
 formatting
-guide](http://www.mediawiki.org/wiki/Help:Formatting "wikilink") and
-play in the SandBox. Here are some useful links for that:
-
--   [ Recently modified pages](/wiki/Special:RecentChanges "wikilink")
-
----You will find some other useful pages in the [CategoryWiki Wiki
-category](/wiki/CategoryWiki_Wiki_category "wikilink") or in the PageIndex.---
+guide](http://www.mediawiki.org/wiki/Help:Formatting "wikilink").

@@ -11,8 +11,4 @@ Do [[Special:UserLogin|Set up an account]] on this Wiki. Make it grow, contribut
 
 Except for a handful of pages describing the overall aims of the project, any page can be edited by anyone. To do this, just click on the edit button at top of the page. 
 
-If you are not sure how a wiki works, you can check out the [[http://www.mediawiki.org/wiki/Help:Formatting| MediaWiki formatting guide]] and play in the SandBox. Here are some useful links for that:
-
-* [[Special:RecentChanges| Recently modified pages]]
-
----You will find some other useful pages in the [[CategoryWiki Wiki category]] or in the PageIndex.---
+If you are not sure how a wiki works, you can check out the [[http://www.mediawiki.org/wiki/Help:Formatting| MediaWiki formatting guide]].
