@@ -4,8 +4,8 @@ permalink: wiki/Secure_eXchange_Protocols/
 layout: wiki
 ---
 
-Secure eXchange Protocols
-=========================
+...of the Secure eXchange Protocols project.
+============================================
 
 **A soft alternative to an exclusively money-based economy.**
 
