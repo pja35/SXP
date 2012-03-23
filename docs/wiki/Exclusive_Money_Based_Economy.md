@@ -24,7 +24,8 @@ Disadvantages
 Yet, taking a step back and thinking about, one becomes conscious of its
 several disadvantages:
 
--   It triggers counter-productive wealth cumulation behaviours.
+-   It triggers sometimes counter-productive wealth
+    cumulation behaviours.
 -   It is often unclear who controls/produces money and for
     what purpose. Nowadays, are Central Banks producing the money, or
     Private Banks?
