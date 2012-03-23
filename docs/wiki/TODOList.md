@@ -17,6 +17,8 @@ Wiki Contenido
 --------------
 
 -   XML formats page (Pablo)
+-   Como agregaqrse a la NewsLetter (Miguel)
+-   Recuperar paginas Related-Articles y Related\_Projects (Miguel)
 
 Preparar lanzamiento hacia...
 -----------------------------
