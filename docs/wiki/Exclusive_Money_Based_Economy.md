@@ -50,8 +50,8 @@ favouring exchanges, in many situations.
 References
 ----------
 
-These questions have been discussed in great details elsewhere. List
-your reading suggestions here.
+Surely these questions have been discussed in great details elsewhere.
+List your reading suggestions here.
 
 (This is a [discussion page](/wiki/DiscussionPages "wikilink"), you may enrich
 it with condensed arguments.)
