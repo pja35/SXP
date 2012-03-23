@@ -6,11 +6,11 @@ layout: wiki
 
 ##### Money versus Bartering technologies
 
-*Say that humanity had all these mobile phones, PDAs etc., but suddenly
-forgot all about money. Would humanity immediately reinvent this concept
-and trust paper notes back again? Or would it make use of its powerful
-information technologies in order to settle with some advanced,
-decentralized, electronic bartering system?*
+*Say that mankind had all these mobile phones, PDAs etc., but suddenly
+forgot all about money. Would mankind immediately reinvent the concept,
+and trust the pieces of paper back again? Or would it make use of the
+powerful information technologies available in order to come up with
+some advanced, decentralized electronic bartering system?*
 
 Attempted answers...
 
