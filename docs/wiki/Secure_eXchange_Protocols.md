@@ -2,8 +2,6 @@
 title: Secure eXchange Protocols
 permalink: wiki/Secure_eXchange_Protocols/
 layout: wiki
-tags:
- - Discussions Pages
 ---
 
 **A soft alternative to an exclusively money-based economy.**
