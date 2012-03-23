@@ -18,7 +18,7 @@ In simpler words the idea is that any of us can join together and create
 a virtual market, in which others can tell what they have to offer and
 what they need. The market, or anyone for that matter, can propose
 deals, whereby one person gives an item to another who gives an item to
-a third etc. If everyone agrees to it, the deal can be secured via
+a third etc. If everyone agrees to it, the deal can be secured into an
 electronic contracts, signed by the different parties.
 
 *Hence our motto could be: "Securely exchange anything, anywhere, with
