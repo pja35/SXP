@@ -104,8 +104,7 @@ SXP protocols should run in the most decentralized manner as possible,
 allowing for ad hoc exchanges, market creation, deal exploration under
 dynamical, reconfigurable scenarios. For instance, an electronic
 signature is what identifies a market, not its IP adress, which may
-constantly change. This design choice is both for the sake of resiliency
-and monopoly avoidance.
+change. This is for the sake of resiliency and monopoly avoidance.
 
 ### Ubiquous.
 

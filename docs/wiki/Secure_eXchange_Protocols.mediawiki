@@ -43,7 +43,7 @@ Hence cross-market exchanges will often happen. Part of the diffucilty is to com
 [[Deals|More on deals]].
 
 ===Peer-to-peer.===
-SXP protocols should run in the most decentralized manner as possible, allowing for ad hoc exchanges, market creation, deal exploration under dynamical, reconfigurable scenarios. For instance, an electronic signature is what identifies a market, not its IP adress, which may constantly change. This design choice is both for the sake of resiliency and monopoly avoidance. 
+SXP protocols should run in the most decentralized manner as possible, allowing for ad hoc exchanges, market creation, deal exploration under dynamical, reconfigurable scenarios. For instance, an electronic signature is what identifies a market, not its IP adress, which may change. This is for the sake of resiliency and monopoly avoidance.
 
 ===Ubiquous.===
 SXP protocols should be able to run on mobiles phones. 
