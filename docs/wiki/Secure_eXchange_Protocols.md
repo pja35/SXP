@@ -219,11 +219,11 @@ Questions that bother us
     make use of the powerful information technologies available in order
     to come up with some advanced, decentralized electronic bartering
     system?
--   Say that humanity had all these mobile phones, PDAs etc., and say
-    that all of its trades would take place via some advanced,
+-   Say that mankind had all these mobile phones, PDAs etc., and say
+    that all of its trades were taking place via some advanced,
     decentralized, electronic bartering system. Would one of the
     resources being exchanged re-emerge as a currency, i.e. serve for
-    wealth cumulation and participate in all deals? Or would more
+    wealth cumulation and participate in most deals? Or would more
     dynamical, blended and local currencies start to emerge?
 
 [More on these questions.](/wiki/Questions_That_Bother_Us "wikilink")
