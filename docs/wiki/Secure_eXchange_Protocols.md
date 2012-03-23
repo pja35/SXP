@@ -95,8 +95,8 @@ Since they will run the same protocols, markets will be interoperable.
 Hence cross-market exchanges will often happen. Part of the diffucilty
 is to compute possible multi-party exchange chains, also referred to as
 deals. The protocol will promote openness for facilitating the
-computation of the best possible deals across one or several markets.
-[More on deals](/wiki/Deals "wikilink").
+computation of the best possible deals within a market. [More on
+deals](/wiki/Deals "wikilink").
 
 ### Peer-to-peer.
 
