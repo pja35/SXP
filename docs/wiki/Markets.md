@@ -2,6 +2,8 @@
 title: Markets
 permalink: wiki/Markets/
 layout: wiki
+tags:
+ - Glossary
 ---
 
 In the real world shops or markets have several beneficial roles: they
@@ -21,4 +23,3 @@ founding members:
 -   Witness the resulting muli-party exchanges with the
     market signature.
 
-[Glossary](/wiki/Glossary "wikilink")
