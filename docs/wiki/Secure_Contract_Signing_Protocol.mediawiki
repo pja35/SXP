@@ -2,7 +2,7 @@ The Secure Contract Signing protocol of [[Main Page|SXP]] is a [[Protocols|Proto
 
 '''Current status: It remains to be defined. It is the first important technical task ahead of us.'''
 
-==== What should it do? ====
+=== What should it do? ===
 Allow several parties to sign a contract securely.
 * But what do we mean by secure in this case?
 * Are we going to rely on a Trusted Third Party?
