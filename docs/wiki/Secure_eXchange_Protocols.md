@@ -171,7 +171,7 @@ The other stages are entirely in the hands of the community that will
 develop the project. Notice that this is eased by the fact that until
 stage 6 is reached, no software development is needed. Hence everything
 can happen on this Website, or links to contributing papers, until then.
-This website as you may notice is a Wiki, meaning that its content will
+This website as you may notice is a Wiki: we hope that its content will
 converge to a consensus reached by its contributors.
 
 ### Consensus-based
