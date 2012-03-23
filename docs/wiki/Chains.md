@@ -2,6 +2,8 @@
 title: Chains
 permalink: wiki/Chains/
 layout: wiki
+tags:
+ - Glossary
 ---
 
 A clear disadvanatage of bartering versus paying is that in a barter,
@@ -18,4 +20,3 @@ SXP will seek to compensate for this downside in three ways:
 -   exchanges can be made between an arbitrary large number of parties;
 -   ...
 
-[Glossary](/wiki/Glossary "wikilink")
