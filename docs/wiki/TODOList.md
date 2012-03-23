@@ -25,7 +25,7 @@ Preparar lanzamiento hacia...
 
 ### Hackers (Alex)
 
--   Anonmous
+-   Anonymous
 -   Foros
 -   P2P
 -   Bruce Schneier
