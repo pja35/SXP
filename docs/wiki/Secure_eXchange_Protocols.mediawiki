@@ -60,7 +60,7 @@ The founders are
 As the project unravels we plan to take a non-profit NGO status, and disappear in the shade of the most active and competent contributors.
 
 ==Stages==
-Stages. The foreseen stages of the project are: 
+The foreseen stages of the project are: 
 # Know what the protocols aim to achieve
 # Know very precisely what the protocols will achieve
 # Formalize the required properties of the protocols

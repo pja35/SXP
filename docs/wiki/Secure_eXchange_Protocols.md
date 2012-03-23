@@ -130,7 +130,7 @@ disappear in the shade of the most active and competent contributors.
 Stages
 ------
 
-Stages. The foreseen stages of the project are:
+The foreseen stages of the project are:
 
 1.  Know what the protocols aim to achieve
 2.  Know very precisely what the protocols will achieve
