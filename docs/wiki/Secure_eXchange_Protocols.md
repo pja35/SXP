@@ -27,10 +27,11 @@ everyone."*
 Why do this?
 ------------
 
-Exclusively money-based economy seems quite natural to all of us. Yet,
-taking a step back and thinking about, it has a few downsides:
+Solely money-based economy seems quite natural to all of us. Yet, taking
+a step back, it has a few downsides:
 
--   It triggers counter-productive wealth cumulation behaviours.
+-   It triggers sometimes counter-productive wealth
+    cumulation behaviours.
 -   It is often unclear who controls/produces money and for
     what purpose. Nowadays, are Central Banks producing the money, or
     Private Banks?

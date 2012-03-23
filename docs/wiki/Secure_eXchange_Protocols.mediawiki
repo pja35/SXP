@@ -10,9 +10,9 @@ In simpler words the idea is that any of us can join together and create a virtu
 ''Hence our motto could be: "Securely exchange anything, anywhere, with everyone."''
 
 ==Why do this?==
-Exclusively money-based economy seems quite natural to all of us. Yet, taking a step back and thinking about, it has a few downsides: 
+Solely money-based economy seems quite natural to all of us. Yet, taking a step back, it has a few downsides: 
 
-* It triggers counter-productive wealth cumulation behaviours.
+* It triggers sometimes counter-productive wealth cumulation behaviours.
 * It is often unclear who controls/produces money and for what purpose. Nowadays, are Central Banks producing the money, or Private Banks?
 * Whenever money runs out, many exchanges that could still have taken place, can no longer take place.
 * Money favours deals in which the relative value of items is made uniform across large regions and populations. 
