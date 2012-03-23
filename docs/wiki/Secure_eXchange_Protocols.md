@@ -4,9 +4,6 @@ permalink: wiki/Secure_eXchange_Protocols/
 layout: wiki
 ---
 
-... of the Secure eXchange Protocols project.
-=============================================
-
 **A soft alternative to an exclusively money-based economy.**
 
 **(Project due to be launched: March 2012.)**
