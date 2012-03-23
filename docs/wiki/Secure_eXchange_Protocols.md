@@ -41,7 +41,7 @@ a step back, it has a few downsides:
     uniform across large regions and populations.
 
 Of course money is not an absolute of people's merit, and nor is it an
-absolute scale on which to measure all things. What it is, then? Mainly,
+absolute scale on which to measure all things. What is it, then? Mainly,
 it is an instrument for facilitating exchanges. As such it has both
 [advantages and
 disandvantages](/wiki/Exclusively_Money_Based_Economy "wikilink"). We take the
