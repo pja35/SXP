@@ -44,7 +44,7 @@ Of course money is not an absolute of people's merit, and nor is it an
 absolute scale on which to measure all things. What is it, then? Mainly,
 it is an instrument for facilitating exchanges. As such it has both
 [advantages and
-disandvantages](/wiki/Exclusively_Money_Based_Economy "wikilink"). We take the
+disadvantages](/wiki/Exclusively_Money_Based_Economy "wikilink"). We take the
 view that whatever can be made in order to facilitate exchanges, is
 worth doing for the economy. [More on why we should do
 this](/wiki/Why_Do_This "wikilink").
