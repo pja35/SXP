@@ -55,5 +55,6 @@ References
 Surely these questions have been discussed in great details elsewhere.
 List your reading suggestions here.
 
-(This is a [discussion page](/wiki/DiscussionPages "wikilink"), you may enrich
-it with condensed arguments.)
+(This is a [Category%3ADiscussions
+Pages](/wiki/Category%3ADiscussions_Pages "wikilink"), you may enrich it with
+condensed arguments.)
