@@ -1,3 +1,5 @@
+[[Category:Discussions Pages]] 
+
 == Money versus Electronic Bartering Systems ==
 ''Say that mankind had all these mobile phones, PDAs etc., but suddenly forgot all about money. Would mankind immediately reinvent the concept, and trust the pieces of paper back again? Or would it make use of the powerful information technologies available in order to come up with some advanced, decentralized electronic bartering system?''
 
@@ -14,5 +16,3 @@ Comment this paper [[OkaieNakanoStability|here]].
 
 [[http://www.springerlink.com/content/213187v363028302/| Resource pricing games on graphs: existence of Nash equilibria]] by Okaie, Nakano
 Comment this paper [[OkaieNakanoNash|here]].
-
-(This is a [[Discussion Pages|discussion page]], you may enrich it with condensed arguments.)

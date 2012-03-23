@@ -2,6 +2,8 @@
 title: Questions That Bother Us
 permalink: wiki/Questions_That_Bother_Us/
 layout: wiki
+tags:
+ - Discussions Pages
 ---
 
 Money versus Electronic Bartering Systems
@@ -38,6 +40,3 @@ by Okaie, Nakano Comment this paper
 [ Resource pricing games on graphs: existence of Nash
 equilibria](http://www.springerlink.com/content/213187v363028302/ "wikilink")
 by Okaie, Nakano Comment this paper [here](/wiki/OkaieNakanoNash "wikilink").
-
-(This is a [discussion page](/wiki/Discussion_Pages "wikilink"), you may
-enrich it with condensed arguments.)
