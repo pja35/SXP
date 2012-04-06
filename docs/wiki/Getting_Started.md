@@ -3,7 +3,7 @@ title: Getting Started
 permalink: wiki/Getting_Started/
 layout: wiki
 tags:
- - Discussion_Pages|discussion pages
+ - Discussion Pages|discussion pages
 ---
 
 Style of expected contributions
