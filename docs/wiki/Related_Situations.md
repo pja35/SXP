@@ -19,8 +19,10 @@ Bartering
     not allowed. See also
     [2](http://faircompanies.com/videos/view/barcelonas-barter-markets-an-antidote-to-overconsumption/)*.
 
-Local currencies
-----------------
+Complementary currencies
+------------------------
+
+See [here](http://en.wikipedia.org/wiki/Complementary_currency):
 
 -   Argentina 2001. The [Patacón](http://en.wikipedia.org/wiki/Patacon).
 
