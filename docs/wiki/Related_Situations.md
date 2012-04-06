@@ -18,7 +18,7 @@ Bartering
     [2](http://faircompanies.com/videos/view/barcelonas-barter-markets-an-antidote-to-overconsumption/)*.
 
 Local currencies
-================
+----------------
 
 -   Argentina 2002.
 
