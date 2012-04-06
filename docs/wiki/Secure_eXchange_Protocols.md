@@ -41,12 +41,20 @@ a step back, it has a few downsides:
     uniform across large regions and populations.
 
 Of course money is not an absolute of people's merit, and nor is it an
-absolute scale on which to measure all things. What is it, then? Mainly,
-it is an instrument for facilitating exchanges. As such it has both
-[advantages and
+absolute scale on which to measure all things. But what is it, then?
+Mainly, it is an instrument for facilitating exchanges. As such it has
+both [advantages and
 disadvantages](/wiki/Exclusively_Money_Based_Economy "wikilink"). We take the
 view that whatever can be made in order to facilitate exchanges, is
-worth doing for the economy. [More on why we should do
+worth doing for the economy.
+
+There are a number of [related projects](/wiki/Related_Projects "wikilink")
+seeking to address the above-mentioned downsides. The idea of going for
+Secure eXchange Protocols itself has been envisioned by others in
+[related articles](/wiki/Related_Articles "wikilink"). Certainly, having such
+protocols implemented would have come handy in a number of [related
+situations](/wiki/Related_Situations "wikilink"). Our sole aim is to make
+these protocols a reality. [More on why we should do
 this](/wiki/Why_Do_This "wikilink").
 
 What is it?
