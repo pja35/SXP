@@ -2,6 +2,8 @@
 title: Related Situations
 permalink: wiki/Related_Situations/
 layout: wiki
+tags:
+ - Discussions Pages
 ---
 
 Bartering
