@@ -32,11 +32,10 @@ Attempted answers...
 Possibly related papers
 -----------------------
 
-[ Price stability in peer-to-peer resource
-markets](http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5662594 "wikilink")
-by Okaie, Nakano Comment this paper
-[here](/wiki/OkaieNakanoStability "wikilink").
+\[<http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5662594>| Price
+stability in peer-to-peer resource markets\] by Okaie, Nakano Comment
+this paper [here](/wiki/OkaieNakanoStability "wikilink").
 
-[ Resource pricing games on graphs: existence of Nash
-equilibria](http://www.springerlink.com/content/213187v363028302/ "wikilink")
-by Okaie, Nakano Comment this paper [here](/wiki/OkaieNakanoNash "wikilink").
+\[<http://www.springerlink.com/content/213187v363028302/>| Resource
+pricing games on graphs: existence of Nash equilibria\] by Okaie, Nakano
+Comment this paper [here](/wiki/OkaieNakanoNash "wikilink").
