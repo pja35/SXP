@@ -139,7 +139,7 @@ that its [license](/wiki/Licence "wikilink") should enforce.
 Who are we?
 -----------
 
-The founders are
+This initiative comes from:
 
 -   Pablo Arrighi, lecturer in Computer Science
 -   Alex Concha, programmer, security expert

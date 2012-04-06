@@ -57,7 +57,7 @@ SXP protocols should be able to run on mobiles phones.
 SXP protocols should be totally open and free. This is the only things that its [[Licence|license]] should enforce.
 
 ==Who are we?==
-The founders are
+This initiative comes from:
 * Pablo Arrighi, lecturer in Computer Science
 * Alex Concha, programmer, security expert
 * Miguel Lezama, programmer, web expert
