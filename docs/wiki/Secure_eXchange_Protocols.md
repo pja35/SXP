@@ -8,8 +8,8 @@ layout: wiki
 
 *(Project due to be launched: April 2012.)*
 
-What is it?
------------
+In short.
+---------
 
 *A project to create an open, ubiquous, peer-to-peer, secure protocol
 suite for multi-party exchanges of contracts.*
