@@ -3,7 +3,7 @@ title: Questions That Bother Us
 permalink: wiki/Questions_That_Bother_Us/
 layout: wiki
 tags:
- - Discussions Pages
+ - Discussion Pages
 ---
 
 Money versus Electronic Bartering Systems
