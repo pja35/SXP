@@ -5,7 +5,7 @@ layout: wiki
 ---
 
 Bartering
-=========
+---------
 
 -   Argentina 2002.
 -   According to [1](http://en.wikipedia.org/wiki/Barter): *In Spain,
