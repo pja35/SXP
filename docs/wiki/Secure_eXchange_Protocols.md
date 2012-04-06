@@ -50,7 +50,7 @@ worth doing for the economy.
 
 There are a number of [related projects](/wiki/Related_Projects "wikilink")
 seeking to address the above-mentioned downsides. The idea of going for
-Secure eXchange Protocols itself has been envisioned by others in
+Secure eXchange Protocols has been envisioned by others in the past, see
 [related articles](/wiki/Related_Articles "wikilink"). Certainly, having such
 protocols implemented would have come handy in a number of [related
 situations](/wiki/Related_Situations "wikilink"). Our sole aim is to make
