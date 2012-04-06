@@ -68,10 +68,10 @@ to give maths lessons, *b* some barrel of beer, and *c* coins from a
 certain currency. Finally, say Alice, Bob and Charlie have an iPhone,
 Android, or whatever Smart Phone in their pockets. Using Secure eXchange
 Protocols on their Smart Phones, they should be able to quickly declare
-their resources and needs on virtual ad hoc markets, which will then
-propose the obvious deal between them. If the three of them accept the
-deal, then an electronic contract will be secured, which is a formal
-proof of their agreement to perform the swap.''
+their resources and needs on virtual ad hoc markets, which in turn
+should detect and propose the obvious deal between them. If the three of
+them accept the deal, then an electronic contract will be secured, which
+is a formal proof of their agreement to perform the swap.''
 
 Let us now explain what is meant by an open, ubiquous, peer-to-peer,
 secure protocol suite for multi-party exchanges of contracts.
