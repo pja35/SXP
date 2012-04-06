@@ -73,7 +73,7 @@ should detect and propose the obvious deal between them. If the three of
 them accept the deal, then an electronic contract will be secured, which
 is a formal proof of their agreement to perform the swap.''
 
-Let us now explain what is meant by an open, ubiquous, peer-to-peer,
+Let us now explain what is meant by an open, ubiquitous, peer-to-peer,
 secure protocol suite for multi-party exchanges of contracts.
 
 ### Protocols.
