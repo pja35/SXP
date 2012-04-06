@@ -6,16 +6,20 @@ tags:
  - Discussion Pages
 ---
 
-#### Anchoring money back into real enconomy
+Anchoring money back into real enconomy
+---------------------------------------
 
-`   -`[`Positive` `money`](http://www.positivemoney.org.uk/ "wikilink")
+-   [Positive money](http://www.positivemoney.org.uk/)
 
-#### New forms of electronic money
+New forms of electronic money
+-----------------------------
 
-`   -`[`Bit` `coins`](http://bitcoin.org "wikilink")
+-   [Bit coins](http://bitcoin.org)
 
-#### General bartering solutions
+Bartering solutions
+-------------------
 
-`   -`[`Bartercard`](http://bartercard.com "wikilink")
+-   [http://www.openmoney.org/ Open
+    Money](http://www.openmoney.org/_Open_Money "wikilink")
+-   [Bartercard](http://bartercard.com "wikilink")
 
-#### Specific bartering solutions
