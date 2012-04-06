@@ -2,8 +2,6 @@
 title: Getting Started
 permalink: wiki/Getting_Started/
 layout: wiki
-tags:
- - Discussion Pages|discussion pages
 ---
 
 Style of expected contributions
@@ -14,13 +12,13 @@ debates. It is true that the SXP protocol does lead to considerations in
 terms of the potential political, philosophical, societal impact of such
 a system. But these could be endless and hence prevent the technical
 progression of the project. Therefore such discussions will be contained
-to specific , dedicated to specific questions, and having specific
-formats, e.g. Pros and Cons as in [this
-page](/wiki/Exclusively_Money_Based_Economy "wikilink"). The impact of such
-discussion pages will only be to help us take the right design
-decisions, on how to best conceive these protocols, whenever these
-technical decisions can help improve the Pros and limit the Cons, or
-help support future foreseen features.
+to specific [discussion pages](/wiki/Category%3ADiscussion_Pages "wikilink"),
+dedicated to specific questions, and having specific formats, e.g. Pros
+and Cons as in [this page](/wiki/Exclusively_Money_Based_Economy "wikilink").
+The impact of such discussion pages will only be to help us take the
+right design decisions, on how to best conceive these protocols,
+whenever these technical decisions can help improve the Pros and limit
+the Cons, or help support future foreseen features.
 
 Hence, contributors are expected to understand that the SXP protocol is
 essentially a generalization of current payment protocols, allowing
