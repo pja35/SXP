@@ -19,7 +19,7 @@ Solely money-based economy seems quite natural to all of us. Yet, taking a step 
 Of course money is not an absolute of people's merit, and nor is it an absolute scale on which to measure all things. What is it, then? Mainly, it is an instrument for facilitating exchanges. As such it has both [[Exclusively Money Based Economy|advantages and disadvantages]]. We take the view that whatever can be made in order to facilitate exchanges, is worth doing for the economy. 
 [[Why Do This|More on why we should do this]].
 
-==How would that work?==
+==What is it?==
 Let us explain what is meant by an open, ubiquous, peer-to-peer, secure protocol suite for multi-party exchanges of contracts.
 
 ===Protocols.===

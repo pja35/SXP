@@ -49,8 +49,8 @@ view that whatever can be made in order to facilitate exchanges, is
 worth doing for the economy. [More on why we should do
 this](/wiki/Why_Do_This "wikilink").
 
-How would that work?
---------------------
+What is it?
+-----------
 
 Let us explain what is meant by an open, ubiquous, peer-to-peer, secure
 protocol suite for multi-party exchanges of contracts.
