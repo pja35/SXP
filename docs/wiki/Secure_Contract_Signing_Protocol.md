@@ -62,7 +62,7 @@ Protocols](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.58.9931&rep=
 by Kremer, (2004). Comment on the usefulness of this thesis to the
 project [here](/wiki/Kremer "wikilink").
 
-[ A multi-party optimistic non-repudiation
-protocol](http://www.springerlink.com/content/beq9v0d41wd7g462/ "wikilink")
-by Markowitch, Kremer, (2001). Comment on the usefulness of this paper
-to the project [here](/wiki/MarkowitchKremer "wikilink").
+[A multi-party optimistic non-repudiation
+protocol](http://www.springerlink.com/content/beq9v0d41wd7g462/) by
+Markowitch, Kremer, (2001). Comment on the usefulness of this paper to
+the project [here](/wiki/MarkowitchKremer "wikilink").
