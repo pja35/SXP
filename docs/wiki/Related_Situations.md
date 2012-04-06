@@ -22,5 +22,6 @@ Bartering
 Local currencies
 ----------------
 
--   Argentina 2002.
+-   Argentina 2001. The
+    [<http://en.wikipedia.org/wiki/Patacon>](/wiki/Patacón "wikilink").
 
