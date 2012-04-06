@@ -52,7 +52,7 @@ There are a number of [related projects](/wiki/Related_Projects "wikilink")
 seeking to address the above-mentioned downsides. The idea of going for
 Secure eXchange Protocols has been envisioned by others in the past, see
 [related articles](/wiki/Related_Articles "wikilink"). Certainly, having such
-protocols implemented would have come handy in a number of [related
+protocols implemented would come as handy in a number of [related
 situations](/wiki/Related_Situations "wikilink"). The aim of this project is
 to make these protocols a reality. [More on why we should do
 this](/wiki/Why_Do_This "wikilink").
