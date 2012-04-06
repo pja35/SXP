@@ -9,6 +9,8 @@ tags:
 Bartering
 ---------
 
+<http://en.wikipedia.org/wiki/Local_Exchange_Trading_System>
+
 -   Argentina 2001.
 -   According to [1](http://en.wikipedia.org/wiki/Barter): *In Spain,
     there is a growing number of exchange markets. These barter markets
