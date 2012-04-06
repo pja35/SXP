@@ -212,7 +212,7 @@ We call on:
     design the protocols
 -   XML experts, to help us design contracts specifications
 -   Economists to help us refine the
-    [discussions](/wiki/Discussion_Pages "wikilink"), which may help us to
+    [discussions](:Discussion_Pages "wikilink"), which may help us to
     take some design decisions
 -   Infographists, publicists to help put these ideas forward in a clear
     manner, perhaps in small cartoon/video
