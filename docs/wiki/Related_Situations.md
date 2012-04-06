@@ -9,7 +9,10 @@ tags:
 Bartering
 ---------
 
-<http://en.wikipedia.org/wiki/Local_Exchange_Trading_System>
+There a many examples of local, bartering communities that have emerged,
+for varied reasons, see
+[here](http://en.wikipedia.org/wiki/Local_Exchange_Trading_System). Here
+are some:
 
 -   Argentina 2001.
 -   According to [1](http://en.wikipedia.org/wiki/Barter): *In Spain,
