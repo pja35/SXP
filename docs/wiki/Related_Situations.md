@@ -14,10 +14,8 @@ Bartering
     not need and exchange them for the unwanted goods of
     another participant. Swapping among three parties often helps
     satisfy tastes when trying to get around the rule that money is
-    not allowed.*
-
-See also
-<http://faircompanies.com/videos/view/barcelonas-barter-markets-an-antidote-to-overconsumption/>
+    not allowed. See also
+    [2](http://faircompanies.com/videos/view/barcelonas-barter-markets-an-antidote-to-overconsumption/)*.
 
 Local currencies
 ================
