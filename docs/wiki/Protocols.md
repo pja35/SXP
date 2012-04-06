@@ -15,7 +15,7 @@ Protocols.](http://en.wikipedia.org/wiki/Communications_protocol "wikilink")
 The [Secure eXchange Protocols](/wiki/Main "wikilink") project aims to design,
 and later implement, several layers of protocols:
 
--   The [Contract Signing
-    Protocol](/wiki/Contract_Signing_Protocol "wikilink")
+-   The [Secure Contract Signing
+    Protocol](/wiki/Secure_Contract_Signing_Protocol "wikilink")
 -   ...
 
