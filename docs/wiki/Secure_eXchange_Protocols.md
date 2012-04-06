@@ -11,7 +11,7 @@ layout: wiki
 In short.
 ---------
 
-*A project to create an open, ubiquous, peer-to-peer, secure protocol
+*A project to create an open, ubiquitous, peer-to-peer, secure protocol
 suite for multi-party exchanges of contracts.*
 
 In simpler words the idea is that any of us can join together and create
