@@ -3,7 +3,7 @@ title: Exclusive Money Based Economy
 permalink: wiki/Exclusive_Money_Based_Economy/
 layout: wiki
 tags:
- - Discussions Pages
+ - Discussion Pages
 ---
 
 Of course money is not an absolute of people's merit, and nor is it an
