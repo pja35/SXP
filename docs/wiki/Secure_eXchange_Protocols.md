@@ -60,7 +60,7 @@ this](/wiki/Why_Do_This "wikilink").
 What is it?
 -----------
 
-*Say Alice, Bob, and Charlie have access to different resources a, b,
+''Say Alice, Bob, and Charlie have access to different resources *a*, b,
 and c. Say Alice wants b, Bob wants c and Charlie wants a, however they
 do not know each other, nor do they trust each other. By-the-way those
 a, b and c can be anything, e.g \`a' the ability to give maths lessons,
@@ -71,7 +71,7 @@ Smart Phones, they should be able to quickly declare their resources and
 needs on virtual ad hoc markets, which will then propose the obvious
 deal between them. If the three of them accept the deal, then an
 electronic contract will be secured, which is a formal proof of their
-agreement to perform the swap.*
+agreement to perform the swap.''
 
 Let us now explain what is meant by an open, ubiquous, peer-to-peer,
 secure protocol suite for multi-party exchanges of contracts.
