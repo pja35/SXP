@@ -22,7 +22,10 @@ Bartering
 Complementary currencies
 ------------------------
 
-See [here](http://en.wikipedia.org/wiki/Complementary_currency):
+There a countless examples of local, alternative currencies that have
+emerged, for varied reasons, see
+[here](http://en.wikipedia.org/wiki/Complementary_currency). Here are
+some:
 
 -   Argentina 2001. The [Patacón](http://en.wikipedia.org/wiki/Patacon).
 
