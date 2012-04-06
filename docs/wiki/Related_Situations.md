@@ -15,6 +15,8 @@ for varied reasons, see
 are some:
 
 -   Argentina 2001.
+-   The French
+    [SEL](http://fr.wikipedia.org/wiki/Syst%C3%A8me_d%27%C3%A9change_local).
 -   According to [1](http://en.wikipedia.org/wiki/Barter): *In Spain,
     there is a growing number of exchange markets. These barter markets
     or swap meets work without money. Participants bring things they do
@@ -23,6 +25,7 @@ are some:
     satisfy tastes when trying to get around the rule that money is
     not allowed. See also
     [2](http://faircompanies.com/videos/view/barcelonas-barter-markets-an-antidote-to-overconsumption/)*.
+-   ...
 
 Complementary currencies
 ------------------------
