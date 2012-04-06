@@ -3,7 +3,7 @@ title: Related Articles
 permalink: wiki/Related_Articles/
 layout: wiki
 tags:
- - Discussions Pages
+ - Discussion Pages
 ---
 
 #### Opinions
