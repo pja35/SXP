@@ -19,7 +19,6 @@ New forms of electronic money
 Bartering solutions
 -------------------
 
--   [http://www.openmoney.org/ Open
-    Money](http://www.openmoney.org/_Open_Money "wikilink")
--   [Bartercard](http://bartercard.com "wikilink")
+-   [Open Money](http://www.openmoney.org/)
+-   [1](http://bartercard.com%7CBartercard)
 

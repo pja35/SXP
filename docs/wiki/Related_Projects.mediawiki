@@ -10,5 +10,5 @@
 
 == Bartering solutions ==
 
-* [[http://www.openmoney.org/ Open Money]]
-* [[http://bartercard.com|Bartercard]]
+* [http://www.openmoney.org/ Open Money]
+* [http://bartercard.com|Bartercard]
