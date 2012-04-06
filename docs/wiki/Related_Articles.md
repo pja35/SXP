@@ -8,7 +8,8 @@ tags:
 
 #### Opinions
 
-<http://www.informationweek.com/news/global-cio/showArticle.jhtml?articleID=49901099>
+-   [Nicholas
+    Negroponte](http://www.informationweek.com/news/global-cio/showArticle.jhtml?articleID=49901099)
 
 #### Proposals
 
