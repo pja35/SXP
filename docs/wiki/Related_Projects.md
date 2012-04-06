@@ -3,7 +3,7 @@ title: Related Projects
 permalink: wiki/Related_Projects/
 layout: wiki
 tags:
- - Discussions Pages
+ - Discussion Pages
 ---
 
 #### Anchoring money back into real enconomy
