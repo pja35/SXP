@@ -9,7 +9,7 @@ tags:
 Bartering
 ---------
 
--   Argentina 2002.
+-   Argentina 2001.
 -   According to [1](http://en.wikipedia.org/wiki/Barter): *In Spain,
     there is a growing number of exchange markets. These barter markets
     or swap meets work without money. Participants bring things they do
