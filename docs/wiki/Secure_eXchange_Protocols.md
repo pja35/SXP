@@ -124,7 +124,7 @@ on deals](/wiki/Deals "wikilink").
 SXP protocols should run in the most decentralized manner as possible,
 allowing for ad hoc exchanges, market creation, deal exploration under
 dynamical, reconfigurable scenarios. For instance, an electronic
-signature is what identifies a market, not its IP adress, which may
+signature is what identifies a market, not its IP address, which may
 change. This is for the sake of resiliency and monopoly avoidance.
 
 ### Ubiquitous.
