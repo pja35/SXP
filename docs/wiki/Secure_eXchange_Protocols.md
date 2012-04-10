@@ -145,7 +145,7 @@ This initiative comes from:
 -   Alex Concha, programmer, security expert
 -   Miguel Lezama, programmer, web expert
 
-As the project unravels we plan to take a non-profit NGO status, and
+As the project develops we plan to take a non-profit NGO status, and
 disappear in the shade of the most active and competent contributors.
 
 Stages
