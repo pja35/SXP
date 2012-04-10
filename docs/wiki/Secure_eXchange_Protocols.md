@@ -166,7 +166,7 @@ Status
 ------
 
 The project is at the end of stage 1: we know just the aims of this
-project. The founders' main role is to ensure that these original aims
+project. The initiators' main role is to ensure that these original aims
 will not be altered in the course of the project. Stage 1 is the only
 non-negociable part of this project.
 
@@ -175,7 +175,7 @@ stage. Here are some of the most obvious tasks:
 
 -   design the [Secure Contract Signing
     protocol](/wiki/Secure_Contract_Signing_Protocol "wikilink");
--   design how to describe [Contracts](/wiki/Contracts "wikilink").
+-   design how to describe [Contracts](/wiki/Contracts "wikilink")
 
 Methodology
 -----------
