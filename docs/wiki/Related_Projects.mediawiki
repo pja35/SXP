@@ -12,3 +12,7 @@
 
 * [http://www.openmoney.org/ Open Money]
 * [http://bartercard.com|Bartercard]
+
+== Trading solutions ==
+
+* [http://ripple-project.org/ Ripple]
