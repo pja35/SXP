@@ -20,7 +20,7 @@ Bartering solutions
 -------------------
 
 -   [Open Money](http://www.openmoney.org/)
--   [1](http://bartercard.com%7CBartercard)
+-   [Bartercard](http://bartercard.com)
 
 Trading solutions
 -----------------
