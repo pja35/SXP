@@ -3,16 +3,27 @@
 == Anchoring money back into real enconomy ==
 
 * [http://www.positivemoney.org.uk/ Positive money]
+* [http://honestmoney.org/ Honest Money]
 
 == New forms of electronic money  ==
 
 * [http://bitcoin.org Bit coins]
+* [http://www.project.cyclos.org/ Cyclos]
+* [http://wiki.theglobalsquare.org/wiki/Global_Market]
 
 == Bartering solutions ==
 
 * [http://www.openmoney.org/ Open Money]
 * [http://bartercard.com Bartercard]
+* [http://ces.org.za/]
 
 == Trading solutions ==
 
 * [http://ripple-project.org/ Ripple]
+* [http://justfortheloveofit.org/]
+
+== Free Transaction ==
+
+* [http://opentabs.net/ Open Tabs]
+* [http://justfortheloveofit.org/]
+* [http://www.punkmoney.org/]
