@@ -2,6 +2,8 @@
 title: Deals
 permalink: wiki/Deals/
 layout: wiki
+tags:
+ - Glossary
 ---
 
 Since they will run the same protocol, markets will be inter-operable.
@@ -16,4 +18,3 @@ The search for optimal deals will be eased by SXP by:
     contents
 -   Allowing for pluggable, third-party deal computation algorithms
 
-[Glossary](/wiki/Glossary "wikilink")
