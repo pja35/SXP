@@ -15,15 +15,14 @@
 
 * [http://www.openmoney.org/ Open Money]
 * [http://bartercard.com Bartercard]
-* [http://ces.org.za/]
+* [http://ces.org.za/ Ces]
 
 == Trading solutions ==
 
 * [http://ripple-project.org/ Ripple]
-* [http://justfortheloveofit.org/]
+* [http://justfortheloveofit.org/ JustForTheLoveOfIt]
 
 == Free Transaction ==
 
 * [http://opentabs.net/ Open Tabs]
-* [http://justfortheloveofit.org/]
-* [http://www.punkmoney.org/]
+* [http://www.punkmoney.org/ Punk Money]

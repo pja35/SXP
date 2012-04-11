@@ -24,18 +24,17 @@ Bartering solutions
 
 -   [Open Money](http://www.openmoney.org/)
 -   [Bartercard](http://bartercard.com)
--   [2](http://ces.org.za/)
+-   [Ces](http://ces.org.za/)
 
 Trading solutions
 -----------------
 
 -   [Ripple](http://ripple-project.org/)
--   [3](http://justfortheloveofit.org/)
+-   [JustForTheLoveOfIt](http://justfortheloveofit.org/)
 
 Free Transaction
 ----------------
 
 -   [Open Tabs](http://opentabs.net/)
--   [4](http://justfortheloveofit.org/)
--   [5](http://www.punkmoney.org/)
+-   [Punk Money](http://www.punkmoney.org/)
 
