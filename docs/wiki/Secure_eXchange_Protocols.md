@@ -249,3 +249,9 @@ Questions that bother us
     dynamical, blended and local currencies start to emerge?
 
 [More on these questions.](/wiki/Questions_That_Bother_Us "wikilink")
+
+Newsletter
+----------
+
+[Subscribe](http://secure-exchange-protocols.org/newsletters/?p=subscribe)
+to our newsletter to stay updated with what's new with SXP
