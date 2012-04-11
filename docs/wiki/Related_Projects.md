@@ -36,6 +36,8 @@ Trading solutions
 Free Transaction
 ----------------
 
+-   [W3C Community and Business
+    Groups](http://www.w3.org/community/community-io/)
 -   [Open Tabs](http://opentabs.net/)
 -   [Punk Money](http://www.punkmoney.org/)
 
