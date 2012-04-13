@@ -17,12 +17,15 @@ New forms of electronic money
 
 -   [Bit coins](http://bitcoin.org)
 
-Bartering solutions
--------------------
+Bartering and local currency solutions
+--------------------------------------
 
+-   [TGS Global
+    Market](http://wiki.theglobalsquare.org/wiki/Global_Market)
 -   [Open Money](http://www.openmoney.org/)
+-   [CES](http://ces.org.za/)
+-   [Cyclos](http://www.project.cyclos.org/)
 -   [Bartercard](http://bartercard.com)
--   [Ces](http://ces.org.za/)
 
 Trading solutions
 -----------------
