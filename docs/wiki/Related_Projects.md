@@ -6,10 +6,10 @@ tags:
  - Discussion Pages
 ---
 
-Many projects seek to address similar \[\[Exclusive Money Based Economy
-|issues\]. They propose various approaches. Our hope is that SXP
-protocols can serve as a bottom layer, so as to anchor these various
-solutions on solid technical grounds.
+Many projects seek to address similar
+[issues](/wiki/Exclusive_Money_Based_Economy "wikilink"). They propose various
+approaches. Our hope is that SXP protocols can serve as a bottom layer,
+so as to anchor these various solutions on solid technical grounds.
 
 Lists of projects
 -----------------
