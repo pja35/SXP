@@ -105,8 +105,10 @@ both parties must be interested in each others items, whereas in a
 payment, the vendor can take the money and spend it, later, on some
 other item. Here we will seek to compensate for this downside by
 allowing exchanges between many parties at the same time, as well as
-facilitating further exchanges of newly acquired items. [More on
-chains.](/wiki/Chains "wikilink")
+facilitating further exchanges of newly acquired items. This way
+contracts do not have to be between or depend upon just two
+participants, they can involve several transactions that are
+interdependent, such as a chain. [More on chains.](/wiki/Chains "wikilink")
 
 ### Multi-party exchanges: Markets
 
