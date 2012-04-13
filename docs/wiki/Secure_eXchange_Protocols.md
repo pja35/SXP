@@ -143,6 +143,12 @@ SXP protocols should be able to run on mobiles phones.
 SXP protocols should be totally open and free. This is the only things
 that its [license](/wiki/Licence "wikilink") should enforce.
 
+### Secure.
+
+SXP protocols should make sure that contracts are only signed if all
+parties are willing to sign, that signatures are synchronous in a way,
+that they cannot be forged, that the contracts cannot be forged...
+
 Who are we?
 -----------
 
