@@ -147,7 +147,8 @@ that its [license](/wiki/Licence "wikilink") should enforce.
 
 SXP protocols should make sure that contracts are only signed if all
 parties are willing to sign, that signatures are synchronous in a way,
-that they cannot be forged, that the contracts cannot be forged...
+that they cannot be forged, that contracts themselves cannot be
+forged...
 
 Who are we?
 -----------
