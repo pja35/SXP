@@ -6,8 +6,8 @@ tags:
  - Discussion Pages
 ---
 
-Anchoring money back into real enconomy
----------------------------------------
+Anchoring money back into the real enconomy
+-------------------------------------------
 
 -   [Positive money](http://www.positivemoney.org.uk/)
 -   [Honest Money](http://honestmoney.org/)
