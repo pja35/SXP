@@ -8,8 +8,8 @@ layout: wiki
 
 *(Project due to be launched: April 2012.)*
 
-In short.
----------
+In short
+--------
 
 *A project to create an open, ubiquitous, peer-to-peer, secure protocol
 suite for multi-party exchanges of contracts.*
@@ -83,13 +83,13 @@ is a formal proof of their agreement to perform the swap.''
 Let us now explain what is meant by an open, ubiquitous, peer-to-peer,
 secure protocol suite for multi-party exchanges of contracts.
 
-### Protocols.
+### Protocols
 
 A protocol is an agreed common language, and an agreed series of steps,
 designed in order to achieve some task, over the network. [More on
 protocols.](/wiki/Protocols "wikilink")
 
-### Contracts.
+### Contracts
 
 An electronic contract is a legally binding document, electronically
 signed by the different parties, where the parties engage in doing or
@@ -98,7 +98,7 @@ means being able to exchange anything from goods to services. A protocol
 will serve to settle a barter, a payment, or any combination of both.
 [More on contracts.](/wiki/Contracts "wikilink")
 
-### Multi-party exchanges: Chains.
+### Multi-party exchanges: Chains
 
 A clear disadvanatage of bartering versus paying is that in a barter,
 both parties must be interested in each others items, whereas in a
@@ -108,7 +108,7 @@ allowing exchanges between many parties at the same time, as well as
 facilitating further exchanges of newly acquired items. [More on
 chains.](/wiki/Chains "wikilink")
 
-### Multi-party exchanges: Markets.
+### Multi-party exchanges: Markets
 
 In the real world shops or markets have several beneficial roles: they
 facilitate offer/demand encounter, they secure the producer/consumer
@@ -126,7 +126,7 @@ computation of the best possible deals within a market. Moreover since
 they will run the same protocols, markets will be interoperable. [More
 on deals](/wiki/Deals "wikilink").
 
-### Peer-to-peer.
+### Peer-to-peer
 
 SXP protocols should run in the most decentralized manner as possible,
 allowing for ad hoc exchanges, market creation, deal exploration under
@@ -134,16 +134,16 @@ dynamical, reconfigurable scenarios. For instance, an electronic
 signature is what identifies a market, not its IP address, which may
 change. This is for the sake of resiliency and monopoly avoidance.
 
-### Ubiquitous.
+### Ubiquitous
 
 SXP protocols should be able to run on mobiles phones.
 
-### Open.
+### Open
 
 SXP protocols should be totally open and free. This is the only things
 that its [license](/wiki/Licence "wikilink") should enforce.
 
-### Secure.
+### Secure
 
 SXP protocols should make sure that contracts are only signed if all
 parties are willing to sign, that signatures are synchronous in a way,
