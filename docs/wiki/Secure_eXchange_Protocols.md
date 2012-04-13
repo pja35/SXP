@@ -37,7 +37,7 @@ downsides:
 -   It is often unclear who produces this money and for what purpose.
     Nowadays, are Central Banks producing the money, or Private Banks?
 -   It is often unclear whether this money is distributed in any
-    efficient way to start with, but the distribution is clearly
+    efficient way to start with, and the distribution is clearly
     difficult to change.
 -   Whenever this money runs out, many exchanges that could still have
     taken place, can no longer take place.
