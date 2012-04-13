@@ -4,7 +4,7 @@ permalink: wiki/Secure_eXchange_Protocols/
 layout: wiki
 ---
 
-**A soft alternative to a fixed money-based economy.**
+**A soft alternative to an exclusive money-based economy.**
 
 *(Project due to be launched: April 2012.)*
 
@@ -27,11 +27,12 @@ anyone.*
 Why do this?
 ------------
 
-This project is mainly technical. Yet, here are some motivations. A
-fixed money-based economy is one where goods or services are
+This project is mainly technical. Yet, here are some motivations. An
+exclusive money-based economy is one where goods or services are
 systematically exchanged against a fixed notion of money, to the
-exclusion of anything else. Fixed money-based economy does seem quite
-natural to all of us. Yet, taking a step back, it has a few downsides:
+exclusion of anything else. Exclusive money-based economy does seem
+quite natural to all of us. Yet, taking a step back, it has a few
+downsides:
 
 -   It is often unclear who produces this money and for what purpose.
     Nowadays, are Central Banks producing the money, or Private Banks?
@@ -40,18 +41,19 @@ natural to all of us. Yet, taking a step back, it has a few downsides:
     difficult to change.
 -   Whenever this money runs out, many exchanges that could still have
     taken place, can no longer take place.
--   Having a fixed notion of money triggers wealth cumulation
+-   Having an exclusive notion of money triggers wealth cumulation
     behaviours, which sometimes are counter-productive.
--   Having a fixed notion of money favours deals in which the relative
-    value of items is made uniform across large regions and populations.
+-   Having an exclusive notion of money favours deals in which the
+    relative value of items is made uniform across large regions
+    and populations.
 
-Of no fixed notion of money is an absolute scale of people's merit, and
-nor is it an absolute scale on which to measure all things. But what is
-money, then? Money is an instrument for facilitating exchanges. As such
-it has both [advantages and
-disadvantages](/wiki/Fixed_Money_Based_Economy "wikilink"). We take the view
-that whatever can be made in order to facilitate exchanges, is worth
-doing for the economy.
+Of course no fixed notion of money is an absolute scale of people's
+merit, and nor is it an absolute scale on which to measure all things.
+But what is money, then? Money is an instrument for facilitating
+exchanges. As such it has both [advantages and
+disadvantages](/wiki/Exclusive_Money_Based_Economy "wikilink"). We take the
+view that whatever can be made in order to facilitate exchanges, is
+worth doing for the economy.
 
 There are a number of [related projects](/wiki/Related_Projects "wikilink")
 seeking to address the above-mentioned downsides. The idea of going for
