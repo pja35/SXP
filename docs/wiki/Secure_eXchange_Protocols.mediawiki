@@ -84,7 +84,7 @@ The project is at the end of stage 1: we know just the aims of this project. The
 
 The next tasks belong to stage 2, which is still very much a research stage. Here are some of the most obvious tasks:
 * design the [[Secure Contract Signing Protocol|Secure Contract Signing protocol]];
-* design how to describe [[Contracts]]
+* design how to describe [[Contracts]].
 
 ==Methodology==
 

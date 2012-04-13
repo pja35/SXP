@@ -191,7 +191,7 @@ stage. Here are some of the most obvious tasks:
 
 -   design the [Secure Contract Signing
     protocol](/wiki/Secure_Contract_Signing_Protocol "wikilink");
--   design how to describe [Contracts](/wiki/Contracts "wikilink")
+-   design how to describe [Contracts](/wiki/Contracts "wikilink").
 
 Methodology
 -----------
