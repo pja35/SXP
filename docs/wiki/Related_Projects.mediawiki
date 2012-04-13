@@ -27,10 +27,6 @@ Many projects seek to address similar [[Exclusive Money Based Economy |issues]].
 
 * [http://ripple-project.org/ Ripple]
 
-== Free Transaction ==
-
-* [http://opentabs.net/ Open Tabs]
-
 == Gift economy ==
 
 * [http://www.punkmoney.org/ Punk Money]

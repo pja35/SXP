@@ -43,11 +43,6 @@ Trading solutions
 
 -   [Ripple](http://ripple-project.org/)
 
-Free Transaction
-----------------
-
--   [Open Tabs](http://opentabs.net/)
-
 Gift economy
 ------------
 
