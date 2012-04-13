@@ -175,10 +175,8 @@ protocols, in increasing orders of magnitude:
 -   Witness the rise of novel currencies. Having a fast and secure way
     to exchange items may ease the appearance of novel forms of moneys
     such as those proposed in [related
-    projects](/wiki/Related_Projects "wikilink").
-
-But SXP does not promote any such scheme in particular.
-
+    projects](/wiki/Related_Projects "wikilink"). But SXP does not promote any
+    such scheme in particular.
 -   Envision novel economic systems. Solidarity and ecology are natural
     aims, and there should be some [ways of raising
     taxes](/wiki/Raising_Taxes "wikilink") on the virtual markets. But SXP
