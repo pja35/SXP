@@ -30,7 +30,6 @@ Many projects seek to address similar [[Exclusive Money Based Economy |issues]].
 == Free Transaction ==
 
 * [http://opentabs.net/ Open Tabs]
-* [http://www.punkmoney.org/ Punk Money]
 
 == Gift economy ==
 
