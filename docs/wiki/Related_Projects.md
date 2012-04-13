@@ -6,6 +6,12 @@ tags:
  - Discussion Pages
 ---
 
+Other lists
+-----------
+
+-   [TGS Global
+    Market](http://wiki.theglobalsquare.org/wiki/Global_Market)
+
 Anchoring money back into the real enconomy
 -------------------------------------------
 
@@ -20,8 +26,6 @@ New forms of electronic money
 Bartering and local currencies solutions
 ----------------------------------------
 
--   [TGS Global
-    Market](http://wiki.theglobalsquare.org/wiki/Global_Market)
 -   [Open Money](http://www.openmoney.org/)
 -   [CES](http://ces.org.za/)
 -   [Cyclos](http://www.project.cyclos.org/)

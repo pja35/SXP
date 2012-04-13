@@ -1,5 +1,9 @@
 [[Category:Discussion Pages]]
 
+== Other lists ==
+
+* [http://wiki.theglobalsquare.org/wiki/Global_Market TGS Global Market]
+
 == Anchoring money back into the real enconomy ==
 
 * [http://www.positivemoney.org.uk/ Positive money]
@@ -11,7 +15,6 @@
 
 == Bartering and local currencies solutions ==
 
-* [http://wiki.theglobalsquare.org/wiki/Global_Market TGS Global Market]
 * [http://www.openmoney.org/ Open Money]
 * [http://ces.org.za/ CES]
 * [http://www.project.cyclos.org/ Cyclos]
@@ -22,6 +25,7 @@
 * [http://ripple-project.org/ Ripple]
 
 == Free Transaction ==
+
 * [http://www.w3.org/community/community-io/ W3C Community and Business Groups]
 * [http://opentabs.net/ Open Tabs]
 * [http://www.punkmoney.org/ Punk Money]
