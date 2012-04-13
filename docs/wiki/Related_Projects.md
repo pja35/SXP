@@ -31,7 +31,6 @@ Trading solutions
 -----------------
 
 -   [Ripple](http://ripple-project.org/)
--   [JustForTheLoveOfIt](http://justfortheloveofit.org/)
 
 Free Transaction
 ----------------
