@@ -6,8 +6,8 @@ tags:
  - Discussion Pages
 ---
 
-Other lists
------------
+Lists of projects
+-----------------
 
 -   [TGS Global
     Market](http://wiki.theglobalsquare.org/wiki/Global_Market)
