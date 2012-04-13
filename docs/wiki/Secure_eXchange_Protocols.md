@@ -152,6 +152,9 @@ parties are willing to sign, that signatures are synchronous in a way,
 that they cannot be forged, that contracts themselves cannot be
 forged...
 
+What the project is *not*
+-------------------------
+
 Who are we?
 -----------
 
