@@ -6,6 +6,11 @@ tags:
  - Discussion Pages
 ---
 
+Many projects seek to address similar \[\[Exclusive Money Based Economy
+|issues\]. They propose various approaches. Our hope is that SXP
+protocols can serve as a bottom layer, so as to anchor these various
+solutions on solid technical grounds.
+
 Lists of projects
 -----------------
 
