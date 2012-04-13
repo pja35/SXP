@@ -152,8 +152,45 @@ parties are willing to sign, that signatures are synchronous in a way,
 that they cannot be forged, that contracts themselves cannot be
 forged...
 
-What the project is *not*
--------------------------
+What is it *not*?
+-----------------
+
+The scope of the SXP project is restricted to designing and implementing
+Secure eXchange Protocols. The following are potential uses of such
+protocols, in increasing orders of magnitude:
+
+-   Secure multi-party contracts. Thus, [in case one breaks the
+    contract](/wiki/Broken_Contract "wikilink"), another can prove that the
+    contract has been established. Still, for this to be of some effect,
+    one needs a guarantee policy, an insurance policy, a trust system,
+    or even a judiciary system that are willing to back up
+    the contract... These may be provided by the virtual markets or via
+    a wider legal context. But SXP does not promote any such policies or
+    systems in particular.
+-   Create virtual markets. Those may look like the merchant sites,
+    second-hand sites, barter sites, gift economy sites that we
+    \[Related Trading Sites|already know of\]... or novel, unexpected,
+    ad hoc virtual markets. But SXP does not promote any such sites or
+    markets in particular.
+-   Witness the rise of novel currencies. Having a fast and secure way
+    to exchange items may ease the appearance of novel forms of moneys
+    such as those proposed in [related
+    projects](/wiki/Related_Projects "wikilink").
+
+But SXP does not promote any such scheme in particular.
+
+-   Envision novel economic systems. Solidarity and ecology are natural
+    aims, and there should be some [ways of raising
+    taxes](/wiki/Raising_Taxes "wikilink") on the virtual markets. But SXP
+    does not promote any such vision or method in particular.
+
+The reason for this apparent neutrality of the project is its
+*technicality* and its *generality*. In the same way that your browser's
+http protocol is not bound to any website in particular, SXP protocols
+should not be bound to any potential use. Since part of the aesthetics
+of the project is to fully generalize payment methods; we are fully
+aware that trying to enforce a particular use will immediately lead to a
+fork.
 
 Who are we?
 -----------
