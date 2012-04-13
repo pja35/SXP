@@ -23,9 +23,10 @@ Many projects seek to address similar [[Exclusive Money Based Economy |issues]].
 * [http://www.project.cyclos.org/ Cyclos]
 * [http://bartercard.com Bartercard]
 
-== Trading solutions ==
+== Global-to-local trading solutions ==
 
 * [http://ripple-project.org/ Ripple]
+* [http://opentabs.net/ Open Tabs]
 
 == Gift economy ==
 

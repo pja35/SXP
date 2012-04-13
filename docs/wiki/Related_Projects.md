@@ -38,10 +38,11 @@ Bartering and local currencies solutions
 -   [Cyclos](http://www.project.cyclos.org/)
 -   [Bartercard](http://bartercard.com)
 
-Trading solutions
------------------
+Global-to-local trading solutions
+---------------------------------
 
 -   [Ripple](http://ripple-project.org/)
+-   [Open Tabs](http://opentabs.net/)
 
 Gift economy
 ------------
