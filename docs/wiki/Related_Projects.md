@@ -41,3 +41,5 @@ Free Transaction
 -   [Open Tabs](http://opentabs.net/)
 -   [Punk Money](http://www.punkmoney.org/)
 
+Gift economy
+------------
