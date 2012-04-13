@@ -9,7 +9,7 @@ tags:
 Many projects seek to address similar
 [issues](/wiki/Exclusive_Money_Based_Economy "wikilink"). They propose various
 approaches. Our hope is that SXP protocols can serve as a bottom layer,
-so as to anchor these various solutions on solid technical grounds.
+so as to anchor some of these solutions on solid technical grounds.
 
 Lists of projects
 -----------------
