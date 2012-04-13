@@ -6,10 +6,9 @@ tags:
  - Discussion Pages
 ---
 
-Of course money is not an absolute of people's merit, and nor is it an
-absolute scale on which to measure all things. What is it, then? Mainly,
-it is an instrument for facilitating exchanges. As such it has both
-advantages and disadvantages, which this page seeks to list.
+An exclusive money-based economy is one where goods or services are
+systematically exchanged against a fixed notion of money, to the
+exclusion of anything else.
 
 Advantages
 ----------
@@ -17,24 +16,24 @@ Advantages
 Exclusively money-based economy seems quite natural to all of us. I has
 clear advantages:
 
--   It allows for multi-party exchanges
--   It allows for forward-time exchanges
+-   There is a single reference value
+-   ...
 
 Disadvantages
 -------------
 
-Yet, taking a step back and thinking about, one becomes conscious of its
-several disadvantages:
-
--   It triggers sometimes counter-productive wealth
-    cumulation behaviours.
--   It is often unclear who controls/produces money and for
-    what purpose. Nowadays, are Central Banks producing the money, or
-    Private Banks?
--   Whenever money runs out, many exchanges that could still have taken
-    place, can no longer take place.
--   Money favours deals in which the relative value of items is made
-    uniform across large regions and populations.
+-   Liquidity problems can cause exchanges that are not otherwise
+    dependent on this money, to be halted.
+-   It is often unclear who produces this money and for what purpose.
+    Nowadays, are Central Banks producing the money, or Private Banks?
+-   It is often unclear whether this money is distributed in any
+    efficient way to start with, and the distribution is clearly
+    difficult to change.
+-   Having an exclusive notion of money triggers wealth cumulation
+    behaviours, which sometimes are counter-productive.
+-   Having an exclusive notion of money favours deals in which the
+    relative value of items is made uniform across large regions
+    and populations.
 
 Indeed, a more refined point is that, even on a daily basis, money
 favours deals in which the relative value of items is made uniform
@@ -52,8 +51,10 @@ favouring exchanges, in many situations.
 References
 ----------
 
-Surely these questions have been discussed in great details elsewhere.
-List your reading suggestions here.
+-   A fixed money is not an absolute necessity for the comparison
+    of goods... according to
+    [Mises](http://www.econlib.org/library/Mises/msT1.html#Part%20I,Ch.2), cf.
+    1.2.15.
 
 (This is a [Category%3ADiscussions
 Pages](/wiki/Category%3ADiscussions_Pages "wikilink"), you may enrich it with
