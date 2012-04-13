@@ -20,3 +20,9 @@ SXP will seek to compensate for this downside in three ways:
 -   exchanges can be made between an arbitrary large number of parties;
 -   ...
 
+References
+----------
+
+-   [Chains](http://en.wikipedia.org/wiki/Chain_(real_estate)) in the
+    world of real estates.
+
