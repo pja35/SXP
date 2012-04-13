@@ -9,7 +9,7 @@
 
 * [http://bitcoin.org Bit coins]
 
-== Bartering and local currency solutions ==
+== Bartering and local currencies solutions ==
 
 * [http://wiki.theglobalsquare.org/wiki/Global_Market TGS Global Market]
 * [http://www.openmoney.org/ Open Money]

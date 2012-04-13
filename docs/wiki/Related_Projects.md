@@ -17,8 +17,8 @@ New forms of electronic money
 
 -   [Bit coins](http://bitcoin.org)
 
-Bartering and local currency solutions
---------------------------------------
+Bartering and local currencies solutions
+----------------------------------------
 
 -   [TGS Global
     Market](http://wiki.theglobalsquare.org/wiki/Global_Market)
