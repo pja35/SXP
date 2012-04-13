@@ -33,4 +33,5 @@ Many projects seek to address similar [[Exclusive Money Based Economy |issues]].
 
 == Gift economy ==
 
+* [http://www.punkmoney.org/ Punk Money]
 * [http://justfortheloveofit.org/ JustForTheLoveOfIt]
