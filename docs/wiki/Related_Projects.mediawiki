@@ -5,6 +5,7 @@ Many projects seek to address similar [[Exclusive Money Based Economy |issues]].
 == Lists of projects ==
 
 * [http://wiki.theglobalsquare.org/wiki/Global_Market TGS Global Market]
+* [http://www.w3.org/community/community-io/ W3C Community and Business Groups]
 
 == Anchoring money back into the real enconomy ==
 

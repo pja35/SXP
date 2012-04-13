@@ -16,6 +16,8 @@ Lists of projects
 
 -   [TGS Global
     Market](http://wiki.theglobalsquare.org/wiki/Global_Market)
+-   [W3C Community and Business
+    Groups](http://www.w3.org/community/community-io/)
 
 Anchoring money back into the real enconomy
 -------------------------------------------
