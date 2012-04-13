@@ -16,9 +16,6 @@ New forms of electronic money
 -----------------------------
 
 -   [Bit coins](http://bitcoin.org)
--   [Cyclos](http://www.project.cyclos.org/)
--   [TGS Global
-    Market](http://wiki.theglobalsquare.org/wiki/Global_Market)
 
 Bartering solutions
 -------------------

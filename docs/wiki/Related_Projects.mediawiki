@@ -8,8 +8,6 @@
 == New forms of electronic money  ==
 
 * [http://bitcoin.org Bit coins]
-* [http://www.project.cyclos.org/ Cyclos]
-* [http://wiki.theglobalsquare.org/wiki/Global_Market TGS Global Market]
 
 == Bartering solutions ==
 
