@@ -4,7 +4,7 @@ permalink: wiki/Secure_eXchange_Protocols/
 layout: wiki
 ---
 
-**A soft alternative to an exclusively money-based economy.**
+**A soft alternative to a fixed money-based economy.**
 
 *(Project due to be launched: April 2012.)*
 
@@ -14,27 +14,30 @@ In short.
 *A project to create an open, ubiquitous, peer-to-peer, secure protocol
 suite for multi-party exchanges of contracts.*
 
-In simpler words the idea is that any of us can join together and create
-a virtual market, in which others can tell what they have to offer and
-what they need. The market, or anyone for that matter, can propose
-deals, whereby one person gives an item to another who gives an item to
-a third etc. If everyone agrees to it, the deal can be secured into an
-electronic contract, signed by the different parties.
+The idea is that any of us can join together and create a virtual
+market, in which others can tell what they have to offer and what they
+need. The market, or anyone for that matter, can propose deals, whereby
+one person would give an item to another who gives an item to a third
+etc. If all parties concerned agrees to a deal, the deal gets secured
+into an electronic contract, signed by the different parties.
 
-*Hence our motto could be: "Securely exchange anything, anywhere, with
-everyone."*
+Hence our motto could be: *Securely exchange anything, anywhere, with
+anyone.*
 
 Why do this?
 ------------
 
-Solely money-based economy seems quite natural to all of us. Yet, taking
-a step back, it has a few downsides:
+This project is mainly technical. Yet, here are some motivations. A
+fixed money-based economy is one where goods or services are
+systematically exchanged against a fixed currency. for seems quite
+natural to all of us. Yet, taking a step back, it has a few downsides:
 
+-   It is often unclear who produces money and for what purpose.
+    Nowadays, are Central Banks producing the money, or Private Banks?
+-   It is often unclear whether money is spread out in an efficient way
+    to start with.
 -   It triggers sometimes counter-productive wealth
     cumulation behaviours.
--   It is often unclear who controls/produces money and for
-    what purpose. Nowadays, are Central Banks producing the money, or
-    Private Banks?
 -   Whenever money runs out, many exchanges that could still have taken
     place, can no longer take place.
 -   Money favours deals in which the relative value of items is made
