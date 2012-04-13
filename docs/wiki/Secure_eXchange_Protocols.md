@@ -34,13 +34,13 @@ exclusion of anything else. Exclusive money-based economy does seem
 quite natural to all of us. Yet, taking a step back, it has a few
 downsides:
 
+-   Liquidity problems can cause exchanges that are not otherwise
+    dependent on this money, to be halted.
 -   It is often unclear who produces this money and for what purpose.
     Nowadays, are Central Banks producing the money, or Private Banks?
 -   It is often unclear whether this money is distributed in any
     efficient way to start with, and the distribution is clearly
     difficult to change.
--   Whenever this money runs out, many exchanges that could still have
-    taken place, can no longer take place.
 -   Having an exclusive notion of money triggers wealth cumulation
     behaviours, which sometimes are counter-productive.
 -   Having an exclusive notion of money favours deals in which the

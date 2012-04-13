@@ -12,9 +12,9 @@ Hence our motto could be: ''Securely exchange anything, anywhere, with anyone.''
 ==Why do this?==
 This project is mainly technical. Yet, here are some motivations. An exclusive money-based economy is one where goods or services are systematically exchanged against a fixed notion of money, to the exclusion of anything else. Exclusive money-based economy does seem quite natural to all of us. Yet, taking a step back, it has a few downsides: 
 
+* Liquidity problems can cause exchanges that are not otherwise dependent on this money, to be halted.
 * It is often unclear who produces this money and for what purpose. Nowadays, are Central Banks producing the money, or Private Banks?
 * It is often unclear whether this money is distributed in any efficient way to start with, and the distribution is clearly difficult to change. 
-* Whenever this money runs out, many exchanges that could still have taken place, can no longer take place.
 * Having an exclusive notion of money triggers wealth cumulation behaviours, which sometimes are counter-productive.
 * Having an exclusive notion of money favours deals in which the relative value of items is made uniform across large regions and populations. 
 
