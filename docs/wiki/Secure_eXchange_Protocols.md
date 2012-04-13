@@ -141,7 +141,7 @@ SXP protocols should be able to run on mobiles phones.
 ### Open
 
 SXP protocols should be totally open and free. This is the only things
-that its [license](/wiki/Licence "wikilink") should enforce.
+that its [licence](/wiki/Licence "wikilink") should enforce.
 
 ### Secure
 
