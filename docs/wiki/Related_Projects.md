@@ -42,3 +42,6 @@ Free Transaction
 
 Gift economy
 ------------
+
+-   [JustForTheLoveOfIt](http://justfortheloveofit.org/)
+
