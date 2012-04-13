@@ -11,7 +11,9 @@ both parties must be interested in each others items, whereas in a
 payment, the vendor can take the money and spend it, later, on some
 other item. We will seek to compensate for this downside by allowing
 exchanges between many parties at the same time, and facilitating
-further exchanges of newly acquired items.
+further exchanges of newly acquired items. This way contracts do not
+have to be between or depend upon just two participants, they can
+involve several transactions that are interdependent, such as a chain.
 
 SXP will seek to compensate for this downside in three ways:
 
