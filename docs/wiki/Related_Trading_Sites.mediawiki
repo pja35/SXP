@@ -1,6 +1,5 @@
 [[Category:Discussion Pages]]
 
-
 SXP may help generalize the underlying security mechanisms in many websites that we already know of...
 
 == Mechant Sites ==
