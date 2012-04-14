@@ -3,7 +3,7 @@ title: Deals
 permalink: wiki/Deals/
 layout: wiki
 tags:
- - Glossary
+ - Technical Glossary
 ---
 
 Since they will run the same protocol, markets will be inter-operable.
