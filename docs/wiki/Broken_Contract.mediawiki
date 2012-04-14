@@ -1,3 +1,5 @@
+[[Category:Discussion Pages]]
+
 
 SXP will serve to Secure multi-party contracts. Thus, in case one party breaks the contract, another party can prove that the contract has been established. Still, for this to be of some effect, we need to find ways of:
 * making sure that the contract gets accomplished in the end;

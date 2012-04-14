@@ -2,6 +2,8 @@
 title: Broken Contract
 permalink: wiki/Broken_Contract/
 layout: wiki
+tags:
+ - Discussion Pages
 ---
 
 SXP will serve to Secure multi-party contracts. Thus, in case one party
