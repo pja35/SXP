@@ -3,7 +3,7 @@ title: Chains
 permalink: wiki/Chains/
 layout: wiki
 tags:
- - Glossary
+ - Technical Glossary
 ---
 
 A clear disadvanatage of bartering versus paying is that in a barter,
