@@ -2,9 +2,9 @@
 title: Related Trading Sites
 permalink: wiki/Related_Trading_Sites/
 layout: wiki
+tags:
+ - Discussion Pages
 ---
-
-\[Category:Discussion Pages\]
 
 SXP may help generalize the underlying security mechanisms in many
 websites that we already know of...
