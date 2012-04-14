@@ -6,4 +6,5 @@ tag: Conceptual Glossary
 ---
 
 These pages define some of the key concepts to understand the
-discussions surrounding the project.
+[discussions](/wiki/Category%3ADiscussion_Pages "wikilink") surrounding the
+project.
