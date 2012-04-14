@@ -3,7 +3,7 @@ title: XML
 permalink: wiki/XML/
 layout: wiki
 tags:
- - Glossary
+ - Technical Glossary
 ---
 
 What is XML?

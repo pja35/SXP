@@ -1,4 +1,4 @@
-[[Category:Glossary]] 
+[[Category:Technical Glossary]] 
 
 == What is XML? ==
 XML is a tunable tag language for describing things in a hierarchical, formatted manner. For instance HTML, the language of all webpages, is a tuned version of XML.
