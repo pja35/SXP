@@ -3,7 +3,7 @@ title: Markets
 permalink: wiki/Markets/
 layout: wiki
 tags:
- - Glossary
+ - Technical Glossary
 ---
 
 In the real world shops or markets have several beneficial roles: they
