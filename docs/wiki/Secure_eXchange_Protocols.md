@@ -139,7 +139,7 @@ change. This is for the sake of resiliency and monopoly avoidance.
 
 ### Ubiquitous
 
-SXP protocols should be able to run on mobiles phones.
+SXP protocols should be able to run on Smart Phones.
 
 ### Open
 

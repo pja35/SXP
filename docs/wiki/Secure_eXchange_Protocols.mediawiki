@@ -52,7 +52,7 @@ Hence cross-market exchanges will often happen. Part of the diffucilty is to com
 SXP protocols should run in the most decentralized manner as possible, allowing for ad hoc exchanges, market creation, deal exploration under dynamical, reconfigurable scenarios. For instance, an electronic signature is what identifies a market, not its IP address, which may change. This is for the sake of resiliency and monopoly avoidance.
 
 ===Ubiquitous===
-SXP protocols should be able to run on mobiles phones.
+SXP protocols should be able to run on Smart Phones.
 
 ===Open===
 SXP protocols should be totally open and free. This is the only things that its [[Licence|licence]] should enforce.
