@@ -3,7 +3,7 @@ title: Protocols
 permalink: wiki/Protocols/
 layout: wiki
 tags:
- - Glossary
+ - Technical Glossary
 ---
 
 A protocol is an agreed common language, and an agreed series of steps,
