@@ -27,8 +27,8 @@ they must not jeopardize; breaking a contract would tarnish it.
 Insurance policies
 ------------------
 
-Examples: \[www.paypal.com/ Paypal\], ... The Virtual Market, or a third
-party entering the deal, may be paid by the parties in order to
+Examples: [Paypal](http://www.paypal.com/), ... The Virtual Market, or a
+third party entering the deal, may be paid by the parties in order to
 compensate for losses in case one of the parties breaks the deal.
 
 Judiciary system, Arbitrage
