@@ -56,6 +56,3 @@ References
     [Mises](http://www.econlib.org/library/Mises/msT1.html#Part%20I,Ch.2), cf.
     1.2.15.
 
-(This is a [Category%3ADiscussions
-Pages](/wiki/Category%3ADiscussions_Pages "wikilink"), you may enrich it with
-condensed arguments.)
