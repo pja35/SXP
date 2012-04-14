@@ -1,0 +1,13 @@
+---
+title: Broken Contract
+permalink: wiki/Broken_Contract/
+layout: wiki
+---
+
+Secure multi-party contracts. Thus, in case one breaks the contract,
+another can prove that the contract has been established. Still, for
+this to be of some effect, one needs a guarantee policy, an insurance
+policy, a trust system, or even a judiciary system that are willing to
+back up the contract... These may be provided by the virtual markets or
+via a wider legal context. But SXP does not promote any such policies or
+systems in particular.
