@@ -1,2 +1,3 @@
-[[Category:Glossary]] 
+[[Category:Conceptual Glossary]] 
+
 [https://en.wikipedia.org/wiki/Say's_law Say's law]
