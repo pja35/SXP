@@ -169,8 +169,8 @@ protocols, in increasing orders of magnitude, and decreasing likelihood:
     a wider legal context. But SXP does not promote any such policies or
     systems in particular.
 -   Create virtual markets. Those may look like the merchant sites,
-    second-hand sites, barter sites, gift economy sites that we
-    \[Related Trading Sites|already know of\]... or novel, unexpected,
+    second-hand sites, barter sites, gift economy sites that we [already
+    know of](/wiki/Related_Trading_Sites "wikilink")... or novel, unexpected,
     ad hoc virtual markets. But SXP does not promote any such sites or
     markets in particular.
 -   Witness the rise of novel currencies. Having a fast and secure way
