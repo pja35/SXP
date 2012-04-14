@@ -8,9 +8,8 @@ The are various ways of accomplishing subsets of these. SXP will not favour any 
 
 == Trust systems ==
 
-Examples: [www.couchsurfing.org Couch surfing], [www.ebay.com e-Bay] ratings.
+Examples: [http://www.couchsurfing.org Couch surfing], [www.ebay.com e-Bay] ratings.
 Parties have a reputation which they must not jeopardize; breaking a contract would tarnish it.
-
 
 == Insurance policies ==
 
