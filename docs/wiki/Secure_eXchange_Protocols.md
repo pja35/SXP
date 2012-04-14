@@ -284,7 +284,7 @@ Getting started
 Contributing to this project means setting up an account on this Wiki,
 and making this website grow in an orderly fashion, by bringing in your
 own expertise. Here are some more informations about [Getting
-Started](/wiki/Getting_Started "wikilink"). You can
+Started](/wiki/Getting_Started "wikilink"). You can also
 [subscribe](http://secure-exchange-protocols.org/newsletters/?p=subscribe)
 to our newsletter in order to be informed of the further developments of
 SXP.

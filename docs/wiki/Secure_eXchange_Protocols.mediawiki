@@ -119,7 +119,7 @@ We call on:
 One day we may ask for donations to help the project management and development, and which will be handled with full transparency.
 
 ==Getting started==
-Contributing to this project means setting up an account on this Wiki, and making this website grow in an orderly fashion, by bringing in your own expertise. Here are some more informations about [[Getting Started]]. You can [http://secure-exchange-protocols.org/newsletters/?p=subscribe subscribe] to our newsletter in order to be informed of the further developments of SXP.
+Contributing to this project means setting up an account on this Wiki, and making this website grow in an orderly fashion, by bringing in your own expertise. Here are some more informations about [[Getting Started]]. You can also [http://secure-exchange-protocols.org/newsletters/?p=subscribe subscribe] to our newsletter in order to be informed of the further developments of SXP.
 
 ==Questions that bother us==
 * Say that mankind had all these mobile phones, PDAs etc., but suddenly forgot all about money. Would mankind immediately reinvent the concept, and trust the pieces of paper back again? Or would it make use of the powerful information technologies available in order to come up with some advanced, decentralized electronic bartering system?
