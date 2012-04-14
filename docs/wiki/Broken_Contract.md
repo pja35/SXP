@@ -20,9 +20,9 @@ contracts should specify the consequences of breaking a contract.
 Trust systems
 -------------
 
-Examples: [Couch surfing](http://www.couchsurfing.org), \[www.ebay.com
-e-Bay\] ratings. Parties have a reputation which they must not
-jeopardize; breaking a contract would tarnish it.
+Examples: [Couch surfing](http://www.couchsurfing.org),
+[e-Bay](http://www.ebay.com) ratings. Parties have a reputation which
+they must not jeopardize; breaking a contract would tarnish it.
 
 Insurance policies
 ------------------
