@@ -157,7 +157,7 @@ What is it *not*?
 
 The scope of the SXP project is restricted to designing and implementing
 Secure eXchange Protocols. The following are potential uses of such
-protocols, in increasing orders of magnitude:
+protocols, in increasing orders of magnitude, and decreasing likelihood:
 
 -   Secure multi-party contracts. Thus, [in case one breaks the
     contract](/wiki/Broken_Contract "wikilink"), another can prove that the
@@ -177,8 +177,8 @@ protocols, in increasing orders of magnitude:
     such as those proposed in [related
     projects](/wiki/Related_Projects "wikilink"). But SXP does not promote any
     such scheme in particular.
--   Envision novel economic systems. Solidarity and ecology are natural
-    aims, and there should be some [ways of raising
+-   Help suggest improved economic systems. Solidarity and ecology are
+    natural aims, and there should be some [ways of raising
     taxes](/wiki/Raising_Taxes "wikilink") on the virtual markets. But SXP
     does not promote any such vision or method in particular.
 
