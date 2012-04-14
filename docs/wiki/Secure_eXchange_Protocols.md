@@ -114,10 +114,11 @@ interdependent, such as a chain. [More on chains.](/wiki/Chains "wikilink")
 
 In the real world shops or markets have several beneficial roles: they
 facilitate offer/demand encounter, they secure the producer/consumer
-exchange, they guarantee the quality of the items, they generate VAT for
-the good functioning of states. The protocols will allow for virtual
-counterparts of these markets, accomplishing just the same purposes.
-[More on markets.](/wiki/Markets "wikilink")
+exchange, they guarantee the quality of the items, they generate
+[VAT](/wiki/Raising_Taxes "wikilink") for the good functioning of states. The
+protocols will allow for virtual counterparts of these markets,
+accomplishing just the same purposes. [More on
+markets.](/wiki/Markets "wikilink")
 
 ### Multi-party exchanges: Deals.
 

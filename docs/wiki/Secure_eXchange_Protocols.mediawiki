@@ -41,7 +41,7 @@ A clear disadvanatage of bartering versus paying is that in a barter, both parti
 [[Chains|More on chains.]]
 
 ===Multi-party exchanges: Markets===
-In the real world shops or markets have several beneficial roles: they facilitate offer/demand encounter, they secure the producer/consumer exchange, they guarantee the quality of the items, they generate VAT for the good functioning of states. The protocols will allow for virtual counterparts of these markets, accomplishing just the same purposes. 
+In the real world shops or markets have several beneficial roles: they facilitate offer/demand encounter, they secure the producer/consumer exchange, they guarantee the quality of the items, they generate [[Raising Taxes|VAT]] for the good functioning of states. The protocols will allow for virtual counterparts of these markets, accomplishing just the same purposes. 
 [[Markets|More on markets.]]
 
 ===Multi-party exchanges: Deals. ===
