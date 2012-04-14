@@ -27,11 +27,17 @@ way. And to believe that this is worth the shot. Moreover, contributors
 are expected to bring new questions and solutions in an orderly fashion,
 towards the accomplishment of the project.
 
-Set up an account
------------------
+Set up an account, subscribe to the newsletter
+----------------------------------------------
 
 Do [Set up an account](/wiki/Special:UserLogin "wikilink") on this Wiki. Make
-it grow, contribute to the project with your own expertise.
+it grow in an orderly fashion, contribute to the project with your own
+expertise.
+
+Do
+[subscribe](http://secure-exchange-protocols.org/newsletters/?p=subscribe)
+to our newsletter in order to be informed of the further developments
+and directions we are taking.
 
 How to edit a page?
 -------------------

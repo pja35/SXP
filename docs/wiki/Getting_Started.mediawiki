@@ -3,9 +3,11 @@ This website is not a place for ideological debates. Whilst it is true that the 
 
 Hence, contributors are expected to understand that the SXP protocol is essentially a generalization of current payment protocols, allowing anyone to exchange anything, anywhere and with anybody - in a secure way. And to believe that this is worth the shot. Moreover, contributors are expected to bring new questions and solutions in an orderly fashion, towards the accomplishment of the project.
 
-== Set up an account ==
+== Set up an account, subscribe to the newsletter ==
 
-Do [[Special:UserLogin|Set up an account]] on this Wiki. Make it grow, contribute to the project with your own expertise.
+Do [[Special:UserLogin|Set up an account]] on this Wiki. Make it grow in an orderly fashion, contribute to the project with your own expertise.
+
+Do [http://secure-exchange-protocols.org/newsletters/?p=subscribe subscribe] to our newsletter in order to be informed of the further developments and directions we are taking.
 
 == How to edit a page? ==
 
