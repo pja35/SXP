@@ -28,7 +28,6 @@ Barter Sites
 Gift Economy Sites
 ------------------
 
-Such as:
-
--   [FreeCycle](http://www.freecycle.org/), ...
+-   [FreeCycle](http://www.freecycle.org/)
+-   ...
 

@@ -17,5 +17,5 @@ You name it: eBay, Le Bon Coin, etc.
 
 == Gift Economy Sites ==
 
-Such as:
-* [http://www.freecycle.org/ FreeCycle], ...
+* [http://www.freecycle.org/ FreeCycle]
+* ...
