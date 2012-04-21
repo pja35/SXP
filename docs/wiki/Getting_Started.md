@@ -7,25 +7,24 @@ layout: wiki
 Style of expected contributions
 -------------------------------
 
-This website is not a place for ideological debates. Whilst it is true
-that the SXP ideas lead to considerations in terms of the potential
-societal impact of such a system, too much discussing could be endless
-and prevent our main objective, which is the technical progression of
-the project. Therefore such discussions will be contained to specific
-[discussion pages](/wiki/Category%3ADiscussion_Pages "wikilink"), dedicated to
-specific questions, and having specific formats, e.g. Pros and Cons as
-in [this page](/wiki/Exclusive_Money_Based_Economy "wikilink"). The impact of
-such discussion pages will only be to help us take the right design
-decisions, on how to best conceive these protocols, whenever these
-technical decisions can help improve the Pros and limit the Cons, or
-help support future foreseen features.
+The SXP ideas naturally lead to interesting considerations in terms of
+the potential societal impact of such a system. These considerations are
+welcome, so long as they do not prevent the technical progression of the
+project, which is our main objective. Therefore discussions will be
+contained to [discussion pages](/wiki/Category%3ADiscussion_Pages "wikilink"),
+dedicated to specific questions, and having specific formats, e.g. Pros
+and Cons as in [this page](/wiki/Exclusive_Money_Based_Economy "wikilink").
+The direct impact of such discussion pages will only be to help us take
+the right design decisions, on how to best conceive these protocols,
+whenever these technical decisions can help improve the Pros and limit
+the Cons, or help support future foreseen features.
 
 Hence, contributors are expected to understand that the SXP protocol is
 essentially a generalization of current payment protocols, allowing
 anyone to exchange anything, anywhere and with anybody - in a secure
 way. And to believe that this is worth the shot. Moreover, contributors
-are expected to bring new questions and solutions in an orderly fashion,
-towards the accomplishment of the project.
+are expected to bring new questions and solutions in an *orderly
+fashion*, towards the accomplishment of the project.
 
 Set up an account, subscribe to the newsletter
 ----------------------------------------------
