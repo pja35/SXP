@@ -9,15 +9,16 @@ Style of expected contributions
 
 The SXP ideas naturally lead to interesting considerations in terms of
 the potential societal impact of such a system. These considerations are
-welcome, so long as they do not prevent the technical progression of the
-project, which is our main objective. Therefore discussions will be
-contained to [discussion pages](/wiki/Category%3ADiscussion_Pages "wikilink"),
-dedicated to specific questions, and having specific formats, e.g. Pros
-and Cons as in [this page](/wiki/Exclusive_Money_Based_Economy "wikilink").
-The direct impact of such discussion pages will only be to help us take
-the right design decisions, on how to best conceive these protocols,
-whenever these technical decisions can help improve the Pros and limit
-the Cons, or help support future foreseen features.
+most welcome, so long as they do not prevent the technical progression
+of the project, which remains our main objective. Therefore such
+discussions will be contained to [discussion
+pages](/wiki/Category%3ADiscussion_Pages "wikilink"), dedicated to specific
+questions, and having specific formats, e.g. Pros and Cons as in [this
+page](/wiki/Exclusive_Money_Based_Economy "wikilink"). The direct impact of
+such discussion pages will only be to help us take the right design
+decisions, on how to best conceive these protocols, whenever these
+technical decisions can help improve the Pros and limit the Cons, or
+help support future foreseen features.
 
 Hence, contributors are expected to understand that the SXP protocol is
 essentially a generalization of current payment protocols, allowing
