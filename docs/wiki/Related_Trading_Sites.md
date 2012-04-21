@@ -19,6 +19,11 @@ Second-hand Sites
 
 You name it: eBay, Le Bon Coin, etc.
 
+Barter Sites
+------------
+
+-   [Trade school](http://tradeschool.coop/)
+
 Gift Economy Sites
 ------------------
 
