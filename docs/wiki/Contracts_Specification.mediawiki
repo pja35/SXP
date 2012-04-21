@@ -4,4 +4,4 @@ Actually, they may already exist. A bibliography of existing XML formats for des
 
 == References ==
 
-* A similar framework is the Financial Product Markup Language [www.fpml.org FPML].
+* A similar framework is the Financial Product Markup Language [http://www.fpml.org FPML].

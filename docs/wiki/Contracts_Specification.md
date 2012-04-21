@@ -14,5 +14,5 @@ References
 ----------
 
 -   A similar framework is the Financial Product Markup Language
-    \[www.fpml.org FPML\].
+    [FPML](http://www.fpml.org).
 
