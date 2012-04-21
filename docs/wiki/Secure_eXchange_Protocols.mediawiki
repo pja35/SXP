@@ -10,9 +10,9 @@ The idea is that any of us can join together and create a virtual market, in whi
 Hence our motto could be: ''Securely exchange anything, anywhere, with anyone.''
 
 ==Why do this?==
-This project is mainly technical. Yet, here are some motivations. An exclusive money-based economy is one where goods or services are systematically exchanged against a fixed notion of money, to the exclusion of anything else. Exclusive money-based economy does seem quite natural to all of us. Yet, taking a step back, it has a few downsides: 
+This project is mainly technical. Yet, here are some motivations. An exclusive money-based economy is one where goods or services are systematically exchanged against a fixed notion of money, to the exclusion of any other money, or anything else. Exclusive money-based economy does seem quite natural to all of us. Yet, taking a step back, it has a few downsides: 
 
-* Liquidity problems can cause exchanges that are not otherwise dependent on this money, to be halted.
+* A lack of this money can cause exchanges that would not otherwise dependent on this money, to be halted.
 * It is often unclear who produces this money and for what purpose. Nowadays, are Central Banks producing the money, or Private Banks?
 * It is often unclear whether this money is distributed in any efficient way to start with, and the distribution is clearly difficult to change. 
 * Having an exclusive notion of money triggers wealth cumulation behaviours, which sometimes are counter-productive.
@@ -20,7 +20,7 @@ This project is mainly technical. Yet, here are some motivations. An exclusive m
 
 Of course no fixed notion of money is an absolute scale of people's merit, and nor is it an absolute scale on which to measure all things. But what is money, then? Money is an instrument for facilitating exchanges. As such it has both [[Exclusive Money Based Economy|advantages and disadvantages]]. We take the view that whatever can be made in order to facilitate exchanges, is worth doing for the economy. 
 
-There are a number of [[Related Projects|related projects]] seeking to address the above-mentioned downsides. The idea of going for Secure eXchange Protocols has been envisioned by others in the past, see [[Related Articles|related articles]]. Certainly, having such protocols implemented would come as handy in a number of [[Related Situations|related situations]]. The aim of this project is to make these protocols a reality. [[Why Do This|More on why we should do this]].
+There are a number of [[Related Projects|related projects]] seeking to address the above-mentioned downsides. The idea of going for Secure eXchange Protocols has been envisioned by others in the past, see [[Related Articles|related articles]]. Certainly, having such protocols implemented would come as handy in a number of [[Related Situations|situations]]. The aim of this project is to make these protocols a reality. [[Why Do This|More on why we should do this]].
 
 ==What is it?==
 

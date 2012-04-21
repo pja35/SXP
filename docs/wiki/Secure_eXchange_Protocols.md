@@ -30,11 +30,11 @@ Why do this?
 This project is mainly technical. Yet, here are some motivations. An
 exclusive money-based economy is one where goods or services are
 systematically exchanged against a fixed notion of money, to the
-exclusion of anything else. Exclusive money-based economy does seem
-quite natural to all of us. Yet, taking a step back, it has a few
-downsides:
+exclusion of any other money, or anything else. Exclusive money-based
+economy does seem quite natural to all of us. Yet, taking a step back,
+it has a few downsides:
 
--   Liquidity problems can cause exchanges that are not otherwise
+-   A lack of this money can cause exchanges that would not otherwise
     dependent on this money, to be halted.
 -   It is often unclear who produces this money and for what purpose.
     Nowadays, are Central Banks producing the money, or Private Banks?
@@ -59,8 +59,8 @@ There are a number of [related projects](/wiki/Related_Projects "wikilink")
 seeking to address the above-mentioned downsides. The idea of going for
 Secure eXchange Protocols has been envisioned by others in the past, see
 [related articles](/wiki/Related_Articles "wikilink"). Certainly, having such
-protocols implemented would come as handy in a number of [related
-situations](/wiki/Related_Situations "wikilink"). The aim of this project is
+protocols implemented would come as handy in a number of
+[situations](/wiki/Related_Situations "wikilink"). The aim of this project is
 to make these protocols a reality. [More on why we should do
 this](/wiki/Why_Do_This "wikilink").
 
