@@ -22,5 +22,5 @@ entering the project. Here are some rough ideas.
     have a clear value: that of freeing certain persons of their
     due taxes. Hence contractors and civil servants will have no trouble
     using their tax credits as some sort of currency. See
-    [1](http://en.wikipedia.org/wiki/Debt_deflation#Forward_Year_Tax_Receipts)
+    [1](http://en.wikipedia.org/wiki/Debt_deflation#Forward_Year_Tax_Receipts).
 
