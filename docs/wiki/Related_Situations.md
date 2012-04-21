@@ -37,6 +37,11 @@ some:
 
 -   Argentina 2001. The [Patacón](http://en.wikipedia.org/wiki/Patacon).
 -   Greece 2012. The TEM
-    [3](http://www.bbc.co.uk/news/business-17686384)[4](http://www.guardian.co.uk/world/2012/mar/16/greece-on-breadline-cashless-currency).
+    [3](http://www.bbc.co.uk/news/business-17686384). A sentence taken
+    from
+    [4](http://www.guardian.co.uk/world/2012/mar/16/greece-on-breadline-cashless-currency):
+    *You are not poor when you have no money, you are poor when you have
+    nothing to offer – except for the elderly and the sick, to whom we
+    should all be offering.*
 -   ...
 
