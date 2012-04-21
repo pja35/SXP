@@ -23,6 +23,7 @@ Barter Sites
 ------------
 
 -   [Trade school](http://tradeschool.coop/)
+-   ...
 
 Gift Economy Sites
 ------------------
