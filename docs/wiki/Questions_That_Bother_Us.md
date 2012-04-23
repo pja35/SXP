@@ -17,15 +17,17 @@ some advanced, decentralized electronic bartering system?*
 
 Attempted answers...
 
-Spontaneous forms of Money within Electronic Bartering Systems
---------------------------------------------------------------
-
-*Say that mankind had all these mobile phones, PDAs etc., and say that
+''Say that mankind had all these mobile phones, PDAs etc., and say that
 all of its trades were taking place via some advanced, decentralized,
-electronic bartering system. Would one of the resources being exchanged
-re-emerge as a currency, i.e. serve for wealth cumulation and
-participate in most deals? Or would more dynamical, blended and local
-currencies start to emerge?*
+electronic bartering system..."
+
+-   Would one of the resources being exchanged re-emerge as a
+    currency, i.e. serve for wealth cumulation and participate in most
+    deals?
+-   Or would more dynamical, blended and local currencies start to
+    emerge?
+-   Is there a good theory of emergence of moneys in distributed,
+    decentralized economies?
 
 Attempted answers...
 
