@@ -21,8 +21,10 @@ some advanced, decentralized, electronic bartering system...*
 
 Attempted answers...
 
-Possibly related papers
------------------------
+Reference
+---------
+
+[Gresham's law](/wiki/Gresham_Law "wikilink").
 
 [Price stability in peer-to-peer resource
 markets](http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5662594)
