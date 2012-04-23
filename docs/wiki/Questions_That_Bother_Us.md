@@ -6,6 +6,9 @@ tags:
  - Discussion Pages
 ---
 
+Questions
+---------
+
 *Say that mankind had all these mobile phones, PDAs etc., but suddenly
 forgot all about money. Say that all of its trades were taking place via
 some advanced, decentralized, electronic bartering system...*
@@ -19,7 +22,10 @@ some advanced, decentralized, electronic bartering system...*
 -   Is there a good theory of emergence of moneys in distributed,
     decentralized economies?
 
-Attempted answers...
+Attempted answers
+-----------------
+
+...
 
 Reference
 ---------
