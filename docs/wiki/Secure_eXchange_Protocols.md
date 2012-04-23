@@ -98,7 +98,9 @@ means being able to exchange anything from goods to services. A protocol
 will serve to settle a barter, a payment, or any combination of both.
 [More on contracts.](/wiki/Contracts "wikilink")
 
-### Multi-party exchanges: Chains
+### Multi-party exchanges
+
+#### Chains
 
 A clear disadvanatage of bartering versus paying is that in a barter,
 both parties must be interested in each others items, whereas in a

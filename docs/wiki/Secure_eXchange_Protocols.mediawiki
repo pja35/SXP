@@ -36,7 +36,8 @@ A protocol is an agreed common language, and an agreed series of steps, designed
 An electronic contract is a legally binding document, electronically signed by the different parties, where the parties engage in doing or giving something in due time. Hence, being able to exchange contracts means being able to exchange anything from goods to services. A protocol will serve to settle a barter, a payment, or any combination of both.  
 [[Contracts|More on contracts.]]
 
-===Multi-party exchanges: Chains===
+===Multi-party exchanges===
+====Chains====
 A clear disadvanatage of bartering versus paying is that in a barter, both parties must be interested in each others items, whereas in a payment, the vendor can take the money and spend it, later, on some other item. Here we will seek to compensate for this downside by allowing exchanges between many parties at the same time, as well as facilitating further exchanges of newly acquired items. This way contracts do not have to be between or depend upon just two participants, they can involve several transactions that are interdependent, such as a chain. 
 [[Chains|More on chains.]]
 
