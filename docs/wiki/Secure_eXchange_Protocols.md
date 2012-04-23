@@ -295,13 +295,11 @@ SXP.
 Questions that bother us
 ------------------------
 
--   Say that mankind had all these mobile phones, PDAs etc., and say
-    that all of its trades were taking place via some advanced,
-    decentralized, electronic bartering system. Would one of the
-    resources being exchanged re-emerge as a currency, i.e. serve for
-    wealth cumulation and participate in most deals? Or would more
-    dynamical, blended and local currencies start to emerge? Is there a
-    theory of emergence of moneys in distributed, decentralized
-    economies?
-
-[More on these questions.](/wiki/Questions_That_Bother_Us "wikilink")
+''Say that mankind had all these mobile phones, PDAs etc., but suddenly
+forgot all about money. Say that all of its trades were taking place via
+some advanced, decentralized, electronic bartering system... Would one
+of the resources being exchanged re-emerge as an exclusive money, i.e.
+serve for wealth cumulation and participate in all deals? Would mankind
+trust pieces of paper back again? Or would more dynamical, blended and
+local currencies start to emerge? Is there a good theory of emergence of
+moneys in distributed, decentralized economies?
