@@ -38,7 +38,7 @@ An electronic contract is a legally binding document, electronically signed by t
 
 ===Multi-party exchanges===
 ====Chains====
-A clear disadvanatage of bartering versus paying is that in a barter, both parties must be interested in each others items, whereas in a payment, the vendor can take the money and spend it, later, on some other item. Here we will seek to compensate for this downside by allowing exchanges between many parties at the same time, as well as facilitating further exchanges of newly acquired items. This way contracts do not have to be between or depend upon just two participants, they can involve several transactions that are interdependent, such as a chain. 
+A clear disadvanatage of bartering versus paying is that in a barter, both parties must be interested in each others items, whereas in a payment, the vendor can take the money and spend it, later, on some other item. Here we will seek to compensate for this downside by: allowing all sorts of moneys; allowing exchanges between many parties at the same time; facilitating further exchanges of newly acquired items. This way contracts do not have to be between or depend upon just two participants, they can involve several transactions that are interdependent, such as a chain. 
 [[Chains|More on chains.]]
 
 ====Markets====
