@@ -45,7 +45,7 @@ A clear disadvanatage of bartering versus paying is that in a barter, both parti
 In the real world shops or markets have several beneficial roles: they facilitate offer/demand encounter, they secure the producer/consumer exchange, they guarantee the quality of the items, they generate [[Raising Taxes|VAT]] for the good functioning of states. The protocols will allow for virtual counterparts of these markets, accomplishing just the same purposes. 
 [[Markets|More on markets.]]
 
-===Multi-party exchanges: Deals. ===
+====Deals====
 Hence cross-market exchanges will often happen. Part of the diffucilty is to compute possible multi-party exchange chains, also referred to as deals. The protocol will promote openness for facilitating the computation of the best possible deals within a market. Moreover since they will run the same protocols, markets will be interoperable. 
 [[Deals|More on deals]].
 

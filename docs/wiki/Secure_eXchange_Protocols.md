@@ -122,7 +122,7 @@ protocols will allow for virtual counterparts of these markets,
 accomplishing just the same purposes. [More on
 markets.](/wiki/Markets "wikilink")
 
-### Multi-party exchanges: Deals.
+#### Deals
 
 Hence cross-market exchanges will often happen. Part of the diffucilty
 is to compute possible multi-party exchange chains, also referred to as
