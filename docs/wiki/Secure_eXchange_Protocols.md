@@ -29,13 +29,13 @@ Why do this?
 
 This project is mainly technical. Yet, here are some motivations. An
 exclusive money-based economy is one where goods or services are
-systematically exchanged against a fixed notion of money, to the
-exclusion of any other money, or anything else. Exclusive money-based
-economy does seem quite natural to all of us. Yet, taking a step back,
-it has a few downsides:
+systematically exchanged against one fixed notion of money, to the
+exclusion of all others or anything else. Exclusive money-based economy
+does seem quite natural to all of us. Yet, taking a step back, it has a
+few downsides:
 
--   A lack of this money can cause exchanges that would not otherwise
-    dependent on this money, to be halted.
+-   A lack of this money one can cause exchanges, that would not
+    otherwise be dependent on this money, to be halted.
 -   It is often unclear who produces this money and for what purpose.
     Nowadays, are Central Banks producing the money, or Private Banks?
 -   It is often unclear whether this money is distributed in any
@@ -48,12 +48,12 @@ it has a few downsides:
     and populations.
 
 Of course no fixed notion of money is an absolute scale of people's
-merit, and nor is it an absolute scale on which to measure all things.
-But what is money, then? Money is an instrument for facilitating
-exchanges. As such it has both [advantages and
+merit, nor an absolute scale on which to measure all things. What is
+money, then? Money is an instrument for facilitating exchanges.
+Enforcing an exclusive money has both [advantages and
 disadvantages](/wiki/Exclusive_Money_Based_Economy "wikilink"). We take the
-view that whatever can be made in order to facilitate exchanges, is
-worth doing for the economy.
+pragmatic view that whatever can be made in order to facilitate
+exchanges, is worth doing for the economy.
 
 There are a number of [related projects](/wiki/Related_Projects "wikilink")
 seeking to address the above-mentioned downsides. The idea of going for
