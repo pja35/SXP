@@ -112,7 +112,7 @@ contracts do not have to be between or depend upon just two
 participants, they can involve several transactions that are
 interdependent, such as a chain. [More on chains.](/wiki/Chains "wikilink")
 
-### Multi-party exchanges: Markets
+#### Markets
 
 In the real world shops or markets have several beneficial roles: they
 facilitate offer/demand encounter, they secure the producer/consumer
