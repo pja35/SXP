@@ -124,12 +124,12 @@ markets.](/wiki/Markets "wikilink")
 
 #### Deals
 
-Hence cross-market exchanges will often happen. Part of the diffucilty
-is to compute possible multi-party exchange chains, also referred to as
-deals. The protocol will promote openness for facilitating the
-computation of the best possible deals within a market. Moreover since
-they will run the same protocols, markets will be interoperable. [More
-on deals](/wiki/Deals "wikilink").
+Part of the diffucilty is to compute possible multi-party exchange
+chains, also referred to as deals. The protocol will promote openness
+for facilitating the computation of the best possible deals within a
+market. Moreover since they will run the same protocols, markets will be
+interoperable. Hence cross-market exchanges will often happen. [More on
+deals](/wiki/Deals "wikilink").
 
 ### Peer-to-peer
 
