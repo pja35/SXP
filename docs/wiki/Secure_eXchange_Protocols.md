@@ -301,7 +301,7 @@ Questions that bother us
     resources being exchanged re-emerge as a currency, i.e. serve for
     wealth cumulation and participate in most deals? Or would more
     dynamical, blended and local currencies start to emerge? Is there a
-    theory of emergence of money in distributed, decentralized
+    theory of emergence of moneys in distributed, decentralized
     economies?
 
 [More on these questions.](/wiki/Questions_That_Bother_Us "wikilink")
