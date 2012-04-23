@@ -19,7 +19,7 @@ founding members:
 -   Register and publish the availability of items, as well as demands
     for items
 -   Allow for possible deals including a possible guarantee policy and
-    the required VAT
+    the required [Raising\_Taxes VAT](/wiki/Raising_Taxes_VAT "wikilink")
 -   Witness the resulting muli-party exchanges with the
     market signature.
 

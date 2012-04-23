@@ -5,5 +5,5 @@ In the real world shops or markets have several beneficial roles: they facilitat
 SXP will include an ad hoc virtual market creation protocol, whereby founding members:
 * Establish a market signature 
 * Register and publish the availability of items, as well as demands for items
-* Allow for possible deals including a possible guarantee policy and the required VAT
+* Allow for possible deals including a possible guarantee policy and the required [[Raising_Taxes VAT]]
 * Witness the resulting muli-party exchanges with the market signature.
