@@ -15,8 +15,9 @@ further exchanges of newly acquired items. This way contracts do not
 have to be between or depend upon just two participants, they can
 involve several transactions that are interdependent, such as a chain.
 
-SXP will seek to compensate for this downside in three ways:
+SXP will seek to compensate for this downside in many ways:
 
+-   allowing all sorts of moneys;
 -   contracts are by default non-nominative and bear clear delivery and
     validity informations, so that they may be exchanged further;
 -   exchanges can be made between an arbitrary large number of parties;
