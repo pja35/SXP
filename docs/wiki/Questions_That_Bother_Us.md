@@ -24,7 +24,7 @@ Attempted answers...
 Reference
 ---------
 
-[Gresham's law](/wiki/Gresham_Law "wikilink").
+[Gresham's law](/wiki/Gresham%27s_law "wikilink").
 
 [Price stability in peer-to-peer resource
 markets](http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5662594)

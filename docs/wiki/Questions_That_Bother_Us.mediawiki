@@ -10,7 +10,7 @@ Attempted answers...
 
 == Reference ==
 
-[[Gresham Law|Gresham's law]].
+[[Gresham%27s_law|Gresham's law]].
 
 [http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5662594 Price stability in peer-to-peer resource markets] by Okaie, Nakano
 Comment this paper [[OkaieNakanoStability|here]].
