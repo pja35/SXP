@@ -69,16 +69,16 @@ What is it?
 
 ''Say Alice, Bob, and Charlie have access to different resources *a*,
 *b*, and *c*. Say Alice wants *b*, Bob wants *c* and Charlie wants *a*,
-but they do not know each other, nor do they trust each other. By the
-way those *a*, *b* and *c* can be anything, e.g *a* the ability to give
-maths lessons, *b* some barrel of beer, and *c* coins from a certain
-currency. Finally, say Alice, Bob and Charlie have an iPhone, Android,
-or whatever Smart Phone in their pockets. Using Secure eXchange
-Protocols on their Smart Phones, they should be able to quickly declare
-their resources and needs on virtual ad hoc markets, which in turn
-should detect and propose the obvious deal between them. If the three of
-them accept the deal, then an electronic contract will be secured, which
-is a formal proof of their agreement to perform the swap.''
+but they do not know each other, nor do they trust each other. Here *a*,
+*b* and *c* can be anything, e.g *a* the ability to give maths lessons,
+*b* some barrel of beer, and *c* coins from a certain currency. Finally,
+say Alice, Bob and Charlie have an iPhone, Android, or whatever Smart
+Phone in their pockets. Using Secure eXchange Protocols on their Smart
+Phones, they should be able to quickly declare their resources and needs
+on virtual ad hoc markets, which in turn should detect and propose the
+obvious deal between them. If the three of them accept the deal, then an
+electronic contract will be secured, which is a formal proof of their
+agreement to perform the swap.''
 
 Let us now explain what is meant by an open, ubiquitous, peer-to-peer,
 secure protocol suite for multi-party exchanges of contracts.
