@@ -17,8 +17,7 @@ some advanced, decentralized, electronic bartering system...*
     money, i.e. serve for wealth cumulation and participate in all
     deals?
 -   Would mankind trust pieces of paper back again?
--   Or would more dynamical, blended and local currencies start to
-    emerge?
+-   Or would more dynamic, blended and local currencies start to emerge?
 -   Is there a good theory of emergence of moneys in distributed,
     decentralized economies?
 
