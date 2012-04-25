@@ -15,4 +15,5 @@ To Contact
 -   Global Square
 -   Partidos Piratas
 -   Related prjct leaders & mailing lists
+-   Wikipedia
 
