@@ -13,10 +13,10 @@ tags:
 
 #### Proposals
 
--   \[www.theether.org/papers/econp2p03.pdf| Bootstrapping a distributed
+-   \[www.theether.org/papers/econp2p03.pdf Bootstrapping a distributed
     computational economy with peer-to-peer bartering\] by Chun,
     Fu, Vahdat. Comment it [here](/wiki/ChunFuVahdat "wikilink").
--   \[<http://csci.csusb.edu/turner/pubs/CurrencyPaperFeb.pdf>| A
-    lightweight currency paradigm for the P2P resource market\] by
+-   [A lightweight currency paradigm for the P2P resource
+    market](http://csci.csusb.edu/turner/pubs/CurrencyPaperFeb.pdf) by
     Turner and Ross. Comment it [here](/wiki/TurnerRoss "wikilink").
 
