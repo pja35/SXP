@@ -6,13 +6,16 @@ layout: wiki
 
 To Contact
 
--   Foros Anon etc
--   P2P foundation
--   W3C
--   Mozilla
--   Security Newsletters
--   Autores des protocoles
--   Partidos Piratas
 -   Related projects leaders & mailing lists
+-   Autores des protocoles
 -   Wikipedia
+-   W3C
+
+<!-- -->
+
+-   P2P foundation
+-   Mozilla
+-   Foros Anon etc
+-   Security Newsletters
+-   Partidos Piratas
 
