@@ -12,8 +12,7 @@ To Contact
 -   Mozilla
 -   Security Newsletters
 -   Autores des protocoles
--   Global Square
 -   Partidos Piratas
--   Related prjct leaders & mailing lists
+-   Related projects leaders & mailing lists
 -   Wikipedia
 
