@@ -5,7 +5,7 @@ To Contact
 * Related projects leaders and their mailing lists (PA)
 * Autores des protocoles (PA)
 * Wikipedia (ML)
-* W3C (PA)
+* W3C (ML)
 
 
 * P2P foundation (ML)
