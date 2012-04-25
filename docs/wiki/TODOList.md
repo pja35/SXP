@@ -6,15 +6,15 @@ layout: wiki
 
 To Contact
 
--   Related projects leaders and their mailing lists
+-   Related projects leaders and their mailing lists (PA)
 -   Autores des protocoles (PA)
--   Wikipedia
+-   Wikipedia (ML)
 -   W3C
 
 <!-- -->
 
--   P2P foundation
--   Mozilla
+-   P2P foundation (ML)
+-   Mozilla (ML)
 -   Foros Anon etc
 -   Security Newsletters
 -   Partidos Piratas
