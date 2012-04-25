@@ -9,6 +9,8 @@ Do [[Special:UserLogin|Set up an account]] on this Wiki. Make it grow in an orde
 
 Do [http://secure-exchange-protocols.org/newsletters/?p=subscribe subscribe] to our newsletter in order to be informed of the further developments and directions we are taking.
 
+You can also get in touch [mailto:initiators@secure-exchange-protocols.org here].
+
 == How to edit a page? ==
 
 Except for a handful of pages describing the overall aims of the project, any page can be edited by anyone. To do this, just click on the edit button at top of the page. 

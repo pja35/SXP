@@ -39,6 +39,9 @@ Do
 to our newsletter in order to be informed of the further developments
 and directions we are taking.
 
+You can also get in touch
+[here](mailto:initiators@secure-exchange-protocols.org).
+
 How to edit a page?
 -------------------
 
