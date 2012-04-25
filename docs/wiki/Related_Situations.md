@@ -14,7 +14,7 @@ for varied reasons, see
 [here](http://en.wikipedia.org/wiki/Local_Exchange_Trading_System). Here
 are some:
 
--   Argentina 2001.
+-   Argentina 2001, [Club del Trueque](http://trueque.org.ar).
 -   The French
     [SEL](http://fr.wikipedia.org/wiki/Syst%C3%A8me_d%27%C3%A9change_local).
 -   According to [1](http://en.wikipedia.org/wiki/Barter): *In Spain,
