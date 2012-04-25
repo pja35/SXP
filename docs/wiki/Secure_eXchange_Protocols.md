@@ -275,7 +275,7 @@ We call on:
 -   Infographists, publicists to help put these ideas forward in a clear
     manner, perhaps in small cartoon/video
 -   Lawyers, to help us out with setting the appropriate free software
-    [license](/wiki/Licence "wikilink")
+    [licence](/wiki/Licence "wikilink")
 -   All good wills, to do whatever they understood might be useful
 
 One day we may ask for donations to help the project management and

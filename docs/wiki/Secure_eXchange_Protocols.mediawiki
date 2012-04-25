@@ -115,7 +115,7 @@ We call on:
 * XML experts, to help us design contracts specifications
 * Economists to help us refine the [[:Category:Discussion Pages|discussions]], which may help us to take some design decisions
 * Infographists, publicists to help put these ideas forward in a clear manner, perhaps in small cartoon/video 
-* Lawyers, to help us out with setting the appropriate free software [[Licence|license]]
+* Lawyers, to help us out with setting the appropriate free software [[Licence|licence]]
 * All good wills, to do whatever they understood might be useful
 One day we may ask for donations to help the project management and development, and which will be handled with full transparency.
 
