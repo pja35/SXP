@@ -13,10 +13,9 @@ tags:
 
 #### Proposals
 
--   \[<http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.58.1469&rep=rep1&type=pdf>|
-    Bootstrapping a distributed computational economy with peer-to-peer
-    bartering\] by Chun, Fu, Vahdat. Comment it
-    [here](/wiki/ChunFuVahdat "wikilink").
+-   \[www.theether.org/papers/econp2p03.pdf| Bootstrapping a distributed
+    computational economy with peer-to-peer bartering\] by Chun,
+    Fu, Vahdat. Comment it [here](/wiki/ChunFuVahdat "wikilink").
 -   \[<http://csci.csusb.edu/turner/pubs/CurrencyPaperFeb.pdf>| A
     lightweight currency paradigm for the P2P resource market\] by
     Turner and Ross. Comment it [here](/wiki/TurnerRoss "wikilink").
