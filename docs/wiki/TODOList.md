@@ -6,8 +6,8 @@ layout: wiki
 
 To Contact
 
--   Related projects leaders & mailing lists
--   Autores des protocoles
+-   Related projects leaders and their mailing lists
+-   Autores des protocoles (PA)
 -   Wikipedia
 -   W3C
 
