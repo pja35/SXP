@@ -14,10 +14,12 @@ so as to anchor some of these solutions on solid technical grounds.
 Lists of projects
 -----------------
 
--   [TGS Global
-    Market](http://wiki.theglobalsquare.org/wiki/Global_Market)
+-   [List of alternative exchange
+    systems](http://ces.org.za/misc/links.htm)
 -   [W3C Community and Business
     Groups](http://www.w3.org/community/community-io/)
+-   [TGS Global
+    Market](http://wiki.theglobalsquare.org/wiki/Global_Market)
 
 Anchoring money back into the real enconomy
 -------------------------------------------
