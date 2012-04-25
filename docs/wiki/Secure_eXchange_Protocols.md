@@ -6,7 +6,7 @@ layout: wiki
 
 **A soft alternative to an exclusive money-based economy.**
 
-*(Project launched: 23rd of April 2012.)*
+*(Project launched: 24th of April 2012.)*
 
 In short
 --------
