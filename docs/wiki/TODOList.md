@@ -6,10 +6,9 @@ layout: wiki
 
 To Contact
 
--   Related projects leaders and their mailing lists (PA)
 -   Autores des protocoles (PA)
+-   Related projects leaders and their mailing lists (PA)
 -   Wikipedia (ML)
--   W3C (ML)
 
 <!-- -->
 
@@ -21,4 +20,5 @@ To Contact
 -   Foros Anon etc
 -   Security Newsletters
 -   Partidos Piratas
+-   W3C post?
 
