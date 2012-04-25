@@ -9,7 +9,7 @@ Do [[Special:UserLogin|Set up an account]] on this Wiki. Make it grow in an orde
 
 Do [http://secure-exchange-protocols.org/newsletters/?p=subscribe subscribe] to our newsletter in order to be informed of the further developments and directions we are taking.
 
-You can also get in touch [mailto:initiators@secure-exchange-protocols.org here].
+You can also get in touch [mailto:initiators *AT* secure-exchange-protocols *DOT* org here].
 
 == How to edit a page? ==
 
