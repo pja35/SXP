@@ -6,5 +6,5 @@
 
 ==== Proposals ====
 
-* [www.theether.org/papers/econp2p03.pdf Bootstrapping a distributed computational economy with peer-to-peer bartering] by Chun, Fu, Vahdat. Comment it [[ChunFuVahdat|here]].
+* [http:/www.theether.org/papers/econp2p03.pdf Bootstrapping a distributed computational economy with peer-to-peer bartering] by Chun, Fu, Vahdat. Comment it [[ChunFuVahdat|here]].
 * [http://csci.csusb.edu/turner/pubs/CurrencyPaperFeb.pdf A lightweight currency paradigm for the P2P resource market] by Turner and Ross. Comment it [[TurnerRoss|here]].
