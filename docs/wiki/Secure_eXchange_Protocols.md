@@ -18,7 +18,7 @@ The idea is that any of us can join together and create a virtual
 market, in which others can tell what they have to offer and what they
 need. The market, or anyone for that matter, can propose deals, whereby
 one person would give an item to another who gives an item to a third
-etc. If all parties concerned agrees to a deal, the deal gets secured
+etc. If all parties concerned agree to a deal, the deal gets secured
 into an electronic contract, signed by the different parties.
 
 Hence our motto could be: *Securely exchange anything, anywhere, with
@@ -34,7 +34,7 @@ exclusion of all others or anything else. Exclusive money-based economy
 does seem quite natural to all of us. Yet, taking a step back, it has a
 few downsides:
 
--   A lack of this money one can cause exchanges, that would not
+-   A lack of this one money can cause exchanges, that would not
     otherwise be dependent on this money, to be halted.
 -   It is often unclear who produces this money and for what purpose.
     Nowadays, are Central Banks producing the money, or Private Banks?
@@ -72,9 +72,9 @@ What is it?
 but they do not know each other, nor do they trust each other. Here *a*,
 *b* and *c* can be anything, e.g *a* the ability to give maths lessons,
 *b* some barrel of beer, and *c* coins from a certain currency. Finally,
-say Alice, Bob and Charlie have an iPhone, Android, or whatever Smart
-Phone in their pockets. Using Secure eXchange Protocols on their Smart
-Phones, they should be able to quickly declare their resources and needs
+say Alice, Bob and Charlie have an iPhone, Android, or whatever smart
+phone in their pockets. Using Secure eXchange Protocols on their smart
+phones, they should be able to quickly declare their resources and needs
 on virtual ad hoc markets, which in turn should detect and propose the
 obvious deal between them. If the three of them accept the deal, then an
 electronic contract will be secured, which is a formal proof of their
@@ -141,7 +141,7 @@ change. This is for the sake of resiliency and monopoly avoidance.
 
 ### Ubiquitous
 
-SXP protocols should be able to run on Smart Phones.
+SXP protocols should be able to run on smart phones.
 
 ### Open
 

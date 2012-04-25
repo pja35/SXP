@@ -5,14 +5,14 @@
 ==In short==
 ''A project to create an open, ubiquitous, peer-to-peer, secure protocol suite for multi-party exchanges of contracts.''
 
-The idea is that any of us can join together and create a virtual market, in which others can tell what they have to offer and what they need. The market, or anyone for that matter, can propose deals, whereby one person would give an item to another who gives an item to a third etc. If all parties concerned agrees to a deal, the deal gets secured into an electronic contract, signed by the different parties.
+The idea is that any of us can join together and create a virtual market, in which others can tell what they have to offer and what they need. The market, or anyone for that matter, can propose deals, whereby one person would give an item to another who gives an item to a third etc. If all parties concerned agree to a deal, the deal gets secured into an electronic contract, signed by the different parties.
 
 Hence our motto could be: ''Securely exchange anything, anywhere, with anyone.''
 
 ==Why do this?==
 This project is mainly technical. Yet, here are some motivations. An exclusive money-based economy is one where goods or services are systematically exchanged against one fixed notion of money, to the exclusion of all others or anything else. Exclusive money-based economy does seem quite natural to all of us. Yet, taking a step back, it has a few downsides: 
 
-* A lack of this money one can cause exchanges, that would not otherwise be dependent on this money, to be halted.
+* A lack of this one money can cause exchanges, that would not otherwise be dependent on this money, to be halted.
 * It is often unclear who produces this money and for what purpose. Nowadays, are Central Banks producing the money, or Private Banks?
 * It is often unclear whether this money is distributed in any efficient way to start with, and the distribution is clearly difficult to change. 
 * Having an exclusive notion of money triggers wealth cumulation behaviours, which sometimes are counter-productive.
@@ -24,7 +24,7 @@ There are a number of [[Related Projects|related projects]] seeking to address t
 
 ==What is it?==
 
-''Say Alice, Bob, and Charlie have access to different resources ''a'', ''b'', and ''c''. Say Alice wants ''b'', Bob wants ''c'' and Charlie wants ''a'', but they do not know each other, nor do they trust each other. Here ''a'', ''b'' and ''c'' can be anything, e.g ''a'' the ability to give maths lessons, ''b'' some barrel of beer, and ''c'' coins from a certain currency. Finally, say Alice, Bob and Charlie have an iPhone, Android, or whatever Smart Phone in their pockets. Using Secure eXchange Protocols on their Smart Phones, they should be able to quickly declare their resources and needs on virtual ad hoc markets, which in turn should detect and propose the obvious deal between them. If the three of them accept the deal, then an electronic contract will be secured, which is a formal proof of their agreement to perform the swap.''
+''Say Alice, Bob, and Charlie have access to different resources ''a'', ''b'', and ''c''. Say Alice wants ''b'', Bob wants ''c'' and Charlie wants ''a'', but they do not know each other, nor do they trust each other. Here ''a'', ''b'' and ''c'' can be anything, e.g ''a'' the ability to give maths lessons, ''b'' some barrel of beer, and ''c'' coins from a certain currency. Finally, say Alice, Bob and Charlie have an iPhone, Android, or whatever smart phone in their pockets. Using Secure eXchange Protocols on their smart phones, they should be able to quickly declare their resources and needs on virtual ad hoc markets, which in turn should detect and propose the obvious deal between them. If the three of them accept the deal, then an electronic contract will be secured, which is a formal proof of their agreement to perform the swap.''
 
 Let us now explain what is meant by an open, ubiquitous, peer-to-peer, secure protocol suite for multi-party exchanges of contracts.
 
@@ -53,7 +53,7 @@ Part of the diffucilty is to compute possible multi-party exchange chains, also 
 SXP protocols should run in the most decentralized manner as possible, allowing for ad hoc exchanges, market creation, deal exploration under dynamical, reconfigurable scenarios. For instance, an electronic signature is what identifies a market, not its IP address, which may change. This is for the sake of resiliency and monopoly avoidance.
 
 ===Ubiquitous===
-SXP protocols should be able to run on Smart Phones.
+SXP protocols should be able to run on smart phones.
 
 ===Open===
 SXP protocols should be totally open and free. This is the only things that its [[Licence|licence]] should enforce.
