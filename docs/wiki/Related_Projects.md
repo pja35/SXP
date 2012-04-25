@@ -37,6 +37,7 @@ Bartering and local currencies solutions
 -   [CES](http://ces.org.za/)
 -   [Cyclos](http://www.project.cyclos.org/)
 -   [Bartercard](http://bartercard.com)
+-   [Club del Trueque](http://trueque.org.ar)
 
 Global-to-local trading solutions
 ---------------------------------

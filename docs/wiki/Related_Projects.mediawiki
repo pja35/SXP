@@ -22,6 +22,7 @@ Many projects seek to address similar [[Exclusive Money Based Economy |issues]].
 * [http://ces.org.za/ CES]
 * [http://www.project.cyclos.org/ Cyclos]
 * [http://bartercard.com Bartercard]
+* [http://trueque.org.ar Club del Trueque]
 
 == Global-to-local trading solutions ==
 
