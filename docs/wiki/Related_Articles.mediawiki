@@ -7,4 +7,4 @@
 ==== Proposals ====
 
 * [http://www.theether.org/papers/econp2p03.pdf Bootstrapping a distributed computational economy with peer-to-peer bartering] by Chun, Fu, Vahdat, 2003. Comment it [[ChunFuVahdat|here]].
-* [http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.5.9502 A lightweight currency paradigm for the P2P resource market] by Turner and Ross. Comment it [[TurnerRoss|here]].
+* [http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.5.9502 A lightweight currency paradigm for the P2P resource market] by Turner and Ross, 2004. Comment it [[TurnerRoss|here]].

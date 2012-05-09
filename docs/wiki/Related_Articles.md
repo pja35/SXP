@@ -18,5 +18,5 @@ tags:
     Fu, Vahdat, 2003. Comment it [here](/wiki/ChunFuVahdat "wikilink").
 -   [A lightweight currency paradigm for the P2P resource
     market](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.5.9502)
-    by Turner and Ross. Comment it [here](/wiki/TurnerRoss "wikilink").
+    by Turner and Ross, 2004. Comment it [here](/wiki/TurnerRoss "wikilink").
 
