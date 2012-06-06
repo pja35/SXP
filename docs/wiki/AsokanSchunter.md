@@ -11,3 +11,12 @@ Describes fair exchange protocols as ways to exchange things between
 distrustful parties in such a way that either both parties receive what
 they expect or neither parties does. Includes receipts for payments,
 exchange of signatures.
+
+Types of Fair Exchange for Contract Signing
+===========================================
+
+With Trusted Third Party (TTP)
+------------------------------
+
+Being Optimistic
+----------------
