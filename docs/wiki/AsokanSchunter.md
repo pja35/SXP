@@ -24,6 +24,8 @@ such a role.
 Being Optimistic
 ----------------
 
+Does not require a referee, unless there is a conflict.
+
 ### Optimistic FX
 
 ### Verifiable escrow of digital signatures

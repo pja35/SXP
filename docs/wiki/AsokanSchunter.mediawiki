@@ -12,6 +12,8 @@ Requires a referee. In the setting of SXP, maybe the market could play such a ro
 
 == Being Optimistic ==
 
+Does not require a referee, unless there is a conflict.
+
 === Optimistic FX ===
 === Verifiable escrow of digital signatures ===
 === Verifiable escrow using pre-issued coupons ===
