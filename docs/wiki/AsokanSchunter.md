@@ -4,7 +4,8 @@ permalink: wiki/AsokanSchunter/
 layout: wiki
 ---
 
-#### Fair Exchange
+Fair Exchange
+=============
 
 Describes fair exchange protocols as ways to exchange things between
 distrustful parties in such a way that either both parties receive what
