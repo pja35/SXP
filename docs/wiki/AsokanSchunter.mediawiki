@@ -8,6 +8,8 @@ Describes fair exchange protocols as ways to exchange things between distrustful
 
 == With Trusted Third Party (TTP) ==
 
+Requires a referee. In the setting of SXP, maybe the market could play such a role.
+
 == Being Optimistic ==
 
 === Optimistic FX ===

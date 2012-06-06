@@ -18,6 +18,9 @@ Types of Fair Exchanges (FX)
 With Trusted Third Party (TTP)
 ------------------------------
 
+Requires a referee. In the setting of SXP, maybe the market could play
+such a role.
+
 Being Optimistic
 ----------------
 
