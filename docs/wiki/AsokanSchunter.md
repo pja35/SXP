@@ -4,6 +4,8 @@ permalink: wiki/AsokanSchunter/
 layout: wiki
 ---
 
+The link does not grant access to the whole document...
+
 Fair Exchange
 =============
 
