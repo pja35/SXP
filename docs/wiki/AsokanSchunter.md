@@ -12,11 +12,20 @@ distrustful parties in such a way that either both parties receive what
 they expect or neither parties does. Includes receipts for payments,
 exchange of signatures.
 
-Types of Fair Exchange for Contract Signing
-===========================================
+Types of Fair Exchanges (FX)
+============================
 
 With Trusted Third Party (TTP)
 ------------------------------
 
 Being Optimistic
 ----------------
+
+### Optimistic FX
+
+### Verifiable escrow of digital signatures
+
+### Verifiable escrow using pre-issued coupons
+
+Exchanging in parts
+-------------------
