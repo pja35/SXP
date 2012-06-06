@@ -35,3 +35,6 @@ Comment on the usefulness of this thesis to the project [[Kremer|here]].
 
 [http://www.springerlink.com/content/beq9v0d41wd7g462/ A multi-party optimistic non-repudiation protocol] by Markowitch, Kremer, (2001).
 Comment on the usefulness of this paper to the project [[MarkowitchKremer|here]].
+
+[http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.20.3562 Optimistic Synchronous Multi-Party Contract Signing] by Asokan, Baum-waidner, Schunter , Waidner (1998).
+Comment on the usefulness of this paper to the project [[ABSW98|here]].

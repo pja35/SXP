@@ -66,3 +66,8 @@ project [here](/wiki/Kremer "wikilink").
 protocol](http://www.springerlink.com/content/beq9v0d41wd7g462/) by
 Markowitch, Kremer, (2001). Comment on the usefulness of this paper to
 the project [here](/wiki/MarkowitchKremer "wikilink").
+
+[Optimistic Synchronous Multi-Party Contract
+Signing](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.20.3562)
+by Asokan, Baum-waidner, Schunter , Waidner (1998). Comment on the
+usefulness of this paper to the project [here](/wiki/ABSW98 "wikilink").
