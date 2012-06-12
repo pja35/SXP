@@ -39,3 +39,7 @@ by Okaie, Nakano Comment this paper
 [Resource pricing games on graphs: existence of Nash
 equilibria](http://www.springerlink.com/content/213187v363028302/) by
 Okaie, Nakano Comment this paper [here](/wiki/OkaieNakanoNash "wikilink").
+
+*Origins of Money*, C. Menger.
+
+*Spontaneous order*, F. Hayek.
