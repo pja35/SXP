@@ -10,7 +10,7 @@ specialists, hence a good entry to the topic. The comments here are
 biased towards SXP.
 
 Fair Exchange
-=============
+-------------
 
 Describes fair exchange protocols as ways to exchange things between
 distrustful parties in such a way that either both parties receive what
@@ -18,10 +18,9 @@ they expect or neither parties does. Includes receipts for payments,
 certified mail, and contract signatures more specfically.
 
 Types of Fair Exchanges (FX)
-============================
+----------------------------
 
-With a Trusted Third Party (TTP)
---------------------------------
+### With a Trusted Third Party (TTP)
 
 Requires a referee. In the setting of SXP, maybe the market could maybe
 play such a role, but this is costly.
@@ -53,16 +52,14 @@ this seems to boil down to the boring protocol:
 
 \[T\rightarrow B:\{C\}_{PrivKA}\]
 
-Being Optimistic
-----------------
+### Being Optimistic
 
 Does not require a referee, unless there is a conflict.
 
-### Optimistic FX
+#### Optimistic FX
 
-### Verifiable escrow of digital signatures
+#### Verifiable escrow of digital signatures
 
-### Verifiable escrow using pre-issued coupons
+#### Verifiable escrow using pre-issued coupons
 
-Exchanging in parts
--------------------
+### Exchanging in parts
