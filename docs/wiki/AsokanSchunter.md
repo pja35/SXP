@@ -24,21 +24,34 @@ With a Trusted Third Party (TTP)
 --------------------------------
 
 Requires a referee. In the setting of SXP, maybe the market could maybe
-play such a role. The protocols that do that have a common pattern. As
-usual Alice (A) and Bob (B) are the normal parties, and Trent (T) is the
-Trusted Third Party. They seek to exchange M\_A and M\_B. Moreover see
+play such a role, but this is costly.
+
+The protocols that implement this have a simple common pattern. Alice
+(A) and Bob (B) need to sign contract (C) with there private keys
+PrivKA/PrivKB, Trent (T) is the Trusted Third Party. See
 [here](http://en.wikipedia.org/wiki/Security_protocol_notation) for the
 notation.
 
-\[A\rightarrow B:\{M_A\}_{K}\]
+\[A\rightarrow B:\{\{C\}_{PrivKA}\}_{K}\]
 
 \[A\rightarrow T:K\]
 
-\[B\rightarrow T:M_B\]
+\[B\rightarrow T:\{\{C\}_{PrivKA}\}_{K},\{C\}_{PrivKB}
+:<math>T\rightarrow B:K\]
 
-\[T\rightarrow B:K\]
+\[T\rightarrow A:\{C\}_{PrivKB}\]
 
-\[T\rightarrow B:K\]
+To be honest I am not sure why going through K is necessary, this looks
+like an optimization for Digital Certified Mail. In the explanations all
+this seems to be a variation of the boring protocol:
+
+\[A\rightarrow T:\{C\}_{PrivKA}\]
+
+\[B\rightarrow T:\{C\}_{PrivKB}\]
+
+\[T\rightarrow A:\{C\}_{PrivKB}\]
+
+\[T\rightarrow B:\{C\}_{PrivKA}\]
 
 Being Optimistic
 ----------------

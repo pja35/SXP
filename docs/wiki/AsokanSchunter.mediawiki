@@ -10,17 +10,24 @@ Describes fair exchange protocols as ways to exchange things between distrustful
 
 == With a Trusted Third Party (TTP) ==
 
-Requires a referee. In the setting of SXP, maybe the market could maybe play such a role.
-The protocols that do that have a common pattern. 
-As usual Alice (A) and Bob (B) are the normal parties, and Trent (T) is the Trusted Third Party. 
-They seek to exchange M_A and M_B.
-Moreover see [http://en.wikipedia.org/wiki/Security_protocol_notation here] for the notation.
+Requires a referee. In the setting of SXP, maybe the market could maybe play such a role, but this is costly.
 
-:<math>A\rightarrow B:\{M_A\}_{K}</math>
+The protocols that implement this have a simple common pattern. 
+Alice (A) and Bob (B) need to sign contract (C) with there private keys PrivKA/PrivKB, Trent (T) is the Trusted Third Party. 
+See [http://en.wikipedia.org/wiki/Security_protocol_notation here] for the notation.
+
+:<math>A\rightarrow B:\{\{C\}_{PrivKA}\}_{K}</math>
 :<math>A\rightarrow T:K</math>
-:<math>B\rightarrow T:M_B</math>
+:<math>B\rightarrow T:\{\{C\}_{PrivKA}\}_{K},\{C\}_{PrivKB}
 :<math>T\rightarrow B:K</math>
-:<math>T\rightarrow B:K</math>
+:<math>T\rightarrow A:\{C\}_{PrivKB}</math>
+
+To be honest I am not sure why going through K is necessary, this looks like an optimization for Digital Certified Mail. In the explanations all this seems to be a variation of the boring protocol:
+
+:<math>A\rightarrow T:\{C\}_{PrivKA}</math>
+:<math>B\rightarrow T:\{C\}_{PrivKB}</math>
+:<math>T\rightarrow A:\{C\}_{PrivKB}</math>
+:<math>T\rightarrow B:\{C\}_{PrivKA}</math>
 
 == Being Optimistic ==
 
