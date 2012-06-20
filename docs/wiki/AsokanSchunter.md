@@ -43,7 +43,7 @@ notation.
 
 To be honest I am not sure why going through K is necessary, this looks
 like an optimization for Digital Certified Mail. In the explanations all
-this seems to be a variation of the boring protocol:
+this seems to boil down to the boring protocol:
 
 \[A\rightarrow T:\{C\}_{PrivKA}\]
 

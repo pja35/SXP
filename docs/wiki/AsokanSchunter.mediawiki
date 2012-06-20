@@ -22,7 +22,7 @@ See [http://en.wikipedia.org/wiki/Security_protocol_notation here] for the notat
 :<math>T\rightarrow B:K</math>
 :<math>T\rightarrow A:\{C\}_{PrivKB}</math>
 
-To be honest I am not sure why going through K is necessary, this looks like an optimization for Digital Certified Mail. In the explanations all this seems to be a variation of the boring protocol:
+To be honest I am not sure why going through K is necessary, this looks like an optimization for Digital Certified Mail. In the explanations all this seems to boil down to the boring protocol:
 
 :<math>A\rightarrow T:\{C\}_{PrivKA}</math>
 :<math>B\rightarrow T:\{C\}_{PrivKB}</math>
