@@ -63,6 +63,9 @@ Does not require a referee, unless there is a conflict.
 
 ### Exchanging in parts
 
+These are protocols where the contracts get exchanged gradually. For the
+purpose of SXP this is a bit inelegant.
+
 Questions on this paper
 -----------------------
 
