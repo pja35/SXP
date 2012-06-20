@@ -5,9 +5,8 @@ layout: wiki
 ---
 
 The link does not grant access to the whole document, however I
-recovered it by other means. This is a recent review paper by
-specialists, hence a good entry to the topic. The comments here are
-biased towards SXP.
+recovered it. This is a recent review paper by specialists, hence a good
+entry to the topic. The comments here are biased towards SXP.
 
 Fair Exchange
 -------------
