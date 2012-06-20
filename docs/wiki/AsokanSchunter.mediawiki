@@ -1,14 +1,26 @@
-The link does not grant access to the whole document...
+The link does not grant access to the whole document, however I recovered it by other means.
+This is a recent review paper by specialists, hence a good entry to the topic.
+The comments here are biased towards SXP. 
 
 = Fair Exchange =
 
-Describes fair exchange protocols as ways to exchange things between distrustful parties in such a way that either both parties receive what they expect or neither parties does. Includes receipts for payments, exchange of signatures.
+Describes fair exchange protocols as ways to exchange things between distrustful parties in such a way that either both parties receive what they expect or neither parties does. Includes receipts for payments, certified mail, and contract signatures more specfically.
 
 = Types of Fair Exchanges (FX) =
 
-== With Trusted Third Party (TTP) ==
+== With a Trusted Third Party (TTP) ==
 
-Requires a referee. In the setting of SXP, maybe the market could play such a role.
+Requires a referee. In the setting of SXP, maybe the market could maybe play such a role.
+The protocols that do that have a common pattern. 
+As usual Alice (A) and Bob (B) are the normal parties, and Trent (T) is the Trusted Third Party. 
+They seek to exchange M_A and M_B.
+Moreover see [http://en.wikipedia.org/wiki/Security_protocol_notation here] for the notation.
+
+:<math>A\rightarrow B:\{M_A\}_{K}</math>
+:<math>A\rightarrow T:K</math>
+:<math>B\rightarrow T:M_B</math>
+:<math>T\rightarrow B:K</math>
+:<math>T\rightarrow B:K</math>
 
 == Being Optimistic ==
 
