@@ -53,9 +53,15 @@ this seems to boil down to the boring protocol:
 
 ### Being Optimistic
 
-Does not require a referee, unless there is a conflict.
+Does not require a referee, unless there is a conflict. If possible this
+is what we should do.
 
-#### Optimistic FX
+The idea is that the TTP should be able to either:
+
+-   cancel the contract
+-   act instead of the dishonest party to replace him to sign the
+    contract
+-   punish the dishonest party by lowering his trust or so
 
 #### Verifiable escrow of digital signatures
 
