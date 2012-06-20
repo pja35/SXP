@@ -58,14 +58,23 @@ is what we should do.
 
 The idea is that the TTP should be able to either:
 
--   cancel the contract
+-   cancel the contract;
 -   act instead of the dishonest party to replace him to sign the
-    contract
--   punish the dishonest party by lowering his trust or so
+    contract;
+-   punish the dishonest party by lowering his trust or so.
 
-#### Verifiable escrow of digital signatures
+The authors point out two problems with that:
 
-#### Verifiable escrow using pre-issued coupons
+-   providing quality replacement i.e. allowing the TTP to sign for the
+    dishonest party;
+-   making sure that no one is wrongly blamed just because of loss of
+    transmissions etc.
+
+Solving these issues is done successively by the two next subsections.
+
+#### Verifiable escrow
+
+#### Asynchrony
 
 ### Exchanging in parts
 

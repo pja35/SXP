@@ -34,13 +34,18 @@ To be honest I am not sure why going through K is necessary, this looks like an 
 Does not require a referee, unless there is a conflict. If possible this is what we should do.
 
 The idea is that the TTP should be able to either:
-* cancel the contract
-* act instead of the dishonest party to replace him to sign the contract
-* punish the dishonest party by lowering his trust or so
+* cancel the contract;
+* act instead of the dishonest party to replace him to sign the contract;
+* punish the dishonest party by lowering his trust or so.
 
+The authors point out two problems with that:
+* providing quality replacement i.e. allowing the TTP to sign for the dishonest party;
+* making sure that no one is wrongly blamed just because of loss of transmissions etc.
 
-==== Verifiable escrow of digital signatures ====
-==== Verifiable escrow using pre-issued coupons ====
+Solving these issues is done successively by the two next subsections.
+
+==== Verifiable escrow ====
+==== Asynchrony ====
 
 === Exchanging in parts ===
 
