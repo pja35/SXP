@@ -51,7 +51,7 @@ Wouldn't it solve the problem if Alice was able to give Bob something which:
 * A proof that this is indeed what she is giving to him.
 Let us call this magic thing VE_A.
 
-That way, Bob could then send Alice the contract signed by him. If she disappears, he can go to the TTP and get the contract signed by her.
+That way, Bob could then send Alice the contract signed by him. If she disappears, he can go to the TTP with the contract signed by him, and get from the TTP the contract signed by her. It is important
 
 This sounds great. Apparently these VE_A exist, they are called Verifiable Escrows.
 
