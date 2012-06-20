@@ -74,6 +74,20 @@ Solving these issues is done successively by the two next subsections.
 
 #### Verifiable escrow
 
+Wouldn't it solve the problem if Alice was able to give Bob something
+which:
+
+-   Is contract signed by her, but protected under PubKT;
+-   A proof that this is indeed what she is giving to him.
+
+Let us call this magic thing VE\_A.
+
+That way, Bob could then send Alice the contract signed by him. If she
+disappears, he can go to the TTP and get the contract signed by her.
+
+This sounds great. Apparently these VE\_A exist, they are called
+Verifiable Escrows.
+
 #### Asynchrony
 
 ### Exchanging in parts
