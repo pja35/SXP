@@ -39,4 +39,9 @@ Does not require a referee, unless there is a conflict.
 
 === Exchanging in parts ===
 
-= Questions on this paper =
+== Questions on this paper ==
+
+
+Why not go for the following natural solutions: the contract C wears the mention "This contract is not valid if not signed by PubKA, and then by PubKB by time t". This way Alice can safely sign it with PrivB and send it to Bob. Bob may not sign it but then the contract is not valid. To validate he must sign it and have it time-stamped by time t... OK maybe there would be two problems:
+* Alice is not ensured to get her copy of the valid contract;
+* The time-stamping service would need to be solicited all too frequently.
