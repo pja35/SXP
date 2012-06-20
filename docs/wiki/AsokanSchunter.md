@@ -90,6 +90,9 @@ Verifiable Escrows.
 
 #### Asynchrony
 
+The protocol outlined just above does not quite work. It is OK for Alice
+to vanish in the protocol, but not OK for Bob to vanish. Indeed...
+
 ### Exchanging in parts
 
 These are protocols where the contracts get exchanged gradually. For the
