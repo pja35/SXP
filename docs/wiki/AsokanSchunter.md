@@ -51,7 +51,7 @@ this seems to boil down to the boring protocol:
 
 \[T\rightarrow B:\{C\}_{PrivKA}\]
 
-### Being Optimistic
+### Optimistic FX
 
 Does not require a referee, unless there is a conflict. If possible this
 is what we should do.

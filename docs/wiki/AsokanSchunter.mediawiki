@@ -29,7 +29,7 @@ To be honest I am not sure why going through K is necessary, this looks like an 
 :<math>T\rightarrow A:\{C\}_{PrivKB}</math>
 :<math>T\rightarrow B:\{C\}_{PrivKA}</math>
 
-=== Being Optimistic ===
+=== Optimistic FX ===
 
 Does not require a referee, unless there is a conflict. If possible this is what we should do.
 
