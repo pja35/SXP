@@ -62,3 +62,6 @@ Does not require a referee, unless there is a conflict.
 #### Verifiable escrow using pre-issued coupons
 
 ### Exchanging in parts
+
+Questions on this paper
+=======================
