@@ -93,9 +93,9 @@ Apparently this is avoidable with "designated verifier proofs", i.e. making sure
 Exchanging in parts. These are protocols where the contracts get exchanged gradually. For the purpose of SXP this is a bit inelegant.
 Using secure H/W. These are protocols use smartcards etc. For the purpose of SXP this is a bit unpractical.
 
-= Further reading =
+= References =
 
-Going multi-party: [9,37]
+Going multi-party: [[BaoDengMao]] [[Pearson]]
 
 P2P context, see [[BaumwaidnerWaidner]] (2000)
 

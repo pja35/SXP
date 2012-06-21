@@ -154,10 +154,11 @@ exchanged gradually. For the purpose of SXP this is a bit inelegant.
 Using secure H/W. These are protocols use smartcards etc. For the
 purpose of SXP this is a bit unpractical.
 
-Further reading
-===============
+References
+==========
 
-Going multi-party: \[9,37\]
+Going multi-party: [BaoDengMao](/wiki/BaoDengMao "wikilink")
+[Pearson](/wiki/Pearson "wikilink")
 
 P2P context, see [BaumwaidnerWaidner](/wiki/BaumwaidnerWaidner "wikilink")
 (2000)
