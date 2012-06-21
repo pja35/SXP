@@ -76,3 +76,8 @@ the project [here](/wiki/BaumwaidnerWaidner "wikilink").
 Signing](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.20.3562)
 by Asokan, Baum-waidner, Schunter , Waidner (1998). Comment on the
 usefulness of this paper to the project [here](/wiki/ABSW98 "wikilink").
+
+\[<http://ieeexplore.ieee.org/xpl/login.jsp?tp>=&arnumber=674825&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs\_all.jsp%3Farnumber%3D674825
+Efficient and practical fair exchange with offline TTP\] by Bao, Deng,
+Mao, (1998) Comment on the usefulness of this paper to the project
+[here](/wiki/BaoDengMao "wikilink").
