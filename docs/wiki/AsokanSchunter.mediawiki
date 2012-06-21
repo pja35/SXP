@@ -95,11 +95,11 @@ Using secure H/W. These are protocols use smartcards etc. For the purpose of SXP
 
 = References =
 
-Going multi-party: [[BaoDengMao]], [[Pearson]]
+Going multi-party: [[BaoDengMao]] (1998), [[Pearson]] (2003)
 
 P2P context, see [[BaumwaidnerWaidner]] (2000)
 
-Using peers as TTP [23]
+Using peers as TTP, see [[FranklinReiter]] (1997)
 
 To analyze communication complexity: [38]
 

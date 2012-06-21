@@ -157,13 +157,14 @@ purpose of SXP this is a bit unpractical.
 References
 ==========
 
-Going multi-party: [BaoDengMao](/wiki/BaoDengMao "wikilink"),
-[Pearson](/wiki/Pearson "wikilink")
+Going multi-party: [BaoDengMao](/wiki/BaoDengMao "wikilink") (1998),
+[Pearson](/wiki/Pearson "wikilink") (2003)
 
 P2P context, see [BaumwaidnerWaidner](/wiki/BaumwaidnerWaidner "wikilink")
 (2000)
 
-Using peers as TTP \[23\]
+Using peers as TTP, see [FranklinReiter](/wiki/FranklinReiter "wikilink")
+(1997)
 
 To analyze communication complexity: \[38\]
 
