@@ -65,10 +65,11 @@ The idea is that the TTP should be able to either:
 
 The authors point out two problems with that:
 
--   providing quality replacement i.e. allowing the TTP to sign for the
-    dishonest party;
+-   providing quality replacement, i.e. ideally allowing the TTP to sign
+    for the dishonest party;
 -   making sure that no one is wrongly blamed just because of loss of
-    transmissions etc.
+    transmissions etc., i.e. ideally allowing either party to drop off
+    the protocol anytime.
 
 Solving these issues is done successively by the two next subsections.
 
@@ -77,10 +78,12 @@ Solving these issues is done successively by the two next subsections.
 Wouldn't it solve the problem if Alice was able to give Bob something
 which:
 
--   Is contract signed by her, but protected under PubKT;
+-   Is the contract signed by her, but protected under PubKT;
 -   A proof that this is indeed what she is giving to him.
 
 Let us call this magic thing VE\_A.
+
+The protocol would then run as follows:
 
 That way, Bob could then send Alice the contract signed by him. If she
 disappears, he can go to the TTP with the contract signed by him, and
