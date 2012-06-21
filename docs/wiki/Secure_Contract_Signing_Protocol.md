@@ -62,9 +62,10 @@ Protocols](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.58.9931&rep=
 by Kremer, (2004). Comment on the usefulness of this thesis to the
 project [here](/wiki/Kremer "wikilink").
 
-\[www.hpl.hp.com/techreports/2002/HPL-2002-221.pdf Trusted computing
-platforms.\] Pearson, ed. (2003) Comment on the usefulness of this
-thesis to the project [here](/wiki/Pearson "wikilink").
+[Trusted computing
+platforms.](http://www.hpl.hp.com/techreports/2002/HPL-2002-221.pdf)
+Pearson, ed. (2003) Comment on the usefulness of this thesis to the
+project [here](/wiki/Pearson "wikilink").
 
 [A multi-party optimistic non-repudiation
 protocol](http://www.springerlink.com/content/beq9v0d41wd7g462/) by

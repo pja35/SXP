@@ -33,7 +33,7 @@ Comment on the usefulness of this paper to the project [[AvoineVaudenay|here]].
 [http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.58.9931&rep=rep1&type=pdf Formal Analysis of Optimistic Fair Exchange Protocols] by Kremer, (2004).
 Comment on the usefulness of this thesis to the project [[Kremer|here]].
 
-[www.hpl.hp.com/techreports/2002/HPL-2002-221.pdf Trusted computing platforms.] Pearson, ed. (2003) 
+[http://www.hpl.hp.com/techreports/2002/HPL-2002-221.pdf Trusted computing platforms.] Pearson, ed. (2003) 
 Comment on the usefulness of this thesis to the project [[Pearson|here]].
 
 [http://www.springerlink.com/content/beq9v0d41wd7g462/ A multi-party optimistic non-repudiation protocol] by Markowitch, Kremer, (2001).
