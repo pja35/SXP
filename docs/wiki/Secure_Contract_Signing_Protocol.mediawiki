@@ -10,7 +10,7 @@ Allow several parties to sign a contract securely.
 == Some related papers we must understand first ==
 
 [http://books.google.fr/books?hl=en&lr=&id=DUFqRPNqBrQC&oi=fnd&pg=PA365&dq=%22optimistic+fair%22&ots=HSsEcwYi5v&sig=d4Z6to7fQ06fl-OXlLkQKLIP8Cc#v=onepage&q=%22optimistic%20fair%22&f=false Review of optimistic fair exchange] by Asokan, Schunter, (2009).
-Comment on the usefulness of this paper to the project [[AsokanSchunter|here]]. Done.
+Comment on the usefulness of this paper to the project [[AsokanSchunter|here]]. '''Done.''' Good entry point.
 
 [http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=5381051 An Optimistic Fair Protocol for Aggregate Exchange] by Liu (2009).
 Comment on the usefulness of this paper to the project [[Liu|here]].
@@ -33,11 +33,11 @@ Comment on the usefulness of this paper to the project [[AvoineVaudenay|here]].
 [http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.58.9931&rep=rep1&type=pdf Formal Analysis of Optimistic Fair Exchange Protocols] by Kremer, (2004).
 Comment on the usefulness of this thesis to the project [[Kremer|here]].
 
-[http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.66.4697 Verifiable Encryption of Digital Signatures and Applications] by Ateniese, (2004).
+[http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.66.4697 Verifiable Encryption of Digital Signatures and Applications] by Ateniese, (2004). For efficient Verifiable Escrows.
 Comment on the usefulness of this paper to the project [[Ateniese|here]].
 
 [http://www.hpl.hp.com/techreports/2002/HPL-2002-221.pdf Trusted computing platforms.] Pearson, ed. (2003) 
-Comment on the usefulness of this paper to the project [[Pearson|here]].
+Comment on the usefulness of this paper to the project [[Pearson|here]]. Multi-party abuse-free contract signing. Asynchronous?
 
 [http://www.springerlink.com/content/beq9v0d41wd7g462/ A multi-party optimistic non-repudiation protocol] by Markowitch, Kremer, (2001).
 Comment on the usefulness of this paper to the project [[MarkowitchKremer|here]].
@@ -49,10 +49,10 @@ Comment on the usefulness of this paper to the project [[BaumwaidnerWaidner|here
 Comment on the usefulness of this paper to the project [[ABSW98|here]].
 
 [http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=674825&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D674825 Efficient and practical fair exchange with offline TTP] by Bao, Deng, Mao, (1998)
-Comment on the usefulness of this paper to the project [[BaoDengMao|here]].
+Comment on the usefulness of this paper to the project [[BaoDengMao|here]]. Multi-party abuse-free contract signing. Asynchronous?
 
 [http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.43.4716 Opimal efficiency of optimistic contract signing] by Pfitzmann, Schunter, Waidner (1998)
-Comment on the usefulness of this paper to the project [[PfitzmannSchunterWaidner|here]].
+Comment on the usefulness of this paper to the project [[PfitzmannSchunterWaidner|here]]. Communication complexity
 
 [http://www.cs.unc.edu/~reiter/papers/1997/CCS1.pdf Fair exchange with a semi-trusted third party] by Franklin, Reiter, (1997).
-Comment on the usefulness of this paper to the project [[FranklinReiter|here]].
+Comment on the usefulness of this paper to the project [[FranklinReiter|here]]. Using peers as TTP.

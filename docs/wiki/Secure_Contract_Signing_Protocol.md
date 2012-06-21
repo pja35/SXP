@@ -24,7 +24,7 @@ Some related papers we must understand first
 \[<http://books.google.fr/books?hl=en&lr>=&id=DUFqRPNqBrQC&oi=fnd&pg=PA365&dq=%22optimistic+fair%22&ots=HSsEcwYi5v&sig=d4Z6to7fQ06fl-OXlLkQKLIP8Cc\#v=onepage&q=%22optimistic%20fair%22&f=false
 Review of optimistic fair exchange\] by Asokan, Schunter, (2009).
 Comment on the usefulness of this paper to the project
-[here](/wiki/AsokanSchunter "wikilink"). Done.
+[here](/wiki/AsokanSchunter "wikilink"). **Done.** Good entry point.
 
 [An Optimistic Fair Protocol for Aggregate
 Exchange](http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=5381051)
@@ -64,13 +64,14 @@ project [here](/wiki/Kremer "wikilink").
 
 [Verifiable Encryption of Digital Signatures and
 Applications](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.66.4697)
-by Ateniese, (2004). Comment on the usefulness of this paper to the
-project [here](/wiki/Ateniese "wikilink").
+by Ateniese, (2004). For efficient Verifiable Escrows. Comment on the
+usefulness of this paper to the project [here](/wiki/Ateniese "wikilink").
 
 [Trusted computing
 platforms.](http://www.hpl.hp.com/techreports/2002/HPL-2002-221.pdf)
 Pearson, ed. (2003) Comment on the usefulness of this paper to the
-project [here](/wiki/Pearson "wikilink").
+project [here](/wiki/Pearson "wikilink"). Multi-party abuse-free contract
+signing. Asynchronous?
 
 [A multi-party optimistic non-repudiation
 protocol](http://www.springerlink.com/content/beq9v0d41wd7g462/) by
@@ -90,14 +91,16 @@ usefulness of this paper to the project [here](/wiki/ABSW98 "wikilink").
 \[<http://ieeexplore.ieee.org/xpl/login.jsp?tp>=&arnumber=674825&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs\_all.jsp%3Farnumber%3D674825
 Efficient and practical fair exchange with offline TTP\] by Bao, Deng,
 Mao, (1998) Comment on the usefulness of this paper to the project
-[here](/wiki/BaoDengMao "wikilink").
+[here](/wiki/BaoDengMao "wikilink"). Multi-party abuse-free contract signing.
+Asynchronous?
 
 [Opimal efficiency of optimistic contract
 signing](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.43.4716)
 by Pfitzmann, Schunter, Waidner (1998) Comment on the usefulness of this
 paper to the project [here](/wiki/PfitzmannSchunterWaidner "wikilink").
+Communication complexity
 
 [Fair exchange with a semi-trusted third
 party](http://www.cs.unc.edu/~reiter/papers/1997/CCS1.pdf) by Franklin,
 Reiter, (1997). Comment on the usefulness of this paper to the project
-[here](/wiki/FranklinReiter "wikilink").
+[here](/wiki/FranklinReiter "wikilink"). Using peers as TTP.
