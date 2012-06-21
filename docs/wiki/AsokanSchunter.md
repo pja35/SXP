@@ -9,7 +9,7 @@ recovered it. This is a recent review paper by specialists, hence a good
 entry to the topic. The comments here are biased towards SXP.
 
 Fair Exchange
--------------
+=============
 
 Describes fair exchange protocols as ways to exchange things between
 distrustful parties in such a way that either both parties receive what
@@ -17,9 +17,10 @@ they expect or neither parties does. Includes receipts for payments,
 certified mail, and contract signatures more specfically.
 
 Types of Fair Exchanges (FX)
-----------------------------
+============================
 
-### With a Trusted Third Party (TTP)
+With a Trusted Third Party (TTP)
+--------------------------------
 
 Requires a referee. In the setting of SXP, maybe the market could maybe
 play such a role, but this is costly.
@@ -51,7 +52,8 @@ this seems to boil down to the boring protocol:
 
 \[T\rightarrow B:\{C\}_{PrivKA}\]
 
-### Optimistic FX
+Optimistic FX
+-------------
 
 Does not require a referee, unless there is a conflict. If possible this
 is what we should do.
@@ -73,7 +75,7 @@ The authors point out two problems with that:
 
 Solving these issues is done successively by the two next subsections.
 
-#### Verifiable escrow
+### Verifiable escrow
 
 Wouldn't it solve the problem if Alice was able to give Bob something
 which:
@@ -100,7 +102,7 @@ to Alice when she wakes up. More precisely the recovery protocol is:
 This sounds great. Apparently these VE\_A exist, they are called
 Verifiable Escrows.
 
-#### Asynchrony
+### Asynchrony
 
 The protocol outlined just above does not quite work. It is OK for Alice
 to vanish in the protocol, but not OK for Bob to vanish. Indeed...
@@ -111,7 +113,7 @@ These are protocols where the contracts get exchanged gradually. For the
 purpose of SXP this is a bit inelegant.
 
 Questions on this paper
------------------------
+=======================
 
 Why not go for the following natural solutions: the contract C wears the
 mention "This contract is not valid if not signed by PubKA, and then by
