@@ -52,7 +52,7 @@ Comment on the usefulness of this paper to the project [[ABSW98|here]].
 Comment on the usefulness of this paper to the project [[BaoDengMao|here]].
 
 [http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.43.4716 Opimal efficiency of optimistic contract signing] by Pfitzmann, Schunter, Waidner (1998)
-Comment on the usefulness of this paper to the project [[PfitzmannSchunterWaidner]].
+Comment on the usefulness of this paper to the project [[PfitzmannSchunterWaidner|here]].
 
 [http://www.cs.unc.edu/~reiter/papers/1997/CCS1.pdf Fair exchange with a semi-trusted third party] by Franklin, Reiter, (1997).
 Comment on the usefulness of this paper to the project [[FranklinReiter|here]].

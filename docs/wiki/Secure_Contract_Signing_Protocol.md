@@ -95,8 +95,7 @@ Mao, (1998) Comment on the usefulness of this paper to the project
 [Opimal efficiency of optimistic contract
 signing](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.43.4716)
 by Pfitzmann, Schunter, Waidner (1998) Comment on the usefulness of this
-paper to the project
-[PfitzmannSchunterWaidner](/wiki/PfitzmannSchunterWaidner "wikilink").
+paper to the project [here](/wiki/PfitzmannSchunterWaidner "wikilink").
 
 [Fair exchange with a semi-trusted third
 party](http://www.cs.unc.edu/~reiter/papers/1997/CCS1.pdf) by Franklin,
