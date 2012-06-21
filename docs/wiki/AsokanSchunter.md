@@ -118,7 +118,33 @@ Solving this without time-limits is called the asynchronous model. The
 authors explain that the following minor modification is secure and
 minimal for the asynchronous model:
 
-XXXXX
+\(A\rightarrow B:VE_A\) \(B\rightarrow A:VE_B\)
+\(A\rightarrow B:\{C\}_{PrivKA}\) \(B\rightarrow A:\{C\}_{PrivKB}\)
+
+To summarize main idea is that now Alice is allowed to contact the TTP
+and tell it it wants to cancel the protocol, i.e. demand that he no
+longer agrees to open VE\_A upon demand of Bob. Now, that would have
+seemed like a possibility in the protocol of the subsection just before,
+but this is not true, because Alice could have cheated by sending VE\_A
+to Bob and then cancelling it, and still getting his signed contract in
+the second step. Here, on the other hand, all she gets in the second
+step is VE\_B, and if she cancelled VE\_A she cancelled VE\_B, too.
+
+This is looking good, it seems that this is the kind of things needed
+for SXP.
+
+### Further issues & solutions
+
+We need multi-party versions of these things. Apparently that exists,
+see further reading.
+
+We need efficient versions of these things. Apparently this can be done,
+see further reading.
+
+A further feature is the abuse-free property: if Bob aborts after
+message one he has a proof that Alice was willing to to the exchange.
+Apparently this is avoidable with "designated verifier proofs", i.e.
+making sure that VE\_A is only a proof in the eyes of Bob and the TTP.
 
 Other stuff
 -----------
