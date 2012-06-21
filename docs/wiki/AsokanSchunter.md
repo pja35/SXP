@@ -8,7 +8,7 @@ The link does not grant access to the whole document, but was recovered.
 This is a recent review paper by specialists, hence a good entry to the
 topic. The comments here are biased towards SXP.
 
-The paper Describes fair exchange protocols as ways to exchange things
+The paper describes fair exchange protocols as ways to exchange things
 between distrustful parties in such a way that either both parties
 receive what they expect or neither parties does. Includes receipts for
 payments, certified mail, and contract signatures more specfically.
