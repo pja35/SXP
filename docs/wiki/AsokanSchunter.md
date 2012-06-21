@@ -4,9 +4,9 @@ permalink: wiki/AsokanSchunter/
 layout: wiki
 ---
 
-The link does not grant access to the whole document, however I
-recovered it. This is a recent review paper by specialists, hence a good
-entry to the topic. The comments here are biased towards SXP.
+The link does not grant access to the whole document, but was recovered.
+This is a recent review paper by specialists, hence a good entry to the
+topic. The comments here are biased towards SXP.
 
 Fair Exchange
 =============
