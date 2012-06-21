@@ -87,7 +87,7 @@ Efficient and practical fair exchange with offline TTP\] by Bao, Deng,
 Mao, (1998) Comment on the usefulness of this paper to the project
 [here](/wiki/BaoDengMao "wikilink").
 
-\[www.cs.unc.edu/~reiter/papers/1997/CCS1.pdf Fair exchange with a
-semi-trusted third party\] by Franklin, Reiter, (1997). Comment on the
-usefulness of this paper to the project
+[Fair exchange with a semi-trusted third
+party](http://www.cs.unc.edu/~reiter/papers/1997/CCS1.pdf) by Franklin,
+Reiter, (1997). Comment on the usefulness of this paper to the project
 [here](/wiki/FranklinReiter "wikilink").
