@@ -97,7 +97,7 @@ Using secure H/W. These are protocols use smartcards etc. For the purpose of SXP
 
 Going multi-party: [9,37]
 
-P2P context [10]
+P2P context, see [[BaumwaidnerWaidner]] (2000)
 
 Using peers as TTP [23]
 

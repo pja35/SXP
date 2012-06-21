@@ -159,7 +159,8 @@ Further reading
 
 Going multi-party: \[9,37\]
 
-P2P context \[10\]
+P2P context, see [BaumwaidnerWaidner](/wiki/BaumwaidnerWaidner "wikilink")
+(2000)
 
 Using peers as TTP \[23\]
 
