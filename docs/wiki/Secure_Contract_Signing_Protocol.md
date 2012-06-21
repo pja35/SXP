@@ -22,7 +22,7 @@ Some related papers we must understand first
 --------------------------------------------
 
 \[<http://books.google.fr/books?hl=en&lr>=&id=DUFqRPNqBrQC&oi=fnd&pg=PA365&dq=%22optimistic+fair%22&ots=HSsEcwYi5v&sig=d4Z6to7fQ06fl-OXlLkQKLIP8Cc\#v=onepage&q=%22optimistic%20fair%22&f=false
-Review of optimisitc fair exchange\] by Asokan, Schunter, (2009).
+Review of optimistic fair exchange\] by Asokan, Schunter, (2009).
 Comment on the usefulness of this paper to the project
 [here](/wiki/AsokanSchunter "wikilink").
 
@@ -66,6 +66,11 @@ project [here](/wiki/Kremer "wikilink").
 protocol](http://www.springerlink.com/content/beq9v0d41wd7g462/) by
 Markowitch, Kremer, (2001). Comment on the usefulness of this paper to
 the project [here](/wiki/MarkowitchKremer "wikilink").
+
+[Round-optimal and abuse-free optimistic multi-party contract
+signing](http://www.springerlink.com/content/ruf1079b2vgjmm1m/) by
+Baum-Waidner, Waidner (2000). Comment on the usefulness of this paper to
+the project [here](/wiki/BaumwaidnerWaidner "wikilink").
 
 [Optimistic Synchronous Multi-Party Contract
 Signing](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.20.3562)
