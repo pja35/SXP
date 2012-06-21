@@ -87,8 +87,11 @@ Let us call this magic thing VE\_A.
 
 The protocol would then run as follows:
 
-\(A\rightarrow B:VE_A\) \(B\rightarrow A:\{C\}_{PrivKB}\)
-\(A\rightarrow B:\{C\}_{PrivKA}\)
+\[A\rightarrow B:VE_A\]
+
+\[B\rightarrow A:\{C\}_{PrivKB}\]
+
+\[A\rightarrow B:\{C\}_{PrivKA}\]
 
 If Alice disappears after step one, no worries, there is a recovery
 protocol. Indeed Bob can go to the TTP with the contract signed by him,
@@ -96,8 +99,11 @@ and get from the TTP the contract signed by her. It is important that he
 brings the contract signed by him, so that the TTP takes it and gives it
 to Alice when she wakes up. More precisely the recovery protocol is:
 
-\(B\rightarrow T:\{C\}_{PrivKB}, VE_A\)
-\(T\rightarrow B:\{C\}_{PrivKA}\) \(T\rightarrow A:\{C\}_{PrivKB}\)
+\[B\rightarrow T:\{C\}_{PrivKB}, VE_A\]
+
+\[T\rightarrow B:\{C\}_{PrivKA}\]
+
+\[T\rightarrow A:\{C\}_{PrivKB}\]
 
 This sounds great. Apparently these VE\_A exist, they are called
 Verifiable Escrows.
