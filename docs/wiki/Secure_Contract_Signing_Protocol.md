@@ -24,7 +24,7 @@ Some related papers we must understand first
 \[<http://books.google.fr/books?hl=en&lr>=&id=DUFqRPNqBrQC&oi=fnd&pg=PA365&dq=%22optimistic+fair%22&ots=HSsEcwYi5v&sig=d4Z6to7fQ06fl-OXlLkQKLIP8Cc\#v=onepage&q=%22optimistic%20fair%22&f=false
 Review of optimistic fair exchange\] by Asokan, Schunter, (2009).
 Comment on the usefulness of this paper to the project
-[here](/wiki/AsokanSchunter "wikilink").
+[here](/wiki/AsokanSchunter "wikilink"). Done.
 
 [An Optimistic Fair Protocol for Aggregate
 Exchange](http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=5381051)
@@ -61,6 +61,10 @@ project [here](/wiki/AvoineVaudenay "wikilink").
 Protocols](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.58.9931&rep=rep1&type=pdf)
 by Kremer, (2004). Comment on the usefulness of this thesis to the
 project [here](/wiki/Kremer "wikilink").
+
+\[www.hpl.hp.com/techreports/2002/HPL-2002-221.pdf Trusted computing
+platforms.\] Pearson, ed. (2003) Comment on the usefulness of this
+thesis to the project [here](/wiki/Pearson "wikilink").
 
 [A multi-party optimistic non-repudiation
 protocol](http://www.springerlink.com/content/beq9v0d41wd7g462/) by
