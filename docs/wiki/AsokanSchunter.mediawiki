@@ -67,7 +67,9 @@ This sounds great. Apparently these VE_A exist, they are called Verifiable Escro
 
 === Asynchrony ===
 
-The protocol outlined just above does not quite work. It is OK for Alice to vanish in the protocol, but not OK for Bob to vanish. Indeed...
+The protocol outlined just above does not quite work due to the second problem. Indeed Bob can stop the protocol anytime without problem: he is either not engaged or is engaged but Alice is also engaged. But the reverse is not true. Alice in the first step engages herself somehow. Even if it is true that Bob cannot get the doubly signed contract unless he gives it to her; she is still in a weaker situation than Bob: she cannot stop the protocol, whereas he can. One solution is to impose a time-limit but the authors argue that short time limits are impractical, whereas long ones are a problem for Alice. 
+
+Solving this without time-limits is called the asynchronous model. The authors explain that the following minor modification is secure and minimal for the asynchronous model:
 
 === Exchanging in parts ===
 
