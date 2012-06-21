@@ -43,7 +43,7 @@ Comment on the usefulness of this paper to the project [[Pearson|here]]. Multi-p
 Comment on the usefulness of this paper to the project [[MarkowitchKremer|here]].
 
 [http://www.springerlink.com/content/ruf1079b2vgjmm1m/ Round-optimal and abuse-free optimistic multi-party contract signing] by Baum-Waidner, Waidner (2000).
-Comment on the usefulness of this paper to the project [[BaumwaidnerWaidner|here]]. P2P context.
+Comment on the usefulness of this paper to the project [[BaumwaidnerWaidner|here]]. P2P context. Asynchronous multi-party abuse-free contract signing?
 
 [http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.20.3562 Optimistic Synchronous Multi-Party Contract Signing] by Asokan, Baum-waidner, Schunter , Waidner (1998).
 Comment on the usefulness of this paper to the project [[ABSW98|here]].
@@ -52,7 +52,7 @@ Comment on the usefulness of this paper to the project [[ABSW98|here]].
 Comment on the usefulness of this paper to the project [[BaoDengMao|here]]. Multi-party abuse-free contract signing. Asynchronous?
 
 [http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.43.4716 Opimal efficiency of optimistic contract signing] by Pfitzmann, Schunter, Waidner (1998)
-Comment on the usefulness of this paper to the project [[PfitzmannSchunterWaidner|here]]. Communication complexity
+Comment on the usefulness of this paper to the project [[PfitzmannSchunterWaidner|here]]. Communication complexity.
 
 [http://www.cs.unc.edu/~reiter/papers/1997/CCS1.pdf Fair exchange with a semi-trusted third party] by Franklin, Reiter, (1997).
 Comment on the usefulness of this paper to the project [[FranklinReiter|here]]. Using peers as TTP.
