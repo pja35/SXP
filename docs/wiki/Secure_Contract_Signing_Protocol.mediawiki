@@ -51,5 +51,8 @@ Comment on the usefulness of this paper to the project [[ABSW98|here]].
 [http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=674825&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D674825 Efficient and practical fair exchange with offline TTP] by Bao, Deng, Mao, (1998)
 Comment on the usefulness of this paper to the project [[BaoDengMao|here]].
 
+[http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.43.4716 Opimal efficiency of optimistic contract signing] by Pfitzmann, Schunter, Waidner (1998)
+Comment on the usefulness of this paper to the project [[PfitzmannSchunterWaidner]].
+
 [http://www.cs.unc.edu/~reiter/papers/1997/CCS1.pdf Fair exchange with a semi-trusted third party] by Franklin, Reiter, (1997).
 Comment on the usefulness of this paper to the project [[FranklinReiter|here]].
