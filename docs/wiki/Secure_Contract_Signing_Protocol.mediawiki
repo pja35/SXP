@@ -33,6 +33,9 @@ Comment on the usefulness of this paper to the project [[AvoineVaudenay|here]].
 [http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.58.9931&rep=rep1&type=pdf Formal Analysis of Optimistic Fair Exchange Protocols] by Kremer, (2004).
 Comment on the usefulness of this thesis to the project [[Kremer|here]].
 
+[http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.66.4697 Verifiable Encryption of Digital Signatures and Applications] by Ateniese, (2004).
+Comment on the usefulness of this paper to the project [[Ateniese|here]].
+
 [http://www.hpl.hp.com/techreports/2002/HPL-2002-221.pdf Trusted computing platforms.] Pearson, ed. (2003) 
 Comment on the usefulness of this paper to the project [[Pearson|here]].
 

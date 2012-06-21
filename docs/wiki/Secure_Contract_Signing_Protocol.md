@@ -62,6 +62,11 @@ Protocols](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.58.9931&rep=
 by Kremer, (2004). Comment on the usefulness of this thesis to the
 project [here](/wiki/Kremer "wikilink").
 
+[Verifiable Encryption of Digital Signatures and
+Applications](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.66.4697)
+by Ateniese, (2004). Comment on the usefulness of this paper to the
+project [here](/wiki/Ateniese "wikilink").
+
 [Trusted computing
 platforms.](http://www.hpl.hp.com/techreports/2002/HPL-2002-221.pdf)
 Pearson, ed. (2003) Comment on the usefulness of this paper to the
