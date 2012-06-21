@@ -95,15 +95,15 @@ Using secure H/W. These are protocols use smartcards etc. For the purpose of SXP
 
 = References =
 
-Going multi-party: [[BaoDengMao]] (1998), [[Pearson]] (2003)
+Going multi-party: [[BaoDengMao]] (1998), [[Pearson]] (2003).
 
-P2P context, see [[BaumwaidnerWaidner]] (2000)
+P2P context, see [[BaumwaidnerWaidner]] (2000).
 
-Using peers as TTP, see [[FranklinReiter]] (1997)
+Using peers as TTP, see [[FranklinReiter]] (1997).
 
-To analyze communication complexity: [38]
+To analyze communication complexity: [[PfitzmannSchunterWaidner]] (1998).
 
-To analyze computational complexity: It is suggested that more efficient VE schemes can be done via [6].
+To analyze computational complexity: It is suggested that more efficient VE schemes can be done via [[Ateniese]] (2004).
 
 = Naive reactions to this paper =
 
