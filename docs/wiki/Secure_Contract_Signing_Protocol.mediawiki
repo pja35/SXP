@@ -34,7 +34,7 @@ Comment on the usefulness of this paper to the project [[AvoineVaudenay|here]].
 Comment on the usefulness of this thesis to the project [[Kremer|here]].
 
 [http://www.hpl.hp.com/techreports/2002/HPL-2002-221.pdf Trusted computing platforms.] Pearson, ed. (2003) 
-Comment on the usefulness of this thesis to the project [[Pearson|here]].
+Comment on the usefulness of this paper to the project [[Pearson|here]].
 
 [http://www.springerlink.com/content/beq9v0d41wd7g462/ A multi-party optimistic non-repudiation protocol] by Markowitch, Kremer, (2001).
 Comment on the usefulness of this paper to the project [[MarkowitchKremer|here]].

@@ -64,7 +64,7 @@ project [here](/wiki/Kremer "wikilink").
 
 [Trusted computing
 platforms.](http://www.hpl.hp.com/techreports/2002/HPL-2002-221.pdf)
-Pearson, ed. (2003) Comment on the usefulness of this thesis to the
+Pearson, ed. (2003) Comment on the usefulness of this paper to the
 project [here](/wiki/Pearson "wikilink").
 
 [A multi-party optimistic non-repudiation
