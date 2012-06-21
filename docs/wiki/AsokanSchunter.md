@@ -157,7 +157,7 @@ purpose of SXP this is a bit unpractical.
 References
 ==========
 
-Going multi-party: [BaoDengMao](/wiki/BaoDengMao "wikilink")
+Going multi-party: [BaoDengMao](/wiki/BaoDengMao "wikilink"),
 [Pearson](/wiki/Pearson "wikilink")
 
 P2P context, see [BaumwaidnerWaidner](/wiki/BaumwaidnerWaidner "wikilink")

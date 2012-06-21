@@ -95,7 +95,7 @@ Using secure H/W. These are protocols use smartcards etc. For the purpose of SXP
 
 = References =
 
-Going multi-party: [[BaoDengMao]] [[Pearson]]
+Going multi-party: [[BaoDengMao]], [[Pearson]]
 
 P2P context, see [[BaumwaidnerWaidner]] (2000)
 
