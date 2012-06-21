@@ -124,6 +124,8 @@ Solving this without time-limits is called the asynchronous model. The
 authors explain that the following minor modification is secure and
 minimal for the asynchronous model:
 
+XXXXX
+
 ### Exchanging in parts
 
 These are protocols where the contracts get exchanged gradually. For the
