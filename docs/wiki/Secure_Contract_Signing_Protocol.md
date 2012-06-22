@@ -87,8 +87,8 @@ the project [here](/wiki/MarkowitchKremer "wikilink").
 [Round-optimal and abuse-free optimistic multi-party contract
 signing](http://www.springerlink.com/content/ruf1079b2vgjmm1m/) by
 Baum-Waidner, Waidner (2000). Comment on the usefulness of this paper to
-the project [here](/wiki/BaumwaidnerWaidner "wikilink"). P2P context.
-Asynchronous multi-party abuse-free contract signing. **Recommended.**
+the project [here](/wiki/BaumwaidnerWaidner "wikilink"). **Recommended.** P2P
+context. Asynchronous multi-party abuse-free contract signing.
 
 [Optimistic Synchronous Multi-Party Contract
 Signing](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.20.3562)
