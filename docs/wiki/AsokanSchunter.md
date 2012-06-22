@@ -118,8 +118,13 @@ Solving this without time-limits is called the asynchronous model. The
 authors explain that the following minor modification is secure and
 minimal for the asynchronous model:
 
-\(A\rightarrow B:VE_A\) \(B\rightarrow A:VE_B\)
-\(A\rightarrow B:\{C\}_{PrivKA}\) \(B\rightarrow A:\{C\}_{PrivKB}\)
+\[A\rightarrow B:VE_A\]
+
+\[B\rightarrow A:VE_B\]
+
+\[A\rightarrow B:\{C\}_{PrivKA}\]
+
+\[B\rightarrow A:\{C\}_{PrivKB}\]
 
 To summarize main idea is that now Alice is allowed to contact the TTP
 and tell it it wants to cancel the protocol, i.e. demand that he no

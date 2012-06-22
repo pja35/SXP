@@ -68,10 +68,10 @@ The protocol outlined just above does not quite work due to the second problem. 
 
 Solving this without time-limits is called the asynchronous model. The authors explain that the following minor modification is secure and minimal for the asynchronous model:
 
-<math>A\rightarrow B:VE_A</math>
-<math>B\rightarrow A:VE_B</math>
-<math>A\rightarrow B:\{C\}_{PrivKA}</math>
-<math>B\rightarrow A:\{C\}_{PrivKB}</math>
+:<math>A\rightarrow B:VE_A</math>
+:<math>B\rightarrow A:VE_B</math>
+:<math>A\rightarrow B:\{C\}_{PrivKA}</math>
+:<math>B\rightarrow A:\{C\}_{PrivKB}</math>
 
 To summarize main idea is that now Alice is allowed to contact the TTP and tell it it wants to cancel the protocol, i.e. demand that he no longer agrees to open VE_A upon demand of Bob. Now, that would have seemed like a possibility in the protocol of the subsection just before, but this is not true, because Alice could have cheated by sending VE_A to Bob and then cancelling it, and still getting his signed contract in the second step. Here, on the other hand, all she gets in the second step is VE_B, and if she cancelled VE_A she cancelled VE_B, too. 
 
