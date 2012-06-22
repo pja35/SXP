@@ -31,6 +31,11 @@ Exchange](http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=5381051)
 by Liu (2009). Comment on the usefulness of this paper to the project
 [here](/wiki/Liu "wikilink").
 
+[1](http://www.cs.bham.ac.uk/~mdr/research/papers/pdf/07-fc07.pdf) by
+Mukhamedov, Ryan (2007). Asynchronous multi-party abuse-free contract
+signing. Recommended!! Comment on the usefulness of this paper to the
+project [here](/wiki/MukhamedovRyan "wikilink").
+
 [Payment Scheme for Multi-Party Cascading P2P
 Exchange](http://www.springerlink.com/content/408876235155l787/) by Liu,
 Zhao, (2007). Comment on the usefulness of this paper to the project
