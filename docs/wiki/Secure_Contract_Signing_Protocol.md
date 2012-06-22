@@ -33,9 +33,9 @@ by Liu (2009). Comment on the usefulness of this paper to the project
 
 [Improved multi-party contract
 signing](http://www.cs.bham.ac.uk/~mdr/research/papers/pdf/07-fc07.pdf)
-by Mukhamedov, Ryan (2007). Asynchronous multi-party abuse-free contract
-signing. Recommended!! Comment on the usefulness of this paper to the
-project [here](/wiki/MukhamedovRyan "wikilink").
+by Mukhamedov, Ryan (2007). Comment on the usefulness of this paper to
+the project [here](/wiki/MukhamedovRyan "wikilink"). Asynchronous multi-party
+abuse-free contract signing. **Recommended.**
 
 [Payment Scheme for Multi-Party Cascading P2P
 Exchange](http://www.springerlink.com/content/408876235155l787/) by Liu,
@@ -88,7 +88,7 @@ the project [here](/wiki/MarkowitchKremer "wikilink").
 signing](http://www.springerlink.com/content/ruf1079b2vgjmm1m/) by
 Baum-Waidner, Waidner (2000). Comment on the usefulness of this paper to
 the project [here](/wiki/BaumwaidnerWaidner "wikilink"). P2P context.
-Asynchronous multi-party abuse-free contract signing. Recommended!
+Asynchronous multi-party abuse-free contract signing. **Recommended.**
 
 [Optimistic Synchronous Multi-Party Contract
 Signing](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.20.3562)

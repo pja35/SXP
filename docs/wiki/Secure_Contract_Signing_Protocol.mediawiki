@@ -10,13 +10,16 @@ Allow several parties to sign a contract securely.
 == Some related papers we must understand first ==
 
 [http://books.google.fr/books?hl=en&lr=&id=DUFqRPNqBrQC&oi=fnd&pg=PA365&dq=%22optimistic+fair%22&ots=HSsEcwYi5v&sig=d4Z6to7fQ06fl-OXlLkQKLIP8Cc#v=onepage&q=%22optimistic%20fair%22&f=false Review of optimistic fair exchange] by Asokan, Schunter, (2009).
-Comment on the usefulness of this paper to the project [[AsokanSchunter|here]]. '''Done.''' Good entry point.
+Comment on the usefulness of this paper to the project [[AsokanSchunter|here]]. 
+'''Done.''' Good entry point.
 
 [http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=5381051 An Optimistic Fair Protocol for Aggregate Exchange] by Liu (2009).
 Comment on the usefulness of this paper to the project [[Liu|here]].
 
-[http://www.cs.bham.ac.uk/~mdr/research/papers/pdf/07-fc07.pdf Improved multi-party contract signing] by Mukhamedov, Ryan (2007). Asynchronous multi-party abuse-free contract signing. Recommended!!
+[http://www.cs.bham.ac.uk/~mdr/research/papers/pdf/07-fc07.pdf Improved multi-party contract signing] by Mukhamedov, Ryan (2007). 
 Comment on the usefulness of this paper to the project [[MukhamedovRyan|here]].
+Asynchronous multi-party abuse-free contract signing. '''Recommended.'''
+
 
 [http://www.springerlink.com/content/408876235155l787/ Payment Scheme for Multi-Party Cascading P2P Exchange] by Liu, Zhao, (2007).
 Comment on the usefulness of this paper to the project [[LiuZhao|here]].
@@ -46,7 +49,8 @@ Comment on the usefulness of this paper to the project [[Pearson|here]]. Multi-p
 Comment on the usefulness of this paper to the project [[MarkowitchKremer|here]].
 
 [http://www.springerlink.com/content/ruf1079b2vgjmm1m/ Round-optimal and abuse-free optimistic multi-party contract signing] by Baum-Waidner, Waidner (2000).
-Comment on the usefulness of this paper to the project [[BaumwaidnerWaidner|here]]. P2P context. Asynchronous multi-party abuse-free contract signing. Recommended!
+Comment on the usefulness of this paper to the project [[BaumwaidnerWaidner|here]]. 
+P2P context. Asynchronous multi-party abuse-free contract signing. '''Recommended.'''
 
 [http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.20.3562 Optimistic Synchronous Multi-Party Contract Signing] by Asokan, Baum-waidner, Schunter , Waidner (1998).
 Comment on the usefulness of this paper to the project [[ABSW98|here]].
