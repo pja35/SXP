@@ -18,8 +18,7 @@ Comment on the usefulness of this paper to the project [[Liu|here]].
 
 [http://www.cs.bham.ac.uk/~mdr/research/papers/pdf/07-fc07.pdf Improved multi-party contract signing] by Mukhamedov, Ryan (2007). 
 Comment on the usefulness of this paper to the project [[MukhamedovRyan|here]].
-Asynchronous multi-party abuse-free contract signing. '''Recommended.'''
-
+'''Recommended.''' Asynchronous multi-party abuse-free contract signing. 
 
 [http://www.springerlink.com/content/408876235155l787/ Payment Scheme for Multi-Party Cascading P2P Exchange] by Liu, Zhao, (2007).
 Comment on the usefulness of this paper to the project [[LiuZhao|here]].
