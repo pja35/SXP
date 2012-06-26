@@ -29,8 +29,9 @@ notation.
 
 \[A\rightarrow T:K\]
 
-\[B\rightarrow T:\{\{C\}_{PrivKA}\}_{K},\{C\}_{PrivKB}
-:<math>T\rightarrow B:K\]
+\[B\rightarrow T:\{\{C\}_{PrivKA}\}_{K},\{C\}_{PrivKB}\]
+
+\[T\rightarrow B:K\]
 
 \[T\rightarrow A:\{C\}_{PrivKB}\]
 

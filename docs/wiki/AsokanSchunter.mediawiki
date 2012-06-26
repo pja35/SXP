@@ -15,7 +15,7 @@ See [http://en.wikipedia.org/wiki/Security_protocol_notation here] for the notat
 
 :<math>A\rightarrow B:\{\{C\}_{PrivKA}\}_{K}</math>
 :<math>A\rightarrow T:K</math>
-:<math>B\rightarrow T:\{\{C\}_{PrivKA}\}_{K},\{C\}_{PrivKB}
+:<math>B\rightarrow T:\{\{C\}_{PrivKA}\}_{K},\{C\}_{PrivKB}</math>
 :<math>T\rightarrow B:K</math>
 :<math>T\rightarrow A:\{C\}_{PrivKB}</math>
 
