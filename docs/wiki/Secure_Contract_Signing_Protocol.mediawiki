@@ -4,8 +4,17 @@ The Secure Contract Signing protocol of [[Main Page|SXP]] is a [[Protocols|Proto
 
 == What should it do? ==
 Allow several parties to sign a contract securely.
-* But what do we mean by secure in this case?
-* Are we going to rely on a Trusted Third Party?
+
+What do we mean by secure in this case?
+* ''Fairness''. No party should be left having sent his signature on the contract; but not having received that of the other parties.
+* ''Timeliness''. At every point any party can decide to leave. If that happens either the entire exchange either gets aborted, or can be completed without this party.
+* ''Abuse-freeness''. No party is not able produce to an external party a proof that the others were willing to sign the contract, which she aborted. 
+
+
+Are we going to rely on a Trusted Third Party?
+* With an online TTP this can be easily done; but this is costly
+* Without any form of TTP this has to rely on progressive exchange
+* There are solutions to invoke the TTP only when things go wrong.
 
 == Some related papers we must understand first ==
 
