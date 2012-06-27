@@ -18,13 +18,15 @@ How different is that from the Designated Verifiable Escrows of [[AsokanSchunter
 == Main protocol for Pi ==
 
 For ''t=1...n/2'' do:
-* Await from j<i: PCS_Pj((C,t),Pi,T)
-* Send to j>i: PCS_Pi((C,t),Pj,T) 
-* Await from j>i: PCS_Pj((C,t),Pi,T) 
-* Send to j<i: PCS_Pi((C,t),Pj,T) 
+
+* Await from j < i: PCS_Pj((C,t),Pi,T)
+* Send to j > i: PCS_Pi((C,t),Pj,T) 
+* Await from j > i: PCS_Pj((C,t),Pi,T) 
+* Send to j < i: PCS_Pi((C,t),Pj,T) 
 
 Then
-* Await from j<i: PCS_Pj((C,n/2+1),Pi,T), {C}_PrivPj
-* Send to j>i: PCS_Pi((C,n/2+1),Pj,T), {C}_PrivPi 
-* Await from j>i: PCS_Pj((C,n/2+1),Pi,T), {C}_PrivPj 
-* Send to j<i: PCS_Pi((C,n/2+1),Pj,T), {C}_PrivPi
+
+* Await from j < i: PCS_Pj((C,n/2+1),Pi,T), {C}_PrivPj
+* Send to j > i: PCS_Pi((C,n/2+1),Pj,T), {C}_PrivPi 
+* Await from j > i: PCS_Pj((C,n/2+1),Pi,T), {C}_PrivPj 
+* Send to j < i: PCS_Pi((C,n/2+1),Pj,T), {C}_PrivPi

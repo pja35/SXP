@@ -37,15 +37,15 @@ Main protocol for Pi
 
 For *t=1...n/2* do:
 
--   Await from j&lt;i: PCS\_Pj((C,t),Pi,T)
--   Send to j&gt;i: PCS\_Pi((C,t),Pj,T)
--   Await from j&gt;i: PCS\_Pj((C,t),Pi,T)
--   Send to j&lt;i: PCS\_Pi((C,t),Pj,T)
+-   Await from j &lt; i: PCS\_Pj((C,t),Pi,T)
+-   Send to j &gt; i: PCS\_Pi((C,t),Pj,T)
+-   Await from j &gt; i: PCS\_Pj((C,t),Pi,T)
+-   Send to j &lt; i: PCS\_Pi((C,t),Pj,T)
 
 Then
 
--   Await from j&lt;i: PCS\_Pj((C,n/2+1),Pi,T), {C}\_PrivPj
--   Send to j&gt;i: PCS\_Pi((C,n/2+1),Pj,T), {C}\_PrivPi
--   Await from j&gt;i: PCS\_Pj((C,n/2+1),Pi,T), {C}\_PrivPj
--   Send to j&lt;i: PCS\_Pi((C,n/2+1),Pj,T), {C}\_PrivPi
+-   Await from j &lt; i: PCS\_Pj((C,n/2+1),Pi,T), {C}\_PrivPj
+-   Send to j &gt; i: PCS\_Pi((C,n/2+1),Pj,T), {C}\_PrivPi
+-   Await from j &gt; i: PCS\_Pj((C,n/2+1),Pi,T), {C}\_PrivPj
+-   Send to j &lt; i: PCS\_Pi((C,n/2+1),Pj,T), {C}\_PrivPi
 
