@@ -18,12 +18,12 @@ messages. It relies on Private Contract Signature.
 Private Contract Signatures (PCS)
 ---------------------------------
 
-PCS\_P\_i(C,P\_j,T) denotes a Private Contract Signatures by P\_i for
-P\_j on contract C with Trusted Third Party T. The object is such that:
+PCS\_Pi(C,Pj,T) denotes a Private Contract Signatures by Pi for Pj on
+contract C with Trusted Third Party T. The object is such that:
 
--   It can be created by P\_i and, in the eyes of an external party,
-    faked by P\_j;
--   P\_i and T are able to convert it into {C}\_PrivP\_i.
+-   It can be created by Pi and, in the eyes of an external party, faked
+    by Pj;
+-   Pi and T are able to convert it into {C}\_PrivPi.
 
 How different is that from the Designated Verifiable Escrows of
 [AsokanSchunter](/wiki/AsokanSchunter "wikilink") and
