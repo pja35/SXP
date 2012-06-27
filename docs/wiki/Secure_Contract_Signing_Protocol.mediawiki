@@ -10,7 +10,6 @@ What do we mean by secure in this case?
 * ''Timeliness''. At every point any party can decide to leave. If that happens either the entire exchange either gets aborted, or can be completed without this party.
 * ''Abuse-freeness''. No party is not able produce to an external party a proof that the others were willing to sign the contract, which she aborted. 
 
-
 Are we going to rely on a Trusted Third Party?
 * With an online TTP this can be easily done; but this is costly
 * Without any form of TTP this has to rely on progressive exchange
