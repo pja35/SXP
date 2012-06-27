@@ -14,3 +14,17 @@ PCS_Pi(C,Pj,T) denotes a Private Contract Signatures by Pi for Pj on contract C 
 * Pi and T are able to convert it into {C}_PrivPi.
 
 How different is that from the Designated Verifiable Escrows of [[AsokanSchunter]] and [[BaumwaidnerWaidner]]? How does it compare in terms of security? We need to find out. Here the further reference on PCS given is [[GarayJakobssonMackenzie]].
+
+== Main protocol for Pi ==
+
+For ''t=1...n/2'' do:
+* Await from j<i: PCS_Pj((C,t),Pi,T)
+* Send to j>i: PCS_Pi((C,t),Pj,T) 
+* Await from j>i: PCS_Pj((C,t),Pi,T) 
+* Send to j<i: PCS_Pi((C,t),Pj,T) 
+
+Then
+* Await from j<i: PCS_Pj((C,n/2+1),Pi,T), {C}_PrivPj
+* Send to j>i: PCS_Pi((C,n/2+1),Pj,T), {C}_PrivPi 
+* Await from j>i: PCS_Pj((C,n/2+1),Pi,T), {C}_PrivPj 
+* Send to j<i: PCS_Pi((C,n/2+1),Pj,T), {C}_PrivPi
