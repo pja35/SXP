@@ -46,7 +46,7 @@ Remarks:
 * Colluded dishonest players must not be able to propagate an abort decision.  The total number of rounds outnumbers the total number of abort requests that a coalition of ''n-1'' can perform. 
 
 
-== Naive questions on this paper ==
+== Naive questions on this paper, so far ==
 
-* Resiliency
-* PCS
+* ''Resiliency.'' The authors make the assumption that any message will, eventually, reach its goal. This does not seem a realistic assumption, but nor does it seem a crucial assumption. Clarify. 
+* ''PCS.'' How secure are they?
