@@ -13,4 +13,4 @@ PCS_P_i(C,P_j,T) denotes a Private Contract Signatures by P_i for P_j on contrac
 * It can be created by P_i and, in the eyes of an external party, faked by P_j;
 * P_i and T are able to convert it into {C}_PrivP_i.
 
-How different is that from the Designated Verifiable Escrows of [[AsokanShunter]] and [[BaumwaidnerWaidner]]? How does it compare in terms of security? We need to find out. Here the further reference on PCS given is [[GarayJakobssonMackenzie]].
+How different is that from the Designated Verifiable Escrows of [[AsokanSchunter]] and [[BaumwaidnerWaidner]]? How does it compare in terms of security? We need to find out. Here the further reference on PCS given is [[GarayJakobssonMackenzie]].

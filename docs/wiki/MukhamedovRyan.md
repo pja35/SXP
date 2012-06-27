@@ -26,7 +26,7 @@ P\_j on contract C with Trusted Third Party T. The object is such that:
 -   P\_i and T are able to convert it into {C}\_PrivP\_i.
 
 How different is that from the Designated Verifiable Escrows of
-[AsokanShunter](/wiki/AsokanShunter "wikilink") and
+[AsokanSchunter](/wiki/AsokanSchunter "wikilink") and
 [BaumwaidnerWaidner](/wiki/BaumwaidnerWaidner "wikilink")? How does it compare
 in terms of security? We need to find out. Here the further reference on
 PCS given is
