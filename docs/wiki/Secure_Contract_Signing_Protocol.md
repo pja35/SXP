@@ -26,11 +26,16 @@ What do we mean by secure in this case?
     a proof that the others were willing to sign the contract, which
     she aborted.
 
-Are we going to rely on a Trusted Third Party?
+Are we going to demand a Trusted Third Party?
 
 -   With an online TTP this can be easily done; but this is costly
 -   Without any form of TTP this has to rely on progressive exchange
 -   There are solutions to invoke the TTP only when things go wrong.
+
+Which cryptographic primitive are we going to rely upon?
+
+-   Designated Verifiable Escrows
+-   Private Contract Signatures
 
 Some related papers we must understand first
 --------------------------------------------
