@@ -43,8 +43,9 @@ See [[AsokanSchunter]] for an intuition on abort/resolve.
 Remarks:
 * The cascading message structure is so that Parties are committed to certain stages, e.g. when P2 sends its PCS_P2((C,2),P3,T), it should mean that it has received PCS_P1((C,1),P2,T).
 * This information allows the TTP to determine dishonest parties.
-* Colluded dishonest players must not be able to propagate an abort decision.  The total number of rounds outnumbers the total number of abort requests that a coalition of ''n-1'' can perform. 
+* Colluded dishonest players must not be able to propagate an abort decision.  The total number of rounds outnumbers the total number of abort requests that a coalition of ''n-1'' can perform.
 
+Still, we need to build a more thorough intuition of why this works.
 
 == Naive questions on this paper, so far ==
 

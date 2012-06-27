@@ -79,6 +79,8 @@ Remarks:
     abort decision. The total number of rounds outnumbers the total
     number of abort requests that a coalition of *n-1* can perform.
 
+Still, we need to build a more thorough intuition of why this works.
+
 Naive questions on this paper, so far
 -------------------------------------
 
