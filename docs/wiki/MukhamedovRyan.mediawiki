@@ -13,7 +13,7 @@ PCS_Pi(C,Pj,T) denotes a Private Contract Signatures by Pi for Pj on contract C 
 * It can be created by Pi and, in the eyes of an external party, faked by Pj;
 * Pi and T are able to convert it into {C}_PrivPi, and Pj can be convinced of this.
 
-How different is that from the Designated Verifiable Escrows of [[AsokanSchunter]] and [[BaumwaidnerWaidner]]? How does it compare in terms of security? We need to find out. Here the further reference on PCS given is [[GarayJakobssonMackenzie]].
+How different is that from the Designated Verifiable Escrows of [[AsokanSchunter]]? How secure are they? Here the further reference on PCS given is [[GarayJakobssonMackenzie]].
 
 == Outline of the protocol ==
 
