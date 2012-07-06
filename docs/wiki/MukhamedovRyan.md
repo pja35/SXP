@@ -27,8 +27,7 @@ contract C with Trusted Third Party T. The object is such that:
     convinced of this.
 
 How different is that from the Designated Verifiable Escrows of
-[AsokanSchunter](/wiki/AsokanSchunter "wikilink")? How secure are they? Here
-the further reference on PCS given is
+[AsokanSchunter](/wiki/AsokanSchunter "wikilink")? This is discussed in
 [GarayJakobssonMackenzie](/wiki/GarayJakobssonMackenzie "wikilink").
 
 Outline of the protocol
