@@ -114,7 +114,7 @@ signing.
 signing](http://www.springerlink.com/content/evrjx3tdjgxj2pmp/) by
 Garay, Jakobsson, MacKenzie (1999). Comment on the usefulness of this
 paper to the project [here](/wiki/GarayJakobssonMackenzie "wikilink").
-**Recommended.**. Introduces Private Contract Signatures.
+**Recommended.** Introduces Private Contract Signatures.
 
 [Optimistic Synchronous Multi-Party Contract
 Signing](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.20.3562)

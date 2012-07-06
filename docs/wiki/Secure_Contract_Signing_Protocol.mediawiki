@@ -65,7 +65,7 @@ Comment on the usefulness of this paper to the project [[BaumwaidnerWaidner|here
 
 [http://www.springerlink.com/content/evrjx3tdjgxj2pmp/ Abuse-free optimistic contract signing] by Garay, Jakobsson, MacKenzie (1999).
 Comment on the usefulness of this paper to the project [[GarayJakobssonMackenzie|here]]. 
-'''Recommended.'''. Introduces Private Contract Signatures. 
+'''Recommended.''' Introduces Private Contract Signatures. 
 
 [http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.20.3562 Optimistic Synchronous Multi-Party Contract Signing] by Asokan, Baum-waidner, Schunter , Waidner (1998).
 Comment on the usefulness of this paper to the project [[ABSW98|here]].
