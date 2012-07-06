@@ -17,10 +17,10 @@ How different is that from the Designated Verifiable Escrows of [[AsokanSchunter
 
 == Outline of the protocol ==
 
-* Await from j < i: PCS_Pj((C,t),Pi,T). Else quit.
-* Send to j > i: PCS_Pi((C,t),Pj,T) 
-* Await from j > i: PCS_Pj((C,t),Pi,T). Else abort. 
-* Send to j < i: PCS_Pi((C,t),Pj,T) 
+* Await from j < i: PCS_Pj((C,1),Pi,T). Else quit.
+* Send to j > i: PCS_Pi((C,1),Pj,T) 
+* Await from j > i: PCS_Pj((C,1),Pi,T). Else abort. 
+* Send to j < i: PCS_Pi((C,1),Pj,T) 
 
 For ''t=2...n/2'' do:
 * Await from j < i: PCS_Pj((C,t),Pi,T). Else resolve.

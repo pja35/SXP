@@ -36,10 +36,10 @@ PCS given is
 Outline of the protocol
 -----------------------
 
--   Await from j &lt; i: PCS\_Pj((C,t),Pi,T). Else quit.
--   Send to j &gt; i: PCS\_Pi((C,t),Pj,T)
--   Await from j &gt; i: PCS\_Pj((C,t),Pi,T). Else abort.
--   Send to j &lt; i: PCS\_Pi((C,t),Pj,T)
+-   Await from j &lt; i: PCS\_Pj((C,1),Pi,T). Else quit.
+-   Send to j &gt; i: PCS\_Pi((C,1),Pj,T)
+-   Await from j &gt; i: PCS\_Pj((C,1),Pi,T). Else abort.
+-   Send to j &lt; i: PCS\_Pi((C,1),Pj,T)
 
 For *t=2...n/2* do:
 
