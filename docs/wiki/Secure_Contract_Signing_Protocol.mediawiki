@@ -35,6 +35,9 @@ Comment on the usefulness of this paper to the project [[MukhamedovRyan|here]].
 [http://www.springerlink.com/content/408876235155l787/ Payment Scheme for Multi-Party Cascading P2P Exchange] by Liu, Zhao, (2007).
 Comment on the usefulness of this paper to the project [[LiuZhao|here]].
 
+[http://www.springerlink.com/content/f301555p62357606/ Formal Analysis of Multiparty Contract Signing] by Chadha, Kremer, Scedrov (2006).
+'''Recommended.''' Comment on the usefulness of this thesis to the project [[ChadhaKremerScedrov|here]].
+
 [http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=1428498 An exchange protocol for alternative currencies] by Hao,   Havey,  Turner, (2005).
 Comment on the usefulness of this paper to the project [[HaoHaveyTurner|here]].
 
