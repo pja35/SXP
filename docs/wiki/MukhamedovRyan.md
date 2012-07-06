@@ -23,7 +23,8 @@ contract C with Trusted Third Party T. The object is such that:
 
 -   It can be created by Pi and, in the eyes of an external party, faked
     by Pj;
--   Pi and T are able to convert it into {C}\_PrivPi.
+-   Pi and T are able to convert it into {C}\_PrivPi, and Pj can be
+    convinced of this.
 
 How different is that from the Designated Verifiable Escrows of
 [AsokanSchunter](/wiki/AsokanSchunter "wikilink") and
