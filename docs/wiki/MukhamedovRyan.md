@@ -65,7 +65,8 @@ the protocol by asking T to convert some PCS\_Pj((C,t),Pi,T) into
 {C}\_PrivPj. If provided enough grounds for doing it, T will do so.
 
 See [AsokanSchunter](/wiki/AsokanSchunter "wikilink") for an intuition on
-abort/resolve.
+abort/resolve. See [ChadhaKremerScedrov](/wiki/ChadhaKremerScedrov "wikilink")
+to understand this messaging structure.
 
 Remarks:
 

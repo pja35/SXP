@@ -39,6 +39,7 @@ For ''t=2...n/2'' do:
 ''Resolve'' is a subprotocol, where T intervenes, it aims at completing the protocol by asking T to convert some PCS_Pj((C,t),Pi,T) into {C}_PrivPj. If provided enough grounds for doing it, T will do so.
 
 See [[AsokanSchunter]] for an intuition on abort/resolve.
+See [[ChadhaKremerScedrov]] to understand this messaging structure.
 
 Remarks:
 * The cascading message structure is so that Parties are committed to certain stages, e.g. when P2 sends its PCS_P2((C,2),P3,T), it should mean that it has received PCS_P1((C,1),P2,T).
