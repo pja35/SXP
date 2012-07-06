@@ -79,12 +79,3 @@ Remarks:
     number of abort requests that a coalition of *n-1* can perform.
 
 Still, we need to build a more thorough intuition of why this works.
-
-Naive questions on this paper, so far
--------------------------------------
-
--   *Resiliency.* The authors make the assumption that any message will,
-    eventually, reach its goal. This does not seem a realistic
-    assumption, but nor does it seem a crucial assumption. Clarify.
--   *PCS.* How secure are they?
-
