@@ -186,24 +186,40 @@ cancellation, i.e. not causing overturns. But this is impossible because
 there are only n-players, and Trent is not OK with receiving two
 different claims from the same player.
 
-Some related papers we must understand first
---------------------------------------------
+Directly relevant bibliography
+------------------------------
 
 \[<http://books.google.fr/books?hl=en&lr>=&id=DUFqRPNqBrQC&oi=fnd&pg=PA365&dq=%22optimistic+fair%22&ots=HSsEcwYi5v&sig=d4Z6to7fQ06fl-OXlLkQKLIP8Cc\#v=onepage&q=%22optimistic%20fair%22&f=false
 Review of optimistic fair exchange\] by Asokan, Schunter, (2009).
-Comment on the usefulness of this paper to the project
-[here](/wiki/AsokanSchunter "wikilink"). **Done.** Good entry point.
+**Reviewed [here](/wiki/AsokanSchunter "wikilink").** A great entry point to
+the topic of secure contract signing.
+
+[Improved multi-party contract
+signing](http://www.cs.bham.ac.uk/~mdr/research/papers/pdf/07-fc07.pdf)
+by Mukhamedov, Ryan (2007). **Reviewed
+[here](/wiki/MukhamedovRyan "wikilink").** Similar in terms of using PCS, in
+terms of proof structure, but not in terms of communications structure.
+
+[Round-optimal and abuse-free optimistic multi-party contract
+signing](http://www.springerlink.com/content/ruf1079b2vgjmm1m/) by
+Baum-Waidner, Waidner (2000). Comment on the usefulness of this paper to
+the project [here](/wiki/BaumwaidnerWaidner "wikilink"). **Done.** P2P
+context. Abuse-free asynchronous multi-party optimistic contract
+signing.
+
+[Abuse-free optimistic contract
+signing](http://www.springerlink.com/content/evrjx3tdjgxj2pmp/) by
+Garay, Jakobsson, MacKenzie (1999). Comment on the usefulness of this
+paper to the project [here](/wiki/GarayJakobssonMackenzie "wikilink").
+**Recommended.** Introduces Private Contract Signatures.
+
+Related bibliography
+--------------------
 
 [An Optimistic Fair Protocol for Aggregate
 Exchange](http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=5381051)
 by Liu (2009). Comment on the usefulness of this paper to the project
 [here](/wiki/Liu "wikilink").
-
-[Improved multi-party contract
-signing](http://www.cs.bham.ac.uk/~mdr/research/papers/pdf/07-fc07.pdf)
-by Mukhamedov, Ryan (2007). Comment on the usefulness of this paper to
-the project [here](/wiki/MukhamedovRyan "wikilink"). **Done.** Abuse-free
-asynchronous multi-party optimistic contract signing.
 
 [Payment Scheme for Multi-Party Cascading P2P
 Exchange](http://www.springerlink.com/content/408876235155l787/) by Liu,
@@ -257,19 +273,6 @@ signing. Asynchronous?
 protocol](http://www.springerlink.com/content/beq9v0d41wd7g462/) by
 Markowitch, Kremer, (2001). Comment on the usefulness of this paper to
 the project [here](/wiki/MarkowitchKremer "wikilink").
-
-[Round-optimal and abuse-free optimistic multi-party contract
-signing](http://www.springerlink.com/content/ruf1079b2vgjmm1m/) by
-Baum-Waidner, Waidner (2000). Comment on the usefulness of this paper to
-the project [here](/wiki/BaumwaidnerWaidner "wikilink"). **Done.** P2P
-context. Abuse-free asynchronous multi-party optimistic contract
-signing.
-
-[Abuse-free optimistic contract
-signing](http://www.springerlink.com/content/evrjx3tdjgxj2pmp/) by
-Garay, Jakobsson, MacKenzie (1999). Comment on the usefulness of this
-paper to the project [here](/wiki/GarayJakobssonMackenzie "wikilink").
-**Recommended.** Introduces Private Contract Signatures.
 
 [Optimistic Synchronous Multi-Party Contract
 Signing](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.20.3562)
