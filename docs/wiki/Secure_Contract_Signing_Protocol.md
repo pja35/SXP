@@ -9,8 +9,8 @@ The Secure Contract Signing protocol of [SXP](/wiki/Main_Page "wikilink") is a
 
 **Current status: The version 1 protocol is defined.**
 
-Aims of this protocol
----------------------
+Aims of the protocol
+--------------------
 
 To allow several parties to sign a contract securely.
 
