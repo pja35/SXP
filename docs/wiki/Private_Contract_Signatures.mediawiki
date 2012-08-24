@@ -1,5 +1,5 @@
 Private Contract Signatures are a cryptography primitive which we need for the [[Secure Contract Signing Protocol]].
 
-Those are constructed via non-interactive zero-knowledge proofs constructions, and based upon the Decisional Diffie-Hellman assumption.
+Those are constructed via non-interactive zero-knowledge proofs constructions, and based upon the [http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption Decisional Diffie-Hellman] assumption.
 
 It was introduced in

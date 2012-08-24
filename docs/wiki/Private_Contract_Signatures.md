@@ -9,6 +9,8 @@ for the [Secure Contract Signing
 Protocol](/wiki/Secure_Contract_Signing_Protocol "wikilink").
 
 Those are constructed via non-interactive zero-knowledge proofs
-constructions, and based upon the Decisional Diffie-Hellman assumption.
+constructions, and based upon the [Decisional
+Diffie-Hellman](http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption)
+assumption.
 
 It was introduced in
