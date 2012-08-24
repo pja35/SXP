@@ -221,6 +221,10 @@ The foreseen stages of the project are:
 7.  Produce the graphical interfaces to these implementations
 8.  Play with it
 
+The initiators' main role is to ensure that these original aims will not
+be altered in the course of the project. Stage 1 is the only
+non-negociable part of this project.
+
 Status
 ------
 
