@@ -227,9 +227,8 @@ Zhao, (2007). Comment on the usefulness of this paper to the project
 
 [Formal Analysis of Multiparty Contract
 Signing](http://www.springerlink.com/content/f301555p62357606/) by
-Chadha, Kremer, Scedrov (2006). **Recommended.** Comment on the
-usefulness of this thesis to the project
-[here](/wiki/ChadhaKremerScedrov "wikilink").
+Chadha, Kremer, Scedrov (2006). Comment on the usefulness of this thesis
+to the project [here](/wiki/ChadhaKremerScedrov "wikilink").
 
 [An exchange protocol for alternative
 currencies](http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=1428498)
