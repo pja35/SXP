@@ -118,6 +118,76 @@ ResolveT:
 Why does the protocol accomplishes its aims?
 --------------------------------------------
 
+First, here is how the security requirements impose themselves upon
+Trent:
+
+-   At round 1&lt;=k&lt;=n+1 an honest player may send
+    (1&lt;=k&lt;=n+1)-level promises but never get the other's back, and
+    so timeliness demands that he is able to either cancel his
+    (j&lt;=k)-level promises, or to get his complete set of (k-1)-level
+    promises opened by Trent. He does this by sending Trent a resolve
+    request with a complete set of (k-1)-level promi
+
+ses.
+
+-   If Trent initially gets contacted by a player with a resolve request
+    showing a complete set of (k-1&gt;0)-level promises, then it is fair
+    and timely for him to accept to open everything from now on: we fall
+    back into the non-optimistic case forever.
+-   But if Trent initially gets contacted by player i with a resolve
+    request showing (k-1=0)-level promises, i.e. nothing, then by
+    fairness the only thing he can do is to accept to cancel the
+    player's (k=1)-level promises. Then player's claim gets added to the
+    PossiblyHonestsClaims list.
+-   Say Player\_i sent a complete set of (k-1&gt;0)-level promises in a
+    resolve request. Later, if Trent gets contacted by a player with a
+    resolve request showing a complete set of (k'&gt;k+1)-level
+    promises, it may deduce from them that Player\_i's claim was
+    dishonest, because is shows that Player\_i has continued beyond
+    round k. It follows that Player\_i's claim can be safely removed
+    from the PossiblyHonestsClaims list.
+-   The same is true if the complete k'-level promises got there first,
+    or if Player\_i does different requests at different rounds; then
+    the Player\_i 's claim is dishonest and can safely be ignored.
+-   If Trent gets contacted by Player\_i with a resolve request showing
+    (k-1&gt;0)-level promises, and it follows from there that the
+    PossiblyHonestsClaims list is emptied, then it is fair and timely
+    for him to accept to open everything from now on: again we fall back
+    into the non-optimistic case forever. This is an overturn.
+-   If Trent gets contacted by Player\_i with a resolve request showing
+    (k-1&gt;0)-level promises, but it does not follow from there that
+    the PossiblyHonestsClaims list is emptied, then by fairness the only
+    thing he can do is to accept to cancel the player's
+    k-level promises. Then that player's claim gets added to the
+    PossiblyHonestsClaims list.
+-   At round n+2 an honest player may send his cleartext signature but
+    never get the other's back, and so fairness demands that he is
+    always able to get his complete set of (n+1)-level promises opened
+    by sending a resolve to Trent. Trent has to accept this, even if
+    this means an overturn: we fall back into the non-optimistic
+    case forever.
+
+Second, notice that most these specifications are met just by
+construction, i.e they really describe Trent's behaviour. Except for the
+last two points which seem contradictory... unless it is the case that
+complete sets of (n+1)-level promises constitute proofs that any earlier
+claim is dishonest! This seems to be the only thing we need to convince
+ourselves of.
+
+Now, it is clear that a complete set of (n+1)-level promises sheds
+discredit on all complete set of (n-1)-level promises that Trent may
+have received. Hence the only way a possibly honest claim could remain,
+is if it is a complete set of n-level promises. Similarly, it is clear
+this complete set of n-level promises had shed discredit on all complete
+set of (n-2)-level promises that Trent may have received. Hence the only
+way it could not have caused an overturn itself is if there was a
+complete set of (n-1)-level promises. And so on. Basically for something
+wrong to happen at the (n+2)-level, there must have been complete sets
+of 0...n-level sent through resolve requests to Trent, and accepted for
+cancellation, i.e. not causing overturns. But this is impossible because
+there are only n-players, and Trent is not OK with receiving two
+different claims from the same player.
+
 Some related papers we must understand first
 --------------------------------------------
 
