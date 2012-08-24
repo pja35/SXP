@@ -8,4 +8,7 @@ Private Contract Signatures are a cryptography primitive which we need
 for the [Secure Contract Signing
 Protocol](/wiki/Secure_Contract_Signing_Protocol "wikilink").
 
+Those are constructed via non-interactive zero-knowledge proofs
+constructions, and based upon the Decisional Diffie-Hellman assumption.
+
 It was introduced in
