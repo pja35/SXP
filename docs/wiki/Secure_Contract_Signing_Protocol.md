@@ -51,7 +51,9 @@ Conventions
 
 ` c is the contract`  
 ` P1...Pn are the parties having to sign c`  
-` E_Pi(m) is P_i public key encryption on m`  
+` `  
+` `\(E_{P_i}(m)\)` is `\(P_i\)` public key encryption on `\(P_i\)  
+` `\(E_{P_i}(m)~is~P_i~public~key~encryption~on~P_i\)  
 ` S_Pi(m) is P_i's signature on m`  
 ` PCS_Pi(m,Pj,T)  is a private contract signature by party Pi for party Pj on message m than can be opened by T into S_Pi(m)`  
 ` Prom_i(k) is (PCSPi(c,P1,T),...,PCS_Pi(c,Pn,T),PCS_Pi((c,k),P1,T),...,PCS_Pi((c,k),Pn,T))`  
