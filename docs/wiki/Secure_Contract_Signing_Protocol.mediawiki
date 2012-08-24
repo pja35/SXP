@@ -19,7 +19,9 @@ Does it rely on a Trusted Third Party (TTP)?
 ** when something goes wrong, a claim is sent to the TTP, who then steps in to ensure that either everyone, or no one, gets the contract signed. This is the non-optimistic case.
 
 Which cryptographic primitive does it rely upon?
-* Private Contract Signatures. These are based on the DSS cryptography assumption, and constructed via non-interactive zero-knowledge proofs constructions.
+* Private Contract Signatures. 
+* Constructed via non-interactive zero-knowledge proofs constructions.
+* Based upon the DSS cryptography assumption.
 
 == The Protocol ==
 

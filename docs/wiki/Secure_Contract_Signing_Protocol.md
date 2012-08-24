@@ -40,9 +40,9 @@ Does it rely on a Trusted Third Party (TTP)?
 
 Which cryptographic primitive does it rely upon?
 
--   Private Contract Signatures. These are based on the DSS cryptography
-    assumption, and constructed via non-interactive zero-knowledge
-    proofs constructions.
+-   Private Contract Signatures.
+-   Constructed via non-interactive zero-knowledge proofs constructions.
+-   Based upon the DSS cryptography assumption.
 
 The Protocol
 ------------
