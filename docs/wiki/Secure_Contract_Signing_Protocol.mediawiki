@@ -11,8 +11,8 @@ What is meant by secure?
 * ''Timeliness''. At every point any party can decide to leave. If that happens either the entire exchange either gets aborted, or can be completed without this party.
 * ''Abuse-freeness''. No party is not able produce to an external party a proof that the others were willing to sign the contract, which she aborted. 
 
-Do we use a Trusted Third Party (TTP)?
-* With an online TTP this can be easily done; but the aim is to avoid a costly, central infrastructure.
+Does it rely on a Trusted Third Party (TTP)?
+* With an online TTP this could have been easily done; but the aim is to avoid a costly, central infrastructure.
 * Without any form of TTP this would be impossible to achieve, although some approximate methods have been proposed.
 * What we use is an offline TTP:
 ** when nothing goes wrong the contract gets signed without arbitration of the TTP; this is the optimistic case.

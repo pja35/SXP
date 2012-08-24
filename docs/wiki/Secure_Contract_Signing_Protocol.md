@@ -25,10 +25,10 @@ What is meant by secure?
     a proof that the others were willing to sign the contract, which
     she aborted.
 
-Do we use a Trusted Third Party (TTP)?
+Does it rely on a Trusted Third Party (TTP)?
 
--   With an online TTP this can be easily done; but the aim is to avoid
-    a costly, central infrastructure.
+-   With an online TTP this could have been easily done; but the aim is
+    to avoid a costly, central infrastructure.
 -   Without any form of TTP this would be impossible to achieve,
     although some approximate methods have been proposed.
 -   What we use is an offline TTP:
