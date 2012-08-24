@@ -7,15 +7,14 @@ layout: wiki
 The Secure Contract Signing protocol of [SXP](/wiki/Main_Page "wikilink") is a
 [Protocol](/wiki/Protocols "wikilink").
 
-**Current status: It remains to be defined. It is the first important
-technical task ahead of us.**
+**Current status: The version 1 protocol is defined.**
 
-What should it do?
-------------------
+Aims of the protocol
+--------------------
 
-Allow several parties to sign a contract securely.
+To allow several parties to sign a contract securely.
 
-What do we mean by secure in this case?
+What do we mean by secure?
 
 -   *Fairness*. No party should be left having sent his signature on the
     contract; but not having received that of the other parties.
@@ -26,7 +25,7 @@ What do we mean by secure in this case?
     a proof that the others were willing to sign the contract, which
     she aborted.
 
-Are we going to demand a Trusted Third Party?
+Do we need a Trusted Third Party?
 
 -   With an online TTP this can be easily done; but this is costly
 -   Without any form of TTP this has to rely on progressive exchange
@@ -36,6 +35,55 @@ Which cryptographic primitive are we going to rely upon?
 
 -   Designated Verifiable Escrows
 -   Private Contract Signatures
+
+The Protocol
+------------
+
+Main\_i :
+
+` For k=1...n+2 :`  
+`    broadcast Prom_i(k)`  
+`    i awaits and checks until she forms Claim_i(k)`  
+`    failing that, Resolve_i(k) and _exit_ otherwise you may produce a DishonestClaim_i(k)!`
+
+Resolve\_i(k):
+
+` broadcast E_T(S_Pi(Claim_i(k-1)))`  
+` i gets either ResolveToken`  
+` or gets AbortToken`  
+` _exit_ otherwise you may produce a DishonestClaim_i(k)!`
+
+ResolveT:
+
+` Await and check S_Pi(Claim_i(k-1)).`  
+` % j was dishonest and i shows it`  
+` If PossiblyHonestClaims has some S_Pj(Claim_i(k')) with k'<k-2, then`  
+`    constitute DishonestClaim_j(k) into DishonestClaims, `  
+`    remove j from PossiblyHonestClaims`  
+`    broadcast HonestyToken`  
+`% i was dishonest and i shows it`  
+` If i is in PossiblyHonestClaims or DishonestClaims already, and if this is no duplicate, then`  
+`    constitute DishonestClaim_i(k) into DishonestClaims, `  
+`    remove i from PossiblyHonestClaims,`  
+`    optionally, broadcast HonestyToken `  
+`    exit.`  
+`%  i was dishonest and j shows it`  
+` If PossiblyHonestClaims or DishonestClaims has some S_Pj(Claim_i(k')) with k'>k, then`  
+`    constitute DishonestClaim_i(k) into DishonestClaims, `  
+`    remove i from PossiblyHonestClaims, `  
+`    optionally, broadcast HonestyToken`  
+`    exit.`  
+`% now the claim is possibly honest`  
+`% intial, claim with promises, wins`  
+` If (k>1 and PossiblyHonestsClaims is empty) or !optimistic, then`  
+`    set optimistic to false`  
+`    broadcast ResolveToken`  
+`    exit.`  
+`% initial, claim without nothing, triggers the piling up of all further possibly honest claims with promises, unless these get overturned`  
+` If (k==1 or PossiblyHonestsClaims is not empty) and optimistic, then`  
+`    add S_Pi(Claim_i(k-1)) to PossiblyHonestsClaims`  
+`    broadcast AbortToken`  
+`    exit.`
 
 Some related papers we must understand first
 --------------------------------------------
