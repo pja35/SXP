@@ -120,12 +120,12 @@ Why does the protocol accomplishes its aims?
 Security proofs of protocols can be rather tricky, and exist at various
 degrees of formalization. To understand why this protocol is as it is,
 we recommend that the reader goes through our reviews of the directly
-related bibliography, [here](#Directly_related_bibliography "wikilink")
-Armed with these intuitions, the reader can then go through the
-following proof outline.
+related bibliography,
+[here](#Directly_relevant_bibliography "wikilink"). Armed with these
+intuitions, the reader can then go through the following proof outline.
 
-First, here is how the security requirements impose themselves upon the
-TTP:
+**Proof outline.** First, here is how the security requirements impose
+themselves upon the TTP:
 
 -   At round 1&lt;=k&lt;=n+1 an honest player may send
     (1&lt;=k&lt;=n+1)-level promises but never get the other's back, and

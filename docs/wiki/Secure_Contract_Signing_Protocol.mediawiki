@@ -91,10 +91,10 @@ ResolveT:
 == Why does the protocol accomplishes its aims? ==
 
 Security proofs of protocols can be rather tricky, and exist at various degrees of formalization.
-To understand why this protocol is as it is, we recommend that the reader goes through our reviews of the directly related bibliography, [[#Directly related bibliography|here]]
+To understand why this protocol is as it is, we recommend that the reader goes through our reviews of the directly related bibliography, [[#Directly relevant bibliography|here]].
 Armed with these intuitions, the reader can then go through the following proof outline.
 
-First, here is how the security requirements impose themselves upon the TTP:
+'''Proof outline.''' First, here is how the security requirements impose themselves upon the TTP:
 * At round 1<=k<=n+1 an honest player may send (1<=k<=n+1)-level promises but never get the other's back, and so timeliness demands that he is able to either cancel his (j<=k)-level promises, or to get his complete set of (k-1)-level promises opened by the TTP. He does this by sending the TTP a resolve request with a complete set of (k-1)-level promi
 ses.
 * If the TTP initially gets contacted by a player with a resolve request showing a complete set of (k-1>0)-level promises, then it is fair and timely for him to accept to open everything from now on: we fall back into the non-optimistic case forever.
