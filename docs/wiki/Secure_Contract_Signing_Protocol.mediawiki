@@ -123,15 +123,15 @@ A great entry point to the topic of secure contract signing.
 
 [http://www.cs.bham.ac.uk/~mdr/research/papers/pdf/07-fc07.pdf Improved multi-party contract signing] by Mukhamedov, Ryan (2007). 
 '''Reviewed [[MukhamedovRyan|here]].'''
-Similar in terms of using PCS, in terms of proof structure, but not in terms of communications structure.
+A must read in terms of using PCS, and in terms of proof structure.
 
 [http://www.springerlink.com/content/ruf1079b2vgjmm1m/ Round-optimal and abuse-free optimistic multi-party contract signing] by Baum-Waidner, Waidner (2000).
-Comment on the usefulness of this paper to the project [[BaumwaidnerWaidner|here]]. 
-'''Done.''' P2P context. Abuse-free asynchronous multi-party optimistic contract signing. 
+'''Reviewed [[BaumwaidnerWaidner|here]].'''
+A must read in terms of proof structure and communication structure.
 
 [http://www.springerlink.com/content/evrjx3tdjgxj2pmp/ Abuse-free optimistic contract signing] by Garay, Jakobsson, MacKenzie (1999).
 Comment on the usefulness of this paper to the project [[GarayJakobssonMackenzie|here]]. 
-'''Recommended.''' Introduces Private Contract Signatures. 
+Introduces Private Contract Signatures.
 
 == Related bibliography ==
 
