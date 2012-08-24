@@ -12,13 +12,13 @@ What is meant by secure?
 * ''Abuse-freeness''. No party is not able produce to an external party a proof that the others were willing to sign the contract, which she aborted. 
 
 Does it rely on a Trusted Third Party (TTP)?
-* With an online TTP this could have been easily done; but the aim is to avoid a costly, central infrastructure.
-* Without any form of TTP this would be impossible to achieve, although some approximate methods have been proposed.
-* What we use is an offline TTP:
-** when nothing goes wrong the contract gets signed without arbitration of the TTP; this is the optimistic case.
-** when something goes wrong the TTP steps in and ensures that either everybody, or nobody gets the contract; this is the non-optimistic case.
+* With an online TTP this could have been easily done; but this protocol also aims at avoiding a costly, central infrastructure.
+* Without any form of TTP this would be impossible to achieve; some approximate methods exist, but do not seem that convincing.
+* The protocol relies upon an offline TTP:
+** when nothing goes wrong the contract gets signed without arbitration of the TTP. This is the optimistic case.
+** when something goes wrong, a claim is sent to the TTP, who then steps in to ensure that either everyone, or no one, gets the contract signed. This is the non-optimistic case.
 
-Which cryptographic primitive are we going to rely upon?
+Which cryptographic primitive does it rely upon?
 * Private Contract Signatures. These are based on the DSS cryptography assumption, and constructed via non-interactive zero-knowledge proofs constructions.
 
 == The Protocol ==
