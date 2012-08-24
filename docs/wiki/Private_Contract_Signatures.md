@@ -14,8 +14,8 @@ Diffie-Hellman](http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_a
 assumption.
 
 It was introduced in [Abuse-free optimistic contract
-signing](http://www.springerlink.com/content/evrjx3tdjgxj2pmp/) by
-Garay, Jakobsson, MacKenzie (1999). Comment on the usefulness of this
+signing](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.118.4142)
+by Garay, Jakobsson, MacKenzie (1999). Comment on the usefulness of this
 paper to the project [here](/wiki/GarayJakobssonMackenzie "wikilink").
 
 This page aims to give an outline of how they work, and how to implement
