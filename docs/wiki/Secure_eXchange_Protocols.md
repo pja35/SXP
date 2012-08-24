@@ -228,14 +228,18 @@ non-negociable part of this project.
 Status
 ------
 
-Mostly the project is at stage 1: we know the aims of this project.
+Mostly the project is at stage 1: we know the aims of this project. Some
+subtasks are more advanced, for instance:
+
+-   The design the [Secure Contract Signing
+    protocol](/wiki/Secure_Contract_Signing_Protocol "wikilink") is stage 4.
 
 The next tasks belong to stage 2, which is still very much a research
 stage. Here are some of the most obvious tasks:
 
--   design the [Secure Contract Signing
-    protocol](/wiki/Secure_Contract_Signing_Protocol "wikilink");
--   design how to describe [Contracts](/wiki/Contracts "wikilink").
+-   Understand [Private Contract
+    Signatures](/wiki/Private_Contract_Signatures "wikilink").
+-   Describe the XML format of [Contracts](/wiki/Contracts "wikilink").
 
 Methodology
 -----------
