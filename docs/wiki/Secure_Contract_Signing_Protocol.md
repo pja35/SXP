@@ -120,7 +120,9 @@ Why does the protocol accomplishes its aims?
 Security proofs of protocols can be rather tricky, and exist at various
 degrees of formalization. To understand why this protocol is as it is,
 we recommend that the reader goes through our reviews of the directly
-related bibliography,
+related bibliography, [here](#Directly_related_bibliography "wikilink")
+Armed with these intuitions, the reader can then go through the
+following proof outline.
 
 First, here is how the security requirements impose themselves upon the
 TTP:
