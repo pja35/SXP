@@ -51,6 +51,7 @@ Conventions
 
 ` c is the contract`  
 ` P1...Pn are the parties having to sign c`  
+` T is the TTP`  
 ` E_Pi(m) is P_i public key encryption on m`  
 ` S_Pi(m) is P_i's signature on m`  
 ` PCS_Pi(m,Pj,T)  is a private contract signature by party Pi for party Pj on message m than can be opened by T into S_Pi(m)`  
