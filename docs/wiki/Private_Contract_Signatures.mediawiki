@@ -1,0 +1,3 @@
+Private Contract Signatures are a cryptography primitive which we need for the [[Secure Contract Signing Protocol]].
+
+It was introduced in
