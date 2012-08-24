@@ -4,7 +4,6 @@
 
 Fast link: [[Private Contract Signatures | PCS]]
 
-
 ==In short==
 ''A project to create an open, ubiquitous, peer-to-peer, secure protocol suite for multi-party exchanges of contracts.''
 
