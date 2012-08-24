@@ -39,6 +39,26 @@ Which cryptographic primitive are we going to rely upon?
 The Protocol
 ------------
 
+Conventions
+
+` c is the contract`  
+` P1...Pn are the parties having to sign c`  
+` E_Pi(m) is P_i public key encryption on m`  
+` S_Pi(m) is P_i's signature on m`  
+` PCS_Pi(m,Pj,T)  is a private contract signature by party Pi for party Pj on message m than can be opened by T into S_Pi(m)`  
+` Prom_i(k) is (PCSPi(c,P1,T),...,PCS_Pi(c,Pn,T),PCS_Pi((c,k),P1,T),...,PCS_Pi((c,k),Pn,T))`  
+`    except for Prom_i(n+1) which is S_Pi(c)`  
+` Claim_i(k) is (PCS_P1(c,Pi,T),...,PCS_Pn(c,Pi,T),PCS_P1((c,k),Pi,T),...,PCS_Pn((c,k),Pi,T))`  
+`    except for Claim_i(0) which is "I wish to cancel c"`  
+`    and Claim_i(n+2) which is (S_P1(c),..,S_Pn(c))`  
+` PossiblyHonestClaims is a list of Claims maintainted by T`  
+` DishonestClaim_i(k) is either (Claim_i(k-1), Claim_j(k')) with k'>k, or (Claim_i(k-1), Claim_i(k')) with k'>k-1`  
+` PossiblyDishonestClaims is a list of DishonestClaims maintainted by T`  
+` HonestyToken is SP_T(PossiblyHonestClaims,DishonestClaims)`  
+` AbortToken is SP_T("Aborted unless all PossiblyHonestsClaims become DishonestClaims", HonestyToken)`  
+` ResolveToken is SP_T(Claim_i(n+2), HonestyToken)`  
+` optimistic is set to true`
+
 Main\_i :
 
 ` For k=1...n+2 :`  
