@@ -64,25 +64,25 @@ ResolveT:
      constitute DishonestClaim_j(k) into DishonestClaims, 
      remove j from PossiblyHonestClaims
      broadcast HonestyToken
- % i was dishonest and i shows it
+  % i was dishonest and i shows it
   If i is in PossiblyHonestClaims or DishonestClaims already, and if this is no duplicate, then
      constitute DishonestClaim_i(k) into DishonestClaims, 
      remove i from PossiblyHonestClaims,
      optionally, broadcast HonestyToken 
      exit.
- %  i was dishonest and j shows it
+  %  i was dishonest and j shows it
   If PossiblyHonestClaims or DishonestClaims has some S_Pj(Claim_i(k')) with k'>k, then
      constitute DishonestClaim_i(k) into DishonestClaims, 
      remove i from PossiblyHonestClaims, 
      optionally, broadcast HonestyToken
      exit.
- % now the claim is possibly honest
- % intial, claim with promises, wins
+  % now the claim is possibly honest
+  % intial, claim with promises, wins
   If (k>1 and PossiblyHonestsClaims is empty) or !optimistic, then
      set optimistic to false
      broadcast ResolveToken
      exit.
- % initial, claim without nothing, triggers the piling up of all further possibly honest claims with promises, unless these get overturned
+  % initial, claim without nothing, triggers the piling up of all further possibly honest claims with promises, unless these get overturned
   If (k==1 or PossiblyHonestsClaims is not empty) and optimistic, then
      add S_Pi(Claim_i(k-1)) to PossiblyHonestsClaims
      broadcast AbortToken
