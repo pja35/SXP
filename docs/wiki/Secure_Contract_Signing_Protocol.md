@@ -40,9 +40,10 @@ Does it rely on a Trusted Third Party (TTP)?
 
 Which cryptographic primitive does it rely upon?
 
--   Private Contract Signatures.
--   Constructed via non-interactive zero-knowledge proofs constructions.
--   Based upon the [Decisional
+-   [Private Contract
+    Signatures](/wiki/Private_Contract_Signatures "wikilink").
+-   Those are constructed via non-interactive zero-knowledge proofs
+    constructions, and based upon the [Decisional
     Diffie-Hellman](http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption) assumption.
 
 The Protocol
