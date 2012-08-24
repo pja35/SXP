@@ -218,12 +218,6 @@ Baum-Waidner, Waidner (2000). **Reviewed
 [here](/wiki/BaumwaidnerWaidner "wikilink").** A must read in terms of proof
 structure and communication structure.
 
-[Abuse-free optimistic contract
-signing](http://www.springerlink.com/content/evrjx3tdjgxj2pmp/) by
-Garay, Jakobsson, MacKenzie (1999). Comment on the usefulness of this
-paper to the project [here](/wiki/GarayJakobssonMackenzie "wikilink").
-Introduces Private Contract Signatures.
-
 Related bibliography
 --------------------
 

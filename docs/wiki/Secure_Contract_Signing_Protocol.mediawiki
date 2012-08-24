@@ -130,10 +130,6 @@ A must read in terms of using PCS, and in terms of proof structure.
 '''Reviewed [[BaumwaidnerWaidner|here]].'''
 A must read in terms of proof structure and communication structure.
 
-[http://www.springerlink.com/content/evrjx3tdjgxj2pmp/ Abuse-free optimistic contract signing] by Garay, Jakobsson, MacKenzie (1999).
-Comment on the usefulness of this paper to the project [[GarayJakobssonMackenzie|here]]. 
-Introduces Private Contract Signatures.
-
 == Related bibliography ==
 
 [http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=5381051 An Optimistic Fair Protocol for Aggregate Exchange] by Liu (2009).
