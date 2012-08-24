@@ -224,10 +224,7 @@ The foreseen stages of the project are:
 Status
 ------
 
-The project is at the end of stage 1: we know just the aims of this
-project. The initiators' main role is to ensure that these original aims
-will not be altered in the course of the project. Stage 1 is the only
-non-negociable part of this project.
+Mostly the project is at stage 1: we know the aims of this project.
 
 The next tasks belong to stage 2, which is still very much a research
 stage. Here are some of the most obvious tasks:
