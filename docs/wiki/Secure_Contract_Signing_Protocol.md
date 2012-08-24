@@ -9,12 +9,12 @@ The Secure Contract Signing protocol of [SXP](/wiki/Main_Page "wikilink") is a
 
 **Current status: The version 1 protocol is defined.**
 
-Aims of the protocol
---------------------
+Aims of this protocol
+---------------------
 
 To allow several parties to sign a contract securely.
 
-What do we mean by secure?
+What is meant by secure?
 
 -   *Fairness*. No party should be left having sent his signature on the
     contract; but not having received that of the other parties.
@@ -25,16 +25,24 @@ What do we mean by secure?
     a proof that the others were willing to sign the contract, which
     she aborted.
 
-Do we need a Trusted Third Party?
+Do we use a Trusted Third Party (TTP)?
 
--   With an online TTP this can be easily done; but this is costly
--   Without any form of TTP this has to rely on progressive exchange
--   There are solutions to invoke the TTP only when things go wrong.
+-   With an online TTP this can be easily done; but the aim is to avoid
+    a costly, central infrastructure.
+-   Without any form of TTP this would be impossible to achieve,
+    although some approximate methods have been proposed.
+-   What we use is an offline TTP:
+    -   when nothing goes wrong the contract gets signed without
+        arbitration of the TTP; this is the optimistic case.
+    -   when something goes wrong the TTP steps in and ensures that
+        either everybody, or nobody gets the contract; this is the
+        non-optimistic case.
 
 Which cryptographic primitive are we going to rely upon?
 
--   Designated Verifiable Escrows
--   Private Contract Signatures
+-   Private Contract Signatures. These are based on the DSS cryptography
+    assumption, and constructed via non-interactive zero-knowledge
+    proofs constructions.
 
 The Protocol
 ------------
