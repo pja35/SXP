@@ -8,6 +8,8 @@ layout: wiki
 
 *(Project launched: 24th of April 2012.)*
 
+Fast link: [ PCS](/wiki/Private_Contract_Signatures "wikilink")
+
 In short
 --------
 
