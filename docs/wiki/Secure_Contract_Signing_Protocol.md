@@ -113,6 +113,9 @@ ResolveT:
 `    broadcast AbortToken`  
 `    exit.`
 
+Why does the protocol accomplishes its aims?
+--------------------------------------------
+
 Some related papers we must understand first
 --------------------------------------------
 
