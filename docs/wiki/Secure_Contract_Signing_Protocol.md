@@ -42,7 +42,8 @@ Which cryptographic primitive does it rely upon?
 
 -   Private Contract Signatures.
 -   Constructed via non-interactive zero-knowledge proofs constructions.
--   Based upon the DSS cryptography assumption.
+-   Based upon the [Decisional
+    Diffie-Hellman](http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption) assumption.
 
 The Protocol
 ------------
