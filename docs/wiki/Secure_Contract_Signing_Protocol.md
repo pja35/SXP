@@ -117,6 +117,11 @@ ResolveT:
 Why does the protocol accomplishes its aims?
 --------------------------------------------
 
+Security proofs of protocols can be rather tricky, and exist at various
+degrees of formalization. To understand why this protocol is as it is,
+we recommend that the reader goes through our reviews of the directly
+related bibliography,
+
 First, here is how the security requirements impose themselves upon the
 TTP:
 
