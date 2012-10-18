@@ -12,6 +12,8 @@ tags:
     Negroponte](http://www.informationweek.com/news/global-cio/showArticle.jhtml?articleID=49901099)
 -   [Charles
     Crawford](http://www.thecommentator.com/article/1711/whatever_happened_to_honest_money_/page/2)
+-   [Jean-Michel
+    Cornu](http://www.franceculture.fr/emission-place-de-la-toile-monnaies-et-numerique-2012-07-07)
 
 #### Proposals
 
