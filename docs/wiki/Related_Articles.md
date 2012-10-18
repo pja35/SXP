@@ -10,6 +10,8 @@ tags:
 
 -   [Nicholas
     Negroponte](http://www.informationweek.com/news/global-cio/showArticle.jhtml?articleID=49901099)
+-   [Charles
+    Crawford](http://www.thecommentator.com/article/1711/whatever_happened_to_honest_money_/page/2)
 
 #### Proposals
 
