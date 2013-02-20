@@ -10,7 +10,6 @@ Actually, they may already exist. A bibliography of existing XML formats for des
 
 * Legal XML eContracts Standard. It is an XML schema for describing the generic structure of a wide range of contract documents. 
 
-
 == References ==
 
 * [http://www.fpml.org FPML].
