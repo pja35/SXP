@@ -12,8 +12,9 @@ Actually, they may already exist. A bibliography of existing XML formats for des
 
 == References ==
 
-* [http://www.fpml.org FPML].
 
 * [http://www.exbmlml.org exBML].
+
+* [http://www.fpml.org FPML].
 
 * [https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=legalxml-econtracts OASIS Legal XML eContracts Technical Committee]

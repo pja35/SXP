@@ -30,11 +30,11 @@ Related Frameworks
 References
 ----------
 
--   [FPML](http://www.fpml.org).
+-   [exBML](http://www.exbmlml.org).
 
 <!-- -->
 
--   [exBML](http://www.exbmlml.org).
+-   [FPML](http://www.fpml.org).
 
 <!-- -->
 
