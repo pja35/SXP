@@ -13,7 +13,7 @@ Actually, they may already exist. A bibliography of existing XML formats for des
 == References ==
 
 
-* [http://www.exbmlml.org exBML].
+* [http://www.exbml.org exBML].
 
 * [http://www.fpml.org FPML].
 

@@ -30,7 +30,7 @@ Related Frameworks
 References
 ----------
 
--   [exBML](http://www.exbmlml.org).
+-   [exBML](http://www.exbml.org).
 
 <!-- -->
 
