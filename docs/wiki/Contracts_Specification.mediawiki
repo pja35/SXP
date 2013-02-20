@@ -2,6 +2,19 @@ These specifications will be done in [[XML]].
 
 Actually, they may already exist. A bibliography of existing XML formats for describing the possible terms of an electronic [[Contracts|contract]]... is the first thing we need.
 
+== Related Frameworks ==
+
+* Electronic Business using eXtensible Markup Language (ebXML). ebXML is a family of XML standards that provides an infrastructure for electronic bussiness.
+
+* Financial Product Markup Language (FpML). FpML is a XML standard for describing OTC derivatives.
+
+* Legal XML eContracts Standard. It is an XML schema for describing the generic structure of a wide range of contract documents. 
+
+
 == References ==
 
-* A similar framework is the Financial Product Markup Language [http://www.fpml.org FPML].
+* [http://www.fpml.org FPML].
+
+* [http://www.exbmlml.org exBML].
+
+* [https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=legalxml-econtracts OASIS Legal XML eContracts Technical Committee]
