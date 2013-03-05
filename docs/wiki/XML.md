@@ -59,6 +59,6 @@ In the example, *note* is an element and *id* is an attribute.
 
 Here are the obvious pages about XML:
 
--   [XML on Wikipedia](http://en.wikipedia.org/wiki/XML "wikilink")
--   ...
+-   [on Wikipedia](http://en.wikipedia.org/wiki/XML%7CXML)
+-   [XML tutorial at w3schools](http://www.w3schools.com/xml/)
 
