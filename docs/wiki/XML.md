@@ -43,16 +43,19 @@ Basic Structure
 
 Here is an example of an .xml file:
 
-``` xml
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<note id=“1245”>
-     <to>Tove</to>
-     <from>Jani</from> 
-     <heading>Reminder</heading>
-     <body>Don't forget me this weekend!</body>
-</note>
-```
+�
 
+<note id=“1245”>
+�  <to>Tove</to>�  <from>Jani</from>�  <heading>Reminder</heading>� 
+
+<body>
+Don't forget me this weekend!
+
+</body>
+�
+
+</note>
 In the example, *note* is an element and *id* is an attribute.
 
 Here are the obvious pages about XML:
