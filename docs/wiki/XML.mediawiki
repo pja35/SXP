@@ -17,15 +17,15 @@ XML is not particularly elegant, but it has become a standard. As a consequence:
 *'''Attributes'''. An attribute is some extra information, provided at the start tag in quotation marks. They are intended to be metadata (data about data).
 
 Here is an example of an .xml file:
-
-<?xml version="1.0" encoding="ISO-8859-1"?>�
+<source lang="xml">
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <note id=“1245”>
      <to>Tove</to>
-   �  <from>Jani</from>� 
+     <from>Jani</from> 
      <heading>Reminder</heading>
-   �  <body>Don't forget me this weekend!</body>
-�</note>
-
+     <body>Don't forget me this weekend!</body>
+</note>
+</source>
 In the example, ''note'' is an element and ''id'' is an attribute.
 
 Here are the obvious pages about XML:
