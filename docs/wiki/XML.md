@@ -47,7 +47,7 @@ Here is an example of an .xml file:
 �
 
 <note id=“1245”>
-�  <to>Tove</to>�  <from>Jani</from>�  <heading>Reminder</heading>� 
+� <to>Tove</to>� <from>Jani</from> <heading>Reminder</heading>
 
 <body>
 Don't forget me this weekend!
