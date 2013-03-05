@@ -18,7 +18,13 @@ XML is not particularly elegant, but it has become a standard. As a consequence:
 
 Here is an example of an .xml file:
 
-<?xml version="1.0" encoding="ISO-8859-1"?><note id=“1245”><to>Tove</to><from>Jani</from><heading>Reminder</heading> <body>Don't forget me this weekend!</body></note>
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<note id=“1245”>
+<to>Tove</to>
+<from>Jani</from>
+<heading>Reminder</heading>
+<body>Don't forget me this weekend!</body>
+</note>
 
 In the example, ''note'' is an element and ''id'' is an attribute.
 
