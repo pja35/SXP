@@ -17,6 +17,7 @@ XML is not particularly elegant, but it has become a standard. As a consequence:
 *'''Attributes'''. An attribute is some extra information, provided at the start tag in quotation marks. They are intended to be metadata (data about data).
 
 Here is an example of an .xml file:
+
 <source lang="xml">
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <note id=“1245”>
