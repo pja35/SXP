@@ -63,7 +63,7 @@ Defining XML structures
 In XML, it is possible to define structures. Then, we can verify if a
 given xml file matches with this structure. For example, we can define a
 *Contract* and verify that a given file created by a user has a valid
-structure, according to the file that we defined before. We call this
+structure, according to the file that we have defined. We call this
 proccess *Validation*.
 
 This definitions are made in external files. There are different
