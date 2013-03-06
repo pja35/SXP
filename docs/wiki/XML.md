@@ -57,6 +57,25 @@ Don't forget me this weekend!
 </note>
 In the example, *note* is an element and *id* is an attribute.
 
+Defining XML structures
+-----------------------
+
+In XML, it is possible to define structures. Then, we can verify if a
+given xml file matches with this structure. For example, we can define a
+structure called *Contract* and verify that a given file created by a
+user has a valid structure, according to the file that we defined
+before. We call this proccess *Validation*.
+
+This definitions are made in external files. There are different
+documents to accomplish that:
+
+-   DTD (Document Type Definition).
+-   XSD (XML Schemas). Schemas are the most used way to the define a
+    XML structure.
+
+More content of XML
+-------------------
+
 Here are the obvious pages about XML:
 
 -   [on Wikipedia](http://en.wikipedia.org/wiki/XML%7CXML)
