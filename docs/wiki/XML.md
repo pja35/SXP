@@ -73,6 +73,20 @@ documents to accomplish that:
 -   XSD (XML Schemas). Schemas are the most used way to the define a
     XML structure.
 
+Normalization organisms
+-----------------------
+
+There are many organisms that define protocols, schemas based on XML.
+Here there are some of the most importants:
+
+-   W3C. International consortium that produces standards for the world
+    wide web. They defined XML specifiacation in the first place.
+-   ISO. Organization that promotes worldwide proprietary, industrial,
+    and commercial standards.
+-   OASIS. Global consortium that drives the development, convergence,
+    and adoption of e-business and web service standards.
+-   IANA.
+
 More content of XML
 -------------------
 
