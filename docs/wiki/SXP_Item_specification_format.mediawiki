@@ -5,7 +5,7 @@ Actually, they may already exist. A bibliography of existing XML formats for des
 ==Related Frameworks==
 There are some XML schemas for defining products in the most known e-commerce websites:
 
-*Amazon.com
+*Amazon
 *Google Shopping
 
 ==External links==

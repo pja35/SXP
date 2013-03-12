@@ -16,7 +16,7 @@ Related Frameworks
 There are some XML schemas for defining products in the most known
 e-commerce websites:
 
--   Amazon.com
+-   Amazon
 -   Google Shopping
 
 External links
