@@ -72,6 +72,7 @@ documents to accomplish that:
 -   DTD (Document Type Definition).
 -   XSD (XML Schemas). Schemas are the most used way to the define a
     XML structure.
+-   Relax NG files.
 
 Normalization organisms
 -----------------------
