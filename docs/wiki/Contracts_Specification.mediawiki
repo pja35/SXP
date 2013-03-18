@@ -6,7 +6,7 @@ Actually, they may already exist. A bibliography of existing XML formats for des
 
 * Electronic Business using eXtensible Markup Language (ebXML). ebXML is a family of XML standards that provides an infrastructure for electronic bussiness.
 
-In ebXML, contracts are not defined in a single document: instead of that, the trading partners may form a contract by exchanging requesting documents constituting ''binding offers'', and responding documents constituting ''binding acceptances'', resulting in a demonstrably successful or failed negotiation of the business terms proposed in the offer.
+In ebXML, contracts are not defined in a single document - instead , the trading partners may form a contract by exchanging requesting documents constituting ''binding offers'', and responding documents constituting ''binding acceptances'', resulting in a demonstrably successful or failed negotiation of the business terms proposed in the offer.
 
 For more information, read the [http://www.ine.es/nomen2/index.do E-Commerce Patterns v1.0] Technichal Report, from the ebXML specification.
 
