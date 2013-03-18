@@ -39,7 +39,8 @@ ebXML specification.
 References
 ----------
 
--   [ebXML.org](http://www.ebxml.org).
+-   [ebXML.org](http://www.ebxml.org). The description of the standard
+    is under *Specification*
 
 <!-- -->
 
