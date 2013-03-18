@@ -22,7 +22,11 @@ that, the trading partners may form a contract by exchanging requesting
 documents constituting *binding offers*, and responding documents
 constituting *binding acceptances*, resulting in a demonstrably
 successful or failed negotiation of the business terms proposed in the
-offer.[1]
+offer.
+
+For more information, read the [E-Commerce Patterns
+v1.0](http://www.ine.es/nomen2/index.do) Technichal Report, from the
+ebXML specification.
 
 -   Financial Product Markup Language (FpML). FpML is a XML standard for
     describing OTC derivatives.
@@ -46,5 +50,3 @@ References
 -   [OASIS Legal XML eContracts Technical
     Committee](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=legalxml-econtracts)
 
-[1] [E-Commerce Patterns v1.0, technichal report from the ebXML
-specification (ebxml.org/specs)](http://www.ine.es/nomen2/index.do)
