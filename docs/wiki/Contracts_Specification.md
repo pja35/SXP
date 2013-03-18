@@ -39,7 +39,7 @@ ebXML specification.
 References
 ----------
 
--   [ebXML](http://www.ebxml.org).
+-   [ebXML.org](http://www.ebxml.org).
 
 <!-- -->
 

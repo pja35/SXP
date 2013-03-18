@@ -18,7 +18,7 @@ For more information, read the [http://www.ine.es/nomen2/index.do E-Commerce Pat
 == References ==
 
 
-* [http://www.ebxml.org ebXML].
+* [http://www.ebxml.org ebXML.org].
 
 * [http://www.fpml.org FPML].
 
