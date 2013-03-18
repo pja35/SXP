@@ -17,12 +17,11 @@ Existing XML standards for describing contracts
     is a family of XML standards that provides an infrastructure for
     electronic bussiness.
 
-In ebXML, contracts are not defined in a single document -- instead ,
-the trading partners may form a contract by exchanging requesting
-documents constituting *binding offers*, and responding documents
-constituting *binding acceptances*, resulting in a demonstrably
-successful or failed negotiation of the business terms proposed in the
-offer.
+In ebXML, contracts are not defined in a single document — instead , the
+trading partners may form a contract by exchanging requesting documents
+constituting *binding offers*, and responding documents constituting
+*binding acceptances*, resulting in a demonstrably successful or failed
+negotiation of the business terms proposed in the offer.
 
 For more information, read the [E-Commerce Patterns
 v1.0](http://www.ine.es/nomen2/index.do) Technichal Report, from the
