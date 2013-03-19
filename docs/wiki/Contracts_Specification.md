@@ -30,8 +30,9 @@ More detailed description at the [eContracts Specification
 1.0](http://docs.oasis-open.org/legalxml-econtracts/CS01/legalxml-econtracts-specification-1.0.pdf).
 
 -   **Electronic Business using eXtensible Markup Language (ebXML).**
-    ebXML is a family of XML standards that provides an infrastructure
-    for electronic bussiness.
+
+ebXML is a family of XML standards that provides an infrastructure for
+electronic bussiness. It is also developed by OASIS.
 
 In ebXML, contracts are not defined in a single document — instead , the
 trading partners may form a contract by exchanging requesting documents
@@ -46,6 +47,11 @@ ebXML specification.
 -   **Financial Product Markup Language (FpML).**
 
 FpML is a XML standard for describing OTC derivatives.
+
+-   **eLEGAL.**
+
+eLEGAL defines a framework for legal conditions and contracts regarding
+the use of ICT in project business.
 
 Further reading
 ---------------
