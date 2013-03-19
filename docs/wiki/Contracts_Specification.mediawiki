@@ -26,9 +26,7 @@ eLEGAL defines a framework for legal conditions and contracts regarding the use 
 
 == Adopting an XML standard for SXP ==
 
-As said above, the current version of SXP Contract Specification is an extension of Legal XML Contract.
-
-The reason is that this standard is more flexible and allows us to define contracts forcing the user to fill out the obligatory clauses, while he can add more clauses if necessary.
+As said above, the current version of SXP Contract Specification is an extension of Legal XML Contract. The reason is that this standard is more flexible and allows us to define contracts forcing the user to fill out the obligatory clauses, while he can add more clauses if necessary.
 
 Trying to use the ebXML definitions of contract could be less suitable, unless we adopted the whole ebXML specification for the interchange. Still, ebXML specification is intended to be used in normal buy/sell actions, not interchanges as we want in SXP.
 

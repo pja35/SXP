@@ -57,11 +57,9 @@ Adopting an XML standard for SXP
 --------------------------------
 
 As said above, the current version of SXP Contract Specification is an
-extension of Legal XML Contract.
-
-The reason is that this standard is more flexible and allows us to
-define contracts forcing the user to fill out the obligatory clauses,
-while he can add more clauses if necessary.
+extension of Legal XML Contract. The reason is that this standard is
+more flexible and allows us to define contracts forcing the user to fill
+out the obligatory clauses, while he can add more clauses if necessary.
 
 Trying to use the ebXML definitions of contract could be less suitable,
 unless we adopted the whole ebXML specification for the interchange.
