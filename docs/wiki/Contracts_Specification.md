@@ -13,6 +13,20 @@ for describing the possible terms of an electronic
 Existing XML standards for describing contracts
 -----------------------------------------------
 
+-   **Legal XML eContracts (OASIS Standard).**
+
+Legal XML is an XML schema for describing the generic structure of a
+wide range of contract documents.
+
+This standard uses basic building blocks called *items*, for the
+description of the classical notions of clauses or sections. It also
+uses blocks called *party*, *date*, *party-signature*. Then it encloses
+these informations under the tags *contract-front*, *body* and *back*,
+emulating the structure of a real paper-based contract.
+
+More detailed description at the [eContracts Specification
+1.0](http://docs.oasis-open.org/legalxml-econtracts/CS01/legalxml-econtracts-specification-1.0.pdf).
+
 -   **Electronic Business using eXtensible Markup Language (ebXML).**
     ebXML is a family of XML standards that provides an infrastructure
     for electronic bussiness.
@@ -30,20 +44,6 @@ ebXML specification.
 -   **Financial Product Markup Language (FpML).**
 
 FpML is a XML standard for describing OTC derivatives.
-
--   **Legal XML eContracts (OASIS Standard).**
-
-Legal XML is an XML schema for describing the generic structure of a
-wide range of contract documents.
-
-This standard uses basic building blocks called *items*, for the
-description of the classical notions of clauses or sections. It also
-uses blocks called *party*, *date*, *party-signature*. Then it encloses
-these informations under the tags *contract-front*, *body* and *back*,
-emulating the structure of a real paper-based contract.
-
-More detailed description at the [eContracts Specification
-1.0](http://docs.oasis-open.org/legalxml-econtracts/CS01/legalxml-econtracts-specification-1.0.pdf).
 
 References
 ----------
