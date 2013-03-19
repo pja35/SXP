@@ -108,7 +108,7 @@ In this example, we have two parties (Alice and Bob) exchanging objects
 SXP Contract Schema
 -------------------
 
-For validating SXP contracts, users must[download the SXP Contract
+For validating SXP contracts, users must [download the SXP Contract
 Schema](https://docs.google.com/file/d/0B4JKZAq0izyxTFl4b0dZX1FXRUk/edit?usp=sharing)
 and the Legal XML eContracts Schema from the [OASIS LegalXML eContracts
 Technichal committee
