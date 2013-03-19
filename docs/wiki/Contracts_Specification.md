@@ -38,8 +38,8 @@ wide range of contract documents.
 
 This standard uses basic building blocks called *items*, for the
 description of the classical notions of clauses or sections. It also
-uses blocks called *party*,*date*,*party-signature*. Then it encloses
-these informations under the tags *contract-front*,*body* and *back*,
+uses blocks called *party*, *date*, *party-signature*. Then it encloses
+these informations under the tags *contract-front*, *body* and *back*,
 emulating the structure of a real paper-based contract.
 
 More detailed description at the [eContracts Specification
