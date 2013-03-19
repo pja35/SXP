@@ -74,10 +74,13 @@ External links
 
 <!-- -->
 
--   [ebXML.org](http://www.ebxml.org). The description of the standard
-    is under *Specification*
+-   [ebXML.org](http://www.ebxml.org).
 
 <!-- -->
 
 -   [FPML](http://www.fpml.org).
+
+<!-- -->
+
+-   [eLEGAL](http://cic.vtt.fi/projects/elegal/public.html).
 

@@ -34,6 +34,8 @@ eLEGAL defines a framework for legal conditions and contracts regarding the use 
 
 * [https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=legalxml-econtracts OASIS Legal XML eContracts Technical Committee]
 
-* [http://www.ebxml.org ebXML.org]. The description of the standard is under ''Specification''
+* [http://www.ebxml.org ebXML.org].
 
 * [http://www.fpml.org FPML].
+
+*[http://cic.vtt.fi/projects/elegal/public.html eLEGAL].
