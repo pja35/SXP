@@ -24,6 +24,31 @@ FpML is a XML standard for describing OTC derivatives.
 *'''eLEGAL.'''
 eLEGAL defines a framework for legal conditions and contracts regarding the use of ICT in project business.
 
+== Adopting an XML standard for SXP ==
+
+As said above, the current version of SXP Contract Specification is an extension of Legal XML Contract.
+
+The reason is that this standard is more flexible and allows us to define contracts forcing the user to fill out the obligatory clauses, while he/she can add more clauses if necessary.
+
+== Obligatory clauses ==
+
+These are the clauses that must be obligatory in our SXP Contract definition:
+*Breach clause. A clause that specifies what happens in case of one party doesn't accomplish the contract. It should include the procedure in this case: 
+** the person responsible
+** the legal authority
+** the party that should claim the authority
+
+*Objects clause. A reference to the objects that will be exchanged. This reference will be done under the [[Items Specification]]. 
+
+*Delivery clause.
+** the person who will pay the delivery of the objects
+** when he will do it
+
+*VAT clause. Information about the value-added taxes involved in the exchange.
+** the amount
+** the authority who will receive the taxes
+** the parties responsibles of paying
+
 == Further reading ==
 
 *[http://lawdigitalcommons.bc.edu/cgi/viewcontent.cgi?article=1139&context=lsfp Language, Deals and Standards: The Future of XML Contracts ]  [Cunningham 2006]
