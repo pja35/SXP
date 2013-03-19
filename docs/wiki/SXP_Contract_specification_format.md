@@ -104,3 +104,13 @@ In this example, we have two parties (Alice and Bob) exchanging objects
 
 </body>
 `  `</contract>
+
+SXP Contract Schema
+-------------------
+
+For validating SXP contracts, users must[download the SXP Contract
+Schema](https://docs.google.com/file/d/0B4JKZAq0izyxTFl4b0dZX1FXRUk/edit?usp=sharing)
+and the Legal XML eContracts Schema from the [OASIS LegalXML eContracts
+Technichal committee
+website](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=legalxml-econtracts).
+Then, contracts can be validated using a XML validator.

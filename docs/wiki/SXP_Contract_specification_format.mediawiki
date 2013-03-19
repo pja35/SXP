@@ -67,3 +67,8 @@ In this example, we have two parties (Alice and Bob) exchanging objects (a violi
    </body>
    
    </contract>
+
+
+== SXP Contract Schema==
+
+For validating SXP contracts, users must[https://docs.google.com/file/d/0B4JKZAq0izyxTFl4b0dZX1FXRUk/edit?usp=sharing download the SXP Contract Schema] and the Legal XML eContracts Schema from the [https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=legalxml-econtracts OASIS LegalXML eContracts Technichal committee website]. Then, contracts can be validated using a XML validator.
