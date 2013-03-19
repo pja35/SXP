@@ -75,8 +75,6 @@ In this example, we have two parties (Alice and Bob) exchanging objects
 `  `<date-block>  
 `  `<date>` 20-02-2013`</date>  
 `  `</date-block>  
-`  `  
-`  `  
 `  `<parties>  
 `  `<party>`Alice`</party>  
 `  `<party>`Bob`</party>  
