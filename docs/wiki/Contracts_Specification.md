@@ -66,39 +66,6 @@ unless we adopted the whole ebXML specification for the interchange.
 Still, ebXML specification is intended to be used in normal buy/sell
 actions, not interchanges as we want in SXP.
 
-Obligatory clauses
-------------------
-
-These are the clauses that must be obligatory in our SXP Contract
-definition:
-
--   Breach clause. A clause that specifies what happens in case of one
-    party doesn't accomplish the contract. It should include the
-    procedure in this case:
-    -   the person responsible
-    -   the legal authority
-    -   the party that should claim the authority
-
-<!-- -->
-
--   Objects clause. A reference to the objects that will be exchanged.
-    This reference will be done under the [Items
-    Specification](/wiki/Items_Specification "wikilink").
-
-<!-- -->
-
--   Delivery clause.
-    -   the person who will pay the delivery of the objects
-    -   when he will do it
-
-<!-- -->
-
--   VAT clause. Information about the value-added taxes involved in
-    the exchange.
-    -   the amount
-    -   the authority who will receive the taxes
-    -   the parties responsibles of paying
-
 Further reading
 ---------------
 
