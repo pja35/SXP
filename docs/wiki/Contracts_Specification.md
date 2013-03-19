@@ -61,7 +61,12 @@ extension of Legal XML Contract.
 
 The reason is that this standard is more flexible and allows us to
 define contracts forcing the user to fill out the obligatory clauses,
-while he/she can add more clauses if necessary.
+while he can add more clauses if necessary.
+
+Trying to use the ebXML definitions of contract could be less suitable,
+unless we adopted the whole ebXML specification for the interchange.
+Still, ebXML specification is intended to be used in normal buy/sell
+actions, not interchanges as we want in SXP.
 
 Obligatory clauses
 ------------------
