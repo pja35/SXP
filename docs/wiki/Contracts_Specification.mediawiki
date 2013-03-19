@@ -28,8 +28,8 @@ FpML is a XML standard for describing OTC derivatives.
 
 == External links ==
 
+* [https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=legalxml-econtracts OASIS Legal XML eContracts Technical Committee]
+
 * [http://www.ebxml.org ebXML.org]. The description of the standard is under ''Specification''
 
 * [http://www.fpml.org FPML].
-
-* [https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=legalxml-econtracts OASIS Legal XML eContracts Technical Committee]

@@ -63,15 +63,15 @@ Further reading
 External links
 --------------
 
+-   [OASIS Legal XML eContracts Technical
+    Committee](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=legalxml-econtracts)
+
+<!-- -->
+
 -   [ebXML.org](http://www.ebxml.org). The description of the standard
     is under *Specification*
 
 <!-- -->
 
 -   [FPML](http://www.fpml.org).
-
-<!-- -->
-
--   [OASIS Legal XML eContracts Technical
-    Committee](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=legalxml-econtracts)
 
