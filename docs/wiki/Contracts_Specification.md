@@ -4,11 +4,13 @@ permalink: wiki/Contracts_Specification/
 layout: wiki
 ---
 
-These specifications will be done in [XML](/wiki/XML "wikilink").
+The goal of these specifications is to define the possible terms of a
+[contract](/wiki/Contracts "wikilink") using an [XML](XML "wikilink") schema
 
-Actually, they may already exist. A bibliography of existing XML formats
-for describing the possible terms of an electronic
-[contract](/wiki/Contracts "wikilink")... is the first thing we need.
+Currently, the [SXP Contract Specification](/wiki/SXP_Contract "wikilink") is
+based in Legal XML eContracts (see below). This page is for presenting
+the different XML existing formats and discussing the problematic
+associated to the specification of contracts.
 
 Existing XML standards for describing contracts
 -----------------------------------------------
