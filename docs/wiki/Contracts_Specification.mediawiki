@@ -15,11 +15,10 @@ More detailed description at the [http://docs.oasis-open.org/legalxml-econtracts
 
 In ebXML, contracts are not defined in a single document — instead , the trading partners may form a contract by exchanging requesting documents constituting ''binding offers'', and responding documents constituting ''binding acceptances'', resulting in a demonstrably successful or failed negotiation of the business terms proposed in the offer.
 
-For more information, read the [http://www.ine.es/nomen2/index.do E-Commerce Patterns v1.0] Technichal Report, from the ebXML specification.
+For more information, read the [http://ebxml.org/specs/bpPATT.pdf E-Commerce Patterns v1.0] Technichal Report, from the ebXML specification.
 
 * '''Financial Product Markup Language (FpML).'''
 FpML is a XML standard for describing OTC derivatives.
-
 
 == References ==
 
