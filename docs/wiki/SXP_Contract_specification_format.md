@@ -98,8 +98,8 @@ In this example, we have two parties (Alice and Bob) exchanging objects
 `  `<vatClause>  
 `  `<party>` Alice `</party>  
 `  `<amount>` 1.40€ `</amount>  
-`  `</vatClause>  
 `  `<authority>` France Revenue Service `</authority>  
+`  `</vatClause>  
 `  `
 
 </body>
