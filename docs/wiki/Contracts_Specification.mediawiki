@@ -20,8 +20,13 @@ For more information, read the [http://ebxml.org/specs/bpPATT.pdf E-Commerce Pat
 * '''Financial Product Markup Language (FpML).'''
 FpML is a XML standard for describing OTC derivatives.
 
-== References ==
+== Further reading ==
 
+*[http://lawdigitalcommons.bc.edu/cgi/viewcontent.cgi?article=1139&context=lsfp Language, Deals and Standards: The Future of XML Contracts [Cunningham 2006]]
+
+*[http://www.adaptivity.nl/articles/E-contracting.pdf E-contracting Challenges [Xu, de Vrieze]]
+
+== External links ==
 
 * [http://www.ebxml.org ebXML.org]. The description of the standard is under ''Specification''
 

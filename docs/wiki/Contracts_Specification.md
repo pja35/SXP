@@ -47,8 +47,20 @@ ebXML specification.
 
 FpML is a XML standard for describing OTC derivatives.
 
-References
-----------
+Further reading
+---------------
+
+-   [Language, Deals and Standards: The Future of XML Contracts
+    \[Cunningham
+    2006](http://lawdigitalcommons.bc.edu/cgi/viewcontent.cgi?article=1139&context=lsfp)\]
+
+<!-- -->
+
+-   [E-contracting Challenges \[Xu, de
+    Vrieze](http://www.adaptivity.nl/articles/E-contracting.pdf)\]
+
+External links
+--------------
 
 -   [ebXML.org](http://www.ebxml.org). The description of the standard
     is under *Specification*
