@@ -22,9 +22,9 @@ FpML is a XML standard for describing OTC derivatives.
 
 == Further reading ==
 
-*[http://lawdigitalcommons.bc.edu/cgi/viewcontent.cgi?article=1139&context=lsfp Language, Deals and Standards: The Future of XML Contracts [Cunningham 2006]]
+*[http://lawdigitalcommons.bc.edu/cgi/viewcontent.cgi?article=1139&context=lsfp Language, Deals and Standards: The Future of XML Contracts ] [Cunningham 2006]
 
-*[http://www.adaptivity.nl/articles/E-contracting.pdf E-contracting Challenges [Xu, de Vrieze]]
+*[http://www.adaptivity.nl/articles/E-contracting.pdf E-contracting Challenges ] [Xu, de Vrieze]
 
 == External links ==
 
