@@ -7,10 +7,11 @@ layout: wiki
 The goal of these specifications is to define the possible terms of a
 [contract](/wiki/Contracts "wikilink") using an [XML](XML "wikilink") schema
 
-Currently, the [SXP Contract Specification](/wiki/SXP_Contract "wikilink") is
-based in Legal XML eContracts (see below). This page is for presenting
-the different XML existing formats and discussing the problematic
-associated to the specification of contracts.
+Currently, the [SXP Contract Specification
+Schema](/wiki/SXP_Contract "wikilink") is based in Legal XML eContracts (see
+below). This page is for presenting the different XML existing formats
+and discussing the problematic associated to the specification of
+contracts.
 
 Existing XML standards for describing contracts
 -----------------------------------------------
