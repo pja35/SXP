@@ -29,8 +29,8 @@ Contract:
 
 <!-- -->
 
--   Objects clause. A reference to the objects that will be exchanged.
-    This reference will be done under the [Items
+-   Items clause. A reference to the items that will be exchanged. This
+    reference will be done under the [Items
     Specification](/wiki/Items_Specification "wikilink").
 
 <!-- -->

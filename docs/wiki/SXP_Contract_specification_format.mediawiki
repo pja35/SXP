@@ -11,7 +11,7 @@ These are the clauses that the user must fill in for creating a SXP Contract:
 ** the legal authority
 ** the party that should claim the authority
 
-*Objects clause. A reference to the objects that will be exchanged. This reference will be done under the [[Items Specification]]. 
+*Items clause. A reference to the items that will be exchanged. This reference will be done under the [[Items Specification]]. 
 
 *Delivery clause.
 ** the person who will pay the delivery of the objects
