@@ -19,6 +19,12 @@ e-commerce websites:
 -   Amazon
 -   Google Shopping
 
+SXP Products.xsd
+----------------
+
+[Link for downloading
+SXPProducts.xsd](https://docs.google.com/file/d/0B4JKZAq0izyxZTVickJ2MDM5VDQ/edit?usp=sharing)
+
 External links
 --------------
 
