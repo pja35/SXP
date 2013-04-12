@@ -22,8 +22,6 @@ These are the clauses that the user must fill in for creating a SXP Contract:
 ** the person who will pay the delivery of the objects
 ** when he will do it
 
-
-
 == Optional clauses ==
 
 *VAT clause. Information about the value-added taxes involved in the exchange.
