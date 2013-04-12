@@ -13,7 +13,7 @@ Required clauses
 These are the clauses that the user must fill in for creating a SXP
 Contract:
 
--   Parties. Actually, this clause exists at the original Legal XML
+-   **Parties**. Actually, this clause exists at the original Legal XML
     Specification (at the *contract-front* level), but it is not
     considered mandatory. In our specification it has been set
     as mandatory.
@@ -25,8 +25,8 @@ Problem: should we extend the *party* element by specifying the country
 of each party, in order to use this information at the following clauses
 (see conflict resolution mode at breachClause?
 
--   Breach clause. A clause that specifies what happens in case of one
-    party doesn't accomplish the contract. It has the following
+-   **Breach clause**. A clause that specifies what happens in case of
+    one party doesn't accomplish the contract. It has the following
     structure:
     -   Conflict Resolution Mode (mandatory).
         -   exchange-level. Conflicts are resolved between the parties
@@ -45,20 +45,20 @@ of each party, in order to use this information at the following clauses
 
 <!-- -->
 
--   Items clause. A reference to the items that will be exchanged. This
-    reference will be done under the [Items
+-   **Items clause**. A reference to the items that will be exchanged.
+    This reference will be done under the [Items
     Specification](/wiki/Items_Specification "wikilink").
 
 <!-- -->
 
--   Delivery clause.
+-   **Delivery clause**.
     -   the person who will pay the delivery of the objects
     -   when he will do it
 
 Optional clauses
 ----------------
 
--   VAT clause. Information about the value-added taxes involved in
+-   **VAT clause**. Information about the value-added taxes involved in
     the exchange.
     -   the amount
     -   the authority who will receive the taxes
@@ -66,9 +66,9 @@ Optional clauses
 
 <!-- -->
 
--   Other Clauses. Basically, users can add as many clauses as they want
-    as *items*, under the *body* level. These clauses are intended to
-    contain text that can be read by both parties.
+-   **Other Clauses**. Basically, users can add as many clauses as they
+    want as *items*, under the *body* level. These clauses are intended
+    to contain text that can be read by both parties.
 
 The structure of this particular clauses is explained at the eContracts
 Specification

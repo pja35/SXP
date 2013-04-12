@@ -4,14 +4,15 @@ This page describes the technichal information about the SXP Contract Definition
 
 These are the clauses that the user must fill in for creating a SXP Contract:
 
-*Parties. Actually, this clause exists at the original Legal XML Specification (at the ''contract-front'' level), but it is not considered mandatory. In our specification it has been set as mandatory.
+*'''Parties'''. Actually, this clause exists at the original Legal XML Specification (at the ''contract-front'' level), but it is not considered mandatory. In our specification it has been set as mandatory.
 
 At the eContracts Specification, we have the ''party'' element where we can specify address and name of each party.
 
 Problem: should we extend the ''party'' element by specifying the country of each party, in order to use this information
 at the following clauses (see conflict resolution mode at breachClause? 
 
-*Breach clause. A clause that specifies what happens in case of one party doesn't accomplish the contract. It has the following structure:
+
+*'''Breach clause'''. A clause that specifies what happens in case of one party doesn't accomplish the contract. It has the following structure:
 ** Conflict Resolution Mode (mandatory).
 ***exchange-level. Conflicts are resolved between the parties who needed to exchange items within the contract. These are the possibilities:
 ****defendant country. Complaints are presented at the court of the defendant party's country
@@ -21,20 +22,22 @@ at the following clauses (see conflict resolution mode at breachClause?
 ** Trust Rating Adjustements (optional). Information about the adjustements that will be done on the SXP trust rating system.
 
 
-*Items clause. A reference to the items that will be exchanged. This reference will be done under the [[Items Specification]]. 
+*'''Items clause'''. A reference to the items that will be exchanged. This reference will be done under the [[Items Specification]]. 
 
-*Delivery clause.
+
+*'''Delivery clause'''.
 ** the person who will pay the delivery of the objects
 ** when he will do it
 
+
 == Optional clauses ==
 
-*VAT clause. Information about the value-added taxes involved in the exchange.
+*'''VAT clause'''. Information about the value-added taxes involved in the exchange.
 ** the amount
 ** the authority who will receive the taxes
 ** the parties responsibles of paying
 
-*Other Clauses. Basically, users can add as many clauses as they want as ''items'', under the ''body'' level. These clauses are intended to contain text that can be read by both parties.
+*'''Other Clauses'''. Basically, users can add as many clauses as they want as ''items'', under the ''body'' level. These clauses are intended to contain text that can be read by both parties.
 
 The structure of this particular clauses is explained at the eContracts Specification
 
