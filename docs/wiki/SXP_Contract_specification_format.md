@@ -18,7 +18,12 @@ Contract:
     considered mandatory. In our specification it has been set
     as mandatory.
 
-<!-- -->
+At the eContracts Specification, we have the *party* element where we
+can specify address and name of each party.
+
+Problem: should we extend the *party* element by specifying the country
+of each party, in order to use this information at the following clauses
+(see conflict resolution mode at breachClause?
 
 -   Breach clause. A clause that specifies what happens in case of one
     party doesn't accomplish the contract. It has the following
