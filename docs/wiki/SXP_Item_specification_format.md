@@ -19,6 +19,12 @@ e-commerce websites:
 -   Amazon
 -   Google Shopping
 
+The following services have a product taxonomy, but they do not use XML
+schemas (even when they are XML-based):
+
+-   Prestashop
+-   Magento
+
 SXP Products.xsd
 ----------------
 

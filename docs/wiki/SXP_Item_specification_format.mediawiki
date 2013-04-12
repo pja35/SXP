@@ -8,6 +8,9 @@ There are some XML schemas for defining products in the most known e-commerce we
 *Amazon
 *Google Shopping
 
+The following services have a product taxonomy, but they do not use XML schemas (even when they are XML-based):
+*Prestashop
+*Magento
 
 ==SXP Products.xsd==
 
