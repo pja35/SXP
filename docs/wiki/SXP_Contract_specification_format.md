@@ -21,19 +21,19 @@ Contract:
 <!-- -->
 
 -   Breach clause. A clause that specifies what happens in case of one
-    party doesn't accomplish the contract.It has the following
+    party doesn't accomplish the contract. It has the following
     structure:
     -   Conflict Resolution Mode (mandatory).
         -   exchange-level. Conflicts are resolved between the parties
             who needed to exchange items within the contract.
-        -   contract-level. Even local conflicts are resolved by all
-            parties
-        -   defendant country. Complaints are presented at the court of
-            the defendant party's country
-        -   plaintive country. Complaints are presented at the court of
-            the plaintitive party's country
-        -   fixed country. Complaints are presented at the court of a
-            given country
+        -   contract-level. Even local conflicts are resolved by
+            all parties. These are the possibilities:
+            -   defendant country. Complaints are presented at the court
+                of the defendant party's country
+            -   plaintive country. Complaints are presented at the court
+                of the plaintitive party's country
+            -   fixed country. Complaints are presented at the court of
+                a given country
     -   Trust Rating Adjustements (optional). Information about the
         adjustements that will be done on the SXP trust rating system.
 
