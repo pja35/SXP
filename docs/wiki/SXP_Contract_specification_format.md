@@ -102,8 +102,7 @@ In this example, we have two parties (Alice and Bob) exchanging objects
 
 <body>
 `   `<item><block><text>`Narrative Clause #1`</text></block></item>  
-`   `<item><block><text>`Narrative Clause #2`</text></block></item>
-
+`   `<item><block><text>`Narrative Clause #2`</text></block></item>  
 `   `<breachClause>  
 `     `<conflictResolutionMode>  
 `       `<exchange-level>  
@@ -111,8 +110,6 @@ In this example, we have two parties (Alice and Bob) exchanging objects
 `       `</exchange-level>  
 `     `</conflictResolutionMode>  
 `   `</breachClause>  
-`   `  
-`   `  
 `   `<objects>  
 `   `<object>` Violin `</object>  
 `   `<object>` Guitar `</object>  
