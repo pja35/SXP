@@ -49,7 +49,8 @@ Contract:
     -   the person who will pay the delivery of the objects
     -   when he will do it
 
-<!-- -->
+Optional clauses
+----------------
 
 -   VAT clause. Information about the value-added taxes involved in
     the exchange.
@@ -57,12 +58,11 @@ Contract:
     -   the authority who will receive the taxes
     -   the parties responsibles of paying
 
-Optional clauses
-----------------
+<!-- -->
 
-Basically, users can add as many clauses as they want as *items*, under
-the *body* level. These clauses are intended to contain text that can be
-read by both parties.
+-   Other Clauses. Basically, users can add as many clauses as they want
+    as *items*, under the *body* level. These clauses are intended to
+    contain text that can be read by both parties.
 
 Minimal example of a SXP Contract
 ---------------------------------
