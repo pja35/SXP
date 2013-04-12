@@ -81,48 +81,55 @@ In this example, we have two parties (Alice and Bob) exchanging objects
 
 <?xml version="1.0"?>
 `  `<contract xmlns="urn:oasis:names:tc:eContracts:1:0"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="urn:oasis:names:tc:eContracts:1:0 SXPContract.xsd"
-   >  
-`  `
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:sxp="http://secure-exchange-protocols.org/index.php?title=SXP_Contract"
+    xsi:schemaLocation="urn:oasis:names:tc:eContracts:1:0 SXPContract.xsd">  
+`   `
 
 <title>
 <text>Contract between Alice and Bob</text>
 
 </title>
-`  `<contract-front>  
-`  `<date-block>  
-`  `<date>` 20-02-2013`</date>  
-`  `</date-block>  
-`  `<parties>  
-`  `<party>`Alice`</party>  
-`  `<party>`Bob`</party>  
-`  `</parties>  
-`  `</contract-front>  
-`  `  
-`  `
+`   `<contract-front>  
+`   `<date-block>  
+`   `<date>` 20-02-2013`</date>  
+`   `</date-block>  
+`   `<parties>  
+`   `<party>`Alice`</party>  
+`   `<party>`Bob`</party>  
+`   `</parties>  
+`   `</contract-front>
 
 <body>
-`  `<breachClause>  
-`  `<authority>` France jurisdiction`</authority>  
-`  `</breachClause>  
-`  `<objects>  
-`  `<object>` Violin `</object>  
-`  `<object>` Guitar `</object>  
-`  `</objects>  
-`  `<deliveryClause>  
-`  `<party>` Bob `</party>  
-`  `<date>` 22-2-2013`</date>  
-`  `</deliveryClause>  
-`  `<vatClause>  
-`  `<party>` Alice `</party>  
-`  `<amount>` 1.40€ `</amount>  
-`  `<authority>` France Revenue Service `</authority>  
-`  `</vatClause>  
-`  `
+`   `<item><block><text>`Narrative Clause #1`</text></block></item>  
+`   `<item><block><text>`Narrative Clause #2`</text></block></item>
+
+`   `<breachClause>  
+`     `<conflictResolutionMode>  
+`       `<exchange-level>  
+`         `<defendantCountry/>  
+`       `</exchange-level>  
+`     `</conflictResolutionMode>  
+`   `</breachClause>  
+`   `  
+`   `  
+`   `<objects>  
+`   `<object>` Violin `</object>  
+`   `<object>` Guitar `</object>  
+`   `</objects>  
+`   `<deliveryClause>  
+`   `<party>` Bob `</party>  
+`   `<date>` 22-2-2013`</date>  
+`   `</deliveryClause>  
+`   `<vatClause>  
+`   `<party>` Alice `</party>  
+`   `<amount>` 1.40€ `</amount>  
+`   `<authority>` France Revenue Service `</authority>  
+`   `</vatClause>  
+`   `
 
 </body>
-`  `</contract>
+`   `</contract>
 
 SXP Contract Schema
 -------------------
