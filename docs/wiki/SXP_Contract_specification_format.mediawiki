@@ -11,7 +11,6 @@ At the eContracts Specification, we have the ''party'' element where we can spec
 Problem: should we extend the ''party'' element by specifying the country of each party, in order to use this information
 at the following clauses (see conflict resolution mode at breachClause? 
 
-
 *'''Breach clause'''. A clause that specifies what happens in case of one party doesn't accomplish the contract. It has the following structure:
 ** Conflict Resolution Mode (mandatory).
 ***exchange-level. Conflicts are resolved between the parties who needed to exchange items within the contract. These are the possibilities:
@@ -21,14 +20,11 @@ at the following clauses (see conflict resolution mode at breachClause?
 ***contract-level. Even local conflicts are resolved by all parties. 
 ** Trust Rating Adjustements (optional). Information about the adjustements that will be done on the SXP trust rating system.
 
-
 *'''Items clause'''. A reference to the items that will be exchanged. This reference will be done under the [[Items Specification]]. 
-
 
 *'''Delivery clause'''.
 ** the person who will pay the delivery of the objects
 ** when he will do it
-
 
 == Optional clauses ==
 
