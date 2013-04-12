@@ -30,15 +30,16 @@ of each party, in order to use this information at the following clauses
     structure:
     -   Conflict Resolution Mode (mandatory).
         -   exchange-level. Conflicts are resolved between the parties
-            who needed to exchange items within the contract.
-        -   contract-level. Even local conflicts are resolved by
-            all parties. These are the possibilities:
+            who needed to exchange items within the contract. These are
+            the possibilities:
             -   defendant country. Complaints are presented at the court
                 of the defendant party's country
             -   plaintive country. Complaints are presented at the court
                 of the plaintitive party's country
             -   fixed country. Complaints are presented at the court of
                 a given country
+        -   contract-level. Even local conflicts are resolved by
+            all parties.
     -   Trust Rating Adjustements (optional). Information about the
         adjustements that will be done on the SXP trust rating system.
 
