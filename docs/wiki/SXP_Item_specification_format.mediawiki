@@ -1,6 +1,6 @@
 We do the Items Specification via an XML schema (XSD), which is one of the possible ways to define an XML structure.
 
-==SXP Products.xsd==
+==SXP Products schema==
 
 [https://docs.google.com/file/d/0B4JKZAq0izyxZTVickJ2MDM5VDQ/edit?usp=sharing Link for downloading SXPProducts.xsd]
 

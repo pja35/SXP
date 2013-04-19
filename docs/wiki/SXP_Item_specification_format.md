@@ -7,8 +7,8 @@ layout: wiki
 We do the Items Specification via an XML schema (XSD), which is one of
 the possible ways to define an XML structure.
 
-SXP Products.xsd
-----------------
+SXP Products schema
+-------------------
 
 [Link for downloading
 SXPProducts.xsd](https://docs.google.com/file/d/0B4JKZAq0izyxZTVickJ2MDM5VDQ/edit?usp=sharing)
