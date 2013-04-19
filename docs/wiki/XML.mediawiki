@@ -39,6 +39,7 @@ This definitions are made in external files. There are different documents to ac
 == XML Namespaces ==
 In XML, it is possible to define namespaces in order to distinguish the authorship of the different tags.
 
+
 == Normalization organisms==
 There are many organisms that define protocols, schemas based on XML. Here there are some of the most importants:
 *W3C. International consortium that produces standards for the world wide web. They defined XML specification in the first place.
