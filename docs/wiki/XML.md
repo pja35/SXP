@@ -78,6 +78,9 @@ documents to accomplish that:
 XML Namespaces
 --------------
 
+In XML, it is possible to define namespaces in order to distinguish the
+authorship of the different tags.
+
 Normalization organisms
 -----------------------
 
