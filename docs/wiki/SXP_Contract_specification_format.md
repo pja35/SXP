@@ -68,9 +68,9 @@ Optional clauses
     Specification](/wiki/Items_Specification "wikilink"), which describes
     objects and services), under the *body* level. These clauses are
     intended to contain text that can be read by both parties. These
-    particular clauses are original from the [Legal XML eContracts
-    framework](/wiki/Legal_XML_eContracts_framework "wikilink"). For more
-    information, see the eContracts Specification.
+    particular clauses are original from the Legal XML
+    eContracts framework. For more information, see the
+    eContracts Specification.
 
 Minimal example of a SXP Contract
 ---------------------------------
