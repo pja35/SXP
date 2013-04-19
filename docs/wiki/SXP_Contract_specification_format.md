@@ -47,12 +47,9 @@ of each party, in order to use this information at the following clauses
 
 -   **Items clause**. A reference to the items that will be exchanged.
     This reference will be done under the [Items
-    Specification](/wiki/Items_Specification "wikilink").
-
-<!-- -->
-
--   **Delivery clause**.
-    -   the person who will pay the delivery of the objects
+    Specification](/wiki/Items_Specification "wikilink"). Each item should
+    also include the delivery instructions:
+    -   the person who will pay the delivery of the item
     -   when he will do it
 
 Optional clauses

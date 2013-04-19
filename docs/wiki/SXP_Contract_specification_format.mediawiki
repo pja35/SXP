@@ -20,10 +20,8 @@ at the following clauses (see conflict resolution mode at breachClause?
 ***contract-level mode. Even local conflicts are resolved by all parties. 
 ** Trust Rating Adjustements (optional). Information about the adjustements that will be done on the SXP trust rating system.
 
-*'''Items clause'''. A reference to the items that will be exchanged. This reference will be done under the [[Items Specification]]. 
-
-*'''Delivery clause'''.
-** the person who will pay the delivery of the objects
+*'''Items clause'''. A reference to the items that will be exchanged. This reference will be done under the [[Items Specification]]. Each item should also include the delivery instructions:
+** the person who will pay the delivery of the item
 ** when he will do it
 
 == Optional clauses ==
