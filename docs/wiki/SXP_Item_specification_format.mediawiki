@@ -1,6 +1,8 @@
-These specifications will be done in [[XML]].
+We do the Items Specification via an XML schema (XSD), which is one of the possible ways to define an XML structure.
 
-Actually, they may already exist. A bibliography of existing XML formats for describing items to be exchanged via an electronic [[Contracts|contract]]... is the first thing we need.
+==SXP Products.xsd==
+
+[https://docs.google.com/file/d/0B4JKZAq0izyxZTVickJ2MDM5VDQ/edit?usp=sharing Link for downloading SXPProducts.xsd]
 
 ==Related Frameworks==
 There are some XML schemas for defining products in the most known e-commerce websites:
@@ -12,8 +14,6 @@ The following services have a product taxonomy, but they do not use XML schemas 
 *Prestashop
 *Magento
 
-==SXP Products.xsd==
 
-[https://docs.google.com/file/d/0B4JKZAq0izyxZTVickJ2MDM5VDQ/edit?usp=sharing Link for downloading SXPProducts.xsd]
 ==External links==
 *[https://images-na.ssl-images-amazon.com/images/G/01/rainier/help/XML_Documentation_Intl.pdf Selling on Amazon guide to XML (description of objects in page 38/85)]

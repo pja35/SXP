@@ -4,11 +4,14 @@ permalink: wiki/SXP_Item_specification_format/
 layout: wiki
 ---
 
-These specifications will be done in [XML](/wiki/XML "wikilink").
+We do the Items Specification via an XML schema (XSD), which is one of
+the possible ways to define an XML structure.
 
-Actually, they may already exist. A bibliography of existing XML formats
-for describing items to be exchanged via an electronic
-[contract](/wiki/Contracts "wikilink")... is the first thing we need.
+SXP Products.xsd
+----------------
+
+[Link for downloading
+SXPProducts.xsd](https://docs.google.com/file/d/0B4JKZAq0izyxZTVickJ2MDM5VDQ/edit?usp=sharing)
 
 Related Frameworks
 ------------------
@@ -24,12 +27,6 @@ schemas (even when they are XML-based):
 
 -   Prestashop
 -   Magento
-
-SXP Products.xsd
-----------------
-
-[Link for downloading
-SXPProducts.xsd](https://docs.google.com/file/d/0B4JKZAq0izyxZTVickJ2MDM5VDQ/edit?usp=sharing)
 
 External links
 --------------
