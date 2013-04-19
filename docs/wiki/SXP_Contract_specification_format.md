@@ -69,8 +69,8 @@ Optional clauses
     objects and services), under the *body* level. These clauses are
     intended to contain text that can be read by both parties.
 
-The structure of this particular clauses is explained at the eContracts
-Specification
+These particular clauses are original from the Legal XML eContracts
+framework. For more information, see the eContracts Specification.
 
 Minimal example of a SXP Contract
 ---------------------------------
