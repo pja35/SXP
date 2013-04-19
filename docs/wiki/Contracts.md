@@ -17,8 +17,10 @@ More concretely, SXP will include:
 -   a standardized [XML](/wiki/XML "wikilink") format for describing items to
     be exchanged. [More on
     specifying items.](/wiki/Items_Specification "wikilink")
--   a standardized [XML](/wiki/XML "wikilink") format for terms of contracts.
-    [More on specifying contracts.](/wiki/Contracts_Specification "wikilink")
+-   a standardized [XML](/wiki/XML "wikilink") format for [specifiying the
+    terms of a contract](/wiki/Contracts_Specification "wikilink"). Currently
+    this is done by the [ SXP Contract Specification
+    Schema](/wiki/SXP_Contract "wikilink").
 -   a secure way to proceed to their signature, as the
     bottom-layer protocol. [More on the Secure Contract
     Signing protocol.](/wiki/Secure_Contract_Signing_Protocol "wikilink")

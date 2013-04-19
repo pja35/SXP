@@ -4,6 +4,6 @@ An electronic contract is a legally binding document, electronically signed by t
 
 More concretely, SXP will include:
 * a standardized [[XML]] format for describing items to be exchanged. [[Items Specification|More on specifying items.]]
-* a standardized [[XML]] format for terms of contracts.  [[Contracts Specification|More on specifying contracts.]]
+* a standardized [[XML]] format for  [[Contracts Specification|specifiying the terms of a contract]]. Currently this is done by the [[SXP Contract| SXP Contract Specification Schema]].
 * a secure way to proceed to their signature, as the bottom-layer protocol.  [[Secure Contract Signing Protocol|More on the Secure Contract Signing protocol.]]
 * an authentication architecture for identifying parties.
