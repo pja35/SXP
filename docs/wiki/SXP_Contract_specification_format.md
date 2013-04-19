@@ -64,8 +64,10 @@ Optional clauses
 <!-- -->
 
 -   **Other Clauses**. Basically, users can add as many clauses as they
-    want as *items*, under the *body* level. These clauses are intended
-    to contain text that can be read by both parties.
+    want as *items* (do not confuse with the item specification, which
+    describes objects and services), under the *body* level. These
+    clauses are intended to contain text that can be read by
+    both parties.
 
 The structure of this particular clauses is explained at the eContracts
 Specification

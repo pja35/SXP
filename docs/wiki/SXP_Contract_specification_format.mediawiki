@@ -31,7 +31,7 @@ at the following clauses (see conflict resolution mode at breachClause?
 ** the authority who will receive the taxes
 ** the parties responsibles of paying
 
-*'''Other Clauses'''. Basically, users can add as many clauses as they want as ''items'', under the ''body'' level. These clauses are intended to contain text that can be read by both parties.
+*'''Other Clauses'''. Basically, users can add as many clauses as they want as ''items'' (do not confuse with the item specification, which describes objects and services), under the ''body'' level. These clauses are intended to contain text that can be read by both parties.
 
 The structure of this particular clauses is explained at the eContracts Specification
 
