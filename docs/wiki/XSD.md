@@ -22,9 +22,12 @@ SXPContract Schema:
 `           `**`xsi:schemaLocation`**`="`[`urn:oasis:names:tc:eContracts:1:0`](urn:oasis:names:tc:eContracts:1:0)` SXPContract.xsd">`
 
 This attribute has two values, separated by a space. The first value is
-the namespace to use, and it has to be the same as the one declared in
-the XSD document under the attribute *targetNamespace*. The second value
-is the location of the XML schema to use for that namespace.
+the namespace to use. The second value is the location of the XML schema
+to use for that namespace.
+
+The namespace from *schemaLocation* has to be the same as the one on the
+XSD document under the attribute *targetNamespace*. Certainly, on
+SXPContract.xsd we find this:
 
 More information on this: [W3Schools: the schema
 element](http://www.w3schools.com/schema/schema_schema.asp)
