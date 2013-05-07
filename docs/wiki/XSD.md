@@ -27,7 +27,11 @@ to use for that namespace.
 
 The namespace from *schemaLocation* has to be the same as the one on the
 XSD document under the attribute *targetNamespace*. Certainly, on
-SXPContract.xsd we find this:
+SXPContract.xsd we have:
+
+`          `<xs:schema
+           ...
+           targetNamespace="urn:oasis:names:tc:eContracts:1:0">
 
 More information on this: [W3Schools: the schema
 element](http://www.w3schools.com/schema/schema_schema.asp)
