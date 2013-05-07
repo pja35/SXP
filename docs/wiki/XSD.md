@@ -26,5 +26,5 @@ the namespace to use, and it has to be the same as the one declared in
 the XSD document under the attribute *targetNamespace*. The second value
 is the location of the XML schema to use for that namespace.
 
-Information on this:
-[W3Schools](http://www.w3schools.com/schema/schema_schema.asp)
+More information on this: [W3Schools: the schema
+element](http://www.w3schools.com/schema/schema_schema.asp)

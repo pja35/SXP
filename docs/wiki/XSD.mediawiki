@@ -11,4 +11,4 @@ When we have an XML document whose structure conforms to a given structure, we m
 
 This attribute has two values, separated by a space. The first value is the namespace to use, and it has to be the same as the one declared in the XSD document under the attribute ''targetNamespace''. The second value is the location of the XML schema to use for that namespace.
 
-Information on this: [http://www.w3schools.com/schema/schema_schema.asp W3Schools]
+More information on this: [http://www.w3schools.com/schema/schema_schema.asp W3Schools: the schema element]
