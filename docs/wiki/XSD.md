@@ -29,6 +29,7 @@ The namespace from *schemaLocation* has to be the same as the one on the
 XSD document under the attribute *targetNamespace*. Certainly, on
 SXPContract.xsd we have:
 
+<?xml version="1.0" encoding="UTF-8"?>
 `          `<xs:schema
            ...
            targetNamespace="urn:oasis:names:tc:eContracts:1:0">
