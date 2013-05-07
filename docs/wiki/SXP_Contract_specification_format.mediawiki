@@ -33,6 +33,12 @@ at the following clauses (see conflict resolution mode at breachClause?
 
 *'''Other Clauses'''. Basically, users can add as many clauses as they want as ''items'' (do not confuse with the [[Items Specification]], which describes objects and services), under the ''body'' level. These clauses are intended to contain text that can be read by both parties. These particular clauses are original from the Legal XML eContracts framework. For more information, see the eContracts Specification.
 
+== XML Namespace ==
+
+Since SXPContract contains a redefinition (<xs:redefine>) on the ''body'' element from the eContracts schema, we have to keep the same target namespace from eContracts (urn:oasis:names:tc:eContracts:1:0) in our specification.
+
+Explanation of xs:redefine : [http://www.w3.org/TR/xmlschema-0/#Redefine W3C's XML Schema Part 0: Primer Second Edition]).
+
 == Minimal example of a SXP Contract==
 
 In this example, we have two parties (Alice and Bob) exchanging objects (a violin and a guitar).

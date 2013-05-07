@@ -72,6 +72,17 @@ Optional clauses
     eContracts framework. For more information, see the
     eContracts Specification.
 
+XML Namespace
+-------------
+
+Since SXPContract contains a redefinition (<xs:redefine>) on the *body*
+element from the eContracts schema, we have to keep the same target
+namespace from eContracts (urn:oasis:names:tc:eContracts:1:0) in our
+specification.
+
+Explanation of xs:redefine : [W3C's XML Schema Part 0: Primer Second
+Edition](http://www.w3.org/TR/xmlschema-0/#Redefine)).
+
 Minimal example of a SXP Contract
 ---------------------------------
 
