@@ -41,6 +41,7 @@ There are also several categories for services:
 -   -   Teaching
     -   Personal Caring
     -   Transport
+    -   Other Services
 
 Currently, it is only possible to select the category and add a text
 description of the product. We may want to extend this and subdivide
