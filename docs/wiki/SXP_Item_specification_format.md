@@ -10,6 +10,42 @@ the possible ways to define an XML structure.
 SXP Products schema
 -------------------
 
+The SXP Product schema is an [XML schema](/wiki/XML_schema "wikilink"), and
+gives a description of the items. Note that items here means products
+and services. It provides the following entries:
+
+-   External URL (optional). An Url with information about the product.
+
+<!-- -->
+
+-   Number of Items (optional).
+
+<!-- -->
+
+-   Description Data (optional).
+    -   Title.
+    -   Brand.
+    -   Designer
+    -   Description.
+
+<!-- -->
+
+-   Product Data. It classifies the product in categories such as:
+    -   Clothing
+    -   Sports
+    -   Beauty
+    -   ...
+
+There are also several categories for services:
+
+-   -   Teaching
+    -   Personal Caring
+    -   Transport
+
+Currently, it is only possible to select the category and add a text
+description of the product. We may want to extend this and subdivide
+each category, or add specific information (e.g. duration on services)
+
 [Link for downloading
 SXPProducts.xsd](https://docs.google.com/file/d/0B4JKZAq0izyxZTVickJ2MDM5VDQ/edit?usp=sharing)
 
