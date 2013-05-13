@@ -7,12 +7,12 @@ layout: wiki
 We do the Items Specification via an XML schema (XSD), which is one of
 the possible ways to define an XML structure.
 
-SXP Products schema
--------------------
+SXP Items schema
+----------------
 
-The SXP Product schema is an [XML schema](/wiki/XML_schema "wikilink"), and
-gives a description of the items. Note that items here means products
-and services. It provides the following entries:
+The SXP Item schema is an [XML schema](/wiki/XML_schema "wikilink"), and gives
+a description of the items. Note that items here means products and
+services. It provides the following entries:
 
 -   External URL (optional). An Url with information about the product.
 
@@ -30,7 +30,7 @@ and services. It provides the following entries:
 
 <!-- -->
 
--   Product Data. It classifies the product in categories such as:
+-   Item Data. It classifies the product in categories such as:
     -   Clothing
     -   Sports
     -   Beauty
