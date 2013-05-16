@@ -74,7 +74,7 @@ The scope of the SXP project is restricted to designing and implementing Secure 
 The reason for this apparent neutrality of the project is its ''technicality'' and its ''generality''. In the same way that your browser's http protocol is not bound to any website in particular, SXP protocols should not be bound to any potential use. Since part of the aesthetics of the project is to fully generalize payment methods; we are fully aware that trying to enforce a particular use will immediately lead to a fork.
 
 ==Who are we?==
-See our [[Hall of Fame | Hall of Fame]].
+See our [[Hall of Fame | HallOfFame]].
 
 ==Stages==
 The foreseen stages of the project are: 
