@@ -196,14 +196,7 @@ fork.
 Who are we?
 -----------
 
-This initiative comes from:
-
--   Pablo Arrighi, lecturer in Computer Science
--   Alex Concha, programmer, security expert
--   Miguel Lezama, programmer, web expert
-
-As the project develops we plan to take a non-profit NGO status, and
-disappear in the shade of the most active and competent contributors.
+See our [ Hall of Fame](/wiki/Hall_of_Fame "wikilink").
 
 Stages
 ------
