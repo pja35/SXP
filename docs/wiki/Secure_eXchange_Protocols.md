@@ -36,7 +36,8 @@ More
 Join us
 -------
 
--   [Current needs.](/wiki/Current_Needs "wikilink")
+-   [Current needs](/wiki/Current_Needs "wikilink").
+-   [Getting Started](/wiki/Getting_Started "wikilink").
 
 Stages
 ------
