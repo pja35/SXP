@@ -1,5 +1,4 @@
 * [[Getting Started|Getting Started.]]
-* [[Development Portal|Development Portal.]]
 
 ==Stages==
 The foreseen stages of the project are: 

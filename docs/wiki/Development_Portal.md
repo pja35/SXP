@@ -5,7 +5,6 @@ layout: wiki
 ---
 
 -   [Getting Started.](/wiki/Getting_Started "wikilink")
--   [Development Portal.](/wiki/Development_Portal "wikilink")
 
 Stages
 ------
