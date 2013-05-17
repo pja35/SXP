@@ -12,7 +12,7 @@ The idea is that any of us can join together and create a virtual ad hoc market,
 Hence our motto could be: ''Securely exchange anything, anywhere, with anyone.''
 
 ==Why do this?==
-This project is mainly technical. Yet, here are some motivations. An exclusive money-based economy is one where goods or services are systematically exchanged against one fixed notion of money, to the exclusion of all others or anything else. Exclusive money-based economy does seem quite natural to all of us. Yet, taking a step back, it has a few downsides: 
+This project is mainly technical. Yet, here are some motivations. An exclusive money-based economy is an economy where goods or services are systematically exchanged against one fixed notion of money, to the exclusion of all others or anything else. Exclusive money-based economy does seem quite natural to all of us. Yet, taking a step back, it has a few downsides: 
 
 * A lack of this one money can cause exchanges, that would not otherwise be dependent on this money, to be halted.
 * It is often unclear who produces this money and for what purpose. Nowadays, are Central Banks producing the money, or Private Banks?

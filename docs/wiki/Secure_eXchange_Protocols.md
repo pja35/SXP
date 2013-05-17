@@ -30,7 +30,7 @@ Why do this?
 ------------
 
 This project is mainly technical. Yet, here are some motivations. An
-exclusive money-based economy is one where goods or services are
+exclusive money-based economy is an economy where goods or services are
 systematically exchanged against one fixed notion of money, to the
 exclusion of all others or anything else. Exclusive money-based economy
 does seem quite natural to all of us. Yet, taking a step back, it has a
