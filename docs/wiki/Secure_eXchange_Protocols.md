@@ -145,8 +145,8 @@ SXP protocols should be able to run on smart phones.
 
 ### Open
 
-SXP protocols should be totally open and free. This is the only things
-that its [licence](/wiki/Licence "wikilink") should enforce.
+The SXP Wiki is under Creative Commons license. The developed SXP
+software will be under GPLv3 licence.
 
 ### Secure
 
