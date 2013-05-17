@@ -14,7 +14,7 @@ Hence our motto could be: ''Securely exchange anything, anywhere, with anyone.''
 ==More==
 * [[Why Do This|Why do this?]]
 * [[What Is it|What is it? What is ''not''?]]
-
+* [[Authors|Who are we?]]
 
 ==Who are we?==
 See our [[Authors|Hall of Fame]].

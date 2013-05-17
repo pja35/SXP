@@ -31,6 +31,7 @@ More
 
 -   [Why do this?](/wiki/Why_Do_This "wikilink")
 -   [What is it? What is *not*?](/wiki/What_Is_it "wikilink")
+-   [Who are we?](/wiki/Authors "wikilink")
 
 Who are we?
 -----------
