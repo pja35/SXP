@@ -16,17 +16,11 @@ Stages
 The foreseen stages of the project are:
 
 1.  Know what the protocols aim to achieve
-2.  Know very precisely what the protocols will achieve
-3.  Formalize the required properties of the protocols
-4.  Formalize candidate protocols
-5.  Prove the protocols have the required properties
-6.  Launch the implementations of these protocols
-7.  Produce the graphical interfaces to these implementations
-8.  Play with it
-
-The initiators' main role is to ensure that these original aims will not
-be altered in the course of the project. Stage 1 is the only
-non-negociable part of this project.
+2.  Formalize the required properties of the protocols
+3.  Formalize the protocols with the required properties
+4.  Launch the implementations of these protocols
+5.  Produce the graphical interfaces to these implementations
+6.  Play with it
 
 Status
 ------
