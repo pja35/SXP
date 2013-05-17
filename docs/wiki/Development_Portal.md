@@ -25,18 +25,18 @@ The foreseen stages of the project are:
 Status
 ------
 
-Mostly the project is at stage 1: we know the aims of this project. Some
-subtasks are more advanced, for instance:
-
+-   Overall the project is at stage 1-2.
 -   The design the [Secure Contract Signing
-    protocol](/wiki/Secure_Contract_Signing_Protocol "wikilink") is stage 4.
+    protocol](/wiki/Secure_Contract_Signing_Protocol "wikilink") is at
+    stage 3-4.
+-   The description of the XML formats of
+    [Contracts](/wiki/Contracts "wikilink") is at stage 3-4.
 
-The next tasks belong to stage 2, which is still very much a research
-stage. Here are some of the most obvious tasks:
+Hot topics:
 
 -   Understand [Private Contract
     Signatures](/wiki/Private_Contract_Signatures "wikilink").
--   Describe the XML format of [Contracts](/wiki/Contracts "wikilink").
+-   Polish the XML formats of [Contracts](/wiki/Contracts "wikilink").
 
 Methodology
 -----------

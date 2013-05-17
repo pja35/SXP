@@ -14,13 +14,13 @@ The foreseen stages of the project are:
 
 ==Status==
 
-Mostly the project is at stage 1: we know the aims of this project. 
-Some subtasks are more advanced, for instance:
-* The design the [[Secure Contract Signing Protocol|Secure Contract Signing protocol]] is stage 4.
+* Overall the project is at stage 1-2. 
+* The design the [[Secure Contract Signing Protocol|Secure Contract Signing protocol]] is at stage 3-4.
+* The description of the XML formats of [[Contracts]] is at stage 3-4.
 
-The next tasks belong to stage 2, which is still very much a research stage. Here are some of the most obvious tasks:
+Hot topics:
 * Understand [[Private Contract Signatures]].
-* Describe the XML format of [[Contracts]].
+* Polish the XML formats of [[Contracts]].
 
 ==Methodology==
 
