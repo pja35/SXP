@@ -1,7 +1,8 @@
-Fast links: 
-* [[Secure eXchange Procotols|Main page.]]
-* [[Current Needs|Current Needs.]]
-* [[Getting Started|Getting Started.]]
+Fast links: [[Secure eXchange Procotols|Main page,]] [[Current Needs|Current Needs,]] [[Getting Started|Getting Started.]]
+
+==Hot topics==
+* Understand [[Private Contract Signatures]].
+* Polish the XML formats of [[Contracts]].
 
 ==Stages==
 The foreseen stages of the project are: 
@@ -18,9 +19,10 @@ The foreseen stages of the project are:
 * The design the [[Secure Contract Signing Protocol|Secure Contract Signing protocol]] is at stage 3-4.
 * The description of the XML formats of [[Contracts]] is at stage 3-4.
 
-Hot topics:
-* Understand [[Private Contract Signatures]].
-* Polish the XML formats of [[Contracts]].
+==Architecture==
+
+* [[Secure Contract Signing protocol|Protocols.]]
+* [[Contracts|Contracts.]]
 
 ==Methodology==
 

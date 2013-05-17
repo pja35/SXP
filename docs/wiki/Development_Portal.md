@@ -4,11 +4,16 @@ permalink: wiki/Development_Portal/
 layout: wiki
 ---
 
-Fast links:
+Fast links: [Main page,](/wiki/Secure_eXchange_Procotols "wikilink") [Current
+Needs,](/wiki/Current_Needs "wikilink") [Getting
+Started.](/wiki/Getting_Started "wikilink")
 
--   [Main page.](/wiki/Secure_eXchange_Procotols "wikilink")
--   [Current Needs.](/wiki/Current_Needs "wikilink")
--   [Getting Started.](/wiki/Getting_Started "wikilink")
+Hot topics
+----------
+
+-   Understand [Private Contract
+    Signatures](/wiki/Private_Contract_Signatures "wikilink").
+-   Polish the XML formats of [Contracts](/wiki/Contracts "wikilink").
 
 Stages
 ------
@@ -32,11 +37,11 @@ Status
 -   The description of the XML formats of
     [Contracts](/wiki/Contracts "wikilink") is at stage 3-4.
 
-Hot topics:
+Architecture
+------------
 
--   Understand [Private Contract
-    Signatures](/wiki/Private_Contract_Signatures "wikilink").
--   Polish the XML formats of [Contracts](/wiki/Contracts "wikilink").
+-   [Protocols.](/wiki/Secure_Contract_Signing_protocol "wikilink")
+-   [Contracts.](/wiki/Contracts "wikilink")
 
 Methodology
 -----------
