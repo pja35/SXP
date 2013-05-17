@@ -17,7 +17,7 @@ Hence our motto could be: ''Securely exchange anything, anywhere, with anyone.''
 * [[Authors|Who are we?]]
 
 ==Join us==
-* dsfqs
+* [[Current Needs|Current needs.]]
 
 ==Stages==
 The foreseen stages of the project are: 
