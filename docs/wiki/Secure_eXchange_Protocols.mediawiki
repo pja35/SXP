@@ -2,7 +2,7 @@
 
 ''(Project launched: 24th of April 2012.)''
 
-Fast link: [[Private Contract Signatures | PCS]]
+Fast link: [[Development Portal|Development Portal.]]
 
 ==In short==
 ''A project to create an open, ubiquitous, peer-to-peer, secure protocol suite for multi-party exchanges of contracts.''
@@ -19,6 +19,7 @@ Hence our motto could be: ''Securely exchange anything, anywhere, with anyone.''
 ==Join us==
 * [[Current Needs|Current needs.]]
 * [[Getting Started|Getting Started.]]
+* [[Development Portal|Development Portal.]]
 
 ==Stages==
 The foreseen stages of the project are: 

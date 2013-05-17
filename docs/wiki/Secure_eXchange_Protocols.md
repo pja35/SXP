@@ -8,7 +8,7 @@ layout: wiki
 
 *(Project launched: 24th of April 2012.)*
 
-Fast link: [ PCS](/wiki/Private_Contract_Signatures "wikilink")
+Fast link: [Development Portal.](/wiki/Development_Portal "wikilink")
 
 In short
 --------
@@ -38,6 +38,7 @@ Join us
 
 -   [Current needs.](/wiki/Current_Needs "wikilink")
 -   [Getting Started.](/wiki/Getting_Started "wikilink")
+-   [Development Portal.](/wiki/Development_Portal "wikilink")
 
 Stages
 ------
