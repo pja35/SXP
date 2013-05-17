@@ -1,3 +1,6 @@
+Fast links: 
+* [[Secure eXchange Procotols|Main page.]]
+* [[Current Needs|Current Needs.]]
 * [[Getting Started|Getting Started.]]
 
 ==Stages==

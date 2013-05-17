@@ -4,6 +4,10 @@ permalink: wiki/Development_Portal/
 layout: wiki
 ---
 
+Fast links:
+
+-   [Main page.](/wiki/Secure_eXchange_Procotols "wikilink")
+-   [Current Needs.](/wiki/Current_Needs "wikilink")
 -   [Getting Started.](/wiki/Getting_Started "wikilink")
 
 Stages
