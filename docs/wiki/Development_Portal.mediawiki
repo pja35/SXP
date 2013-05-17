@@ -21,7 +21,7 @@ The foreseen stages of the project are:
 
 ==Architecture==
 
-* [[Secure Contract Signing protocol|Protocols.]]
+* [[Secure Contract Signing Protocol|Protocols.]]
 * [[Contracts|Contracts.]]
 
 ==Methodology==

@@ -40,7 +40,7 @@ Status
 Architecture
 ------------
 
--   [Protocols.](/wiki/Secure_Contract_Signing_protocol "wikilink")
+-   [Protocols.](/wiki/Secure_Contract_Signing_Protocol "wikilink")
 -   [Contracts.](/wiki/Contracts "wikilink")
 
 Methodology
