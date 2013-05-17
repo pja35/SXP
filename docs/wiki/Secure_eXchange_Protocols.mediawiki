@@ -18,6 +18,8 @@ Hence our motto could be: ''Securely exchange anything, anywhere, with anyone.''
 
 ==Join us==
 * [[Current Needs|Current needs.]]
+* [[Getting Started|Getting Started.]]
+* [[Development Portal|Development Portal.]]
 
 ==A question==
 ''Say we had all these mobile phones, PDAs etc., but suddenly forgot all about money. Say that all of its trades were taking place via some advanced, decentralized, electronic bartering system... Would one of the resources being exchanged re-emerge as an exclusive money, i.e. serve for wealth cumulation and participate in all deals? Would people trust pieces of paper back again? Or would more dynamic, blended and local currencies start to emerge? Is there a good theory of emergence of moneys in distributed, decentralized economies?'' More on [[Questions_That_Bother_Us|these questions]].

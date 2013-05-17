@@ -37,6 +37,8 @@ Join us
 -------
 
 -   [Current needs.](/wiki/Current_Needs "wikilink")
+-   [Getting Started.](/wiki/Getting_Started "wikilink")
+-   [Development Portal.](/wiki/Development_Portal "wikilink")
 
 A question
 ----------
