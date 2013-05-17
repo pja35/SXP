@@ -17,8 +17,8 @@ Hence our motto could be: ''Securely exchange anything, anywhere, with anyone.''
 * [[Authors|Who are we?]]
 
 ==Join us==
-* [[Current Needs|Current needs]].
-* [[Getting Started|Getting Started]].
+* [[Current Needs|Current needs.]]
+* [[Getting Started|Getting Started.]]
 
 ==Stages==
 The foreseen stages of the project are: 
