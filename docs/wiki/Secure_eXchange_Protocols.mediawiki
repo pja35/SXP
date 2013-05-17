@@ -16,6 +16,9 @@ Hence our motto could be: ''Securely exchange anything, anywhere, with anyone.''
 * [[What Is it|What is it? What is ''not''?]]
 * [[Authors|Who are we?]]
 
+==Join us==
+* dsfqs
+
 ==Stages==
 The foreseen stages of the project are: 
 # Know what the protocols aim to achieve
