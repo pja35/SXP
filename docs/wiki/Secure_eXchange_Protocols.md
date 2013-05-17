@@ -196,7 +196,7 @@ fork.
 Who are we?
 -----------
 
-See our [ HallOfFame](/wiki/Hall_of_Fame "wikilink").
+See our [ Authors](/wiki/Hall_of_Fame "wikilink").
 
 Stages
 ------
