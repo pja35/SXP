@@ -11,6 +11,9 @@ The idea is that any of us can join together and create a virtual ad hoc market,
 
 Hence our motto could be: ''Securely exchange anything, anywhere, with anyone.''
 
+==More==
+* [[Why Do This|Why do this?]]
+
 ==What is it?==
 
 ''Say Alice, Bob, and Charlie have access to different resources ''a'', ''b'', and ''c''. Say Alice wants ''b'', Bob wants ''c'' and Charlie wants ''a'', but they do not know each other, nor do they trust each other. Here ''a'', ''b'' and ''c'' can be anything, e.g ''a'' the ability to give maths lessons, ''b'' some barrel of beer, and ''c'' coins from a certain currency. Finally, say Alice, Bob and Charlie have an iPhone, Android, or whatever smart phone in their pockets. Using Secure eXchange Protocols on their smart phones, they should be able to quickly declare their resources and needs on virtual ad hoc markets, which in turn should detect and propose the obvious deal between them. If the three of them accept the deal, then an electronic contract will be secured, which is a formal proof of their agreement to perform the swap.''

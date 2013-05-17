@@ -26,6 +26,11 @@ into an electronic contract, signed by the different parties.
 Hence our motto could be: *Securely exchange anything, anywhere, with
 anyone.*
 
+More
+----
+
+-   [Why do this?](/wiki/Why_Do_This "wikilink")
+
 What is it?
 -----------
 
