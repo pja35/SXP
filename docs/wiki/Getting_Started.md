@@ -5,8 +5,8 @@ layout: wiki
 ---
 
 This project is at its early stages. We need all the help we can get,
-see our [Current Needs](/wiki/Current_Needs "wikilink") and the [Current
-Status](/wiki/Current_Status "wikilink") of the project.
+see our [Current Needs](/wiki/Current_Needs "wikilink") and the [Development
+Portal](/wiki/Development_Portal "wikilink") of the project.
 
 In practice, contributing to this project means setting up an account on
 this Wiki, and making this website grow in an orderly fashion, by

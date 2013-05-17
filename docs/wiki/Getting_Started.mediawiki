@@ -1,4 +1,4 @@
-This project is at its early stages. We need all the help we can get, see our [[Current Needs|Current Needs]] and the [[Current Status|Current Status]] of the project. 
+This project is at its early stages. We need all the help we can get, see our [[Current Needs|Current Needs]] and the [[Development Portal|Development Portal]] of the project. 
 
 In practice, contributing to this project means setting up an account on this Wiki, and making this website grow in an orderly fashion, by bringing in your own expertise. Here are some more informations about [[Getting Started]]. You can also [http://secure-exchange-protocols.org/newsletters/?p=subscribe subscribe] to our newsletter in order to be informed of the further developments of SXP. 
 
