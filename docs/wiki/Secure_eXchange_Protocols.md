@@ -16,7 +16,7 @@ In short
 *A project to create an open, ubiquitous, peer-to-peer, secure protocol
 suite for multi-party exchanges of contracts.*
 
-The idea is that any of us can join together and create a virtual
+The idea is that any of us can join together and create a virtual ad hoc
 market, in which others can tell what they have to offer and what they
 need. The market, or anyone for that matter, can propose deals, whereby
 one person would give an item to another who gives an item to a third
