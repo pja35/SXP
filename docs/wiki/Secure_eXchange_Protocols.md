@@ -33,11 +33,6 @@ More
 -   [What is it? What is *not*?](/wiki/What_Is_it "wikilink")
 -   [Who are we?](/wiki/Authors "wikilink")
 
-Who are we?
------------
-
-See our [Hall of Fame](/wiki/Authors "wikilink").
-
 Stages
 ------
 

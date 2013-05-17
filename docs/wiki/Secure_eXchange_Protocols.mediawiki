@@ -16,9 +16,6 @@ Hence our motto could be: ''Securely exchange anything, anywhere, with anyone.''
 * [[What Is it|What is it? What is ''not''?]]
 * [[Authors|Who are we?]]
 
-==Who are we?==
-See our [[Authors|Hall of Fame]].
-
 ==Stages==
 The foreseen stages of the project are: 
 # Know what the protocols aim to achieve
