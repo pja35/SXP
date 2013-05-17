@@ -52,8 +52,5 @@ The other stages are entirely in the hands of the community that will develop th
 ===Consensus-based=== 
 A protocol is a common language. Hence it seems to be a good thing to elaborate it jointly. Since the protocols that come out of this project have to be secure against all sorts of attacks, and may eventually serve as a basis for an exchange-based economy, it is important that designers be warned of all foreseeable caveats. We believe that only a consensus-based design can provide this degree of awareness.
 
-==Getting started==
-Contributing to this project means setting up an account on this Wiki, and making this website grow in an orderly fashion, by bringing in your own expertise. Here are some more informations about [[Getting Started]]. You can also [http://secure-exchange-protocols.org/newsletters/?p=subscribe subscribe] to our newsletter in order to be informed of the further developments of SXP. You can also get in touch [mailto:initiators*AT*secure-exchange-protocols*DOT*org here].
-
 ==Questions that bother us==
 ''Say that mankind had all these mobile phones, PDAs etc., but suddenly forgot all about money. Say that all of its trades were taking place via some advanced, decentralized, electronic bartering system... Would one of the resources being exchanged re-emerge as an exclusive money, i.e. serve for wealth cumulation and participate in all deals? Would mankind trust pieces of paper back again? Or would more dynamic, blended and local currencies start to emerge? Is there a good theory of emergence of moneys in distributed, decentralized economies?'' More on [[Questions_That_Bother_Us|these questions]].
