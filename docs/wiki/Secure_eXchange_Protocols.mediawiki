@@ -112,11 +112,10 @@ A protocol is a common language. Hence it seems to be a good thing to elaborate 
 ==Current needs==
 We call on:
 * Security protocol experts, peer-to-peer protocol experts, to help us design the protocols
-* XML experts, to help us design contracts specifications
+* Programmers in general
 * Economists to help us refine the [[:Category:Discussion Pages|discussions]], which may help us to take some design decisions
 * Infographists, publicists to help put these ideas forward in a clear manner, perhaps in small cartoon/video 
 * All good wills, to do whatever they understood might be useful
-One day we may ask for donations to help the project management and development, and which will be handled with full transparency.
 
 ==Getting started==
 Contributing to this project means setting up an account on this Wiki, and making this website grow in an orderly fashion, by bringing in your own expertise. Here are some more informations about [[Getting Started]]. You can also [http://secure-exchange-protocols.org/newsletters/?p=subscribe subscribe] to our newsletter in order to be informed of the further developments of SXP. You can also get in touch [mailto:initiators*AT*secure-exchange-protocols*DOT*org here].

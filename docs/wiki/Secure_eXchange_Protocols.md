@@ -266,16 +266,13 @@ We call on:
 
 -   Security protocol experts, peer-to-peer protocol experts, to help us
     design the protocols
--   XML experts, to help us design contracts specifications
+-   Programmers in general
 -   Economists to help us refine the
     [discussions](/wiki/Category%3ADiscussion_Pages "wikilink"), which may
     help us to take some design decisions
 -   Infographists, publicists to help put these ideas forward in a clear
     manner, perhaps in small cartoon/video
 -   All good wills, to do whatever they understood might be useful
-
-One day we may ask for donations to help the project management and
-development, and which will be handled with full transparency.
 
 Getting started
 ---------------
