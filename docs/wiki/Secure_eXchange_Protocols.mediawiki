@@ -11,19 +11,6 @@ The idea is that any of us can join together and create a virtual ad hoc market,
 
 Hence our motto could be: ''Securely exchange anything, anywhere, with anyone.''
 
-==Why do this?==
-This project is mainly technical. Yet, here are some motivations. An exclusive money-based economy is an economy where goods or services are systematically exchanged against one fixed notion of money, to the exclusion of all others or anything else. Exclusive money-based economy does seem quite natural to all of us. Yet, taking a step back, it has a few downsides: 
-
-* A lack of this one money can cause exchanges, that would not otherwise be dependent on this money, to be halted.
-* It is often unclear who produces this money and for what purpose. Nowadays, are Central Banks producing the money, or Private Banks?
-* It is often unclear whether this money is distributed in any efficient way to start with, and the distribution is clearly difficult to change. 
-* Having an exclusive notion of money triggers wealth cumulation behaviours, which sometimes are counter-productive.
-* Having an exclusive notion of money favours deals in which the relative value of items is made uniform across large regions and populations. 
-
-Of course no fixed notion of money is an absolute scale of people's merit, nor an absolute scale on which to measure all things. What is money, then? Money is an instrument for facilitating exchanges. Enforcing an exclusive money has both [[Exclusive Money Based Economy|advantages and disadvantages]]. We take the pragmatic view that whatever can be made in order to facilitate exchanges, is worth doing for the economy. 
-
-There are a number of [[Related Projects|related projects]] seeking to address the above-mentioned downsides. The idea of going for Secure eXchange Protocols has been envisioned by others in the past, see [[Related Articles|related articles]]. Certainly, having such protocols implemented would come as handy in a number of [[Related Situations|situations]]. The aim of this project is to make these protocols a reality. [[Why Do This|More on why we should do this]].
-
 ==What is it?==
 
 ''Say Alice, Bob, and Charlie have access to different resources ''a'', ''b'', and ''c''. Say Alice wants ''b'', Bob wants ''c'' and Charlie wants ''a'', but they do not know each other, nor do they trust each other. Here ''a'', ''b'' and ''c'' can be anything, e.g ''a'' the ability to give maths lessons, ''b'' some barrel of beer, and ''c'' coins from a certain currency. Finally, say Alice, Bob and Charlie have an iPhone, Android, or whatever smart phone in their pockets. Using Secure eXchange Protocols on their smart phones, they should be able to quickly declare their resources and needs on virtual ad hoc markets, which in turn should detect and propose the obvious deal between them. If the three of them accept the deal, then an electronic contract will be secured, which is a formal proof of their agreement to perform the swap.''
