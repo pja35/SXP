@@ -10,27 +10,26 @@ the possible ways to define an XML structure.
 SXP Items schema
 ----------------
 
-The SXP Item schema is an [XML schema](/wiki/XML_schema "wikilink"), and gives
-a description of the items. Note that items here means products and
+[Download
+SXPItem.xsd](https://docs.google.com/file/d/0B4JKZAq0izyxRHV1RFFnUHBYM0k/edit?usp=sharing)
+
+The SXP Item schema is an [XML schema](/wiki/XSD "wikilink"), and gives a
+description of the items. Note that items here means products and
 services. It provides the following entries:
 
--   External URL (optional). An Url with information about the product.
-
-<!-- -->
-
--   Number of Items (optional).
-
-<!-- -->
-
--   Description Data (optional).
-    -   Title.
+-   Item Description. General description of the product. It includes:
+    -   Title(mandatory).
     -   Brand.
-    -   Designer
+    -   Color.
+    -   Dimensions.
     -   Description.
+    -   Item information URL. An Url with information about the product.
+    -   Item picture URL. An Url with a picture of the product.
+    -   Number of Items.
 
 <!-- -->
 
--   Item Data. It classifies the product in categories such as:
+-   Item Category. It classifies the product in categories such as:
     -   Clothing
     -   Sports
     -   Beauty
@@ -43,12 +42,9 @@ There are also several categories for services:
     -   Transport
     -   Other Services
 
-Currently, it is only possible to select the category and add a text
-description of the product. We may want to extend this and subdivide
-each category, or add specific information (e.g. duration on services)
-
-[Link for downloading
-SXPProducts.xsd](https://docs.google.com/file/d/0B4JKZAq0izyxZTVickJ2MDM5VDQ/edit?usp=sharing)
+Currently, it is only possible to select the category of the product. We
+may want to extend this and subdivide each category, or add specific
+information (e.g. duration on services, subcategories)
 
 Related Frameworks
 ------------------
@@ -64,10 +60,4 @@ schemas (even when they are XML-based):
 
 -   Prestashop
 -   Magento
-
-External links
---------------
-
--   [Selling on Amazon guide to XML (description of objects in
-    page 38/85)](https://images-na.ssl-images-amazon.com/images/G/01/rainier/help/XML_Documentation_Intl.pdf)
 
