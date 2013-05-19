@@ -22,9 +22,9 @@ services. It provides the following entries:
     -   Brand.
     -   Color.
     -   Dimensions.
-    -   Description.
-    -   Item information URL. An Url with information about the product.
-    -   Item picture URL. An Url with a picture of the product.
+    -   Description. A narrative item description.
+    -   Item information URL. An Url with information of the item.
+    -   Item picture URL. An Url with a picture of the item.
     -   Number of Items.
 
 <!-- -->
