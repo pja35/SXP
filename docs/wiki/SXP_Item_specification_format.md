@@ -19,7 +19,8 @@ The SXP Item schema is an [XML schema](/wiki/XSD "wikilink"), and gives a
 description of the items. Note that items here means products and
 services. It provides the following entries:
 
--   Item Description. General description of the product. It includes:
+-   **Item Description**. General description of the product. It
+    includes:
     -   Title (mandatory).
     -   Brand.
     -   Color.
@@ -31,7 +32,7 @@ services. It provides the following entries:
 
 <!-- -->
 
--   Item Category. It classifies the product in categories such as:
+-   **Item Category**. It classifies the product in categories such as:
     -   Clothing
     -   Sports
     -   Beauty
