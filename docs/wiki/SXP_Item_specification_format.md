@@ -4,10 +4,10 @@ permalink: wiki/SXP_Item_specification_format/
 layout: wiki
 ---
 
-We make the Items Specification via an [XML schema](/wiki/XSD "wikilink").
-Users can create an xml file for describing their product and then
-insert it on the respective clause of the [SXP
-Contract](/wiki/SXP_Contract "wikilink").
+We make the Items Specification via an [XML schema](/wiki/XSD "wikilink"). The
+Items described can be products and services. Users can create an xml
+file for describing their item and then insert it on the respective
+clause of the [SXP Contract](/wiki/SXP_Contract "wikilink").
 
 [Download
 SXPItem.xsd](https://docs.google.com/file/d/0B4JKZAq0izyxRHV1RFFnUHBYM0k/edit?usp=sharing)
@@ -15,12 +15,7 @@ SXPItem.xsd](https://docs.google.com/file/d/0B4JKZAq0izyxRHV1RFFnUHBYM0k/edit?us
 Structure of SXP Item schema
 ----------------------------
 
-The SXP Item schema is an [XML schema](/wiki/XSD "wikilink"), and gives a
-description of the items. Note that items here means products and
-services. It provides the following entries:
-
--   **Item Description**. General description of the product. It
-    includes:
+-   **Item Description**. General description of the item. It includes:
     -   Title (mandatory).
     -   Brand.
     -   Color.
