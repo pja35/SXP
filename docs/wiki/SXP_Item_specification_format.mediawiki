@@ -1,8 +1,10 @@
-We do the Items Specification via an XML schema (XSD), which is one of the possible ways to define an XML structure.
-
-==SXP Items schema==
+We make the Items Specification via an [[XSD|XML schema]]. Users can create an xml file for describing their product and then insert it on the respective clause of the [[SXP Contract]].
 
 [https://docs.google.com/file/d/0B4JKZAq0izyxRHV1RFFnUHBYM0k/edit?usp=sharing Download SXPItem.xsd]
+
+==Structure of SXP Item schema==
+
+
 
 The SXP Item schema is an [[XSD|XML schema]], and gives a description of the items. Note that items here means products and services. It provides the following entries:
 
