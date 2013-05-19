@@ -18,7 +18,7 @@ description of the items. Note that items here means products and
 services. It provides the following entries:
 
 -   Item Description. General description of the product. It includes:
-    -   Title(mandatory).
+    -   Title (mandatory).
     -   Brand.
     -   Color.
     -   Dimensions.

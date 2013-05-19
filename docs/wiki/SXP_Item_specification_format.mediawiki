@@ -7,7 +7,7 @@ We do the Items Specification via an XML schema (XSD), which is one of the possi
 The SXP Item schema is an [[XSD|XML schema]], and gives a description of the items. Note that items here means products and services. It provides the following entries:
 
 *Item Description. General description of the product. It includes: 
-**Title(mandatory).
+**Title (mandatory).
 **Brand.
 **Color.
 **Dimensions.
@@ -29,8 +29,6 @@ There are also several categories for services:
 **Other Services
 
 Currently, it is only possible to select the category of the product. We may want to extend this and subdivide each category, or add specific information (e.g. duration on services, subcategories)
-
-
 
 ==Related Frameworks==
 There are some XML schemas for defining products in the most known e-commerce websites:
