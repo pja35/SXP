@@ -7,6 +7,12 @@ layout: wiki
 This page describes the technichal information about the SXP Contract
 Definition, which is an extension of OASIS Legal XML eContracts.
 
+For validating SXP contracts, users must [download the SXP Contract
+Schema](https://docs.google.com/file/d/0B4JKZAq0izyxTFl4b0dZX1FXRUk/edit?usp=sharing)
+and the [XML eContracts
+Schema](http://docs.oasis-open.org/legalxml-econtracts/CS01/eContracts-v1.0-cs01.zipLegal).
+Then, contracts can be validated using a XML validator.
+
 Required clauses
 ----------------
 
@@ -47,10 +53,12 @@ of each party, in order to use this information at the following clauses
 
 -   **Items clause**. A reference to the items that will be exchanged.
     This reference will be done under the [Items
-    Specification](/wiki/Items_Specification "wikilink"). Each item should
-    also include the delivery instructions:
-    -   the person who will pay the delivery of the item
-    -   when he will do it
+    Specification](/wiki/Items_Specification "wikilink"). Each item's clause
+    should also include:
+    -   Delivery instructions:
+        -   by when it will be delivered
+        -   by who
+        -   who will pay for the delivery
 
 Optional clauses
 ----------------
@@ -137,13 +145,3 @@ In this example, we have two parties (Alice and Bob) exchanging objects
 
 </body>
 `   `</contract>
-
-SXP Contract Schema
--------------------
-
-For validating SXP contracts, users must [download the SXP Contract
-Schema](https://docs.google.com/file/d/0B4JKZAq0izyxTFl4b0dZX1FXRUk/edit?usp=sharing)
-and the Legal XML eContracts Schema from the [OASIS LegalXML eContracts
-Technichal committee
-website](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=legalxml-econtracts).
-Then, contracts can be validated using a XML validator.

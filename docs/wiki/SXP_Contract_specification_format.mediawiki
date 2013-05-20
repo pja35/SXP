@@ -1,5 +1,7 @@
 This page describes the technichal information about the SXP Contract Definition, which is an extension of OASIS Legal XML eContracts.
 
+For validating SXP contracts, users must [https://docs.google.com/file/d/0B4JKZAq0izyxTFl4b0dZX1FXRUk/edit?usp=sharing download the SXP Contract Schema] and the [http://docs.oasis-open.org/legalxml-econtracts/CS01/eContracts-v1.0-cs01.zipLegal XML eContracts Schema]. Then, contracts can be validated using a XML validator.
+
 == Required clauses ==
 
 These are the clauses that the user must fill in for creating a SXP Contract:
@@ -20,9 +22,11 @@ at the following clauses (see conflict resolution mode at breachClause?
 ***contract-level mode. Even local conflicts are resolved by all parties. 
 ** Trust Rating Adjustements (optional). Information about the adjustements that will be done on the SXP trust rating system.
 
-*'''Items clause'''. A reference to the items that will be exchanged. This reference will be done under the [[Items Specification]]. Each item should also include the delivery instructions:
-** the person who will pay the delivery of the item
-** when he will do it
+*'''Items clause'''. A reference to the items that will be exchanged. This reference will be done under the [[Items Specification]]. Each item's clause should also include:
+**Delivery instructions:
+*** by when it will be delivered
+*** by who
+*** who will pay for the delivery
 
 == Optional clauses ==
 
@@ -86,7 +90,3 @@ In this example, we have two parties (Alice and Bob) exchanging objects (a violi
     </body>
     
     </contract>
-
-== SXP Contract Schema==
-
-For validating SXP contracts, users must [https://docs.google.com/file/d/0B4JKZAq0izyxTFl4b0dZX1FXRUk/edit?usp=sharing download the SXP Contract Schema] and the Legal XML eContracts Schema from the [https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=legalxml-econtracts OASIS LegalXML eContracts Technichal committee website]. Then, contracts can be validated using a XML validator.
