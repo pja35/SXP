@@ -51,7 +51,8 @@ FpML is a XML standard for describing OTC derivatives.
 -   **eLEGAL.**
 
 eLEGAL defines a framework for legal conditions and contracts regarding
-the use of ICT in project business.
+the use of information and communication technologies in project
+business.
 
 Adopting an XML standard for SXP
 --------------------------------
