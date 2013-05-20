@@ -46,7 +46,8 @@ ebXML specification.
 
 -   **Financial Product Markup Language (FpML).**
 
-FpML is a XML standard for describing OTC derivatives.
+FpML is a XML standard for describing over-the-counter derivatives
+(financial instruments negotiated directly between two parties).
 
 -   **eLEGAL.**
 

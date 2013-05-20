@@ -19,7 +19,7 @@ In ebXML, contracts are not defined in a single document — instead , the tradi
 For more information, read the [http://ebxml.org/specs/bpPATT.pdf E-Commerce Patterns v1.0] Technichal Report, from the ebXML specification.
 
 * '''Financial Product Markup Language (FpML).'''
-FpML is a XML standard for describing OTC derivatives.
+FpML is a XML standard for describing over-the-counter derivatives (financial instruments negotiated directly between two parties).
 
 *'''eLEGAL.'''
 eLEGAL defines a framework for legal conditions and contracts regarding the use of information and communication technologies in project business.
