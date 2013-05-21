@@ -35,7 +35,7 @@ to use this information at the following clauses (see conflict
 resolution mode at breachClause?
 
 -should we constraint more in any way? E.g. forcing the user to fill
-*name*, *address*, etc (currently this are optional values at
+*name*, *address*, etc (currently these are optional values at
 eContracts).
 
 -   **Breach clause**. A clause that specifies what happens in case of

@@ -17,7 +17,7 @@ Problems:
 -should we extend it by specifying the country of each party, in order to use this information
 at the following clauses (see conflict resolution mode at breachClause?
 
--should we constraint more in any way? E.g. forcing the user to fill ''name'', ''address'', etc (currently this are optional 
+-should we constraint more in any way? E.g. forcing the user to fill ''name'', ''address'', etc (currently these are optional 
 values at eContracts).
 
 
