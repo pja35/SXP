@@ -58,8 +58,8 @@ eContracts).
 
 <!-- -->
 
--   **SXP Item clause**. An unbounded number of sequence of the
-    following
+-   **SXP Item clause**. We can have the following sequence an unbounded
+    number of times:
     -   SXP Item. A reference to the [SXP
         Item](/wiki/Items_Specification "wikilink") that will be exchanged.
         This reference will be done under the [Items
