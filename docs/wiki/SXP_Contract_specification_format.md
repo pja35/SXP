@@ -109,101 +109,104 @@ In this example, we have two parties (Alice and Bob) exchanging objects
 (a laptop and a guitar).
 
 <?xml version="1.0"?>
-<contract xmlns="urn:oasis:names:tc:eContracts:1:0"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:sxp="http://secure-exchange-protocols.org/index.php?title=SXP_Contract"
-xsi:schemaLocation="urn:oasis:names:tc:eContracts:1:0 SXPContract.xsd">
+` `<contract xmlns="urn:oasis:names:tc:eContracts:1:0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:sxp="http://secure-exchange-protocols.org/index.php?title=SXP_Contract"
+  xsi:schemaLocation="urn:oasis:names:tc:eContracts:1:0 SXPContract.xsd">  
+` `
 
 <title>
 <text>Contract between Alice and Bob</text>
 
 </title>
-<contract-front>
-
-` `<date-block>`22/1/2013`</date-block>  
-` `<parties>  
-`   `<party id="aliceID">`Alice`</party>  
-`   `<party id="bobID">`Bob`</party>  
-` `</parties>  
+` `<contract-front>  
+`   `<date-block>`22/1/2013`</date-block>  
+`   `<parties>  
+`     `<party id="aliceID">`Alice`</party>  
+`     `<party id="bobID">`Bob`</party>  
+`   `</parties>  
+`   `  
+` `</contract-front>  
+` `  
 ` `
 
-</contract-front>
-
 <body>
-<breachClause>
-
-` `<conflictResolutionMode>  
-`   `<exchange-level>  
-`     `<defendantCountry/>  
-`   `</exchange-level>  
-` `</conflictResolutionMode>
-
-</breachClause>
-
-<SXPItemClause>
-
-` `<SXPItem >` `  
-`   `<ItemDescription>  
-`     `
+` `<breachClause>  
+`   `<conflictResolutionMode>  
+`     `<exchange-level>  
+`       `<defendantCountry/>  
+`     `</exchange-level>  
+`   `</conflictResolutionMode>  
+` `</breachClause>  
+` `  
+` `  
+` `<SXPItemClause>  
+`   `  
+`   `  
+`   `<SXPItem >` `  
+`     `<ItemDescription>  
+`       `
 
 <Title>
 Guitar
 
 </Title>
-`   `</ItemDescription>  
+`     `</ItemDescription>  
+`     `  
+`     `<ItemCategory>  
+`       `<MusicalInstruments/>  
+`     `</ItemCategory>  
+`   `</SXPItem>  
 `   `  
-`   `<ItemCategory>  
-`     `<MusicalInstruments/>  
-`   `</ItemCategory>  
-` `</SXPItem>  
-` `  
-` `<deliveryInformation>  
+`   `<deliveryInformation>  
+`     `  
+`     `<responsible>`Caroline`</responsible>  
+`     `<date>`2013-04-30`</date>  
+`     `<payer><partyRef>`aliceID`</partyRef></payer>  
+`     `<partyProvider>`aliceID`</partyProvider>  
+`     `<partyReceiver>`bobID`</partyReceiver>  
+`     `  
+`   `</deliveryInformation>  
 `   `  
-`   `<responsible>`Caroline`</responsible>  
-`   `<date>`2013-04-30`</date>  
-`   `<payer><partyRef>`aliceID`</partyRef></payer>  
-`   `<partyProvider>`aliceID`</partyProvider>  
-`   `<partyReceiver>`bobID`</partyReceiver>  
 `   `  
-` `</deliveryInformation>  
-` `  
-` `  
-` `<SXPItem >` `  
-`   `<ItemDescription>  
-`       `
+`   `<SXPItem >` `  
+`     `<ItemDescription>  
+`         `
 
 <Title>
 Laptop
 
 </Title>
-`    `</ItemDescription>  
-`   `<ItemCategory>  
-`     `<Computers/>  
-`   `</ItemCategory>  
-` `</SXPItem>  
+`      `</ItemDescription>  
+`     `<ItemCategory>  
+`       `<Computers/>  
+`     `</ItemCategory>  
+`   `</SXPItem>  
+`   `  
+`   `<deliveryInformation>  
+`     `<responsible>  
+`       Daniel`  
+`     `</responsible>  
+`     `  
+`     `<date>`2013-04-25`</date>  
+`     `  
+`     `<payer>  
+`       `<person-record>`Caroline`</person-record>  
+`     `</payer>  
+`     `  
+`     `<partyProvider>`bobID`</partyProvider>  
+`     `<partyReceiver>`aliceID`</partyReceiver>  
+`   `</deliveryInformation>  
+`   `  
+`   `  
+` `</SXPItemClause>  
+`   `  
 ` `  
-` `<deliveryInformation>  
-`   `<responsible>  
-`     Daniel`  
-`   `</responsible>  
-`   `  
-`   `<date>`2013-04-25`</date>  
-`   `  
-`   `<payer>  
-`     `<person-record>`Caroline`</person-record>  
-`   `</payer>  
-`   `  
-`   `<partyProvider>`bobID`</partyProvider>  
-`   `<partyReceiver>`aliceID`</partyReceiver>  
-` `</deliveryInformation>  
-` `  
-` `
+` `<vatClause>  
+` `<vatAmount>` 1.40€ `</vatAmount>  
+` `<responsible>` `<partyRef>`bobID`</partyRef>` `</responsible>
 
-</SXPItemClause>
-
-<vatClause> <vatAmount> 1.40€ </vatAmount> <responsible>
-<partyRef>bobID</partyRef> </responsible> <authority> France Revenue
-Service </authority> </vatClause>
+<authority> France Revenue Service </authority> </vatClause>
 
 </body>
 </contract>
