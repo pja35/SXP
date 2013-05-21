@@ -9,8 +9,8 @@ Definition, which is an extension of OASIS Legal XML eContracts.
 
 For validating SXP contracts, users must [download the SXP Contract
 Schema](https://docs.google.com/file/d/0B4JKZAq0izyxTFl4b0dZX1FXRUk/edit?usp=sharing)
-and the [XML eContracts
-Schema](http://docs.oasis-open.org/legalxml-econtracts/CS01/eContracts-v1.0-cs01.zipLegal).
+and the [Legal XML eContracts
+Schema](http://docs.oasis-open.org/legalxml-econtracts/CS01/eContracts-v1.0-cs01.zip).
 Then, contracts can be validated using a XML validator.
 
 Required clauses
