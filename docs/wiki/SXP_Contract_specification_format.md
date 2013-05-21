@@ -62,8 +62,6 @@ eContracts).
     number of times:
     -   SXP Item. A reference to the [SXP
         Item](/wiki/Items_Specification "wikilink") that will be exchanged.
-        This reference will be done under the [Items
-        Specification](/wiki/Items_Specification "wikilink").
     -   Delivery instructions. Delivery information associated to the
         previous item:
         -   Party Provider. A unique reference (see xsd:IDREF) to a
