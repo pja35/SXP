@@ -26,13 +26,13 @@ Contract:
 eContracts) -the *id* attribute has been set as mandatory as well, so we
 can refer to a certain party in future clauses.
 
-Problems:
+Problems: -should we extend it by specifying the country of each party,
+in order to use this information at the following clauses (see conflict
+resolution mode at breachClause?
 
--should we extend it by specifying the country of each party, in order
-to use this information at the following clauses (see conflict
-resolution mode at breachClause? -should we constraint more in any way?
-E.g. forcing the user to fill *name*, *address*, etc (currently this are
-optional values at eContracts).
+-should we constraint more in any way? E.g. forcing the user to fill
+*name*, *address*, etc (currently this are optional values at
+eContracts).
 
 -   **Breach clause**. A clause that specifies what happens in case of
     one party doesn't accomplish the contract. It has the following
