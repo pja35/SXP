@@ -138,10 +138,10 @@ In this example, we have two parties (Alice and Bob) exchanging objects (a lapto
   <vatClause>
   <vatAmount> 1.40€ </vatAmount>
   <responsible> <partyRef>bobID</partyRef> </responsible>
-<authority> France Revenue Service </authority>
-</vatClause>
+  <authority> France Revenue Service </authority>
+  </vatClause>
   
   
-</body>
+  </body>
 
-</contract>
+  </contract>

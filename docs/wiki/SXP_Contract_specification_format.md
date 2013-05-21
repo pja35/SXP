@@ -204,9 +204,12 @@ Laptop
 ` `  
 ` `<vatClause>  
 ` `<vatAmount>` 1.40€ `</vatAmount>  
-` `<responsible>` `<partyRef>`bobID`</partyRef>` `</responsible>
-
-<authority> France Revenue Service </authority> </vatClause>
+` `<responsible>` `<partyRef>`bobID`</partyRef>` `</responsible>  
+` `<authority>` France Revenue Service `</authority>  
+` `</vatClause>  
+` `  
+` `  
+` `
 
 </body>
-</contract>
+` `</contract>
