@@ -19,17 +19,20 @@ Required clauses
 These are the clauses that the user must fill in for creating a SXP
 Contract:
 
--   **Parties**. Actually, this clause exists at the original Legal XML
-    Specification (at the *contract-front* level), but it is not
-    considered mandatory. In our specification it has been set
-    as mandatory.
+-   **Parties**. We use the *party* element from the
+    eContracts Specification. The only changes are:
 
-At the eContracts Specification, we have the *party* element where we
-can specify address and name of each party.
+-the own element has been set as mandatory (it was optional at
+eContracts) -the *id* attribute has been set as mandatory as well, so we
+can refer to a certain party in future clauses.
 
-Problem: should we extend the *party* element by specifying the country
-of each party, in order to use this information at the following clauses
-(see conflict resolution mode at breachClause?
+Problems:
+
+-should we extend it by specifying the country of each party, in order
+to use this information at the following clauses (see conflict
+resolution mode at breachClause? -should we constraint more in any way?
+E.g. forcing the user to fill *name*, *address*, etc (currently this are
+optional values at eContracts).
 
 -   **Breach clause**. A clause that specifies what happens in case of
     one party doesn't accomplish the contract. It has the following
@@ -51,14 +54,22 @@ of each party, in order to use this information at the following clauses
 
 <!-- -->
 
--   **Items clause**. A reference to the items that will be exchanged.
-    This reference will be done under the [Items
-    Specification](/wiki/Items_Specification "wikilink"). Each item's clause
-    should also include:
-    -   Delivery instructions:
-        -   by when it will be delivered
-        -   by who
-        -   who will pay for the delivery
+-   **SXP Item clause**. An unbounded number of sequence of the
+    following
+    -   SXP Item. A reference to the [SXP
+        Item](/wiki/Items_Specification "wikilink") that will be exchanged.
+        This reference will be done under the [Items
+        Specification](/wiki/Items_Specification "wikilink").
+    -   Delivery instructions. Delivery information associated to the
+        previous item:
+        -   Party Provider. A unique reference (see xsd:IDREF) to a
+            *party* id from above.
+        -   Party Receiver.
+        -   Date. By when the item will be delivered.
+        -   Person responsible. By who the delivery will be made. It may
+            be a id reference to a party.
+        -   Payer. Who will pay the delivery. It may be a id reference
+            to a party.
 
 Optional clauses
 ----------------
