@@ -106,53 +106,104 @@ Minimal example of a SXP Contract
 ---------------------------------
 
 In this example, we have two parties (Alice and Bob) exchanging objects
-(a violin and a guitar).
+(a laptop and a guitar).
 
 <?xml version="1.0"?>
-`  `<contract xmlns="urn:oasis:names:tc:eContracts:1:0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:sxp="http://secure-exchange-protocols.org/index.php?title=SXP_Contract"
-    xsi:schemaLocation="urn:oasis:names:tc:eContracts:1:0 SXPContract.xsd">  
-`   `
+<contract xmlns="urn:oasis:names:tc:eContracts:1:0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:sxp="http://secure-exchange-protocols.org/index.php?title=SXP_Contract"
+xsi:schemaLocation="urn:oasis:names:tc:eContracts:1:0 SXPContract.xsd">
 
 <title>
 <text>Contract between Alice and Bob</text>
 
 </title>
-`   `<contract-front>  
-`   `<date-block>  
-`   `<date>` 20-02-2013`</date>  
-`   `</date-block>  
-`   `<parties>  
-`   `<party>`Alice`</party>  
-`   `<party>`Bob`</party>  
-`   `</parties>  
-`   `</contract-front>
+<contract-front>
+
+` `<date-block>`22/1/2013`</date-block>  
+` `<parties>  
+`   `<party id="aliceID">`Alice`</party>  
+`   `<party id="bobID">`Bob`</party>  
+` `</parties>  
+` `
+
+</contract-front>
 
 <body>
-`   `<item><block><text>`Narrative Clause #1`</text></block></item>  
-`   `<item><block><text>`Narrative Clause #2`</text></block></item>  
-`   `<breachClause>  
-`     `<conflictResolutionMode>  
-`       `<exchange-level>  
-`         `<defendantCountry/>  
-`       `</exchange-level>  
-`     `</conflictResolutionMode>  
-`   `</breachClause>  
-`   `<objects>  
-`   `<object>` Violin `</object>  
-`   `<object>` Guitar `</object>  
-`   `</objects>  
-`   `<deliveryClause>  
-`   `<party>` Bob `</party>  
-`   `<date>` 22-2-2013`</date>  
-`   `</deliveryClause>  
-`   `<vatClause>  
-`   `<party>` Alice `</party>  
-`   `<amount>` 1.40€ `</amount>  
-`   `<authority>` France Revenue Service `</authority>  
-`   `</vatClause>  
-`   `
+<breachClause>
+
+` `<conflictResolutionMode>  
+`   `<exchange-level>  
+`     `<defendantCountry/>  
+`   `</exchange-level>  
+` `</conflictResolutionMode>
+
+</breachClause>
+
+<SXPItemClause>
+
+` `<SXPItem >` `  
+`   `<ItemDescription>  
+`     `
+
+<Title>
+Guitar
+
+</Title>
+`   `</ItemDescription>  
+`   `  
+`   `<ItemCategory>  
+`     `<MusicalInstruments/>  
+`   `</ItemCategory>  
+` `</SXPItem>  
+` `  
+` `<deliveryInformation>  
+`   `  
+`   `<responsible>`Caroline`</responsible>  
+`   `<date>`2013-04-30`</date>  
+`   `<payer><partyRef>`aliceID`</partyRef></payer>  
+`   `<partyProvider>`aliceID`</partyProvider>  
+`   `<partyReceiver>`bobID`</partyReceiver>  
+`   `  
+` `</deliveryInformation>  
+` `  
+` `  
+` `<SXPItem >` `  
+`   `<ItemDescription>  
+`       `
+
+<Title>
+Laptop
+
+</Title>
+`    `</ItemDescription>  
+`   `<ItemCategory>  
+`     `<Computers/>  
+`   `</ItemCategory>  
+` `</SXPItem>  
+` `  
+` `<deliveryInformation>  
+`   `<responsible>  
+`     Daniel`  
+`   `</responsible>  
+`   `  
+`   `<date>`2013-04-25`</date>  
+`   `  
+`   `<payer>  
+`     `<person-record>`Caroline`</person-record>  
+`   `</payer>  
+`   `  
+`   `<partyProvider>`bobID`</partyProvider>  
+`   `<partyReceiver>`aliceID`</partyReceiver>  
+` `</deliveryInformation>  
+` `  
+` `
+
+</SXPItemClause>
+
+<vatClause> <vatAmount> 1.40€ </vatAmount> <responsible>
+<partyRef>bobID</partyRef> </responsible> <authority> France Revenue
+Service </authority> </vatClause>
 
 </body>
-`   `</contract>
+</contract>
