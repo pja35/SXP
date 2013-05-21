@@ -23,11 +23,15 @@ Contract:
     eContracts Specification. The only changes are:
 
 -the own element has been set as mandatory (it was optional at
-eContracts) -the *id* attribute has been set as mandatory as well, so we
-can refer to a certain party in future clauses.
+eContracts)
 
-Problems: -should we extend it by specifying the country of each party,
-in order to use this information at the following clauses (see conflict
+-the *id* attribute has been set as mandatory as well, so we can refer
+to a certain party in future clauses.
+
+Problems:
+
+-should we extend it by specifying the country of each party, in order
+to use this information at the following clauses (see conflict
 resolution mode at breachClause?
 
 -should we constraint more in any way? E.g. forcing the user to fill

@@ -7,10 +7,13 @@ For validating SXP contracts, users must [https://docs.google.com/file/d/0B4JKZA
 These are the clauses that the user must fill in for creating a SXP Contract:
 
 *'''Parties'''. We use the ''party'' element from the eContracts Specification. The only changes are:
+
 -the own element has been set as mandatory (it was optional at eContracts)
+
 -the ''id'' attribute has been set as mandatory as well, so we can refer to a certain party in future clauses.
 
 Problems:
+
 -should we extend it by specifying the country of each party, in order to use this information
 at the following clauses (see conflict resolution mode at breachClause?
 
