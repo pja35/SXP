@@ -27,6 +27,7 @@ values at eContracts).
 ***contract-level mode. Even local conflicts are resolved by all parties. 
 ** Trust Rating Adjustements (optional). Information about the adjustements that will be done on the SXP trust rating system.
 
+
 *'''SXP Item clause'''. An unbounded number of sequence of the following
 **SXP Item. A reference to the [[Items Specification |SXP Item]] that will be exchanged. This reference will be done under the [[Items Specification]]. 
 **Delivery instructions. Delivery information associated to the previous item:
