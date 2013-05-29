@@ -87,7 +87,8 @@ In this example, we have two parties (Alice and Bob) exchanging objects (a lapto
   
   
   <SXPItemClause>
-    
+
+    <SXPTransfer>
     <!-- Object #1 -->
     <SXPItem > 
       <ItemDescription>
@@ -99,16 +100,19 @@ In this example, we have two parties (Alice and Bob) exchanging objects (a lapto
       </ItemCategory>
     </SXPItem>
     
+    <partyProvider>aliceID</partyProvider>
+    <partyReceiver>bobID</partyReceiver>
     <deliveryInformation>
       
       <responsible>Caroline</responsible>
       <date>2013-04-30</date>
       <payer><partyRef>aliceID</partyRef></payer>
-      <partyProvider>aliceID</partyProvider>
-      <partyReceiver>bobID</partyReceiver>
+      
       
     </deliveryInformation>
-    
+    </SXPTransfer>
+
+    <SXPTransfer>
     <!-- Object #2 -->
     <SXPItem > 
       <ItemDescription>
@@ -119,6 +123,9 @@ In this example, we have two parties (Alice and Bob) exchanging objects (a lapto
       </ItemCategory>
     </SXPItem>
     
+    <partyProvider>bobID</partyProvider>
+      <partyReceiver>aliceID</partyReceiver>
+
     <deliveryInformation>
       <responsible>
         Daniel
@@ -130,10 +137,9 @@ In this example, we have two parties (Alice and Bob) exchanging objects (a lapto
         <person-record>Caroline</person-record>
       </payer>
       
-      <partyProvider>bobID</partyProvider>
-      <partyReceiver>aliceID</partyReceiver>
+      
     </deliveryInformation>
-    
+    </SXPTransfer>
     
   </SXPItemClause>
     

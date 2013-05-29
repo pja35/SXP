@@ -143,8 +143,9 @@ In this example, we have two parties (Alice and Bob) exchanging objects
 ` `</breachClause>  
 ` `  
 ` `  
-` `<SXPItemClause>  
-`   `  
+` `<SXPItemClause>
+
+`   `<SXPTransfer>  
 `   `  
 `   `<SXPItem >` `  
 `     `<ItemDescription>  
@@ -161,16 +162,19 @@ Guitar
 `     `</ItemCategory>  
 `   `</SXPItem>  
 `   `  
+`   `<partyProvider>`aliceID`</partyProvider>  
+`   `<partyReceiver>`bobID`</partyReceiver>  
 `   `<deliveryInformation>  
 `     `  
 `     `<responsible>`Caroline`</responsible>  
 `     `<date>`2013-04-30`</date>  
 `     `<payer><partyRef>`aliceID`</partyRef></payer>  
-`     `<partyProvider>`aliceID`</partyProvider>  
-`     `<partyReceiver>`bobID`</partyReceiver>  
+`     `  
 `     `  
 `   `</deliveryInformation>  
-`   `  
+`   `</SXPTransfer>
+
+`   `<SXPTransfer>  
 `   `  
 `   `<SXPItem >` `  
 `     `<ItemDescription>  
@@ -186,6 +190,9 @@ Laptop
 `     `</ItemCategory>  
 `   `</SXPItem>  
 `   `  
+`   `<partyProvider>`bobID`</partyProvider>  
+`     `<partyReceiver>`aliceID`</partyReceiver>
+
 `   `<deliveryInformation>  
 `     `<responsible>  
 `       Daniel`  
@@ -197,10 +204,9 @@ Laptop
 `       `<person-record>`Caroline`</person-record>  
 `     `</payer>  
 `     `  
-`     `<partyProvider>`bobID`</partyProvider>  
-`     `<partyReceiver>`aliceID`</partyReceiver>  
+`     `  
 `   `</deliveryInformation>  
-`   `  
+`   `</SXPTransfer>  
 `   `  
 ` `</SXPItemClause>  
 `   `  
