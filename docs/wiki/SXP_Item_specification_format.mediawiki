@@ -1,6 +1,6 @@
 We make the Items Specification via an [[XSD|XML schema]]. The Items described can be products and services. Users can create an xml file for describing their item and then insert it on the respective clause of the [[SXP Contract]].
 
-[https://docs.google.com/file/d/0B4JKZAq0izyxRHV1RFFnUHBYM0k/edit?usp=sharing Download SXPItem.xsd]
+[https://docs.google.com/file/d/0B4JKZAq0izyxN2MzVkZnR29CN1E/edit?usp=sharing Download SXP specification]
 
 ==Structure of SXP Item schema==
 

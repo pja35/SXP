@@ -9,8 +9,8 @@ Items described can be products and services. Users can create an xml
 file for describing their item and then insert it on the respective
 clause of the [SXP Contract](/wiki/SXP_Contract "wikilink").
 
-[Download
-SXPItem.xsd](https://docs.google.com/file/d/0B4JKZAq0izyxRHV1RFFnUHBYM0k/edit?usp=sharing)
+[Download SXP
+specification](https://docs.google.com/file/d/0B4JKZAq0izyxN2MzVkZnR29CN1E/edit?usp=sharing)
 
 Structure of SXP Item schema
 ----------------------------
