@@ -63,11 +63,11 @@ eContracts).
     two parties. An SXPTransfer contains the following sequence:
     -   SXP Item. A reference to the [SXP
         Item](/wiki/Items_Specification "wikilink") that will be exchanged.
+    -   Party Provider. A unique reference (see xsd:IDREF) to a *party*
+        id from above.
+    -   Party Receiver.
     -   Delivery instructions. Delivery information associated to the
         previous item:
-        -   Party Provider. A unique reference (see xsd:IDREF) to a
-            *party* id from above.
-        -   Party Receiver.
         -   Date. By when the item will be delivered.
         -   Person responsible. By who the delivery will be made. It may
             be a id reference to a party.
