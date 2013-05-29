@@ -58,8 +58,9 @@ eContracts).
 
 <!-- -->
 
--   **SXP Item clause**. We can have the following sequence an unbounded
-    number of times:
+-   **SXP Item clause**. We can have an unbounded number of SXPTransfer,
+    each one representing a single exchange between two parties. An
+    SXPTransfer contains the following sequence:
     -   SXP Item. A reference to the [SXP
         Item](/wiki/Items_Specification "wikilink") that will be exchanged.
     -   Delivery instructions. Delivery information associated to the

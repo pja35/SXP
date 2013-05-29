@@ -31,7 +31,7 @@ values at eContracts).
 ** Trust Rating Adjustements (optional). Information about the adjustements that will be done on the SXP trust rating system.
 
 
-*'''SXP Item clause'''. We can have the following sequence an unbounded number of times:
+*'''SXP Item clause'''. We can have an unbounded number of SXPTransfer, each one representing a single exchange between two parties. An SXPTransfer contains the following sequence:
 **SXP Item. A reference to the [[Items Specification |SXP Item]] that will be exchanged.
 **Delivery instructions. Delivery information associated to the previous item:
 *** Party Provider. A unique reference (see xsd:IDREF) to a ''party'' id from above.
