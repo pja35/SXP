@@ -1,0 +1,10 @@
+== PDF Generator of an XML SXP Contract File ==
+
+It is possible to generate PDF files according to contracts that follows the [[SXP Contract Specification]]. These PDF files are intended to extract the xml files and present it in a narrative way.
+
+[[https://docs.google.com/file/d/0B4JKZAq0izyxV1VQYVRxZXJOQkE/edit?usp=sharing |Here can be found]] an example of a contract.
+
+
+In order to make PDFs, we use the following XML technologies:
+*[[http://en.wikipedia.org/wiki/XSL_Formatting_Objects | XSL-FO ]]. It is an XML language that describes the format of the PDF file. Once we have an FO file describing our contract, we can automatically convert it to PDF using a print formatter like [[http://xmlgraphics.apache.org/fop/ |Apache FOP ]].
+*[[http://en.wikipedia.org/wiki/XSL_Transformations |XSLT]]. Using an XSLT stylesheet (also XML-based) we make possible the transformation between the original XML contract file and the FO file. An XML editor is needed. The current stylesheet used can be [[https://docs.google.com/file/d/0B4JKZAq0izyxU1ZUbzhaR3dNamc/edit?usp=sharing |downloaded here]].
