@@ -1,6 +1,6 @@
 == PDF Generator of an XML SXP Contract File ==
 
-It is possible to generate PDF files according to contracts that follows the [[SXP Contract Specification]]. These PDF files are intended to extract the xml files and present it in a narrative way.
+It is possible to generate PDF files according to contracts that follows the [[SXP Contract |SXP Contract Specification]]. These PDF files are intended to extract the xml files and present it in a narrative way.
 
 [https://docs.google.com/file/d/0B4JKZAq0izyxV1VQYVRxZXJOQkE/edit?usp=sharing Here can be found] an example of a contract.
 
