@@ -24,4 +24,5 @@ them.
 Some Cryptography
 -----------------
 
-Outline of [ElGamal](/wiki/ElGamal "wikilink").
+Outline of [ElGamal encryption and Schnorr
+signatures](/wiki/ElGamalSchnorr "wikilink").
