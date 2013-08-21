@@ -3,5 +3,5 @@ Take p a prime and g an integer. The powers of g form a subgroup Gq (having q el
 
 :Bob generates <math>PrivKB=x, PubKB=g^x</math> and makes the latter public.
 :Alice encrypts <math>m\in G_q</math> as <math>\{m\}_{PubKB}=(y^rm,g^r)</math>.
-:Bob decrypts <math>(a,b)</math> as </math>a/b^x</math>.
+:Bob decrypts <math>(a,b)</math> as <math>a/b^x</math>.
 :Indeed, <math> a/b^x=y^rm/g^{rx}=g^{xr}m/g^{rx}=m </math>.

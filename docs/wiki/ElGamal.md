@@ -17,7 +17,7 @@ Bob generates \(PrivKB=x, PubKB=g^x\) and makes the latter public.
 
 Alice encrypts \(m\in G_q\) as \(\{m\}_{PubKB}=(y^rm,g^r)\).
 
-Bob decrypts \((a,b)\) as </math>a/b^x</math>.
+Bob decrypts \((a,b)\) as \(a/b^x\).
 
 Indeed, \(a/b^x=y^rm/g^{rx}=g^{xr}m/g^{rx}=m\).
 
