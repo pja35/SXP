@@ -1,7 +1,16 @@
 
-Take p a prime and g an integer. The powers of g form a subgroup Gq (having q elements) inside the group Zp (having p elements), which is that of integers modulo p. The choice of these p and g is important so that they meet the [http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption Decisional Diffie-Hellman] assumption; but there are standard techniques for doing that. Thanks to that:
+Take p a prime and g an integer. The powers of g form a subgroup Gq (having q elements) inside the group Zp (having p elements), which is that of integers modulo p. The choice of these p and g is important so that they meet the [http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption Decisional Diffie-Hellman] assumption; but there are standard techniques for doing that. 
 
-:Bob generates <math>PrivKB=x, PubKB=g^x</math> and makes the latter public.
+Say Bob generates <math>PrivKB=x, PubKB=g^x</math> and makes the latter public.
+
+== ElGamal encryption ==
+
 :Alice encrypts <math>m\in G_q</math> as <math>\{m\}_{PubKB}=(y^rm,g^r)</math>.
 :Bob decrypts <math>(a,b)</math> as <math>a/b^x</math>.
 :Indeed, <math> a/b^x=y^rm/g^{rx}=g^{xr}m/g^{rx}=m </math>.
+
+== Schnorr signatures ==
+
+:Bob signs <math>m\in G_q</math> as <math>SIG_B(m)=(r-xe,H(m.g^r))</math>.
+:Alice verifies <math>(s,e)</math> checking that <math>e=H(m.g^sy^e)</math>.
+:Indeed, <math>g^sy^e=g^{r-xe}g^{xe}=g^r</math>.
