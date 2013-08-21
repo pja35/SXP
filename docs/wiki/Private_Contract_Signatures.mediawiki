@@ -6,3 +6,7 @@ It was introduced in [http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.11
 Comment on the usefulness of this paper to the project [[GarayJakobssonMackenzie|here]]. 
 
 This page aims to give an outline of how they work, and how to implement them.
+
+== Some Cryptography ==
+
+Outline of [[ElGamal]].

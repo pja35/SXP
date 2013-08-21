@@ -20,3 +20,8 @@ paper to the project [here](/wiki/GarayJakobssonMackenzie "wikilink").
 
 This page aims to give an outline of how they work, and how to implement
 them.
+
+Some Cryptography
+-----------------
+
+Outline of [ElGamal](/wiki/ElGamal "wikilink").
