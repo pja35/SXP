@@ -12,17 +12,38 @@ The protocol has three rounds:
 :<math> B\rightarrow B: r=r(v,R,w,a,c,w) </math>
 Lastly, Alice checks that Bob response <math>r</math> to her challenge <math>r</math> is valid. This explains what the last two rounds are for. The first round is there out of technical necessity: Bob chooses this <math>a</math> as a mask for passing the challenge without disclosing <math>w</math>.
 
-== Example ==
+== Example: the Discrete Logarithm ==
 
 Here is an example based on Discrete Logarithms. Take <math>p</math> a prime and <math>g</math> an integer. The powers of <math>g</math> form a subgroup <math>G_q</math> (having <math>q</math> elements) inside the group <math>Z_p</math> (having <math>p</math> elements), which is that of integers modulo <math>p</math>. The choice of these <math>p</math> and <math>g</math> is important so that they meet the [http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption Decisional Diffie-Hellman] assumption; but there are standard techniques for doing that.
 
 * Public input <math>v\in G_q</math>.
 * Agreed relation <math>(v,w)\in R \Leftrightarrow g^w=v</math>.
 * Private input <math>w</math>.
-* Bob will need some random <math>u\in Z_p</math>, Alice will need some random <math>c\in Z_p</math>. 
+* Bob will need some random <math>u\in Z_p</math>.
+* Alice will need some random <math>c\in Z_p</math>. 
 The protocol has three rounds:
 :<math> B\rightarrow A: a=g^u </math>
 :<math> A\rightarrow B: c </math>
 :<math> B\rightarrow B: r=wc+u </math>
 Alice validates Bob response by checking that <math>g^r=ah^c</math>. Indeed, 
 :<math>g^r=g^{wc}g^u=h^ca.</math>
+
+== Composability ==
+
+Consider <math>v_0, v_1</math> and <math>R_0, R_1</math>. Say Bob pretends to have <math>w_0, w_1</math> such that <math>(v_0,w_0)\in R_0 \wedge (v_1,w_1)\in R_1</math>, and does not want to disclose them. Is there a Sigma protocol for this new relation <math>R_0\wedge R_1=\{(v_0,v_1),(w_0,w_1)\,|\,(v_0,w_0)\in R_0 \wedge (v_1,w_1)\in R_1\}</math>? If there was some for <math>R_0</math> and <math>R_1</math>, then yes. It suffices to combine the parallel run of both protocols into one, as tuples.
+
+Now, say Bob pretends to have one of <math>w_0</math> or <math>w_1</math>, and does not want to disclose it, not tell which one it is. Is there a Sigma protocol for this new relation <math>R_0\vee R_1=\{(v_0,v_1),(w_0,w_1)\,|\,(v_0,w_0)\in R_0 \vee (v_1,w_1)\in R_1\}</math>? If there was some for <math>R_0</math> and <math>R_1</math>, then sometimes yes. This sometimes is related to Bob's ability to simulate, on its own, a valid run of the component Sigma protocols. In other words, for instance say that Bob does not know <math>w_1</math>, but that he has the freedom to choose himself the corresponding challenge <math>c_1</math>. Is he able to efficiently generate <math>a_1,c_1,r_1</math> so that they are valid? If so, then yes. This particular property of the component Sigma protocols is referred to as "existence of a simulator" or "special honest-verifier zero-knowledge". Here is how.
+
+* Public input <math>v_0,v_1</math>.
+* Agreed relation <math>R_0\wedge R_1</math>.
+* Private input <math>w_0</math>, say, but could equally be <math>w_1</math>.
+* Bob will need some random <math>(u_0,a_0)\in R_0</math> and some run <math>a_1,c_1,r_1</math>. 
+* Alice will need some random <math>s</math>. 
+The protocol has three rounds:
+:<math> B\rightarrow A: (a_0,a_1) </math>
+:<math> A\rightarrow B: s </math>
+:<math> B\rightarrow B: (c_0,c_1),(r_0,r_1) </math> where <math>r_0</math> is computed by Bob thanks to his knowledge of <math>w_0</math>.
+Alice validates Bob response by checking that:
+* <math>s=c_0\oplus c_1</math>
+* <math>a_0,c_0,r_0</math> is valid
+* <math>a_1,c_1,r_1</math> is valid
