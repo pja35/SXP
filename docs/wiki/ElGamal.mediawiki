@@ -1,5 +1,5 @@
 
-Take p a prime and g an integer. The powers of g form a subgroup Gq (having q elements) inside the group Zp (having p elements), which is that of integers modulo p. The choice of these p and g is important so that they meet the [http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption Decisional Diffie-Hellman] assumption; but there are standard techniques for doing that. 
+Take <math>p</math> a prime and <math>g</math> an integer. The powers of <math>g</math> form a subgroup <math>G_q</math> (having <math>q</math> elements) inside the group <math>Z_p</math> (having <math>p</math> elements), which is that of integers modulo <math>p</math>. The choice of these <math>p</math> and <math>g</math> is important so that they meet the [http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption Decisional Diffie-Hellman] assumption; but there are standard techniques for doing that. 
 
 Say Bob generates <math>PrivKB=x, PubKB=g^x</math> and makes the latter public.
 
