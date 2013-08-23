@@ -116,3 +116,4 @@ you:
 -   Pick \(c_1,r_1\).
 -   Let \(a_1=g^{r_1}v_1^{-c_1}\).
 
+Indeed, you then have \(g^{r_1}=a_1v_1^{c_1}\) so that the run is valid.
