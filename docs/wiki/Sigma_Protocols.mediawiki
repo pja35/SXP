@@ -25,8 +25,8 @@ The protocol has three rounds:
 :<math> B\rightarrow A: a=g^u </math>
 :<math> A\rightarrow B: c </math>
 :<math> B\rightarrow B: r=wc+u </math>
-Alice validates Bob response by checking that <math>g^r=ah^c</math>. Indeed, 
-:<math>g^r=g^{wc}g^u=h^ca.</math>
+Alice validates Bob response by checking that <math>g^r=v^ca</math>. Indeed, 
+:<math>g^r=g^{wc}g^u=v^ca.</math>
 
 == Composability ==
 

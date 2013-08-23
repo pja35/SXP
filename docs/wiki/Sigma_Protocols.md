@@ -53,9 +53,9 @@ The protocol has three rounds:
 \[A\rightarrow B: c\]
 
 \[B\rightarrow B: r=wc+u\] Alice validates Bob response by checking that
-\(g^r=ah^c\). Indeed,
+\(g^r=v^ca\). Indeed,
 
-\[g^r=g^{wc}g^u=h^ca.\]
+\[g^r=g^{wc}g^u=v^ca.\]
 
 Composability
 -------------
