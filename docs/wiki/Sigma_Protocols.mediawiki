@@ -47,3 +47,9 @@ Alice validates Bob response by checking that:
 * <math>s=c_0\oplus c_1</math>
 * <math>a_0,c_0,r_0</math> is valid
 * <math>a_1,c_1,r_1</math> is valid
+
+The intuition is that Bob has "divided up" the random challenge <math>s</math> into <math>c_0</math> which is random, and <math>c_1</math>, which is chosen. He has passed the challenge <math>c_0</math> thanks to his <math>w_0</math>. He has passed the challenge <math>c_1</math> because it was an easy challenge that he has himself chosen.
+
+In the case of the example of the Discrete Logarithm, there exists a simulator, so that this can be done. Indeed, to generate <math>a_1,c_1,r_1</math> you:
+* Pick <math>c_1,r_1</math>.
+* Let  <math>a_1=g^{r_1}v_1^{-c_1}</math>.

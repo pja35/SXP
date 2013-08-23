@@ -103,3 +103,16 @@ checking that:
 -   \(a_0,c_0,r_0\) is valid
 -   \(a_1,c_1,r_1\) is valid
 
+The intuition is that Bob has "divided up" the random challenge \(s\)
+into \(c_0\) which is random, and \(c_1\), which is chosen. He has
+passed the challenge \(c_0\) thanks to his \(w_0\). He has passed the
+challenge \(c_1\) because it was an easy challenge that he has himself
+chosen.
+
+In the case of the example of the Discrete Logarithm, there exists a
+simulator, so that this can be done. Indeed, to generate \(a_1,c_1,r_1\)
+you:
+
+-   Pick \(c_1,r_1\).
+-   Let \(a_1=g^{r_1}v_1^{-c_1}\).
+
