@@ -25,6 +25,8 @@ Some Cryptography
 -----------------
 
 Outline of [ElGamal encryption and Schnorr
-signatures](/wiki/ElGamalSchnorr "wikilink").
+signatures](/wiki/ElGamalSchnorr "wikilink"), which are encryption and
+signature schemes.
 
-Outline of [Sigma protocols](/wiki/SigmaProtocols "wikilink").
+Outline of [Sigma protocols](/wiki/SigmaProtocols "wikilink"), which are
+composable, interactive zero-knowledge proof schemes.
