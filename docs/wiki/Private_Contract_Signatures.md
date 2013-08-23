@@ -26,3 +26,5 @@ Some Cryptography
 
 Outline of [ElGamal encryption and Schnorr
 signatures](/wiki/ElGamalSchnorr "wikilink").
+
+Outline of [Sigma protocols](/wiki/SigmaProtocols "wikilink").
