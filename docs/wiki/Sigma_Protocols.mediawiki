@@ -14,7 +14,7 @@ Lastly, Alice checks that Bob response <math>r</math> to her challenge <math>r</
 
 == Building blocks ==
 
-Here are examples of Sigma protocols based on the hardness of Discrete Logarithms. Take <math>p</math> a prime and <math>g,h</math> an integers. The powers of <math>g</math> (resp. <math>h</math>) form a subgroup <math>G</math> (resp. <math>H</math> ) inside the group <math>Z_p</math>, which is that of integers modulo <math>p</math>. The choice of these <math>p</math> and <math>g</math> is important so that they meet the [http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption Decisional Diffie-Hellman] assumption; but there are standard techniques for doing that.
+Here are examples of Sigma protocols based on the hardness of Discrete Logarithms. Fix <math>p</math> a prime and <math>g</math> an integer. The powers of <math>g</math> form a subgroup <math>G</math> inside the group <math>Z_p</math>, which is that of integers modulo <math>p</math>. The choice of these <math>p</math> and <math>g</math> is important so that they meet the [http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption Decisional Diffie-Hellman] assumption; but there are standard techniques for doing that. 
 
 
 '''Ex. 1: Discrete Logarithm'''
@@ -32,8 +32,25 @@ Alice validates Bob response by checking that <math>g^r=v^ca</math>. Indeed,
 
 
 '''Ex. 2: Diffie-Hellman pairs'''
+Fix another <math>h</math> an integer. The powers of <math>h</math> form a subgroup <math>H</math> inside the group <math>Z_p</math>. 
 * Public input <math>u\in G,v\in H</math>.
 * Agreed relation <math>((u,v),w)\in R \Leftrightarrow g^w=u \wedge h^w=v  </math>.
+* Private input <math>w</math>.
+* Bob will need some random <math>s\in Z_p</math>.
+* Alice will need some random <math>c\in Z_p</math>. 
+The protocol has three rounds:
+:<math> B\rightarrow A: a=g^s </math>
+:<math> A\rightarrow B: c </math>
+:<math> B\rightarrow A: r=wc+s </math>
+Alice validates Bob response by checking that <math>g^r=u^ca</math> and that <math>h^r=v^ca</math>. Indeed, 
+:<math>g^r={g^w}^c g^s=u^ca.</math>
+and similarly.
+
+
+'''Ex. 3: Cyphertext encryption''
+Fix <math>h=g^x=PubKT</math> an integer.
+* Public input <math>(m,a,b)</math>.
+* Agreed relation <math>((m,a,b),w)\in R \Leftrightarrow a=g^w \wedge b={g^x}^w m  </math>.
 * Private input <math>w</math>.
 * Bob will need some random <math>s\in Z_p</math>.
 * Alice will need some random <math>c\in Z_p</math>. 

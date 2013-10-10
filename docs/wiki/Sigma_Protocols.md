@@ -33,10 +33,10 @@ Building blocks
 ---------------
 
 Here are examples of Sigma protocols based on the hardness of Discrete
-Logarithms. Take \(p\) a prime and \(g,h\) an integers. The powers of
-\(g\) (resp. \(h\)) form a subgroup \(G\) (resp. \(H\) ) inside the
-group \(Z_p\), which is that of integers modulo \(p\). The choice of
-these \(p\) and \(g\) is important so that they meet the [Decisional
+Logarithms. Fix \(p\) a prime and \(g\) an integer. The powers of \(g\)
+form a subgroup \(G\) inside the group \(Z_p\), which is that of
+integers modulo \(p\). The choice of these \(p\) and \(g\) is important
+so that they meet the [Decisional
 Diffie-Hellman](http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption)
 assumption; but there are standard techniques for doing that.
 
@@ -59,11 +59,32 @@ The protocol has three rounds:
 
 \[g^r={g^w}^c g^s=u^ca\]
 
-**Ex. 2: Diffie-Hellman pairs**
+**Ex. 2: Diffie-Hellman pairs** Fix another \(h\) an integer. The powers
+of \(h\) form a subgroup \(H\) inside the group \(Z_p\).
 
 -   Public input \(u\in G,v\in H\).
 -   Agreed relation
     \(((u,v),w)\in R \Leftrightarrow g^w=u \wedge h^w=v\).
+-   Private input \(w\).
+-   Bob will need some random \(s\in Z_p\).
+-   Alice will need some random \(c\in Z_p\).
+
+The protocol has three rounds:
+
+\[B\rightarrow A: a=g^s\]
+
+\[A\rightarrow B: c\]
+
+\[B\rightarrow A: r=wc+s\] Alice validates Bob response by checking that
+\(g^r=u^ca\) and that \(h^r=v^ca\). Indeed,
+
+\[g^r={g^w}^c g^s=u^ca.\] and similarly.
+
+*'Ex. 3: Cyphertext encryption* Fix \(h=g^x=PubKT\) an integer.
+
+-   Public input \((m,a,b)\).
+-   Agreed relation
+    \(((m,a,b),w)\in R \Leftrightarrow a=g^w \wedge b={g^x}^w m\).
 -   Private input \(w\).
 -   Bob will need some random \(s\in Z_p\).
 -   Alice will need some random \(c\in Z_p\).
