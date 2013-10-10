@@ -52,7 +52,7 @@ and similarly for <math>h</math> with <math>v</math>.
 
 Fix <math>h=g^x=PubKT</math> an integer.
 * Public input <math>(m,u,v)</math>.
-* Agreed relation <math>((m,u,v),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{PubKT,w}</math>.
+* Agreed relation <math>((m,u,v),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{PubKT}</math> under [ElGamal ElGammalSchnorr] with ephemeral key <math>w</math>.
 * Private input <math>w</math>.
 * Bob will need some random <math>s\in Z_p</math>.
 * Alice will need some random <math>c\in Z_p</math>. 
