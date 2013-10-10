@@ -57,7 +57,7 @@ The protocol has three rounds:
 \[B\rightarrow A: r=wc+s\] Alice validates Bob response by checking that
 \(g^r=v^ca\). Indeed,
 
-\[g^r={g^w}^c g^s=u^ca\], and \(h^r={h^w}^c h^s=v^ca\).
+\[g^r={g^w}^c g^s=u^ca\]
 
 **Ex. 2: Diffie-Hellman pairs**
 
@@ -77,7 +77,7 @@ The protocol has three rounds:
 \[B\rightarrow A: r=wc+s\] Alice validates Bob response by checking that
 \(g^r=u^ca\) and that \(h^r=v^ca\). Indeed,
 
-\[g^r={g^w}^c g^s=u^ca.\]
+\[g^r={g^w}^c g^s=u^ca.\] and similarly.
 
 Composability
 -------------
