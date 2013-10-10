@@ -176,5 +176,21 @@ Instead of doing the Sigma protocol in three rounds, we could just do it
 in one round, according to the Fiat-Shamir heuristics. The idea is that
 the prover challenges himself with something that he does not really
 control, namely \(H(a,v)\), where \(h\) is a hash function like SHA2.
-Notice how the Schnorr signature scheme is nothing but Fiat-Shamir
+Notice how the [Schnorr signature
+scheme](/wiki/Schnorr_signature_scheme "wikilink") is nothing but Fiat-Shamir
 applied to the Schorr identification scheme.
+
+Schnorr signatures
+------------------
+
+Bob needs a random ephemeral key \(w\). He computes \(e=H(g^w\cdot m)\).
+
+  
+Bob signs \(m\in G\) as \(SIG_B(m)=(w-xe,e)\).
+
+Alice verifies \((u,v)\) checking that \(v=H(g^u {g^x}^v m)\).
+
+Indeed, if Bob was honest it should be that
+\(g^u {g^x}^v =g^{w-xe}{g^x}^e =g^w\).
+
+
