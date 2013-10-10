@@ -89,7 +89,7 @@ Fix \(h=g^x=PubKT\) an integer.
 -   Public input \((m,u,v)\).
 -   Agreed relation
     \(((m,u,v),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{PubKT}\)
-    under \[ElGamal ElGammalSchnorr\] with ephemeral key \(w\).
+    under \[ElGammalSchnorr ElGamal\] with ephemeral key \(w\).
 -   Private input \(w\).
 -   Bob will need some random \(s\in Z_p\).
 -   Alice will need some random \(c\in Z_p\).
