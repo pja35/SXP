@@ -23,7 +23,8 @@ Alice encrypts \(m\in G\) as \(\{m\}_{PubKB}=(g^w,{g^x}^w m)\).
 
 Bob decrypts \((u,v)\) as \(v/u^x\).
 
-Indeed, \(v/u^x=g^{xw}m/g^{wx}=m\).
+Indeed, if Alice was honest it should be that
+\(v/u^x=g^{xw}m/g^{wx}=m\).
 
 Schnorr signatures
 ------------------
