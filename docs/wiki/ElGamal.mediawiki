@@ -7,7 +7,7 @@ Say Bob generates <math>PrivKB=x, PubKB=g^x</math> and makes the latter public.
 
 :Alice encrypts <math>m\in G_q</math> as <math>\{m\}_{PubKB}=({g^x}^rm,g^r)</math>.
 :Bob decrypts <math>(a,b)</math> as <math>a/b^x</math>.
-:Indeed, <math> a/b^x=y^rm/g^{rx}=g^{xr}m/g^{rx}=m </math>.
+:Indeed, <math> a/b^x=g^{xr}m/g^{rx}=m </math>.
 
 == Schnorr signatures ==
 

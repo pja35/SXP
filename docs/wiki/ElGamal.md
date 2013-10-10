@@ -22,7 +22,7 @@ Alice encrypts \(m\in G_q\) as \(\{m\}_{PubKB}=({g^x}^rm,g^r)\).
 
 Bob decrypts \((a,b)\) as \(a/b^x\).
 
-Indeed, \(a/b^x=y^rm/g^{rx}=g^{xr}m/g^{rx}=m\).
+Indeed, \(a/b^x=g^{xr}m/g^{rx}=m\).
 
 Schnorr signatures
 ------------------
