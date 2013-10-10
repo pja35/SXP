@@ -8,9 +8,3 @@ Alice needs a random ephemeral key <math>w</math>.
 :Alice encrypts <math>m\in G</math> as <math>\{m\}_{PubKB}=(g^w,{g^x}^w m)</math>.
 :Bob decrypts <math>(u,v)</math> as <math>v/u^x</math>.
 :Indeed, if Alice was honest it should be that <math> v/u^x=g^{xw}m/g^{wx}=m </math>.
-
-== Schnorr signatures ==
-Bob needs a random ephemeral key <math>w</math>. He computes <math>e=H(g^w\cdot m)</math>.
-:Bob signs <math>m\in G</math> as <math>SIG_B(m)=(w-xe,e)</math>.
-:Alice verifies <math>(u,v)</math> checking that <math>v=H(g^u {g^x}^v m)</math>.
-:Indeed, if Bob was honest it should be that <math>g^u {g^x}^v =g^{w-xe}{g^x}^e =g^w </math>.
