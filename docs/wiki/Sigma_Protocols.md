@@ -218,6 +218,6 @@ Alice verifies \((c,r)\) checking that \(c=H(a, m)\) with
 \(a=v^{-c}g^r\).
 
 Indeed, if Bob was honest it should be that
-\(v^{-c}g^r =g^{-wc}g^{s+wc} =g^s=a\).
+\(v^{-c}g^r =g^{-wc}g^{wc+s} =g^s=a\).
 
 

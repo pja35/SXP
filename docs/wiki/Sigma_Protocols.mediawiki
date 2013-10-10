@@ -117,4 +117,4 @@ Let us further modify the above, and say that the challenge that Bob will put to
 :Bob computes <math>c=H(g^s,m)</math> and <math>r=s+wc</math>.
 :Bob signs <math>m\in G</math> as <math>SIG_B(m)=(c,r)</math>.
 :Alice verifies <math>(c,r)</math> checking that <math>c=H(a, m)</math> with <math>a=v^{-c}g^r</math>.
-:Indeed, if Bob was honest it should be that <math>v^{-c}g^r =g^{-wc}g^{s+wc} =g^s=a </math>.
+:Indeed, if Bob was honest it should be that <math>v^{-c}g^r =g^{-wc}g^{wc+s} =g^s=a </math>.
