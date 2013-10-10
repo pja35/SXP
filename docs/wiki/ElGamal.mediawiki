@@ -10,7 +10,7 @@ Alice needs a random ephemeral key <math>w</math>.
 :Indeed, <math> v/u^x=g^{xw}m/g^{wx}=m </math>.
 
 == Schnorr signatures ==
-Bob needs a random ephemeral key <math>w</math>. He computes <math>e=H(m.g^w))</math>.
+Bob needs a random ephemeral key <math>w</math>. He computes <math>e=H(m.g^w)</math>.
 :Bob signs <math>m\in G</math> as <math>SIG_B(m)=(w-xe,e)</math>.
 :Alice verifies <math>(s,e)</math> checking that <math>e=H(m.g^s {g^x}^e)</math>.
 :Indeed, <math>g^{w-xe}{g^x}^e=g^w</math>.
