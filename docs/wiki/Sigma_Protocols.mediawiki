@@ -27,7 +27,7 @@ The protocol has three rounds:
 :<math> A\rightarrow B: c </math>
 :<math> B\rightarrow A: r=wc+s </math>
 Alice validates Bob response by checking that <math>g^r=v^ca</math>. Indeed, 
-:<math>g^r={g^w}^c g^s=v^ca.</math>
+:<math>g^r={g^w}^c g^s=u^ca</math>, and <math>h^r={h^w}^c h^s=v^ca</math>.
 
 '''Ex. 2: Diffie-Hellman pairs'''
 * Public input <math>u\in G,v\in H</math>.

@@ -57,7 +57,7 @@ The protocol has three rounds:
 \[B\rightarrow A: r=wc+s\] Alice validates Bob response by checking that
 \(g^r=v^ca\). Indeed,
 
-\[g^r={g^w}^c g^s=v^ca.\]
+\[g^r={g^w}^c g^s=u^ca\], and \(h^r={h^w}^c h^s=v^ca\).
 
 **Ex. 2: Diffie-Hellman pairs**
 
