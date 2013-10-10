@@ -105,10 +105,8 @@ The modified protocol has only one true round, since B' is just B challenging hi
 :<math> B\rightarrow B': a=g^s </math>
 :<math> B'\rightarrow B: c=H(a,v) </math>
 :<math> B\rightarrow A: a,c,r=wc+s </math>
-Alice validates Bob response by checking that <math>g^r=v^ca</math>. Indeed, if Bob was honest it should be that
+Alice validates Bob response by checking that <math>c=H(a,v)</math> and that <math>g^r=v^ca</math>. Indeed, if Bob was honest it should be that
 :<math>g^r={g^w}^c g^s=u^ca</math>. 
-Moreover, she also checks that 
-:<math>c=H(a,v)</math>. 
 
 Now, think of <math>v</math> as a message that Bob had to sign. His unique transmission to Alice
 

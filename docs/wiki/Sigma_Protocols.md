@@ -193,11 +193,10 @@ challenging himself:
 \[B'\rightarrow B: c=H(a,v)\]
 
 \[B\rightarrow A: a,c,r=wc+s\] Alice validates Bob response by checking
-that \(g^r=v^ca\). Indeed, if Bob was honest it should be that
+that \(c=H(a,v)\) and that \(g^r=v^ca\). Indeed, if Bob was honest it
+should be that
 
-\[g^r={g^w}^c g^s=u^ca\]. Moreover, she also checks that
-
-\[c=H(a,v)\].
+\[g^r={g^w}^c g^s=u^ca\].
 
 Now, think of \(v\) as a message that Bob had to sign. His unique
 transmission to Alice
