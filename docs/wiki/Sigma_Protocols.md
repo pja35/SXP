@@ -204,14 +204,14 @@ transmission to Alice
 Schnorr signatures
 ------------------
 
-Bob needs a random ephemeral key \(s\). He computes \(e=H(g^s, m)\).
+Bob needs a random ephemeral key \(s\). He computes \(c=H(g^s, v)\).
 
   
-Bob signs \(m\in G\) as \(SIG_B(m)=(s-xe,e)\).
+Bob signs \(m\in G\) as \(SIG_B(m)=(s+xc,c)\).
 
-Alice verifies \((u,v)\) checking that \(v=H(g^u {g^x}^v, m)\).
+Alice verifies \((u,v)\) checking that \(v=H(g^u {g^x}^v, v)\).
 
 Indeed, if Bob was honest it should be that
-\(g^u {g^x}^v =g^{s-xe}{g^x}^e =g^s\).
+\(g^u {g^x}^v =g^{s+xc}{g^x}^c =g^s\).
 
 
