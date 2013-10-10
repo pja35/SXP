@@ -57,7 +57,7 @@ The protocol has three rounds:
 \[B\rightarrow A: r=wc+s\] Alice validates Bob response by checking that
 \(g^r=v^ca\). Indeed, if Bob was honest it should be that
 
-\[g^r={g^w}^c g^s=u^ca\]
+\[g^r={g^w}^c g^s=v^ca\]
 
 **Ex. 2: Diffie-Hellman pairs**
 
@@ -173,24 +173,46 @@ Non-interactive version
 -----------------------
 
 Instead of doing the Sigma protocol in three rounds, we could just do it
-in one round, according to the Fiat-Shamir heuristics. The idea is that
-the prover challenges himself with something that he does not really
-control, namely \(H(a,v)\), where \(h\) is a hash function like SHA2.
-Notice how the [Schnorr signature
-scheme](/wiki/Schnorr_signature_scheme "wikilink") is nothing but Fiat-Shamir
-applied to the Schorr identification scheme.
+in one round, by musing the Fiat-Shamir heuristics. The idea is that Bob
+challenges himself with something that he does not really control,
+namely \(H(a,v)\), where \(h\) is a hash function like SHA2. For
+instance, let us apply this procedure to the Schnorr identification
+protocol. We get:
+
+-   Public input \(v\in G\).
+-   Agreed relation \((v,w)\in R \Leftrightarrow g^w=v\).
+-   Private input \(w\).
+-   Bob will need some random \(s\in Z_p\).
+-   Alice will need some random \(c\in Z_p\).
+
+The modified protocol has only one true round, since B' is just B
+challenging himself:
+
+\[B\rightarrow B': a=g^s\]
+
+\[B'\rightarrow B: c=H(a,v)\]
+
+\[B\rightarrow A: a,c,r=wc+s\] Alice validates Bob response by checking
+that \(g^r=v^ca\). Indeed, if Bob was honest it should be that
+
+\[g^r={g^w}^c g^s=u^ca\]. Moreover, she also checks that
+
+\[c=H(a,v)\].
+
+Now, think of \(v\) as a message that Bob had to sign. His unique
+transmission to Alice
 
 Schnorr signatures
 ------------------
 
-Bob needs a random ephemeral key \(w\). He computes \(e=H(g^w\cdot m)\).
+Bob needs a random ephemeral key \(s\). He computes \(e=H(g^s, m)\).
 
   
-Bob signs \(m\in G\) as \(SIG_B(m)=(w-xe,e)\).
+Bob signs \(m\in G\) as \(SIG_B(m)=(s-xe,e)\).
 
 Alice verifies \((u,v)\) checking that \(v=H(g^u {g^x}^v m)\).
 
 Indeed, if Bob was honest it should be that
-\(g^u {g^x}^v =g^{w-xe}{g^x}^e =g^w\).
+\(g^u {g^x}^v =g^{s-xe}{g^x}^e =g^s\).
 
 

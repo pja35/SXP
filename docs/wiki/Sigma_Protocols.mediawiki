@@ -28,7 +28,7 @@ The protocol has three rounds:
 :<math> A\rightarrow B: c </math>
 :<math> B\rightarrow A: r=wc+s </math>
 Alice validates Bob response by checking that <math>g^r=v^ca</math>. Indeed, if Bob was honest it should be that
-:<math>g^r={g^w}^c g^s=u^ca</math>
+:<math>g^r={g^w}^c g^s=v^ca</math>
 
 
 '''Ex. 2: Diffie-Hellman pairs'''
@@ -94,11 +94,27 @@ Indeed, you then have <math>g^{r_1}=v_1^{c_1}a_1</math> so that the run is valid
 
 == Non-interactive version ==
 
-Instead of doing the Sigma protocol in three rounds, we could just do it in one round, according to the Fiat-Shamir heuristics. The idea is that the prover challenges himself with something that he does not really control, namely <math>H(a,v)</math>, where <math>h</math> is a hash function like SHA2. Notice how the [[  Schnorr signature scheme]] is nothing but Fiat-Shamir applied to the Schorr identification scheme.
+Instead of doing the Sigma protocol in three rounds, we could just do it in one round, by musing the Fiat-Shamir heuristics. The idea is that Bob challenges himself with something that he does not really control, namely <math>H(a,v)</math>, where <math>h</math> is a hash function like SHA2. For instance, let us apply this procedure to the Schnorr identification protocol. We get:
+ 
+* Public input <math>v\in G</math>.
+* Agreed relation <math>(v,w)\in R \Leftrightarrow g^w=v </math>.
+* Private input <math>w</math>.
+* Bob will need some random <math>s\in Z_p</math>.
+* Alice will need some random <math>c\in Z_p</math>. 
+The modified protocol has only one true round, since B' is just B challenging himself:
+:<math> B\rightarrow B': a=g^s </math>
+:<math> B'\rightarrow B: c=H(a,v) </math>
+:<math> B\rightarrow A: a,c,r=wc+s </math>
+Alice validates Bob response by checking that <math>g^r=v^ca</math>. Indeed, if Bob was honest it should be that
+:<math>g^r={g^w}^c g^s=u^ca</math>. 
+Moreover, she also checks that 
+:<math>c=H(a,v)</math>. 
+
+Now, think of <math>v</math> as a message that Bob had to sign. His unique transmission to Alice
 
 == Schnorr signatures ==
 
-Bob needs a random ephemeral key <math>w</math>. He computes <math>e=H(g^w\cdot m)</math>.
-:Bob signs <math>m\in G</math> as <math>SIG_B(m)=(w-xe,e)</math>.
+Bob needs a random ephemeral key <math>s</math>. He computes <math>e=H(g^s, m)</math>.
+:Bob signs <math>m\in G</math> as <math>SIG_B(m)=(s-xe,e)</math>.
 :Alice verifies <math>(u,v)</math> checking that <math>v=H(g^u {g^x}^v m)</math>.
-:Indeed, if Bob was honest it should be that <math>g^u {g^x}^v =g^{w-xe}{g^x}^e =g^w </math>.
+:Indeed, if Bob was honest it should be that <math>g^u {g^x}^v =g^{s-xe}{g^x}^e =g^s </math>.
