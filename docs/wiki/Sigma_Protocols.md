@@ -214,9 +214,10 @@ Bob computes \(c=H(g^s,m)\) and \(r=s+wc\).
 
 Bob signs \(m\in G\) as \(SIG_B(m)=(c,r)\).
 
-Alice verifies \((c,r)\) checking that \(c=H(g^r g^{-wc}, m)\).
+Alice verifies \((c,r)\) checking that \(c=H(a, m)\) with
+\(a=v^{-c}g^r\).
 
 Indeed, if Bob was honest it should be that
-\(g^r g^{-wc} =g^{s+wc}g^{-wc} =g^s\).
+\(v^{-c}g^r =g^{-wc}g^{s+wc} =g^s=a\).
 
 
