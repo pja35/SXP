@@ -210,13 +210,13 @@ instead of \(v\).
 -   Bob will need some random ephemeral \(s\in Z_p\).
 
   
-Bob computes \(c=H(g^s,m)\) and \(r=s-wc\).
+Bob computes \(c=H(g^s,m)\) and \(r=s+wc\).
 
 Bob signs \(m\in G\) as \(SIG_B(m)=(c,r)\).
 
 Alice verifies \((c,r)\) checking that \(c=H(g^r {g^w}^c, m)\).
 
 Indeed, if Bob was honest it should be that
-\(g^r {g^w}^c =g^{s-wc}{g^w}^c =g^s\).
+\(g^r g^{-wc} =g^{s+wc}g^{-wc} =g^s\).
 
 
