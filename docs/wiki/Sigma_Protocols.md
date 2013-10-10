@@ -200,13 +200,13 @@ should be that
 Schnorr signatures
 ------------------
 
--   Public input \(m\), \(v=PubKB\).
+-   Public input a message \(m\), and \(v=PubKB\).
 -   Agreed relation \((v,w)\in R \Leftrightarrow g^w=v\).
 -   Private input \(w=PrivKB\).
 -   Bob will need some random ephemeral \(s\in Z_p\).
 
   
-Bob signs \(m\in G\) as \(SIG_B(m)=(H(g^s,v),s-wH(g^s,v))\).
+Bob signs \(m\in G\) as \(SIG_B(m)=(H(g^s,m),s-wH(g^s,m))\).
 
 Alice verifies \((c,r)\) checking that \(c=H(g^r {g^w}^c, c)\).
 
