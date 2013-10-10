@@ -40,7 +40,7 @@ so that they meet the [Decisional
 Diffie-Hellman](http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption)
 assumption; but there are standard techniques for doing that.
 
-**Ex. 1: Discrete Logarithm**
+**Ex. 1: Schnorr identification protocol**
 
 -   Public input \(v\in G\).
 -   Agreed relation \((v,w)\in R \Leftrightarrow g^w=v\).
@@ -83,7 +83,7 @@ be that
 
 \[g^r={g^w}^c g^s=u^ca.\] and similarly for \(h\) with \(v\).
 
-**Ex. 3: Cyphertext encryption**
+**Ex. 3: Proof of cyphertext encryption**
 
 Fix \(h=g^x=PubKT\) an integer.
 

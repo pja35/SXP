@@ -17,7 +17,7 @@ Lastly, Alice checks that Bob response <math>r</math> to her challenge <math>r</
 Here are examples of Sigma protocols based on the hardness of Discrete Logarithms. Fix <math>p</math> a prime and <math>g</math> an integer. The powers of <math>g</math> form a subgroup <math>G</math> inside the group <math>Z_p</math>, which is that of integers modulo <math>p</math>. The choice of these <math>p</math> and <math>g</math> is important so that they meet the [http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption Decisional Diffie-Hellman] assumption; but there are standard techniques for doing that. 
 
 
-'''Ex. 1: Discrete Logarithm'''
+'''Ex. 1: Schnorr identification protocol'''
 * Public input <math>v\in G</math>.
 * Agreed relation <math>(v,w)\in R \Leftrightarrow g^w=v </math>.
 * Private input <math>w</math>.
@@ -48,7 +48,7 @@ Alice validates Bob response by checking that <math>g^r=u^ca</math> and that <ma
 and similarly for <math>h</math> with <math>v</math>.
 
 
-'''Ex. 3: Cyphertext encryption'''
+'''Ex. 3: Proof of cyphertext encryption'''
 
 Fix <math>h=g^x=PubKT</math> an integer.
 * Public input <math>(m,u,v)</math>.
