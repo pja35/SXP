@@ -104,8 +104,8 @@ The modified protocol has only one true round, since B' is just B challenging hi
 :<math> B\rightarrow B': a=g^s </math>
 :<math> B'\rightarrow B: c=H(a,m) </math>
 :<math> B\rightarrow A: a,c,r=wc+s </math>
-Alice validates Bob response by checking that <math>c=H(a,m)</math> and that <math>g^rv^{-c}=a</math>. Indeed, if Bob was honest it should be that
-:<math>g^rv^{-c}={g^w}^c g^sv^{-c}=a</math>.
+Alice validates Bob response by checking that <math>c=H(a,m)</math> and that <math>v^{-c}g^r=a</math>. Indeed, if Bob was honest it should be that
+:<math>v^{-c}g^r=g^{-wc} g^{wc} g^s=a</math>.
 
 == Schnorr signatures ==
 
