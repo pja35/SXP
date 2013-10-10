@@ -192,10 +192,10 @@ challenging himself:
 \[B'\rightarrow B: c=H(a,m)\]
 
 \[B\rightarrow A: a,c,r=wc+s\] Alice validates Bob response by checking
-that \(c=H(a,m)\) and that \(g^r=v^ca\). Indeed, if Bob was honest it
+that \(c=H(a,m)\) and that \(g^rv^{-c}=a\). Indeed, if Bob was honest it
 should be that
 
-\[g^r={g^w}^c g^s=v^ca\].
+\[g^rv^{-c}={g^w}^c g^sv^{-c}=a\].
 
 Schnorr signatures
 ------------------
