@@ -29,7 +29,7 @@ Indeed, if Alice was honest it should be that
 Schnorr signatures
 ------------------
 
-Bob needs a random ephemeral key \(w\). He computes \(e=H(g^w m)\).
+Bob needs a random ephemeral key \(w\). He computes \(e=H(g^w\cdot m)\).
 
   
 Bob signs \(m\in G\) as \(SIG_B(m)=(w-xe,e)\).
@@ -37,6 +37,6 @@ Bob signs \(m\in G\) as \(SIG_B(m)=(w-xe,e)\).
 Alice verifies \((u,v)\) checking that \(v=H(g^u {g^x}^v m)\).
 
 Indeed, if Bob was honest it should be that
-\(g^u {g^x}^v m=g^{w-xe}{g^x}^e m=g^w m\).
+\(g^u {g^x}^v =g^{w-xe}{g^x}^e =g^w\).
 
 
