@@ -18,10 +18,10 @@ Here are examples of Sigma protocols based on the hardness of Discrete Logarithm
 
 
 '''Ex. 1: Schnorr identification protocol'''
-* Public input <math>v\in G</math>.
+* Public input <math>v=PubKB</math>.
 * Agreed relation <math>(v,w)\in R \Leftrightarrow g^w=v </math>.
-* Private input <math>w</math>.
-* Bob will need some random <math>s\in Z_p</math>.
+* Private input <math>w=PrivKB</math>.
+* Bob will need some random ephemeral <math>s\in Z_p</math>.
 * Alice will need some random <math>c\in Z_p</math>. 
 The protocol has three rounds:
 :<math> B\rightarrow A: a=g^s </math>
@@ -109,12 +109,12 @@ Alice validates Bob response by checking that <math>c=H(a,v)</math> and that <ma
 
 == Schnorr signatures ==
 
-
-* Public input a message <math>m</math> and <math>v=PubKB</math>.
+Let us further modify the above, and say that the challenge that Bob will put is to be fabricated with some public <math>m</math> instead of <math>v</math>.
+* Public input <math>m</math> a message and <math>v=PubKB</math>.
 * Agreed relation <math>(v,w)\in R \Leftrightarrow g^w=v </math>.
 * Private input <math>w=PrivKB</math>.
 * Bob will need some random ephemeral <math>s\in Z_p</math>.
 
 :Bob signs <math>m\in G</math> as <math>SIG_B(m)=(H(g^s,m),s-wH(g^s,m))</math>.
-:Alice verifies <math>(c,r)</math> checking that <math>c=H(g^r {g^w}^c, c)</math>.
+:Alice verifies <math>(c,r)</math> checking that <math>c=H(g^r {g^w}^c, m)</math>.
 :Indeed, if Bob was honest it should be that <math>g^r {g^w}^c =g^{s-wc}{g^w}^c =g^s </math>.

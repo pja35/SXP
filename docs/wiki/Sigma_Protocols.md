@@ -42,10 +42,10 @@ assumption; but there are standard techniques for doing that.
 
 **Ex. 1: Schnorr identification protocol**
 
--   Public input \(v\in G\).
+-   Public input \(v=PubKB\).
 -   Agreed relation \((v,w)\in R \Leftrightarrow g^w=v\).
--   Private input \(w\).
--   Bob will need some random \(s\in Z_p\).
+-   Private input \(w=PrivKB\).
+-   Bob will need some random ephemeral \(s\in Z_p\).
 -   Alice will need some random \(c\in Z_p\).
 
 The protocol has three rounds:
@@ -200,7 +200,10 @@ should be that
 Schnorr signatures
 ------------------
 
--   Public input a message \(m\) and \(v=PubKB\).
+Let us further modify the above, and say that the challenge that Bob
+will put is to be fabricated with some public \(m\) instead of \(v\).
+
+-   Public input \(m\) a message and \(v=PubKB\).
 -   Agreed relation \((v,w)\in R \Leftrightarrow g^w=v\).
 -   Private input \(w=PrivKB\).
 -   Bob will need some random ephemeral \(s\in Z_p\).
@@ -208,7 +211,7 @@ Schnorr signatures
   
 Bob signs \(m\in G\) as \(SIG_B(m)=(H(g^s,m),s-wH(g^s,m))\).
 
-Alice verifies \((c,r)\) checking that \(c=H(g^r {g^w}^c, c)\).
+Alice verifies \((c,r)\) checking that \(c=H(g^r {g^w}^c, m)\).
 
 Indeed, if Bob was honest it should be that
 \(g^r {g^w}^c =g^{s-wc}{g^w}^c =g^s\).
