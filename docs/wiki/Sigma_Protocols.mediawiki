@@ -32,6 +32,7 @@ Alice validates Bob response by checking that <math>g^r=v^ca</math>. Indeed,
 
 
 '''Ex. 2: Diffie-Hellman pairs'''
+
 Fix another <math>h</math> an integer. The powers of <math>h</math> form a subgroup <math>H</math> inside the group <math>Z_p</math>. 
 * Public input <math>u\in G,v\in H</math>.
 * Agreed relation <math>((u,v),w)\in R \Leftrightarrow g^w=u \wedge h^w=v  </math>.
@@ -47,7 +48,8 @@ Alice validates Bob response by checking that <math>g^r=u^ca</math> and that <ma
 and similarly.
 
 
-'''Ex. 3: Cyphertext encryption''
+'''Ex. 3: Cyphertext encryption'''
+
 Fix <math>h=g^x=PubKT</math> an integer.
 * Public input <math>(m,a,b)</math>.
 * Agreed relation <math>((m,a,b),w)\in R \Leftrightarrow a=g^w \wedge b={g^x}^w m  </math>.

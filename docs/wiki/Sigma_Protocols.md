@@ -59,8 +59,10 @@ The protocol has three rounds:
 
 \[g^r={g^w}^c g^s=u^ca\]
 
-**Ex. 2: Diffie-Hellman pairs** Fix another \(h\) an integer. The powers
-of \(h\) form a subgroup \(H\) inside the group \(Z_p\).
+**Ex. 2: Diffie-Hellman pairs**
+
+Fix another \(h\) an integer. The powers of \(h\) form a subgroup \(H\)
+inside the group \(Z_p\).
 
 -   Public input \(u\in G,v\in H\).
 -   Agreed relation
@@ -80,7 +82,9 @@ The protocol has three rounds:
 
 \[g^r={g^w}^c g^s=u^ca.\] and similarly.
 
-*'Ex. 3: Cyphertext encryption* Fix \(h=g^x=PubKT\) an integer.
+**Ex. 3: Cyphertext encryption**
+
+Fix \(h=g^x=PubKT\) an integer.
 
 -   Public input \((m,a,b)\).
 -   Agreed relation
