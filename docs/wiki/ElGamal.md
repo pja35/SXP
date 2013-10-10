@@ -18,7 +18,7 @@ ElGamal encryption
 ------------------
 
   
-Alice encrypts \(m\in G_q\) as \(\{m\}_{PubKB}=(y^rm,g^r)\).
+Alice encrypts \(m\in G_q\) as \(\{m\}_{PubKB}=({g^x}^rm,g^r)\).
 
 Bob decrypts \((a,b)\) as \(a/b^x\).
 
