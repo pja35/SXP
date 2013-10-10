@@ -110,7 +110,7 @@ Alice validates Bob response by checking that <math>c=H(a,v)</math> and that <ma
 == Schnorr signatures ==
 
 
-* Public input a message <math>m</math>, and <math>v=PubKB</math>.
+* Public input a message <math>m</math> and <math>v=PubKB</math>.
 * Agreed relation <math>(v,w)\in R \Leftrightarrow g^w=v </math>.
 * Private input <math>w=PrivKB</math>.
 * Bob will need some random ephemeral <math>s\in Z_p</math>.

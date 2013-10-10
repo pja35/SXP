@@ -200,7 +200,7 @@ should be that
 Schnorr signatures
 ------------------
 
--   Public input a message \(m\), and \(v=PubKB\).
+-   Public input a message \(m\) and \(v=PubKB\).
 -   Agreed relation \((v,w)\in R \Leftrightarrow g^w=v\).
 -   Private input \(w=PrivKB\).
 -   Bob will need some random ephemeral \(s\in Z_p\).
