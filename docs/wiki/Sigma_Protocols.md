@@ -183,7 +183,6 @@ protocol. We get:
 -   Agreed relation \((v,w)\in R \Leftrightarrow g^w=v\).
 -   Private input \(w\).
 -   Bob will need some random \(s\in Z_p\).
--   Alice will need some random \(c\in Z_p\).
 
 The modified protocol has only one true round, since B' is just B
 challenging himself:
@@ -204,8 +203,10 @@ transmission to Alice
 Schnorr signatures
 ------------------
 
-Bob has \(PrivKB=w\) and \(PubKB=g^w\). He generates a random ephemeral
-key \(s\). He computes \(c=H(g^s, v)\).
+-   Public input \(v=PubKB=g^w\).
+-   Agreed relation \((v,w)\in R \Leftrightarrow g^w=v\).
+-   Private input \(w=PrivKB\).
+-   Bob will need some random ephemeral \(s\in Z_p\).
 
   
 Bob signs \(m\in G\) as \(SIG_B(m)=(g^s,c,s-wc)\).
