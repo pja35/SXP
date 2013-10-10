@@ -80,15 +80,17 @@ The protocol has three rounds:
 \[B\rightarrow A: r=wc+s\] Alice validates Bob response by checking that
 \(g^r=u^ca\) and that \(h^r=v^ca\). Indeed,
 
-\[g^r={g^w}^c g^s=u^ca.\] and similarly.
+\[g^r={g^w}^c g^s=u^ca.\] and similarly for
+\(h<\math> with <math>v<\math>.
 
-**Ex. 3: Cyphertext encryption**
 
-Fix \(h=g^x=PubKT\) an integer.
+'''Ex. 3: Cyphertext encryption'''
 
--   Public input \((m,a,b)\).
+Fix <math>h=g^x=PubKT\) an integer.
+
+-   Public input \((m,u,v)\).
 -   Agreed relation
-    \(((m,a,b),w)\in R \Leftrightarrow a=g^w \wedge b={g^x}^w m\).
+    \(((m,u,v),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m\).
 -   Private input \(w\).
 -   Bob will need some random \(s\in Z_p\).
 -   Alice will need some random \(c\in Z_p\).
@@ -100,14 +102,14 @@ The protocol has three rounds:
 \[A\rightarrow B: c\]
 
 \[B\rightarrow A: r=wc+s\] Alice validates Bob response by checking that
-\(g^r=u^ca\) and that \(h^r=v^ca\). Indeed,
+\(g^r=u^ca\) and that \({g^x}^r=(v/m)^ca\). Indeed,
 
-\[g^r={g^w}^c g^s=u^ca.\] and similarly.
+\[g^r={g^w}^c g^s=u^ca.\] and similarly for
+\(h=g^x<\math> with <math>v'=v/m<\math>.
 
-Composability
--------------
+== Composability ==
 
-Consider \(v_0, v_1\) and \(R_0, R_1\). Say Bob pretends to have
+Consider <math>v_0, v_1\) and \(R_0, R_1\). Say Bob pretends to have
 \(w_0, w_1\) such that \((v_0,w_0)\in R_0 \wedge (v_1,w_1)\in R_1\), and
 does not want to disclose them. Is there a Sigma protocol for this new
 relation

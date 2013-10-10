@@ -45,14 +45,14 @@ The protocol has three rounds:
 :<math> B\rightarrow A: r=wc+s </math>
 Alice validates Bob response by checking that <math>g^r=u^ca</math> and that <math>h^r=v^ca</math>. Indeed, 
 :<math>g^r={g^w}^c g^s=u^ca.</math>
-and similarly.
+and similarly for <math>h<\math> with <math>v<\math>.
 
 
 '''Ex. 3: Cyphertext encryption'''
 
 Fix <math>h=g^x=PubKT</math> an integer.
-* Public input <math>(m,a,b)</math>.
-* Agreed relation <math>((m,a,b),w)\in R \Leftrightarrow a=g^w \wedge b={g^x}^w m  </math>.
+* Public input <math>(m,u,v)</math>.
+* Agreed relation <math>((m,u,v),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  </math>.
 * Private input <math>w</math>.
 * Bob will need some random <math>s\in Z_p</math>.
 * Alice will need some random <math>c\in Z_p</math>. 
@@ -60,9 +60,9 @@ The protocol has three rounds:
 :<math> B\rightarrow A: a=g^s </math>
 :<math> A\rightarrow B: c </math>
 :<math> B\rightarrow A: r=wc+s </math>
-Alice validates Bob response by checking that <math>g^r=u^ca</math> and that <math>h^r=v^ca</math>. Indeed, 
+Alice validates Bob response by checking that <math>g^r=u^ca</math> and that <math>{g^x}^r=(v/m)^ca</math>. Indeed, 
 :<math>g^r={g^w}^c g^s=u^ca.</math>
-and similarly.
+and similarly for <math>h=g^x<\math> with <math>v'=v/m<\math>.
 
 == Composability ==
 
