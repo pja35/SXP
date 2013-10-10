@@ -29,7 +29,7 @@ Schnorr signatures
 ------------------
 
   
-Bob signs \(m\in G\) as \(SIG_B(m)=(r-xe,H(m.g^w))\).
+Bob signs \(m\in G\) as \(SIG_B(m)=(w-xe,H(m.g^w))\).
 
 Alice verifies \((s,e)\) checking that \(e=H(m.g^s {g^x}^e)\).
 
