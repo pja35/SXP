@@ -29,33 +29,55 @@ last two rounds are for. The first round is there out of technical
 necessity: Bob chooses this \(a\) as a mask for passing the challenge
 without disclosing \(w\).
 
-Example: the Discrete Logarithm
--------------------------------
+Building blocks
+---------------
 
-Here is an example based on Discrete Logarithms. Take \(p\) a prime and
-\(g\) an integer. The powers of \(g\) form a subgroup \(G_q\) (having
-\(q\) elements) inside the group \(Z_p\) (having \(p\) elements), which
-is that of integers modulo \(p\). The choice of these \(p\) and \(g\) is
-important so that they meet the [Decisional
+Here are examples of Sigma protocols based on the hardness of Discrete
+Logarithms. Take \(p\) a prime and \(g,h\) an integers. The powers of
+\(g\) (resp. \(h\)) form a subgroup \(G\) (resp. \(H\) ) inside the
+group \(Z_p\), which is that of integers modulo \(p\). The choice of
+these \(p\) and \(g\) is important so that they meet the [Decisional
 Diffie-Hellman](http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption)
 assumption; but there are standard techniques for doing that.
 
--   Public input \(v\in G_q\).
+**Ex. 1: Discrete Logarithm**
+
+-   Public input \(v\in G\).
 -   Agreed relation \((v,w)\in R \Leftrightarrow g^w=v\).
 -   Private input \(w\).
--   Bob will need some random \(u\in Z_p\).
+-   Bob will need some random \(s\in Z_p\).
 -   Alice will need some random \(c\in Z_p\).
 
 The protocol has three rounds:
 
-\[B\rightarrow A: a=g^u\]
+\[B\rightarrow A: a=g^s\]
 
 \[A\rightarrow B: c\]
 
-\[B\rightarrow A: r=wc+u\] Alice validates Bob response by checking that
+\[B\rightarrow A: r=wc+s\] Alice validates Bob response by checking that
 \(g^r=v^ca\). Indeed,
 
-\[g^r=g^{wc}g^u=v^ca.\]
+\[g^r=g^{wc}g^s=v^ca.\]
+
+**Ex. 2: Diffie-Hellman pairs**
+
+-   Public input \(u\in G,v\in H\).
+-   Agreed relation
+    \(((u,v),w)\in R \Leftrightarrow g^w=u \wedge h^w=v\).
+-   Private input \(w\).
+-   Bob will need some random \(s\in Z_p\).
+-   Alice will need some random \(c\in Z_p\).
+
+The protocol has three rounds:
+
+\[B\rightarrow A: a=g^s\]
+
+\[A\rightarrow B: c\]
+
+\[B\rightarrow A: r=wc+s\] Alice validates Bob response by checking that
+\(g^r=u^ca\) and that \(h^r=v^ca\). Indeed,
+
+\[g^r=g^{wc}g^s=u^ca.\]
 
 Composability
 -------------
