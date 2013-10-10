@@ -195,10 +195,7 @@ challenging himself:
 that \(c=H(a,v)\) and that \(g^r=v^ca\). Indeed, if Bob was honest it
 should be that
 
-\[g^r={g^w}^c g^s=u^ca\].
-
-Now, think of \(v\) as a message that Bob had to sign. His unique
-transmission to Alice
+\[g^r={g^w}^c g^s=v^ca\].
 
 Schnorr signatures
 ------------------
