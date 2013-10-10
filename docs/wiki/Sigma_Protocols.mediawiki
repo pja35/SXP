@@ -112,7 +112,7 @@ Now, think of <math>v</math> as a message that Bob had to sign. His unique trans
 == Schnorr signatures ==
 
 
-* Public input <math>v=PubKB=g^w</math>.
+* Public input <math>v=PubKB</math>.
 * Agreed relation <math>(v,w)\in R \Leftrightarrow g^w=v </math>.
 * Private input <math>w=PrivKB</math>.
 * Bob will need some random ephemeral <math>s\in Z_p</math>.

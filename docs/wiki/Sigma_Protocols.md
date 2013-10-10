@@ -203,7 +203,7 @@ transmission to Alice
 Schnorr signatures
 ------------------
 
--   Public input \(v=PubKB=g^w\).
+-   Public input \(v=PubKB\).
 -   Agreed relation \((v,w)\in R \Leftrightarrow g^w=v\).
 -   Private input \(w=PrivKB\).
 -   Bob will need some random ephemeral \(s\in Z_p\).
