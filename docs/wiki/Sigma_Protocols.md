@@ -210,7 +210,7 @@ Bob needs a random ephemeral key \(s\). He computes \(e=H(g^s, m)\).
   
 Bob signs \(m\in G\) as \(SIG_B(m)=(s-xe,e)\).
 
-Alice verifies \((u,v)\) checking that \(v=H(g^u {g^x}^v m)\).
+Alice verifies \((u,v)\) checking that \(v=H(g^u {g^x}^v, m)\).
 
 Indeed, if Bob was honest it should be that
 \(g^u {g^x}^v =g^{s-xe}{g^x}^e =g^s\).
