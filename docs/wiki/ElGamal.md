@@ -28,13 +28,13 @@ Indeed, \(v/u^x=g^{xw}m/g^{wx}=m\).
 Schnorr signatures
 ------------------
 
-Bob needs a random ephemeral key \(w\). He computes \(e=H(m.g^w)\).
+Bob needs a random ephemeral key \(w\). He computes \(e=H(g^w m)\).
 
   
 Bob signs \(m\in G\) as \(SIG_B(m)=(w-xe,e)\).
 
-Alice verifies \((u,v)\) checking that \(v=H(m.g^u {g^x}^v)\).
+Alice verifies \((u,v)\) checking that \(v=H(g^u {g^x}^v m)\).
 
-Indeed, \(g^{w-xe}{g^x}^e=g^w\).
+Indeed, it should be that \(g^u {g^x}^v m=g^{w-xe}{g^x}^e m=g^w m\).
 
 
