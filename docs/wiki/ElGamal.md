@@ -35,6 +35,7 @@ Bob signs \(m\in G\) as \(SIG_B(m)=(w-xe,e)\).
 
 Alice verifies \((u,v)\) checking that \(v=H(g^u {g^x}^v m)\).
 
-Indeed, it should be that \(g^u {g^x}^v m=g^{w-xe}{g^x}^e m=g^w m\).
+Indeed, if Bob was honest it should be that
+\(g^u {g^x}^v m=g^{w-xe}{g^x}^e m=g^w m\).
 
 
