@@ -33,7 +33,7 @@ Bob needs a random ephemeral key \(w\). He computes \(e=H(m.g^w)\).
   
 Bob signs \(m\in G\) as \(SIG_B(m)=(w-xe,e)\).
 
-Alice verifies \((s,e)\) checking that \(e=H(m.g^s {g^x}^e)\).
+Alice verifies \((u,v)\) checking that \(v=H(m.g^u {g^x}^v)\).
 
 Indeed, \(g^{w-xe}{g^x}^e=g^w\).
 
