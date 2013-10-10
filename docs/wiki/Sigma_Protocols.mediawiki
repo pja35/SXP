@@ -9,7 +9,7 @@ Through the protocol, Bob will seek to convince Alice.
 The protocol has three rounds:
 :<math> B\rightarrow A: a=a(v,R,w) </math>
 :<math> A\rightarrow B: c=c(v,R,a) </math>
-:<math> B\rightarrow B: r=r(v,R,w,a,c,w) </math>
+:<math> B\rightarrow A: r=r(v,R,w,a,c,w) </math>
 Lastly, Alice checks that Bob response <math>r</math> to her challenge <math>r</math> is valid. This explains what the last two rounds are for. The first round is there out of technical necessity: Bob chooses this <math>a</math> as a mask for passing the challenge without disclosing <math>w</math>.
 
 == Example: the Discrete Logarithm ==
@@ -24,7 +24,7 @@ Here is an example based on Discrete Logarithms. Take <math>p</math> a prime and
 The protocol has three rounds:
 :<math> B\rightarrow A: a=g^u </math>
 :<math> A\rightarrow B: c </math>
-:<math> B\rightarrow B: r=wc+u </math>
+:<math> B\rightarrow A: r=wc+u </math>
 Alice validates Bob response by checking that <math>g^r=v^ca</math>. Indeed, 
 :<math>g^r=g^{wc}g^u=v^ca.</math>
 
@@ -42,7 +42,7 @@ Now, say Bob pretends to have one of <math>w_0</math> or <math>w_1</math>, and d
 The protocol has three rounds:
 :<math> B\rightarrow A: (a_0,a_1) </math>
 :<math> A\rightarrow B: s </math>
-:<math> B\rightarrow B: (c_0,c_1),(r_0,r_1) </math> where <math>r_0</math> is computed by Bob thanks to his knowledge of <math>w_0</math>.
+:<math> B\rightarrow A: (c_0,c_1),(r_0,r_1) </math> where <math>r_0</math> is computed by Bob thanks to his knowledge of <math>w_0</math>.
 Alice validates Bob response by checking that:
 * <math>s=c_0\oplus c_1</math>
 * <math>a_0,c_0,r_0</math> is valid

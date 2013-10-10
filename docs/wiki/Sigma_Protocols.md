@@ -23,7 +23,7 @@ The protocol has three rounds:
 
 \[A\rightarrow B: c=c(v,R,a)\]
 
-\[B\rightarrow B: r=r(v,R,w,a,c,w)\] Lastly, Alice checks that Bob
+\[B\rightarrow A: r=r(v,R,w,a,c,w)\] Lastly, Alice checks that Bob
 response \(r\) to her challenge \(r\) is valid. This explains what the
 last two rounds are for. The first round is there out of technical
 necessity: Bob chooses this \(a\) as a mask for passing the challenge
@@ -52,7 +52,7 @@ The protocol has three rounds:
 
 \[A\rightarrow B: c\]
 
-\[B\rightarrow B: r=wc+u\] Alice validates Bob response by checking that
+\[B\rightarrow A: r=wc+u\] Alice validates Bob response by checking that
 \(g^r=v^ca\). Indeed,
 
 \[g^r=g^{wc}g^u=v^ca.\]
@@ -95,7 +95,7 @@ The protocol has three rounds:
 
 \[A\rightarrow B: s\]
 
-\[B\rightarrow B: (c_0,c_1),(r_0,r_1)\] where \(r_0\) is computed by Bob
+\[B\rightarrow A: (c_0,c_1),(r_0,r_1)\] where \(r_0\) is computed by Bob
 thanks to his knowledge of \(w_0\). Alice validates Bob response by
 checking that:
 
