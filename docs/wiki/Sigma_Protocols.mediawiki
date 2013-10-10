@@ -109,7 +109,7 @@ Alice validates Bob response by checking that <math>c=H(a,v)</math> and that <ma
 
 == Schnorr signatures ==
 
-Let us further modify the above, and say that the challenge that Bob will put is to be fabricated with some public <math>m</math> instead of <math>v</math>.
+Let us further modify the above, and say that the challenge that Bob will put to himself is to be fabricated with some public <math>m</math> instead of <math>v</math>.
 * Public input <math>m</math> a message and <math>v=PubKB</math>.
 * Agreed relation <math>(v,w)\in R \Leftrightarrow g^w=v </math>.
 * Private input <math>w=PrivKB</math>.
