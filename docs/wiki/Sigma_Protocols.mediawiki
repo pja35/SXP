@@ -27,7 +27,7 @@ The protocol has three rounds:
 :<math> B\rightarrow A: a=g^s </math>
 :<math> A\rightarrow B: c </math>
 :<math> B\rightarrow A: r=wc+s </math>
-Alice validates Bob response by checking that <math>g^r=v^ca</math>. Indeed, 
+Alice validates Bob response by checking that <math>g^r=v^ca</math>. Indeed, if Bob was honest it should be that
 :<math>g^r={g^w}^c g^s=u^ca</math>
 
 
@@ -43,7 +43,7 @@ The protocol has three rounds:
 :<math> B\rightarrow A: a=g^s </math>
 :<math> A\rightarrow B: c </math>
 :<math> B\rightarrow A: r=wc+s </math>
-Alice validates Bob response by checking that <math>g^r=u^ca</math> and that <math>h^r=v^ca</math>. Indeed, 
+Alice validates Bob response by checking that <math>g^r=u^ca</math> and that <math>h^r=v^ca</math>. Indeed, if Bob was honest it should be that
 :<math>g^r={g^w}^c g^s=u^ca.</math>
 and similarly for <math>h</math> with <math>v</math>.
 
@@ -60,7 +60,7 @@ The protocol has three rounds:
 :<math> B\rightarrow A: a=g^s </math>
 :<math> A\rightarrow B: c </math>
 :<math> B\rightarrow A: r=wc+s </math>
-Alice validates Bob response by checking that <math>g^r=u^ca</math> and that <math>{g^x}^r=(v/m)^ca</math>. Indeed, 
+Alice validates Bob response by checking that <math>g^r=u^ca</math> and that <math>{g^x}^r=(v/m)^ca</math>. Indeed, if Bob was honest it should be that 
 :<math>g^r={g^w}^c g^s=u^ca.</math>
 and similarly for <math>h=g^x</math> with <math>v'=v/m</math>.
 
