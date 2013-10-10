@@ -113,6 +113,6 @@ Now, think of <math>v</math> as a message that Bob had to sign. His unique trans
 == Schnorr signatures ==
 
 Bob needs a random ephemeral key <math>s</math>. He computes <math>c=H(g^s, v)</math>.
-:Bob signs <math>m\in G</math> as <math>SIG_B(m)=(s+xc,c)</math>.
+:Bob signs <math>m\in G</math> as <math>SIG_B(m)=(g^s,c,s+xc)</math>.
 :Alice verifies <math>(u,v)</math> checking that <math>v=H(g^u {g^x}^v, v)</math>.
 :Indeed, if Bob was honest it should be that <math>g^u {g^x}^v =g^{s+xc}{g^x}^c =g^s </math>.

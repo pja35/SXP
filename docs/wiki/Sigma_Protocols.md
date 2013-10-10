@@ -207,7 +207,7 @@ Schnorr signatures
 Bob needs a random ephemeral key \(s\). He computes \(c=H(g^s, v)\).
 
   
-Bob signs \(m\in G\) as \(SIG_B(m)=(s+xc,c)\).
+Bob signs \(m\in G\) as \(SIG_B(m)=(g^s,c,s+xc)\).
 
 Alice verifies \((u,v)\) checking that \(v=H(g^u {g^x}^v, v)\).
 
