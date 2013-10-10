@@ -114,7 +114,7 @@ Let us further modify the above, and say that the challenge that Bob will put to
 * Agreed relation <math>(v,w)\in R \Leftrightarrow g^w=v </math>.
 * Private input <math>w=PrivKB</math>.
 * Bob will need some random ephemeral <math>s\in Z_p</math>.
-
-:Bob signs <math>m\in G</math> as <math>SIG_B(m)=(H(g^s,m),s-wH(g^s,m))</math>.
+:Bob computes <math>c=H(g^s,m)</math> and <math>r=s-wc</math>.
+:Bob signs <math>m\in G</math> as <math>SIG_B(m)=(c,r)</math>.
 :Alice verifies <math>(c,r)</math> checking that <math>c=H(g^r {g^w}^c, m)</math>.
 :Indeed, if Bob was honest it should be that <math>g^r {g^w}^c =g^{s-wc}{g^w}^c =g^s </math>.

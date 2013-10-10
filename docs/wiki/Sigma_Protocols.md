@@ -210,7 +210,9 @@ of \(v\).
 -   Bob will need some random ephemeral \(s\in Z_p\).
 
   
-Bob signs \(m\in G\) as \(SIG_B(m)=(H(g^s,m),s-wH(g^s,m))\).
+Bob computes \(c=H(g^s,m)\) and \(r=s-wc\).
+
+Bob signs \(m\in G\) as \(SIG_B(m)=(c,r)\).
 
 Alice verifies \((c,r)\) checking that \(c=H(g^r {g^w}^c, m)\).
 
