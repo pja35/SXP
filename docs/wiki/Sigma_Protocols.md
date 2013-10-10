@@ -84,11 +84,11 @@ The protocol has three rounds:
 
 **Ex. 3: Cyphertext encryption**
 
-Fix \(h=PubKT\) an integer.
+Fix \(h=g^x=PubKT\) an integer.
 
 -   Public input \((m,u,v)\).
 -   Agreed relation
-    \(((m,u,v),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m\).
+    \(((m,u,v),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{PubKT,w}\).
 -   Private input \(w\).
 -   Bob will need some random \(s\in Z_p\).
 -   Alice will need some random \(c\in Z_p\).
@@ -100,9 +100,9 @@ The protocol has three rounds:
 \[A\rightarrow B: c\]
 
 \[B\rightarrow A: r=wc+s\] Alice validates Bob response by checking that
-\(g^r=u^ca\) and that \(h^r=(v/m)^ca\). Indeed,
+\(g^r=u^ca\) and that \({g^x}^r=(v/m)^ca\). Indeed,
 
-\[g^r={g^w}^c g^s=u^ca.\] and similarly for \(h\) with \(v'=v/m\).
+\[g^r={g^w}^c g^s=u^ca.\] and similarly for \(h=g^x\) with \(v'=v/m\).
 
 Composability
 -------------
