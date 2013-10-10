@@ -175,7 +175,7 @@ Non-interactive version
 Instead of doing the Sigma protocol in three rounds, we could just do it
 in one round, by musing the Fiat-Shamir heuristics. The idea is that Bob
 challenges himself with something that he does not really control,
-namely \(H(a,v)\), where \(h\) is a hash function like SHA2. For
+namely \(H(a,v)\), where \(H\) is a hash function like SHA2. For
 instance, let us apply this procedure to the Schnorr identification
 protocol. We get:
 

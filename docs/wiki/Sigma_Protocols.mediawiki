@@ -94,7 +94,7 @@ Indeed, you then have <math>g^{r_1}=v_1^{c_1}a_1</math> so that the run is valid
 
 == Non-interactive version ==
 
-Instead of doing the Sigma protocol in three rounds, we could just do it in one round, by musing the Fiat-Shamir heuristics. The idea is that Bob challenges himself with something that he does not really control, namely <math>H(a,v)</math>, where <math>h</math> is a hash function like SHA2. For instance, let us apply this procedure to the Schnorr identification protocol. We get:
+Instead of doing the Sigma protocol in three rounds, we could just do it in one round, by musing the Fiat-Shamir heuristics. The idea is that Bob challenges himself with something that he does not really control, namely <math>H(a,v)</math>, where <math>H</math> is a hash function like SHA2. For instance, let us apply this procedure to the Schnorr identification protocol. We get:
  
 * Public input <math>v\in G</math>.
 * Agreed relation <math>(v,w)\in R \Leftrightarrow g^w=v </math>.
