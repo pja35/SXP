@@ -201,8 +201,8 @@ Schnorr signatures
 ------------------
 
 Let us further modify the above, and say that the challenge that Bob
-will put to himself is to be fabricated with some public \(m\) instead
-of \(v\).
+will put to himself is to be fabricated based upon some public \(m\)
+instead of \(v\).
 
 -   Public input \(m\) a message and \(v=PubKB\).
 -   Agreed relation \((v,w)\in R \Leftrightarrow g^w=v\).
