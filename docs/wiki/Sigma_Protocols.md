@@ -204,7 +204,8 @@ transmission to Alice
 Schnorr signatures
 ------------------
 
-Bob needs a random ephemeral key \(s\). He computes \(c=H(g^s, v)\).
+Bob has \(PrivKB=w\) and \(PubKB=g^w\). He generates a random ephemeral
+key \(s\). He computes \(c=H(g^s, v)\).
 
   
 Bob signs \(m\in G\) as \(SIG_B(m)=(g^s,c,s-wc)\).
