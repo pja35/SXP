@@ -16,12 +16,14 @@ Say Bob generates \(PrivKB=x, PubKB=g^x\) and makes the latter public.
 ElGamal encryption
 ------------------
 
+Alice needs a random ephemeral key \(w\).
+
   
-Alice encrypts \(m\in G\) as \(\{m\}_{PubKB}=(g^r,{g^x}^r m)\).
+Alice encrypts \(m\in G\) as \(\{m\}_{PubKB}=(g^w,{g^x}^w m)\).
 
 Bob decrypts \((u,v)\) as \(v/u^x\).
 
-Indeed, \(v/u^x=g^{xr}m/g^{rx}=m\).
+Indeed, \(v/u^x=g^{xw}m/g^{wx}=m\).
 
 Schnorr signatures
 ------------------

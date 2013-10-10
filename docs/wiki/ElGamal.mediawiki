@@ -4,10 +4,10 @@ Fix <math>p</math> a prime and <math>g</math> an integer. The powers of <math>g<
 Say Bob generates <math>PrivKB=x, PubKB=g^x</math> and makes the latter public.
 
 == ElGamal encryption ==
-
-:Alice encrypts <math>m\in G</math> as <math>\{m\}_{PubKB}=(g^r,{g^x}^r m)</math>.
+Alice needs a random ephemeral key <math>w</math>.
+:Alice encrypts <math>m\in G</math> as <math>\{m\}_{PubKB}=(g^w,{g^x}^w m)</math>.
 :Bob decrypts <math>(u,v)</math> as <math>v/u^x</math>.
-:Indeed, <math> v/u^x=g^{xr}m/g^{rx}=m </math>.
+:Indeed, <math> v/u^x=g^{xw}m/g^{wx}=m </math>.
 
 == Schnorr signatures ==
 
