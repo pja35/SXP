@@ -179,7 +179,7 @@ namely \(H(a,v)\), where \(H\) is a hash function like SHA2. For
 instance, let us apply this procedure to the Schnorr identification
 protocol. We get:
 
--   Public input \(v\in G\).
+-   Public input \(m=v\in G\).
 -   Agreed relation \((v,w)\in R \Leftrightarrow g^w=v\).
 -   Private input \(w\).
 -   Bob will need some random \(s\in Z_p\).
@@ -189,10 +189,10 @@ challenging himself:
 
 \[B\rightarrow B': a=g^s\]
 
-\[B'\rightarrow B: c=H(a,v)\]
+\[B'\rightarrow B: c=H(a,m)\]
 
 \[B\rightarrow A: a,c,r=wc+s\] Alice validates Bob response by checking
-that \(c=H(a,v)\) and that \(g^r=v^ca\). Indeed, if Bob was honest it
+that \(c=H(a,m)\) and that \(g^r=v^ca\). Indeed, if Bob was honest it
 should be that
 
 \[g^r={g^w}^c g^s=v^ca\].

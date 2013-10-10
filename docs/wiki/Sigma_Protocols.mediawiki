@@ -96,15 +96,15 @@ Indeed, you then have <math>g^{r_1}=v_1^{c_1}a_1</math> so that the run is valid
 
 Instead of doing the Sigma protocol in three rounds, we could just do it in one round, by musing the Fiat-Shamir heuristics. The idea is that Bob challenges himself with something that he does not really control, namely <math>H(a,v)</math>, where <math>H</math> is a hash function like SHA2. For instance, let us apply this procedure to the Schnorr identification protocol. We get:
  
-* Public input <math>v\in G</math>.
+* Public input <math>m=v\in G</math>.
 * Agreed relation <math>(v,w)\in R \Leftrightarrow g^w=v </math>.
 * Private input <math>w</math>.
 * Bob will need some random <math>s\in Z_p</math>.
 The modified protocol has only one true round, since B' is just B challenging himself:
 :<math> B\rightarrow B': a=g^s </math>
-:<math> B'\rightarrow B: c=H(a,v) </math>
+:<math> B'\rightarrow B: c=H(a,m) </math>
 :<math> B\rightarrow A: a,c,r=wc+s </math>
-Alice validates Bob response by checking that <math>c=H(a,v)</math> and that <math>g^r=v^ca</math>. Indeed, if Bob was honest it should be that
+Alice validates Bob response by checking that <math>c=H(a,m)</math> and that <math>g^r=v^ca</math>. Indeed, if Bob was honest it should be that
 :<math>g^r={g^w}^c g^s=v^ca</math>.
 
 == Schnorr signatures ==
