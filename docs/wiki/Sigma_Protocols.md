@@ -175,4 +175,6 @@ Non-interactive version
 Instead of doing the Sigma protocol in three rounds, we could just do it
 in one round, according to the Fiat-Shamir heuristics. The idea is that
 the prover challenges himself with something that he does not really
-control, namely \(h(v,a)\), where \(h\) is a hash function like SHA2.
+control, namely \(H(a,v)\), where \(h\) is a hash function like SHA2.
+Notice how the Schnorr signature scheme is nothing but Fiat-Shamir
+applied to the Schorr identification scheme.
