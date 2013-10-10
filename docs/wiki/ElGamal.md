@@ -18,11 +18,11 @@ ElGamal encryption
 ------------------
 
   
-Alice encrypts \(m\in G_q\) as \(\{m\}_{PubKB}=({g^x}^rm,g^r)\).
+Alice encrypts \(m\in G\) as \(\{m\}_{PubKB}=(g^r,{g^x}^rm)\).
 
-Bob decrypts \((a,b)\) as \(a/b^x\).
+Bob decrypts \((a,b)\) as \(b/a^x\).
 
-Indeed, \(a/b^x=g^{xr}m/g^{rx}=m\).
+Indeed, \(b/a^x=g^{xr}m/g^{rx}=m\).
 
 Schnorr signatures
 ------------------
