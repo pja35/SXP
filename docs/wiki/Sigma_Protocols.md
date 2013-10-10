@@ -117,3 +117,12 @@ you:
 -   Let \(a_1=g^{r_1}v_1^{-c_1}\).
 
 Indeed, you then have \(g^{r_1}=v_1^{c_1}a_1\) so that the run is valid.
+
+Non-interactive version
+-----------------------
+
+Instead of doing the Sigma protocol in three rounds, we could just do it
+in one round, according to the Fiat-Shamir heuristics. The idea is that
+the prover challenges himself with something that he does not really
+control, namely \(h(v,a)\), where <math>h<math> is a hash function like
+SHA2.
