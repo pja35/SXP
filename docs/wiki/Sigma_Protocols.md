@@ -206,9 +206,9 @@ Schnorr signatures
 -   Bob will need some random ephemeral \(s\in Z_p\).
 
   
-Bob signs \(m\in G\) as \(SIG_B(m)=(g^s,H(g^s,v),s-wc)\).
+Bob signs \(m\in G\) as \(SIG_B(m)=(H(g^s,v),s-wH(g^s,v))\).
 
-Alice verifies \((a,c,r)\) checking that \(c=H(g^r {g^w}^c, c)\).
+Alice verifies \((c,r)\) checking that \(c=H(g^r {g^w}^c, c)\).
 
 Indeed, if Bob was honest it should be that
 \(g^r {g^w}^c =g^{s-wc}{g^w}^c =g^s\).
