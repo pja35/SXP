@@ -30,8 +30,8 @@ Schnorr signatures
   
 Bob signs \(m\in G_q\) as \(SIG_B(m)=(r-xe,H(m.g^r))\).
 
-Alice verifies \((s,e)\) checking that \(e=H(m.g^sy^e)\).
+Alice verifies \((s,e)\) checking that \(e=H(m.g^s {g^x}^e)\).
 
-Indeed, \(g^sy^e=g^{r-xe}g^{xe}=g^r\).
+Indeed, \(g^sy^e=g^{r-xe}{g^x}^e=g^r\).
 
 
