@@ -73,13 +73,13 @@ inside the group \(Z_p\).
 
 The protocol has three rounds:
 
-\[B\rightarrow A: a=g^s\]
+\[B\rightarrow A: a=g^s, a'=g^{s'}\]
 
-\[A\rightarrow B: c\]
+\[A\rightarrow B: c,c'\]
 
-\[B\rightarrow A: r=wc+s\] Alice validates Bob response by checking that
-\(g^r=u^ca\) and that \(h^r=v^ca\). Indeed, if Bob was honest it should
-be that
+\[B\rightarrow A: r=wc+s, r'=wc'+s'\] Alice validates Bob response by
+checking that \(g^r=u^ca\) and that \(h^{r'}=v^{c'}a'\). Indeed, if Bob
+was honest it should be that
 
 \[g^r={g^w}^c g^s=u^ca.\] and similarly for \(h\) with \(v\).
 
@@ -98,13 +98,13 @@ Fix \(h=g^x=PubKT\) an integer.
 
 The protocol has three rounds:
 
-\[B\rightarrow A: a=g^s\]
+\[B\rightarrow A: a=g^s, a'={g^x}^{s'}\]
 
-\[A\rightarrow B: c\]
+\[A\rightarrow B: c,c'\]
 
-\[B\rightarrow A: r=wc+s\] Alice validates Bob response by checking that
-\(g^r=u^ca\) and that \({g^x}^r=(v/m)^ca\). Indeed, if Bob was honest it
-should be that
+\[B\rightarrow A: r=wc+s, r'=wc'+s'\] Alice validates Bob response by
+checking that \(g^r=u^ca\) and that \({g^x}^{r'}=(v/m)^{c'a'}\). Indeed,
+if Bob was honest it should be that
 
 \[g^r={g^w}^c g^s=u^ca.\] and similarly for \(h=g^x\) with \(v'=v/m\).
 
