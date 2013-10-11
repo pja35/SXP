@@ -48,7 +48,7 @@ Alice validates Bob response by checking that <math>g^r=u^ca</math> and that <ma
 and similarly for <math>h</math> with <math>v</math>.
 
 
-'''Ex. 3: Proof of cyphertext encryption'''
+'''Ex. 3: Proof of cyphertext encryption by encrypter'''
 
 Fix <math>h=g^x=PubKT</math> an integer.
 * Public input <math>(m,u,v)</math>.

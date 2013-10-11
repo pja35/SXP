@@ -83,7 +83,7 @@ was honest it should be that
 
 \[g^r={g^w}^c g^s=u^ca.\] and similarly for \(h\) with \(v\).
 
-**Ex. 3: Proof of cyphertext encryption**
+**Ex. 3: Proof of cyphertext encryption by encrypter**
 
 Fix \(h=g^x=PubKT\) an integer.
 
