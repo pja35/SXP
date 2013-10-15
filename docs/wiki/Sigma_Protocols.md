@@ -4,6 +4,9 @@ permalink: wiki/Sigma_Protocols/
 layout: wiki
 ---
 
+Those are key to understanding [Private Contract
+Signatures](/wiki/Private_Contract_Signatures "wikilink").
+
 In general
 ----------
 

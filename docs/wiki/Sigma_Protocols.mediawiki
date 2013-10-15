@@ -1,3 +1,5 @@
+Those are key to understanding [[Private_Contract_Signatures|Private Contract Signatures]].
+
 == In general ==
 
 Sigma protocols involve a verifier (A) and prover (B).
