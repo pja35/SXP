@@ -241,7 +241,7 @@ should be that
 
 \[v^{-c}g^r=g^{-wc} g^{wc} g^s=a\].
 
-**Denote by \((a,c,r)=P(H(a,m))\) the non-interactive version of P.**
+**Denote by \(P(H(a,m))\) the non-interactive version of P.**
 
 Schnorr signatures
 ------------------
