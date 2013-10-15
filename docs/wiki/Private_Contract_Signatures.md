@@ -36,40 +36,40 @@ composable, interactive zero-knowledge proof schemes.
 Simplified scheme
 -----------------
 
-An \(\textrm{SPCS}_{AB}(m)\) is
+An \(\textrm{SPCS}(m)\) is
 
-\[\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^A,v))\vee\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\right)(g^s,H(g^s,m))\]
+\[\textrm{NI}\left(\bigvee_i\textrm{CCE}^T(m,(\textrm{Pub}^{P_i},v))\right)(g^s,H(g^s,m))\]
 with s random. Intuitively:
 
 -   It constitutes a proof that \(v=\{m\}_{\textrm{Pub}^T}\) under
     [ElGamal](/wiki/ElGamal "wikilink").
 -   In order to provide such a proof one needs to have the ephemeral
     key used.
--   It also constitutes a proof that the ephemeral key used is either
-    Alice's or Bob's private key.
+-   It also constitutes a proof that the ephemeral key was one of
+    \(\{\textrm{Priv}^{P_i}\}\).
 -   Thus, whoever has done it, has admittedly signed m.
--   But in order to know whom of Alice or Bob has signed, one needs a
-    proof of which of private keys was used.
+-   But in order to which \(P_i\) has signed, one needs a proof of which
+    of private keys was used.
 
-Thus unravel it, we need \(\textrm{USPCS}_B(m)\)
+Thus unravel it, we need \(\textrm{USPCS}_i(m)\)
 
-\[\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\vee\textrm{CCD}^T(m,(\textrm{Pub}^B,v))\right)(g^{s'},H(g^{s'},m))\]
+\[\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^{P_i},v))\vee\textrm{CCD}^T(m,(\textrm{Pub}^{P_i},v))\right)(g^{s'},H(g^{s'},m))\]
 with s' random. Intuitively:
 
 -   It constitutes a proof that \(v=\{m\}_{\textrm{Pub}^T}\) under
     [ElGamal](/wiki/ElGamal "wikilink").
 -   In order to provide such a proof one need to either have
-    \(\textrm{Priv}_B\) used, or have \(\textrm{Priv}_T\).
+    \(\textrm{Priv}_{P_i}\) used, or have \(\textrm{Priv}_T\).
 -   In any case it constitutes a proof that the ephemeral key used was
-    Bob's private key.
+    \(P_i\)'s private key.
 
-A signature \(\textrm{SIG}_B(m)\) is a pair
+A signature \(\textrm{SIG}_i(m)\) is a pair
 
-\[\left(\textrm{SPCS}_B(m), \textrm{USPCS}_B^A(m)\right).\] Notice that:
+\[\left(\textrm{SPCS}(m), \textrm{USPCS}_i(m)\right).\] Notice that:
 
--   No step discloses \(\textrm{Priv}_B\).
+-   No step discloses \(\textrm{Priv}_{P_i}\)</math>.
 -   Yet is constitutes a proof that \(v=\{m\}_{\textrm{Pub}^T}\) with
-    ephemeral key \(\textrm{Priv}_B\), which amounts to signing m.
+    ephemeral key \(\textrm{Priv}_{P_i}\), which amounts to signing m.
 
 Normal scheme
 -------------
