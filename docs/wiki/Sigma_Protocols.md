@@ -44,9 +44,9 @@ assumption; but there are standard techniques for doing that.
 
 Fix \(g\) an integer.
 
--   Public input \(v=PubKB\).
+-   Public input \(v=\textrm{Pub}_B\).
 -   Agreed relation \((v,w)\in R \Leftrightarrow g^w=v\).
--   Private input \(w=PrivKB\).
+-   Private input \(w=\textrm{Priv}_B\).
 -   Bob will need some random ephemeral \(s\in Z_p\).
 -   Alice will need some random \(c\in Z_p\).
 
@@ -88,11 +88,11 @@ was honest it should be that
 
 **Ex. 3: Proof of cyphertext content by encrypter**
 
-Fix \(g\) and \(h=g^x=PubKT\) integers.
+Fix \(g\) and \(h=g^x=\textrm{Pub}_T\) integers.
 
 -   Public input \(m\) and \(m'=(u,v)\).
 -   Agreed relation
-    \(((m,(u,v)),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{PubKT}\)
+    \(((m,(u,v)),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{\textrm{Pub}_T}\)
     under [ ElGamal](/wiki/ElGamalSchnorr "wikilink") with ephemeral key
     \(w\).
 -   Private input \(w\).
@@ -115,13 +115,13 @@ if Bob was honest it should be that
 
 **Ex. 4: Proof of cyphertext content by decrypter**
 
-Fix \(g\) and \(h=g^x=PubKT\) integers.
+Fix \(g\) and \(h=g^x=\textrm{Pub}_T\) integers.
 
 -   Public input \(m\) and \(m'=(u,v)\).
 -   Agreed relation
-    \(((m,(u,v)),w)\in R \Leftrightarrow v=u^x m  \Leftrightarrow (u,v)=\{m\}_{PubKT}\)
+    \(((m,(u,v)),w)\in R \Leftrightarrow v=u^x m  \Leftrightarrow (u,v)=\{m\}_{\textrm{Pub}_T}\)
     under [ ElGamal](/wiki/ElGamalSchnorr "wikilink") for Trent.
--   Private input \(x=PrivKT\).
+-   Private input \(x=\textrm{Priv}_T\).
 -   Trent will need some random \(s\in Z_p\).
 -   Alice will need some random \(c\in Z_p\).
 

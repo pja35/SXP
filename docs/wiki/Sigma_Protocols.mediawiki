@@ -20,9 +20,9 @@ Here are examples of Sigma protocols based on the hardness of Discrete Logarithm
 '''Ex. 1: Schnorr identification protocol'''
 
 Fix <math>g</math> an integer.
-* Public input <math>v=PubKB</math>.
+* Public input <math>v=\textrm{Pub}_B</math>.
 * Agreed relation <math>(v,w)\in R \Leftrightarrow g^w=v </math>.
-* Private input <math>w=PrivKB</math>.
+* Private input <math>w=\textrm{Priv}_B</math>.
 * Bob will need some random ephemeral <math>s\in Z_p</math>.
 * Alice will need some random <math>c\in Z_p</math>. 
 The protocol has three rounds:
@@ -53,9 +53,9 @@ and similarly for <math>h</math> with <math>v</math>.
 
 '''Ex. 3: Proof of cyphertext content by encrypter'''
 
-Fix <math>g</math> and  <math>h=g^x=PubKT</math> integers.
+Fix <math>g</math> and  <math>h=g^x=\textrm{Pub}_T</math> integers.
 * Public input <math>m</math> and <math>m'=(u,v)</math>.
-* Agreed relation <math>((m,(u,v)),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{PubKT}</math> under [[ElGamalSchnorr | ElGamal]] with ephemeral key <math>w</math>.
+* Agreed relation <math>((m,(u,v)),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{\textrm{Pub}_T}</math> under [[ElGamalSchnorr | ElGamal]] with ephemeral key <math>w</math>.
 * Private input <math>w</math>.
 * Bob will need some random <math>s\in Z_p</math>.
 * Alice will need some random <math>c\in Z_p</math>. 
@@ -72,10 +72,10 @@ and similarly for <math>h=g^x</math> with <math>v'=v/m</math>.
 
 '''Ex. 4: Proof of cyphertext content by decrypter'''
 
-Fix <math>g</math> and  <math>h=g^x=PubKT</math> integers.
+Fix <math>g</math> and  <math>h=g^x=\textrm{Pub}_T</math> integers.
 * Public input <math>m</math> and <math>m'=(u,v)</math>.
-* Agreed relation <math>((m,(u,v)),w)\in R \Leftrightarrow v=u^x m  \Leftrightarrow (u,v)=\{m\}_{PubKT}</math> under [[ElGamalSchnorr | ElGamal]] for Trent.
-* Private input <math>x=PrivKT</math>.
+* Agreed relation <math>((m,(u,v)),w)\in R \Leftrightarrow v=u^x m  \Leftrightarrow (u,v)=\{m\}_{\textrm{Pub}_T}</math> under [[ElGamalSchnorr | ElGamal]] for Trent.
+* Private input <math>x=\textrm{Priv}_T</math>.
 * Trent will need some random <math>s\in Z_p</math>.
 * Alice will need some random <math>c\in Z_p</math>. 
 The protocol has three rounds:
