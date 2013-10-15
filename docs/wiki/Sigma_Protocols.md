@@ -267,5 +267,5 @@ Indeed, if Bob was honest it should be that
 \(v^{-c}g^r =g^{-wc}g^{wc+s} =g^s=a\).
 
 Thus, a Schnorr signature is essence just some
-\((a,r,s)=\textrm{Schnorr}(H(a,m))\) with s random, although often the a
-is dropped.
+\((g^s,H(a,m),s+wc)=\textrm{Schnorr}(H(g^s,m))\), with s random. In
+practice the first element of the triple gets dropped.

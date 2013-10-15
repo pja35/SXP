@@ -153,4 +153,4 @@ Let us further modify the above, and say that the challenge that Bob will put to
 :Alice verifies <math>(c,r)</math> checking that <math>c=H(a, m)</math> with <math>a=v^{-c}g^r</math>.
 :Indeed, if Bob was honest it should be that <math>v^{-c}g^r =g^{-wc}g^{wc+s} =g^s=a </math>.
 
-Thus, a Schnorr signature is essence just some <math>(a,r,s)=\textrm{Schnorr}(H(a,m))</math> with s random, although often the a is dropped.
+Thus, a Schnorr signature is essence just some <math>(g^s,H(a,m),s+wc)=\textrm{Schnorr}(H(g^s,m))</math>, with s random. In practice the first element of the triple gets dropped.
