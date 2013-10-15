@@ -91,9 +91,9 @@ and
 
 == Composability ==
 
-Consider <math>v_0, v_1</math> and <math>R_0, R_1</math>. Say Bob pretends to have <math>w_0, w_1</math> such that <math>(v_0,w_0)\in R_0 \wedge (v_1,w_1)\in R_1</math>, and does not want to disclose them. Is there a Sigma protocol for this new relation <math>R_0\wedge R_1=\{(v_0,v_1),(w_0,w_1)\,|\,(v_0,w_0)\in R_0 \wedge (v_1,w_1)\in R_1\}</math>? If there was some for <math>R_0</math> and <math>R_1</math>, then yes. It suffices to combine the parallel run of both protocols into one, as tuples.
+Consider <math>v_0, v_1</math> and <math>R_0, R_1</math>. Say Bob pretends to have <math>w_0, w_1</math> such that <math>(v_0,w_0)\in R_0 \wedge (v_1,w_1)\in R_1</math>, and does not want to disclose them. Is there a Sigma protocol for this new relation <math>R_0\wedge R_1=\{(v_0,v_1),(w_0,w_1)\,|\,(v_0,w_0)\in R_0 \wedge (v_1,w_1)\in R_1\}</math>? If there was some for <math>R_0</math> and <math>R_1</math>, then yes. It suffices to combine the parallel run of both protocols into one, as tuples. We can use the same challenge c for both runs.
 
-'''Denote by <math> P \wedge Q </math> the and composition of two protocols P and Q.'''
+'''Denote by <math> (P \wedge Q)(c) </math> the and composition of two protocols <math>P(c)</math> and <math>Q(c)</math>.'''
 
 
 Now, say Bob pretends to have one of <math>w_0</math> or <math>w_1</math>, and does not want to disclose it, not tell which one it is. Is there a Sigma protocol for this new relation <math>R_0\vee R_1=\{(v_0,v_1),(w_0,w_1)\,|\,(v_0,w_0)\in R_0 \vee (v_1,w_1)\in R_1\}</math>? If there was some for <math>R_0</math> and <math>R_1</math>, then sometimes yes. This sometimes is related to Bob's ability to simulate, on its own, a valid run of the component Sigma protocols. In other words, for instance say that Bob does not know <math>w_1</math>, but that he has the freedom to choose himself the corresponding challenge <math>c_1</math>. Is he able to efficiently generate <math>a_1,c_1,r_1</math> so that they are valid? If so, then yes. This particular property of the component Sigma protocols is referred to as "existence of a simulator" or "special honest-verifier zero-knowledge". Here is how.
@@ -102,13 +102,13 @@ Now, say Bob pretends to have one of <math>w_0</math> or <math>w_1</math>, and d
 * Agreed relation <math>R_0\wedge R_1</math>.
 * Private input <math>w_0</math>, say, but could equally be <math>w_1</math>.
 * Bob will need some random <math>(u_0,a_0)\in R_0</math> and some run <math>a_1,c_1,r_1</math>. 
-* Alice will need some random <math>s</math>. 
+* Alice will need some random <math>c</math>. 
 The protocol has three rounds:
 :<math> B\rightarrow A: (a_0,a_1) </math>
 :<math> A\rightarrow B: s </math>
 :<math> B\rightarrow A: (c_0,c_1),(r_0,r_1) </math> where <math>r_0</math> is computed by Bob thanks to his knowledge of <math>w_0</math>.
 Alice validates Bob response by checking that:
-* <math>s=c_0\oplus c_1</math>
+* <math>c=c_0\oplus c_1</math>
 * <math>a_0,c_0,r_0</math> is valid
 * <math>a_1,c_1,r_1</math> is valid
 
@@ -120,7 +120,7 @@ In the case of the example of the Discrete Logarithm, there exists a simulator, 
 * Let  <math>a_1=g^{r_1}v_1^{-c_1}</math>.
 Indeed, you then have <math>g^{r_1}=v_1^{c_1}a_1</math> so that the run is valid.
 
-'''Denote by <math> P \vee Q </math> the or composition of two protocols P and Q.'''
+'''Denote by <math> (P \vee Q)(c) </math> the or composition of two protocols P and Q. under challenge c.'''
 
 == Non-interactive version ==
 

@@ -152,10 +152,11 @@ does not want to disclose them. Is there a Sigma protocol for this new
 relation
 \(R_0\wedge R_1=\{(v_0,v_1),(w_0,w_1)\,|\,(v_0,w_0)\in R_0 \wedge (v_1,w_1)\in R_1\}\)?
 If there was some for \(R_0\) and \(R_1\), then yes. It suffices to
-combine the parallel run of both protocols into one, as tuples.
+combine the parallel run of both protocols into one, as tuples. We can
+use the same challenge c for both runs.
 
-**Denote by \(P \wedge Q\) the and composition of two protocols P and
-Q.**
+**Denote by \((P \wedge Q)(c)\) the and composition of two protocols
+\(P(c)\) and \(Q(c)\).**
 
 Now, say Bob pretends to have one of \(w_0\) or \(w_1\), and does not
 want to disclose it, not tell which one it is. Is there a Sigma protocol
@@ -176,7 +177,7 @@ Here is how.
 -   Private input \(w_0\), say, but could equally be \(w_1\).
 -   Bob will need some random \((u_0,a_0)\in R_0\) and some run
     \(a_1,c_1,r_1\).
--   Alice will need some random \(s\).
+-   Alice will need some random \(c\).
 
 The protocol has three rounds:
 
@@ -188,7 +189,7 @@ The protocol has three rounds:
 thanks to his knowledge of \(w_0\). Alice validates Bob response by
 checking that:
 
--   \(s=c_0\oplus c_1\)
+-   \(c=c_0\oplus c_1\)
 -   \(a_0,c_0,r_0\) is valid
 -   \(a_1,c_1,r_1\) is valid
 
@@ -207,7 +208,8 @@ you:
 
 Indeed, you then have \(g^{r_1}=v_1^{c_1}a_1\) so that the run is valid.
 
-**Denote by \(P \vee Q\) the or composition of two protocols P and Q.**
+**Denote by \((P \vee Q)(c)\) the or composition of two protocols P and
+Q. under challenge c.**
 
 Non-interactive version
 -----------------------
