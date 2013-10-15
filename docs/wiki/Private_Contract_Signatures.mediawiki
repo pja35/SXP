@@ -19,7 +19,7 @@ Outline of [[Sigma_Protocols|Sigma protocols]], which are composable, interactiv
 
 
 Traditionally, <math>\textrm{PCS}_B^A(m)</math> is
-:g^s,H(g^s,m),\left((\textrm{CCE}^T(0,n)\wedge\textrm{Schnorr}_B)\vee(\textrm{CCE}^T(1,n)\wedge\textrm{Schnorr}_A)\right)(g^s,H(g^s,m))</math>
+:<math>g^s,H(g^s,m),\left((\textrm{CCE}^T(0,n)\wedge\textrm{Schnorr}_B)\vee(\textrm{CCE}^T(1,n)\wedge\textrm{Schnorr}_A)\right)(g^s,H(g^s,m))</math>
 with s random.
 
 Why not try <math>\textrm{PCS}_B^A(m)</math> to be
