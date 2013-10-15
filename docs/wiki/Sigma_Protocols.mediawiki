@@ -18,6 +18,7 @@ Here are examples of Sigma protocols based on the hardness of Discrete Logarithm
 
 
 '''Ex. 1: Schnorr identification protocol'''
+
 Fix <math>g</math> an integer.
 * Public input <math>v=PubKB</math>.
 * Agreed relation <math>(v,w)\in R \Leftrightarrow g^w=v </math>.
@@ -30,9 +31,11 @@ The protocol has three rounds:
 :<math> B\rightarrow A: r=wc+s </math>
 Alice validates Bob's response by checking that <math>g^r=v^ca</math>. Indeed, if Bob was honest it should be that
 :<math>g^r={g^w}^c g^s=v^ca</math>
-'''Denote by <math>\textrm{Schnorr}_B(c)</math> a run of this sigma protocol by prover B under challenge c.'''
+'''Denote by <math>\textrm{Schnorr}_B(c)</math> a run of this protocol by prover B under challenge c.'''
+
 
 '''Ex. 2: Diffie-Hellman pairs'''
+
 Fix <math>g</math> and <math>h</math> integers. The powers of <math>h</math> form a subgroup <math>H</math> inside the group <math>Z_p</math>. 
 * Public input <math>u\in G,v\in H</math>.
 * Agreed relation <math>((u,v),w)\in R \Leftrightarrow g^w=u \wedge h^w=v  </math>.
@@ -51,8 +54,8 @@ and similarly for <math>h</math> with <math>v</math>.
 '''Ex. 3: Proof of cyphertext content by encrypter'''
 
 Fix <math>g</math> and  <math>h=g^x=PubKT</math> integers.
-* Public input <math>(m,u,v)</math>.
-* Agreed relation <math>((m,u,v),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{PubKT}</math> under [[ElGamalSchnorr | ElGamal]] with ephemeral key <math>w</math>.
+* Public input <math>m</math> and <math>m'=(u,v)</math>.
+* Agreed relation <math>((m,(u,v)),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{PubKT}</math> under [[ElGamalSchnorr | ElGamal]] with ephemeral key <math>w</math>.
 * Private input <math>w</math>.
 * Bob will need some random <math>s\in Z_p</math>.
 * Alice will need some random <math>c\in Z_p</math>. 
@@ -63,13 +66,15 @@ The protocol has three rounds:
 Alice validates Bob's response by checking that <math>g^r=u^ca</math> and that <math>{g^x}^{r}=(v/m)^{c}a'</math>. Indeed, if Bob was honest it should be that 
 :<math>g^r={g^w}^c g^s=u^ca.</math>
 and similarly for <math>h=g^x</math> with <math>v'=v/m</math>.
-'''We denote by CCE(m,m') a run of this protocol.'''
+
+'''Denote by <math>CCE_T(m,m')</math> a run of this protocol.'''
+
 
 '''Ex. 4: Proof of cyphertext content by decrypter'''
 
 Fix <math>g</math> and  <math>h=g^x=PubKT</math> integers.
-* Public input <math>(m,u,v)</math>.
-* Agreed relation <math>((m,u,v),x)\in R \Leftrightarrow v=u^x m  \Leftrightarrow (u,v)=\{m\}_{PubKT}</math> under [[ElGamalSchnorr | ElGamal]] for Trent.
+* Public input <math>m</math> and <math>m'=(u,v)</math>.
+* Agreed relation <math>((m,(u,v)),w)\in R \Leftrightarrow v=u^x m  \Leftrightarrow (u,v)=\{m\}_{PubKT}</math> under [[ElGamalSchnorr | ElGamal]] for Trent.
 * Private input <math>x=PrivKT</math>.
 * Trent will need some random <math>s\in Z_p</math>.
 * Alice will need some random <math>c\in Z_p</math>. 
@@ -81,7 +86,8 @@ Alice validates Trent's response by checking that <math>g^r=h^c a</math> and tha
 :<math>g^r={g^x}^c g^s=h^c a.</math>
 and
 :<math>u^r=u^{xc} u^s=(v/m)^c a'.</math>
-'''We denote by CCD(m,m') a run of this protocol.'''
+
+'''Denote by <math>CCD_T(m,m')</math> a run of this protocol.'''
 
 == Composability ==
 

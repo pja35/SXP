@@ -40,7 +40,9 @@ so that they meet the [Decisional
 Diffie-Hellman](http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption)
 assumption; but there are standard techniques for doing that.
 
-**Ex. 1: Schnorr identification protocol** Fix \(g\) an integer.
+**Ex. 1: Schnorr identification protocol**
+
+Fix \(g\) an integer.
 
 -   Public input \(v=PubKB\).
 -   Agreed relation \((v,w)\in R \Leftrightarrow g^w=v\).
@@ -58,10 +60,12 @@ The protocol has three rounds:
 that \(g^r=v^ca\). Indeed, if Bob was honest it should be that
 
 \[g^r={g^w}^c g^s=v^ca\] **Denote by \(\textrm{Schnorr}_B(c)\) a run of
-this sigma protocol by prover B under challenge c.**
+this protocol by prover B under challenge c.**
 
-**Ex. 2: Diffie-Hellman pairs** Fix \(g\) and \(h\) integers. The powers
-of \(h\) form a subgroup \(H\) inside the group \(Z_p\).
+**Ex. 2: Diffie-Hellman pairs**
+
+Fix \(g\) and \(h\) integers. The powers of \(h\) form a subgroup \(H\)
+inside the group \(Z_p\).
 
 -   Public input \(u\in G,v\in H\).
 -   Agreed relation
@@ -86,9 +90,9 @@ was honest it should be that
 
 Fix \(g\) and \(h=g^x=PubKT\) integers.
 
--   Public input \((m,u,v)\).
+-   Public input \(m\) and \(m'=(u,v)\).
 -   Agreed relation
-    \(((m,u,v),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{PubKT}\)
+    \(((m,(u,v)),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{PubKT}\)
     under [ ElGamal](/wiki/ElGamalSchnorr "wikilink") with ephemeral key
     \(w\).
 -   Private input \(w\).
@@ -106,15 +110,16 @@ checking that \(g^r=u^ca\) and that \({g^x}^{r}=(v/m)^{c}a'\). Indeed,
 if Bob was honest it should be that
 
 \[g^r={g^w}^c g^s=u^ca.\] and similarly for \(h=g^x\) with \(v'=v/m\).
-**We denote by CCE(m,m') a run of this protocol.**
+
+**Denote by \(CCE_T(m,m')\) a run of this protocol.**
 
 **Ex. 4: Proof of cyphertext content by decrypter**
 
 Fix \(g\) and \(h=g^x=PubKT\) integers.
 
--   Public input \((m,u,v)\).
+-   Public input \(m\) and \(m'=(u,v)\).
 -   Agreed relation
-    \(((m,u,v),x)\in R \Leftrightarrow v=u^x m  \Leftrightarrow (u,v)=\{m\}_{PubKT}\)
+    \(((m,(u,v)),w)\in R \Leftrightarrow v=u^x m  \Leftrightarrow (u,v)=\{m\}_{PubKT}\)
     under [ ElGamal](/wiki/ElGamalSchnorr "wikilink") for Trent.
 -   Private input \(x=PrivKT\).
 -   Trent will need some random \(s\in Z_p\).
@@ -132,8 +137,9 @@ honest it should be that
 
 \[g^r={g^x}^c g^s=h^c a.\] and
 
-\[u^r=u^{xc} u^s=(v/m)^c a'.\] **We denote by CCD(m,m') a run of this
-protocol.**
+\[u^r=u^{xc} u^s=(v/m)^c a'.\]
+
+**Denote by \(CCD_T(m,m')\) a run of this protocol.**
 
 Composability
 -------------
