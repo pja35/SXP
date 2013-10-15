@@ -41,5 +41,6 @@ with s random.
 
 Why not try
 
-\[\textrm{PCS}_B^A(m)=\left(\textrm{CCE}^T(\textrm{Pub}^A,(\textrm{Pub}^B,v))\vee\textrm{CCE}^T(\textrm{Pub}^B,(g^{\textrm{Pub}^A,v))\right)(H(g^s,m))\]
+\[\textrm{PCS}_B^A(m)=
+\left(\textrm{CCE}^T(\textrm{Pub}^A,(\textrm{Pub}^B,v))\vee\textrm{CCE}^T(\textrm{Pub}^B,(\textrm{Pub}^A,v))\right)(H(g^s,m))\]
 with s random?
