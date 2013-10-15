@@ -156,7 +156,7 @@ Fix \(g\), \(h=g^x=\textrm{Pub}^T\) integers.
     \((n,w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w  \Leftrightarrow n=\{1\}_{\textrm{Pub}^T}\)
     under [ ElGamal](/wiki/ElGamalSchnorr "wikilink") with ephemeral key
     \(w\).
--   Private input \(w=\textrm{Priv}^B\)</math>.
+-   Private input \(w=\textrm{Priv}^B\).
 -   Bob will need some random \(s\in Z_p\).
 -   Alice will need some random \(c\in Z_p\).
 

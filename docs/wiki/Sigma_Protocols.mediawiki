@@ -96,7 +96,7 @@ and
 Fix <math>g</math>, <math>h=g^x=\textrm{Pub}^T</math> integers.
 * Public input <math>n=(u,v)</math>.
 * Agreed relation <math>(n,w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w  \Leftrightarrow n=\{1\}_{\textrm{Pub}^T}</math> under [[ElGamalSchnorr | ElGamal]] with ephemeral key <math>w</math>.
-* Private input <math>w=\textrm{Priv}^B</math></math>.
+* Private input <math>w=\textrm{Priv}^B</math>.
 * Bob will need some random <math>s\in Z_p</math>.
 * Alice will need some random <math>c\in Z_p</math>. 
 The protocol has three rounds:
