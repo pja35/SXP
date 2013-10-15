@@ -62,8 +62,8 @@ The protocol has three rounds:
 \[B\rightarrow A: r=wc+s\] Alice validates Bob's response by checking
 that \(g^r=v^ca\). Indeed, if Bob was honest it should be that
 
-\[g^r={g^w}^c g^s=v^ca\] **Denote by \(\textrm{Schnorr}_B(c)\) a run of
-this protocol by prover B under challenge c.**
+\[g^r={g^w}^c g^s=v^ca\] **Denote by \(c\mapsto\textrm{Schnorr}_B(c)\)
+this protocol, done by prover B under challenge c.**
 
 **Ex. 2: Diffie-Hellman pairs**
 
@@ -114,7 +114,7 @@ if Bob was honest it should be that
 
 \[g^r={g^w}^c g^s=u^ca.\] and similarly for \(h=g^x\) with \(v'=v/m\).
 
-**Denote by \(\textrm{CCE}_T(m,m')(c)\) a run of this protocol under
+**Denote by \(c\mapsto\textrm{CCE}_T(m,m')(c)\) this protocol, under
 challenge c.**
 
 **Ex. 4: Proof of cyphertext content by decrypter**
@@ -143,7 +143,7 @@ honest it should be that
 
 \[u^r=u^{xc} u^s=(v/m)^c a'.\]
 
-**Denote by \(\textrm{CCD}_T(m,m')(c)\) a run of this protocol under
+**Denote by \(c\mapsto\textrm{CCD}_T(m,m')(c)\) this protocol, under
 challenge c.**
 
 Composability
@@ -158,8 +158,8 @@ If there was some for \(R_0\) and \(R_1\), then yes. It suffices to
 combine the parallel run of both protocols into one, as tuples. We can
 use the same challenge c for both runs.
 
-**Denote by \((P \wedge Q)(c)\) the and composition of two protocols
-\(P(c)\) and \(Q(c)\).**
+**Denote by \(c\mapsto(P \wedge Q)(c)\) the and composition of P and Q,
+under the shared challenge c.**
 
 Now, say Bob pretends to have one of \(w_0\) or \(w_1\), and does not
 want to disclose it, not tell which one it is. Is there a Sigma protocol
@@ -210,8 +210,8 @@ this can be done. Indeed, to generate \(a_1,c_1,r_1\) you:
 
 Indeed, you then have \(g^{r_1}=v_1^{c_1}a_1\) so that the run is valid.
 
-**Denote by \((P \vee Q)(c)\) the or composition of two protocols P and
-Q, under the divided up challenge c.**
+**Denote by \(c\mapsto(P \vee Q)(c)\) the or composition of two
+protocols P and Q, under the divided up challenge c.**
 
 Non-interactive version
 -----------------------
@@ -219,9 +219,9 @@ Non-interactive version
 Instead of doing the Sigma protocol in three rounds, we could just do it
 in one round, by musing the Fiat-Shamir heuristics. The idea is that Bob
 challenges himself with something that he does not really control,
-namely \(H(a,v)\), where \(H\) is a hash function like SHA2. For
-instance, let us apply this procedure to the Schnorr identification
-protocol. We get:
+namely \(H(a,m)\), where \(H\) is a hash function like SHA2 and \(m\) is
+a public input, often just \(v\). For instance, let us apply this
+procedure to the Schnorr identification protocol. We get:
 
 -   Public input \(m=v\in G\).
 -   Agreed relation \((v,w)\in R \Leftrightarrow g^w=v\).
@@ -266,4 +266,6 @@ Alice verifies \((c,r)\) checking that \(c=H(a, m)\) with
 Indeed, if Bob was honest it should be that
 \(v^{-c}g^r =g^{-wc}g^{wc+s} =g^s=a\).
 
-
+Thus, a Schnorr signature is essence just some
+\((a,r,s)=\textrm{Schnorr}(H(a,m))\) with s random, although often the a
+is dropped.
