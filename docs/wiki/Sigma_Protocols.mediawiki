@@ -89,7 +89,7 @@ Alice validates Trent's response by checking that <math>g^r=h^c a</math> and tha
 and
 :<math>u^r=u^{xc} u^s=(v/m)^c a'.</math>
 
-'''Denote by <math>(a,c)\mapsto\textrm{CCD}^T(m,n)(c)</math> the response of this protocol, done towards with mask a and under challenge c.'''
+'''Denote by <math>(a,c)\mapsto\textrm{CCD}^T(m,n)(a,c)</math> the response of this protocol, done towards with mask a and under challenge c.'''
 
 == Composability ==
 

@@ -144,8 +144,8 @@ honest it should be that
 
 \[u^r=u^{xc} u^s=(v/m)^c a'.\]
 
-**Denote by \((a,c)\mapsto\textrm{CCD}^T(m,n)(c)\) the response of this
-protocol, done towards with mask a and under challenge c.**
+**Denote by \((a,c)\mapsto\textrm{CCD}^T(m,n)(a,c)\) the response of
+this protocol, done towards with mask a and under challenge c.**
 
 Composability
 -------------
