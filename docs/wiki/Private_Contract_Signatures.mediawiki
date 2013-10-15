@@ -19,26 +19,30 @@ Outline of [[Sigma_Protocols|Sigma protocols]], which are composable, interactiv
 
 
 
-An <math>\textrm{SPCS}_B^A(m)</math> is
-:<math>\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\vee\textrm{CCE}^T(m,(\textrm{Pub}^A,v))\right)(g^s,H(g^s,m))
+An <math>\textrm{SPCS}_{AB}(m)</math> is
+:<math>\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^A,v))\vee\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\right)(g^s,H(g^s,m))
 </math>
-with s random. Intuitively,
-* Bob provides a proof that <math>v=\{m\}_{\textrm{Pub}^T}</math> under [[ElGamal]].
-* But he leaves ambiguous whether the ephemeral key used is his or Alice's.
+with s random. Intuitively:
+* It constitutes a proof that <math>v=\{m\}_{\textrm{Pub}^T}</math> under [[ElGamal]].
+* In order to provide such a proof one needs to have the ephemeral key used.
+* It also constitutes a proof that the ephemeral key used is either Alice's or Bob's private key.
+* Thus, whoever has done it, has admittedly signed m.
+* But in order to prove that he has, we need a proof of which private key was used. 
 
-
-
-
-
-
-To unravel it, we need <math>\textrm{USPCS}_B^A(m)</math>
+Thus unravel it, we need <math>\textrm{USPCS}_B(m)</math>
 :<math>\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\vee\textrm{CCD}^T(m,(\textrm{Pub}^B,v))\right)(g^{s'},H(g^{s'},m))
 </math>
-with s' random.
+with s' random. Intuitively:
+* It constitutes a proof that <math>v=\{m\}_{\textrm{Pub}^T}</math> under [[ElGamal]].
+* In order to provide such a proof one need to either have <math>\textrm{Priv}_B</math> used, or have <math>\textrm{Priv}_T</math>.
+* In any case it constitutes a proof that the ephemeral key used was Bob's private key.
 
-A signature <math>\textrm{SIG}_B^A(m)</math> is a pair
-:<math> \left(\textrm{SPCS}_B^A(m), \textrm{USPCS}_B^A(m)\right).
+A signature <math>\textrm{SIG}_B(m)</math> is a pair
+:<math> \left(\textrm{SPCS}_B(m), \textrm{USPCS}_B^A(m)\right).
 </math>
+Notice that:
+* No step discloses <math>\textrm{Priv}_B</math>.
+* Yet is constitutes a proof that <math>v=\{m\}_{\textrm{Pub}^T}</math> with ephemeral key <math>\textrm{Priv}_B</math>, which amounts to signing m.
 
 == Normal scheme ==
 

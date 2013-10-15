@@ -36,24 +36,40 @@ composable, interactive zero-knowledge proof schemes.
 Simplified scheme
 -----------------
 
-An \(\textrm{SPCS}_B^A(m)\) is
+An \(\textrm{SPCS}_{AB}(m)\) is
 
-\[\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\vee\textrm{CCE}^T(m,(\textrm{Pub}^A,v))\right)(g^s,H(g^s,m))\]
-with s random. Intuitively,
+\[\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^A,v))\vee\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\right)(g^s,H(g^s,m))\]
+with s random. Intuitively:
 
--   Bob provides a proof that \(v=\{m\}_{\textrm{Pub}^T}\) under
+-   It constitutes a proof that \(v=\{m\}_{\textrm{Pub}^T}\) under
     [ElGamal](/wiki/ElGamal "wikilink").
--   But he leaves ambiguous whether the ephemeral key used is his
-    or Alice's.
+-   In order to provide such a proof one needs to have the ephemeral
+    key used.
+-   It also constitutes a proof that the ephemeral key used is either
+    Alice's or Bob's private key.
+-   Thus, whoever has done it, has admittedly signed m.
+-   But in order to prove that he has, we need a proof of which private
+    key was used.
 
-To unravel it, we need \(\textrm{USPCS}_B^A(m)\)
+Thus unravel it, we need \(\textrm{USPCS}_B(m)\)
 
 \[\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\vee\textrm{CCD}^T(m,(\textrm{Pub}^B,v))\right)(g^{s'},H(g^{s'},m))\]
-with s' random.
+with s' random. Intuitively:
 
-A signature \(\textrm{SIG}_B^A(m)\) is a pair
+-   It constitutes a proof that \(v=\{m\}_{\textrm{Pub}^T}\) under
+    [ElGamal](/wiki/ElGamal "wikilink").
+-   In order to provide such a proof one need to either have
+    \(\textrm{Priv}_B\) used, or have \(\textrm{Priv}_T\).
+-   In any case it constitutes a proof that the ephemeral key used was
+    Bob's private key.
 
-\[\left(\textrm{SPCS}_B^A(m), \textrm{USPCS}_B^A(m)\right).\]
+A signature \(\textrm{SIG}_B(m)\) is a pair
+
+\[\left(\textrm{SPCS}_B(m), \textrm{USPCS}_B^A(m)\right).\] Notice that:
+
+-   No step discloses \(\textrm{Priv}_B\).
+-   Yet is constitutes a proof that \(v=\{m\}_{\textrm{Pub}^T}\) with
+    ephemeral key \(\textrm{Priv}_B\), which amounts to signing m.
 
 Normal scheme
 -------------
