@@ -41,5 +41,5 @@ with s random.
 
 Why not try
 
-\[\textrm{PCS}_B^A(m)=(\textrm{CCE}^T(0,(g^\textrm{Priv}_B,v))(H(g^s,m))\]
+\[\textrm{PCS}_B^A(m)=(\textrm{CCE}^T(0,(g^{\textrm{Priv}_B},v))(H(g^s,m))\]
 with s random?
