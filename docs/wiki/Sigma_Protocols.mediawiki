@@ -154,5 +154,5 @@ Let us further modify the above, and say that the challenge that Bob will put to
 :Indeed, if Bob was honest it should be that <math>v^{-c}g^r =g^{-wc}g^{wc+s} =g^s=a </math>.
 
 Thus, a Schnorr signature of the message m is essence just the non-interactive version of the Schnorr identification protocol, i.e. 
-:<math>(H(g^s,m),\textrm{Schnorr}_B(g^s,H(g^s,m)))</math>
-with s random.
+:<math>\textrm{NI}(\textrm{Schnorr}_B)(g^s,H(g^s,m))</math>
+with s random. In practice the first element of the triple is dropped.

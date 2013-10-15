@@ -276,4 +276,5 @@ Indeed, if Bob was honest it should be that
 Thus, a Schnorr signature of the message m is essence just the
 non-interactive version of the Schnorr identification protocol, i.e.
 
-\[(H(g^s,m),\textrm{Schnorr}_B(g^s,H(g^s,m)))\] with s random.
+\[\textrm{NI}(\textrm{Schnorr}_B)(g^s,H(g^s,m))\] with s random. In
+practice the first element of the triple is dropped.
