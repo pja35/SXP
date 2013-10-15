@@ -53,3 +53,5 @@ Check duplication of a and c in and and or constructs.
 
 Check whether non-interactive CCE under ephemeral key PubB and challenge
 m is an established way of signing.
+
+Give simulators for CCE and CCT.
