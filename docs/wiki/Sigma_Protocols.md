@@ -57,7 +57,7 @@ The protocol has three rounds:
 \[B\rightarrow A: r=wc+s\] Alice validates Bob's response by checking
 that \(g^r=v^ca\). Indeed, if Bob was honest it should be that
 
-\[g^r={g^w}^c g^s=v^ca\] **Denote by \(\textup{Schnorr}_B(c)\) a run of
+\[g^r={g^w}^c g^s=v^ca\] **Denote by \(\textrm{Schnorr}_B(c)\) a run of
 this sigma protocol by prover B under challenge c.**
 
 **Ex. 2: Diffie-Hellman pairs** Fix \(g\) and \(h\) integers. The powers

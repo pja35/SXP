@@ -30,7 +30,7 @@ The protocol has three rounds:
 :<math> B\rightarrow A: r=wc+s </math>
 Alice validates Bob's response by checking that <math>g^r=v^ca</math>. Indeed, if Bob was honest it should be that
 :<math>g^r={g^w}^c g^s=v^ca</math>
-'''Denote by <math>\textup{Schnorr}_B(c)</math> a run of this sigma protocol by prover B under challenge c.'''
+'''Denote by <math>\textrm{Schnorr}_B(c)</math> a run of this sigma protocol by prover B under challenge c.'''
 
 '''Ex. 2: Diffie-Hellman pairs'''
 Fix <math>g</math> and <math>h</math> integers. The powers of <math>h</math> form a subgroup <math>H</math> inside the group <math>Z_p</math>. 
