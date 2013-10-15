@@ -54,8 +54,8 @@ The protocol has three rounds:
 
 \[A\rightarrow B: c\]
 
-\[B\rightarrow A: r=wc+s\] Alice validates Bob response by checking that
-\(g^r=v^ca\). Indeed, if Bob was honest it should be that
+\[B\rightarrow A: r=wc+s\] Alice validates Bob's response by checking
+that \(g^r=v^ca\). Indeed, if Bob was honest it should be that
 
 \[g^r={g^w}^c g^s=v^ca\]
 
@@ -77,7 +77,7 @@ The protocol has three rounds:
 
 \[A\rightarrow B: c,c'\]
 
-\[B\rightarrow A: r=wc+s, r'=wc'+s'\] Alice validates Bob response by
+\[B\rightarrow A: r=wc+s, r'=wc'+s'\] Alice validates Bob's response by
 checking that \(g^r=u^ca\) and that \(h^{r'}=v^{c'}a'\). Indeed, if Bob
 was honest it should be that
 
@@ -98,12 +98,12 @@ Fix \(h=g^x=PubKT\) an integer.
 
 The protocol has three rounds:
 
-\[B\rightarrow A: a=g^s, a'={g^x}^{s'}\]
+\[B\rightarrow A: a=g^s, a={g^x}^{s}\]
 
-\[A\rightarrow B: c,c'\]
+\[A\rightarrow B: c\]
 
-\[B\rightarrow A: r=wc+s, r'=wc'+s'\] Alice validates Bob response by
-checking that \(g^r=u^ca\) and that \({g^x}^{r'}=(v/m)^{c'a'}\). Indeed,
+\[B\rightarrow A: r=wc+s, r=wc+s\] Alice validates Bob's response by
+checking that \(g^r=u^ca\) and that \({g^x}^{r}=(v/m)^{c'}a'\). Indeed,
 if Bob was honest it should be that
 
 \[g^r={g^w}^c g^s=u^ca.\] and similarly for \(h=g^x\) with \(v'=v/m\).
@@ -117,20 +117,22 @@ Fix \(h=g^x=PubKT\) an integer.
     \(((m,u,v),x)\in R \Leftrightarrow \exist w, u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{PubKT}\)
     under [ ElGamal](/wiki/ElGamalSchnorr "wikilink") for Trent.
 -   Private input \(x=PrivKT\).
--   Bob will need some random \(s\in Z_p\).
+-   Trent will need some random \(s\in Z_p\).
 -   Alice will need some random \(c\in Z_p\).
 
 The protocol has three rounds:
 
-\[B\rightarrow A: a=g^s, a'={g^x}^{s'}\]
+\[T\rightarrow A: a=g^s, a'={g^w}^{s'}\]
 
-\[A\rightarrow B: c,c'\]
+\[A\rightarrow T: c\]
 
-\[B\rightarrow A: r=wc+s, r'=wc'+s'\] Alice validates Bob response by
-checking that \(g^r=u^ca\) and that \({g^x}^{r'}=(v/m)^{c'a'}\). Indeed,
-if Bob was honest it should be that
+\[T\rightarrow A: r=wx+s\] Alice validates Trent's response by checking
+that \(g^r=h^c a\) and that \(u^r=(v/m)^{c} a'\). Indeed, if Bob was
+honest it should be that
 
-\[g^r={g^w}^c g^s=u^ca.\] and similarly for \(h=g^x\) with \(v'=v/m\).
+\[g^r={g^x}^c g^s=h^c a.\] and
+
+\[u^r={g^w}^{xc} {g^w}^s=(v/m)^c a'.\]
 
 Composability
 -------------
