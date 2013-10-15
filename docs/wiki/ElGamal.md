@@ -11,7 +11,8 @@ they meet the [Decisional
 Diffie-Hellman](http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption)
 assumption; but there are standard techniques for doing that.
 
-Say Bob generates \(PrivKB=x, PubKB=g^x\) and makes the latter public.
+Say Bob generates \(\textrm{Priv}_B=x, \textrm{Pub}_B=g^x\) and makes
+the latter public.
 
 ElGamal encryption
 ------------------
