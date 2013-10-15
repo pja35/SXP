@@ -67,7 +67,7 @@ A signature \(\textrm{SIG}_i(m)\) is a pair
 
 \[\left(\textrm{SPCS}(m), \textrm{USPCS}_i(m)\right).\] Notice that:
 
--   No step discloses \(\textrm{Priv}_{P_i}\)</math>.
+-   No step discloses \(\textrm{Priv}_{P_i}\).
 -   Yet is constitutes a proof that \(v=\{m\}_{\textrm{Pub}^T}\) with
     ephemeral key \(\textrm{Priv}_{P_i}\), which amounts to signing m.
 
