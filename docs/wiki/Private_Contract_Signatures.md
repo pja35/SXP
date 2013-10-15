@@ -43,12 +43,12 @@ with s random.
 
 To unravel it, we need \(\textrm{USPCS}_B^A(m)\)
 
-\[\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\vee\textrm{CCD}^T(m,(\textrm{Pub}^B,v))\right)(g^s,H(g^s,m))\]
-with s random.
+\[\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\vee\textrm{CCD}^T(m,(\textrm{Pub}^B,v))\right)(g^{s'},H(g^{s'},m))\]
+with s' random.
 
 A signature \(\textrm{SIG}_B^A(m)\) is a pair
 
-\[\textrm{SPCS}_B^A(m), \textrm{USPCS}_B^A(m).\]
+\[\left(\textrm{SPCS}_B^A(m), \textrm{USPCS}_B^A(m)\right).\]
 
 Normal scheme
 -------------

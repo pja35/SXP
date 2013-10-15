@@ -25,12 +25,12 @@ An <math>\textrm{SPCS}_B^A(m)</math> is
 with s random.
 
 To unravel it, we need <math>\textrm{USPCS}_B^A(m)</math>
-:<math>\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\vee\textrm{CCD}^T(m,(\textrm{Pub}^B,v))\right)(g^s,H(g^s,m))
+:<math>\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\vee\textrm{CCD}^T(m,(\textrm{Pub}^B,v))\right)(g^{s'},H(g^{s'},m))
 </math>
-with s random.
+with s' random.
 
 A signature <math>\textrm{SIG}_B^A(m)</math> is a pair
-:<math> \textrm{SPCS}_B^A(m), \textrm{USPCS}_B^A(m).
+:<math> \left(\textrm{SPCS}_B^A(m), \textrm{USPCS}_B^A(m)\right).
 </math>
 
 == Normal scheme ==
