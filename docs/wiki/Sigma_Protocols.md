@@ -93,9 +93,9 @@ was honest it should be that
 
 Fix \(g\) and \(h=g^x=\textrm{Pub}^T\) integers.
 
--   Public input \(m\) and \(m'=(u,v)\).
+-   Public input \(m\) and \(n=(u,v)\).
 -   Agreed relation
-    \(((m,(u,v)),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{\textrm{Pub}^T}\)
+    \(((m,n),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow n=\{m\}_{\textrm{Pub}^T}\)
     under [ ElGamal](/wiki/ElGamalSchnorr "wikilink") with ephemeral key
     \(w\).
 -   Private input \(w\).
@@ -114,16 +114,16 @@ if Bob was honest it should be that
 
 \[g^r={g^w}^c g^s=u^ca.\] and similarly for \(h=g^x\) with \(v'=v/m\).
 
-**Denote by \(c\mapsto\textrm{CCE}^T(m,m')(c)\) this protocol, under
+**Denote by \(c\mapsto\textrm{CCE}^T(m,n)(c)\) this protocol, under
 challenge c.**
 
 **Ex. 4: Proof of cyphertext content by decrypter**
 
 Fix \(g\) and \(h=g^x=\textrm{Pub}^T\) integers.
 
--   Public input \(m\) and \(m'=(u,v)\).
+-   Public input \(m\) and \(n=(u,v)\).
 -   Agreed relation
-    \(((m,(u,v)),w)\in R \Leftrightarrow v=u^x m  \Leftrightarrow (u,v)=\{m\}_{\textrm{Pub}^T}\)
+    \(((m,n),w)\in R \Leftrightarrow v=u^x m  \Leftrightarrow n=\{m\}_{\textrm{Pub}^T}\)
     under [ ElGamal](/wiki/ElGamalSchnorr "wikilink") for Trent.
 -   Private input \(x=\textrm{Priv}_T\).
 -   Trent will need some random \(s\in Z_p\).
@@ -143,7 +143,7 @@ honest it should be that
 
 \[u^r=u^{xc} u^s=(v/m)^c a'.\]
 
-**Denote by \(c\mapsto\textrm{CCD}^T(m,m')(c)\) this protocol, under
+**Denote by \(c\mapsto\textrm{CCD}^T(m,n)(c)\) this protocol, under
 challenge c.**
 
 Composability

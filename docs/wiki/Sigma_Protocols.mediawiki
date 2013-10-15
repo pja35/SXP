@@ -56,8 +56,8 @@ and similarly for <math>h</math> with <math>v</math>.
 '''Ex. 3: Proof of cyphertext content by encrypter'''
 
 Fix <math>g</math> and  <math>h=g^x=\textrm{Pub}^T</math> integers.
-* Public input <math>m</math> and <math>m'=(u,v)</math>.
-* Agreed relation <math>((m,(u,v)),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{\textrm{Pub}^T}</math> under [[ElGamalSchnorr | ElGamal]] with ephemeral key <math>w</math>.
+* Public input <math>m</math> and <math>n=(u,v)</math>.
+* Agreed relation <math>((m,n),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow n=\{m\}_{\textrm{Pub}^T}</math> under [[ElGamalSchnorr | ElGamal]] with ephemeral key <math>w</math>.
 * Private input <math>w</math>.
 * Bob will need some random <math>s\in Z_p</math>.
 * Alice will need some random <math>c\in Z_p</math>. 
@@ -69,14 +69,14 @@ Alice validates Bob's response by checking that <math>g^r=u^ca</math> and that <
 :<math>g^r={g^w}^c g^s=u^ca.</math>
 and similarly for <math>h=g^x</math> with <math>v'=v/m</math>.
 
-'''Denote by <math>c\mapsto\textrm{CCE}^T(m,m')(c)</math> this protocol, under challenge c.'''
+'''Denote by <math>c\mapsto\textrm{CCE}^T(m,n)(c)</math> this protocol, under challenge c.'''
 
 
 '''Ex. 4: Proof of cyphertext content by decrypter'''
 
 Fix <math>g</math> and  <math>h=g^x=\textrm{Pub}^T</math> integers.
-* Public input <math>m</math> and <math>m'=(u,v)</math>.
-* Agreed relation <math>((m,(u,v)),w)\in R \Leftrightarrow v=u^x m  \Leftrightarrow (u,v)=\{m\}_{\textrm{Pub}^T}</math> under [[ElGamalSchnorr | ElGamal]] for Trent.
+* Public input <math>m</math> and <math>n=(u,v)</math>.
+* Agreed relation <math>((m,n),w)\in R \Leftrightarrow v=u^x m  \Leftrightarrow n=\{m\}_{\textrm{Pub}^T}</math> under [[ElGamalSchnorr | ElGamal]] for Trent.
 * Private input <math>x=\textrm{Priv}_T</math>.
 * Trent will need some random <math>s\in Z_p</math>.
 * Alice will need some random <math>c\in Z_p</math>. 
@@ -89,7 +89,7 @@ Alice validates Trent's response by checking that <math>g^r=h^c a</math> and tha
 and
 :<math>u^r=u^{xc} u^s=(v/m)^c a'.</math>
 
-'''Denote by <math>c\mapsto\textrm{CCD}^T(m,m')(c)</math> this protocol, under challenge c.'''
+'''Denote by <math>c\mapsto\textrm{CCD}^T(m,n)(c)</math> this protocol, under challenge c.'''
 
 == Composability ==
 
