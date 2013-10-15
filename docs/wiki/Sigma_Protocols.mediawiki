@@ -139,6 +139,8 @@ The modified protocol has only one true round, since B' is just B challenging hi
 Alice validates Bob response by checking that <math>c=H(a,m)</math> and that <math>v^{-c}g^r=a</math>. Indeed, if Bob was honest it should be that
 :<math>v^{-c}g^r=g^{-wc} g^{wc} g^s=a</math>.
 
+'''Denote by <math>(a,c,r)=P(H(a,m))</math> the non-interactive version of P.'''
+
 == Schnorr signatures ==
 
 Let us further modify the above, and say that the challenge that Bob will put to himself is to be fabricated based upon some public <math>m</math> instead of <math>v</math>.
