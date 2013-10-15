@@ -57,7 +57,8 @@ The protocol has three rounds:
 \[B\rightarrow A: r=wc+s\] Alice validates Bob's response by checking
 that \(g^r=v^ca\). Indeed, if Bob was honest it should be that
 
-\[g^r={g^w}^c g^s=v^ca\]
+\[g^r={g^w}^c g^s=v^ca\] **We denote by Schnorr(c) a run of this
+protocol under challenge c.**
 
 **Ex. 2: Diffie-Hellman pairs** Fix \(g\) and \(h\) integers. The powers
 of \(h\) form a subgroup \(H\) inside the group \(Z_p\).
@@ -105,6 +106,7 @@ checking that \(g^r=u^ca\) and that \({g^x}^{r}=(v/m)^{c}a'\). Indeed,
 if Bob was honest it should be that
 
 \[g^r={g^w}^c g^s=u^ca.\] and similarly for \(h=g^x\) with \(v'=v/m\).
+**We denote by CCE(m,m') a run of this protocol.**
 
 **Ex. 4: Proof of cyphertext content by decrypter**
 
@@ -130,7 +132,8 @@ honest it should be that
 
 \[g^r={g^x}^c g^s=h^c a.\] and
 
-\[u^r=u^{xc} u^s=(v/m)^c a'.\]
+\[u^r=u^{xc} u^s=(v/m)^c a'.\] **We denote by CCD(m,m') a run of this
+protocol.**
 
 Composability
 -------------
