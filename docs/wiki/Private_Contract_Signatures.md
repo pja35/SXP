@@ -46,3 +46,11 @@ Why not try \(\textrm{PCS}_B^A(m)\) to be
 \[g^s,H(g^s,m),
 \left(\textrm{CCE}^T(B,(\textrm{Pub}^B,v))\vee\textrm{CCE}^T(A,(\textrm{Pub}^A,v))\right)(g^s,H(g^s,m))\]
 with s random?
+
+To do
+-----
+
+Check duplication of a and c in and and or constructs.
+
+Check whether non-interactive CCE under ephemeral key PubB and challenge
+m is an established way of signing.
