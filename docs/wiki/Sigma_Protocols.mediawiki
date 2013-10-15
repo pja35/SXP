@@ -33,7 +33,7 @@ The protocol has three rounds:
 :<math> B\rightarrow A: r=wc+s </math>
 Alice validates Bob's response by checking that <math>g^r=v^ca</math>. Indeed, if Bob was honest it should be that
 :<math>g^r={g^w}^c g^s=v^ca</math>
-'''Denote by <math>c\mapsto\textrm{Schnorr}_B(c)</math> this protocol, done by prover B under challenge c.'''
+'''Denote by <math>a,c\mapsto\textrm{Schnorr}_B(a,c)</math> the response of this protocol, done by prover B with mask a and under challenge c.'''
 
 
 '''Ex. 2: Diffie-Hellman pairs'''
@@ -69,7 +69,7 @@ Alice validates Bob's response by checking that <math>g^r=u^ca</math> and that <
 :<math>g^r={g^w}^c g^s=u^ca.</math>
 and similarly for <math>h=g^x</math> with <math>v'=v/m</math>.
 
-'''Denote by <math>c\mapsto\textrm{CCE}^T(m,n)(c)</math> this protocol, under challenge c.'''
+'''Denote by <math>a,c\mapsto\textrm{CCE}^T(m,n)(a,c)</math> the response of this protocol, done towards T with mask a and under challenge c.'''
 
 
 '''Ex. 4: Proof of cyphertext content by decrypter'''
@@ -89,13 +89,13 @@ Alice validates Trent's response by checking that <math>g^r=h^c a</math> and tha
 and
 :<math>u^r=u^{xc} u^s=(v/m)^c a'.</math>
 
-'''Denote by <math>c\mapsto\textrm{CCD}^T(m,n)(c)</math> this protocol, under challenge c.'''
+'''Denote by <math>a,c\mapsto\textrm{CCD}^T(m,n)(c)</math> the response of this protocol, done towards with mask a and under challenge c.'''
 
 == Composability ==
 
-Consider <math>v_0, v_1</math> and <math>R_0, R_1</math>. Say Bob pretends to have <math>w_0, w_1</math> such that <math>(v_0,w_0)\in R_0 \wedge (v_1,w_1)\in R_1</math>, and does not want to disclose them. Is there a Sigma protocol for this new relation <math>R_0\wedge R_1=\{(v_0,v_1),(w_0,w_1)\,|\,(v_0,w_0)\in R_0 \wedge (v_1,w_1)\in R_1\}</math>? If there was some for <math>R_0</math> and <math>R_1</math>, then yes. It suffices to combine the parallel run of both protocols into one, as tuples. We can use the same challenge c for both runs.
+Consider <math>v_0, v_1</math> and <math>R_0, R_1</math>. Say Bob pretends to have <math>w_0, w_1</math> such that <math>(v_0,w_0)\in R_0 \wedge (v_1,w_1)\in R_1</math>, and does not want to disclose them. Is there a Sigma protocol for this new relation <math>R_0\wedge R_1=\{(v_0,v_1),(w_0,w_1)\,|\,(v_0,w_0)\in R_0 \wedge (v_1,w_1)\in R_1\}</math>? If there was some for <math>R_0</math> and <math>R_1</math>, then yes. It suffices to combine the parallel run of both protocols into one, as tuples. We cannot use twice the same mask a for security reasons, so although could use twice the same challenge c for both runs, we will assume that both a and c are in fact pairs.
 
-'''Denote by <math>c\mapsto(P \wedge Q)(c) </math> the and composition of P and Q, under the shared challenge c.'''
+'''Denote by <math>a,c\mapsto(P \wedge Q)(c) </math> the response to the and composition of P and Q, under the pair of masks a and the pair of challenges c.'''
 
 
 Now, say Bob pretends to have one of <math>w_0</math> or <math>w_1</math>, and does not want to disclose it, not tell which one it is. Is there a Sigma protocol for this new relation <math>R_0\vee R_1=\{(v_0,v_1),(w_0,w_1)\,|\,(v_0,w_0)\in R_0 \vee (v_1,w_1)\in R_1\}</math>? If there was some for <math>R_0</math> and <math>R_1</math>, then sometimes yes. This sometimes is related to Bob's ability to simulate, on its own, a valid run of the component Sigma protocols. In other words, for instance say that Bob does not know <math>w_1</math>, but that he has the freedom to choose himself the corresponding challenge <math>c_1</math>. Is he able to efficiently generate <math>a_1,c_1,r_1</math> so that they are valid? If so, then yes. This particular property of the component Sigma protocols is referred to as "existence of a simulator" or "special honest-verifier zero-knowledge". Here is how.
@@ -122,7 +122,7 @@ In the case of <math>\textrm{Schnorr}_B</math>, there exists a simulator, so tha
 * Let  <math>a_1=g^{r_1}v_1^{-c_1}</math>.
 Indeed, you then have <math>g^{r_1}=v_1^{c_1}a_1</math> so that the run is valid.
 
-'''Denote by <math>c\mapsto(P \vee Q)(c) </math> the or composition of two protocols P and Q, under the divided up challenge c.'''
+'''Denote by <math>a,c\mapsto(P \vee Q)(c) </math> the response to the or composition of two protocols P and Q, under the divided up mask a and challenge c.'''
 
 == Non-interactive version ==
 
@@ -139,7 +139,7 @@ The modified protocol has only one true round, since B' is just B challenging hi
 Alice validates Bob response by checking that <math>c=H(a,m)</math> and that <math>v^{-c}g^r=a</math>. Indeed, if Bob was honest it should be that
 :<math>v^{-c}g^r=g^{-wc} g^{wc} g^s=a</math>.
 
-'''Denote by <math>P(H(a,m))</math> the non-interactive version of P.'''
+'''In general, <math>(g^s,H(g^s,m),P(g^s,H(g^s,m)))</math> denotes the non-interactive version of P.'''
 
 == Schnorr signatures ==
 
@@ -154,5 +154,5 @@ Let us further modify the above, and say that the challenge that Bob will put to
 :Indeed, if Bob was honest it should be that <math>v^{-c}g^r =g^{-wc}g^{wc+s} =g^s=a </math>.
 
 Thus, a Schnorr signature of the message m is essence just the non-interactive version of the Schnorr identification protocol, i.e. 
-:<math>(g^s,H(g^s,m),s+wH(g^s,m))=\textrm{Schnorr}_B(H(g^s,m))</math>
-with s random. In practice the first element of the triple gets dropped.
+:<math>(H(g^s,m),\textrm{Schnorr}_B(g^s,H(g^s,m)))</math>
+with s random.
