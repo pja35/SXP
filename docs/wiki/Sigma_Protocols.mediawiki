@@ -22,7 +22,7 @@ Here are examples of Sigma protocols based on the hardness of Discrete Logarithm
 '''Ex. 1: Schnorr identification protocol'''
 
 Fix <math>g</math> an integer.
-* Public input <math>v=\textrm{Pub}_B</math>.
+* Public input <math>v=\textrm{Pub}^B</math>.
 * Agreed relation <math>(v,w)\in R \Leftrightarrow g^w=v </math>.
 * Private input <math>w=\textrm{Priv}_B</math>.
 * Bob will need some random ephemeral <math>s\in Z_p</math>.
@@ -55,9 +55,9 @@ and similarly for <math>h</math> with <math>v</math>.
 
 '''Ex. 3: Proof of cyphertext content by encrypter'''
 
-Fix <math>g</math> and  <math>h=g^x=\textrm{Pub}_T</math> integers.
+Fix <math>g</math> and  <math>h=g^x=\textrm{Pub}^T</math> integers.
 * Public input <math>m</math> and <math>m'=(u,v)</math>.
-* Agreed relation <math>((m,(u,v)),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{\textrm{Pub}_T}</math> under [[ElGamalSchnorr | ElGamal]] with ephemeral key <math>w</math>.
+* Agreed relation <math>((m,(u,v)),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{\textrm{Pub}^T}</math> under [[ElGamalSchnorr | ElGamal]] with ephemeral key <math>w</math>.
 * Private input <math>w</math>.
 * Bob will need some random <math>s\in Z_p</math>.
 * Alice will need some random <math>c\in Z_p</math>. 
@@ -69,14 +69,14 @@ Alice validates Bob's response by checking that <math>g^r=u^ca</math> and that <
 :<math>g^r={g^w}^c g^s=u^ca.</math>
 and similarly for <math>h=g^x</math> with <math>v'=v/m</math>.
 
-'''Denote by <math>c\mapsto\textrm{CCE}_T(m,m')(c)</math> this protocol, under challenge c.'''
+'''Denote by <math>c\mapsto\textrm{CCE}^T(m,m')(c)</math> this protocol, under challenge c.'''
 
 
 '''Ex. 4: Proof of cyphertext content by decrypter'''
 
-Fix <math>g</math> and  <math>h=g^x=\textrm{Pub}_T</math> integers.
+Fix <math>g</math> and  <math>h=g^x=\textrm{Pub}^T</math> integers.
 * Public input <math>m</math> and <math>m'=(u,v)</math>.
-* Agreed relation <math>((m,(u,v)),w)\in R \Leftrightarrow v=u^x m  \Leftrightarrow (u,v)=\{m\}_{\textrm{Pub}_T}</math> under [[ElGamalSchnorr | ElGamal]] for Trent.
+* Agreed relation <math>((m,(u,v)),w)\in R \Leftrightarrow v=u^x m  \Leftrightarrow (u,v)=\{m\}_{\textrm{Pub}^T}</math> under [[ElGamalSchnorr | ElGamal]] for Trent.
 * Private input <math>x=\textrm{Priv}_T</math>.
 * Trent will need some random <math>s\in Z_p</math>.
 * Alice will need some random <math>c\in Z_p</math>. 
@@ -89,7 +89,7 @@ Alice validates Trent's response by checking that <math>g^r=h^c a</math> and tha
 and
 :<math>u^r=u^{xc} u^s=(v/m)^c a'.</math>
 
-'''Denote by <math>c\mapsto\textrm{CCD}_T(m,m')(c)</math> this protocol, under challenge c.'''
+'''Denote by <math>c\mapsto\textrm{CCD}^T(m,m')(c)</math> this protocol, under challenge c.'''
 
 == Composability ==
 
@@ -144,12 +144,12 @@ Alice validates Bob response by checking that <math>c=H(a,m)</math> and that <ma
 == Schnorr signatures ==
 
 Let us further modify the above, and say that the challenge that Bob will put to himself is to be fabricated based upon some public <math>m</math> instead of <math>v</math>.
-* Public input <math>m</math> a message and <math>v=PubKB</math>.
+* Public input <math>m</math> a message and <math>v=\textrm{Pub}^B</math>.
 * Agreed relation <math>(v,w)\in R \Leftrightarrow g^w=v </math>.
-* Private input <math>w=PrivKB</math>.
+* Private input <math>w=\textrm{Priv}_B</math>.
 * Bob will need some random ephemeral <math>s\in Z_p</math>.
 :Bob computes <math>c=H(g^s,m)</math> and <math>r=s+wc</math>.
-:Bob signs <math>m\in G</math> as <math>SIG_B(m)=(c,r)</math>.
+:Bob signs <math>m\in G</math> as <math>(c,r)</math>.
 :Alice verifies <math>(c,r)</math> checking that <math>c=H(a, m)</math> with <math>a=v^{-c}g^r</math>.
 :Indeed, if Bob was honest it should be that <math>v^{-c}g^r =g^{-wc}g^{wc+s} =g^s=a </math>.
 
