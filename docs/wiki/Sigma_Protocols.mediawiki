@@ -67,7 +67,7 @@ Alice validates Bob's response by checking that <math>g^r=u^ca</math> and that <
 :<math>g^r={g^w}^c g^s=u^ca.</math>
 and similarly for <math>h=g^x</math> with <math>v'=v/m</math>.
 
-'''Denote by <math>CCE_T(m,m')</math> a run of this protocol.'''
+'''Denote by <math>\textrm{CCE}_T(m,m')</math> a run of this protocol.'''
 
 
 '''Ex. 4: Proof of cyphertext content by decrypter'''
@@ -87,7 +87,7 @@ Alice validates Trent's response by checking that <math>g^r=h^c a</math> and tha
 and
 :<math>u^r=u^{xc} u^s=(v/m)^c a'.</math>
 
-'''Denote by <math>CCD_T(m,m')</math> a run of this protocol.'''
+'''Denote by <math>\textrm{CCD}_T(m,m')</math> a run of this protocol.'''
 
 == Composability ==
 

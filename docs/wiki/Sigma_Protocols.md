@@ -111,7 +111,7 @@ if Bob was honest it should be that
 
 \[g^r={g^w}^c g^s=u^ca.\] and similarly for \(h=g^x\) with \(v'=v/m\).
 
-**Denote by \(CCE_T(m,m')\) a run of this protocol.**
+**Denote by \(\textrm{CCE}_T(m,m')\) a run of this protocol.**
 
 **Ex. 4: Proof of cyphertext content by decrypter**
 
@@ -139,7 +139,7 @@ honest it should be that
 
 \[u^r=u^{xc} u^s=(v/m)^c a'.\]
 
-**Denote by \(CCD_T(m,m')\) a run of this protocol.**
+**Denote by \(\textrm{CCD}_T(m,m')\) a run of this protocol.**
 
 Composability
 -------------
