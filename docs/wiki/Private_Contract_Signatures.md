@@ -30,5 +30,5 @@ of PCS we give uses the notations introduced there.
 Outline of [ElGamal encryption](/wiki/ElGamalSchnorr "wikilink"), which are
 encryption and signature schemes.
 
-Outline of [Sigma protocols](/wiki/SigmaProtocols "wikilink"), which are
+Outline of [Sigma protocols](/wiki/Sigma_Protocols "wikilink"), which are
 composable, interactive zero-knowledge proof schemes.
