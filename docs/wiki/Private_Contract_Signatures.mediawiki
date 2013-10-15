@@ -23,5 +23,5 @@ Outline of [[Sigma_Protocols|Sigma protocols]], which are composable, interactiv
 with s random.
 
 Why not try
-:<math>\textrm{PCS}_B^A(m)=\left(\textrm{CCE}^T(O,(g^{\textrm{Priv}_B},v))\vee\textrm{CCE}^T(1,(g^{\textrm{Priv}_B},v))\right)(H(g^s,m))</math>
+:<math>\textrm{PCS}_B^A(m)=\left(\textrm{CCE}^T(0,(g^{\textrm{Priv}_B},v))\vee\textrm{CCE}^T(1,(g^{\textrm{Priv}_B},v))\right)(H(g^s,m))</math>
 with s random?
