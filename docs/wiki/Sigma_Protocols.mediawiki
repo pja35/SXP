@@ -18,6 +18,7 @@ Here are examples of Sigma protocols based on the hardness of Discrete Logarithm
 
 
 '''Ex. 1: Schnorr identification protocol'''
+Fix <math>g</math> an integer.
 * Public input <math>v=PubKB</math>.
 * Agreed relation <math>(v,w)\in R \Leftrightarrow g^w=v </math>.
 * Private input <math>w=PrivKB</math>.
@@ -32,8 +33,7 @@ Alice validates Bob's response by checking that <math>g^r=v^ca</math>. Indeed, i
 
 
 '''Ex. 2: Diffie-Hellman pairs'''
-
-Fix another <math>h</math> an integer. The powers of <math>h</math> form a subgroup <math>H</math> inside the group <math>Z_p</math>. 
+Fix <math>g</math> and <math>h</math> integers. The powers of <math>h</math> form a subgroup <math>H</math> inside the group <math>Z_p</math>. 
 * Public input <math>u\in G,v\in H</math>.
 * Agreed relation <math>((u,v),w)\in R \Leftrightarrow g^w=u \wedge h^w=v  </math>.
 * Private input <math>w</math>.
@@ -50,7 +50,7 @@ and similarly for <math>h</math> with <math>v</math>.
 
 '''Ex. 3: Proof of cyphertext content by encrypter'''
 
-Fix <math>h=g^x=PubKT</math> an integer.
+Fix <math>g</math> and  <math>h=g^x=PubKT</math> integers.
 * Public input <math>(m,u,v)</math>.
 * Agreed relation <math>((m,u,v),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{PubKT}</math> under [[ElGamalSchnorr | ElGamal]] with ephemeral key <math>w</math>.
 * Private input <math>w</math>.
@@ -64,22 +64,23 @@ Alice validates Bob's response by checking that <math>g^r=u^ca</math> and that <
 :<math>g^r={g^w}^c g^s=u^ca.</math>
 and similarly for <math>h=g^x</math> with <math>v'=v/m</math>.
 
+
 '''Ex. 4: Proof of cyphertext content by decrypter'''
 
-Fix <math>h=g^x=PubKT</math> an integer.
+Fix <math>g</math> and  <math>h=g^x=PubKT</math> integers.
 * Public input <math>(m,u,v)</math>.
-* Agreed relation <math>((m,u,v),x)\in R \Leftrightarrow \exist w, u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{PubKT}</math> under [[ElGamalSchnorr | ElGamal]] for Trent.
+* Agreed relation <math>((m,u,v),x)\in R \Leftrightarrow v=u^x m  \Leftrightarrow (u,v)=\{m\}_{PubKT}</math> under [[ElGamalSchnorr | ElGamal]] for Trent.
 * Private input <math>x=PrivKT</math>.
 * Trent will need some random <math>s\in Z_p</math>.
 * Alice will need some random <math>c\in Z_p</math>. 
 The protocol has three rounds:
-:<math> T\rightarrow A: a=g^s, a'={g^w}^{s'} </math>
+:<math> T\rightarrow A: a=g^s, a'=u^{s'} </math>
 :<math> A\rightarrow T: c </math>
-:<math> T\rightarrow A: r=wx+s  </math>
+:<math> T\rightarrow A: r=xc+s  </math>
 Alice validates Trent's response by checking that <math>g^r=h^c a</math> and that <math>u^r=(v/m)^{c} a'</math>. Indeed, if Bob was honest it should be that 
 :<math>g^r={g^x}^c g^s=h^c a.</math>
 and
-:<math>u^r={g^w}^{xc} {g^w}^s=(v/m)^c a'.</math>
+:<math>u^r=u^{xc} u^s=(v/m)^c a'.</math>
 
 == Composability ==
 

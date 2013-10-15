@@ -40,7 +40,7 @@ so that they meet the [Decisional
 Diffie-Hellman](http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption)
 assumption; but there are standard techniques for doing that.
 
-**Ex. 1: Schnorr identification protocol**
+**Ex. 1: Schnorr identification protocol** Fix \(g\) an integer.
 
 -   Public input \(v=PubKB\).
 -   Agreed relation \((v,w)\in R \Leftrightarrow g^w=v\).
@@ -59,10 +59,8 @@ that \(g^r=v^ca\). Indeed, if Bob was honest it should be that
 
 \[g^r={g^w}^c g^s=v^ca\]
 
-**Ex. 2: Diffie-Hellman pairs**
-
-Fix another \(h\) an integer. The powers of \(h\) form a subgroup \(H\)
-inside the group \(Z_p\).
+**Ex. 2: Diffie-Hellman pairs** Fix \(g\) and \(h\) integers. The powers
+of \(h\) form a subgroup \(H\) inside the group \(Z_p\).
 
 -   Public input \(u\in G,v\in H\).
 -   Agreed relation
@@ -85,7 +83,7 @@ was honest it should be that
 
 **Ex. 3: Proof of cyphertext content by encrypter**
 
-Fix \(h=g^x=PubKT\) an integer.
+Fix \(g\) and \(h=g^x=PubKT\) integers.
 
 -   Public input \((m,u,v)\).
 -   Agreed relation
@@ -110,11 +108,11 @@ if Bob was honest it should be that
 
 **Ex. 4: Proof of cyphertext content by decrypter**
 
-Fix \(h=g^x=PubKT\) an integer.
+Fix \(g\) and \(h=g^x=PubKT\) integers.
 
 -   Public input \((m,u,v)\).
 -   Agreed relation
-    \(((m,u,v),x)\in R \Leftrightarrow \exist w, u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{PubKT}\)
+    \(((m,u,v),x)\in R \Leftrightarrow v=u^x m  \Leftrightarrow (u,v)=\{m\}_{PubKT}\)
     under [ ElGamal](/wiki/ElGamalSchnorr "wikilink") for Trent.
 -   Private input \(x=PrivKT\).
 -   Trent will need some random \(s\in Z_p\).
@@ -122,17 +120,17 @@ Fix \(h=g^x=PubKT\) an integer.
 
 The protocol has three rounds:
 
-\[T\rightarrow A: a=g^s, a'={g^w}^{s'}\]
+\[T\rightarrow A: a=g^s, a'=u^{s'}\]
 
 \[A\rightarrow T: c\]
 
-\[T\rightarrow A: r=wx+s\] Alice validates Trent's response by checking
+\[T\rightarrow A: r=xc+s\] Alice validates Trent's response by checking
 that \(g^r=h^c a\) and that \(u^r=(v/m)^{c} a'\). Indeed, if Bob was
 honest it should be that
 
 \[g^r={g^x}^c g^s=h^c a.\] and
 
-\[u^r={g^w}^{xc} {g^w}^s=(v/m)^c a'.\]
+\[u^r=u^{xc} u^s=(v/m)^c a'.\]
 
 Composability
 -------------
