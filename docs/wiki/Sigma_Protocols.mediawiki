@@ -64,6 +64,22 @@ Alice validates Bob response by checking that <math>g^r=u^ca</math> and that <ma
 :<math>g^r={g^w}^c g^s=u^ca.</math>
 and similarly for <math>h=g^x</math> with <math>v'=v/m</math>.
 
+'''Ex. 4: Proof of cyphertext encryption by decrypter'''
+
+Fix <math>h=g^x=PubKT</math> an integer.
+* Public input <math>(m,u,v)</math>.
+* Agreed relation <math>((m,u,v),x)\in R \Leftrightarrow \exist w, u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{PubKT}</math> under [[ElGamalSchnorr | ElGamal]] for Trent.
+* Private input <math>x=PrivKT</math>.
+* Bob will need some random <math>s\in Z_p</math>.
+* Alice will need some random <math>c\in Z_p</math>. 
+The protocol has three rounds:
+:<math> B\rightarrow A: a=g^s, a'={g^x}^{s'} </math>
+:<math> A\rightarrow B: c,c' </math>
+:<math> B\rightarrow A: r=wc+s, r'=wc'+s'  </math>
+Alice validates Bob response by checking that <math>g^r=u^ca</math> and that <math>{g^x}^{r'}=(v/m)^{c'a'}</math>. Indeed, if Bob was honest it should be that 
+:<math>g^r={g^w}^c g^s=u^ca.</math>
+and similarly for <math>h=g^x</math> with <math>v'=v/m</math>.
+
 == Composability ==
 
 Consider <math>v_0, v_1</math> and <math>R_0, R_1</math>. Say Bob pretends to have <math>w_0, w_1</math> such that <math>(v_0,w_0)\in R_0 \wedge (v_1,w_1)\in R_1</math>, and does not want to disclose them. Is there a Sigma protocol for this new relation <math>R_0\wedge R_1=\{(v_0,v_1),(w_0,w_1)\,|\,(v_0,w_0)\in R_0 \wedge (v_1,w_1)\in R_1\}</math>? If there was some for <math>R_0</math> and <math>R_1</math>, then yes. It suffices to combine the parallel run of both protocols into one, as tuples.

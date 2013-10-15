@@ -108,6 +108,30 @@ if Bob was honest it should be that
 
 \[g^r={g^w}^c g^s=u^ca.\] and similarly for \(h=g^x\) with \(v'=v/m\).
 
+**Ex. 4: Proof of cyphertext encryption by decrypter**
+
+Fix \(h=g^x=PubKT\) an integer.
+
+-   Public input \((m,u,v)\).
+-   Agreed relation
+    \(((m,u,v),x)\in R \Leftrightarrow \exist w, u=g^w \wedge v={g^x}^w m  \Leftrightarrow (u,v)=\{m\}_{PubKT}\)
+    under [ ElGamal](/wiki/ElGamalSchnorr "wikilink") for Trent.
+-   Private input \(x=PrivKT\).
+-   Bob will need some random \(s\in Z_p\).
+-   Alice will need some random \(c\in Z_p\).
+
+The protocol has three rounds:
+
+\[B\rightarrow A: a=g^s, a'={g^x}^{s'}\]
+
+\[A\rightarrow B: c,c'\]
+
+\[B\rightarrow A: r=wc+s, r'=wc'+s'\] Alice validates Bob response by
+checking that \(g^r=u^ca\) and that \({g^x}^{r'}=(v/m)^{c'a'}\). Indeed,
+if Bob was honest it should be that
+
+\[g^r={g^w}^c g^s=u^ca.\] and similarly for \(h=g^x\) with \(v'=v/m\).
+
 Composability
 -------------
 
