@@ -22,7 +22,14 @@ Outline of [[Sigma_Protocols|Sigma protocols]], which are composable, interactiv
 An <math>\textrm{SPCS}_B^A(m)</math> is
 :<math>\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\vee\textrm{CCE}^T(m,(\textrm{Pub}^A,v))\right)(g^s,H(g^s,m))
 </math>
-with s random.
+with s random. Intuitively,
+* Bob provides a proof that <math>v=\{m\}_{\textrm{Pub}^T}</math> under [[ElGamal]].
+* But he leaves ambiguous whether the ephemeral key used is his or Alice's.
+
+
+
+
+
 
 To unravel it, we need <math>\textrm{USPCS}_B^A(m)</math>
 :<math>\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\vee\textrm{CCD}^T(m,(\textrm{Pub}^B,v))\right)(g^{s'},H(g^{s'},m))

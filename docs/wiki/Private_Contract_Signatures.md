@@ -39,7 +39,12 @@ Simplified scheme
 An \(\textrm{SPCS}_B^A(m)\) is
 
 \[\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\vee\textrm{CCE}^T(m,(\textrm{Pub}^A,v))\right)(g^s,H(g^s,m))\]
-with s random.
+with s random. Intuitively,
+
+-   Bob provides a proof that \(v=\{m\}_{\textrm{Pub}^T}\) under
+    [ElGamal](/wiki/ElGamal "wikilink").
+-   But he leaves ambiguous whether the ephemeral key used is his
+    or Alice's.
 
 To unravel it, we need \(\textrm{USPCS}_B^A(m)\)
 
