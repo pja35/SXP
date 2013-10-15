@@ -36,10 +36,10 @@ composable, interactive zero-knowledge proof schemes.
 Scheme
 ------
 
-\[\textrm{PCS}_B^A(m)=\big((\textrm{CCE}^T(0,n)\wedge\textrm{Schnorr}_B)\vee(\textrm{CCE}^T(1,n)\wedge\textrm{Schnorr}_A)\big)(H(g^s,m))\]
+\[\textrm{PCS}_B^A(m)=\left((\textrm{CCE}^T(0,n)\wedge\textrm{Schnorr}_B)\vee(\textrm{CCE}^T(1,n)\wedge\textrm{Schnorr}_A)\right)(H(g^s,m))\]
 with s random.
 
 Why not try
 
-\[\textrm{PCS}_B^A(m)=\big(\textrm{CCE}^T(O,(g^{\textrm{Priv}_B},v))\vee\textrm{CCE}^T(1,(g^{\textrm{Priv}_B},v))\big)(H(g^s,m))\]
+\[\textrm{PCS}_B^A(m)=\left(\textrm{CCE}^T(O,(g^{\textrm{Priv}_B},v))\vee\textrm{CCE}^T(1,(g^{\textrm{Priv}_B},v))\right)(H(g^s,m))\]
 with s random?
