@@ -199,9 +199,8 @@ passed the challenge \(c_0\) thanks to his \(w_0\). He has passed the
 challenge \(c_1\) because it was an easy challenge that he has himself
 chosen.
 
-In the case of the example of the Discrete Logarithm, there exists a
-simulator, so that this can be done. Indeed, to generate \(a_1,c_1,r_1\)
-you:
+In the case of \(\textrm{Schnorr}_B\), there exists a simulator, so that
+this can be done. Indeed, to generate \(a_1,c_1,r_1\) you:
 
 -   Pick \(c_1,r_1\).
 -   Let \(a_1=g^{r_1}v_1^{-c_1}\).
@@ -209,7 +208,7 @@ you:
 Indeed, you then have \(g^{r_1}=v_1^{c_1}a_1\) so that the run is valid.
 
 **Denote by \((P \vee Q)(c)\) the or composition of two protocols P and
-Q. under challenge c.**
+Q, under the divided up challenge c.**
 
 Non-interactive version
 -----------------------

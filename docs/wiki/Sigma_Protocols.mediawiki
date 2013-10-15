@@ -115,12 +115,12 @@ Alice validates Bob response by checking that:
 
 The intuition is that Bob has "divided up" the random challenge <math>s</math> into <math>c_0</math> which is random, and <math>c_1</math>, which is chosen. He has passed the challenge <math>c_0</math> thanks to his <math>w_0</math>. He has passed the challenge <math>c_1</math> because it was an easy challenge that he has himself chosen.
 
-In the case of the example of the Discrete Logarithm, there exists a simulator, so that this can be done. Indeed, to generate <math>a_1,c_1,r_1</math> you:
+In the case of <math>\textrm{Schnorr}_B</math>, there exists a simulator, so that this can be done. Indeed, to generate <math>a_1,c_1,r_1</math> you:
 * Pick <math>c_1,r_1</math>.
 * Let  <math>a_1=g^{r_1}v_1^{-c_1}</math>.
 Indeed, you then have <math>g^{r_1}=v_1^{c_1}a_1</math> so that the run is valid.
 
-'''Denote by <math> (P \vee Q)(c) </math> the or composition of two protocols P and Q. under challenge c.'''
+'''Denote by <math> (P \vee Q)(c) </math> the or composition of two protocols P and Q, under the divided up challenge c.'''
 
 == Non-interactive version ==
 
