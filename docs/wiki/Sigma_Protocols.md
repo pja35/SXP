@@ -152,13 +152,12 @@ relation
 If there was some for \(R_0\) and \(R_1\), then yes. It suffices to
 combine the parallel run of both protocols into one, as tuples.
 
-'''Denote by
-\(P \wedge Q <\math> the and composition of two protocols P and Q.'''
+**Denote by \(P \wedge Q\) the and composition of two protocols P and
+Q.**
 
-
-Now, say Bob pretends to have one of <math>w_0\) or \(w_1\), and does
-not want to disclose it, not tell which one it is. Is there a Sigma
-protocol for this new relation
+Now, say Bob pretends to have one of \(w_0\) or \(w_1\), and does not
+want to disclose it, not tell which one it is. Is there a Sigma protocol
+for this new relation
 \(R_0\vee R_1=\{(v_0,v_1),(w_0,w_1)\,|\,(v_0,w_0)\in R_0 \vee (v_1,w_1)\in R_1\}\)?
 If there was some for \(R_0\) and \(R_1\), then sometimes yes. This
 sometimes is related to Bob's ability to simulate, on its own, a valid
@@ -206,14 +205,17 @@ you:
 
 Indeed, you then have \(g^{r_1}=v_1^{c_1}a_1\) so that the run is valid.
 
-'''Denote by
-\(P \vee Q <\math> the or composition of two protocols P and Q.'''
+**Denote by \(P \vee Q\) the or composition of two protocols P and Q.**
 
-== Non-interactive version ==
+Non-interactive version
+-----------------------
 
-Instead of doing the Sigma protocol in three rounds, we could just do it in one round, by musing the Fiat-Shamir heuristics. The idea is that Bob challenges himself with something that he does not really control, namely <math>H(a,v)\),
-where \(H\) is a hash function like SHA2. For instance, let us apply
-this procedure to the Schnorr identification protocol. We get:
+Instead of doing the Sigma protocol in three rounds, we could just do it
+in one round, by musing the Fiat-Shamir heuristics. The idea is that Bob
+challenges himself with something that he does not really control,
+namely \(H(a,v)\), where \(H\) is a hash function like SHA2. For
+instance, let us apply this procedure to the Schnorr identification
+protocol. We get:
 
 -   Public input \(m=v\in G\).
 -   Agreed relation \((v,w)\in R \Leftrightarrow g^w=v\).
