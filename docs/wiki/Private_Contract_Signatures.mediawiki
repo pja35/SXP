@@ -15,17 +15,29 @@ Outline of [[ElGamalSchnorr|ElGamal encryption]], which are encryption and signa
 
 Outline of [[Sigma_Protocols|Sigma protocols]], which are composable, interactive zero-knowledge proof schemes.
 
-== Scheme ==
+== Simplified scheme ==
 
 
-Traditionally, <math>\textrm{PCS}_B^A(m)</math> is
-:<math>\textrm{NI}\left((\textrm{CCE}^T(0,n)\wedge\textrm{Schnorr}_B)\vee(\textrm{CCE}^T(1,n)\wedge\textrm{Schnorr}_A)\right)(g^s,H(g^s,m))</math>
+
+An <math>\textrm{SPCS}_B^A(m)</math> is
+:<math>\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\vee\textrm{CCE}^T(m,(\textrm{Pub}^A,v))\right)(g^s,H(g^s,m))
+</math>
 with s random.
 
-Why not try <math>\textrm{PCS}_B^A(m)</math> to be
-:<math>\textrm{NI}\left(\textrm{CCE}^T(B,(\textrm{Pub}^B,v))\vee\textrm{CCE}^T(A,(\textrm{Pub}^A,v))\right)(g^s,H(g^s,m))
+To unravel it, we need <math>\textrm{USPCS}_B^A(m)</math>
+:<math>\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\vee\textrm{CCD}^T(m,(\textrm{Pub}^B,v))\right)(g^s,H(g^s,m))
 </math>
-with s random?
+with s random.
+
+A signature <math>\textrm{SIG}_B^A(m)</math> is a pair
+:<math> \textrm{SPCS}_B^A(m), \textrm{USPCS}_B^A(m).
+</math>
+
+== Normal scheme ==
+
+Normally, a <math>\textrm{PCS}_B^A(m)</math> is
+:<math>\textrm{NI}\left((\textrm{CCE}^T(0,n)\wedge\textrm{Schnorr}_B)\vee(\textrm{CCE}^T(1,n)\wedge\textrm{Schnorr}_A)\right)(g^s,H(g^s,m))</math>
+with s random.
 
 == To do ==
 

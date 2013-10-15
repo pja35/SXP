@@ -33,18 +33,30 @@ encryption and signature schemes.
 Outline of [Sigma protocols](/wiki/Sigma_Protocols "wikilink"), which are
 composable, interactive zero-knowledge proof schemes.
 
-Scheme
-------
+Simplified scheme
+-----------------
 
-Traditionally, \(\textrm{PCS}_B^A(m)\) is
+An \(\textrm{SPCS}_B^A(m)\) is
+
+\[\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\vee\textrm{CCE}^T(m,(\textrm{Pub}^A,v))\right)(g^s,H(g^s,m))\]
+with s random.
+
+To unravel it, we need \(\textrm{USPCS}_B^A(m)\)
+
+\[\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^B,v))\vee\textrm{CCD}^T(m,(\textrm{Pub}^B,v))\right)(g^s,H(g^s,m))\]
+with s random.
+
+A signature \(\textrm{SIG}_B^A(m)\) is a pair
+
+\[\textrm{SPCS}_B^A(m), \textrm{USPCS}_B^A(m).\]
+
+Normal scheme
+-------------
+
+Normally, a \(\textrm{PCS}_B^A(m)\) is
 
 \[\textrm{NI}\left((\textrm{CCE}^T(0,n)\wedge\textrm{Schnorr}_B)\vee(\textrm{CCE}^T(1,n)\wedge\textrm{Schnorr}_A)\right)(g^s,H(g^s,m))\]
 with s random.
-
-Why not try \(\textrm{PCS}_B^A(m)\) to be
-
-\[\textrm{NI}\left(\textrm{CCE}^T(B,(\textrm{Pub}^B,v))\vee\textrm{CCE}^T(A,(\textrm{Pub}^A,v))\right)(g^s,H(g^s,m))\]
-with s random?
 
 To do
 -----
