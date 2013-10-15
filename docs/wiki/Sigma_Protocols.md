@@ -57,8 +57,8 @@ The protocol has three rounds:
 \[B\rightarrow A: r=wc+s\] Alice validates Bob's response by checking
 that \(g^r=v^ca\). Indeed, if Bob was honest it should be that
 
-\[g^r={g^w}^c g^s=v^ca\] **We denote by Schnorr(c) a run of this
-protocol under challenge c.**
+\[g^r={g^w}^c g^s=v^ca\] **Denote by \(\textup{Schnorr}_B(c)\) a run of
+this sigma protocol by prover B under challenge c.**
 
 **Ex. 2: Diffie-Hellman pairs** Fix \(g\) and \(h\) integers. The powers
 of \(h\) form a subgroup \(H\) inside the group \(Z_p\).
