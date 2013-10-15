@@ -246,7 +246,8 @@ should be that
 
 \[v^{-c}g^r=g^{-wc} g^{wc} g^s=a\].
 
-**In general, \((g^s,H(g^s,m),P(g^s,H(g^s,m)))\) denotes the
+**Denote by
+\(\textrm{NI}(P)(g^s,H(g^s,m))=(g^s,H(g^s,m),P(g^s,H(g^s,m)))\) the
 non-interactive version of P.**
 
 Schnorr signatures
