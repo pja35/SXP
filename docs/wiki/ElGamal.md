@@ -19,7 +19,7 @@ ElGamal encryption
 Alice needs a random ephemeral key \(w\).
 
   
-Alice encrypts \(m\in G\) as \(\{m\}_{PubKB}=(g^w,{g^x}^w m)\).
+Alice encrypts \(m\in G\) as \(\{m\}_{\textrm{Pub}_B}=(g^w,{g^x}^w m)\).
 
 Bob decrypts \((u,v)\) as \(v/u^x\).
 
