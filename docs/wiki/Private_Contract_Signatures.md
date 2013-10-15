@@ -24,9 +24,11 @@ them.
 Some Cryptography
 -----------------
 
-Outline of [ElGamal encryption and Schnorr
-signatures](/wiki/ElGamalSchnorr "wikilink"), which are encryption and
-signature schemes.
+The following must be understood first. In particular, the description
+of PCS we give uses the notations introduced there.
+
+Outline of [ElGamal encryption](/wiki/ElGamalSchnorr "wikilink"), which are
+encryption and signature schemes.
 
 Outline of [Sigma protocols](/wiki/SigmaProtocols "wikilink"), which are
 composable, interactive zero-knowledge proof schemes.

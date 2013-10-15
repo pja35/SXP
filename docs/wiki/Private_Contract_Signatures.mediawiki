@@ -9,6 +9,8 @@ This page aims to give an outline of how they work, and how to implement them.
 
 == Some Cryptography ==
 
-Outline of [[ElGamalSchnorr|ElGamal encryption and Schnorr signatures]], which are encryption and signature schemes.
+The following must be understood first. In particular, the description of PCS we give uses the notations introduced there.
+
+Outline of [[ElGamalSchnorr|ElGamal encryption]], which are encryption and signature schemes.
 
 Outline of [[SigmaProtocols|Sigma protocols]], which are composable, interactive zero-knowledge proof schemes.
