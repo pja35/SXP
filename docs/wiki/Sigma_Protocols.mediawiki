@@ -12,7 +12,7 @@ The protocol has three rounds:
 :<math> B\rightarrow A: r=r(v,R,w,a,c,w) </math>
 Lastly, Alice checks that Bob response <math>r</math> to her challenge <math>r</math> is valid. This explains what the last two rounds are for. The first round is there out of technical necessity: Bob chooses this <math>a</math> as a mask for passing the challenge without disclosing <math>w</math>.
 
-== Building blocks ==
+== Examples ==
 
 Here are examples of Sigma protocols based on the hardness of Discrete Logarithms. Fix <math>p</math> a prime and <math>g</math> an integer. The powers of <math>g</math> form a subgroup <math>G</math> inside the group <math>Z_p</math>, which is that of integers modulo <math>p</math>. The choice of these <math>p</math> and <math>g</math> is important so that they meet the [http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption Decisional Diffie-Hellman] assumption; but there are standard techniques for doing that. 
 
@@ -60,11 +60,11 @@ The protocol has three rounds:
 :<math> B\rightarrow A: a=g^s, a={g^x}^{s} </math>
 :<math> A\rightarrow B: c </math>
 :<math> B\rightarrow A: r=wc+s, r=wc+s  </math>
-Alice validates Bob's response by checking that <math>g^r=u^ca</math> and that <math>{g^x}^{r}=(v/m)^{c'}a'</math>. Indeed, if Bob was honest it should be that 
+Alice validates Bob's response by checking that <math>g^r=u^ca</math> and that <math>{g^x}^{r}=(v/m)^{c}a'</math>. Indeed, if Bob was honest it should be that 
 :<math>g^r={g^w}^c g^s=u^ca.</math>
 and similarly for <math>h=g^x</math> with <math>v'=v/m</math>.
 
-'''Ex. 4: Proof of cyphertext content by decrypter (under construction)'''
+'''Ex. 4: Proof of cyphertext content by decrypter'''
 
 Fix <math>h=g^x=PubKT</math> an integer.
 * Public input <math>(m,u,v)</math>.

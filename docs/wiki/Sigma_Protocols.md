@@ -29,8 +29,8 @@ last two rounds are for. The first round is there out of technical
 necessity: Bob chooses this \(a\) as a mask for passing the challenge
 without disclosing \(w\).
 
-Building blocks
----------------
+Examples
+--------
 
 Here are examples of Sigma protocols based on the hardness of Discrete
 Logarithms. Fix \(p\) a prime and \(g\) an integer. The powers of \(g\)
@@ -103,12 +103,12 @@ The protocol has three rounds:
 \[A\rightarrow B: c\]
 
 \[B\rightarrow A: r=wc+s, r=wc+s\] Alice validates Bob's response by
-checking that \(g^r=u^ca\) and that \({g^x}^{r}=(v/m)^{c'}a'\). Indeed,
+checking that \(g^r=u^ca\) and that \({g^x}^{r}=(v/m)^{c}a'\). Indeed,
 if Bob was honest it should be that
 
 \[g^r={g^w}^c g^s=u^ca.\] and similarly for \(h=g^x\) with \(v'=v/m\).
 
-**Ex. 4: Proof of cyphertext content by decrypter (under construction)**
+**Ex. 4: Proof of cyphertext content by decrypter**
 
 Fix \(h=g^x=PubKT\) an integer.
 
