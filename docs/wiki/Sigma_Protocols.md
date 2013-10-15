@@ -44,7 +44,7 @@ assumption; but there are standard techniques for doing that.
 
 Fix \(g\) an integer.
 
--   Public input \(v=\textrm{Pub}_B\).
+-   Public input \(v=\textsc{Pub}_B\).
 -   Agreed relation \((v,w)\in R \Leftrightarrow g^w=v\).
 -   Private input \(w=\textrm{Priv}_B\).
 -   Bob will need some random ephemeral \(s\in Z_p\).
@@ -59,7 +59,7 @@ The protocol has three rounds:
 \[B\rightarrow A: r=wc+s\] Alice validates Bob's response by checking
 that \(g^r=v^ca\). Indeed, if Bob was honest it should be that
 
-\[g^r={g^w}^c g^s=v^ca\] **Denote by \(\textrm{Schnorr}_B(c)\) a run of
+\[g^r={g^w}^c g^s=v^ca\] **Denote by \(\textsc{Schnorr}_B(c)\) a run of
 this protocol by prover B under challenge c.**
 
 **Ex. 2: Diffie-Hellman pairs**
