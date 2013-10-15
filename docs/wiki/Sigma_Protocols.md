@@ -147,6 +147,31 @@ honest it should be that
 **Denote by \((a,c)\mapsto\textrm{CCD}^T(m,n)(a,c)\) the response of
 this protocol, done towards with mask a and under challenge c.**
 
+**Ex. 5: Relative identification protocol**
+
+Fix \(g\), \(h=g^x=\textrm{Pub}^T\) integers.
+
+-   Public input \(n=(u,v)\).
+-   Agreed relation
+    \((n,w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w  \Leftrightarrow n=\{1\}_{\textrm{Pub}^T}\)
+    under [ ElGamal](/wiki/ElGamalSchnorr "wikilink") with ephemeral key
+    \(w\).
+-   Private input \(w=\textrm{Priv}^B\)</math>.
+-   Bob will need some random \(s\in Z_p\).
+-   Alice will need some random \(c\in Z_p\).
+
+The protocol has three rounds:
+
+\[B\rightarrow A: a=g^s, a={g^x}^{s}\]
+
+\[A\rightarrow B: c\]
+
+\[B\rightarrow A: r=wc+s\] Alice validates Bob's response by checking
+that \(g^r=u^ca\) and that \({g^x}^{r}=v^{c}a'\). Indeed, if Bob was
+honest it should be that
+
+\[g^r={g^w}^c g^s=u^ca.\] and similarly for \(h=g^x\) with \(v\).
+
 Composability
 -------------
 
