@@ -38,7 +38,7 @@ with s' random. Intuitively:
 * It constitutes a proof that <math>v=\{H(m)\}_{\textrm{Pub}^T}</math> under [[ElGamal]] with ephemeral key <math>\textrm{Priv}_{P_i}</math>, which amounts to <math>P_i</math> signing m..
 * No step discloses <math>\textrm{Priv}_{P_i}</math>.
 
-== Normal scheme ==
+== Standard scheme ==
 
 Normally, a <math>\textrm{PCS}_B^A(m)</math> is
 :<math>\textrm{NI}\left((\textrm{CCE}^T(0,n)\wedge\textrm{Schnorr}_B)\vee(\textrm{CCE}^T(1,n)\wedge\textrm{Schnorr}_A)\right)(g^s,H(g^s,m))</math>

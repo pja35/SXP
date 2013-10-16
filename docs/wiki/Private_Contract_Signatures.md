@@ -65,8 +65,8 @@ with s' random. Intuitively:
     \(\textrm{Priv}_{P_i}\), which amounts to \(P_i\) signing m..
 -   No step discloses \(\textrm{Priv}_{P_i}\).
 
-Normal scheme
--------------
+Standard scheme
+---------------
 
 Normally, a \(\textrm{PCS}_B^A(m)\) is
 
