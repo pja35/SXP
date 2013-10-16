@@ -1,11 +1,12 @@
 Private Contract Signatures are a cryptography primitive which we need for the [[Secure Contract Signing Protocol]].
 
-Those are constructed via non-interactive zero-knowledge proofs constructions, and based upon the [http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption Decisional Diffie-Hellman] assumption.
+It was introduced in [http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.118.4142 Abuse-free optimistic contract signing] by Garay, Jakobsson, MacKenzie (1999). 
 
-It was introduced in [http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.118.4142 Abuse-free optimistic contract signing] by Garay, Jakobsson, MacKenzie (1999).
-Comment on the usefulness of this paper to the project [[GarayJakobssonMackenzie|here]]. 
+This page aims to give an outline of what they achieve, and how to implement them.
 
-This page aims to give an outline of how they work, and how to implement them.
+== Specifications ==
+
+
 
 == Some Cryptography ==
 
@@ -16,7 +17,6 @@ Outline of [[ElGamalSchnorr|ElGamal encryption]], which are encryption and signa
 Outline of [[Sigma_Protocols|Sigma protocols]], which are composable, interactive zero-knowledge proof schemes.
 
 == Simplified scheme ==
-
 
 
 An <math>\textrm{SPCS}_S(m)</math> is
