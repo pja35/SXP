@@ -38,10 +38,10 @@ Simplified scheme
 
 An \(\textrm{SPCS}(m)\) is
 
-\[\textrm{NI}\left(\bigvee_i\textrm{CCE}^T(m,(\textrm{Pub}^{P_i},v))\right)(g^s,H(g^s,m))\]
+\[\textrm{NI}\left(\bigvee_i\textrm{CCE}^T(H(m),(\textrm{Pub}^{P_i},v))\right)(g^s,H(g^s,m))\]
 with s random. Intuitively:
 
--   It constitutes a proof that \(v=\{m\}_{\textrm{Pub}^T}\) under
+-   It constitutes a proof that \(v=\{H(m)\}_{\textrm{Pub}^T}\) under
     [ElGamal](/wiki/ElGamal "wikilink").
 -   In order to provide such a proof one needs to have the ephemeral
     key used.
@@ -51,25 +51,19 @@ with s random. Intuitively:
 -   But in order to which \(P_i\) has signed, one needs a proof of which
     of private keys was used.
 
-Thus unravel it, we need \(\textrm{USPCS}_i(m)\)
+To unravel it, means to convert \(\textrm{SPCS}(m)\) into the final
+signature \(\textrm{SIG}_i(m)\):
 
-\[\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^{P_i},v))\vee\textrm{CCD}^T(m,(\textrm{Pub}^{P_i},v))\right)(g^{s'},H(g^{s'},m))\]
+\[\textrm{NI}\left(\textrm{CCE}^T(H(m),(\textrm{Pub}^{P_i},v))\vee\textrm{CCD}^T(H(m),(\textrm{Pub}^{P_i},v))\right)(g^{s'},H(g^{s'},m))\]
 with s' random. Intuitively:
 
--   It constitutes a proof that \(v=\{m\}_{\textrm{Pub}^T}\) under
-    [ElGamal](/wiki/ElGamal "wikilink").
--   In order to provide such a proof one need to either have
-    \(\textrm{Priv}_{P_i}\) used, or have \(\textrm{Priv}_T\).
--   In any case it constitutes a proof that the ephemeral key used was
-    \(P_i\)'s private key.
-
-A signature \(\textrm{SIG}_i(m)\) is a pair
-
-\[\left(\textrm{SPCS}(m), \textrm{USPCS}_i(m)\right).\] Notice that:
-
+-   In order to accomplish the conversion one needs to either have
+    \(\textrm{Priv}_{P_i}\) used as ephemeral key, or to have
+    \(\textrm{Priv}_T\).
+-   It constitutes a proof that \(v=\{H(m)\}_{\textrm{Pub}^T}\) under
+    [ElGamal](/wiki/ElGamal "wikilink") with ephemeral key
+    \(\textrm{Priv}_{P_i}\), which amounts to \(P_i\) signing m..
 -   No step discloses \(\textrm{Priv}_{P_i}\).
--   Yet is constitutes a proof that \(v=\{m\}_{\textrm{Pub}^T}\) with
-    ephemeral key \(\textrm{Priv}_{P_i}\), which amounts to signing m.
 
 Normal scheme
 -------------

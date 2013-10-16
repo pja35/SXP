@@ -20,31 +20,23 @@ Outline of [[Sigma_Protocols|Sigma protocols]], which are composable, interactiv
 
 
 An <math>\textrm{SPCS}(m)</math> is
-:<math>\textrm{NI}\left(\bigvee_i\textrm{CCE}^T(m,(\textrm{Pub}^{P_i},v))\right)(g^s,H(g^s,m))
+:<math>\textrm{NI}\left(\bigvee_i\textrm{CCE}^T(H(m),(\textrm{Pub}^{P_i},v))\right)(g^s,H(g^s,m))
 </math>
 with s random. Intuitively:
-* It constitutes a proof that <math>v=\{m\}_{\textrm{Pub}^T}</math> under [[ElGamal]].
+* It constitutes a proof that <math>v=\{H(m)\}_{\textrm{Pub}^T}</math> under [[ElGamal]].
 * In order to provide such a proof one needs to have the ephemeral key used.
 * It also constitutes a proof that the ephemeral key was one of <math>\{\textrm{Priv}^{P_i}\}</math>.
 * Thus, whoever has done it, has admittedly signed m.
 * But in order to which <math>P_i</math> has signed, one needs a proof of which of private keys was used. 
 
 
-Thus unravel it, we need <math>\textrm{USPCS}_i(m)</math>
-:<math>\textrm{NI}\left(\textrm{CCE}^T(m,(\textrm{Pub}^{P_i},v))\vee\textrm{CCD}^T(m,(\textrm{Pub}^{P_i},v))\right)(g^{s'},H(g^{s'},m))
+To unravel it, means to convert <math>\textrm{SPCS}(m)</math> into the final signature <math>\textrm{SIG}_i(m)</math>:
+:<math>\textrm{NI}\left(\textrm{CCE}^T(H(m),(\textrm{Pub}^{P_i},v))\vee\textrm{CCD}^T(H(m),(\textrm{Pub}^{P_i},v))\right)(g^{s'},H(g^{s'},m))
 </math>
 with s' random. Intuitively:
-* It constitutes a proof that <math>v=\{m\}_{\textrm{Pub}^T}</math> under [[ElGamal]].
-* In order to provide such a proof one need to either have <math>\textrm{Priv}_{P_i}</math> used, or have <math>\textrm{Priv}_T</math>.
-* In any case it constitutes a proof that the ephemeral key used was <math>P_i</math>'s private key.
-
-
-A signature <math>\textrm{SIG}_i(m)</math> is a pair
-:<math> \left(\textrm{SPCS}(m), \textrm{USPCS}_i(m)\right).
-</math>
-Notice that:
+* In order to accomplish the conversion one needs to either have <math>\textrm{Priv}_{P_i}</math> used as ephemeral key, or to have <math>\textrm{Priv}_T</math>.
+* It constitutes a proof that <math>v=\{H(m)\}_{\textrm{Pub}^T}</math> under [[ElGamal]] with ephemeral key <math>\textrm{Priv}_{P_i}</math>, which amounts to <math>P_i</math> signing m..
 * No step discloses <math>\textrm{Priv}_{P_i}</math>.
-* Yet is constitutes a proof that <math>v=\{m\}_{\textrm{Pub}^T}</math> with ephemeral key <math>\textrm{Priv}_{P_i}</math>, which amounts to signing m.
 
 == Normal scheme ==
 
