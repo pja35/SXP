@@ -30,7 +30,7 @@ with s random. Intuitively:
 * But in order to which <math>P_i</math> has signed, one needs a proof of which of private keys was used. 
 
 
-To unravel it, means to convert <math>\textrm{SPCS}(m)</math> into the final signature <math>\textrm{SIG}_{i\in S}(m)</math>:
+To unravel it, means to convert <math>\textrm{SPCS}_S(m)</math> into the final signature <math>\textrm{SIG}_{i\in S}(m)</math>:
 :<math>\textrm{NI}\left(\textrm{CCE}^T(H(m),(\textrm{Pub}^{P_i},v))\vee\textrm{CCD}^T(H(m),(\textrm{Pub}^{P_i},v))\right)(g^{s'},H(g^{s'},m))
 </math>
 with s' random. Intuitively:

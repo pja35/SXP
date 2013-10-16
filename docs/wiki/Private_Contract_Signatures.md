@@ -51,7 +51,7 @@ with s random. Intuitively:
 -   But in order to which \(P_i\) has signed, one needs a proof of which
     of private keys was used.
 
-To unravel it, means to convert \(\textrm{SPCS}(m)\) into the final
+To unravel it, means to convert \(\textrm{SPCS}_S(m)\) into the final
 signature \(\textrm{SIG}_{i\in S}(m)\):
 
 \[\textrm{NI}\left(\textrm{CCE}^T(H(m),(\textrm{Pub}^{P_i},v))\vee\textrm{CCD}^T(H(m),(\textrm{Pub}^{P_i},v))\right)(g^{s'},H(g^{s'},m))\]
