@@ -13,22 +13,8 @@ It says that there are only two competitors doing just that:
 -   [BaumwaidnerWaidner](/wiki/BaumwaidnerWaidner "wikilink").
 
 Let *n* be the number of parties. This protocol requires *n(n-1)(n/2)+1*
-messages. It relies on Private Contract Signature.
-
-Private Contract Signatures (PCS)
----------------------------------
-
-PCS\_Pi(C,Pj,T) denotes a Private Contract Signatures by Pi for Pj on
-contract C with Trusted Third Party T. The object is such that:
-
--   It can be created by Pi and, in the eyes of an external party, faked
-    by Pj;
--   Pi and T are able to convert it into {C}\_PrivPi, and Pj can be
-    convinced of this.
-
-How different is that from the Designated Verifiable Escrows of
-[AsokanSchunter](/wiki/AsokanSchunter "wikilink")? This is discussed in
-[GarayJakobssonMackenzie](/wiki/GarayJakobssonMackenzie "wikilink").
+messages. It relies on [Private Contract
+Signatures](/wiki/Private_Contract_Signatures "wikilink").
 
 Outline of the protocol
 -----------------------
