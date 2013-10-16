@@ -18,6 +18,14 @@ implement them.
 Specifications
 --------------
 
+\(\textrm{SPCS}^T_S(m)\) denotes a Private Contract Signatures by Pi in
+S on contract m with Trusted Third Party T. The object is such that:
+
+-   It can be created by Pi and, in the eyes of an external party, faked
+    by Pj;
+-   Pi and T are able to convert it into \(\textrm{SIG}^T_{i\in S}(m)\),
+    and Pj can be convinced of this.
+
 Some Cryptography
 -----------------
 
@@ -33,7 +41,7 @@ composable, interactive zero-knowledge proof schemes.
 Simplified scheme
 -----------------
 
-An \(\textrm{SPCS}_S(m)\) is
+An \(\textrm{SPCS}^T_S(m)\) is
 
 \[\textrm{NI}\left(\bigvee_{i\in S}\textrm{CCE}^T(H(m),(\textrm{Pub}^{P_i},v))\right)(g^s,H(g^s,m))\]
 with s random. Intuitively:
@@ -48,8 +56,8 @@ with s random. Intuitively:
 -   But in order to which \(P_i\) has signed, one needs a proof of which
     of private keys was used.
 
-To unravel it, means to convert \(\textrm{SPCS}_S(m)\) into the final
-signature \(\textrm{SIG}_{i\in S}(m)\):
+To unravel it, means to convert \(\textrm{SPCS}^T_S(m)\) into the final
+signature \(\textrm{SIG}^T_{i\in S}(m)\):
 
 \[\textrm{NI}\left(\textrm{CCE}^T(H(m),(\textrm{Pub}^{P_i},v))\vee\textrm{CCD}^T(H(m),(\textrm{Pub}^{P_i},v))\right)(g^{s'},H(g^{s'},m))\]
 with s' random. Intuitively:
