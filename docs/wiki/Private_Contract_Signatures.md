@@ -36,9 +36,9 @@ composable, interactive zero-knowledge proof schemes.
 Simplified scheme
 -----------------
 
-An \(\textrm{SPCS}(m)\) is
+An \(\textrm{SPCS}_S(m)\) is
 
-\[\textrm{NI}\left(\bigvee_i\textrm{CCE}^T(H(m),(\textrm{Pub}^{P_i},v))\right)(g^s,H(g^s,m))\]
+\[\textrm{NI}\left(\bigvee_{i\in S}\textrm{CCE}^T(H(m),(\textrm{Pub}^{P_i},v))\right)(g^s,H(g^s,m))\]
 with s random. Intuitively:
 
 -   It constitutes a proof that \(v=\{H(m)\}_{\textrm{Pub}^T}\) under
@@ -46,13 +46,13 @@ with s random. Intuitively:
 -   In order to provide such a proof one needs to have the ephemeral
     key used.
 -   It also constitutes a proof that the ephemeral key was one of
-    \(\{\textrm{Priv}^{P_i}\}\).
+    \(\{\textrm{Priv}^{P_i}\}_{i\in S}\).
 -   Thus, whoever has done it, has admittedly signed m.
 -   But in order to which \(P_i\) has signed, one needs a proof of which
     of private keys was used.
 
 To unravel it, means to convert \(\textrm{SPCS}(m)\) into the final
-signature \(\textrm{SIG}_i(m)\):
+signature \(\textrm{SIG}_{i\in S}(m)\):
 
 \[\textrm{NI}\left(\textrm{CCE}^T(H(m),(\textrm{Pub}^{P_i},v))\vee\textrm{CCD}^T(H(m),(\textrm{Pub}^{P_i},v))\right)(g^{s'},H(g^{s'},m))\]
 with s' random. Intuitively:
