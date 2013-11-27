@@ -69,8 +69,8 @@ with s' random. Intuitively:
     \(\textrm{Priv}_{P_i}\), which amounts to \(P_i\) signing m.
 -   No step discloses \(\textrm{Priv}_{P_i}\).
 
-This scheme is simpler than the original scheme. It has weaknesses,
-however:
+This scheme is simpler than the original scheme. It has dangerous
+weaknesses, however:
 
 -   By requiring that \(\textrm{Priv}_{P_i}\) be the ephemeral key for
     ElGamal encryption, we are imposing that the pairs
@@ -82,7 +82,10 @@ however:
     fixed groups have been recommended for use, for instance in [RFC
     5114](http://tools.ietf.org/html/rfc5114#page-4).
 -   The same ephemeral key \(\textrm{Priv}_{P_i}\) is reused over and
-    over, which may weaken ElGamal?
+    over, which means that the cyphertext is always
+    \(H(m)g^{\textrm{Priv}_{P_i}\textrm{Priv}_{T}}\) but since \(H(m)\)
+    is known, so is \(g^{\textrm{Priv}_{P_i}\textrm{Priv}_{T}}\), and so
+    the next time is immediately identified as the creator of the SPCS.
 
 Standard scheme
 ---------------
