@@ -47,14 +47,13 @@ An \(\textrm{SPCS}^T_S(m)\) is
 with s random. Intuitively:
 
 -   It constitutes a proof that \(v=\{H(m)\}_{\textrm{Pub}^T}\) under
-    [ElGamal](/wiki/ElGamal "wikilink").
+    [ElGamal](/wiki/ElGamal "wikilink"), with ephemeral key one of
+    \(\{\textrm{Priv}^{P_i}\}_{i\in S}\).
 -   In order to provide such a proof one needs to have the ephemeral
     key used.
--   It also constitutes a proof that the ephemeral key was one of
-    \(\{\textrm{Priv}^{P_i}\}_{i\in S}\).
 -   Thus, whoever has done it, has admittedly signed m.
--   But in order to which \(P_i\) has signed, one needs a proof of which
-    of private keys was used.
+-   But in order to know which of the \(P_i\) has signed, one needs a
+    proof of which of private keys was used.
 
 To unravel it, means to convert \(\textrm{SPCS}^T_S(m)\) into the final
 signature \(\textrm{SIG}^T_{i\in S}(m)\):
@@ -67,8 +66,20 @@ with s' random. Intuitively:
     \(\textrm{Priv}_T\).
 -   It constitutes a proof that \(v=\{H(m)\}_{\textrm{Pub}^T}\) under
     [ElGamal](/wiki/ElGamal "wikilink") with ephemeral key
-    \(\textrm{Priv}_{P_i}\), which amounts to \(P_i\) signing m..
+    \(\textrm{Priv}_{P_i}\), which amounts to \(P_i\) signing m.
 -   No step discloses \(\textrm{Priv}_{P_i}\).
+
+This scheme is simpler than the original scheme. It has a drawback,
+however. Indeed, by requiring that \(\textrm{Priv}_{P_i}\) be the
+ephemeral key for El Gammal encryption, we are imposing that the pairs
+\((\textrm{Priv}_{P_i},\textrm{Pub}^{P_i})\) and
+\((\textrm{Priv}_{T},\textrm{Pub}^{T})\) are based on the same
+Diffie-Hellman group. Altogether, this would mean that all pairs get
+generates with respect to the same group. This is non-traditional, and
+perhaps it weakens security? Nevertheless, notice that some groups have
+been recommended for use for instance in
+[http://tools.ietf.org/html/rfc5114\#page-4 RFC
+5114](http://tools.ietf.org/html/rfc5114#page-4_RFC_5114 "wikilink")
 
 Standard scheme
 ---------------

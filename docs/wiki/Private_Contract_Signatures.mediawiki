@@ -25,11 +25,10 @@ An <math>\textrm{SPCS}^T_S(m)</math> is
 :<math>\textrm{NI}\left(\bigvee_{i\in S}\textrm{CCE}^T(H(m),(\textrm{Pub}^{P_i},v))\right)(g^s,H(g^s,m))
 </math>
 with s random. Intuitively:
-* It constitutes a proof that <math>v=\{H(m)\}_{\textrm{Pub}^T}</math> under [[ElGamal]].
+* It constitutes a proof that <math>v=\{H(m)\}_{\textrm{Pub}^T}</math> under [[ElGamal]], with ephemeral key one of <math>\{\textrm{Priv}^{P_i}\}_{i\in S}</math>.
 * In order to provide such a proof one needs to have the ephemeral key used.
-* It also constitutes a proof that the ephemeral key was one of <math>\{\textrm{Priv}^{P_i}\}_{i\in S}</math>.
 * Thus, whoever has done it, has admittedly signed m.
-* But in order to which <math>P_i</math> has signed, one needs a proof of which of private keys was used. 
+* But in order to know which of the <math>P_i</math> has signed, one needs a proof of which of private keys was used. 
 
 
 To unravel it, means to convert <math>\textrm{SPCS}^T_S(m)</math> into the final signature <math>\textrm{SIG}^T_{i\in S}(m)</math>:
@@ -37,8 +36,11 @@ To unravel it, means to convert <math>\textrm{SPCS}^T_S(m)</math> into the final
 </math>
 with s' random. Intuitively:
 * In order to accomplish the conversion one needs to either have <math>\textrm{Priv}_{P_i}</math> used as ephemeral key, or to have <math>\textrm{Priv}_T</math>.
-* It constitutes a proof that <math>v=\{H(m)\}_{\textrm{Pub}^T}</math> under [[ElGamal]] with ephemeral key <math>\textrm{Priv}_{P_i}</math>, which amounts to <math>P_i</math> signing m..
+* It constitutes a proof that <math>v=\{H(m)\}_{\textrm{Pub}^T}</math> under [[ElGamal]] with ephemeral key <math>\textrm{Priv}_{P_i}</math>, which amounts to <math>P_i</math> signing m.
 * No step discloses <math>\textrm{Priv}_{P_i}</math>.
+
+
+This scheme is simpler than the original scheme. It has a drawback, however. Indeed, by requiring that <math>\textrm{Priv}_{P_i}</math> be the ephemeral key for El Gammal encryption, we are imposing that the pairs <math>(\textrm{Priv}_{P_i},\textrm{Pub}^{P_i})</math> and <math>(\textrm{Priv}_{T},\textrm{Pub}^{T})</math> are based on the same Diffie-Hellman group. Altogether, this would mean that all pairs get generates with respect to the same group. This is non-traditional, and perhaps it weakens security? Nevertheless, notice that some groups have been recommended for use for instance in [[http://tools.ietf.org/html/rfc5114#page-4 RFC 5114]]
 
 == Standard scheme ==
 
