@@ -40,7 +40,7 @@ with s' random. Intuitively:
 * No step discloses <math>\textrm{Priv}_{P_i}</math>.
 
 
-This scheme is simpler than the original scheme. It has a drawback, however. Indeed, by requiring that <math>\textrm{Priv}_{P_i}</math> be the ephemeral key for El Gammal encryption, we are imposing that the pairs <math>(\textrm{Priv}_{P_i},\textrm{Pub}^{P_i})</math> and <math>(\textrm{Priv}_{T},\textrm{Pub}^{T})</math> are based on the same Diffie-Hellman group. Altogether, this would mean that all pairs get generates with respect to the same group. This is non-traditional, and perhaps it weakens security? Nevertheless, notice that some groups have been recommended for use for instance in [http://tools.ietf.org/html/rfc5114#page-4 RFC 5114].
+This scheme is simpler than the original scheme. It has a drawback, however. Indeed, by requiring that <math>\textrm{Priv}_{P_i}</math> be the ephemeral key for El Gammal encryption, we are imposing that the pairs <math>(\textrm{Priv}_{P_i},\textrm{Pub}^{P_i})</math> and <math>(\textrm{Priv}_{T},\textrm{Pub}^{T})</math> are based on the same Diffie-Hellman group. Altogether, this would mean that all pairs get generates with respect to the same group. This is non-traditional, and perhaps it weakens security? Nevertheless, notice that precise, fixed groups have been recommended for use, for instance in [http://tools.ietf.org/html/rfc5114#page-4 RFC 5114].
 
 == Standard scheme ==
 

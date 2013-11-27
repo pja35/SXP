@@ -76,8 +76,8 @@ ephemeral key for El Gammal encryption, we are imposing that the pairs
 \((\textrm{Priv}_{T},\textrm{Pub}^{T})\) are based on the same
 Diffie-Hellman group. Altogether, this would mean that all pairs get
 generates with respect to the same group. This is non-traditional, and
-perhaps it weakens security? Nevertheless, notice that some groups have
-been recommended for use for instance in [RFC
+perhaps it weakens security? Nevertheless, notice that precise, fixed
+groups have been recommended for use, for instance in [RFC
 5114](http://tools.ietf.org/html/rfc5114#page-4).
 
 Standard scheme
