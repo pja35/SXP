@@ -77,9 +77,8 @@ ephemeral key for El Gammal encryption, we are imposing that the pairs
 Diffie-Hellman group. Altogether, this would mean that all pairs get
 generates with respect to the same group. This is non-traditional, and
 perhaps it weakens security? Nevertheless, notice that some groups have
-been recommended for use for instance in
-[http://tools.ietf.org/html/rfc5114\#page-4 RFC
-5114](http://tools.ietf.org/html/rfc5114#page-4_RFC_5114 "wikilink")
+been recommended for use for instance in [RFC
+5114](http://tools.ietf.org/html/rfc5114#page-4).
 
 Standard scheme
 ---------------
