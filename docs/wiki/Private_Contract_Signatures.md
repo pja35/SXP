@@ -38,8 +38,8 @@ encryption and signature schemes.
 Outline of [Sigma protocols](/wiki/Sigma_Protocols "wikilink"), which are
 composable, interactive zero-knowledge proof schemes.
 
-Simplified scheme
------------------
+Simplified scheme (Attempt)
+---------------------------
 
 An \(\textrm{SPCS}^T_S(m)\) is
 

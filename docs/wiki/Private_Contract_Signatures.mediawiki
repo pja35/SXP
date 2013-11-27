@@ -18,7 +18,7 @@ Outline of [[ElGamalSchnorr|ElGamal encryption]], which are encryption and signa
 
 Outline of [[Sigma_Protocols|Sigma protocols]], which are composable, interactive zero-knowledge proof schemes.
 
-== Simplified scheme ==
+== Simplified scheme (Attempt) ==
 
 
 An <math>\textrm{SPCS}^T_S(m)</math> is
