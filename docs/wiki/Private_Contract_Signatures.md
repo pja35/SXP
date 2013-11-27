@@ -69,16 +69,20 @@ with s' random. Intuitively:
     \(\textrm{Priv}_{P_i}\), which amounts to \(P_i\) signing m.
 -   No step discloses \(\textrm{Priv}_{P_i}\).
 
-This scheme is simpler than the original scheme. It has a drawback,
-however. Indeed, by requiring that \(\textrm{Priv}_{P_i}\) be the
-ephemeral key for El Gammal encryption, we are imposing that the pairs
-\((\textrm{Priv}_{P_i},\textrm{Pub}^{P_i})\) and
-\((\textrm{Priv}_{T},\textrm{Pub}^{T})\) are based on the same
-Diffie-Hellman group. Altogether, this would mean that all pairs get
-generates with respect to the same group. This is non-traditional, and
-perhaps it weakens security? Nevertheless, notice that precise, fixed
-groups have been recommended for use, for instance in [RFC
-5114](http://tools.ietf.org/html/rfc5114#page-4).
+This scheme is simpler than the original scheme. It has weaknesses,
+however:
+
+-   By requiring that \(\textrm{Priv}_{P_i}\) be the ephemeral key for
+    ElGamal encryption, we are imposing that the pairs
+    \((\textrm{Priv}_{P_i},\textrm{Pub}^{P_i})\) and
+    \((\textrm{Priv}_{T},\textrm{Pub}^{T})\) are based on the same
+    Diffie-Hellman group. Altogether, this would mean that all pairs get
+    generates with respect to the same group. This is non-traditional,
+    and perhaps it weakens security? Nevertheless, notice that precise,
+    fixed groups have been recommended for use, for instance in [RFC
+    5114](http://tools.ietf.org/html/rfc5114#page-4).
+-   The same ephemeral key \(\textrm{Priv}_{P_i}\) is reused over and
+    over, which may weaken ElGamal?
 
 Standard scheme
 ---------------
