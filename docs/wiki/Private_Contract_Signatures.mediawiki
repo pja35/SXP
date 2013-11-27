@@ -50,8 +50,6 @@ with s random.
 
 == To do ==
 
-There might be a pb with g having to be the same in Trent's and the Party's for the simplified scheme to work.
-
 Check duplication of a and c in and and or constructs.
 
 Check whether non-interactive CCE under ephemeral key PubB and challenge m is an established way of signing.
