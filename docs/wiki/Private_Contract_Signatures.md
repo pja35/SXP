@@ -18,7 +18,7 @@ implement them.
 Specifications
 --------------
 
-\(\textrm{SPCS}^T_i(m)\) denotes a Private Contract Signatures by Pi in
+\(\textrm{SPCS}^T_S(m)\) denotes a Private Contract Signatures by Pi in
 S on contract m with Trusted Third Party T. The object is such that:
 
 -   It can be created by Pi and, in the eyes of an external party, faked
