@@ -125,7 +125,3 @@ weaknesses, however:
     forged, since signing amounts to multiply by
     \(g^{\textrm{Priv}_{P_i}\textrm{Priv}_{T}}\) in this scheme.
 
-To do
------
-
-Check duplication of a and c in and and or constructs.
