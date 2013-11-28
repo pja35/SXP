@@ -21,8 +21,8 @@ Outline of [[Sigma_Protocols|Sigma protocols]], which are composable, interactiv
 
 == Standard scheme ==
 
-Normally, a <math>\textrm{PCS}_B^A(m)</math> is
-:<math>\textrm{NI}\left((\textrm{CCE}^T(0,n)\wedge\textrm{Schnorr}_B)\vee(\textrm{CCE}^T(1,n)\wedge\textrm{Schnorr}_A)\right)(g^s,H(g^s,m))</math>
+Normally, a <math>\textrm{PCS}_S(m)</math> is
+:<math>\textrm{NI}\left( \bigvee_{i\in S} \textrm{CCE}^T(i,n)\wedge\textrm{Schnorr}_i(g^s,H(g^s,m) \right)(g^s,H(g^s,m))</math>
 with s random.
 
 == Simplified scheme (Failed attempt) ==

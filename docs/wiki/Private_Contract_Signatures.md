@@ -41,9 +41,9 @@ composable, interactive zero-knowledge proof schemes.
 Standard scheme
 ---------------
 
-Normally, a \(\textrm{PCS}_B^A(m)\) is
+Normally, a \(\textrm{PCS}_S(m)\) is
 
-\[\textrm{NI}\left((\textrm{CCE}^T(0,n)\wedge\textrm{Schnorr}_B)\vee(\textrm{CCE}^T(1,n)\wedge\textrm{Schnorr}_A)\right)(g^s,H(g^s,m))\]
+\[\textrm{NI}\left( \bigvee_{i\in S} \textrm{CCE}^T(i,n)\wedge\textrm{Schnorr}_i(g^s,H(g^s,m) \right)(g^s,H(g^s,m))\]
 with s random.
 
 Simplified scheme (Failed attempt)
