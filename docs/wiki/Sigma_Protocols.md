@@ -104,7 +104,7 @@ he can generate valid triplets through the following simulator:
 -   Pick \(c,r\).
 -   Let \(a=g^{r}u^{-c}\) and \(a'=h^{r}v^{-c}\).
 
-Indeed, you then have \(g^{r}=u^{c}a\) and \(h^{r}=v^{c}a\) so that the
+Indeed, you then have \(g^{r}=u^{c}a\) and \(h^{r}=v^{c}a'\) so that the
 run is valid.
 
 **Ex. 3: Proof of cyphertext content by encrypter**
@@ -141,8 +141,8 @@ he can generate valid triplets through the following simulator:
 -   Pick \(c,r\).
 -   Let \(a=g^{r}u^{-c}\) and \(a'={g^x}^{r}{v/m}^{-c}\).
 
-Indeed, you then have \(g^{r}=u^{c}a\) and \({g^x}^{r}={v/m}^{c}a\) so
-that the run is valid.
+Indeed, you then have \(g^{r}=u^{c}a\) and \({g^x}^{r}={(v/m)}^{c}a'\)
+so that the run is valid.
 
 **Ex. 4: Proof of cyphertext content by decrypter**
 
