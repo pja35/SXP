@@ -96,7 +96,7 @@ Fix <math>g</math> and  <math>h=g^x=\textrm{Pub}^T</math> integers.
 * Trent will need some random <math>s\in Z_p</math>.
 * Alice will need some random <math>c\in Z_p</math>. 
 The protocol has three rounds:
-:<math> T\rightarrow A: a=g^s, a'=u^{s'} </math>
+:<math> T\rightarrow A: a=g^s, a'=u^{s} </math>
 :<math> A\rightarrow T: c </math>
 :<math> T\rightarrow A: r=xc+s  </math>
 Alice validates Trent's response by checking that <math>g^r=h^c a</math> and that <math>u^r=(v/m)^{c} a'</math>. Indeed, if Trent was honest it should be that 

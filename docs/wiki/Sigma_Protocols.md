@@ -158,7 +158,7 @@ Fix \(g\) and \(h=g^x=\textrm{Pub}^T\) integers.
 
 The protocol has three rounds:
 
-\[T\rightarrow A: a=g^s, a'=u^{s'}\]
+\[T\rightarrow A: a=g^s, a'=u^{s}\]
 
 \[A\rightarrow T: c\]
 
