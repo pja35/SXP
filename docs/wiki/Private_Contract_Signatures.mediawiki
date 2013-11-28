@@ -21,7 +21,7 @@ Outline of [[Sigma_Protocols|Sigma protocols]], which are composable, interactiv
 
 == Standard scheme ==
 
-Normally, a <math>\textrm{PCS}_S(m)</math> is
+A <math>\textrm{PCS}_S(m)</math> is
 :<math>\textrm{NI}\left( \bigvee_{i\in S} (\textrm{CCE}^T(i,n)\wedge\textrm{Schnorr}_i \right)(g^s,H(g^s,m))</math>
 with s random.
 
