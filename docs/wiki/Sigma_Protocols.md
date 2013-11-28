@@ -231,6 +231,12 @@ passed the challenge \(c_0\) thanks to his \(w_0\). He has passed the
 challenge \(c_1\) because it was an easy challenge that he has himself
 chosen.
 
+**Denote by \((a,c)\mapsto(P \vee Q)(a,c)\) the response to the or
+composition of two protocols P and Q, under the divided up mask a and
+challenge c.**
+
+**Simulators**
+
 In the case of \(\textrm{Schnorr}_B\), there exists a simulator, so that
 this can be done. Indeed, to generate \(a_1,c_1,r_1\) you:
 
@@ -238,10 +244,6 @@ this can be done. Indeed, to generate \(a_1,c_1,r_1\) you:
 -   Let \(a_1=g^{r_1}v_1^{-c_1}\).
 
 Indeed, you then have \(g^{r_1}=v_1^{c_1}a_1\) so that the run is valid.
-
-**Denote by \((a,c)\mapsto(P \vee Q)(a,c)\) the response to the or
-composition of two protocols P and Q, under the divided up mask a and
-challenge c.**
 
 Non-interactive version
 -----------------------
