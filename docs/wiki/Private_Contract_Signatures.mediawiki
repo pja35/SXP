@@ -18,8 +18,14 @@ Outline of [[ElGamalSchnorr|ElGamal encryption]], which are encryption and signa
 
 Outline of [[Sigma_Protocols|Sigma protocols]], which are composable, interactive zero-knowledge proof schemes.
 
-== Simplified scheme (Failed attempt) ==
 
+== Standard scheme ==
+
+Normally, a <math>\textrm{PCS}_B^A(m)</math> is
+:<math>\textrm{NI}\left((\textrm{CCE}^T(0,n)\wedge\textrm{Schnorr}_B)\vee(\textrm{CCE}^T(1,n)\wedge\textrm{Schnorr}_A)\right)(g^s,H(g^s,m))</math>
+with s random.
+
+== Simplified scheme (Failed attempt) ==
 
 An <math>\textrm{SPCS}^T_S(m)</math> is
 :<math>\textrm{NI}\left(\bigvee_{i\in S}\textrm{CCE}^T(H(m),(\textrm{Pub}^{P_i},v))\right)(g^s,H(g^s,m))
@@ -45,16 +51,8 @@ This scheme is simpler than the original scheme. It has dangerous weaknesses, ho
 * The same ephemeral key <math>\textrm{Priv}_{P_i}</math> is reused over and over, which means that the cyphertext is always <math>H(m)g^{\textrm{Priv}_{P_i}\textrm{Priv}_{T}}</math> but since <math>H(m)</math> is known, so is <math>g^{\textrm{Priv}_{P_i}\textrm{Priv}_{T}}</math>, and so the next time Pi is immediately identified as the creator of the SPCS.
 * Worse even, Pi's signature, once it has been used once, can then be forged, since signing amounts to multiply by <math>g^{\textrm{Priv}_{P_i}\textrm{Priv}_{T}}</math> in this scheme.
 
-== Standard scheme ==
-
-Normally, a <math>\textrm{PCS}_B^A(m)</math> is
-:<math>\textrm{NI}\left((\textrm{CCE}^T(0,n)\wedge\textrm{Schnorr}_B)\vee(\textrm{CCE}^T(1,n)\wedge\textrm{Schnorr}_A)\right)(g^s,H(g^s,m))</math>
-with s random.
-
 == To do ==
 
 Check duplication of a and c in and and or constructs.
-
-Check whether non-interactive CCE under ephemeral key PubB and challenge m is an established way of signing.
 
 Give simulators for CCE and CCT.
