@@ -30,7 +30,7 @@ The foreseen stages of the project are:
 Status
 ------
 
--   Overall the project is at stage 1-2.
+-   Overall the project is at stage 1-2-3 depending on the subtheme.
 -   The design the [Secure Contract Signing
     protocol](/wiki/Secure_Contract_Signing_Protocol "wikilink") is at
     stage 3-4.
