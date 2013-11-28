@@ -134,7 +134,7 @@ The intuition is that Bob has "divided up" the random challenge <math>s</math> i
 
 '''Denote by <math>(a,c)\mapsto(P \vee Q)(a,c) </math> the response to the or composition of two protocols P and Q, under the divided up mask a and challenge c.'''
 
-'''Simulators'''
+'''Simulators:'''
 
 In the case of <math>\textrm{Schnorr}_B</math>, there exists a simulator, so that this can be done. Indeed, to generate <math>a_1,c_1,r_1</math> you:
 * Pick <math>c_1,r_1</math>.

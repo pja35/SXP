@@ -235,7 +235,7 @@ chosen.
 composition of two protocols P and Q, under the divided up mask a and
 challenge c.**
 
-**Simulators**
+**Simulators:**
 
 In the case of \(\textrm{Schnorr}_B\), there exists a simulator, so that
 this can be done. Indeed, to generate \(a_1,c_1,r_1\) you:
