@@ -35,6 +35,10 @@ Alice validates Bob's response by checking that <math>g^r=v^ca</math>. Indeed, i
 :<math>g^r={g^w}^c g^s=v^ca</math>
 '''Denote by <math>(a,c)\mapsto\textrm{Schnorr}_B(a,c)</math> the response of this protocol, done by prover B with mask a and under challenge c.'''
 
+Beware that B must not be left to freely choose the challenge, otherwise he can generate valid triplets through the following simulator:
+* Pick <math>c,r</math>.
+* Let  <math>a=g^{r}v^{-c}</math>.
+Indeed, you then have <math>g^{r}=v^{c}a</math> so that the run is valid.
 
 '''Ex. 2: Diffie-Hellman pairs'''
 

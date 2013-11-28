@@ -66,6 +66,14 @@ that \(g^r=v^ca\). Indeed, if Bob was honest it should be that
 \((a,c)\mapsto\textrm{Schnorr}_B(a,c)\) the response of this protocol,
 done by prover B with mask a and under challenge c.**
 
+Beware that B must not be left to freely choose the challenge, otherwise
+he can generate valid triplets through the following simulator:
+
+-   Pick \(c,r\).
+-   Let \(a=g^{r}v^{-c}\).
+
+Indeed, you then have \(g^{r}=v^{c}a\) so that the run is valid.
+
 **Ex. 2: Diffie-Hellman pairs**
 
 Fix \(g\) and \(h\) integers. The powers of \(h\) form a subgroup \(H\)
