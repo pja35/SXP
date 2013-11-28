@@ -210,16 +210,6 @@ chosen.
 composition of two protocols P and Q, under the divided up mask a and
 challenge c.**
 
-**Simulators:**
-
-In the case of \(\textrm{Schnorr}_B\), there exists a simulator, so that
-this can be done. Indeed, to generate \(a_1,c_1,r_1\) you:
-
--   Pick \(c_1,r_1\).
--   Let \(a_1=g^{r_1}v_1^{-c_1}\).
-
-Indeed, you then have \(g^{r_1}=v_1^{c_1}a_1\) so that the run is valid.
-
 Non-interactive version
 -----------------------
 
