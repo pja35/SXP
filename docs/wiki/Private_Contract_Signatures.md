@@ -56,7 +56,7 @@ with s random. Intuitively:
 
 A **private contract signature revealer** \(\textrm{RPCS}_i(n)\) is
 
-\[\textrm{NI}\left( \textrm{CCE}^T(i,n)\wedge\textrm{CCD}^T(i,n) \right)(g^s,H(g^s,m))\]
+\[\textrm{NI}\left( \textrm{CCE}^T(i,n)\vee\textrm{CCD}^T(i,n) \right)(g^s,H(g^s,m))\]
 with s random. Intuitively:
 
 -   It constitutes a proof that the cyphertext \(n\) has content the
