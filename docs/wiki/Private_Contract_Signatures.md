@@ -44,7 +44,13 @@ Standard scheme
 A \(\textrm{PCS}_S(m)\) is
 
 \[\textrm{NI}\left( \bigvee_{i\in S} (\textrm{CCE}^T(i,n)\wedge\textrm{Schnorr}_i \right)(g^s,H(g^s,m))\]
-with s random.
+with s random. Intuitively:
+
+-   It constitutes a proof that one of the Pi has passed the Schnorr
+    identification test on challenge \(H(g^s,m)\).
+-   This amounts to having signed \(m\), just like in the Schnorr
+    signature scheme.
+-   But we do not knot, yet, which of the \(P_i\) has signed.
 
 Simplified scheme (Failed attempt)
 ----------------------------------
