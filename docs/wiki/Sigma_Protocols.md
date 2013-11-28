@@ -88,7 +88,7 @@ inside the group \(Z_p\).
 
 The protocol has three rounds:
 
-\[B\rightarrow A: a=g^s, a'=g^{s'}\]
+\[B\rightarrow A: a=g^s, a'=h^{s'}\]
 
 \[A\rightarrow B: c\]
 
