@@ -1,4 +1,4 @@
-Those are key to understanding [[Private_Contract_Signatures|Private Contract Signatures]].
+Those are key to understanding [[Private_Contract_Signatures|Private Contract Signatures]]. A good reference is [www.cs.au.dk/~ivan/Sigma.pdf‎ here].
 
 == In general ==
 
