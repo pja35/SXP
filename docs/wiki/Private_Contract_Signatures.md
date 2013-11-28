@@ -129,5 +129,3 @@ To do
 -----
 
 Check duplication of a and c in and and or constructs.
-
-Give simulators for CCE and CCT.

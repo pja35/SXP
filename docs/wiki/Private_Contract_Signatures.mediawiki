@@ -75,5 +75,3 @@ This scheme is simpler than the original scheme. It has dangerous weaknesses, ho
 == To do ==
 
 Check duplication of a and c in and and or constructs.
-
-Give simulators for CCE and CCT.
