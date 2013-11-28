@@ -135,6 +135,15 @@ honest it should be that
 **Denote by \((a,c)\mapsto\textrm{CCE}^T(m,n)(a,c)\) the response of
 this protocol, done towards T with mask a and under challenge c.**
 
+Beware that B must not be left to freely choose the challenge, otherwise
+he can generate valid triplets through the following simulator:
+
+-   Pick \(c,r\).
+-   Let \(a=g^{r}u^{-c}\) and \(a'={g^x}^{r}{v/m}^{-c}\).
+
+Indeed, you then have \(g^{r}=u^{c}a\) and \({g^x}^{r}={v/m}^{c}a\) so
+that the run is valid.
+
 **Ex. 4: Proof of cyphertext content by decrypter**
 
 Fix \(g\) and \(h=g^x=\textrm{Pub}^T\) integers.

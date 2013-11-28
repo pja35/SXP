@@ -81,6 +81,11 @@ and similarly for <math>h=g^x</math> with <math>v'=v/m</math>.
 
 '''Denote by <math>(a,c)\mapsto\textrm{CCE}^T(m,n)(a,c)</math> the response of this protocol, done towards T with mask a and under challenge c.'''
 
+Beware that B must not be left to freely choose the challenge, otherwise he can generate valid triplets through the following simulator:
+* Pick <math>c,r</math>.
+* Let  <math>a=g^{r}u^{-c}</math> and <math>a'={g^x}^{r}{v/m}^{-c}</math>.
+Indeed, you then have <math>g^{r}=u^{c}a</math> and <math>{g^x}^{r}={v/m}^{c}a</math> so that the run is valid.
+
 
 '''Ex. 4: Proof of cyphertext content by decrypter'''
 
