@@ -163,7 +163,7 @@ The protocol has three rounds:
 \[A\rightarrow T: c\]
 
 \[T\rightarrow A: r=xc+s\] Alice validates Trent's response by checking
-that \(g^r=h^c a\) and that \(u^r=(v/m)^{c} a'\). Indeed, if Bob was
+that \(g^r=h^c a\) and that \(u^r=(v/m)^{c} a'\). Indeed, if Trent was
 honest it should be that
 
 \[g^r={g^x}^c g^s=h^c a.\] and
@@ -173,7 +173,7 @@ honest it should be that
 **Denote by \((a,c)\mapsto\textrm{CCD}^T(m,n)(a,c)\) the response of
 this protocol, done towards T with mask a and under challenge c.**
 
-Beware that B must not be left to freely choose the challenge, otherwise
+Beware that T must not be left to freely choose the challenge, otherwise
 he can generate valid triplets through the following simulator:
 
 -   Pick \(c,r\).
