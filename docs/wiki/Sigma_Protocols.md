@@ -6,7 +6,7 @@ layout: wiki
 
 Those are key to understanding [Private Contract
 Signatures](/wiki/Private_Contract_Signatures "wikilink"). A good reference is
-\[www.cs.au.dk/~ivan/Sigma.pdf | here\].
+[ here](http://www.cs.au.dk/~ivan/Sigma.pdf).
 
 In general
 ----------
