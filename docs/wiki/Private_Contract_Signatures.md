@@ -47,7 +47,7 @@ A **private contract signature** \(\textrm{PCS}_S(m,n)\) is
 Intuitively:
 
 -   It constitutes a proof that one of the Pi has passed the Schnorr
-    identification test on challenge \(H(g^s,m)\).
+    identification test on challenge \(H(g_i^{s_i},m)\).
 -   This amounts to having signed \(m\), just like in the Schnorr
     signature scheme.
 -   Except that we do not know, yet, which of the \(P_i\) has signed.
@@ -68,7 +68,7 @@ A **contract signature** \(\textrm{SIG}_i(m)\) is
 \[\left(\textrm{PCS}_S(m,n),\textrm{RPCS}_i(n)\right)\] Intuitively:
 
 -   It constitutes a combined proof that Pi has passed the Schnorr
-    identification test on challenge \(H(g^s,m)\).
+    identification test on challenge \(H(g_i^{s_i},m)\).
 -   This amounts to having signed \(m\), just like in the Schnorr
     signature scheme.
 

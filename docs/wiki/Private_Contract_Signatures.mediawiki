@@ -25,7 +25,7 @@ Outline of [[Sigma_Protocols|Sigma protocols]], which are composable, interactiv
 A '''private contract signature''' <math>\textrm{PCS}_S(m,n)</math> is
 :<math>\textrm{NI}\left( \bigvee_{i\in S} (\textrm{CCE}^T(i,n)\wedge\textrm{Schnorr}_i) \right)(m)</math>
 Intuitively:
-* It constitutes a proof that one of the Pi has passed the Schnorr identification test on challenge <math>H(g^s,m)</math>.
+* It constitutes a proof that one of the Pi has passed the Schnorr identification test on challenge <math>H(g_i^{s_i},m)</math>.
 * This amounts to having signed <math>m</math>, just like in the Schnorr signature scheme.
 * Except that we do not know, yet, which of the <math>P_i</math> has signed.
 * In order to convert this into a signature by <math>P_i</math>, one must prove that the cyphertext <math>n</math> has content the integer <math>i</math>.
@@ -41,7 +41,7 @@ Intuitively:
 A '''contract signature''' <math>\textrm{SIG}_i(m)</math> is
 :<math>\left(\textrm{PCS}_S(m,n),\textrm{RPCS}_i(n)\right)</math>
 Intuitively:
-* It constitutes a combined proof that Pi has passed the Schnorr identification test on challenge <math>H(g^s,m)</math>.
+* It constitutes a combined proof that Pi has passed the Schnorr identification test on challenge <math>H(g_i^{s_i},m)</math>.
 * This amounts to having signed <math>m</math>, just like in the Schnorr signature scheme.
 
 == Simplified scheme (Failed attempt) ==
