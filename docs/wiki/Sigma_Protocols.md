@@ -249,7 +249,7 @@ Non-interactive version
 -----------------------
 
 Instead of doing the Sigma protocol in three rounds, we could just do it
-in one round, by musing the Fiat-Shamir heuristics. The idea is that Bob
+in one round, by using the Fiat-Shamir heuristics. The idea is that Bob
 challenges himself with something that he does not really control,
 namely \(H(a,m)\), where \(H\) is a hash function like SHA2 and \(m\) is
 a public input, often just \(v\). For instance, let us apply this
@@ -273,8 +273,12 @@ should be that
 
 \[v^{-c}g^r=g^{-wc} g^{wc} g^s=a\].
 
-**Denote by
-\(\textrm{NI}(P)(g^s,H(g^s,m))=(g^s,H(g^s,m),P(g^s,H(g^s,m)))\) the
+Notice that is some Sigma protocols, such as those obtained by
+and-composition, we have \(a=(a_1,a_2,\ldots)\) and
+\(c=(c_1,c_2,\ldots)\), in which case we use
+\(c=(c_1=H(a_i,m), c_2=H(a_2,m), \ldots)\).
+
+**Denote by \(\textrm{NI}(P)(m)=(g^s,H(g^s,m),P(g^s,H(g^s,m)))\) the
 non-interactive version of P.**
 
 Schnorr signatures

@@ -140,7 +140,7 @@ The intuition is that Bob has "divided up" the random challenge <math>s</math> i
 
 == Non-interactive version ==
 
-Instead of doing the Sigma protocol in three rounds, we could just do it in one round, by musing the Fiat-Shamir heuristics. The idea is that Bob challenges himself with something that he does not really control, namely <math>H(a,m)</math>, where <math>H</math> is a hash function like SHA2 and <math>m</math> is a public input, often just <math>v</math>. For instance, let us apply this procedure to the Schnorr identification protocol. We get:
+Instead of doing the Sigma protocol in three rounds, we could just do it in one round, by using the Fiat-Shamir heuristics. The idea is that Bob challenges himself with something that he does not really control, namely <math>H(a,m)</math>, where <math>H</math> is a hash function like SHA2 and <math>m</math> is a public input, often just <math>v</math>. For instance, let us apply this procedure to the Schnorr identification protocol. We get:
  
 * Public input <math>m=v\in G</math>.
 * Agreed relation <math>(v,w)\in R \Leftrightarrow g^w=v </math>.
@@ -153,7 +153,9 @@ The modified protocol has only one true round, since B' is just B challenging hi
 Alice validates Bob response by checking that <math>c=H(a,m)</math> and that <math>v^{-c}g^r=a</math>. Indeed, if Bob was honest it should be that
 :<math>v^{-c}g^r=g^{-wc} g^{wc} g^s=a</math>.
 
-'''Denote by  <math>\textrm{NI}(P)(g^s,H(g^s,m))=(g^s,H(g^s,m),P(g^s,H(g^s,m)))</math> the non-interactive version of P.'''
+Notice that is some Sigma protocols, such as those obtained by and-composition, we have <math>a=(a_1,a_2,\ldots)</math> and <math>c=(c_1,c_2,\ldots)</math>, in which case we use <math>c=(c_1=H(a_i,m), c_2=H(a_2,m), \ldots) </math>.
+
+'''Denote by  <math>\textrm{NI}(P)(m)=(g^s,H(g^s,m),P(g^s,H(g^s,m)))</math> the non-interactive version of P.'''
 
 == Schnorr signatures ==
 
