@@ -39,6 +39,7 @@ Intuitively:
 * It constitutes a proof that the cyphertext <math>n</math> has content the integer <math>i</math>.
 * Either <math>P_i</math> or <math>T</math> can produce this.
 
+
 A '''contract signature''' <math>\textrm{SIG}_i(m)</math> is
 :<math>\left(\textrm{PCS}_S(m,n),\textrm{RPCS}_i(n)\right)</math>
 Intuitively:
