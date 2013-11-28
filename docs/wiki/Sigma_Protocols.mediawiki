@@ -117,7 +117,7 @@ Consider <math>v_0, v_1</math> and <math>R_0, R_1</math>. Say Bob pretends to ha
 Now, say Bob pretends to have one of <math>w_0</math> or <math>w_1</math>, and does not want to disclose it, not tell which one it is. Is there a Sigma protocol for this new relation <math>R_0\vee R_1=\{(v_0,v_1),(w_0,w_1)\,|\,(v_0,w_0)\in R_0 \vee (v_1,w_1)\in R_1\}</math>? If there was some for <math>R_0</math> and <math>R_1</math>, then sometimes yes. This sometimes is related to Bob's ability to simulate, on its own, a valid run of the component Sigma protocols. In other words, for instance say that Bob does not know <math>w_1</math>, but that he has the freedom to choose himself the corresponding challenge <math>c_1</math>. Is he able to efficiently generate <math>a_1,c_1,r_1</math> so that they are valid? If so, then yes. This particular property of the component Sigma protocols is referred to as "existence of a simulator" or "special honest-verifier zero-knowledge". Here is how.
 
 * Public input <math>v_0,v_1</math>.
-* Agreed relation <math>R_0\wedge R_1</math>.
+* Agreed relation <math>R_0\vee R_1</math>.
 * Private input <math>w_0</math>, say, but could equally be <math>w_1</math>.
 * Bob will need some random <math>(u_0,a_0)\in R_0</math> and some run <math>a_1,c_1,r_1</math>. 
 * Alice will need some random <math>c</math>. 

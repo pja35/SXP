@@ -205,7 +205,7 @@ particular property of the component Sigma protocols is referred to as
 Here is how.
 
 -   Public input \(v_0,v_1\).
--   Agreed relation \(R_0\wedge R_1\).
+-   Agreed relation \(R_0\vee R_1\).
 -   Private input \(w_0\), say, but could equally be \(w_1\).
 -   Bob will need some random \((u_0,a_0)\in R_0\) and some run
     \(a_1,c_1,r_1\).
