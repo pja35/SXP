@@ -273,13 +273,14 @@ should be that
 
 \[v^{-c}g^r=g^{-wc} g^{wc} g^s=a\].
 
+**Denote by \(\textrm{NI}(P)(m)=(g^s,H(g^s,m),P(g^s,H(g^s,m)))\) the
+non-interactive version of P.**
+
 Notice that is some Sigma protocols, such as those obtained by
 and-composition, we have \(a=(a_1=g_1^{s_1},a_2=g_2^{s_2},\ldots)\) and
 \(c=(c_1,c_2,\ldots)\), in which case we use
-\(c=(c_1=H(a_i,m), c_2=H(a_2,m), \ldots)\).
-
-**Denote by \(\textrm{NI}(P)(m)=(g^s,H(g^s,m),P(g^s,H(g^s,m)))\) the
-non-interactive version of P.**
+\(c=(c_1=H(a_i,m), c_2=H(a_2,m), \ldots)\) for their non-interactive
+versions.
 
 Schnorr signatures
 ------------------
