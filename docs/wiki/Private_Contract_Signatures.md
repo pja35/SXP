@@ -51,6 +51,8 @@ with s random. Intuitively:
 -   This amounts to having signed \(m\), just like in the Schnorr
     signature scheme.
 -   Except that we do not know, yet, which of the \(P_i\) has signed.
+-   In order to convert this into a signature by \(P_i\), one must prove
+    that the cyphertext \(n\) has content the integer \(i\).
 
 Simplified scheme (Failed attempt)
 ----------------------------------

@@ -28,6 +28,7 @@ Intuitively:
 * It constitutes a proof that one of the Pi has passed the Schnorr identification test on challenge <math>H(g^s,m)</math>.
 * This amounts to having signed <math>m</math>, just like in the Schnorr signature scheme.
 * Except that we do not know, yet, which of the <math>P_i</math> has signed.
+* In order to convert this into a signature by <math>P_i</math>, one must prove that the cyphertext <math>n</math> has content the integer <math>i</math>.
 
 == Simplified scheme (Failed attempt) ==
 
