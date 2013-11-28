@@ -50,7 +50,7 @@ with s random. Intuitively:
     identification test on challenge \(H(g^s,m)\).
 -   This amounts to having signed \(m\), just like in the Schnorr
     signature scheme.
--   But we do not knot, yet, which of the \(P_i\) has signed.
+-   Except that we do not know, yet, which of the \(P_i\) has signed.
 
 Simplified scheme (Failed attempt)
 ----------------------------------
