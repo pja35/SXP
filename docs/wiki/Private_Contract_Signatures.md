@@ -44,7 +44,7 @@ Standard scheme
 A **private contract signature** \(\textrm{PCS}_S(m,n)\) is
 
 \[\textrm{NI}\left( \bigvee_{i\in S} (\textrm{CCE}^T(i,n)\wedge\textrm{Schnorr}_i) \right)(m)\]
-with s random. Intuitively:
+Intuitively:
 
 -   It constitutes a proof that one of the Pi has passed the Schnorr
     identification test on challenge \(H(g^s,m)\).
@@ -57,7 +57,7 @@ with s random. Intuitively:
 A **private contract signature revealer** \(\textrm{RPCS}_i(n)\) is
 
 \[\textrm{NI}\left( \textrm{CCE}^T(i,n)\vee\textrm{CCD}^T(i,n) \right)(m)\]
-with s random. Intuitively:
+Intuitively:
 
 -   It constitutes a proof that the cyphertext \(n\) has content the
     integer \(i\).
