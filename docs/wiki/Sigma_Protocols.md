@@ -102,7 +102,7 @@ Beware that B must not be left to freely choose the challenge, otherwise
 he can generate valid triplets through the following simulator:
 
 -   Pick \(c,r\).
--   Let \(a=g^{r}u^{-c}\), \(a'=g^{r}v^{-c}\).
+-   Let \(a=g^{r}u^{-c}\), \(a'=h^{r}v^{-c}\).
 
 Indeed, you then have \(g^{r}=u^{c}a\) and \(h^{r}=v^{c}a\) so that the
 run is valid.
