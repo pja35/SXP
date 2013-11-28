@@ -21,7 +21,7 @@ Outline of [[Sigma_Protocols|Sigma protocols]], which are composable, interactiv
 
 == Standard scheme ==
 
-A <math>\textrm{PCS}_S(m)</math> is
+A private contract signature <math>\textrm{PCS}_S(m)</math> is
 :<math>\textrm{NI}\left( \bigvee_{i\in S} (\textrm{CCE}^T(i,n)\wedge\textrm{Schnorr}_i) \right)(g^s,H(g^s,m))</math>
 with s random.
 Intuitively:
@@ -29,6 +29,13 @@ Intuitively:
 * This amounts to having signed <math>m</math>, just like in the Schnorr signature scheme.
 * Except that we do not know, yet, which of the <math>P_i</math> has signed.
 * In order to convert this into a signature by <math>P_i</math>, one must prove that the cyphertext <math>n</math> has content the integer <math>i</math>.
+
+A private contract signature revealer <math>\textrm{RPCS}_i(n)</math> is
+:<math>\textrm{NI}\left( \textrm{CCE}^T(i,n)\wedge\textrm{CCD}^T(i,n) \right)(g^s,H(g^s,m))</math>
+with s random.
+Intuitively:
+* It constitutes a proof that the cyphertext <math>n</math> has content the integer <math>i</math>.
+* Either <math>P_i</math> or <math>T</math> can produce this.
 
 == Simplified scheme (Failed attempt) ==
 
