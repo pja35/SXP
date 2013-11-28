@@ -145,7 +145,7 @@ honest it should be that
 \[u^r=u^{xc} u^s=(v/m)^c a'.\]
 
 **Denote by \((a,c)\mapsto\textrm{CCD}^T(m,n)(a,c)\) the response of
-this protocol, done towards with mask a and under challenge c.**
+this protocol, done towards T with mask a and under challenge c.**
 
 **Ex. 5: Relative identification protocol**
 
