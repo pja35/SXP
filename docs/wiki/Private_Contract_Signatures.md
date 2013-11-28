@@ -38,8 +38,8 @@ encryption and signature schemes.
 Outline of [Sigma protocols](/wiki/Sigma_Protocols "wikilink"), which are
 composable, interactive zero-knowledge proof schemes.
 
-Simplified scheme (Attempt)
----------------------------
+Simplified scheme (Failed attempt)
+----------------------------------
 
 An \(\textrm{SPCS}^T_S(m)\) is
 
@@ -85,7 +85,11 @@ weaknesses, however:
     over, which means that the cyphertext is always
     \(H(m)g^{\textrm{Priv}_{P_i}\textrm{Priv}_{T}}\) but since \(H(m)\)
     is known, so is \(g^{\textrm{Priv}_{P_i}\textrm{Priv}_{T}}\), and so
-    the next time is immediately identified as the creator of the SPCS.
+    the next time Pi is immediately identified as the creator of
+    the SPCS.
+-   Worse even, Pi's signature, once it has been used once,can then be
+    forged, since signing amounts to multiply by
+    \(g^{\textrm{Priv}_{P_i}\textrm{Priv}_{T}}\) in this scheme.
 
 Standard scheme
 ---------------
