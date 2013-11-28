@@ -14,7 +14,7 @@ The protocol has three rounds:
 :<math> B\rightarrow A: r=r(v,R,w,a,c,w) </math>
 Lastly, Alice checks that Bob response <math>r</math> to her challenge <math>r</math> is valid. This explains what the last two rounds are for. The first round is there out of technical necessity: Bob chooses this <math>a</math> as a mask for passing the challenge without disclosing <math>w</math>.
 
-== Examples ==
+== Toolbox ==
 
 Here are examples of Sigma protocols based on the hardness of Discrete Logarithms. Fix <math>p</math> a prime and <math>g</math> an integer. The powers of <math>g</math> form a subgroup <math>G</math> inside the group <math>Z_p</math>, which is that of integers modulo <math>p</math>. The choice of these <math>p</math> and <math>g</math> is important so that they meet the [http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption Decisional Diffie-Hellman] assumption; but there are standard techniques for doing that. 
 
@@ -105,6 +105,11 @@ and
 :<math>u^r=u^{xc} u^s=(v/m)^c a'.</math>
 
 '''Denote by <math>(a,c)\mapsto\textrm{CCD}^T(m,n)(a,c)</math> the response of this protocol, done towards T with mask a and under challenge c.'''
+
+Beware that B must not be left to freely choose the challenge, otherwise he can generate valid triplets through the following simulator:
+* Pick <math>c,r</math>.
+* Let  <math>a=g^{r}u^{-c}</math> and <math>a'={u}^{r}{(v/m)}^{-c}</math>.
+Indeed, you then have <math>g^{r}=u^{c}a</math> and <math>{u}^{r}={(v/m)}^{c}a'</math> so that the run is valid.
 
 == Composability ==
 

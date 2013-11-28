@@ -32,8 +32,8 @@ last two rounds are for. The first round is there out of technical
 necessity: Bob chooses this \(a\) as a mask for passing the challenge
 without disclosing \(w\).
 
-Examples
---------
+Toolbox
+-------
 
 Here are examples of Sigma protocols based on the hardness of Discrete
 Logarithms. Fix \(p\) a prime and \(g\) an integer. The powers of \(g\)
@@ -172,6 +172,15 @@ honest it should be that
 
 **Denote by \((a,c)\mapsto\textrm{CCD}^T(m,n)(a,c)\) the response of
 this protocol, done towards T with mask a and under challenge c.**
+
+Beware that B must not be left to freely choose the challenge, otherwise
+he can generate valid triplets through the following simulator:
+
+-   Pick \(c,r\).
+-   Let \(a=g^{r}u^{-c}\) and \(a'={u}^{r}{(v/m)}^{-c}\).
+
+Indeed, you then have \(g^{r}=u^{c}a\) and \({u}^{r}={(v/m)}^{c}a'\) so
+that the run is valid.
 
 Composability
 -------------
