@@ -98,6 +98,15 @@ it should be that
 
 \[g^r={g^w}^c g^s=u^ca.\] and similarly for \(h\) with \(v\).
 
+Beware that B must not be left to freely choose the challenge, otherwise
+he can generate valid triplets through the following simulator:
+
+-   Pick \(c,r\).
+-   Let \(a=g^{r}u^{-c}\), \(a'=g^{r}v^{-c}\).
+
+Indeed, you then have \(g^{r}=u^{c}a\) and \(h^{r}=v^{c}a\) so that the
+run is valid.
+
 **Ex. 3: Proof of cyphertext content by encrypter**
 
 Fix \(g\) and \(h=g^x=\textrm{Pub}^T\) integers.
@@ -113,7 +122,7 @@ Fix \(g\) and \(h=g^x=\textrm{Pub}^T\) integers.
 
 The protocol has three rounds:
 
-\[B\rightarrow A: a=g^s, a={g^x}^{s}\]
+\[B\rightarrow A: a=g^s, a'={g^x}^{s}\]
 
 \[A\rightarrow B: c\]
 

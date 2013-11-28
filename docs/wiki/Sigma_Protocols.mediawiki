@@ -40,6 +40,7 @@ Beware that B must not be left to freely choose the challenge, otherwise he can 
 * Let  <math>a=g^{r}v^{-c}</math>.
 Indeed, you then have <math>g^{r}=v^{c}a</math> so that the run is valid.
 
+
 '''Ex. 2: Diffie-Hellman pairs'''
 
 Fix <math>g</math> and <math>h</math> integers. The powers of <math>h</math> form a subgroup <math>H</math> inside the group <math>Z_p</math>. 
@@ -56,6 +57,11 @@ Alice validates Bob's response by checking that <math>g^r=u^ca</math> and that <
 :<math>g^r={g^w}^c g^s=u^ca.</math>
 and similarly for <math>h</math> with <math>v</math>.
 
+Beware that B must not be left to freely choose the challenge, otherwise he can generate valid triplets through the following simulator:
+* Pick <math>c,r</math>.
+* Let  <math>a=g^{r}u^{-c}</math>, <math>a'=g^{r}v^{-c}</math>.
+Indeed, you then have <math>g^{r}=u^{c}a</math> and <math>h^{r}=v^{c}a</math> so that the run is valid.
+
 
 '''Ex. 3: Proof of cyphertext content by encrypter'''
 
@@ -66,7 +72,7 @@ Fix <math>g</math> and  <math>h=g^x=\textrm{Pub}^T</math> integers.
 * Bob will need some random <math>s\in Z_p</math>.
 * Alice will need some random <math>c\in Z_p</math>. 
 The protocol has three rounds:
-:<math> B\rightarrow A: a=g^s, a={g^x}^{s} </math>
+:<math> B\rightarrow A: a=g^s, a'={g^x}^{s} </math>
 :<math> A\rightarrow B: c </math>
 :<math> B\rightarrow A: r=wc+s </math>
 Alice validates Bob's response by checking that <math>g^r=u^ca</math> and that <math>{g^x}^{r}=(v/m)^{c}a'</math>. Indeed, if Bob was honest it should be that 
