@@ -83,7 +83,7 @@ and similarly for <math>h=g^x</math> with <math>v'=v/m</math>.
 
 Beware that B must not be left to freely choose the challenge, otherwise he can generate valid triplets through the following simulator:
 * Pick <math>c,r</math>.
-* Let  <math>a=g^{r}u^{-c}</math> and <math>a'={g^x}^{r}{v/m}^{-c}</math>.
+* Let  <math>a=g^{r}u^{-c}</math> and <math>a'={g^x}^{r}{(v/m)}^{-c}</math>.
 Indeed, you then have <math>g^{r}=u^{c}a</math> and <math>{g^x}^{r}={(v/m)}^{c}a'</math> so that the run is valid.
 
 
