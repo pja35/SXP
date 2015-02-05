@@ -6,8 +6,9 @@ layout: wiki
 
 This initiative comes from:
 
--   Pablo Arrighi, lecturer in Computer Science
+-   Pablo Arrighi, full professor in Computer Science
 -   Miguel Lezama, programmer, web expert
+-   Kevin Perrot, associate professor in Computer Science
 
 who have authored most contributions so far. As the project develops,
 they hope to disappear in the shade of the most active and competent
