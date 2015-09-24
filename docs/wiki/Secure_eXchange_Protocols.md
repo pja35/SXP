@@ -6,8 +6,6 @@ layout: wiki
 
 **A soft alternative to an exclusive money-based economy.**
 
-*(Project launched: 24th of April 2012.)*
-
 Fast link: [Development Portal.](/wiki/Development_Portal "wikilink")
 
 In short
