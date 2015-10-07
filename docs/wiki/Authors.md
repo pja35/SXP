@@ -7,6 +7,7 @@ layout: wiki
 The project is currently led by
 
 -   Pablo Arrighi, full professor in Computer Science
+-   Michael Dubuis, Master 1 student in Computer Science
 -   Miguel Lezama, programmer, web expert
 -   Kevin Perrot, associate professor in Computer Science
 -   Julien Prudhomme, Master 1 student in Computer Science
