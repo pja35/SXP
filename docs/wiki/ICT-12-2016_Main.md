@@ -14,6 +14,8 @@ April 12th, 2016.**
 
 Notes about:
 
--   project ideas and business model,
--   persons, non-governmental organizations and industrial partners.
+-   project ideas and business model:
+    [ICT-12-2016-Model](/wiki/ICT-12-2016-Model "wikilink"),
+-   persons, non-governmental organizations and industrial partners
+    [ICT-12-2016-Actors](/wiki/ICT-12-2016-Actors "wikilink").
 
