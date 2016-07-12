@@ -14,3 +14,5 @@
 SXPManager.xml
 /bootstrap.xml
 /build/
+.peer*
+db*
