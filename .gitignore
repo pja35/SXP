@@ -16,3 +16,4 @@ SXPManager.xml
 /build/
 .peer*
 db*
+src/main/javascript/client/SXP*
