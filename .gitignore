@@ -1,0 +1,16 @@
+/bin/
+/users.data/
+/.gradle/
+.classpath
+.project
+/.settings/
+/build/classes/
+/build/reports/
+/build/test-results/
+/build/tmp/
+/build/libs/
+*~
+/.peerFolder*/
+SXPManager.xml
+/bootstrap.xml
+/build/
