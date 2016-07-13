@@ -45,7 +45,6 @@ public class Search{
 				
 				final ItemRequestService itemSender = (ItemRequestService) Application.getInstance().getPeer().getService(JxtaItemsSenderService.NAME);
 				Service items = Application.getInstance().getPeer().getService(JxtaItemService.NAME);
-				
 				itemSender.addListener(new ServiceListener() {
 					
 					@Override
@@ -55,6 +54,11 @@ public class Search{
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+							try {
+								output.close();
+							} catch (IOException e1) {
+								e1.printStackTrace();
+							}
 						}
 					}
 					
@@ -117,12 +121,16 @@ public class Search{
 					}
 				});
 				try {
-					Thread.sleep(3000);
-					output.write("[]");
+					Thread.sleep(1500);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
+				}
+				finally {
+					try {
+						output.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 			

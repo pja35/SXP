@@ -1,10 +1,8 @@
 package model.manager;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import controller.Application;
 import controller.tools.JsonTools;
 import model.api.AsyncManager;
 import model.api.AsyncManagerDecorator;
@@ -75,6 +73,7 @@ public class NetworkItemManagerDecorator extends AsyncManagerDecorator<Item>{
 		final ItemRequestService itemSender = (ItemRequestService) peer.getService(JxtaItemsSenderService.NAME);
 		Service items = peer.getService(JxtaItemService.NAME);
 		
+		itemSender.removeListener(who);
 		itemSender.addListener(new ServiceListener() {
 			
 			@Override

@@ -11,6 +11,7 @@
 				$scope.app.setTitle('Search');
 				$scope.app.setContextButton(null);
 				$scope.results = [];
+				$scope.stream = null;
 
 				$scope.pushResult = function($obj) {
 					if($obj == null) return;
@@ -22,6 +23,9 @@
 
 				$scope.search = function() {
 					$scope.results = [];
+					if($scope.stream != null) {
+						$scope.stream.abort();
+					}
 					Oboe({
 	            url: RESTAPISERVER + "/api/search/simple?title=" + $scope.research,
 							pattern: '!',
@@ -49,6 +53,7 @@
 							}
 	            if($scope.results.length === 1000 || node == null || node.length == 0) {
 	                $scope.stream.abort();
+									$scope.stream = null;
 	            }
 	        });
 
