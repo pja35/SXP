@@ -96,6 +96,7 @@ public class JxtaNode implements Node{
         configurator.setTcpOutgoing(true);
         configurator.setUseMulticast(true);
 		configurator.setTcpInterfaceAddress("0.0.0.0");
+		configurator.setUseMulticast(true);
 		try {
 			configurator.setTcpPublicAddress(IpChecker.getIp(), false);
 		} catch (Exception e) {
