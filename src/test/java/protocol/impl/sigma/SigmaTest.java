@@ -1,4 +1,4 @@
-package crypt.impl;
+package protocol.impl.sigma;
 
 
 import org.junit.Test;
