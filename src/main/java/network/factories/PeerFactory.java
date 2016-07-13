@@ -43,7 +43,8 @@ public class PeerFactory {
 	public static Peer createDefaultAndStartPeerForTest() {
 		Random r = new Random();
 		String cache = ".peer" + r.nextInt(10000);
-		int port = 9800 + r.nextInt(100);
+		//int port = 9800 + r.nextInt(100);
+		int port = 9800;
 		System.out.println("jxta will run on port " + port);
 		Peer p = createAndStartPeer("jxta", cache, port);
 		

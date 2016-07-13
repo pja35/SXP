@@ -88,7 +88,7 @@ public class JxtaNode implements Node{
 		NetworkConfigurator configurator = null;
 		manager = new NetworkManager(NetworkManager.ConfigMode.EDGE, peerName, configFile.toURI()); /* Setting network */
 		configurator = manager.getConfigurator(); /* Getting configurator for future tweaks */
-        /*configurator.setTcpEnabled(true);
+        configurator.setTcpEnabled(true);
         configurator.setHttpEnabled(true);
         configurator.setTcpIncoming(true);
         configurator.setHttpIncoming(true);
@@ -110,8 +110,8 @@ public class JxtaNode implements Node{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        /*configurator.setTcpEndPort(-1);
-        configurator.setTcpStartPort(-1); */
+        configurator.setTcpEndPort(-1);
+        configurator.setTcpStartPort(-1);
         configurator.setName("SXPeerGroup");
         configurator.setDescription("SXP default peer group");
         configurator.setPrincipal("SXP peer group");
