@@ -18,6 +18,7 @@ import org.eclipse.persistence.annotations.SerializedObject;
 import org.eclipse.persistence.annotations.UuidGenerator;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @XmlRootElement
@@ -49,6 +50,7 @@ public class Item {
 	@NotNull
 	@Lob
 	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
+	@JsonDeserialize(using=controller.tools.BigIntegerDeserializer.class)
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	private BigInteger pbkey;
 	

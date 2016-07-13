@@ -14,6 +14,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
 import controller.tools.JsonTools;
 import model.api.AsyncManager;
 import model.api.EntityManager;
@@ -55,8 +57,7 @@ public class Items {
 		iadv.setTitle(item.getTitle());
 		iadv.publish(Application.getInstance().getPeer()); */
 		
-		JsonTools<Item> json = new JsonTools<>();
-		json.initialize(Item.class);
+		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
 		return json.toJson(item);
 	}
 	
@@ -66,8 +67,7 @@ public class Items {
 	public String getId(
 			@PathParam("id")String id) {
 		EntityManager<Item> em = new ItemManager();
-		JsonTools<Item> json = new JsonTools<>();
-		json.initialize(Item.class);
+		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
 		return json.toJson(em.findOneById(id));
 	}
 	
@@ -79,8 +79,7 @@ public class Items {
 		UserManagerInterface users = new UserManager();
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		EntityManager<Item> em = new ItemManager();
-		JsonTools<Collection<Item>> json = new JsonTools<>();
-		json.initialize(Collection.class);
+		JsonTools<Collection<Item>> json = new JsonTools<>(new TypeReference<Collection<Item>>(){});
 		return json.toJson(em.findAllByAttribute("userid", currentUser.getId()));
 	}
 	
@@ -96,8 +95,7 @@ public class Items {
 		item2.setDescription(item.getDescription());
 		em.end();
 		
-		JsonTools<Item> json = new JsonTools<>();
-		json.initialize(Item.class);
+		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
 		return json.toJson(item2);
 		
 		//return JsonUtils.BeanStringify(item2);

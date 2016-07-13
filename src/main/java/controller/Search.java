@@ -10,6 +10,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import org.glassfish.jersey.server.ChunkedOutput;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
 import controller.tools.JsonTools;
 import model.api.AsyncManager;
 import model.api.AsyncManagerDecorator;
@@ -112,21 +114,25 @@ public class Search{
 					
 					@Override
 					public void notify(Collection<Item> results) {
-						JsonTools<Collection<Item>> json = new JsonTools<>();
+						JsonTools<Collection<Item>> json = new JsonTools<>(new TypeReference<Collection<Item>>(){});
 						try {
-							output.write(json.toJson(results));
+							if(!results.isEmpty()) {
+								output.write(json.toJson(results));
+							}
+							
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
 					}
 				});
 				try {
-					Thread.sleep(1500);
+					Thread.sleep(5000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 				finally {
 					try {
+						output.write("[]");
 						output.close();
 					} catch (IOException e) {
 						e.printStackTrace();

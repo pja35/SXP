@@ -15,6 +15,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
 import controller.tools.JsonTools;
 import crypt.api.hashs.Hasher;
 import crypt.factories.ElGamalAsymKeyFactory;
@@ -47,8 +49,7 @@ public class Users {
 			LoginToken token = new LoginToken();
 			token.setToken(auth.getToken(login, password));
 			token.setUserid(u.getId());
-			JsonTools<LoginToken> json = new JsonTools<>();
-			json.initialize(LoginToken.class);
+			JsonTools<LoginToken> json = new JsonTools<>(new TypeReference<LoginToken>(){});
 			return json.toJson(token);
 		}
 		return "{\"error\": \"true\"}";
@@ -107,8 +108,7 @@ public class Users {
 		LoginToken token = new LoginToken();
 		token.setToken(auth.getToken(login, password));
 		token.setUserid(u.getId());
-		JsonTools<LoginToken> json = new JsonTools<>();
-		json.initialize(LoginToken.class);
+		JsonTools<LoginToken> json = new JsonTools<>(new TypeReference<LoginToken>(){});
 		return json.toJson(token);
 	}
 	
@@ -127,8 +127,7 @@ public class Users {
 	public String get(
 			@PathParam("id") String id) {
 		EntityManager<User> em = new UserManager();
-		JsonTools<User> json = new JsonTools<>();
-		json.initialize(User.class);
+		JsonTools<User> json = new JsonTools<>(new TypeReference<User>(){});
 		return json.toJson(em.findOneById(id));
 	}
 	
@@ -137,7 +136,7 @@ public class Users {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String get() {
 		EntityManager<User> em = new UserManager();
-		JsonTools<Collection<User>> json = new JsonTools<>();
+		JsonTools<Collection<User>> json = new JsonTools<>(new TypeReference<Collection<User>>(){});
 		return json.toJson(em.findAll());
 		//return JsonUtils.collectionStringify(em.findAll());
 	}
