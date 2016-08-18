@@ -1,6 +1,8 @@
 (function() {
   var module = angular.module('app.settings', []);
 
+	//STILL TO BE IMPLEMENTED
+
   module.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
     .state('settings', {

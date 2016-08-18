@@ -25,16 +25,16 @@
 		<script src="js/bootstrap.min.js"></script>
 </head>
 <body ng-controller="appController as app">
+		<!-- Here goes the navbar, see directive in app.js -->
     <navbar></navbar>
     <div id="wrapper">
-			<!-- On inclut le menu de gauche -->
+				<!-- Here goes the sidemenu, see directive in app.js -->
         <sidemenu></sidemenu>
-
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid specheight">
                 <div class="ui-view-container">
-										<!-- on inclut la vue correspondante à l'état de l'app -->
+										<!-- Here goes the html template that corresponds to the state of the app -->
                     <div ui-view></div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
     </div><!-- #wrapper -->
     <script>
 
-		<!-- the specheight container needs to be made a bit smaller than the page -->
+		<!-- technical detail: the specheight container needs to be made a bit smaller than the page -->
 
     function fitHeight() {
         $(".specheight").height($(window).height() - 90);

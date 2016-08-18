@@ -116,14 +116,14 @@ RESTAPISERVER = 'http://localhost:8080';
     // USEFUL HELPERS ALL ACROSS APP
 
     module.filter('hex', function() {
-        //a filter serves to format data, with a pipe, within html
+        //A filter serves to format data, with a pipe, within html
         //this one is to display public keys
         return function(input) {
             return Number(input).toString(16);
         };
     });
 
-    //directives define new html tags or attributes; they are macros.
+    //Directives define new html tags or attributes; think of them as macros.
     module.directive('navbar', function() {
         return {
             restrict: 'E', //this is an html tag

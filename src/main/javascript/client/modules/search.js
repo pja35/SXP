@@ -1,15 +1,21 @@
 (function() {
 	var module = angular.module('search', []);
+
+
+
 	module.config(function($stateProvider, $urlRouterProvider) {
+		//This declares the state 'search' together with its route, appeareance, and controller function
 		$urlRouterProvider.otherwise("/");
 		$stateProvider
 		.state('search', {
 			url: '/search',
 			templateUrl: 'search.html',
 			controller: function($scope, $http, Oboe) {
+				//TODO: use configHeader for some of that
 				$scope.app.setBackUrl(null);
 				$scope.app.setTitle('Search');
 				$scope.app.setContextButton(null);
+				
 				$scope.results = [];
 				$scope.stream = null;
 
