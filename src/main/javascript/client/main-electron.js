@@ -1,3 +1,5 @@
+//This file is basically the standard one to wrap up an appplication with electron.
+
 const electron = require('electron');
 // Module to control application life.
 const {app} = electron;
@@ -13,7 +15,7 @@ function createWindow() {
   win = new BrowserWindow({ width: 800, height: 600, 'node-integration': false, title: 'SXP network', frame: true});
 
   // and load the index.html of the app.
-  win.loadURL(`file://${__dirname}/bootstrap.html`);
+  win.loadURL(`file://${__dirname}/index.html`);
 
 
 
