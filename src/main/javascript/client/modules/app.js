@@ -12,7 +12,7 @@ RESTAPISERVER = 'http://localhost:8080';
 
 
 
-    //CONTROLLER : GLOBAL
+    //THE MODEL
     module.controller('appController', function($rootScope) {
         //This is the controller for the entire GUI
         var self = this; //to see the controller within its methods
@@ -53,9 +53,10 @@ RESTAPISERVER = 'http://localhost:8080';
             //GUI togglers
         this.toggleMenu = function() {
             $("#wrapper").toggleClass("toggled");
-            //selects the element that has id wrapper (i.e. the left menu)
+            //selects the element that has id wrapper (i.e. the whole page)
             //makes it member of class toggled or not
-            //in order to display it or not
+            //this is used by simples-sidebar.css in order to show the sidebar or not
+            //TODO: shouldn't we do all of these hiding things with ng-show(), so it's more unified?
         };
         this.showContextButton = function(button) {
             return button === self.contextButton;
@@ -91,7 +92,7 @@ RESTAPISERVER = 'http://localhost:8080';
         };
     });
 
-    //CONTROLLER : LOCAL
+    //THE HOME CONTROLLER
     module.config(function($stateProvider, $urlRouterProvider) {
         //This declares the state 'home' together with its route, appeareance, and controller function
         $stateProvider
