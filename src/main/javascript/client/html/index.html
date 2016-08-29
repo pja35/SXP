@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head ng-controller="appController as app">
+	<title>{{app.title}}</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+   	<link href="../css/bootstrap.min.css" rel="stylesheet">
+   	<link href="../css/simple-sidebar.css" rel="stylesheet">
+   	<link href="../css/custom.css" rel="stylesheet">
+   	<script src="../libs/jquery.min.js"></script>
+		<script src="../libs/angular.js"></script>
+		<script src="../libs/angular-ui-router.min.js"></script>
+    <script src="../libs/angular-animate.min.js"></script>
+		<script src="../libs/angular-resource.min.js"></script>
+		<script src="../libs/oboe-browser.min.js"></script>
+		<script src="../libs/angular-oboe.js"></script>
+		<script src="../modules/restApi.js"></script>
+		<script src="../modules/app.js"></script>
+    <script src="../modules/myItems.js"></script>
+    <script src="../modules/users.js"></script>
+    <script src="../modules/search.js"></script>
+		<script src="../modules/settings.js"></script>
+    <script src="../modules/messages.js"></script>
+		<script src="../libs/bootstrap.min.js"></script>
+</head>
+<body ng-controller="appController as app">
+		<!-- Here goes the navbar, see directive in app.js -->
+    <navbar></navbar>
+    <div id="wrapper">
+				<!-- Here goes the sidemenu, see directive in app.js -->
+        <sidemenu></sidemenu>
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid specheight">
+                <div class="ui-view-container">
+										<!-- Here goes the html template that corresponds to the state of the app -->
+                    <div ui-view></div>
+                </div>
+            </div>
+        </div><!-- /#page-content-wrapper -->
+    </div><!-- #wrapper -->
+
+
+
+
+
+
+
+	  <script>
+		<!-- technical detail: the specheight container needs to be made a bit smaller than the page -->
+
+    //function fitHeight() {
+    //    $(".specheight").height($(window).height() - 90);
+    //}
+
+    //$(document).ready(function() {
+    //    fitHeight();
+    //});
+
+    //$(window).resize(function() {
+    //   fitHeight();
+    //});
+    </script>
+</body>
+</html>

@@ -5,23 +5,23 @@
         $stateProvider
             .state('subscribe', {
                 url: '/subscribe',
-                templateUrl: 'partials/accounts/subscribe.html',
+                templateUrl: 'accounts/subscribe.html',
                 controller: 'subscribe'
                     //here the description of the controller is given separately, below
             })
             .state('login', {
                 url: '/login',
-                templateUrl: 'partials/accounts/login.html',
+                templateUrl: 'accounts/login.html',
                 controller: 'login'
             })
             .state('logout', {
                 url: '/logout',
-                templateUrl: 'partials/accounts/logout.html',
+                templateUrl: 'accounts/logout.html',
                 controller: 'logout'
             })
             .state('account', {
                 url: '/account',
-                templateUrl: 'partials/accounts/account.html',
+                templateUrl: 'accounts/account.html',
                 controller: 'account'
             });
     });
@@ -104,7 +104,7 @@
             var password = $scope.form.password;
             $http.get(RESTAPISERVER + "/api/users/subscribe?login=" + user + "&password=" + password).then(function(response) {
                 var data = response.data;
-                $scope.app.setCurrentUser(data.token);
+                $scope.app.setCurrentUser(user);
                 $http.defaults.headers.common['Auth-Token'] = data.token;
                 $scope.app.userid = data.userid;
                 $state.go("myItemsView");

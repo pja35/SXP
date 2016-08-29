@@ -15,7 +15,7 @@ function createWindow() {
   win = new BrowserWindow({ width: 800, height: 600, 'node-integration': false, title: 'SXP network', frame: true});
 
   // and load the index.html of the app.
-  win.loadURL(`file://${__dirname}/index.html`);
+  win.loadURL(`file://${__dirname}/html/index.html`);
 
 
 

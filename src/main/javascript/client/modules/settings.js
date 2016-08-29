@@ -7,7 +7,7 @@
     $stateProvider
     .state('settings', {
       url: '/settings',
-      templateUrl: 'partials/settings/settings.html',
+      templateUrl: 'settings/settings.html',
       controller: 'settings'
     });
   });

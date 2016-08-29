@@ -6,22 +6,22 @@
     $stateProvider
     .state('myItemsView', {
       url: '/myitems',
-      templateUrl: 'partials/items/items.html',
+      templateUrl: 'items/items.html',
       controller: 'viewItems'
     })
     .state('myItemsViewOne', {
       url: '/myitems/view/:id',
-      templateUrl: 'partials/items/item.html',
+      templateUrl: 'items/item.html',
       controller: 'viewItem'
     })
     .state('myItemsAdd', {
       url: '/myitems/add',
-      templateUrl: 'partials/items/item-form.html',
+      templateUrl: 'items/item-form.html',
       controller: 'addItem'
     })
     .state('myItemsEdit', {
       url: '/myitems/edit/:id',
-      templateUrl: 'partials/items/item-form.html',
+      templateUrl: 'items/item-form.html',
       controller: 'editItem'
     });
   });
@@ -99,7 +99,7 @@ module.controller('viewItem', function($scope, $stateParams, Item) {
 module.directive('item', function() {
   return {
     restrict: 'E',
-    templateUrl: 'partials/items/item-list.html' //TODO: rename this to item-one
+    templateUrl: 'items/item-list.html' //TODO: rename this to item-one
   };
 });
 })();
