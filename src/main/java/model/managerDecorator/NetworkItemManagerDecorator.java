@@ -1,4 +1,4 @@
-package model.manager;
+package model.managerDecorator;
 
 import java.util.ArrayList;
 import java.util.Collection;

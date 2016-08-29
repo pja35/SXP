@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
 import model.entity.Item;
-import model.persistance.ItemManager;
+import model.manager.ItemManager;
 import net.jxta.pipe.PipeMsgEvent;
 import network.api.ItemRequestService;
 import network.api.Messages;

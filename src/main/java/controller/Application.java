@@ -4,7 +4,7 @@ import java.util.Properties;
 
 import model.api.EntityManager;
 import model.entity.User;
-import model.persistance.UserManager;
+import model.manager.UserManager;
 import network.api.Peer;
 import network.factories.PeerFactory;
 import rest.api.Authentifier;

@@ -1,4 +1,4 @@
-package model.persistance;
+package model.manager;
 
 import java.util.Collection;
 

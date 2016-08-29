@@ -2,10 +2,10 @@ package model.factory;
 
 import model.api.AsyncManager;
 import model.entity.Item;
-import model.manager.AsyncManagerAdapter;
-import model.manager.NetworkItemManagerDecorator;
-import model.manager.ResilianceItemManager;
-import model.persistance.ItemManager;
+import model.manager.ItemManager;
+import model.managerDecorator.AsyncManagerAdapter;
+import model.managerDecorator.NetworkItemManagerDecorator;
+import model.managerDecorator.ResilianceItemManager;
 import network.api.Peer;
 
 public class ManagerFactory {

@@ -1,4 +1,4 @@
-package model.manager;
+package model.managerDecorator;
 
 import model.api.AsyncManager;
 import model.api.AsyncManagerDecorator;

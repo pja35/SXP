@@ -26,8 +26,8 @@ import model.api.UserManagerInterface;
 import model.entity.Item;
 import model.entity.LoginToken;
 import model.entity.User;
-import model.persistance.ItemManager;
-import model.persistance.UserManager;
+import model.manager.ItemManager;
+import model.manager.UserManager;
 import rest.api.Authentifier;
 import rest.api.ServletPath;
 
