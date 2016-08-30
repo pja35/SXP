@@ -1,4 +1,4 @@
-package model.entityValidation;
+package model.validator;
 
 import java.util.Set;
 

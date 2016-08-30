@@ -6,11 +6,11 @@ import model.api.Manager;
 import model.api.ManagerListener;
 import model.api.SyncManager;
 
-public class AsyncManagerAdapter<Entity> implements Manager<Entity>{
+public class ManagerAdapter<Entity> implements Manager<Entity>{
 
 	private SyncManager<Entity> em;
 	
-	public AsyncManagerAdapter(SyncManager<Entity> manager) {
+	public ManagerAdapter(SyncManager<Entity> manager) {
 		em = manager;
 	}
 	

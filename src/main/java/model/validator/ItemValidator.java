@@ -1,4 +1,4 @@
-package model.entityValidation;
+package model.validator;
 
 import crypt.api.signatures.Signer;
 import crypt.impl.key.ElGamalAsymKey;

@@ -1,4 +1,4 @@
-package model.manager;
+package controller.managers;
 
 import model.api.Manager;
 import model.api.ManagerDecorator;
