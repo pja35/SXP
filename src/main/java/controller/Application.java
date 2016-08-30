@@ -41,7 +41,7 @@ public class Application {
 	
 	public void runForTests(int restPort) {
 		Properties p = System.getProperties();
-		p.put("derby.system.home", "./db-" + restPort + "/");
+		p.put("derby.system.home", "./.db-" + restPort + "/");
 		new UserManager(); //just init the db
 		setPeer(PeerFactory.createDefaultAndStartPeerForTest());
 		setAuth(AuthentifierFactory.createDefaultAuthentifier());
