@@ -6,14 +6,14 @@ package model.api;
  *
  * @param <Entity>
  */
-public interface AsyncManager<Entity> {
+public interface Manager<Entity> {
 	
 	/**
 	 * Find one entity by its id
 	 * @param id
 	 * @param l
 	 */
-	public void findOneById(String id, AsyncManagerListener<Entity> l);
+	public void findOneById(String id, ManagerListener<Entity> l);
 	
 	/**
 	 * Find all entity that match attribute
@@ -21,7 +21,7 @@ public interface AsyncManager<Entity> {
 	 * @param value
 	 * @param l
 	 */
-	public void findAllByAttribute(String attribute, String value, AsyncManagerListener<Entity> l);
+	public void findAllByAttribute(String attribute, String value, ManagerListener<Entity> l);
 	
 	/**
 	 * Find one that match attribute
@@ -29,7 +29,7 @@ public interface AsyncManager<Entity> {
 	 * @param value
 	 * @param l
 	 */
-	public void findOneByAttribute(String attribute, String value, AsyncManagerListener<Entity> l);
+	public void findOneByAttribute(String attribute, String value, ManagerListener<Entity> l);
 	
 	/**
 	 * Persist the entity in the manager

@@ -1,7 +1,7 @@
 package resiliance.api;
 
-import model.api.EntityManager;
+import model.api.SyncManager;
 
-public interface ResilianceManager<Entity> extends EntityManager<Entity>{
+public interface ResilianceManager<Entity> extends SyncManager<Entity>{
 
 }

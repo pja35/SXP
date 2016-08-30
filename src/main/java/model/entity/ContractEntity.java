@@ -1,4 +1,4 @@
-package model.api;
+package model.entity;
 
 import java.math.BigInteger;
 import java.util.List;

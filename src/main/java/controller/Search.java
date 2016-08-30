@@ -13,9 +13,9 @@ import org.glassfish.jersey.server.ChunkedOutput;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
-import model.api.AsyncManager;
-import model.api.AsyncManagerDecorator;
-import model.api.AsyncManagerListener;
+import model.api.Manager;
+import model.api.ManagerDecorator;
+import model.api.ManagerListener;
 import model.entity.Item;
 import model.factory.ManagerFactory;
 import network.api.ItemRequestService;
@@ -108,9 +108,9 @@ public class Search{
 
 			@Override
 			public void run() {
-				AsyncManager<Item> em = 
+				Manager<Item> em = 
 						ManagerFactory.createNetworkResilianceItemManager(Application.getInstance().getPeer(), token);
-				em.findAllByAttribute("title", title, new AsyncManagerListener<Item>() {
+				em.findAllByAttribute("title", title, new ManagerListener<Item>() {
 					
 					@Override
 					public void notify(Collection<Item> results) {

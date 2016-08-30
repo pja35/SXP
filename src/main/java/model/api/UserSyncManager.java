@@ -2,7 +2,7 @@ package model.api;
 
 import model.entity.User;
 
-public interface UserManagerInterface extends EntityManager<User>{
+public interface UserSyncManager extends SyncManager<User>{
 	/**
 	 * Get an user according to username/password combo
 	 * @param username

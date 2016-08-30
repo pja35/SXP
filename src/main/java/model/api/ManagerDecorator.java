@@ -6,11 +6,11 @@ package model.api;
  *
  * @param <T>
  */
-public abstract class AsyncManagerDecorator<Entity> implements AsyncManager<Entity>{
+public abstract class ManagerDecorator<Entity> implements Manager<Entity>{
 
-	private AsyncManager<Entity> em;
+	private Manager<Entity> em;
 	
-	public AsyncManagerDecorator(AsyncManager<Entity> em) {
+	public ManagerDecorator(Manager<Entity> em) {
 		this.em = em;
 	}
 	
@@ -18,7 +18,7 @@ public abstract class AsyncManagerDecorator<Entity> implements AsyncManager<Enti
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void findOneById(String id, AsyncManagerListener<Entity> l) {
+	public void findOneById(String id, ManagerListener<Entity> l) {
 		em.findOneById(id, l);
 	}
 	
@@ -26,7 +26,7 @@ public abstract class AsyncManagerDecorator<Entity> implements AsyncManager<Enti
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void findAllByAttribute(String attribute, String value, AsyncManagerListener<Entity> l) {
+	public void findAllByAttribute(String attribute, String value, ManagerListener<Entity> l) {
 		em.findAllByAttribute(attribute, value, l);
 	}
 
@@ -34,7 +34,7 @@ public abstract class AsyncManagerDecorator<Entity> implements AsyncManager<Enti
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void findOneByAttribute(String attribute, String value, AsyncManagerListener<Entity> l) {
+	public void findOneByAttribute(String attribute, String value, ManagerListener<Entity> l) {
 		em.findOneByAttribute(attribute, value, l);
 	}
 

@@ -17,14 +17,14 @@ import javax.ws.rs.core.MediaType;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
-import model.api.AsyncManager;
-import model.api.EntityManager;
-import model.api.UserManagerInterface;
+import model.api.Manager;
+import model.api.SyncManager;
+import model.api.UserSyncManager;
 import model.entity.Item;
 import model.entity.User;
 import model.factory.ManagerFactory;
-import model.manager.ItemManager;
-import model.manager.UserManager;
+import model.syncManager.ItemSyncManagerImpl;
+import model.syncManager.UserSyncManagerImpl;
 import network.impl.advertisement.ItemAdvertisement;
 import rest.api.Authentifier;
 import rest.api.ServletPath;
@@ -40,9 +40,9 @@ public class Items {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String add(Item item, @HeaderParam(Authentifier.PARAM_NAME) String token) {
 		Authentifier auth = Application.getInstance().getAuth();
-		UserManagerInterface users = new UserManager();
+		UserSyncManager users = new UserSyncManagerImpl();
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
-		AsyncManager<Item> em = ManagerFactory.createNetworkResilianceItemManager(Application.getInstance().getPeer(), token);
+		Manager<Item> em = ManagerFactory.createNetworkResilianceItemManager(Application.getInstance().getPeer(), token);
 		//EntityManager<Item> em = new ItemManager();
 		em.begin();
 		//TODO VALIDATION
@@ -66,7 +66,7 @@ public class Items {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getId(
 			@PathParam("id")String id) {
-		EntityManager<Item> em = new ItemManager();
+		SyncManager<Item> em = new ItemSyncManagerImpl();
 		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
 		return json.toJson(em.findOneById(id));
 	}
@@ -76,9 +76,9 @@ public class Items {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String get(@HeaderParam(Authentifier.PARAM_NAME) String token) {
 		Authentifier auth = Application.getInstance().getAuth();
-		UserManagerInterface users = new UserManager();
+		UserSyncManager users = new UserSyncManagerImpl();
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
-		EntityManager<Item> em = new ItemManager();
+		SyncManager<Item> em = new ItemSyncManagerImpl();
 		JsonTools<Collection<Item>> json = new JsonTools<>(new TypeReference<Collection<Item>>(){});
 		return json.toJson(em.findAllByAttribute("userid", currentUser.getId()));
 	}
@@ -88,7 +88,7 @@ public class Items {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public String edit(Item item) {
-		EntityManager<Item> em = new ItemManager();
+		SyncManager<Item> em = new ItemSyncManagerImpl();
 		em.begin();
 		Item item2 = em.findOneById(item.getId());
 		item2.setTitle(item.getTitle());

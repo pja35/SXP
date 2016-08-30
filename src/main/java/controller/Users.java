@@ -21,13 +21,13 @@ import controller.tools.JsonTools;
 import crypt.api.hashs.Hasher;
 import crypt.factories.ElGamalAsymKeyFactory;
 import crypt.factories.HasherFactory;
-import model.api.EntityManager;
-import model.api.UserManagerInterface;
+import model.api.SyncManager;
+import model.api.UserSyncManager;
 import model.entity.Item;
 import model.entity.LoginToken;
 import model.entity.User;
-import model.manager.ItemManager;
-import model.manager.UserManager;
+import model.syncManager.ItemSyncManagerImpl;
+import model.syncManager.UserSyncManagerImpl;
 import rest.api.Authentifier;
 import rest.api.ServletPath;
 
@@ -43,7 +43,7 @@ public class Users {
 			@QueryParam("password") String password) {
 		
 		Authentifier auth = Application.getInstance().getAuth();
-		UserManagerInterface em = new UserManager();
+		UserSyncManager em = new UserSyncManagerImpl();
 		User u = em.getUser(login, password);
 		if(u != null) {
 			LoginToken token = new LoginToken();
@@ -99,7 +99,7 @@ public class Users {
 		u.setCreatedAt(new Date());
 		u.setKey(ElGamalAsymKeyFactory.create(false));
 		
-		EntityManager<User> em = new UserManager();
+		SyncManager<User> em = new UserSyncManagerImpl();
 		em.begin();
 		em.persist(u);
 		em.end();
@@ -126,7 +126,7 @@ public class Users {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String get(
 			@PathParam("id") String id) {
-		EntityManager<User> em = new UserManager();
+		SyncManager<User> em = new UserSyncManagerImpl();
 		JsonTools<User> json = new JsonTools<>(new TypeReference<User>(){});
 		return json.toJson(em.findOneById(id));
 	}
@@ -135,7 +135,7 @@ public class Users {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String get() {
-		EntityManager<User> em = new UserManager();
+		SyncManager<User> em = new UserSyncManagerImpl();
 		JsonTools<Collection<User>> json = new JsonTools<>(new TypeReference<Collection<User>>(){});
 		return json.toJson(em.findAll());
 		//return JsonUtils.collectionStringify(em.findAll());

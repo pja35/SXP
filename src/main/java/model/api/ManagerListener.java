@@ -8,7 +8,7 @@ import java.util.Collection;
  *
  * @param <Entity>
  */
-public interface AsyncManagerListener<Entity> {
+public interface ManagerListener<Entity> {
 	/**
 	 * method called when one or more results are available.
 	 * @param results

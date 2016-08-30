@@ -1,14 +1,14 @@
-package model.manager;
+package model.syncManager;
 
 import java.util.Collection;
 
 import crypt.api.hashs.Hasher;
 import crypt.factories.HasherFactory;
-import model.api.UserManagerInterface;
+import model.api.UserSyncManager;
 import model.entity.User;
 
-public class UserManager extends AbstractEntityManager<User> implements UserManagerInterface{
-	public UserManager() {
+public class UserSyncManagerImpl extends AbstractSyncManager<User> implements UserSyncManager{
+	public UserSyncManagerImpl() {
 		super();
 		this.initialisation("persistence", User.class);
 	}

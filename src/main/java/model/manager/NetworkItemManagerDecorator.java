@@ -1,4 +1,4 @@
-package model.managerDecorator;
+package model.manager;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,9 +6,9 @@ import java.util.Collection;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
-import model.api.AsyncManager;
-import model.api.AsyncManagerDecorator;
-import model.api.AsyncManagerListener;
+import model.api.Manager;
+import model.api.ManagerDecorator;
+import model.api.ManagerListener;
 import model.entity.Item;
 import network.api.ItemRequestService;
 import network.api.Messages;
@@ -20,7 +20,7 @@ import network.impl.advertisement.ItemAdvertisement;
 import network.impl.jxta.JxtaItemService;
 import network.impl.jxta.JxtaItemsSenderService;
 
-public class NetworkItemManagerDecorator extends AsyncManagerDecorator<Item>{
+public class NetworkItemManagerDecorator extends ManagerDecorator<Item>{
 
 	private Peer peer;
 	private String who;
@@ -31,14 +31,14 @@ public class NetworkItemManagerDecorator extends AsyncManagerDecorator<Item>{
 	 * @param peer Peer instance, started
 	 * @param who who own this instance
 	 */
-	public NetworkItemManagerDecorator(AsyncManager<Item> em, Peer peer, String who) {
+	public NetworkItemManagerDecorator(Manager<Item> em, Peer peer, String who) {
 		super(em);
 		this.peer = peer;
 		this.who = who;
 	}
 
 	@Override
-	public void findOneById(final String id, final AsyncManagerListener<Item> l) {
+	public void findOneById(final String id, final ManagerListener<Item> l) {
 		super.findOneById(id, l);
 		//TODO
 		/*final ItemRequestService itemSender = (ItemRequestService) Application.getInstance().getPeer().getService(JxtaItemsSenderService.NAME);
@@ -70,7 +70,7 @@ public class NetworkItemManagerDecorator extends AsyncManagerDecorator<Item>{
 	}
 
 	@Override
-	public void findAllByAttribute(String attribute, final String value, final AsyncManagerListener<Item> l) {
+	public void findAllByAttribute(String attribute, final String value, final ManagerListener<Item> l) {
 		super.findAllByAttribute(attribute, value, l);
 		final ItemRequestService itemSender = (ItemRequestService) peer.getService(JxtaItemsSenderService.NAME);
 		Service items = peer.getService(JxtaItemService.NAME);
@@ -106,7 +106,7 @@ public class NetworkItemManagerDecorator extends AsyncManagerDecorator<Item>{
 	}
 
 	@Override
-	public void findOneByAttribute(String attribute, String value, AsyncManagerListener<Item> l) {
+	public void findOneByAttribute(String attribute, String value, ManagerListener<Item> l) {
 		super.findOneByAttribute(attribute, value, l);
 		//TODO
 	}

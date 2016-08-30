@@ -8,7 +8,7 @@ import java.util.Collection;
  *
  * @param <Entity> class' entity
  */
-public interface EntityManager<Entity> {
+public interface SyncManager<Entity> {
 	/**
 	 * Initialise the entity manager with the unit name
 	 * @param unitName unit (entity) name for persistance. See persistance.xml in META-INF

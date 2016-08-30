@@ -1,4 +1,4 @@
-package model.manager;
+package model.syncManager;
 
 import java.util.Collection;
 
@@ -8,7 +8,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 
-public class AbstractEntityManager<Entity> implements model.api.EntityManager<Entity>{
+public class AbstractSyncManager<Entity> implements model.api.SyncManager<Entity>{
 	private EntityManagerFactory factory;
 	private EntityManager em;
 	private Class<?> theClass;

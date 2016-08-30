@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 
 import crypt.impl.key.ElGamalAsymKey;
 import crypt.impl.signatures.ElGamalSignature;
-import model.api.ContractEntity;
 import protocol.api.Wish;
 
 @Entity
