@@ -5,9 +5,9 @@ import model.api.ManagerDecorator;
 import model.entity.Item;
 import network.api.Peer;
 
-public class ResilianceItemManager extends ManagerDecorator<Item>{
+public class ResilienceItemManagerDecorator extends ManagerDecorator<Item>{
 
-	public ResilianceItemManager(Manager<Item> em, Peer peer) {
+	public ResilienceItemManagerDecorator(Manager<Item> em, Peer peer) {
 		super(em);
 	}
 
