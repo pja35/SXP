@@ -2,6 +2,8 @@ package network.api;
 
 import java.util.Collection;
 
+import network.api.advertisement.Advertisement;
+
 /**
  * Search interface for advertisement
  * @author Julien Prudhomme

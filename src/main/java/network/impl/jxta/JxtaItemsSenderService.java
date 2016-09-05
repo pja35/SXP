@@ -33,6 +33,7 @@ public class JxtaItemsSenderService extends JxtaService implements ItemRequestSe
 		return m;
 	}
 	
+	@Override
 	public void sendRequest(String title, String who, String ...peerURIs) {
 		RequestItemMessage m = new RequestItemMessage();
 		m.setTitle(title);

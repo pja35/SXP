@@ -11,14 +11,14 @@ import model.api.ManagerDecorator;
 import model.api.ManagerListener;
 import model.entity.Item;
 import network.api.ItemRequestService;
+import network.api.ItemService;
 import network.api.Messages;
 import network.api.Peer;
 import network.api.SearchListener;
-import network.api.Service;
 import network.api.ServiceListener;
-import network.impl.advertisement.ItemAdvertisement;
-import network.impl.jxta.JxtaItemService;
-import network.impl.jxta.JxtaItemsSenderService;
+import network.api.advertisement.ItemAdvertisementInterface;
+import network.api.service.Service;
+import network.factories.AdvertisementFactory;
 
 public class NetworkItemManagerDecorator extends ManagerDecorator<Item>{
 
@@ -72,8 +72,8 @@ public class NetworkItemManagerDecorator extends ManagerDecorator<Item>{
 	@Override
 	public void findAllByAttribute(String attribute, final String value, final ManagerListener<Item> l) {
 		super.findAllByAttribute(attribute, value, l);
-		final ItemRequestService itemSender = (ItemRequestService) peer.getService(JxtaItemsSenderService.NAME);
-		Service items = peer.getService(JxtaItemService.NAME);
+		final ItemRequestService itemSender = (ItemRequestService) peer.getService(ItemRequestService.NAME);
+		Service items = peer.getService(ItemService.NAME);
 		
 		itemSender.removeListener(who);
 		itemSender.addListener(new ServiceListener() {
@@ -92,11 +92,11 @@ public class NetworkItemManagerDecorator extends ManagerDecorator<Item>{
 			
 		}, who == null ? "test":who);
 		
-		items.search(attribute, value, new SearchListener<ItemAdvertisement>() {
+		items.search(attribute, value, new SearchListener<ItemAdvertisementInterface>() {
 			@Override
-			public void notify(Collection<ItemAdvertisement> result) {
+			public void notify(Collection<ItemAdvertisementInterface> result) {
 				ArrayList<String> uids = new ArrayList<>();
-				for(ItemAdvertisement i: result) {
+				for(ItemAdvertisementInterface i: result) {
 					uids.add(i.getSourceURI());
 				}
 				itemSender.sendRequest(value, who == null ? "test":who, uids.toArray(new String[1]));
@@ -114,7 +114,7 @@ public class NetworkItemManagerDecorator extends ManagerDecorator<Item>{
 	@Override
 	public void persist(Item entity) {
 		super.persist(entity);
-		ItemAdvertisement iadv = new ItemAdvertisement();
+		ItemAdvertisementInterface iadv = AdvertisementFactory.createItemAdvertisement();
 		iadv.setTitle(entity.getTitle());
 		iadv.publish(peer);
 	}

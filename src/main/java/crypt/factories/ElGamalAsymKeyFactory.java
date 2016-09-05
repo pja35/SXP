@@ -10,7 +10,6 @@ import org.bouncycastle.crypto.params.ElGamalParameters;
 import org.bouncycastle.crypto.params.ElGamalPrivateKeyParameters;
 import org.bouncycastle.crypto.params.ElGamalPublicKeyParameters;
 
-import crypt.impl.key.ElGamalAsymKey;
 import model.entity.ElGamalKey;
 
 /**

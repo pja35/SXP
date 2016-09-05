@@ -20,7 +20,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.HashMap;
 
-import crypt.impl.key.ElGamalAsymKey;
 import model.entity.ElGamalKey;
 
 

@@ -1,9 +1,10 @@
 package network.impl.advertisement;
 
+import network.api.advertisement.PeerAdvertisementInterface;
 import network.api.annotation.AdvertisementAttribute;
 import network.impl.AbstractAdvertisement;
 
-public class PeerAdvertisement extends AbstractAdvertisement{
+public class PeerAdvertisement extends AbstractAdvertisement implements PeerAdvertisementInterface{
 	
 	@AdvertisementAttribute
 	private String publicKey;

@@ -17,11 +17,11 @@ import net.jxta.id.ID;
 
 public class AdvertisementBridge extends Advertisement{
 
-	private network.api.Advertisement adv;
+	private network.api.advertisement.Advertisement adv;
 	
 	public AdvertisementBridge() { }
 	
-	public AdvertisementBridge(network.api.Advertisement adv) {
+	public AdvertisementBridge(network.api.advertisement.Advertisement adv) {
 		super();
 		this.adv = adv;
 	}
@@ -40,7 +40,7 @@ public class AdvertisementBridge extends Advertisement{
 			//try to find the class used for this advertisement
 			Class<?> adv = Class.forName(className.getValue());
 			Constructor<?> cons = adv.getConstructor();
-			this.adv = (network.api.Advertisement) cons.newInstance();
+			this.adv = (network.api.advertisement.Advertisement) cons.newInstance();
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | 
 				InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
@@ -109,7 +109,7 @@ public class AdvertisementBridge extends Advertisement{
 		return "jxta:" + this.getClass().getName();
 	}
 
-	public network.api.Advertisement getAdvertisement() {
+	public network.api.advertisement.Advertisement getAdvertisement() {
 		return adv;
 	}
 	

@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 
-import org.jvnet.hk2.annotations.Contract;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 

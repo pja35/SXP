@@ -16,7 +16,6 @@
 package protocol.impl.sigma;
 import java.util.HashMap;
 
-import crypt.impl.key.ElGamalAsymKey;
 import model.entity.ElGamalKey;
 
 

@@ -4,8 +4,8 @@ import org.jdom2.Document;
 import org.jdom2.output.XMLOutputter;
 
 import net.jxta.document.MimeMediaType;
-import network.api.Advertisement;
 import network.api.Peer;
+import network.api.advertisement.Advertisement;
 
 public class JxtaAdvertisement implements Advertisement{
 

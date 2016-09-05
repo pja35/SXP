@@ -14,15 +14,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
 import model.api.Manager;
-import model.api.ManagerDecorator;
 import model.api.ManagerListener;
 import model.entity.Item;
 import model.factory.ManagerFactory;
 import network.api.ItemRequestService;
 import network.api.Messages;
 import network.api.SearchListener;
-import network.api.Service;
 import network.api.ServiceListener;
+import network.api.service.Service;
 import network.impl.advertisement.ItemAdvertisement;
 import network.impl.jxta.JxtaItemService;
 import network.impl.jxta.JxtaItemsSenderService;

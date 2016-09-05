@@ -25,10 +25,8 @@ import model.entity.User;
 import model.factory.ManagerFactory;
 import model.syncManager.ItemSyncManagerImpl;
 import model.syncManager.UserSyncManagerImpl;
-import network.impl.advertisement.ItemAdvertisement;
 import rest.api.Authentifier;
 import rest.api.ServletPath;
-import rest.util.JsonUtils;
 
 @ServletPath("/api/items/*")
 @Path("/")

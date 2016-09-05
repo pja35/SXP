@@ -23,7 +23,6 @@ import org.bouncycastle.crypto.params.ElGamalPrivateKeyParameters;
 import org.bouncycastle.crypto.params.ElGamalPublicKeyParameters;
 
 import crypt.ElGamalEngine;
-import crypt.impl.key.ElGamalAsymKey;
 import model.entity.ElGamalKey;
 
 /**

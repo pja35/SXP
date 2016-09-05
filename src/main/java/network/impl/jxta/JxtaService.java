@@ -25,12 +25,12 @@ import net.jxta.pipe.PipeMsgEvent;
 import net.jxta.pipe.PipeMsgListener;
 import net.jxta.pipe.PipeService;
 import net.jxta.protocol.PipeAdvertisement;
-import network.api.Advertisement;
 import network.api.Messages;
 import network.api.Peer;
 import network.api.SearchListener;
-import network.api.Service;
 import network.api.ServiceListener;
+import network.api.advertisement.Advertisement;
+import network.api.service.Service;
 import network.impl.MessagesGeneric;
 
 /**

@@ -3,7 +3,6 @@ package protocol.impl.contract;
 import java.math.BigInteger;
 
 import crypt.api.signatures.Signable;
-import crypt.impl.key.ElGamalAsymKey;
 import crypt.impl.signatures.ElGamalSignature;
 import crypt.impl.signatures.ElGamalSigner;
 import model.entity.ElGamalKey;

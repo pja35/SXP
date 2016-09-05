@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import org.jdom2.Document;
 import org.jdom2.Element;
 
-import network.api.Advertisement;
 import network.api.Peer;
+import network.api.advertisement.Advertisement;
 import network.api.annotation.AdvertisementAttribute;
 import network.api.annotation.ServiceName;
 

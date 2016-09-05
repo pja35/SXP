@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 import net.jxta.document.AdvertisementFactory;
 import network.api.Peer;
-import network.api.Service;
+import network.api.service.Service;
 import network.impl.jxta.AdvertisementBridge;
 import network.impl.jxta.AdvertisementInstaciator;
 import network.impl.jxta.JxtaItemService;

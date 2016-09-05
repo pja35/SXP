@@ -1,4 +1,10 @@
-package network.api;
+package network.api.service;
+
+import network.api.Messages;
+import network.api.Peer;
+import network.api.SearchListener;
+import network.api.ServiceListener;
+import network.api.advertisement.Advertisement;
 
 /**
  * Service running on a peer. Can handle advertisements.

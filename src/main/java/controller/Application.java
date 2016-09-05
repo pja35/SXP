@@ -2,8 +2,6 @@ package controller;
 
 import java.util.Properties;
 
-import model.api.SyncManager;
-import model.entity.User;
 import model.syncManager.UserSyncManagerImpl;
 import network.api.Peer;
 import network.factories.PeerFactory;

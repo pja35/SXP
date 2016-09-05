@@ -3,6 +3,8 @@ package network.api;
 import java.io.IOException;
 import java.util.Collection;
 
+import network.api.service.Service;
+
 /**
  * Interface for the whole peer
  * @author Julien Prudhomme

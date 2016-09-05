@@ -1,5 +1,7 @@
 package network.api;
 
+import network.api.service.Service;
+
 public interface ItemRequestService extends Service{
 	/**
 	 * Send items request
@@ -8,4 +10,6 @@ public interface ItemRequestService extends Service{
 	 * @param uris target peers
 	 */
 	public void sendRequest(String title, String who, String ...uris);
+	
+	public static final String NAME = "itemsSender";
 }

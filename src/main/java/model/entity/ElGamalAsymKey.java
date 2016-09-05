@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlElement;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import crypt.api.key.AsymKey;
 import crypt.base.AbstractAsymKey;
 
 @Entity

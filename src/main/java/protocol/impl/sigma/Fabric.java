@@ -17,7 +17,6 @@ package protocol.impl.sigma;
 
 import java.math.BigInteger;
 
-import crypt.impl.key.ElGamalAsymKey;
 import model.entity.ElGamalKey;
 
 

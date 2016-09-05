@@ -1,9 +1,11 @@
-package network.api;
+package network.api.advertisement;
 
 
 import org.jdom2.Document;
 
 import crypt.api.signatures.Signable;
+import network.api.Peer;
+import network.api.service.Service;
 
 /**
  * Advertise a feature on a {@link Service}

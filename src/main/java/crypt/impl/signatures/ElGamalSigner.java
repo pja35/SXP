@@ -6,7 +6,6 @@ import java.security.SecureRandom;
 import crypt.api.hashs.Hasher;
 import crypt.base.AbstractSigner;
 import crypt.impl.hashs.SHA256Hasher;
-import crypt.impl.key.ElGamalAsymKey;
 import model.entity.ElGamalKey;
 
 /**

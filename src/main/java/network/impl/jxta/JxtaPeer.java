@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 import net.jxta.platform.NetworkManager;
 import network.api.Peer;
-import network.api.Service;
+import network.api.service.Service;
 import network.utils.IpChecker;
 
 public class JxtaPeer implements Peer{

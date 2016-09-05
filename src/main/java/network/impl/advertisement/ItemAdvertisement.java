@@ -1,5 +1,6 @@
 package network.impl.advertisement;
 
+import network.api.advertisement.ItemAdvertisementInterface;
 import network.api.annotation.AdvertisementAttribute;
 import network.api.annotation.ServiceName;
 import network.impl.AbstractAdvertisement;
@@ -11,7 +12,7 @@ import network.impl.AbstractAdvertisement;
  * @param <Sign>
  */
 @ServiceName(name = "items")
-public class ItemAdvertisement extends AbstractAdvertisement {
+public class ItemAdvertisement extends AbstractAdvertisement implements ItemAdvertisementInterface{
 
 	@AdvertisementAttribute(indexed = true)
 	private String title;

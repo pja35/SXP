@@ -1,9 +1,10 @@
 package network.impl.advertisement;
 
+import network.api.advertisement.UserAdvertisementInterface;
 import network.api.annotation.AdvertisementAttribute;
 import network.impl.AbstractAdvertisement;
 
-public class UserAdvertisement extends AbstractAdvertisement{
+public class UserAdvertisement extends AbstractAdvertisement implements UserAdvertisementInterface{
 
 	@AdvertisementAttribute(indexed = true)
 	private String nickName;

@@ -14,7 +14,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.eclipse.persistence.annotations.SerializedObject;
 import org.eclipse.persistence.annotations.UuidGenerator;
 
 import com.fasterxml.jackson.annotation.JsonFormat;

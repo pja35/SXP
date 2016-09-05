@@ -3,10 +3,10 @@ package network.impl.jxta;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import network.api.Advertisement;
 import network.api.Search;
 import network.api.SearchListener;
-import network.api.Service;
+import network.api.advertisement.Advertisement;
+import network.api.service.Service;
 
 public class JxtaSyncSearch<T extends Advertisement> implements Search<T>, SearchListener<T>{
 
