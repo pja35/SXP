@@ -15,5 +15,5 @@ SXPManager.xml
 /bootstrap.xml
 /build/
 .peer*
-db*
+.db-8081/*
 src/main/javascript/client/SXP*
