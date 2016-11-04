@@ -29,10 +29,11 @@
 	});
 	
 	module.controller('display', function($scope){
+		//user : person we are talking to
 		
-		//TODO: Make this automatic with a connexion to the server
 		var currentUser=0;
-		
+
+		//TODO: Make this automatic with a connexion to the server
 		this.users=[
 			{"show":true,"id":0,"name":"User 1", "activity":"active", "mails":[
 					{"date":"2 hours ago","text":"carrot ?"},
@@ -52,7 +53,7 @@
 				]}			 
 		];
 		
-		//Function that changes the view when a link is clicked
+		//Function that changes the view when we change the conversation is clicked
 		this.toggleUserActivity = function(j){
 			this.users[currentUser].activity="";
 			this.users[currentUser].show=false;

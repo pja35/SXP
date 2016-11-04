@@ -7,12 +7,14 @@
 <div class="row">
 	<div class="col-sm-12">
 		<ul class="nav nav-pills">
- 			<li  ng-repeat="user in disp.users" class="{{user.activity}}" ng-click="disp.toggleUserActivity(user.id)"><a href>{{user.name}}</a></li>
+ 			<li  ng-repeat="user in disp.users" class="{{user.activity}}" ng-click="disp.toggleUserActivity(user.id)">
+ 				<a href>{{user.name}}</a>
+ 			</li>
 		</ul>
 	</div>
 </div>
 
-<!-- Display the "active" conversation -->
+<!-- Display the "active" conversation (prepare the others but don't show them) -->
 <div class="row">
 	<div class="col-sm-12">
 		<div class="well" ng-repeat="user in disp.users" ng-show="user.show">
