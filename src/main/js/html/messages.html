@@ -1,7 +1,9 @@
 <h2>Inbox. TO BE DONE.</h2>
 
-<div ng-controller="display as disp"> 
+<div ng-controller="display as disp"> <!-- Contains and create controller to display messages -->
 
+
+<!-- Create the tabs (one for each conversation) -->
 <div class="row">
 	<div class="col-sm-12">
 		<ul class="nav nav-pills">
@@ -9,9 +11,11 @@
 		</ul>
 	</div>
 </div>
+
+<!-- Display the "active" conversation -->
 <div class="row">
 	<div class="col-sm-12">
-		<div class="well" ng-repeat="user in disp.users" ng-show="user.see">
+		<div class="well" ng-repeat="user in disp.users" ng-show="user.show">
 			
 			<p ng-repeat="mail in user.mails">
 				<b>{{user.name}}</b>
