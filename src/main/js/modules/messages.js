@@ -34,6 +34,10 @@
 		var currentUser=0;
 
 		//TODO: Make this automatic with a connexion to the server
+		//Show 		: tells us what conversation to print on screen
+		//id 		: useful to toggle the view
+		//activity 	: "active" for the toggled viem, "" otherwise
+		//mail 		: an array of messages ordered by date decreasingly
 		this.users=[
 			{"show":true,"id":0,"name":"Bob", "activity":"active", "mails":[
 					{"sender":"Me","date":"3 hours ago","text":"carrot ?"},
