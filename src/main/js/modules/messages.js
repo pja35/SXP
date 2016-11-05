@@ -36,16 +36,16 @@
 		//TODO: Make this automatic with a connexion to the server
 		this.users=[
 			{"show":true,"id":0,"name":"Bob", "activity":"active", "mails":[
-					{"date":"2 hours ago","text":"carrot ?"},
-					{"date":"3 hours ago","text":"potatoes ?"}
+					{"sender":"Me","date":"3 hours ago","text":"carrot ?"},
+					{"sender":"Bob","date":"2 hours ago","text":"potatoes ?"}
 				]},
 			{"show":false,"id":1,"name":"Alice", "activity":"", "mails":[
-					{"date":"1 hours ago","text":"You there?"},
-					{"date":"1 hours ago","text":"Hey!"}
+					{"sender":"Alice","date":"1 hours ago","text":"You there?"}
 				]},
 			{"show":false,"id":2,"name":"User 3", "activity":"", "mails":[
-					{"date":"1 hours ago","text":"Hey 2!"},
-					{"date":"4 hours ago","text":"You there 2?"}
+					{"sender":"User 3","date":"1 day","text":"Hello, I'd like to buy you some potatoes pls"},
+					{"sender":"Me","date":"4 hours ago","text":"Sure, how much do you want ?"},
+					{"sender":"User 3","date":"1 hour ago","text":"Nice, about 2kg pls."}
 				]},		 
 		];
 		

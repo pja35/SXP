@@ -20,7 +20,7 @@
 		<div class="well" ng-repeat="user in disp.users" ng-show="user.show">
 			
 			<p ng-repeat="mail in user.mails">
-				<b>{{user.name}}</b>
+				<b>{{mail.sender}} : </b>
 				{{mail.text}}
 				<span class="pull-right"><em><small>{{mail.date}}.</small></em></span>
 			</p>
