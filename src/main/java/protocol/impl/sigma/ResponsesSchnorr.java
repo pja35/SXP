@@ -27,7 +27,7 @@ import model.entity.ElGamalKey;
 public class ResponsesSchnorr extends Responses{
 
 	/**
-	 * Constructo
+	 * Constructor
 	 * @param mask
 	 * @param challenge
 	 * @param response

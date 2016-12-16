@@ -1,0 +1,40 @@
+<h2>Inbox</h2>
+
+<div ng-controller="display as disp"> <!-- Contains and create controller to display messages -->
+
+
+<!-- Create the tabs (one for each conversation) -->
+<div class="row">
+	<div class="col-sm-12">
+		<ul class="nav nav-pills">
+ 			<li  ng-repeat="user in disp.users" class="{{user.activity}}" ng-click="disp.toggleUserActivity(user.id)">
+ 				<a href>{{user.name}}</a>
+ 			</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Display the "active" conversation (prepare the others but don't show them) -->
+<div class="row">
+	<div class="col-sm-12">
+		<div class="well" ng-repeat="user in disp.users" ng-show="user.show">
+			
+			<p ng-repeat="mail in user.mails">
+				<b>{{mail.sender}} : </b>
+				{{mail.text}}
+				<span class="pull-right"><em><small>{{mail.date}}.</small></em></span>
+			</p>
+			
+			<p ng-show="message.length > 1"><b>Me:</b> {{message}}<span class="pull-right"><em><small>now.</small></em></span></p>
+			<div class="input-group input-group-lg">
+			    <input type="text" class="form-control" ng-model="message" placeholder="type your message here">
+			    <span class="input-group-btn">
+			        <button class="btn btn-default" type="button">Send</button>
+			    </span>
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+</div>

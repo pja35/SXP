@@ -105,6 +105,17 @@ public class Sender extends Fabric{
 	}
 	
 	/**
+	 * Create responseSchnorr will send, with challenge fixed
+	 * @return response in bigInteger
+	 */
+	public ResponsesSchnorr SendResponseSchnorr(Masks mask, BigInteger challenge)
+	{
+		BigInteger response = this.ResponseSchnorr(challenge, mask);
+		
+		return new ResponsesSchnorr(mask,challenge,response);
+	}
+	
+	/**
 	 * Create mask to need send for the CCE 
 	 * @return Masks
 	 */

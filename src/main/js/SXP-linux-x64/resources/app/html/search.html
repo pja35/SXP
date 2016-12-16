@@ -1,0 +1,29 @@
+<div class="input-group input-group-lg">
+
+	<span class="input-group-btn">
+		<!-- This button does nothing for now -->
+    <button class="btn btn-default" type="button">Go!</button>
+  </span>
+
+	<input type="text" class="form-control" ng-model="research" placeholder="Search for items, users ..." ng-keyup="search()">
+
+</div>
+
+
+<div ng-show="research.length > 2">
+	<h2>Results for "{{research}}"</h2>
+	<div class="row">
+		<div class="col-xs-12">
+			<p ng-show="resutl.length < 1">No results yet ... try for bananas !</p>
+			<div class="panel panel-default" ng-repeat="item in results">
+				<div class="panel-heading">
+					<h3 class="panel-title"> {{item.title}}</h3>
+				</div>
+				<div class="panel-body">
+					<p>{{item.description}}</p>
+					<p><small>posted : {{item.createdAt}}</small></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

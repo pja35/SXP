@@ -1,0 +1,30 @@
+<nav class="navbar-fixed-top botborder">
+
+	<ul class="nav nav-pills pull-left">
+
+		<li >
+			<!-- Here goes the hamburger that toggles the menu on and off-->
+			<button id="menu-toggle" class="btn btn-link btn-lg linknodeco" ng-click="app.toggleMenu()"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
+		</li>
+
+		<li  ng-show="app.showBackUrl()" class="transibutton">
+			<!-- Here goes the sometimes available back button -->
+			<button class="btn btn-link btn-lg linknodeco" onclick="history.back()"><span class="glyphicon glyphicon-chevron-left"></span> Back</button>
+		</li>
+
+	</ul>
+
+	<ul class="nav nav-pills pull-right">
+
+		<li >
+			<!-- Here goes the context button, see directive of app.js -->
+			<context-button></context-button>
+		</li>
+
+	</ul>
+
+	<div class="nav nav-pills center-content">
+		<!-- Here goes the title, whose content is bound to a variable via AngularJS -->
+		<span class="btn btn-lg linknodeco transibutton">{{app.title}}</span>
+	</div>
+</nav>
