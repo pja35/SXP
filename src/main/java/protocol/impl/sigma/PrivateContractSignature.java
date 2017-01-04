@@ -28,6 +28,9 @@ public class PrivateContractSignature {
 		res = r;
 	}
 	
+	public ElGamalKey getReceiverKey(){
+		return receiverK;
+	}
 	
 	/**
 	 * Getter

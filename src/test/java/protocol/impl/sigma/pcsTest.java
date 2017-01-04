@@ -1,11 +1,25 @@
 package protocol.impl.sigma;
 
+import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
+
 import org.junit.Test;
 
-import model.entity.ElGamalKey;
-import crypt.factories.ElGamalAsymKeyFactory;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
-import static org.junit.Assert.*;
+import controller.tools.JsonTools;
+import controller.tools.rKDeserializer;
+import controller.tools.rKSerializer;
+//import controller.tools.JsonTools;
+import crypt.factories.ElGamalAsymKeyFactory;
+import model.entity.ElGamalKey;
+import model.entity.Item;
 
 public class pcsTest {
 	
@@ -31,6 +45,19 @@ public class pcsTest {
 		
 		//Alice test the message sent by Bob on Trent public key
 		ResEncrypt resEncrypt2 = alice.Encryption(buffer, trentK);
-		assertTrue(pcs.getPcs().Verifies(resEncrypt2));
+		
+		Or m = pcs.getPcs();
+		assertTrue(m.Verifies(resEncrypt2));
+		
+		
+		JsonTools<Or> json = new JsonTools<>(new TypeReference<Or>(){});
+		String a = json.toJson(m, true);
+		System.out.println(a);
+		Or mm = json.toEntity(a,true);
+		String aa = json.toJson(mm, true);
+		System.out.println(aa);
+		
+				
+		System.out.println(mm.Verifies(resEncrypt2));
 	}
 }

@@ -15,7 +15,15 @@
    If not, see <http://www.gnu.org/licenses/>. */
 package protocol.impl.sigma;
 import java.util.HashMap;
+import java.util.Map;
 
+import javax.xml.bind.annotation.XmlElement;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import controller.tools.rKDeserializer;
+import controller.tools.rKSerializer;
 import model.entity.ElGamalKey;
 
 
@@ -27,11 +35,48 @@ import model.entity.ElGamalKey;
 
 public class And {
 	
-	public Receiver receiver;
+	private Receiver receiver;
+	
+
+	@XmlElement(name="resEncrypt")
 	public ResEncrypt resEncrypt;
-	public HashMap <Responses,ElGamalKey> rK  = new HashMap <>();
+	
+
+	@XmlElement(name="rK")
+    @JsonSerialize(using = rKSerializer.class)
+    @JsonDeserialize(using = rKDeserializer.class)
+	public Map<Responses,ElGamalKey> rK  = new HashMap <>();
+	
+
+	@XmlElement(name="responses")
 	public Responses[] responses; 
 	
+
+	/**
+	 * Transform the And into a String
+	 * @return the string corresponding to the AND
+	 */
+	public String toString(){
+		StringBuffer andS = new StringBuffer();
+		andS.append("<" + this.getClass().getSimpleName().toLowerCase() + ">");
+		andS.append(this.resEncrypt.toString());
+		andS.append("<rK>" + rK.toString() + "</rK>");
+		andS.append("<responses>");
+		for (Responses r : responses){
+			andS.append(r.toString());
+		}
+		andS.append("</responses>");
+		andS.append("</" + this.getClass().getSimpleName().toLowerCase() + ">");
+		return andS.toString();
+	}
+	
+	/**
+	 * Constructor
+	 * Needed to transform json String to Java
+	 */
+	public And(){
+		this.receiver = new Receiver();
+	}
 	/**
 	 * Constructor
 	 * @param receiver 
@@ -66,7 +111,7 @@ public class And {
 					return false;
 				}
 			}
-			
+
 			if (!receiver.Verifies(res, rK.get(res), resEncrypt))
 			{
 				System.out.println("il y a un probleme");

@@ -17,6 +17,11 @@ package protocol.impl.sigma;
 
 import java.math.BigInteger;
 
+import javax.xml.bind.annotation.XmlElement;
+
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import model.entity.ElGamalKey;
 
 
@@ -26,25 +31,54 @@ import model.entity.ElGamalKey;
  * @author Sarah Boukris
  * @author Julien Prudhomme
  */
+
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+
+@JsonTypeInfo(use = Id.CLASS,
+         include = JsonTypeInfo.As.PROPERTY,
+         property = "type")
+@JsonSubTypes({
+	@Type(value = ResponsesCCD.class),
+	@Type(value = ResponsesCCE.class),
+	@Type(value = ResponsesSchnorr.class),
+})
 public abstract class Responses{
 	
+
+	@XmlElement(name="masks")
 	private Masks masks;
+
+	@XmlElement(name="challenge")
 	private BigInteger challenge;
+
+	@XmlElement(name="response")
 	private BigInteger response;
 	
-	public Responses(Masks mask, BigInteger challenge, BigInteger response)
+	public Responses(Masks masks, BigInteger challenge, BigInteger response)
 	{
 		super();
-		this.setMasks(mask);
+		this.setMasks(masks);
 		this.setChallenge(challenge);
 		this.setResponse(response);
 	}
 	
-	
-	
+	/**
+	 * Constructor
+	 * used to transform json string to java
+	 */
+	public Responses(){
+		super();
+	}
+
+    @JsonGetter("masks")
 	public Masks getMasks() {
 		return masks;
 	}
+
+    @JsonSetter("masks")
 	public void setMasks(Masks masks) {
 		this.masks = masks;
 	}
@@ -69,7 +103,30 @@ public abstract class Responses{
 	 */
 	public abstract Boolean Verifies(ElGamalKey Keys, ResEncrypt res);
 
-
-
+	/**
+	 * override equals to be able to compare two responses
+	 */
+	@Override
+	public boolean equals(Object o){
+		if (! (o instanceof Responses)){
+			return false;
+		}
+		Responses r = (Responses) o;
+		boolean okM = r.getMasks().equals(this.getMasks());
+		boolean okRes = r.getResponse().toString().equals(this.getResponse().toString());
+		boolean okCha = r.getChallenge().toString().equals(this.getChallenge().toString());
+		return okM && okRes && okCha;
+	}
+	
+	/**
+	 * override hashCode to be able to compare 2 responses
+	 */
+	@Override
+	public int hashCode(){
+		int hashM = masks.hashCode();
+		int hashR = response.intValue();
+		int hashC = response.intValue();
+		return hashM + hashR + hashC;
+	}
 	
 }

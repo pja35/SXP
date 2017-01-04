@@ -57,7 +57,6 @@ public class SigmaTest {
 		
 		ResponsesCCE resCCE = Bob.SendResponseCCE(resEncrypt.getM(), Trent.getKey(), c1);
 		
-
 		
 		assertTrue(AliceR.Verifies(resCCE, trentK, resEncrypt));
 		assertTrue(AliceR.Verifies(resCCEF, trentK, resEncrypt));

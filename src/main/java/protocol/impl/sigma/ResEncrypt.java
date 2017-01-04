@@ -18,6 +18,8 @@ package protocol.impl.sigma;
 
 import java.math.BigInteger;
 
+import javax.xml.bind.annotation.XmlElement;
+
 
 /**
  * It's the result of encryption 
@@ -25,8 +27,14 @@ import java.math.BigInteger;
  *
  */
 public class ResEncrypt {
+
+	@XmlElement(name="u")
 	private BigInteger u;
+	
+	@XmlElement(name="v")
 	private BigInteger v;
+	
+	@XmlElement(name="M")
 	private byte[] M;
 	
 	/**
@@ -43,7 +51,27 @@ public class ResEncrypt {
 		this.setM(M);
 	}
 	
+	/**
+	 * Constructor
+	 * used to transform json string to java
+	 */
+	public ResEncrypt(){
+		super();
+	}
 	
+	/**
+	 * Create a toString method
+	 * @return : representative Sting of the instance
+	 */
+	public String toString(){
+		StringBuffer s = new StringBuffer();
+		s.append("<" + this.getClass().getSimpleName().toLowerCase() + ">");
+		s.append("<u>" + u.toString() + "</u>");
+		s.append("<v>" + v.toString() + "</v>");
+		s.append("<M>" + M.toString() + "</M>");
+		s.append("</" + this.getClass().getSimpleName().toLowerCase() + ">");
+		return s.toString();
+	}
 
 	public BigInteger getU() {
 		return u;

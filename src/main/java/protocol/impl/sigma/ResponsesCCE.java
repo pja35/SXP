@@ -16,6 +16,9 @@
 package protocol.impl.sigma;
 import java.math.BigInteger;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import model.entity.ElGamalKey;
 
 
@@ -32,8 +35,13 @@ public class ResponsesCCE extends Responses {
 	 * @param challenge
 	 * @param response
 	 */
-	public ResponsesCCE(Masks mask, BigInteger challenge, BigInteger response) {
+	@JsonCreator
+	public ResponsesCCE(@JsonProperty("masks") Masks mask, @JsonProperty("challenge") BigInteger challenge,@JsonProperty("response") BigInteger response) {
 		super(mask, challenge, response);
+	}
+	
+	public ResponsesCCE(){
+		super();
 	}
 	
 	
@@ -70,7 +78,19 @@ public class ResponsesCCE extends Responses {
 		
 		return true;
 	}
-
 	
+	@Override
+	public boolean equals(Object o){
+		if (! (o instanceof ResponsesCCE)){
+			return false;
+		}
+		return super.equals(o);
+	}
+	
+	@Override
+	public int hashCode(){
+		int hashS = super.hashCode();
+		return hashS + 3;
+	}
 
 }

@@ -12,6 +12,7 @@ import network.impl.jxta.AdvertisementBridge;
 import network.impl.jxta.AdvertisementInstaciator;
 import network.impl.jxta.JxtaItemService;
 import network.impl.jxta.JxtaItemsSenderService;
+import network.impl.jxta.JxtaEstablisherService;
 import network.impl.jxta.JxtaPeer;
 
 /**
@@ -50,6 +51,9 @@ public class PeerFactory {
 		
 		Service itemService = new JxtaItemService();
 		itemService.initAndStart(p);
+
+		Service establisherService = new JxtaEstablisherService();
+		establisherService.initAndStart(p);
 		
 		Service itemsSender = new JxtaItemsSenderService();
 		itemsSender.initAndStart(p);

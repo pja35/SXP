@@ -147,9 +147,11 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 
 	protected Message toJxtaMessage(Messages m) {
 		Message msg = new Message();
+
 		for(String s: m.getNames()) {
 			msg.addMessageElement(new ByteArrayMessageElement(s, null, m.getMessage(s).getBytes(), null));
 		}
+
 		//msg.addMessageElement(new ByteArrayMessageElement("WHO", null, m.getWho().getBytes(), null));
 		return msg;
 	}
@@ -171,6 +173,7 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 
 	@Override
 	public void sendMessages(Messages messages, String... uris) {
+
 		Message message = toJxtaMessage(messages);
 		HashSet<PeerID> to = new HashSet<PeerID>();
 		for(String pidUri: uris) {
