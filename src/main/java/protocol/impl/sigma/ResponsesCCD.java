@@ -64,6 +64,9 @@ public class ResponsesCCD extends Responses {
 	}
 
 
+	/**
+	 * Override equals to be able to compare two responses
+	 */
 	@Override
 	public boolean equals(Object o){
 		if (! (o instanceof ResponsesCCD)){
@@ -71,7 +74,10 @@ public class ResponsesCCD extends Responses {
 		}
 		return super.equals(o);
 	}
-	
+
+	/**
+	 * Override hashCode to be able to compare two responses
+	 */
 	@Override
 	public int hashCode(){
 		int hashS = super.hashCode();

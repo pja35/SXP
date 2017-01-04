@@ -78,7 +78,10 @@ public class ResponsesCCE extends Responses {
 		
 		return true;
 	}
-	
+
+	/**
+	 * Override equals to be able to compare two responses
+	 */
 	@Override
 	public boolean equals(Object o){
 		if (! (o instanceof ResponsesCCE)){
@@ -86,7 +89,10 @@ public class ResponsesCCE extends Responses {
 		}
 		return super.equals(o);
 	}
-	
+
+	/**
+	 * Override hashCode to be able to compare two responses
+	 */
 	@Override
 	public int hashCode(){
 		int hashS = super.hashCode();
