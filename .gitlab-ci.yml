@@ -15,7 +15,7 @@ test:
     - "cat build/reports/jacoco/test/html/index.html"
  
 selenium:
-  image: selenium-hub:hub selenium/node-firefox
+  image: selenium/standalone-firefox
   tags:
     - docker 
   script:
