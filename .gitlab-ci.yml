@@ -19,6 +19,5 @@ selenium:
   tags:
     - docker 
   script:
-    - "apt-get update"
     - ./gradlew selenium
 
