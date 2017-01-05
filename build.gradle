@@ -50,7 +50,76 @@ jar {
 
 sourceSets.main.resources.srcDirs += ["src/main/ressources"]
 
+//Adding selenium configurations
+configurations {
+    seleniumCompile.extendsFrom testCompile
+    seleniumRuntime.extendsFrom testRuntime
+}
+
+//Define selenium sources and ressources
+sourceSets {	
+	selenium {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/selenium/java')
+        }
+        resources.srcDir file('src/selenium/resources')
+    }    
+}
+
+//selenium task
+
+task selenium(type: Test) {
+    description = "Batch of GUI tests that use selenium"
+    testClassesDir = sourceSets.selenium.output.classesDir
+    classpath = sourceSets.selenium.runtimeClasspath
+    outputs.upToDateWhen { false }
+   // jvmArgs ""
+}
+
+test{
+ if (System.getProperty('DEBUG', 'false') == 'true') {
+        jvmArgs '-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5006'
+    }
+}
+
+tasks.withType(Test) {
+    testLogging {
+        // set options for log level LIFECYCLE
+        events "passed", "skipped", "failed", "standardOut"
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+
+        // set options for log level DEBUG and INFO
+        debug {
+            events "started", "passed", "skipped", "failed", "standardOut", "standardError"
+            exceptionFormat "full"
+        }
+        info.events = debug.events
+        info.exceptionFormat = debug.exceptionFormat
+
+        afterSuite { desc, result ->
+            if (!desc.parent) { // will match the outermost suite
+                def output = "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+                def startItem = '|  ', endItem = '  |'
+                def repeatLength = startItem.length() + output.length() + endItem.length()
+                println('\n' + ('-' * repeatLength) + '\n' + startItem + output + endItem + '\n' + ('-' * repeatLength))
+            }
+        }
+    }
+}
+
 dependencies {
+	compile 'org.hibernate:hibernate-validator:5.2.4.Final'
+	
+	compile 'org.apache.logging.log4j:log4j-api:2.1'
+  	compile 'org.apache.logging.log4j:log4j-core:2.1'
+  	compile 'org.apache.logging.log4j:log4j-1.2-api:2.1'
+  	compile 'org.apache.logging.log4j:log4j-web:2.5'
+  	
 	compile 'org.apache.commons:commons-collections4:4.0'
 	compile 'org.eclipse.jetty:jetty-server:9.2.3.v20140905'
 	compile 'org.eclipse.jetty:jetty-servlet:9.2.3.v20140905'
@@ -69,7 +138,12 @@ dependencies {
 	compile fileTree(dir: './libs', include: '*.jar')
 	compile 'com.google.guava:guava:19.0'
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.6.3'
+	testCompile 'org.apache.commons:commons-lang3:3.1'
+	testCompile fileTree(dir: './libs', include: 'loremipsum-1.0.jar')
     testCompile group: 'junit', name: 'junit', version: '4.+'
+    testCompile group: 'com.github.stefanbirkner', name: 'system-rules', version: '1.16.0'
+    testCompile group: 'org.json', name: 'json', version: '20160810'
+    seleniumCompile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.0.1'
 }
 
 [compileJava, compileTestJava]*.options.collect {options -> 
@@ -85,8 +159,9 @@ eclipse {
 //Copy dependencies in the libs directory
 task libs(type: Sync) {
 	from configurations.compile
-    from configurations.runtime
-    //from configurations.testCompile
+    //from configurations.runtime
+    from configurations.testCompile
+    from configurations.seleniumCompile
     into "$buildDir/libs"
 }
 build.finalizedBy(libs)

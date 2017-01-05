@@ -1,0 +1,3 @@
+Class Hasher defined in src/main/java/protocol/impl/sigma/Hasher.java is designed to hash different data types using SHA256 algorithm.
+
+It is redundant with class SHA256Hasher defined in src/main/java/crypt/impl/hashs/SHA256Hasher.java

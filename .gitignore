@@ -17,3 +17,7 @@ SXPManager.xml
 .peer*
 .db-8081/*
 src/main/javascript/client/SXP*
+derby.system.home
+/logs/
+derby.log
+/simpleDb/

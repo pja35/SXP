@@ -1,0 +1,24 @@
+stages: 
+    - build
+    - test
+
+test:
+  image: ubuntu:16.04
+  tags:
+    - docker 
+  script:
+    - "apt-get update"
+    - "apt-get -y install openjdk-8-jdk"
+    - ./gradlew assemble
+    - ./gradlew check
+    - ./gradlew test    
+    - "cat build/reports/jacoco/test/html/index.html"
+ 
+selenium:
+  image: selenium-hub:hub selenium/node-firefox
+  tags:
+    - docker 
+  script:
+    - "apt-get update"
+    - ./gradlew selenium
+

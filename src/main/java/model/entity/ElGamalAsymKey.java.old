@@ -57,7 +57,7 @@ public class ElGamalAsymKey extends AbstractAsymKey<BigInteger> implements Seria
 		switch(param) {
 		case "p": return p;
 		case "g": return g;
-		default: throw new RuntimeException("param " + param + "undefined");
+		default: throw new RuntimeException("param " + param + " undefined");
 		}
 	}
 	@Override
