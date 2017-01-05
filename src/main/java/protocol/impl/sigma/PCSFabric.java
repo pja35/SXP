@@ -4,9 +4,12 @@ import model.entity.ElGamalKey;
 import java.util.HashMap;
 import java.math.BigInteger;
 
-public class PrivateContractSignature {
-	public And[] ands = new And[2];
+public class PCSFabric {
+	//The pcs (an Or object)
 	private Or pcs;
+	
+	//Elements used to create the Pcs
+	private And[] ands = new And[2];
 	private ElGamalKey senderK;
 	private ElGamalKey receiverK;
 	private ElGamalKey trentK;
@@ -47,9 +50,10 @@ public class PrivateContractSignature {
 		Receiver receiver = new Receiver();
 		
 		//Creates the Schnorr and CCE signature we will "AND"
-		ResponsesCCE resCce1 = sender.SendResponseCCE(res.getM(), trentK);
-		ResponsesSchnorr resSchnorr2 = sender.SendResponseSchnorrFabric(receiverK);
+		//2 of them are fabricated
 		ResponsesCCE resCce2 = sender.SendResponseCCEFabric(res, trentK);
+		ResponsesSchnorr resSchnorr2 = sender.SendResponseSchnorrFabric(receiverK);
+		ResponsesCCE resCce1 = sender.SendResponseCCE(res.getM(), trentK);
 		
 		//For the last response, we need to choose the right challenge (to be able to compose in the or) :
 		Masks mask = sender.SendMasksSchnorr();
@@ -57,7 +61,7 @@ public class PrivateContractSignature {
 		BigInteger challenge = c.xor(resSchnorr2.getChallenge().xor(resCce1.getChallenge().xor(resCce2.getChallenge())));
 		ResponsesSchnorr resSchnorr1 = sender.SendResponseSchnorr(mask, challenge);
 		
-		//Maps the responses with the receiver key
+		//Maps the responses with the right key (receiver for Schnorr, trent for CCE)
 		HashMap<Responses,ElGamalKey> rK1 = new HashMap <Responses,ElGamalKey>();
 		rK1.put(resSchnorr1, senderK);
 		rK1.put(resCce1, trentK);
@@ -85,7 +89,7 @@ public class PrivateContractSignature {
 	 * @param r : receiver public key
 	 * @param t : trent public key
 	 */
-	public PrivateContractSignature(Sender s, ResEncrypt resE, ElGamalKey r, ElGamalKey t){
+	public PCSFabric(Sender s, ResEncrypt resE, ElGamalKey r, ElGamalKey t){
 		setSender(s);
 		setReceiverKeys(r);
 		setTrentKeys(t);

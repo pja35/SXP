@@ -4,13 +4,14 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import controller.tools.JsonTools;
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
+import protocol.impl.sigma.Or;
+import protocol.impl.sigma.PCSFabric;
+import protocol.impl.sigma.ResEncrypt;
+import protocol.impl.sigma.Sender;
 
-public class pcsTest {
+public class PCSTest {
 	
 	@Test
 	public void test(){
@@ -30,23 +31,15 @@ public class pcsTest {
 		ResEncrypt resEncrypt = bob.Encryption(buffer, trentK);
 		
 		//Créé la PCS
-		PrivateContractSignature pcs = new PrivateContractSignature(bob, resEncrypt, aliceK, trentK);
+		PCSFabric pcsf = new PCSFabric(bob, resEncrypt, aliceK, trentK);
 		
 		//Alice test the message sent by Bob on Trent public key
 		ResEncrypt resEncrypt2 = alice.Encryption(buffer, trentK);
 		
 		//Get the Signature in the pcs
-		Or m = pcs.getPcs();
+		Or m = pcsf.getPcs();
 		
 		//Alice checks the signature
 		assertTrue(m.Verifies(resEncrypt2));
-		
-		//Transform the signature into string to send it upon the network
-		JsonTools<Or> json = new JsonTools<>(new TypeReference<Or>(){});
-		String a = json.toJson(m, true);
-		
-		//Get the signature back the signature from the string and test it
-		Or mm = json.toEntity(a,true);
-		assertTrue(mm.Verifies(resEncrypt2));
 	}
 }

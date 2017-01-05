@@ -19,6 +19,8 @@ import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * This class is for the composability. This is clause Or.
  * @author sarah
@@ -32,8 +34,8 @@ public class Or {
 	@XmlElement(name="ands")
 	public And[] ands;
 	
-
-	@XmlElement(name="challenges")
+	
+	@JsonIgnore
 	public ArrayList <BigInteger> challenges = new ArrayList <BigInteger>(); 
 	
 
@@ -80,7 +82,6 @@ public class Or {
 				challenges.add(res.getChallenge());
 			}
 		}
-		
 		if (!receiver.VerifiesChallenges(resEncrypt.getM(), getA(), challenges))
 		{
 			System.out.println("probleme dans les challenges");

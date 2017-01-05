@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import protocol.impl.SigmaEstablisher;
-import protocol.impl.sigma.PrivateContractSignature;
+import protocol.impl.sigma.PCSFabric;
 
 public class EstablisherTest {
 
@@ -68,11 +68,11 @@ public class EstablisherTest {
 		
 
 		
-		SigmaEstablisher sigmaE = new SigmaEstablisher();
-		sigmaE.initialize("Hello");
-		sigmaE.sign();
-		final PrivateContractSignature pCS = sigmaE.getPrivateCS();
-		final String pcs = sigmaE.getPcs();
+//		SigmaEstablisher sigmaE = new SigmaEstablisher();
+//		sigmaE.initialize("Hello");
+//		sigmaE.sign();
+//		PrivateContractSignature pCS = sigmaE.getPrivateCS();
+//		String pcs = sigmaE.getPcs();
 		
 		
 		getEstablisherService1().addListener(new ServiceListener() {
@@ -80,12 +80,12 @@ public class EstablisherTest {
 			public void notify(Messages messages) {
 				System.out.println("u1");
 				System.out.println(messages.getMessage("title"));
-				Integer pcs2 = new Integer(messages.getMessage("promI"));
-				System.out.println(pcs2);
-				String msg = String.valueOf(pcs2 + 1);
-				if (pcs2 < 6) {
+				Integer m1 = new Integer(messages.getMessage("promI"));
+				System.out.println(m1);
+				String msg = String.valueOf(m1 + 1);
+				if (m1 < 6) {
 					System.out.println("u1");
-					getEstablisherService1().sendPromI("Prom"+msg, u1.getId(), getPeer2().getUri(), msg, getPeer1().getUri());
+					getEstablisherService1().sendPromI("Prom"+msg, getPeer2().getUri(), msg, getPeer1().getUri());
 					System.out.println("\n");
 					try {
 						Thread.sleep(1000);
@@ -96,19 +96,19 @@ public class EstablisherTest {
 				}
 			}
 			
-		}, getPeer1().getUri());
+		}, getPeer2().getUri());
 		
 		getEstablisherService2().addListener(new ServiceListener() {
 			@Override
 			public void notify(Messages messages) {
 				System.out.println("u2");
 				System.out.println(messages.getMessage("title"));
-				Integer pcs2 = new Integer(messages.getMessage("promI"));
-				System.out.println(pcs2);
-				String msg = String.valueOf(pcs2 + 1);
-				if (pcs2 < 6) {
+				Integer m1 = new Integer(messages.getMessage("promI"));
+				System.out.println(m1);
+				String msg = String.valueOf(m1 + 1);
+				if (m1< 6) {
 					System.out.println("u2");
-					getEstablisherService2().sendPromI("Prom"+msg, u1.getId(), getPeer1().getUri(), msg, getPeer2().getUri());
+					getEstablisherService2().sendPromI("Prom"+msg, getPeer1().getUri(), msg, getPeer2().getUri());
 					System.out.println("\n");
 					try {
 						Thread.sleep(1000);
@@ -121,51 +121,13 @@ public class EstablisherTest {
 			
 		}, getPeer1().getUri());
 		
-		getEstablisherService2().sendPromI("Prom1", getPeer1().getUri(), getPeer1().getUri(), "1", getPeer2().getUri(), getPeer1().getUri());
+		getEstablisherService2().sendPromI("Prom1", getPeer2().getUri(), "1", getPeer1().getUri());
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		//Initializing listener
-//		getEstablisherService2().addListener(new EstablisherListener(), u1.getId());
-//		getEstablisherService1().addListener(new EstablisherListener(), u2.getId());
-//		
-//
-//		getEstablisherService1().sendPromI(u1.getNick() + ", Prom 1", u2.getId(), this.getPeer2().getUri(), "hello", this.getPeer1().getUri());
-//		System.out.println("\n");
-//		try {
-//			Thread.sleep(1000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		getEstablisherService2().sendPromI(u2.getNick() + ", Prom 2", u1.getId(), getPeer1().getUri(), "", getPeer2().getUri());
-//		System.out.println("\n");
-//		try {
-//			Thread.sleep(1000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		getEstablisherService1().sendPromI(u1.getNick() + ", Prom 3", u2.getId(), getPeer2().getUri(), pcs, getPeer1().getUri());
-//		System.out.println("\n");
-//		System.out.println("Wait ! Leavin ?");
-//		try {
-//			Thread.sleep(1000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		getEstablisherService1().sendPromI(u1.getNick() + ", Prom 3", u2.getId(), this.getPeer2().getUri(), pcs, this.getPeer1().getUri());
-//		System.out.println("\n");
-//		try {
-//			Thread.sleep(1000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		
 		System.out.println("User1 : "+u1.getId());
 		System.out.println("User2 : "+u2.getId());		

@@ -29,12 +29,12 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 	}*/
 	
 	@Override
-	public EstablisherMessage sendPromI(String title, String whoId, String whoUid, String promI, String... peerURIs) 
+	public EstablisherMessage sendPromI(String title, String whoId, String promI, String... peerURIs) 
 	{
 		EstablisherMessage m = new EstablisherMessage();
 		m.setTitle(title);
 		m.setWho(whoId);
-		m.setReceiver(whoUid);
+		m.setReceiver(peerURIs[0]);
 		m.setPromI(promI);
 		this.sendMessages(m, peerURIs);
 		return m;

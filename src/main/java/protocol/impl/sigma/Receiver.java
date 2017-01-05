@@ -139,7 +139,7 @@ public class Receiver {
 		BigInteger challenges = BigInteger.ZERO;
 		for(BigInteger c : challenge)
 			challenges = challenges.xor(c);
-		
+
 		return (challenges.equals(test));
 	}
 	

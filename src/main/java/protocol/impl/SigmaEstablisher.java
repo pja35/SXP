@@ -1,7 +1,5 @@
 package protocol.impl;
 
-import java.math.BigInteger;
-import java.util.HashMap;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
@@ -13,13 +11,12 @@ import protocol.api.Contract;
 import protocol.api.Establisher;
 import protocol.api.Status;
 import protocol.impl.sigma.Sender;
-import protocol.impl.sigma.Receiver;
-import protocol.impl.sigma.Trent;
-import protocol.impl.sigma.And;
-import protocol.impl.sigma.Masks;
-import protocol.impl.sigma.PrivateContractSignature;
+//import protocol.impl.sigma.Receiver;
+//import protocol.impl.sigma.Trent;
+import protocol.impl.sigma.ElGamal;
+import protocol.impl.sigma.Or;
+import protocol.impl.sigma.PCSFabric;
 import protocol.impl.sigma.ResEncrypt;
-import protocol.impl.sigma.Responses;
 
 
 /**
@@ -34,16 +31,17 @@ public class SigmaEstablisher implements Establisher{
 	/**
 	 * status : ongoing state of signature
 	 * contract : contract which is being signed
-	 * Sender, Receiver, Trent : instances necesseray to the signature
+	 * Sender, Receiver, Trent : instances necessary to the signature
 	 */
 	private Status status = Status.NOWHERE;
 	private Contract<?,?,?,?> contract;
-	private PrivateContractSignature pcs;
+	private String message;
+	private Or pcs;
 	private Sender sender;
-	private Receiver receiver;
-	private Trent trent;
+//	private Receiver receiver;
+//	private Trent trent;
 	private ResEncrypt resEncrypt;
-	private ElGamalKey aliceK;
+	private ElGamalKey receiverK;
 	private ElGamalKey trentK;
 
 	
@@ -54,6 +52,17 @@ public class SigmaEstablisher implements Establisher{
 	public Status getStatus(){
 		return status;
 	}
+	public Or getPrivateCS(){
+		return pcs;
+	}
+	
+	//Setters
+	public void setResEncrypt(){
+		resEncrypt = sender.Encryption(message.getBytes(), trentK);
+	}
+	public void setResEncrypt(int i){
+		resEncrypt = sender.Encryption((i+message).getBytes(), trentK);
+	}
 	
 	//Initialize the protocol
 	/**
@@ -61,21 +70,20 @@ public class SigmaEstablisher implements Establisher{
 	 * 		only implemented for tests
 	 */
 	public void initialize(Contract<?,?,?,?> c){
-		contract =c;
+		contract = c;
 	}
-	public void initialize(String s){
+	public void initialize(String msg, Sender sen,ElGamalKey recK,ElGamalKey treK){
+		message = msg;
 		status = Status.SIGNING;
-		ElGamalKey bobK;
-		bobK = ElGamalAsymKeyFactory.create(false);
-		aliceK = ElGamalAsymKeyFactory.create(false);
-		trentK = ElGamalAsymKeyFactory.create(false);
-		sender = new Sender(bobK);
-		resEncrypt = sender.Encryption(s.getBytes(), trentK);
+		receiverK = recK;
+		trentK = treK;
+		sender = sen;
+		setResEncrypt();
 	}
 	
 	//Realize the Sigma-protocol
 	public void sign(){
-		pcs = new PrivateContractSignature(sender, resEncrypt, aliceK , trentK);
+		pcs = (new PCSFabric(sender, resEncrypt, receiverK , trentK)).getPcs();
 	}
 
 	private Signable<?> s;
@@ -89,17 +97,35 @@ public class SigmaEstablisher implements Establisher{
 		return s;
 	}
 	
-	public String getPcs(){
-		JsonTools<PrivateContractSignature> json = new JsonTools<>(new TypeReference<PrivateContractSignature>(){});
-		return json.toJson(pcs);
-	}
 	
-	public PrivateContractSignature getPrivateCS(String pcs){
-		JsonTools<PrivateContractSignature> json = new JsonTools<>(new TypeReference<PrivateContractSignature>(){});
-		return json.toEntity(pcs);
-	}
+	/**
+	 * What follows is the necessary primitives for the signature to be done over the network
+	 * @return
+	 */
 	
-	public PrivateContractSignature getPrivateCS(){
-		return pcs;
+	//Return the string representing the private contract signature
+	public String getJson(){
+		JsonTools<Or> json = new JsonTools<>(new TypeReference<Or>(){});
+		return json.toJson(pcs, true);
+	}
+	//Return the encrypted string representing the private contract signature using receiver key
+	public String getJson(boolean toEncrypt){
+		JsonTools<Or> json = new JsonTools<>(new TypeReference<Or>(){});
+		String msg = json.toJson(pcs, true);
+		ElGamal eg = new ElGamal(receiverK);
+		return new String(eg.encryptWithPublicKey(msg.getBytes()));
+	}
+
+	//Return the PCS (Or Object) from json
+	public Or getPrivateCS(String pcs){
+		JsonTools<Or> json = new JsonTools<>(new TypeReference<Or>(){});
+		return json.toEntity(pcs, true);
+	}
+	//Return the PCS (Or Object) from json when it is encrypted with sender publicKey
+	public Or getPrivateCS(String pcs, boolean encrypted){
+		ElGamal eg = new ElGamal(sender.getKeys());
+		byte[] msg = eg.decryptWithPrivateKey(pcs.getBytes());
+		JsonTools<Or> json = new JsonTools<>(new TypeReference<Or>(){});
+		return json.toEntity(new String(msg), true);
 	}
 }
