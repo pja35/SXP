@@ -14,10 +14,12 @@ test:
     - ./gradlew test    
     - "cat build/reports/jacoco/test/html/index.html"
  
-selenium:
-  image: selenium/standalone-firefox
-  tags:
-    - docker 
-  script:
-    - ./gradlew selenium
+#selenium:
+#  image: selenium/standalone-firefox
+#  tags:
+#    - docker 
+#  script:
+#    - "sudo apt-get update"
+#    - "sudo apt-get -y install openjdk-8-jdk"
+#    - ./gradlew selenium
 
