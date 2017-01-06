@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
 import crypt.api.signatures.Signable;
-import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
 import protocol.api.Contract;
 import protocol.api.Establisher;
@@ -16,7 +15,6 @@ import protocol.impl.sigma.Sender;
 import protocol.impl.sigma.ElGamal;
 import protocol.impl.sigma.Or;
 import protocol.impl.sigma.PCSFabric;
-import protocol.impl.sigma.ResEncrypt;
 
 
 /**
@@ -35,12 +33,11 @@ public class SigmaEstablisher implements Establisher{
 	 */
 	private Status status = Status.NOWHERE;
 	private Contract<?,?,?,?> contract;
-	private String message;
+	private byte[] message;
 	private Or pcs;
 	private Sender sender;
 //	private Receiver receiver;
 //	private Trent trent;
-	private ResEncrypt resEncrypt;
 	private ElGamalKey receiverK;
 	private ElGamalKey trentK;
 
@@ -56,14 +53,6 @@ public class SigmaEstablisher implements Establisher{
 		return pcs;
 	}
 	
-	//Setters
-	public void setResEncrypt(){
-		resEncrypt = sender.Encryption(message.getBytes(), trentK);
-	}
-	public void setResEncrypt(int i){
-		resEncrypt = sender.Encryption((i+message).getBytes(), trentK);
-	}
-	
 	//Initialize the protocol
 	/**
 	 * TODO : really make the initialisation
@@ -73,17 +62,16 @@ public class SigmaEstablisher implements Establisher{
 		contract = c;
 	}
 	public void initialize(String msg, Sender sen,ElGamalKey recK,ElGamalKey treK){
-		message = msg;
+		message = msg.getBytes();
 		status = Status.SIGNING;
 		receiverK = recK;
 		trentK = treK;
 		sender = sen;
-		setResEncrypt();
 	}
 	
 	//Realize the Sigma-protocol
 	public void sign(){
-		pcs = (new PCSFabric(sender, resEncrypt, receiverK , trentK)).getPcs();
+		pcs = (new PCSFabric(sender, receiverK , trentK)).getPcs(message);
 	}
 
 	private Signable<?> s;

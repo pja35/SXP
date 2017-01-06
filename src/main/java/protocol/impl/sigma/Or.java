@@ -86,6 +86,7 @@ public class Or {
 		{
 			System.out.println("probleme dans les challenges");
 		}
+		challenges=new ArrayList <BigInteger>();
 		return true;
 		
 	}

@@ -17,17 +17,20 @@ public class PCSFabric {
 	private Sender sender;
 	
 	//setters
-	public void setSender(Sender s){
+	private void setPcs(Or privateCS){
+		pcs = privateCS;
+	}
+	private void setSender(Sender s){
 		sender = s;
 		senderK = s.getKeys();
 	}
-	public void setReceiverKeys(ElGamalKey r){
+	private void setReceiverKeys(ElGamalKey r){
 		receiverK=r;
 	}
-	public void setTrentKeys(ElGamalKey t){
+	private void setTrentKeys(ElGamalKey t){
 		trentK=t;
 	}
-	public void setResEncrypt (ResEncrypt r){
+	private void setResEncrypt (ResEncrypt r){
 		res = r;
 	}
 	
@@ -39,14 +42,17 @@ public class PCSFabric {
 	 * Getter
 	 * @return pcs : the private contract signature
 	 */
-	public Or getPcs(){
+	public Or getPcs(byte[] m){
+		setResEncrypt(sender.Encryption(m, trentK));
+		setPcs();
 		return pcs;
 	}
+
 	
 	/**
 	 * Make the PCS
 	 */
-	public void setPcs(){
+	private void setPcs(){
 		Receiver receiver = new Receiver();
 		
 		//Creates the Schnorr and CCE signature we will "AND"
@@ -79,7 +85,7 @@ public class PCSFabric {
 		ands[1] = new And(receiver,rK2,res,resp2);
 		
 		//Make the PCS
-		pcs = new Or(receiver, mask.getA(), ands);
+		setPcs(new Or(receiver, mask.getA(), ands));
 	}
 	
 	/**
@@ -89,11 +95,17 @@ public class PCSFabric {
 	 * @param r : receiver public key
 	 * @param t : trent public key
 	 */
-	public PCSFabric(Sender s, ResEncrypt resE, ElGamalKey r, ElGamalKey t){
+	public PCSFabric(Sender s, ElGamalKey r, ElGamalKey t){
 		setSender(s);
 		setReceiverKeys(r);
 		setTrentKeys(t);
-		setResEncrypt(resE);
-		setPcs();
+	}
+	
+	/**
+	 * 
+	 */
+	public boolean PCSVerifies(Or privateCS, byte[] m){
+		setPcs(privateCS);
+		return this.getPcs(m).Verifies(res);
 	}
 }

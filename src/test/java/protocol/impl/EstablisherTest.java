@@ -31,5 +31,6 @@ public class EstablisherTest {
 		SigmaEstablisher sigmaE2 = new SigmaEstablisher();
 		sigmaE2.initialize(msg, alice, senK, treK);
 		
+		assertTrue(true);
 	}
 }

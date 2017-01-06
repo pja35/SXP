@@ -8,14 +8,13 @@ import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
 import protocol.impl.sigma.Or;
 import protocol.impl.sigma.PCSFabric;
-import protocol.impl.sigma.ResEncrypt;
 import protocol.impl.sigma.Sender;
 
 public class PCSTest {
 	
 	@Test
 	public void test(){
-		
+
 		ElGamalKey bobK, aliceK, trentK;
 		bobK = ElGamalAsymKeyFactory.create(false);
 		aliceK = ElGamalAsymKeyFactory.create(false);
@@ -27,19 +26,11 @@ public class PCSTest {
 		String message="coucou !";
 		byte[] buffer = message.getBytes();
 		
-		//Encrypte le message avec la clé publique de Trent
-		ResEncrypt resEncrypt = bob.Encryption(buffer, trentK);
-		
-		//Créé la PCS
-		PCSFabric pcsf = new PCSFabric(bob, resEncrypt, aliceK, trentK);
-		
-		//Alice test the message sent by Bob on Trent public key
-		ResEncrypt resEncrypt2 = alice.Encryption(buffer, trentK);
-		
-		//Get the Signature in the pcs
-		Or m = pcsf.getPcs();
+		//Create the PCS
+		Or pcs = (new PCSFabric(bob, aliceK, trentK)).getPcs(buffer);
 		
 		//Alice checks the signature
-		assertTrue(m.Verifies(resEncrypt2));
+		PCSFabric pcsf = new PCSFabric(alice, bobK, trentK);
+		assertTrue(pcsf.PCSVerifies(pcs, buffer));
 	}
 }
