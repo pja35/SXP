@@ -12,13 +12,13 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
-public class rKDeserializer extends StdDeserializer<Map<Responses, ElGamalKey>> {
+public class MapResponseKeyDeserializer extends StdDeserializer<Map<Responses, ElGamalKey>> {
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	protected rKDeserializer() {
+	protected MapResponseKeyDeserializer() {
         super(Map.class);
     }
 

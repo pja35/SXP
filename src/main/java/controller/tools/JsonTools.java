@@ -50,7 +50,7 @@ public class JsonTools<Entity> {
 	public String toJson(Entity entity, boolean containsMap) {
 		ObjectMapper mapper = new ObjectMapper();
 		SimpleModule simpleModule = new SimpleModule("SimpleModule");
-		simpleModule.addSerializer(new rKSerializer());
+		simpleModule.addSerializer(new MapResponseKeySerializer());
 		mapper.registerModule(simpleModule);
 		try {
 			return mapper.writeValueAsString(entity);
@@ -72,7 +72,7 @@ public class JsonTools<Entity> {
 	public Entity toEntity(String json, boolean containsMap) {
 		ObjectMapper mapper = new ObjectMapper();
 		SimpleModule simpleModule = new SimpleModule("SimpleModule");
-		simpleModule.addDeserializer(Map.class, new rKDeserializer());
+		simpleModule.addDeserializer(Map.class, new MapResponseKeyDeserializer());
 		mapper.registerModule(simpleModule);
 		
 		try {
