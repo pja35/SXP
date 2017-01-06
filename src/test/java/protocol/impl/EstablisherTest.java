@@ -24,12 +24,12 @@ public class EstablisherTest {
 		Sender alice = new Sender(senK);
 		
 		//Bob side
-		SigmaEstablisher sigmaE = new SigmaEstablisher();
-		sigmaE.initialize(msg, bob, recK, treK);
+		SigmaEstablisher sigmaE = new SigmaEstablisher(bob, recK, treK);
+		sigmaE.initialize(msg);
 
 		//Alice side
-		SigmaEstablisher sigmaE2 = new SigmaEstablisher();
-		sigmaE2.initialize(msg, alice, senK, treK);
+		SigmaEstablisher sigmaE2 = new SigmaEstablisher(alice, senK, treK);
+		sigmaE2.initialize(msg);
 		
 		assertTrue(true);
 	}

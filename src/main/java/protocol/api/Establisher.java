@@ -13,10 +13,9 @@ public interface Establisher {
 	 * Set the signers and change status to signing
 	 * @param c
 	 */
-	public Status getStatus();
-	
 	public void initialize(Contract<?,?,?,?> c);
 	
+	public Status getStatus();
 	/**
 	 * Sign the contract with a Sigma-Protocol
 	 */

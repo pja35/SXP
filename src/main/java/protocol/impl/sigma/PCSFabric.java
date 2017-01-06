@@ -16,6 +16,42 @@ public class PCSFabric {
 	private ResEncrypt res;
 	private Sender sender;
 	
+	
+
+	/**
+	 * Constructor
+	 * @param m : message to be signed
+	 * @param s : sender keys
+	 * @param r : receiver public key
+	 * @param t : trent public key
+	 */
+	public PCSFabric(Sender s, ElGamalKey r, ElGamalKey t){
+		setSender(s);
+		setReceiverKeys(r);
+		setTrentKeys(t);
+	}
+	
+	
+
+	/**
+	 * Getter
+	 * @return pcs : the private contract signature
+	 */
+	public Or getPcs(byte[] m){
+		setResEncrypt(sender.Encryption(m, trentK));
+		setPcs();
+		return pcs;
+	}
+	
+	/**
+	 * Checks a PCS according to a message
+	 */
+	public boolean PCSVerifies(Or privateCS, byte[] m){
+		setPcs(privateCS);
+		return this.getPcs(m).Verifies(res);
+	}
+	
+	
 	//setters
 	private void setPcs(Or privateCS){
 		pcs = privateCS;
@@ -34,20 +70,6 @@ public class PCSFabric {
 		res = r;
 	}
 	
-	public ElGamalKey getReceiverKey(){
-		return receiverK;
-	}
-	
-	/**
-	 * Getter
-	 * @return pcs : the private contract signature
-	 */
-	public Or getPcs(byte[] m){
-		setResEncrypt(sender.Encryption(m, trentK));
-		setPcs();
-		return pcs;
-	}
-
 	
 	/**
 	 * Make the PCS
@@ -88,24 +110,4 @@ public class PCSFabric {
 		setPcs(new Or(receiver, mask.getA(), ands));
 	}
 	
-	/**
-	 * Constructor
-	 * @param m : message to be signed
-	 * @param s : sender keys
-	 * @param r : receiver public key
-	 * @param t : trent public key
-	 */
-	public PCSFabric(Sender s, ElGamalKey r, ElGamalKey t){
-		setSender(s);
-		setReceiverKeys(r);
-		setTrentKeys(t);
-	}
-	
-	/**
-	 * 
-	 */
-	public boolean PCSVerifies(Or privateCS, byte[] m){
-		setPcs(privateCS);
-		return this.getPcs(m).Verifies(res);
-	}
 }
