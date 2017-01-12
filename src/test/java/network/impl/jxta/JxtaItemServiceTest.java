@@ -1,0 +1,89 @@
+package network.impl.jxta;
+
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import net.jxta.endpoint.Message;
+import network.api.Messages;
+import network.factories.PeerFactory;
+import network.impl.messages.RequestItemMessageTest;
+import util.TestInputGenerator;
+import util.TestUtils;
+
+import static org.junit.Assert.*;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Rule;
+
+/**
+ * JxtaItemSerice unit tests
+ * @author denis.arrivault[@]univ-amu.fr
+ */
+public class JxtaItemServiceTest {
+	private final static Logger log = LogManager.getLogger(JxtaItemServiceTest.class);
+	@Rule public ExpectedException exception = ExpectedException.none();
+
+	static private String cache = TestInputGenerator.getRandomCacheName();
+	static private JxtaPeer jxtaPeer;
+
+	@BeforeClass
+	public static void setUpClass() {
+		TestUtils.removeRecursively(new File(cache));
+		jxtaPeer = PeerFactory.createJxtaPeer();
+		try {
+			jxtaPeer.start(cache, 9800);
+		} catch (IOException e) {
+			log.debug(e.getMessage());
+		}
+	}
+
+	@AfterClass
+	public static void tearDownClass() {
+		jxtaPeer.stop();
+		TestUtils.removeRecursively(new File(cache));
+	}
+
+
+	JxtaItemService jxtaItemService;
+
+	@Before
+	public void initialize(){
+		jxtaItemService = new JxtaItemService();		
+	}
+
+	@Test
+	public void addServiceToPeer(){
+		jxtaPeer.addService(jxtaItemService);
+		assertTrue(jxtaPeer.getService("items").equals(jxtaItemService));
+	}
+
+	@Test
+	public void badInitTest(){
+		exception.expect(RuntimeException.class);
+		exception.expectMessage("Need a Jxta Peer to run a Jxta service");	
+		jxtaItemService.initAndStart(null);
+	}
+
+	@Test
+	public void getNameTest() {
+		assertTrue(jxtaItemService.getName().equals("items"));
+	}
+
+	@Test
+	public void messageTest(){
+		Messages messages = jxtaItemService.toMessages(new Message());
+		assertNull(messages.getWho());
+		String[] names = messages.getNames();
+		// Message exists ...
+		assertTrue(names.length == 1);
+		// with null name.
+		assertNull(names[0]);
+	}
+}

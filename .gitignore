@@ -17,3 +17,5 @@ SXPManager.xml
 .peer*
 db*
 src/main/javascript/client/SXP*
+/logs/
+/simpleDb/

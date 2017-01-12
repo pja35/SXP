@@ -20,7 +20,7 @@ public class BaseSignature<T> implements Signature<T>{
 				}
 			}
 		}
-		throw new RuntimeException("Undefined param" + p);
+		throw new RuntimeException("Undefined param : " + p);
 	}
 
 }
