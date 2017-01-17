@@ -113,6 +113,7 @@ tasks.withType(Test) {
 }
 
 dependencies {
+	compile 'org.eclipse.jetty:jetty-webapp:9.3.13.M0'
 	compile 'org.hibernate:hibernate-validator:5.2.4.Final'
 	
 	compile 'org.apache.logging.log4j:log4j-api:2.1'
@@ -137,6 +138,7 @@ dependencies {
 	compile 'org.jdom:jdom2:2.0.6'
 	compile fileTree(dir: './libs', include: '*.jar')
 	compile 'com.google.guava:guava:19.0'
+	compile 'org.shredzone.acme4j:acme4j-utils:0.8'
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.6.3'
 	testCompile 'org.apache.commons:commons-lang3:3.1'
 	testCompile fileTree(dir: './libs', include: 'loremipsum-1.0.jar')

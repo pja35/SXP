@@ -37,9 +37,11 @@
         $scope.submit = function() {
             //gets called by login.html upon submit
             RESTAPISERVER = $scope.form.server;
-            var user = $scope.form.login;
-            var password = $scope.form.password;
-            $http.get(RESTAPISERVER + "/api/users/login?login=" + user + "&password=" + password).then(
+            var data = $.param({
+                login: $scope.form.login,
+                password: $scope.form.password
+            });
+            $http.post(RESTAPISERVER + "/api/users/login", data).then(
                 function(response) {
                     //if GET succeeds
                     var obj = response.data;
@@ -100,11 +102,13 @@
 
         $scope.submit = function() {
             RESTAPISERVER = $scope.form.server;
-            var user = $scope.form.login;
-            var password = $scope.form.password;
-            $http.get(RESTAPISERVER + "/api/users/subscribe?login=" + user + "&password=" + password).then(function(response) {
+            var data = $.param({
+                login: $scope.form.login,
+                password: $scope.form.password
+            });
+            $http.post(RESTAPISERVER + "/api/users/subscribe", data).then(function(response) {
                 var data = response.data;
-                $scope.app.setCurrentUser(user);
+                $scope.app.setCurrentUser(login);
                 $http.defaults.headers.common['Auth-Token'] = data.token;
                 $scope.app.userid = data.userid;
                 $state.go("myItemsView");

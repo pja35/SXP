@@ -32,7 +32,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.math.BigInteger;
-import java.net.HttpURLConnection;
+import javax.net.ssl.HttpsURLConnection;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -42,7 +42,7 @@ public class ControllerTest {
 	private final static Logger log = LogManager.getLogger(ControllerTest.class);
 	Application application;
 	private static final int restPort = 8081;
-	private static final String baseURL = "http://0.0.0.0:" + String.valueOf(restPort) + "/";
+	private static final String baseURL = "https://localhost:" + String.valueOf(restPort) + "/";
 
 	private static final String username = TestInputGenerator.getRandomAlphaWord(20);
 	private static final String password = TestInputGenerator.getRandomPwd(20);
@@ -61,15 +61,33 @@ public class ControllerTest {
 
 
 	@BeforeClass
-	static public void initialize(){
+	static public void initialize() throws IOException{
+		javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
+				new javax.net.ssl.HostnameVerifier(){
+
+					public boolean verify(String hostname,
+							javax.net.ssl.SSLSession sslSession) {
+						if (hostname.equals("localhost")) {
+							return true;
+						}
+						return false;
+					}
+				});
+
 		Application application = new Application();
 		application.runForTests(restPort);
-		while(!isJettyServerReady()){
+		int loop = 0;
+		int maxLoop = 10;
+		while(!isJettyServerReady() && (loop < maxLoop)){
+			loop++;
 			try {
-				Thread.sleep(200);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				log.error(e.getMessage());
 			}
+		}
+		if (loop == maxLoop){
+			throw new IOException("Unable to connect Jetty Server.");
 		}
 	} 
 
@@ -82,10 +100,11 @@ public class ControllerTest {
 	static private boolean isJettyServerReady(){
 		boolean result = false;
 		try {
-			HttpURLConnection http = (HttpURLConnection)new URL(baseURL + "api/users/login").openConnection();
-			http.setRequestMethod("GET");
-			result = (http.getResponseCode() == HttpURLConnection.HTTP_OK);
+			HttpsURLConnection https = (HttpsURLConnection)new URL(baseURL + "api/users/login").openConnection();
+			https.setRequestMethod("POST");
+			result = (https.getResponseCode() == HttpsURLConnection.HTTP_OK);
 		} catch (IOException e) {
+			log.error(e.getMessage());
 			return false;
 		}
 		return result;
@@ -93,7 +112,7 @@ public class ControllerTest {
 
 	private String connectAction(String method, String path, HashMap<String, String> properties, String data)
 			throws IOException{
-		HttpURLConnection http = (HttpURLConnection)new URL(baseURL + path).openConnection();
+		HttpsURLConnection http = (HttpsURLConnection)new URL(baseURL + path).openConnection();
 		http.setDoInput(true);
 		http.setDoOutput(true);
 		if (method.equals("POST") || method.equals("PUT"))
