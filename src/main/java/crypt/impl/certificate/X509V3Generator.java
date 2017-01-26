@@ -134,7 +134,7 @@ public class X509V3Generator implements CertificateGenerator
 			//Create file if it does not exists.
 			if( !file.exists() )
 			{
-				createDefaultConfigFile(this.config_file);
+				createDefaultConfigFile();
 			}
 
 			InputStream input_stream              = new FileInputStream(file); 
@@ -197,7 +197,7 @@ public class X509V3Generator implements CertificateGenerator
 	 * Create the default certificate configuration file.
 	 * @param file_name Name of the file that will be created.
 	 */
-	public void createDefaultConfigFile(String file_name) throws Exception
+	public void createDefaultConfigFile() throws Exception
 	{
 		String content = "";
 		content += "# This configuration file contains values for the certificate\n";
@@ -256,7 +256,8 @@ public class X509V3Generator implements CertificateGenerator
 				cert_gen.setPublicKey(keys.getPublic());																							
 				cert_gen.setSignatureAlgorithm(this.sign_alg);
 	
-				this.cert = cert_gen.generateX509Certificate(keys.getPrivate(), "BC"); //CA private key (autosigned)
+				//this.cert = cert_gen.generateX509Certificate(keys.getPrivate(), "BC"); //CA private key (autosigned)
+				this.cert = cert_gen.generate(keys.getPrivate(), "BC"); //CA private key (autosigned)
 				this.flag = true;
 			}
 		}

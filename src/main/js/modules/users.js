@@ -46,7 +46,7 @@
                     //if GET succeeds
                     var obj = response.data;
                     //load the answer
-                    console.debug(obj);
+                    // console.debug(obj);
                     //print it to the console just for debugging
                     if (obj.error) {
                         $scope.error = true;
