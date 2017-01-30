@@ -9,6 +9,8 @@ import org.eclipse.jetty.server.SecureRequestCustomizer;
 import org.eclipse.jetty.server.HttpConfiguration;
 import org.eclipse.jetty.server.SecureRequestCustomizer;
 import org.eclipse.jetty.server.SslConnectionFactory;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.eclipse.jetty.http.HttpVersion;
 
 import org.eclipse.jetty.server.Connector;
@@ -23,12 +25,11 @@ import com.google.common.reflect.ClassPath;
 
 import rest.api.RestServer;
 import rest.api.ServletPath;
-
 import crypt.impl.certificate.X509V3Generator;
 import crypt.api.certificate.CertificateGenerator;
 
 public class JettyRestServer implements RestServer{
-
+	private final static Logger log = LogManager.getLogger(JettyRestServer.class);
 	private ServletContextHandler context;
 	private Server server;
 	private CertificateGenerator cert_gen;
@@ -171,7 +172,7 @@ public class JettyRestServer implements RestServer{
 					new HttpConnectionFactory(https_config));
 			https.setPort(port);
 			https.setIdleTimeout(500000);
-
+			log.debug("HTTPS context");
 			server.setConnectors(new Connector[] {https}); 
 			break;
 

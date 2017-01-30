@@ -12,6 +12,8 @@ import static org.junit.Assert.*;
 
 import java.util.*;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import controller.Application;
 import controller.tools.JsonTools;
 import model.entity.ElGamalKey;
@@ -23,23 +25,29 @@ import util.TestUtils;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+
 import org.json.*;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.math.BigInteger;
-import javax.net.ssl.HttpsURLConnection;
+
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
+import util.TrustModifier;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ControllerTest {
 	private final static Logger log = LogManager.getLogger(ControllerTest.class);
+
 	Application application;
 	private static final int restPort = 8081;
 	private static final String baseURL = "https://localhost:" + String.valueOf(restPort) + "/";
@@ -49,9 +57,6 @@ public class ControllerTest {
 
 	private static String token;
 	private static String userid;
-	private static String userNick;
-	private static ElGamalKey userkey;
-	private static byte[] userpwdhash;
 
 	private static final DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 	private static final int NbItems = 10;
@@ -59,25 +64,12 @@ public class ControllerTest {
 	private static String itemTitle;
 	private static String itemId;
 
-
 	@BeforeClass
 	static public void initialize() throws IOException{
-		javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
-				new javax.net.ssl.HostnameVerifier(){
-
-					public boolean verify(String hostname,
-							javax.net.ssl.SSLSession sslSession) {
-						if (hostname.equals("localhost")) {
-							return true;
-						}
-						return false;
-					}
-				});
-
 		Application application = new Application();
 		application.runForTests(restPort);
 		int loop = 0;
-		int maxLoop = 10;
+		int maxLoop = 30;
 		while(!isJettyServerReady() && (loop < maxLoop)){
 			loop++;
 			try {
@@ -99,40 +91,72 @@ public class ControllerTest {
 
 	static private boolean isJettyServerReady(){
 		boolean result = false;
+		HttpsURLConnection https;
 		try {
-			HttpsURLConnection https = (HttpsURLConnection)new URL(baseURL + "api/users/login").openConnection();
-			https.setRequestMethod("POST");
+			URL url = new URL(baseURL + "api/users/");
+
+			https = (HttpsURLConnection)url.openConnection();
+			TrustModifier.relaxHostChecking(https);
+			https.setDoOutput(true);
+			https.setDoInput(true);
+			https.setRequestMethod("GET");
 			result = (https.getResponseCode() == HttpsURLConnection.HTTP_OK);
-		} catch (IOException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			log.error(e.getMessage());
 			return false;
+		}
+		if(https != null){
+			log.debug(TestUtils.get_https_cert(https));
+			log.debug(TestUtils.get_https_content(https));
 		}
 		return result;
 	}
 
-	private String connectAction(String method, String path, HashMap<String, String> properties, String data)
+	private String connectAction(String method, String path, HashMap<String, String> properties, String data,
+			boolean dataBin)
 			throws IOException{
-		HttpsURLConnection http = (HttpsURLConnection)new URL(baseURL + path).openConnection();
-		http.setDoInput(true);
-		http.setDoOutput(true);
-		if (method.equals("POST") || method.equals("PUT"))
-			http.setRequestMethod(method);
+		HttpsURLConnection https = (HttpsURLConnection)new URL(baseURL + path).openConnection();
+		try {
+			TrustModifier.relaxHostChecking(https);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+		}
+
+		if (method.equals("POST") || method.equals("PUT") || method.equals("GET"))
+			https.setRequestMethod(method);
 		else
-			http.setRequestMethod("GET");
-		http.setRequestProperty("Accept", "application/json");
+			fail("Unknown http connection method : " + method);
+		https.setDoInput(true);
+		https.setDoOutput(true);
+		https.setRequestProperty("Accept", "application/json");
 		if(properties != null){
 			for(String key : properties.keySet()){
-				http.setRequestProperty(key, properties.get(key));
+				https.setRequestProperty(key, properties.get(key));
 			}
 		}
 		if(data != null){
-			http.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-			http.setRequestProperty("Accept", "application/json, text/plain, */*");
-			OutputStreamWriter out = new OutputStreamWriter(http.getOutputStream());
-			out.write(data);
-			out.close();
+			if (dataBin){
+				byte[] postData = data.getBytes( StandardCharsets.UTF_8 );
+				https.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded"); 
+				https.setRequestProperty( "charset", "utf-8");
+				https.setRequestProperty( "Content-Length", Integer.toString( postData.length ));
+				https.setUseCaches( false );
+				DataOutputStream out = new DataOutputStream( https.getOutputStream());
+				out.write( postData );
+				out.flush();
+				out.close();
+			}else{
+				https.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+				https.setRequestProperty("Accept", "application/json, text/plain, */*");
+				OutputStreamWriter out = new OutputStreamWriter(https.getOutputStream());
+				out.write(data);
+				out.flush();
+				out.close();
+			}
 		}
-		InputStream is = http.getInputStream();
+		InputStream is = https.getInputStream();
 		InputStreamReader isr = new InputStreamReader(is);
 		BufferedReader Ibr = new BufferedReader(isr);
 		StringBuilder outputBuffer = new StringBuilder();
@@ -146,7 +170,7 @@ public class ControllerTest {
 		return res;
 	}
 	private String connectAction(String method, String path) throws IOException{
-		return connectAction(method, path, null, null);
+		return connectAction(method, path, null, null, false);
 	}
 
 	/**
@@ -155,7 +179,10 @@ public class ControllerTest {
 	@Test
 	public void testA(){
 		try {
-			JSONObject js = new JSONObject(connectAction("GET", "api/users/login?login=foo&password=foo"));
+			String data = "login=foo"; 
+			data += "&";
+			data += "password=foo";
+			JSONObject js = new JSONObject(connectAction("POST", "api/users/login/", null, data, true));
 			assertTrue(js.get("error").equals("true"));
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -168,8 +195,11 @@ public class ControllerTest {
 	@Test
 	public void testB(){
 		try {
+			String data = "login=" + username; 
+			data += "&";
+			data += "password=" + password;
 			JsonTools<LoginToken> json = new JsonTools<>(new TypeReference<LoginToken>(){});
-			LoginToken lgt = json.toEntity(connectAction("GET", "api/users/subscribe?login=" + username + "&password=" + password));
+			LoginToken lgt = json.toEntity(connectAction("POST", "api/users/subscribe", null, data, true));
 			token = lgt.getToken();
 			userid = lgt.getUserid();
 			assertFalse(token.isEmpty());
@@ -185,11 +215,14 @@ public class ControllerTest {
 	@Test
 	public void testC(){
 		try {
+			String data = "login=" + username; 
+			data += "&";
+			data += "password=" + password;
 			HashMap<String, String> properties = new HashMap<String, String>();
 			properties.put("Auth-Token", token);
-			connectAction("GET", "api/users/logout", properties, null);
+			connectAction("GET", "api/users/logout", properties, null, true);
 			JsonTools<LoginToken> json = new JsonTools<>(new TypeReference<LoginToken>(){});
-			LoginToken lgt = json.toEntity(connectAction("GET", "api/users/login?login=" + username + "&password=" + password));
+			LoginToken lgt = json.toEntity(connectAction("POST", "api/users/login", null, data, true));
 			assertFalse(lgt.getToken().isEmpty());
 			assertFalse(lgt.getUserid().isEmpty());
 			assertTrue(lgt.getUserid().equals(userid));
@@ -208,15 +241,9 @@ public class ControllerTest {
 		try {
 			HashMap<String, String> properties = new HashMap<String, String>();
 			properties.put("Auth-Token", token);
-			connectAction("GET", "api/users/logout", properties, null);
+			connectAction("GET", "api/users/logout", properties, null, true);
 			JsonTools<User> json = new JsonTools<>(new TypeReference<User>(){});
 			User usj = json.toEntity(connectAction("GET", "api/users/" + userid));
-			//			String createdDate = dateFormat.format(usj.getCreatedAt());
-			//			assertTrue(createdDate.equals(TestInputGenerator.getFormatedTodayDate("dd-MM-yyyy")));
-			//			assertTrue(usj.getId().equals(userid));
-			//			userNick = usj.getNick();
-			//			userkey = usj.getKey();
-			//			userpwdhash = usj.getPasswordHash();
 			log.debug("User Nick : " + usj.getNick());
 
 		} catch (Exception e) {
@@ -248,13 +275,16 @@ public class ControllerTest {
 	@Test
 	public void testD(){
 		try {
+			String data = "login=" + username; 
+			data += "&";
+			data += "password=" + password;
 			JsonTools<LoginToken> lgtjs = new JsonTools<>(new TypeReference<LoginToken>(){});
-			LoginToken lgt = lgtjs.toEntity(connectAction("GET", "api/users/login?login=" + username + "&password=" + password));
+			LoginToken lgt = lgtjs.toEntity(connectAction("POST", "api/users/login", null, data, true));
 			token = lgt.getToken();
 			HashMap<String, String> properties = new HashMap<String, String>();
 			properties.put("Auth-Token", token);
 			JsonTools<Collection<Item>> itjs = new JsonTools<>(new TypeReference<Collection<Item>>(){});
-			Collection<Item> it = itjs.toEntity(connectAction("GET", "api/items", properties, null));
+			Collection<Item> it = itjs.toEntity(connectAction("GET", "api/items", properties, null, true));
 			assertTrue(it.isEmpty());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -274,7 +304,7 @@ public class ControllerTest {
 				String data = "{\"title\":\"Object_"+ i 
 						+ "\",\"description\":\"Description_" + i + "\"}";
 				JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
-				Item it = json.toEntity(connectAction("POST", "api/items", properties, data));
+				Item it = json.toEntity(connectAction("POST", "api/items", properties, data, false));
 				String createdDate = dateFormat.format(it.getCreatedAt());
 				assertTrue(createdDate.equals(TestInputGenerator.getFormatedTodayDate("dd-MM-yyyy")));
 				assertTrue(it.getDescription().equals("Description_" + i));
@@ -299,7 +329,7 @@ public class ControllerTest {
 			HashMap<String, String> properties = new HashMap<String, String>();
 			properties.put("Auth-Token", token);
 			JsonTools<Collection<Item>> json = new JsonTools<>(new TypeReference<Collection<Item>>(){});
-			ArrayList<Item> it = (ArrayList<Item>)json.toEntity(connectAction("GET", "api/items", properties, null));
+			ArrayList<Item> it = (ArrayList<Item>)json.toEntity(connectAction("GET", "api/items", properties, null, true));
 			assertTrue(it.size() == NbItems);
 			int n = TestInputGenerator.getRandomInt(0, 10);
 			itemId = it.get(n).getId();
@@ -321,7 +351,7 @@ public class ControllerTest {
 			properties.put("Auth-Token", token);
 			//properties.put("Connection", "keep-alive");
 			JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
-			Item it = json.toEntity(connectAction("GET", "api/items/" + itemId, properties, null));
+			Item it = json.toEntity(connectAction("GET", "api/items/" + itemId, properties, null, true));
 			String createdDate = dateFormat.format(it.getCreatedAt());
 			assertTrue(createdDate.equals(TestInputGenerator.getFormatedTodayDate("dd-MM-yyyy")));
 			assertTrue(it.getPbkey() != BigInteger.ZERO);
@@ -344,7 +374,7 @@ public class ControllerTest {
 			properties.put("Auth-Token", token);
 			String data = "{\"id\":\"" + itemId + "\",\"title\":\"" + itemTitle + "\",\"description\":\"Special description\"}";
 			JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
-			Item it = json.toEntity(connectAction("PUT", "api/items/" + itemId, properties, data));
+			Item it = json.toEntity(connectAction("PUT", "api/items/" + itemId, properties, data, false));
 			String createdDate = dateFormat.format(it.getCreatedAt());
 			assertTrue(createdDate.equals(TestInputGenerator.getFormatedTodayDate("dd-MM-yyyy")));
 			assertTrue(it.getPbkey() != BigInteger.ZERO);			
