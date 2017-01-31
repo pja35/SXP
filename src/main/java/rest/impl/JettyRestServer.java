@@ -85,7 +85,7 @@ public class JettyRestServer implements RestServer{
 
 		String signe_type = "self-signed";
 
-		if( signe_type == "CA-signed" )
+		/*if( signe_type == "CA-signed" )
 		{
 			//Launching a simple http on 80 port for challenge
 			//the CA serveur.
@@ -104,12 +104,12 @@ public class JettyRestServer implements RestServer{
 			//server.setHandler(context);
 		}
 		else if( signe_type == "self-signed" )
-		{
-			this.cert_gen = X509V3Generator.getInstance("certConfig.conf");
-			this.cert_gen.CreateCertificate("self-signed");
-			this.cert_gen.StoreInKeystore("keystore.jks");
-			createAndSetConnector(port, "https");
-		}
+		{*/
+		this.cert_gen = X509V3Generator.getInstance("certConfig.conf");
+		this.cert_gen.CreateCertificate("self-signed");
+		this.cert_gen.StoreInKeystore("keystore.jks");
+		createAndSetConnector(port, "https");
+		//}
 
 		server.start();
 		server.join();
@@ -141,7 +141,7 @@ public class JettyRestServer implements RestServer{
 					}
 				});
 
-		switch (protocol)
+	/*	switch (protocol)
 		{
 		case "http":
 			// Http Connector
@@ -151,8 +151,8 @@ public class JettyRestServer implements RestServer{
 
 			server.setConnectors(new Connector[] {http});
 			break;
-
-		case "https":
+	 
+		case "https":*/
 			// SSL Context factory for HTTPS
 			SslContextFactory sslContextFactory = new SslContextFactory();
 			sslContextFactory.setKeyStorePath("keystore.jks");
@@ -174,7 +174,7 @@ public class JettyRestServer implements RestServer{
 			https.setIdleTimeout(500000);
 			log.debug("HTTPS context");
 			server.setConnectors(new Connector[] {https}); 
-			break;
+		/*	break;
 
 		case "http&https":
 			// Http Connector
@@ -210,7 +210,7 @@ public class JettyRestServer implements RestServer{
 			System.out.println("Wrong connector protocol for jetty.");
 			System.exit(1);
 			break;
-		}
+		}*/
 	}
 
 	/**
