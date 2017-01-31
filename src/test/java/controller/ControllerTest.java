@@ -16,7 +16,6 @@ import javax.net.ssl.HttpsURLConnection;
 
 import controller.Application;
 import controller.tools.JsonTools;
-import model.entity.ElGamalKey;
 import model.entity.Item;
 import model.entity.LoginToken;
 import model.entity.User;

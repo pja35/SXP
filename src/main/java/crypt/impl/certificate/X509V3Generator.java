@@ -77,10 +77,10 @@ public class X509V3Generator implements CertificateGenerator
 	//private Date begin;              //Start validity date.
 	//private Date end;                //End validity date.
 	private String sign_alg;           //Algorithm used to sign.
-	
+
 
 	////////////////////////////// Public ////////////////////////////////
-	
+
 	//// Geters&Seters ////
 
 
@@ -88,12 +88,11 @@ public class X509V3Generator implements CertificateGenerator
 	 * {@inheritDoc}
 	 */
 	@Override
-	public KeyPair getKeysPair() throws Exception
+	public KeyPair getKeysPair() throws RuntimeException
 	{
 		if( !this.flag )
 		{
-			System.out.println("getKeyPair() used wihout certificate genereated");
-			System.exit(1);
+			throw new RuntimeException("getKeyPair() used wihout certificate genererated");
 		}
 		return key_pair;
 	}
@@ -115,7 +114,7 @@ public class X509V3Generator implements CertificateGenerator
 	{
 		this.config_file = file;
 	}
-	
+
 	///// Methodes /////
 
 	/**
@@ -130,7 +129,7 @@ public class X509V3Generator implements CertificateGenerator
 		try
 		{
 			File file = new File(this.config_file);
-			
+
 			//Create file if it does not exists.
 			if( !file.exists() )
 			{
@@ -145,7 +144,7 @@ public class X509V3Generator implements CertificateGenerator
 			String name;	//Configuration name.
 			String value;   //Value to this name.
 			String[] temp;
-			
+
 
 			while( (line = buffered_reader.readLine()) != null )
 			{
@@ -159,25 +158,23 @@ public class X509V3Generator implements CertificateGenerator
 					value = temp[1];
 					switch(name)
 					{
-						case "kspassword" :
-							this.keystore_password = value;
-							break;
-						case "ksalias":
-							this.ks_alias = value;
-							break;
-						case "serialnumber" :
-							this.serial_number = new BigInteger(value);
-							break;
-						case "signalgorithm":
-							this.sign_alg = value;
-							break;
-						case "domainname":
-							this.domain_name = value;
-							break;
-						default:
-							System.out.println("Bad configuration file : " + line);
-							System.exit(1);
+					case "kspassword" :
+						this.keystore_password = value;
 						break;
+					case "ksalias":
+						this.ks_alias = value;
+						break;
+					case "serialnumber" :
+						this.serial_number = new BigInteger(value);
+						break;
+					case "signalgorithm":
+						this.sign_alg = value;
+						break;
+					case "domainname":
+						this.domain_name = value;
+						break;
+					default:
+						throw new RuntimeException("Bad configuration file : " + line);
 					}
 					//System.out.println(name + " = " + value);
 				}
@@ -187,10 +184,9 @@ public class X509V3Generator implements CertificateGenerator
 		}		
 		catch( Exception e )
 		{
-			System.out.println(e.toString());
-			System.exit(1);
+			throw e;
 		}
-		
+
 	}
 
 	/**
@@ -218,8 +214,8 @@ public class X509V3Generator implements CertificateGenerator
 		}
 		catch (IOException exception)
 		{
-			System.out.println ("Error while creation of default configuration file : " 
-								+ this.config_file + "\n" + exception.getMessage() );
+			throw new IOException("Error while creation of default configuration file : " 
+					+ this.config_file + "\n", exception);
 		}
 	}
 
@@ -255,145 +251,144 @@ public class X509V3Generator implements CertificateGenerator
 				cert_gen.setSubjectDN(cn);																												
 				cert_gen.setPublicKey(keys.getPublic());																							
 				cert_gen.setSignatureAlgorithm(this.sign_alg);
-	
+
 				//this.cert = cert_gen.generateX509Certificate(keys.getPrivate(), "BC"); //CA private key (autosigned)
 				this.cert = cert_gen.generate(keys.getPrivate(), "BC"); //CA private key (autosigned)
 				this.flag = true;
 			}
 		}
-		else if( signature == "CA-signed" )
-		{
-			//Provider custom
-			
-			Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
-
-			//Keys (priv & public) generation.
-																							
-			KeyPairGenerator key_gen = KeyPairGenerator.getInstance("RSA");															
-			key_gen.initialize(2048);																												
-			KeyPair keys = key_gen.genKeyPair();
-			this.key_pair = keys;
-
-			// Create a session for Let's Encrypt
-
-			Session session = new Session("acme://letsencrypt.org/staging", this.key_pair);
-
-			// Register a new user
-
-			Registration reg = null;
-			try 
-			{
-				reg = new RegistrationBuilder().create(session);
-			} 
-			catch (AcmeConflictException ex) 
-			{
-				reg = Registration.bind(session, ex.getLocation());
-				System.out.println("Let's Encrypt account does already exist");
-			}
-
-			URI agreement = reg.getAgreement();
-			reg.modify().setAgreement(agreement).commit();
-
-			Authorization auth = null;
-			try 
-			{
-				auth = reg.authorizeDomain(domain_name);
-			} 
-			catch (AcmeUnauthorizedException ex)
-			{
-				// Maybe there are new T&C to accept?
-				reg.modify().setAgreement(agreement).commit();
-				// Then try again...
-				auth = reg.authorizeDomain(domain_name);
-			}
-
-			Challenge challenge = httpChallenge(auth, domain_name);
-			if (challenge == null) 
-			{
-				System.exit(0);
-			}
-			System.out.println("challenge created");
-			challenge.trigger();
-			
-			int attempts = 10;
-			while (challenge.getStatus() != Status.VALID && attempts-- > 0) 
-			{
-				System.out.println(attempts);
-				if (challenge.getStatus() == Status.INVALID) 
-				{
-					System.out.println("Challenge failed... Giving up.");
-					System.exit(0);
-				}
-				try 
-				{
-					Thread.sleep(3000L);
-				} 
-				catch (InterruptedException ex) 
-				{
-					System.out.println("interrupted");
-				}
-				challenge.update();
-			}
-			if (challenge.getStatus() != Status.VALID) 
-			{
-				System.out.println("Failed to pass the challenge... Giving up.");
-				System.exit(0);
-			}
-			System.out.println("challenge acepté");
-			// Generate a CSR for the domain
-			CSRBuilder csrb = new CSRBuilder();
-			csrb.addDomains(domain_name);//peut etre une collection de string
-			csrb.sign(key_pair);
-
-			// Request a signed certificate
-			org.shredzone.acme4j.Certificate certificate = reg.requestCertificate(csrb.getEncoded());
-
-			// Download the certificate chain
-			X509Certificate[] chain = certificate.downloadChain();
-			this.cert = chain[0];
-		}
+		//		else if( signature == "CA-signed" )
+		//		{
+		//			//Provider custom
+		//			
+		//			Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+		//
+		//			//Keys (priv & public) generation.
+		//																							
+		//			KeyPairGenerator key_gen = KeyPairGenerator.getInstance("RSA");															
+		//			key_gen.initialize(2048);																												
+		//			KeyPair keys = key_gen.genKeyPair();
+		//			this.key_pair = keys;
+		//
+		//			// Create a session for Let's Encrypt
+		//
+		//			Session session = new Session("acme://letsencrypt.org/staging", this.key_pair);
+		//
+		//			// Register a new user
+		//
+		//			Registration reg = null;
+		//			try 
+		//			{
+		//				reg = new RegistrationBuilder().create(session);
+		//			} 
+		//			catch (AcmeConflictException ex) 
+		//			{
+		//				reg = Registration.bind(session, ex.getLocation());
+		//				System.out.println("Let's Encrypt account does already exist");
+		//			}
+		//
+		//			URI agreement = reg.getAgreement();
+		//			reg.modify().setAgreement(agreement).commit();
+		//
+		//			Authorization auth = null;
+		//			try 
+		//			{
+		//				auth = reg.authorizeDomain(domain_name);
+		//			} 
+		//			catch (AcmeUnauthorizedException ex)
+		//			{
+		//				// Maybe there are new T&C to accept?
+		//				reg.modify().setAgreement(agreement).commit();
+		//				// Then try again...
+		//				auth = reg.authorizeDomain(domain_name);
+		//			}
+		//
+		//			Challenge challenge = httpChallenge(auth, domain_name);
+		//			if (challenge == null) 
+		//			{
+		//				System.exit(0);
+		//			}
+		//			System.out.println("challenge created");
+		//			challenge.trigger();
+		//			
+		//			int attempts = 10;
+		//			while (challenge.getStatus() != Status.VALID && attempts-- > 0) 
+		//			{
+		//				System.out.println(attempts);
+		//				if (challenge.getStatus() == Status.INVALID) 
+		//				{
+		//					System.out.println("Challenge failed... Giving up.");
+		//					System.exit(0);
+		//				}
+		//				try 
+		//				{
+		//					Thread.sleep(3000L);
+		//				} 
+		//				catch (InterruptedException ex) 
+		//				{
+		//					System.out.println("interrupted");
+		//				}
+		//				challenge.update();
+		//			}
+		//			if (challenge.getStatus() != Status.VALID) 
+		//			{
+		//				System.out.println("Failed to pass the challenge... Giving up.");
+		//				System.exit(0);
+		//			}
+		//			System.out.println("challenge acepté");
+		//			// Generate a CSR for the domain
+		//			CSRBuilder csrb = new CSRBuilder();
+		//			csrb.addDomains(domain_name);//peut etre une collection de string
+		//			csrb.sign(key_pair);
+		//
+		//			// Request a signed certificate
+		//			org.shredzone.acme4j.Certificate certificate = reg.requestCertificate(csrb.getEncoded());
+		//
+		//			// Download the certificate chain
+		//			X509Certificate[] chain = certificate.downloadChain();
+		//			this.cert = chain[0];
+		//		}
 		else
 		{
-			System.out.println("Unknown Signature process : " + signature);
-			System.exit(1);
+			throw new RuntimeException("Unknown Signature process : " + signature);
 		}
 
 		return this.cert;
 	}
 
 
-public Challenge httpChallenge(Authorization auth, String domain) throws AcmeException 
-{
-
-	// Find a single http-01 challenge
-	Http01Challenge challenge = auth.findChallenge(Http01Challenge.TYPE);
-	if (challenge == null) 
-	{
-		System.out.println("Found no http challenge, I don't know what to do...");
-		return null;
-	}
-
-	try
-	{
-		FileWriter file = new FileWriter(new File("." + challenge.getToken() ));
-		file.write (challenge.getAuthorization());
-		file.close();
-	}
-	catch(IOException exp )
-	{
-		System.out.println("error");
-	}
-	
-	// Output the challenge, wait for acknowledge...
-	System.out.println("Please create a file in your web server's base directory.");
-	System.out.println("It must be reachable at: http://" + domain_name + "/.well-known/acme-challenge/" + challenge.getToken());
-	System.out.println("File name: " + challenge.getToken());
-	System.out.println("Content: " + challenge.getAuthorization());
-	System.out.println("The file must not contain any leading or trailing whitespaces or line breaks!");
-	System.out.println("If you're ready, dismiss the dialog...");
-
-	return challenge;
-}
+//	public Challenge httpChallenge(Authorization auth, String domain) throws AcmeException, IOException
+//	{
+//
+//		// Find a single http-01 challenge
+//		Http01Challenge challenge = auth.findChallenge(Http01Challenge.TYPE);
+//		if (challenge == null) 
+//		{
+//			System.out.println("Found no http challenge, I don't know what to do...");
+//			return null;
+//		}
+//
+//		try
+//		{
+//			FileWriter file = new FileWriter(new File("." + challenge.getToken() ));
+//			file.write (challenge.getAuthorization());
+//			file.close();
+//		}
+//		catch(IOException exp )
+//		{
+//			throw new IOException("error", exp);
+//		}
+//
+//		// Output the challenge, wait for acknowledge...
+//		System.out.println("Please create a file in your web server's base directory.");
+//		System.out.println("It must be reachable at: http://" + domain_name + "/.well-known/acme-challenge/" + challenge.getToken());
+//		System.out.println("File name: " + challenge.getToken());
+//		System.out.println("Content: " + challenge.getAuthorization());
+//		System.out.println("The file must not contain any leading or trailing whitespaces or line breaks!");
+//		System.out.println("If you're ready, dismiss the dialog...");
+//
+//		return challenge;
+//	}
 
 	/**
 	 * {@inheritDoc}
@@ -402,7 +397,7 @@ public Challenge httpChallenge(Authorization auth, String domain) throws AcmeExc
 	public Certificate[] CreateChainCertificate() throws Exception
 	{
 		if( !this.flag )
-			this.CreateCertificate("auto-signed");
+			this.CreateCertificate("self-signed");
 
 		Certificate[] cert_chain = new X509Certificate[1];																		
 		cert_chain[0] = this.cert;
@@ -418,18 +413,18 @@ public Challenge httpChallenge(Authorization auth, String domain) throws AcmeExc
 	{	
 		File file = new File(file_name);
 		if( file.exists() )
-			{
-				System.out.println("Keystore already exist");
-				return;
-			}
-																													
+		{
+			System.out.println("Keystore already exist");
+			return;
+		}
+
 		char[] password = this.keystore_password.toCharArray();																				
 		KeyStore.PasswordProtection protected_password = new KeyStore.PasswordProtection(password);	
 
 		//Keystore Creation																												
 		KeyStore ks = KeyStore.getInstance("jks");																						
 		ks.load(null, password);  //Loading from nothing (null) in order to create a new one.
-	
+
 		Certificate[] cert_chain = this.CreateChainCertificate();
 
 		ks.setEntry(this.ks_alias,																														
