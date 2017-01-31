@@ -31,7 +31,7 @@ import rest.api.ServletPath;
 @ServletPath("/api/items/*")
 @Path("/")
 public class Items {
-	
+		
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)

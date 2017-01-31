@@ -15,9 +15,11 @@ SXPManager.xml
 /bootstrap.xml
 /build/
 .peer*
-.db-8081/*
+.db*
 src/main/javascript/client/SXP*
-derby.system.home
 /logs/
-derby.log
 /simpleDb/
+src/main/js/SXP-linux-x64/
+src/main/js/node_modules/
+certConfig.conf
+keystore.jks

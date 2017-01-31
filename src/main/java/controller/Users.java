@@ -15,9 +15,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
@@ -35,14 +32,18 @@ import rest.api.ServletPath;
 @ServletPath("/api/users/*")
 @Path("/")
 public class Users {
-	private final static Logger log = LogManager.getLogger(Users.class);
-	@GET
+	//@GET
+	@POST
 	@Path("/login")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String login(
+	@Produces(MediaType.APPLICATION_JSON)	
+	public String login(String jsonCredentials) {
+		String[] credentials = jsonCredentials.split("&");
+		String login = credentials[0].split("=")[1];
+		String password = credentials[1].split("=")[1];
+/*	public String login(
 			@QueryParam("login") String login,
-			@QueryParam("password") String password) {
-		log.debug(login + " | " + password);
+			@QueryParam("password") String password) {*/
+		
 		Authentifier auth = Application.getInstance().getAuth();
 		UserSyncManager em = new UserSyncManagerImpl();
 		User u = em.getUser(login, password);
@@ -84,12 +85,17 @@ public class Users {
 		return null;
 	}
 	
-	@GET
+	//@GET
+	@POST
 	@Path("/subscribe")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String subscribe(
+	public String subscribe(String jsonCredentials) {
+		String[] credentials = jsonCredentials.split("&");
+		String login = credentials[0].split("=")[1];
+		String password = credentials[1].split("=")[1];
+	/*public String subscribe(
 			@QueryParam("login") String login,
-			@QueryParam("password") String password) {
+			@QueryParam("password") String password) {*/
 		
 		User u = new User();
 		u.setNick(login);

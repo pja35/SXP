@@ -2,19 +2,59 @@ stages:
     - build
     - test
 
-test:
+# caching per branch
+# To avoid to dl gradle each time
+cache:
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - .gradle
+    - build
+    - config.properties
+
+# caching apt
+# To avoid to dl everything each time
+cache:
+  key: "apt-cache"
+  paths:
+    - apt-cache
+
+before_script:
+  - export APT_CACHE_DIR=`pwd`/apt-cache && mkdir -pv $APT_CACHE_DIR
+  - apt-get update -yq && apt-get -o dir::cache::archives="$APT_CACHE_DIR" install -y openjdk-8-jdk git
+
+# Main build 
+build: 
+  stage: build
   image: ubuntu:16.04
   tags:
     - docker 
   script:
-    - "apt-get update"
-    - "apt-get -y install openjdk-8-jdk"
     - ./gradlew assemble
-    - ./gradlew check
+
+
+ # Tests
+tests:
+  stage: test
+  image: ubuntu:16.04
+  tags:
+    - docker 
+  dependencies:
+    - build
+  script:
     - ./gradlew test    
-    - "cat build/reports/jacoco/test/html/index.html"
+  artifacts:
+    paths:
+      # Tests coverage report
+      - build/reports/jacoco/merge/html/index.html
+      # Unit test result
+      - build/reports/tests/test/index.html
+    expire_in: 8d
+  except:
+    - master
+ 
  
 #selenium:
+#  stage: test
 #  image: selenium/standalone-firefox
 #  tags:
 #    - docker 
