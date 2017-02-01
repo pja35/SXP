@@ -43,11 +43,12 @@ tests:
   script:
     - ./gradlew test    
   artifacts:
+    when: always
     paths:
-      # Tests coverage report
-      - build/reports/jacoco/merge/html/index.html
-      # Unit test result
-      - build/reports/tests/test/index.html
+      # Tests coverage report and Unit test result
+      #- build/reports/jacoco/test/html/index.html      
+      #- build/reports/tests/test/index.html
+      - build/*
     expire_in: 8d
   except:
     - master
