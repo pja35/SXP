@@ -396,7 +396,7 @@ public class ControllerTest {
 
 			JsonTools<Collection<Item>> json = new JsonTools<>(new TypeReference<Collection<Item>>(){});
 			Collection<Item> itcoll = json.toEntity(connectAction("GET", "api/search/simple?title=" + itemTitle));
-			assertTrue(itcoll.size() == 1);
+			assertTrue("If this failed, verify that no XP server is running in background.", itcoll.size() == 1);
 			Item it = itcoll.iterator().next();
 			String createdDate = dateFormat.format(it.getCreatedAt());
 			assertTrue(createdDate.equals(TestInputGenerator.getFormatedTodayDate("dd-MM-yyyy")));

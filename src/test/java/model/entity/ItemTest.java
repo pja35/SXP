@@ -137,8 +137,7 @@ public class ItemTest {
 		//userid
 		try{
 			Field uidField = item.getClass().getDeclaredField("userid");
-			//@Bug : Bad userid XmlElement name. It should probably be "userid"
-			assertTrue(uidField.getAnnotation(XmlElement.class).name().equals("username"));
+			assertTrue(uidField.getAnnotation(XmlElement.class).name().equals("userid"));
 			assertTrue(uidField.getAnnotation(NotNull.class) != null);
 		}catch(Exception e){
 			e.printStackTrace();

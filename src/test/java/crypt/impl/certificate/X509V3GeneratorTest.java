@@ -96,12 +96,13 @@ public class X509V3GeneratorTest {
 			fail(e.getMessage());
 		}
 		gen = X509V3Generator.getInstance("bad2_test.conf");
-		Set<PosixFilePermission> perms = new HashSet<PosixFilePermission>();
-		perms.add(PosixFilePermission.OWNER_READ);
-		perms.add(PosixFilePermission.GROUP_READ);
-		perms.add(PosixFilePermission.OTHERS_READ);
-		
-		Files.setPosixFilePermissions(Paths.get("bad2_test.conf"), perms);
+//		Set<PosixFilePermission> perms = new HashSet<PosixFilePermission>();
+//		perms.add(PosixFilePermission.OWNER_READ);
+//		perms.add(PosixFilePermission.GROUP_READ);
+//		perms.add(PosixFilePermission.OTHERS_READ);		
+//		Files.setPosixFilePermissions(Paths.get("bad2_test.conf"), perms);
+		badFile.delete();
+		badFile.mkdir();
 		exception.expect(IOException.class);
 		exception.expectMessage("Error while creation of default configuration file : bad2_test.conf");	
 		gen.createDefaultConfigFile();

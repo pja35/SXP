@@ -58,7 +58,7 @@ public class Item {
 	@Size(min = 2, max = 255)
 	private String username;
 	
-	@XmlElement(name="username")
+	@XmlElement(name="userid")
 	@NotNull
 	private String userid;
 
