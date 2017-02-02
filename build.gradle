@@ -175,4 +175,3 @@ build.finalizedBy(libs)
 
 //Define jacoco report tasks
 test.finalizedBy(jacocoTestReport)
-
