@@ -10,7 +10,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import crypt.ElGamalEngine;
+import crypt.ElGamalEngineK;
 
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.params.ParametersWithRandom;
@@ -32,7 +32,7 @@ import org.bouncycastle.util.BigIntegers;
  * @author denis.arrivault[@]univ-amu.fr
  *
  */
-public class ElGamalEngineTest {
+public class ElGamalEngineTestK {
 	private BigInteger g512 = new BigInteger("153d5d6172adb43045b68ae8e1de1070b6137005686d29d3d73a7749199681ee5b212c9b96bfdcfa5b20cd5e3fd2044895d609cf9b410b7a0f12ca1cb9a428cc", 16);
 	private BigInteger p512 = new BigInteger("9494fec095f3b85ee286542b3836fc81a5dd0a0349b4c239dd38744d488cf8e31db8bcb7d33b41abb9e5a33cca9144b1cef332c94bf0573bf047a3aca98cdf3b", 16);
 	private BigInteger g768 = new BigInteger("7c240073c1316c621df461b71ebb0cdcc90a6e5527e5e126633d131f87461c4dc4afc60c2cb0f053b6758871489a69613e2a8b4c8acde23954c08c81cbd36132cfd64d69e4ed9f8e51ed6e516297206672d5c0a69135df0a5dcf010d289a9ca1", 16);
@@ -67,7 +67,7 @@ public class ElGamalEngineTest {
 
 		checkKeySize(privateValueSize, pv);
 
-		ElGamalEngine    e = new ElGamalEngine();
+		ElGamalEngineK    e = new ElGamalEngineK();
 
 		e.init(true, pu);
 
@@ -205,7 +205,7 @@ public class ElGamalEngineTest {
 		ElGamalPublicKeyParameters      pu = (ElGamalPublicKeyParameters)pair.getPublic();
 		ElGamalPrivateKeyParameters     pv = (ElGamalPrivateKeyParameters)pair.getPrivate();
 
-		ElGamalEngine    e = new ElGamalEngine();
+		ElGamalEngineK    e = new ElGamalEngineK();
 
 		e.init(true, new ParametersWithRandom(pu, new SecureRandom()));
 
@@ -228,7 +228,7 @@ public class ElGamalEngineTest {
 	{
 		try
 		{
-			new ElGamalEngine().processBlock(new byte[]{ 1 }, 0, 1);
+			new ElGamalEngineK().processBlock(new byte[]{ 1 }, 0, 1);
 			fail("failed initialisation check");
 		}
 		catch (IllegalStateException e)
@@ -243,7 +243,7 @@ public class ElGamalEngineTest {
 		ElGamalPublicKeyParameters      pu = new ElGamalPublicKeyParameters(yPgpBogusPSamp, dhParams);
 		ElGamalPrivateKeyParameters     pv = new ElGamalPrivateKeyParameters(xPgpBogusPSamp, dhParams);
 
-		ElGamalEngine    e = new ElGamalEngine();
+		ElGamalEngineK    e = new ElGamalEngineK();
 
 		e.init(true, pu);
 
@@ -282,15 +282,6 @@ public class ElGamalEngineTest {
 		testInitCheck();
 	}
 
-	@Test
-	public void testEngineK(){
-		ElGamalEngineK engineK = new ElGamalEngineK();
-		assertNull(engineK.getLastK());
-		ElGamalEngine engine = new ElGamalEngine();
-		assertNull(engine.getK());
-	}
-
-
 	@Rule public ExpectedException exception = ExpectedException.none();
 
 
@@ -305,7 +296,7 @@ public class ElGamalEngineTest {
 
 	@Test
 	public void badParamsException1(){
-		ElGamalEngine engine = new ElGamalEngine();
+		ElGamalEngineK engine = new ElGamalEngineK();
 		ParametersWithRandom randPrivateParams = new ParametersWithRandom(new ElGamalPrivateKeyParameters(getBigInt(),
 				new ElGamalParameters(getBigInt(), getBigInt())));
 		exception.expect(IllegalArgumentException.class);
@@ -315,7 +306,7 @@ public class ElGamalEngineTest {
 
 	@Test
 	public void badParamsException2(){
-		ElGamalEngine engine = new ElGamalEngine();
+		ElGamalEngineK engine = new ElGamalEngineK();
 		ParametersWithRandom randPublicParams = new ParametersWithRandom(new ElGamalPublicKeyParameters(getBigInt(),
 				new ElGamalParameters(getBigInt(), getBigInt())));
 		exception.expect(IllegalArgumentException.class);

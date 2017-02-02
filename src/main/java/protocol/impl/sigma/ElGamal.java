@@ -22,7 +22,7 @@ import org.bouncycastle.crypto.params.ElGamalParameters;
 import org.bouncycastle.crypto.params.ElGamalPrivateKeyParameters;
 import org.bouncycastle.crypto.params.ElGamalPublicKeyParameters;
 
-import crypt.ElGamalEngine;
+import crypt.ElGamalEngineK;
 import model.entity.ElGamalKey;
 import crypt.impl.hashs.SHA256Hasher;
 
@@ -117,7 +117,7 @@ public class ElGamal  {
 		ElGamalParameters params = new ElGamalParameters(keys.getP(), keys.getG());
 		ElGamalPublicKeyParameters pubKey = new ElGamalPublicKeyParameters(keys.getPublicKey(), params);
 		
-		ElGamalEngine e = new ElGamalEngine();
+		ElGamalEngineK e = new ElGamalEngineK();
 		e.init(true, pubKey);
         return e.processBlock(data, 0, data.length) ;
 	}
@@ -126,7 +126,7 @@ public class ElGamal  {
 		ElGamalParameters params = new ElGamalParameters(keys.getP(), keys.getG());
 		ElGamalPublicKeyParameters pubKey = new ElGamalPublicKeyParameters(keys.getPublicKey(), params);
 		
-		ElGamalEngine e = new ElGamalEngine();
+		ElGamalEngineK e = new ElGamalEngineK();
 		e.init(true, pubKey);
 		byte[] m = e.processBlock(data, 0, data.length);
 		BigInteger k = e.getK();
@@ -140,7 +140,7 @@ public class ElGamal  {
 		ElGamalParameters params = new ElGamalParameters(keys.getP(), keys.getG());
 		ElGamalPrivateKeyParameters privKey = new ElGamalPrivateKeyParameters(keys.getPrivateKey(), params);
 		
-		ElGamalEngine e = new ElGamalEngine();
+		ElGamalEngineK e = new ElGamalEngineK();
 		e.init(false, privKey);
 		
         return e.processBlock(data, 0, data.length) ;
