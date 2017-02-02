@@ -1,8 +1,0 @@
-
-There are two classes with the same name that behave the same way :
-src/main/java/model/entity/ElGamaAsymKey.java
-src/main/java/crypt/impl/key/ElGamaAsymKey.java
-
-There is also a third class that ressemble the two :
-src/main/java/model/entity/ElGamaKey.java
-

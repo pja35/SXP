@@ -46,8 +46,6 @@ tests:
     when: always
     paths:
       # Tests coverage report and Unit test result
-      #- build/reports/jacoco/test/html/index.html      
-      #- build/reports/tests/test/index.html
       - build/*
     expire_in: 8d
   except:
