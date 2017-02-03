@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.jxta.document.AdvertisementFactory;
+import net.jxta.exception.PeerGroupException;
 import network.api.Peer;
 import network.api.service.InvalidServiceException;
 import network.api.service.Service;
@@ -59,8 +60,7 @@ public class PeerFactory {
 			Service itemsSender = new JxtaItemsSenderService();
 			itemsSender.initAndStart(p);
 		} catch (InvalidServiceException e) {
-			// TODO manage the exception
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}		
 		return p;
 	}
@@ -80,7 +80,7 @@ public class PeerFactory {
 	 * Create, initialize, and start a {@link JxtaPeer}
 	 * @return an initialized and started {@link Peer}
 	 */
-	public static Peer createAndStartPeer(String impl, String tmpFolder, int port) {
+	public static Peer createAndStartPeer(String impl, String tmpFolder, int port){
 		Peer peer;
 		switch(impl) {
 		case "jxta": peer = createJxtaPeer(); break;
@@ -88,9 +88,8 @@ public class PeerFactory {
 		}
 		try {
 			peer.start(tmpFolder, port, "tcp://109.15.222.135:9800");
-		} catch (IOException e) {
-			// TODO manage the exception
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
 		return peer;
 	}

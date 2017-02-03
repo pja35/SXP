@@ -40,7 +40,7 @@ public class JxtaItemServiceTest {
 		jxtaPeer = PeerFactory.createJxtaPeer();
 		try {
 			jxtaPeer.start(cache, 9800);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			log.debug(e.getMessage());
 		}
 	}

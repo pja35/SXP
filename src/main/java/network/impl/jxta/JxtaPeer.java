@@ -5,6 +5,7 @@ import java.net.URI;
 import java.util.Collection;
 import java.util.HashMap;
 
+import net.jxta.exception.PeerGroupException;
 import net.jxta.platform.NetworkManager;
 import network.api.Peer;
 import network.api.service.InvalidServiceException;
@@ -25,7 +26,7 @@ public class JxtaPeer implements Peer{
 	}
 	
 	@Override
-	public void start(String cache, int port, String ...bootstrap) throws IOException {
+	public void start(String cache, int port, String ...bootstrap) throws IOException, PeerGroupException, RuntimeException {
 		node.initialize(cache, "sxp peer", true);
 		this.bootstrap(bootstrap);
 		node.start(port);
@@ -70,7 +71,7 @@ public class JxtaPeer implements Peer{
 		JxtaPeer peer = new JxtaPeer();
 		try {
 			peer.start(".test", 9800);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

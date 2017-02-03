@@ -3,6 +3,7 @@ package network.api;
 import java.io.IOException;
 import java.util.Collection;
 
+import net.jxta.exception.PeerGroupException;
 import network.api.service.InvalidServiceException;
 import network.api.service.Service;
 
@@ -17,8 +18,10 @@ public interface Peer {
 	 * @param cache cache folder
 	 * @param port listening port
 	 * @throws IOException
+	 * @throws RuntimeException 
+	 * @throws PeerGroupException 
 	 */
-	public void start(String cache, int port, String ...ips) throws IOException;
+	public void start(String cache, int port, String ...ips) throws IOException, PeerGroupException, RuntimeException;
 	
 	/**
 	 * Stop the server

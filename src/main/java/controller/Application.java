@@ -9,8 +9,6 @@ import rest.api.Authentifier;
 import rest.factories.AuthentifierFactory;
 import rest.factories.RestServerFactory;
 
-import crypt.impl.certificate.X509V3Generator;
-
 /**
  * Main class
  * {@link Application} is a singleton
@@ -43,9 +41,13 @@ public class Application {
 		Properties p = System.getProperties();
 		p.put("derby.system.home", "./.db-" + restPort + "/");
 		new UserSyncManagerImpl(); //just init the db
-		setPeer(PeerFactory.createDefaultAndStartPeerForTest());
-		setAuth(AuthentifierFactory.createDefaultAuthentifier());
-		RestServerFactory.createAndStartDefaultRestServer(restPort);
+		try {
+			setPeer(PeerFactory.createDefaultAndStartPeerForTest());
+			setAuth(AuthentifierFactory.createDefaultAuthentifier());
+			RestServerFactory.createAndStartDefaultRestServer(restPort);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
 	}
 
 	public static void main(String[] args) {
