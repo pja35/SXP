@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import net.jxta.platform.NetworkManager;
 import network.api.Peer;
+import network.api.service.InvalidServiceException;
 import network.api.service.Service;
 import network.utils.IpChecker;
 
@@ -56,7 +57,10 @@ public class JxtaPeer implements Peer{
 	}
 
 	@Override
-	public void addService(Service service) {
+	public void addService(Service service) throws InvalidServiceException {
+		if (service.getName() == null || service.getName().isEmpty()){
+			throw new InvalidServiceException("Service name is empty");
+		}
 		JxtaService s = (JxtaService) service;
 		services.put(service.getName(), service);
 		s.setPeerGroup(node.createGroup(service.getName()));

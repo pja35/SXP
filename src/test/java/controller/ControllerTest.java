@@ -48,7 +48,7 @@ public class ControllerTest {
 	private final static Logger log = LogManager.getLogger(ControllerTest.class);
 
 	Application application;
-	private static final int restPort = 8081;
+	private static final int restPort = 5600;
 	private static final String baseURL = "https://localhost:" + String.valueOf(restPort) + "/";
 
 	private static final String username = TestInputGenerator.getRandomAlphaWord(20);

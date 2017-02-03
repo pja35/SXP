@@ -3,6 +3,7 @@ package network.api;
 import java.io.IOException;
 import java.util.Collection;
 
+import network.api.service.InvalidServiceException;
 import network.api.service.Service;
 
 /**
@@ -46,8 +47,9 @@ public interface Peer {
 	/**
 	 * Add a service to this Peer
 	 * @param service
+	 * @throws InvalidServiceException : the service is not a valid service
 	 */
-	public void addService(Service service);
+	public void addService(Service service) throws InvalidServiceException;
 	
 	/**
 	 * Return a string representation of the peer id (uri)

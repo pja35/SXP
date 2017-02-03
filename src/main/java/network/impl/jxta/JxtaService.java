@@ -30,6 +30,7 @@ import network.api.Peer;
 import network.api.SearchListener;
 import network.api.ServiceListener;
 import network.api.advertisement.Advertisement;
+import network.api.service.InvalidServiceException;
 import network.api.service.Service;
 import network.impl.MessagesGeneric;
 
@@ -72,9 +73,10 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 
 	/**
 	 * {@inheritDoc}
+	 * @throws InvalidServiceException 
 	 */
 	@Override
-	public void initAndStart(Peer peer) {
+	public void initAndStart(Peer peer) throws RuntimeException, InvalidServiceException{
 		if(!(peer instanceof JxtaPeer)) {
 			throw new RuntimeException("Need a Jxta Peer to run a Jxta service");
 		}

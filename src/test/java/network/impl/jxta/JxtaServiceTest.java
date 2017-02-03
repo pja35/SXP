@@ -4,6 +4,7 @@ package network.impl.jxta;
 import net.jxta.endpoint.Message;
 
 import network.api.Messages;
+import network.api.service.InvalidServiceException;
 import network.factories.PeerFactory;
 import network.impl.jxta.JxtaService;
 import network.impl.messages.RequestItemMessageTest;
@@ -63,15 +64,16 @@ public class JxtaServiceTest {
 	}
 
 	@Test
-	public void addServiceToPeer(){
-		//BUG : As the jxtaService has no name, an exception should be raised
+	public void addServiceToPeer() throws InvalidServiceException{
+		exception.expect(InvalidServiceException.class);
+		exception.expectMessage("Service name is empty");	
 		jxtaPeer.addService(jxtaService);
-		//The service has not been added and we can check it with~:
-		assertNull(jxtaService.pg);
+//		//The service has not been added and we can check it with~:
+//		assertNull(jxtaService.pg);
 	}
 
 	@Test
-	public void badInitTest(){
+	public void badInitTest() throws InvalidServiceException{
 		exception.expect(RuntimeException.class);
 		exception.expectMessage("Need a Jxta Peer to run a Jxta service");	
 		jxtaService.initAndStart(null);
