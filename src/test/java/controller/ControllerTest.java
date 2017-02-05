@@ -247,7 +247,8 @@ public class ControllerTest {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("Associated bug : \"Unable to convert output of http request api/users/{id} into json object\"");
+			log.error("Associated bug : \"Unable to convert output of http request api/users/{id} into json object\"\n"
+			+ e.getMessage());
 			//fail(e.getMessage());
 		}
 	}
@@ -263,7 +264,8 @@ public class ControllerTest {
 			assertTrue(uscoll.size() == 1);
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("Associated bug : \"Unable to convert output of http request api/users/{id} into json object\"");
+			log.error("Associated bug : \"Unable to convert output of http request api/users/{id} into json object\"\n"
+			+ e.getMessage());
 			//fail(e.getMessage());
 		}
 	}
