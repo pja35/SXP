@@ -24,3 +24,4 @@ src/main/js/node_modules/
 certConfig.conf
 keystore.jks
 .cache*
+derby.log
