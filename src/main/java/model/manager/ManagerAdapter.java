@@ -5,15 +5,16 @@ import java.util.ArrayList;
 import model.api.Manager;
 import model.api.ManagerListener;
 import model.api.SyncManager;
+import java.util.Collection;
 
 public class ManagerAdapter<Entity> implements Manager<Entity>{
 
 	private SyncManager<Entity> em;
-	
+
 	public ManagerAdapter(SyncManager<Entity> manager) {
 		em = manager;
 	}
-	
+
 	@Override
 	public void findOneById(String id, ManagerListener<Entity> l) {
 		ArrayList<Entity> r = new ArrayList<>();
@@ -34,18 +35,37 @@ public class ManagerAdapter<Entity> implements Manager<Entity>{
 	}
 
 	@Override
-	public void persist(Entity entity) {
-		em.persist(entity);
+	public boolean persist(Entity entity) {
+		return em.persist(entity);
 	}
 
 	@Override
-	public void begin() {
-		em.begin();
+	public boolean begin() {
+		return em.begin();
 	}
 
 	@Override
-	public void end() {
-		em.end();
+	public boolean end() {
+		return em.end();
 	}
-	
+
+	@Override
+	public boolean remove(Entity entity) {
+		return em.remove(entity);
+	}
+
+	@Override
+	public boolean contains(Entity entity) {
+		return em.contains(entity);
+	}
+	@Override
+	public Collection<Entity> watchlist() {
+		return em.watchlist();
+	}
+
+	@Override
+	public boolean check() {
+		return em.check();
+	}
+
 }

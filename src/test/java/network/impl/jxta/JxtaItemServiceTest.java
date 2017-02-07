@@ -5,6 +5,7 @@ import org.junit.rules.ExpectedException;
 
 import net.jxta.endpoint.Message;
 import network.api.Messages;
+import network.api.service.InvalidServiceException;
 import network.factories.PeerFactory;
 import network.impl.messages.RequestItemMessageTest;
 import util.TestInputGenerator;
@@ -39,7 +40,7 @@ public class JxtaItemServiceTest {
 		jxtaPeer = PeerFactory.createJxtaPeer();
 		try {
 			jxtaPeer.start(cache, 9800);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			log.debug(e.getMessage());
 		}
 	}
@@ -60,12 +61,17 @@ public class JxtaItemServiceTest {
 
 	@Test
 	public void addServiceToPeer(){
-		jxtaPeer.addService(jxtaItemService);
+		try {
+			jxtaPeer.addService(jxtaItemService);
+		} catch (InvalidServiceException e) {
+			fail();
+			log.debug(e.getMessage());
+		}
 		assertTrue(jxtaPeer.getService("items").equals(jxtaItemService));
 	}
 
 	@Test
-	public void badInitTest(){
+	public void badInitTest() throws RuntimeException, InvalidServiceException{
 		exception.expect(RuntimeException.class);
 		exception.expectMessage("Need a Jxta Peer to run a Jxta service");	
 		jxtaItemService.initAndStart(null);

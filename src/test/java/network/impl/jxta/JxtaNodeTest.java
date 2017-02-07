@@ -11,7 +11,9 @@ import org.junit.rules.ExpectedException;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.IOException;
 
+import net.jxta.exception.PeerGroupException;
 import net.jxta.peergroup.PeerGroup;
 import net.jxta.platform.NetworkManager;
 import util.TestInputGenerator;
@@ -66,7 +68,7 @@ public class JxtaNodeTest {
 	}
 
 	@Test
-	public void startUninitializedNodeExeceptionTest(){
+	public void startUninitializedNodeExeceptionTest() throws PeerGroupException, RuntimeException, IOException{
 		JxtaNode newNode = new JxtaNode(); 
 		exception.expect(RuntimeException.class);
 		exception.expectMessage("Node must be initalized before start call");	
@@ -74,29 +76,31 @@ public class JxtaNodeTest {
 	}
 
 	@Test
-	public void startBadCacheNodeExitTest(){		
+	public void startBadCacheNodeExitTest() throws PeerGroupException, RuntimeException, IOException{		
 		File cacheDirectory = new File(cache2);
 		TestUtils.removeRecursively(cacheDirectory);
 		cacheDirectory.mkdirs();
-		cacheDirectory.setExecutable(false);
 		JxtaNode node2 = new JxtaNode();
 		try {
 			node2.initialize(cache2, "testNode2", true);
 		} catch (Exception e) {
 			log.debug(e.getMessage());
 		}
-		exit.expectSystemExitWithStatus(-1);
+		TestUtils.removeRecursively(cacheDirectory);
+		cacheDirectory.createNewFile();
+		exception.expect(PeerGroupException.class);
+		exception.expectMessage("error while creating main peer group");	
 		node2.start(9800);
 	}
 	
 	@Test
-	public void startNodeTest(){
+	public void startNodeTest() throws PeerGroupException, RuntimeException, IOException{
 		node.start(9800);
 		assertTrue(node.isStarted());
 	 }
 	
 	@Test
-	public void createGroupTest(){
+	public void createGroupTest() throws PeerGroupException, RuntimeException, IOException{
 		node.start(9800);
 		PeerGroup defaultPg = node.getDefaultPeerGroup();
 		String groupName = TestInputGenerator.getRandomUser(10);
@@ -116,7 +120,7 @@ public class JxtaNodeTest {
 	}
 	
 	@Test
-	public void stopTest(){
+	public void stopTest() throws PeerGroupException, RuntimeException, IOException{
 		JxtaNode node3 = new JxtaNode();
 		try {
 			node3.initialize(cache3, "testNode3", true);

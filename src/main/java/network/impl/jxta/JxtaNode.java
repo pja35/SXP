@@ -3,6 +3,8 @@ package network.impl.jxta;
 import java.io.File;
 import java.io.IOException;
 
+import org.glassfish.hk2.utilities.RethrowErrorService;
+
 import net.jxta.exception.PeerGroupException;
 import net.jxta.id.IDFactory;
 import net.jxta.peergroup.PeerGroup;
@@ -43,7 +45,7 @@ public class JxtaNode implements Node{
 	}
 
 	@Override
-	public void start(int port) throws RuntimeException {
+	public void start(int port) throws IOException, PeerGroupException {
 		if(!initialized) {
 			throw new RuntimeException("Node must be initalized before start call");
 		}
@@ -56,14 +58,9 @@ public class JxtaNode implements Node{
 			//Switch to rendez vous mode if possible, check every 60 secs
 			pg.getRendezVousService().setAutoStart(true,60*1000);
 		} catch (IOException e) {
-			e.printStackTrace();
-			System.err.println("Error on config file");
-			System.exit(-1);
+			throw(e);
 		} catch (PeerGroupException e) {
-			e.printStackTrace();
-			System.err.println("error while creating main peer group");
-			System.exit(-1);
-			//can't continue 
+			throw new PeerGroupException("error while creating main peer group", e);
 		}
 		
 		createDefaultGroup();

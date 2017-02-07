@@ -13,12 +13,15 @@ import static org.junit.Assert.*;
 import java.util.*;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 
 import controller.Application;
 import controller.tools.JsonTools;
 import model.entity.Item;
 import model.entity.LoginToken;
 import model.entity.User;
+import model.syncManager.UserSyncManagerImpl;
 import util.TestInputGenerator;
 import util.TestUtils;
 
@@ -48,7 +51,7 @@ public class ControllerTest {
 	private final static Logger log = LogManager.getLogger(ControllerTest.class);
 
 	Application application;
-	private static final int restPort = 8081;
+	private static final int restPort = 5600;
 	private static final String baseURL = "https://localhost:" + String.valueOf(restPort) + "/";
 
 	private static final String username = TestInputGenerator.getRandomAlphaWord(20);
@@ -247,7 +250,8 @@ public class ControllerTest {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("Associated bug : \"Unable to convert output of http request api/users/{id} into json object\"");
+			log.error("Associated bug : \"Unable to convert output of http request api/users/{id} into json object\"\n"
+			+ e.getMessage());
 			//fail(e.getMessage());
 		}
 	}
@@ -263,7 +267,8 @@ public class ControllerTest {
 			assertTrue(uscoll.size() == 1);
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("Associated bug : \"Unable to convert output of http request api/users/{id} into json object\"");
+			log.error("Associated bug : \"Unable to convert output of http request api/users/{id} into json object\"\n"
+			+ e.getMessage());
 			//fail(e.getMessage());
 		}
 	}

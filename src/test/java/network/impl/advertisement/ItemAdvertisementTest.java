@@ -43,7 +43,7 @@ public class ItemAdvertisementTest{
 		try {
 			jxtaPeer.start(cache, 9800);
 			jxtaPeer.addService(new JxtaItemService());
-		} catch (IOException e) {
+		} catch (Exception e) {
 			log.debug(e.getMessage());
 		}
 	}
