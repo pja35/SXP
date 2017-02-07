@@ -1,4 +1,4 @@
-RESTAPISERVER = 'http://localhost:8081';
+RESTAPISERVER = 'https://localhost:8081';
 
 (function() {
 

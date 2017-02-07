@@ -36,7 +36,7 @@ public class Utils {
 	{
 		BigInteger s;
 		s = new BigInteger(bitLength,random);
-		while(s.compareTo(BigInteger.ONE)<=0 && s.compareTo(p)>= 0)
+		while(s.compareTo(BigInteger.ONE) < 0 || s.compareTo(p) > 0)
 			s = new BigInteger(bitLength,random);
 		
 		return s;

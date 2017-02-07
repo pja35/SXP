@@ -38,8 +38,9 @@ public interface Service {
 	 * This method should me called by a {@link Peer} instance
 	 * when added via {@link Peer#addService(Service)}
 	 * @param peer the peer that serve that service
+	 * @throws InvalidServiceException : the service is not a valid service.
 	 */
-	public void initAndStart(Peer peer);
+	public void initAndStart(Peer peer) throws InvalidServiceException;
 	
 	/**
 	 * Add a listener to this service

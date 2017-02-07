@@ -22,8 +22,9 @@ import org.bouncycastle.crypto.params.ElGamalParameters;
 import org.bouncycastle.crypto.params.ElGamalPrivateKeyParameters;
 import org.bouncycastle.crypto.params.ElGamalPublicKeyParameters;
 
-import crypt.ElGamalEngine;
+import crypt.ElGamalEngineK;
 import model.entity.ElGamalKey;
+import crypt.impl.hashs.SHA256Hasher;
 
 /**
  * This class is used for encryption, decryption, signs and verify signature.
@@ -71,7 +72,8 @@ public class ElGamal  {
 		BigInteger r;
 		BigInteger s;
 		
-		BigInteger m = new BigInteger(Hasher.SHA256(M).getBytes());
+	//	BigInteger m = new BigInteger(Hasher.SHA256(M).getBytes());
+		BigInteger m = new BigInteger(new SHA256Hasher().getHash(M));
 		k = BigInteger.probablePrime(1023, random);
 		while(k.compareTo(BigInteger.ONE)<= 0 || k.gcd(keys.getP()).compareTo(BigInteger.ONE)!= 0 )
 		{
@@ -102,7 +104,8 @@ public class ElGamal  {
 		}
 		
 		
-		BigInteger m = new BigInteger(Hasher.SHA256(M).getBytes());
+		//BigInteger m = new BigInteger(Hasher.SHA256(M).getBytes());
+		BigInteger m = new BigInteger(new SHA256Hasher().getHash(M));
 		BigInteger v = keys.getG().modPow(m, keys.getP());
 		BigInteger w = (keys.getPublicKey().modPow(sign.getR(), keys.getP()).multiply(sign.getR().modPow(sign.getS(), keys.getP())).mod(keys.getP()));
 		
@@ -114,7 +117,7 @@ public class ElGamal  {
 		ElGamalParameters params = new ElGamalParameters(keys.getP(), keys.getG());
 		ElGamalPublicKeyParameters pubKey = new ElGamalPublicKeyParameters(keys.getPublicKey(), params);
 		
-		ElGamalEngine e = new ElGamalEngine();
+		ElGamalEngineK e = new ElGamalEngineK();
 		e.init(true, pubKey);
         return e.processBlock(data, 0, data.length) ;
 	}
@@ -123,7 +126,7 @@ public class ElGamal  {
 		ElGamalParameters params = new ElGamalParameters(keys.getP(), keys.getG());
 		ElGamalPublicKeyParameters pubKey = new ElGamalPublicKeyParameters(keys.getPublicKey(), params);
 		
-		ElGamalEngine e = new ElGamalEngine();
+		ElGamalEngineK e = new ElGamalEngineK();
 		e.init(true, pubKey);
 		byte[] m = e.processBlock(data, 0, data.length);
 		BigInteger k = e.getK();
@@ -137,7 +140,7 @@ public class ElGamal  {
 		ElGamalParameters params = new ElGamalParameters(keys.getP(), keys.getG());
 		ElGamalPrivateKeyParameters privKey = new ElGamalPrivateKeyParameters(keys.getPrivateKey(), params);
 		
-		ElGamalEngine e = new ElGamalEngine();
+		ElGamalEngineK e = new ElGamalEngineK();
 		e.init(false, privKey);
 		
         return e.processBlock(data, 0, data.length) ;
