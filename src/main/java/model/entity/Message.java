@@ -10,6 +10,7 @@ import static javax.persistence.EnumType.STRING;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -59,9 +60,10 @@ public class Message {
 	@ElementCollection
 	private Set<String> receiversNames = new HashSet<String>();
 
+	@Lob
 	@XmlElement(name="body")
 	@NotNull
-	@Size(min=1, max = 1024)
+	@Size(min = 1, max = 1024)
 	private String body;
 
 	public static enum ReceptionStatus {DRAFT, SENT, RECEIVED}

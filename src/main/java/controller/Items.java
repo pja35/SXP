@@ -31,7 +31,7 @@ import rest.api.ServletPath;
 @ServletPath("/api/items/*")
 @Path("/")
 public class Items {
-		
+
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -44,21 +44,21 @@ public class Items {
 		//EntityManager<Item> em = new ItemManager();
 		em.begin();
 		//TODO VALIDATION
-			item.setCreatedAt(new Date());
-			item.setUsername(currentUser.getNick());
-			item.setPbkey(currentUser.getKey().getPublicKey());
-			item.setUserid(currentUser.getId());
-			em.persist(item);
+		item.setCreatedAt(new Date());
+		item.setUsername(currentUser.getNick());
+		item.setPbkey(currentUser.getKey().getPublicKey());
+		item.setUserid(currentUser.getId());
+		em.persist(item);
 		em.end();
-		
+
 		/*ItemAdvertisement iadv = new ItemAdvertisement();
 		iadv.setTitle(item.getTitle());
 		iadv.publish(Application.getInstance().getPeer()); */
-		
+
 		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
 		return json.toJson(item);
 	}
-	
+
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -68,7 +68,7 @@ public class Items {
 		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
 		return json.toJson(em.findOneById(id));
 	}
-	
+
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -80,7 +80,7 @@ public class Items {
 		JsonTools<Collection<Item>> json = new JsonTools<>(new TypeReference<Collection<Item>>(){});
 		return json.toJson(em.findAllByAttribute("userid", currentUser.getId()));
 	}
-	
+
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -92,20 +92,20 @@ public class Items {
 		item2.setTitle(item.getTitle());
 		item2.setDescription(item.getDescription());
 		em.end();
-		
+
 		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
 		return json.toJson(item2);
-		
+
 		//return JsonUtils.BeanStringify(item2);
 	}
-	
+
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String delete(
 			@PathParam("id")int id) {
-			//TODO
+		//TODO
 		return null;
 	}
-	
+
 }

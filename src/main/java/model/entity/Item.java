@@ -34,6 +34,7 @@ public class Item {
 	@Size(min = 3, max = 255)
 	private String title;
 	
+	@Lob
 	@XmlElement(name="description")
 	@NotNull
 	@Size(min = 3, max = 2000)

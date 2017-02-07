@@ -13,12 +13,15 @@ import static org.junit.Assert.*;
 import java.util.*;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 
 import controller.Application;
 import controller.tools.JsonTools;
 import model.entity.Item;
 import model.entity.LoginToken;
 import model.entity.User;
+import model.syncManager.UserSyncManagerImpl;
 import util.TestInputGenerator;
 import util.TestUtils;
 

@@ -9,6 +9,7 @@ import java.io.File;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Properties;
 import java.util.Set;
 
 import org.apache.log4j.LogManager;
@@ -33,14 +34,17 @@ import util.TestUtils;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ItemSyncManagerImplTest {
 	private final static Logger log = LogManager.getLogger(ItemSyncManagerImpl.class);
-	private static ItemSyncManager ism;	
+	
 	private static String title = TestInputGenerator.getRandomIpsumString(TestInputGenerator.getRandomInt(3, 256));
 	private static String description = TestInputGenerator.getRandomIpsumString(TestInputGenerator.getRandomInt(3, 256));
 	private static Date dt = TestInputGenerator.getTodayDate();
-	private static BigInteger pbkey = TestInputGenerator.getRandomBigInteger(TestInputGenerator.getRandomInt(3, 256));
+	private static BigInteger pbkey = TestInputGenerator.getRandomNotNullBigInteger(256);
 	private static String userName = TestInputGenerator.getRandomUser(100); 
 	private static String userId = TestInputGenerator.getRandomUser();
+	private static String dbname = TestInputGenerator.getRandomDbName();
 	private static String Id;
+	
+	private ItemSyncManager ism;
 	private Item it;	
 	
 
@@ -58,7 +62,7 @@ public class ItemSyncManagerImplTest {
 	 */
 	@BeforeClass
 	public static void setUp() throws Exception {
-		clean();
+		System.getProperties().put("derby.system.home", "./" + dbname + "/");
 	}
 
 	/**
@@ -67,12 +71,13 @@ public class ItemSyncManagerImplTest {
 	@AfterClass
 	public static void tearDown() throws Exception {
 		clean();
+		System.getProperties().put("derby.system.home", "./.simpleDb/");
 	}
 
 
 	public static void clean() throws Exception {
-		File db = new File("simpleDb");
-		TestUtils.removeRecursively(db);
+		File db = new File(dbname);
+		TestUtils.removeRecursively(db);		
 	}
 
 

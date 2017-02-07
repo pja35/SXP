@@ -79,6 +79,7 @@ task selenium(type: Test) {
 }
 
 test{
+ exclude 'model/syncManager/**'
  if (System.getProperty('DEBUG', 'false') == 'true') {
         jvmArgs '-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5006'
     }
