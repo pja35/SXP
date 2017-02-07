@@ -1,1 +1,0 @@
-The server address is hard-coded to localhost:8081 in src/main/js/modules/app.js. The very first line.

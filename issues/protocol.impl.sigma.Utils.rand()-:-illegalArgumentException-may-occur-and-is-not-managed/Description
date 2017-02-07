@@ -1,1 +1,0 @@
-if bitLength < 0 the exception is raised by BigInteger constructor but is not managed. At least a rethrow should be done.

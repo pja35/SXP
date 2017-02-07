@@ -1,1 +1,0 @@
-Using the rand function with the BigInteger argument equals to zero (new BigInteger("00000") for example) leads to an infinite loop.
