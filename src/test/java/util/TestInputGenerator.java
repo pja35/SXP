@@ -216,7 +216,7 @@ public class TestInputGenerator {
 	public static BigInteger getRandomBigInteger(int minBitNb, int maxBitNb){
 		int b = r.nextInt(maxBitNb - minBitNb) + minBitNb;
 		BigInteger retbi = new BigInteger(b, new Random());
-		log.debug("BigInteger (" + b + " bits) : " + retbi);
+		log.debug("BigInteger (" + b + " max bits) : " + retbi);
 		return retbi;
 	}
 

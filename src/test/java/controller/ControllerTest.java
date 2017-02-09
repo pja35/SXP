@@ -50,7 +50,7 @@ import util.TrustModifier;
 public class ControllerTest {
 	private final static Logger log = LogManager.getLogger(ControllerTest.class);
 
-	Application application;
+	private static Application application;
 	private static final int restPort = 5600;
 	private static final String baseURL = "https://localhost:" + String.valueOf(restPort) + "/";
 
@@ -68,7 +68,8 @@ public class ControllerTest {
 
 	@BeforeClass
 	static public void initialize() throws IOException{
-		Application application = new Application();
+		log.debug("**************** Starting test");
+		application = new Application();
 		application.runForTests(restPort);
 		int loop = 0;
 		int maxLoop = 30;
@@ -89,6 +90,7 @@ public class ControllerTest {
 	static public void deleteBaseAndPeer(){
 		TestUtils.removeRecursively(new File(".db-" + restPort + "/"));
 		TestUtils.removePeerCache();
+		application.stop();
 	}
 
 	static private boolean isJettyServerReady(){

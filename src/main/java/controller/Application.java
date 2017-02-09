@@ -17,6 +17,7 @@ import rest.factories.RestServerFactory;
  */
 public class Application {
 	private static Application instance = null;
+	private static UserSyncManagerImpl umg;
 	private Peer peer;
 	private Authentifier auth;
 
@@ -40,7 +41,7 @@ public class Application {
 	public void runForTests(int restPort) {
 		Properties p = System.getProperties();
 		p.put("derby.system.home", "./.db-" + restPort + "/");
-		new UserSyncManagerImpl(); //just init the db
+		umg = new UserSyncManagerImpl(); //just init the db
 		try {
 			setPeer(PeerFactory.createDefaultAndStartPeerForTest());
 			setAuth(AuthentifierFactory.createDefaultAuthentifier());
@@ -54,6 +55,12 @@ public class Application {
 		new Application();
 		Application.getInstance().runForTests(8081);
 
+	}
+	
+	public void stop(){
+		peer.stop();
+		instance = null;
+		umg.end();
 	}
 
 	public Peer getPeer() {
