@@ -67,5 +67,10 @@ public class ManagerAdapter<Entity> implements Manager<Entity>{
 	public boolean check() {
 		return em.check();
 	}
+	
+	@Override
+	public boolean close(){
+		return em.close();
+	}
 
 }

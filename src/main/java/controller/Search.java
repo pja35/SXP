@@ -137,6 +137,7 @@ public class Search{
 						e.printStackTrace();
 					}
 				}
+				em.close();
 			}
 			
 		}).start();

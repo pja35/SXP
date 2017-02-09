@@ -79,5 +79,11 @@ public interface Manager<Entity> {
 	 * @return true if all the managed entities are valid, false otherwise
 	 */
 	public boolean check();
+	
+	/**
+	 * Close the transaction manager
+	 * @return fails if the operation failed
+	 */
+	public boolean close();
 
 }

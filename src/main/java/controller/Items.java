@@ -50,7 +50,7 @@ public class Items {
 		item.setUserid(currentUser.getId());
 		em.persist(item);
 		em.end();
-
+		em.close();
 		/*ItemAdvertisement iadv = new ItemAdvertisement();
 		iadv.setTitle(item.getTitle());
 		iadv.publish(Application.getInstance().getPeer()); */
@@ -66,7 +66,9 @@ public class Items {
 			@PathParam("id")String id) {
 		SyncManager<Item> em = new ItemSyncManagerImpl();
 		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
-		return json.toJson(em.findOneById(id));
+		String ret = json.toJson(em.findOneById(id));
+		em.close();
+		return ret;
 	}
 
 	@GET
@@ -78,7 +80,9 @@ public class Items {
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		SyncManager<Item> em = new ItemSyncManagerImpl();
 		JsonTools<Collection<Item>> json = new JsonTools<>(new TypeReference<Collection<Item>>(){});
-		return json.toJson(em.findAllByAttribute("userid", currentUser.getId()));
+		String ret = json.toJson(em.findAllByAttribute("userid", currentUser.getId()));
+		em.close();
+		return ret;
 	}
 
 	@PUT
@@ -94,9 +98,10 @@ public class Items {
 		em.end();
 
 		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
-		return json.toJson(item2);
-
-		//return JsonUtils.BeanStringify(item2);
+		String ret = json.toJson(item2);
+		
+		em.close();
+		return ret;
 	}
 
 	@DELETE

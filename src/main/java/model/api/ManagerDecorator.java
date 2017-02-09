@@ -97,5 +97,13 @@ public abstract class ManagerDecorator<Entity> implements Manager<Entity>{
 		return em.check();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean close() {
+		return em.close();
+	}
+
 
 }

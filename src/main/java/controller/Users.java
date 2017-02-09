@@ -52,8 +52,10 @@ public class Users {
 			token.setToken(auth.getToken(login, password));
 			token.setUserid(u.getId());
 			JsonTools<LoginToken> json = new JsonTools<>(new TypeReference<LoginToken>(){});
+			em.close();
 			return json.toJson(token);
 		}
+		em.close();
 		return "{\"error\": \"true\"}";
 		/*EntityManager<User> em = new UserManager();
 		User u = em.findOneByAttribute("nick", login);
@@ -110,7 +112,7 @@ public class Users {
 		em.begin();
 		em.persist(u);
 		em.end();
-		
+		em.close();
 		Authentifier auth = Application.getInstance().getAuth();
 		LoginToken token = new LoginToken();
 		token.setToken(auth.getToken(login, password));

@@ -63,6 +63,10 @@ public class UserSyncManagerImplTest {
 		usm = SyncManagerFactory.createUserSyncManager();
 	}
 
+	@After
+	public void tearDown() throws Exception {
+		usm.close();
+	}
 	
 	public static void clean() throws Exception {
 		File db = new File(dbname);

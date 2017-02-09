@@ -1,25 +1,23 @@
 package model.syncManager;
 
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.persistence.RollbackException;
+
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.eclipse.persistence.internal.jpa.EntityManagerImpl;
+import org.eclipse.persistence.internal.sessions.UnitOfWorkImpl;
+import org.eclipse.persistence.sessions.UnitOfWork;
 
 import controller.tools.LoggerUtilities;
-import model.entity.Item;
-import model.factory.ValidatorFactory;
 import model.validator.EntityValidator;
-import model.validator.ItemValidator;
 
 
 public abstract class AbstractSyncManager<Entity> implements model.api.SyncManager<Entity>{
@@ -117,7 +115,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 		}
 		return ret;
 	}
-	
+
 	@Override
 	public boolean end() {
 		//Validate all the entities in the Watchlist
@@ -126,7 +124,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 			EntityTransaction emtr = em.getTransaction();
 			if (!emtr.getRollbackOnly())
 				em.getTransaction().commit();
-			em.clear(); //Ici on détache toutes les entitées. Devrait-on plutot fermer (em.close()) ?
+			em.clear(); // Should it be done here or before the close method?
 			return true;
 		}catch(Exception e){
 			log.info(LoggerUtilities.getStackTrace(e));
@@ -166,17 +164,22 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 		}
 	}
 
-	/**
-	 * Ici on fait des choses pas très propres !
-	 * Des casts pas trop vérifiés, il faut croiser les doigts
-	 * Des accès à des méthodes bien cachées qu'on ne comprend pas tout à fait,...
-	 */
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public Collection<Entity> watchlist() {
-		//EntityManagerImpl emi = (EntityManagerImpl)em;
-		EntityManagerImpl emi = em.unwrap(EntityManagerImpl.class);
-		Map<Object,Object> wlMap = emi.getActivePersistenceContext(null).getCloneMapping();
-		return (Collection<Entity>) wlMap.keySet();
+	public Set<Entity> watchlist() {
+		UnitOfWorkImpl uow = (UnitOfWorkImpl) em.unwrap(UnitOfWork.class);
+		return (HashSet<Entity>) uow.getCloneMapping().keySet();
+	}
+
+	@Override
+	public boolean close() {
+		try{
+			em.close();
+			return true;
+		}catch(Exception e){
+			log.info(LoggerUtilities.getStackTrace(e));
+			return false;
+		}
 	}
 }
