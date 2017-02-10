@@ -33,6 +33,7 @@ public interface Manager<Entity> {
 	 */
 	public void findOneByAttribute(String attribute, String value, ManagerListener<Entity> l);
 
+		
 	/**
 	 * Persist the entity in the manager
 	 * @param entity

@@ -42,6 +42,8 @@ public class Application {
 		Properties p = System.getProperties();
 		p.put("derby.system.home", "./.db-" + restPort + "/");
 		umg = new UserSyncManagerImpl(); //just init the db
+		umg.close();
+		umg = null;
 		try {
 			setPeer(PeerFactory.createDefaultAndStartPeerForTest());
 			setAuth(AuthentifierFactory.createDefaultAuthentifier());
@@ -60,7 +62,6 @@ public class Application {
 	public void stop(){
 		peer.stop();
 		instance = null;
-		umg.end();
 	}
 
 	public Peer getPeer() {

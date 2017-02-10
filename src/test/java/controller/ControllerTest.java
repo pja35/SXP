@@ -18,6 +18,7 @@ import javax.persistence.Persistence;
 
 import controller.Application;
 import controller.tools.JsonTools;
+import controller.tools.LoggerUtilities;
 import model.entity.Item;
 import model.entity.LoginToken;
 import model.entity.User;
@@ -51,6 +52,7 @@ public class ControllerTest {
 	private final static Logger log = LogManager.getLogger(ControllerTest.class);
 
 	private static Application application;
+	private static HttpsURLConnection https;
 	private static final int restPort = 5600;
 	private static final String baseURL = "https://localhost:" + String.valueOf(restPort) + "/";
 
@@ -95,7 +97,7 @@ public class ControllerTest {
 
 	static private boolean isJettyServerReady(){
 		boolean result = false;
-		HttpsURLConnection https;
+		//HttpsURLConnection https;
 		try {
 			URL url = new URL(baseURL + "api/users/");
 
@@ -114,21 +116,23 @@ public class ControllerTest {
 			log.debug(TestUtils.get_https_cert(https));
 			log.debug(TestUtils.get_https_content(https));
 		}
+		https.disconnect();
 		return result;
 	}
 
 	private String connectAction(String method, String path, HashMap<String, String> properties, String data,
 			boolean dataBin)
-			throws IOException{
-		HttpsURLConnection https = (HttpsURLConnection)new URL(baseURL + path).openConnection();
+					throws IOException{
+		//HttpsURLConnection 
+		https = (HttpsURLConnection)new URL(baseURL + path).openConnection();
 		try {
 			TrustModifier.relaxHostChecking(https);
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
-		}
+		} 
 
-		if (method.equals("POST") || method.equals("PUT") || method.equals("GET"))
+		if (method.equals("POST") || method.equals("PUT") || method.equals("GET") || method.equals("DELETE"))
 			https.setRequestMethod(method);
 		else
 			fail("Unknown http connection method : " + method);
@@ -171,6 +175,7 @@ public class ControllerTest {
 		String res = outputBuffer.toString();
 
 		log.debug(res);
+		https.disconnect();
 		return res;
 	}
 	private String connectAction(String method, String path) throws IOException{
@@ -189,6 +194,7 @@ public class ControllerTest {
 			JSONObject js = new JSONObject(connectAction("POST", "api/users/login/", null, data, true));
 			assertTrue(js.get("error").equals("true"));
 		} catch (Exception e) {
+			log.error(LoggerUtilities.getStackTrace(e));
 			fail(e.getMessage());
 		}
 	}
@@ -209,6 +215,7 @@ public class ControllerTest {
 			assertFalse(token.isEmpty());
 			assertFalse(userid.isEmpty());
 		} catch (Exception e) {
+			log.error(LoggerUtilities.getStackTrace(e));
 			fail(e.getMessage());
 		}
 	}
@@ -232,7 +239,7 @@ public class ControllerTest {
 			assertTrue(lgt.getUserid().equals(userid));
 			token = lgt.getToken();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(LoggerUtilities.getStackTrace(e));
 			fail(e.getMessage());
 		}
 	}
@@ -251,9 +258,9 @@ public class ControllerTest {
 			log.debug("User Nick : " + usj.getNick());
 
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error("Associated bug : \"Unable to convert output of http request api/users/{id} into json object\"\n"
-			+ e.getMessage());
+					+ e.getMessage());
+			log.error(LoggerUtilities.getStackTrace(e));
 			//fail(e.getMessage());
 		}
 	}
@@ -268,9 +275,9 @@ public class ControllerTest {
 			Collection<User> uscoll = json.toEntity(connectAction("GET", "api/users/"));
 			assertTrue(uscoll.size() == 1);
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error("Associated bug : \"Unable to convert output of http request api/users/{id} into json object\"\n"
-			+ e.getMessage());
+					+ e.getMessage());
+			log.error(LoggerUtilities.getStackTrace(e));
 			//fail(e.getMessage());
 		}
 	}
@@ -293,7 +300,7 @@ public class ControllerTest {
 			Collection<Item> it = itjs.toEntity(connectAction("GET", "api/items", properties, null, true));
 			assertTrue(it.isEmpty());
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(LoggerUtilities.getStackTrace(e));
 			fail(e.getMessage());
 		}
 	}
@@ -321,7 +328,7 @@ public class ControllerTest {
 				assertTrue(it.getUsername().equals(username));
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(LoggerUtilities.getStackTrace(e));
 			fail(e.getMessage());
 		}
 	}
@@ -342,10 +349,12 @@ public class ControllerTest {
 			itemTitle = it.get(n).getTitle();
 			log.debug(itemId + " --- " + itemTitle);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(LoggerUtilities.getStackTrace(e));
 			fail(e.getMessage());
 		}
 	}
+
+
 
 	/**
 	 * Get an item by its id
@@ -365,7 +374,7 @@ public class ControllerTest {
 			assertTrue(it.getUserid().equals(userid));
 			assertTrue(it.getUsername().equals(username));
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(LoggerUtilities.getStackTrace(e));
 			fail(e.getMessage());
 		} 
 	}
@@ -389,7 +398,7 @@ public class ControllerTest {
 			assertTrue(it.getUsername().equals(username));
 			assertTrue(it.getDescription().contains("Special"));
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(LoggerUtilities.getStackTrace(e));
 			fail(e.getMessage());
 		} 
 	}
@@ -413,7 +422,7 @@ public class ControllerTest {
 			assertTrue(it.getUsername().equals(username));
 			assertTrue(it.getDescription().contains("Special"));
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(LoggerUtilities.getStackTrace(e));
 			fail(e.getMessage());
 		} 
 	}
@@ -438,10 +447,51 @@ public class ControllerTest {
 			//			assertTrue(it.getUsername().equals(username));
 			//			assertTrue(it.getDescription().contains("Special"));
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(LoggerUtilities.getStackTrace(e));
 			fail(e.getMessage());
 
 		} 
+	}
+
+	/**
+	 * Delete all items
+	 */
+	@Test
+	public void testK(){
+		try {
+			HashMap<String, String> properties = new HashMap<String, String>();
+			properties.put("Auth-Token", token);
+			JsonTools<Collection<Item>> json = new JsonTools<>(new TypeReference<Collection<Item>>(){});
+			ArrayList<Item> itList = (ArrayList<Item>)json.toEntity(connectAction("GET", "api/items", properties, null, true));
+			for(Item it : itList){
+				JSONObject js = new JSONObject(connectAction("DELETE", "api/items/" + it.getId(), properties, null, true));
+				assertTrue(js.get("deleted").equals("true"));
+				log.debug("Item " + it.getTitle() + " is deleted.");
+			}
+
+		} catch (Exception e) {
+			log.error(LoggerUtilities.getStackTrace(e));
+			fail(e.getMessage());
+		}
+
+	}
+
+	/**
+	 * Delete the user
+	 */
+	@Test
+	public void testL(){
+		try {
+			HashMap<String, String> properties = new HashMap<String, String>();
+			properties.put("Auth-Token", token);
+			JSONObject js = new JSONObject(connectAction("DELETE", "api/users/" + userid, properties, null, true));
+			assertTrue(js.get("deleted").equals("true"));
+			log.debug("User " + username + " has been deleted.");
+		} catch (Exception e) {
+			log.error(LoggerUtilities.getStackTrace(e));
+			fail(e.getMessage());
+		}
+
 	}
 }
 

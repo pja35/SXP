@@ -226,7 +226,7 @@ public class TestInputGenerator {
 	 * @return
 	 */
 	public static BigInteger getRandomBigInteger(int maxBitNb){
-		return getRandomBigInteger(3, maxBitNb);
+		return getRandomBigInteger(1, maxBitNb);
 	}
 
 	/**

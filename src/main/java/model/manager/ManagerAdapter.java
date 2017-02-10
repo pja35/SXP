@@ -33,7 +33,7 @@ public class ManagerAdapter<Entity> implements Manager<Entity>{
 		r.add(em.findOneByAttribute(attribute, value));
 		l.notify(r);
 	}
-
+	
 	@Override
 	public boolean persist(Entity entity) {
 		return em.persist(entity);

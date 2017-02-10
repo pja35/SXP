@@ -159,12 +159,27 @@ public class Users {
 		return null;
 	}
 	
+	/** 
+	 * This only deletes users from local base.
+	 * TO DO : connect to jxta
+	 * @param id
+	 * @param token
+	 * @return
+	 */
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String delete(
-			@PathParam("id") long id) {
-		return null;
+	public String delete(@PathParam("id") String id, @HeaderParam(Authentifier.PARAM_NAME) String token) {
+		Authentifier auth = Application.getInstance().getAuth();
+		UserSyncManager users = new UserSyncManagerImpl();
+		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
+		if (currentUser == null){
+			users.close();
+			return "{\"deleted\": \"false\"}";
+		}
+		Boolean ret = users.begin();
+		User us = users.findOneById(id);
+		return "{\"deleted\": \"" + (ret && users.remove(us) && users.end() && users.close()) + "\"}";		
 	}
 	
 }

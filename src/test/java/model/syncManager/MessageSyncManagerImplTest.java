@@ -28,7 +28,7 @@ import util.TestUtils;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MessageSyncManagerImplTest {
-	private final static Logger log = LogManager.getLogger(MessageSyncManagerImpl.class);
+	private final static Logger log = LogManager.getLogger(MessageSyncManagerImplTest.class);
 	
 	private static String id;
 	private static String object = TestInputGenerator.getRandomIpsumString(TestInputGenerator.getRandomInt(1, 129));

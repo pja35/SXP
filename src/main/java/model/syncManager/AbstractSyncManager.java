@@ -1,8 +1,6 @@
 package model.syncManager;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -167,15 +165,16 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Set<Entity> watchlist() {
+	public Collection<Entity> watchlist() {
 		UnitOfWorkImpl uow = (UnitOfWorkImpl) em.unwrap(UnitOfWork.class);
-		return (HashSet<Entity>) uow.getCloneMapping().keySet();
+		return (Collection<Entity>) uow.getCloneMapping().keySet();
 	}
 
 	@Override
 	public boolean close() {
 		try{
 			em.close();
+			em = null;
 			return true;
 		}catch(Exception e){
 			log.info(LoggerUtilities.getStackTrace(e));
