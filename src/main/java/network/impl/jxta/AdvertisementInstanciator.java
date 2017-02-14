@@ -11,12 +11,12 @@ import net.jxta.document.AdvertisementFactory.Instantiator;
  * @author Prudhomme Julien
  *
  */
-public class AdvertisementInstaciator implements Instantiator{
+public class AdvertisementInstanciator implements Instantiator{
 	
 	private Class<? extends Advertisement> advClass;
 	private String advType;
 	
-	public AdvertisementInstaciator(Advertisement advClass) {
+	public AdvertisementInstanciator(Advertisement advClass) {
 		this.advClass = advClass.getClass();
 		this.advType = advClass.getAdvType();
 	}
