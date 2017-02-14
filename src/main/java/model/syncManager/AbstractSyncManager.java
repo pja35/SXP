@@ -63,7 +63,8 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 
 	@SuppressWarnings("unchecked")
 	public Entity findOneByAttribute(String attribute, String value) {
-		Query q = em.createQuery("select t from " + theClass.getSimpleName() + " t where t."+ attribute + "=:value");
+		//Query q = em.createQuery("select t from " + theClass.getSimpleName() + " t where t."+ attribute + "=:value");
+		Query q = em.createQuery("select t from " + theClass.getSimpleName() + " t, in(t."+ attribute + ") s where s=:value");
 		q.setParameter("value", value);
 		try {
 			return (Entity) q.getSingleResult();
@@ -76,7 +77,8 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Entity> findAllByAttribute(String attribute, String value) {
-		Query q = em.createQuery("select t from " + theClass.getSimpleName() + " t where t."+ attribute + "=:value");
+		//Query q = em.createQuery("select t from " + theClass.getSimpleName() + " t where t."+ attribute + "=:value");
+		Query q = em.createQuery("select t from " + theClass.getSimpleName() + " t, in(t."+ attribute + ") s where s=:value");
 		q.setParameter("value", value);
 		try {
 			return q.getResultList();
@@ -86,6 +88,33 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	public Entity findOneByCollAttribute(String attribute, String value) {
+		//Query q = em.createQuery("select t from " + theClass.getSimpleName() + " t where t."+ attribute + "=:value");
+		Query q = em.createQuery("select t from " + theClass.getSimpleName() + " t, in(t."+ attribute + ") s where s=:value");
+		q.setParameter("value", value);
+		try {
+			return (Entity) q.getSingleResult();
+		} catch(Exception e) {
+			log.info(LoggerUtilities.getStackTrace(e));
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Entity> findAllByAttribute(String attribute, String value) {
+		//Query q = em.createQuery("select t from " + theClass.getSimpleName() + " t where t."+ attribute + "=:value");
+		Query q = em.createQuery("select t from " + theClass.getSimpleName() + " t, in(t."+ attribute + ") s where s=:value");
+		q.setParameter("value", value);
+		try {
+			return q.getResultList();
+		} catch(Exception e) {
+			log.info(LoggerUtilities.getStackTrace(e));
+			return null;
+		}
+	}
+	
 	@Override
 	public boolean begin() {
 		try

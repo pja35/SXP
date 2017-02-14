@@ -48,7 +48,8 @@ public class Messages {
 		em.begin();
 		em.persist(message);
 		em.end();
-
+		em.close();
+		
 		JsonTools<Message> json = new JsonTools<>(new TypeReference<Message>(){});
 		return json.toJson(message);
 	}
@@ -62,8 +63,9 @@ public class Messages {
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		SyncManager<Message> em = new MessageSyncManagerImpl();
 		JsonTools<Collection<Message>> json = new JsonTools<>(new TypeReference<Collection<Message>>(){});
-		Collection<Message> collec = em.findAllByAttribute("receiver", currentUser.getNick());
+		Collection<Message> collec = em.findAllByAttribute("receiversNames", currentUser.getNick());
 		collec.addAll(em.findAllByAttribute("username", currentUser.getNick()));
+		em.close();
 		return json.toJson(collec);
 	}
 

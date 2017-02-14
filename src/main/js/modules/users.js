@@ -53,7 +53,7 @@
                     if (obj.error) {
                         $scope.errorLogin = true;
                     } 
-                    else if(user == undefined){
+                    else if(obj == undefined){
                     	$scope.errorLogin = true;
                     }
                     else {
