@@ -63,8 +63,8 @@ public class Messages {
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		SyncManager<Message> em = new MessageSyncManagerImpl();
 		JsonTools<Collection<Message>> json = new JsonTools<>(new TypeReference<Collection<Message>>(){});
-		Collection<Message> collec = em.findAllByAttribute("receiversNames", currentUser.getNick());
-		collec.addAll(em.findAllByAttribute("username", currentUser.getNick()));
+		Collection<Message> collec = em.findAllByCollAttribute("receiversNames", currentUser.getNick());
+		collec.addAll(em.findAllByAttribute("senderName", currentUser.getNick()));
 		em.close();
 		return json.toJson(collec);
 	}

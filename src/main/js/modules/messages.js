@@ -23,8 +23,8 @@
 					if(messageContent){
 						//Message is available thanks to restApi.js
 						var message = new Message({
-							receiver: chat,
-	      					messageContent: messageContent
+							senderName: chat,
+	      					body: messageContent
 						});
 						message.$save(function(){
 							refresh();
@@ -42,10 +42,10 @@
 					$scope.messages = Message.query(function(){
 						var tmp = {};
 						for(var i = 0; i < $scope.messages.length; i++){
-							if($scope.messages[i].username != $scope.user.nick)
-								tmp[$scope.messages[i].username] = 0;
+							if($scope.messages[i].senderName != $scope.user.nick)
+								tmp[$scope.messages[i].senderName] = 0;
 							else 
-								tmp[$scope.messages[i].receiver] = 0;
+								tmp[$scope.messages[i].receiversNames] = [];
 						}
 						for(var j in tmp){
 							$scope.chats.push(j);
@@ -76,8 +76,8 @@
 		                    for(var i = 0; i < userList.length; i++){
 	        					if($scope.receiver == userList[i].nick && $scope.receiver != currentUser.nick){
 	        						var message = new Message({
-										receiver: $scope.receiver,
-				      					messageContent: $scope.messageContent
+	        							receiversNames: [$scope.receiver],
+				      					body: $scope.messageContent
 									});
 									message.$save(function() {
 										$state.go('messages');

@@ -32,7 +32,7 @@
   });
 
  // 'View items' state controller function
- module.controller('viewItems', function($rootScope,$scope,$state, Item) {
+ module.controller('viewItems', function($rootScope, $scope, $state, Item) {
    isUserConnected($rootScope, $scope, $state);
    $scope.app.configHeader({title: 'Items', contextButton: 'addItem'});
    $scope.items = [];
@@ -99,7 +99,7 @@
  });
 
  // 'View item' state controller function
- module.controller('viewItem', function($rootScope, $scope, $stateParams, Item) {
+ module.controller('viewItem', function($rootScope, $scope, $stateParams, $state, Item) {
  	isUserConnected($rootScope, $scope, $state);
     $scope.app.configHeader({back: true, title: 'View item', contextButton: 'editItem', contextId: $stateParams.id});
     var item = Item.get({id: $stateParams.id}, function() {

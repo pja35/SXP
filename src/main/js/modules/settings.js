@@ -53,7 +53,7 @@
             var password = $scope.form.passPrevious;
 			var passwordNew = $scope.form.pass1
 			/*insert request/function to change the password in the DB*/
-			RESTAPISERVER = $scope.form.server;
+			//RESTAPISERVER = $scope.form.server;
             var data = $.param({
                 passwordNew: $scope.form.pass1
             });
