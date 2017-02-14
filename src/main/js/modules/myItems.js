@@ -23,7 +23,7 @@
       url: '/myitems/edit/:id',
       templateUrl: 'items/item-form.html',
       controller: 'editItem'
-    });
+    })
     .state('myItemsSub', {
       url: '/myitems/sub/:id',
       templateUrl: 'items/item-form.html',
