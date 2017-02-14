@@ -36,5 +36,14 @@
         });
     });
 
+    module.factory('Message', function($resource) {
+        return $resource(RESTAPISERVER + '/api/messages/:id', {
+            id: '@id'
+        },  {
+             update: {
+                method: 'PUT'
+             }
+        });
+    });
 
 })();

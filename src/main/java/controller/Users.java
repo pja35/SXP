@@ -40,10 +40,10 @@ public class Users {
 		String[] credentials = jsonCredentials.split("&");
 		String login = credentials[0].split("=")[1];
 		String password = credentials[1].split("=")[1];
-/*	public String login(
+		/*	public String login(
 			@QueryParam("login") String login,
 			@QueryParam("password") String password) {*/
-		
+
 		Authentifier auth = Application.getInstance().getAuth();
 		UserSyncManager em = new UserSyncManagerImpl();
 		User u = em.getUser(login, password);
@@ -66,7 +66,7 @@ public class Users {
 		//check if passwords are the sames
 		String hash1 = new String(u.getPasswordHash());
 		String hash2 = new String(hasher.getHash(password.getBytes()));
-		
+
 		if(hash1.equals(hash2)) {
 			LoginToken token = new LoginToken();
 			token.setToken(auth.getToken(login, password));
@@ -75,10 +75,10 @@ public class Users {
 			json.initialize(LoginToken.class);
 			return json.toJson(token);
 		}
-		
+
 		return "{\"error\": \"true\"}";*/
 	}
-	
+
 	@GET
 	@Path("/logout")
 	public String logout(@HeaderParam(Authentifier.PARAM_NAME) String token) {
@@ -86,7 +86,7 @@ public class Users {
 		auth.deleteToken(token);
 		return null;
 	}
-	
+
 	//@GET
 	@POST
 	@Path("/subscribe")
@@ -95,10 +95,10 @@ public class Users {
 		String[] credentials = jsonCredentials.split("&");
 		String login = credentials[0].split("=")[1];
 		String password = credentials[1].split("=")[1];
-	/*public String subscribe(
+		/*public String subscribe(
 			@QueryParam("login") String login,
 			@QueryParam("password") String password) {*/
-		
+
 		User u = new User();
 		u.setNick(login);
 		Hasher hasher = HasherFactory.createDefaultHasher();
@@ -107,7 +107,7 @@ public class Users {
 		u.setPasswordHash(hasher.getHash(password.getBytes()));
 		u.setCreatedAt(new Date());
 		u.setKey(ElGamalAsymKeyFactory.create(false));
-		
+
 		SyncManager<User> em = new UserSyncManagerImpl();
 		em.begin();
 		em.persist(u);
@@ -120,16 +120,16 @@ public class Users {
 		JsonTools<LoginToken> json = new JsonTools<>(new TypeReference<LoginToken>(){});
 		return json.toJson(token);
 	}
-	
+
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public String add(User user) {
-		
+
 		return null;
 	}
-	
+
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -139,7 +139,7 @@ public class Users {
 		JsonTools<User> json = new JsonTools<>(new TypeReference<User>(){});
 		return json.toJson(em.findOneById(id));
 	}
-	
+
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -149,16 +149,46 @@ public class Users {
 		return json.toJson(em.findAll());
 		//return JsonUtils.collectionStringify(em.findAll());
 	}
-	
+
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public String edit(User user) {
-		
+
 		return null;
 	}
-	
+
+	@POST
+	@Path("/password")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String changePassword(@HeaderParam(Authentifier.PARAM_NAME) String token, String jsonCredentials) {
+		String[] credentials = jsonCredentials.split("&");
+		String passwordNew = credentials[0].split("=")[1];
+
+		Authentifier auth = Application.getInstance().getAuth();
+		UserSyncManager em = new UserSyncManagerImpl();
+		User u = em.getUser(auth.getLogin(token), auth.getPassword(token));
+		if(u != null) {
+			LoginToken newToken = new LoginToken();
+			newToken.setToken(auth.getToken(u.getNick(), passwordNew));
+			newToken.setUserid(u.getId());		
+
+			Hasher hasher = HasherFactory.createDefaultHasher();
+			u.setSalt(HasherFactory.generateSalt());
+			hasher.setSalt(u.getSalt());
+			u.setPasswordHash(hasher.getHash(passwordNew.getBytes()));
+
+			if (em.begin() && em.persist(u) && em.end()){
+				em.close();
+				JsonTools<LoginToken> json = new JsonTools<>(new TypeReference<LoginToken>(){});
+				return json.toJson(newToken);
+			}
+		}
+		em.close();
+		return null;
+	}
+
 	/** 
 	 * This only deletes users from local base.
 	 * TO DO : connect to jxta
@@ -181,5 +211,5 @@ public class Users {
 		User us = users.findOneById(id);
 		return "{\"deleted\": \"" + (ret && users.remove(us) && users.end() && users.close()) + "\"}";		
 	}
-	
+
 }

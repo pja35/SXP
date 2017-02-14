@@ -1,5 +1,6 @@
 <h1>Login</h1>
-<div class="alert alert-danger" role="alert" ng-show="error">Invalid login or password</div>
+<div class="alert alert-danger ng-clignotement" role="alert" ng-show="errorlogin">Invalid login or password</div>
+<div class="alert alert-danger ng-clignotement" role="alert" ng-show="errorServer">Invalid server</div>
 <form class="form-horizontal" ng-submit="submit()">
   <div class="form-group">
     <label for="server" class="col-sm-2 control-label">Server</label>
