@@ -10,7 +10,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import network.factories.AdvertisementFactory;
-import network.impl.jxta.AdvertisementInstaciator;
+import network.impl.jxta.AdvertisementInstanciator;
 import network.impl.messages.RequestItemMessageTest;
 
 
@@ -22,7 +22,7 @@ public class AdvertisementInstaciatorTest {
 	private final static Logger log = LogManager.getLogger(AdvertisementInstaciatorTest.class);
 	
 	private AdvertisementBridge advBridge;
-	private AdvertisementInstaciator instantiator;
+	private AdvertisementInstanciator instantiator;
 	
 	
 	
@@ -32,14 +32,14 @@ public class AdvertisementInstaciatorTest {
 
 	@Test
 	public void constructionTest(){
-		instantiator = new AdvertisementInstaciator(advBridge);
+		instantiator = new AdvertisementInstanciator(advBridge);
 		log.debug(instantiator.getAdvertisementType());
 		assertTrue(instantiator.getAdvertisementType().equals("jxta:network.impl.jxta.AdvertisementBridge"));
 	}
 	
 	@Test
 	public void instantiationTest() {
-		instantiator = new AdvertisementInstaciator(advBridge);
+		instantiator = new AdvertisementInstanciator(advBridge);
 		Advertisement adv = instantiator.newInstance();
 		log.debug(adv.getAdvType());
 		assertTrue(adv.getAdvType().equals("jxta:network.impl.jxta.AdvertisementBridge"));
