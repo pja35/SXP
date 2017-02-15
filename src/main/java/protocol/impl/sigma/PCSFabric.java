@@ -4,6 +4,11 @@ import model.entity.ElGamalKey;
 import java.util.HashMap;
 import java.math.BigInteger;
 
+/**
+ * 
+ * @author Nathanaël EON
+ */
+
 public class PCSFabric {
 	//The pcs (an Or object)
 	private Or pcs;
@@ -37,7 +42,7 @@ public class PCSFabric {
 	 * Getter
 	 * @return pcs : the private contract signature
 	 */
-	public Or getPcs(byte[] m){
+	public Or createPcs(byte[] m){
 		setResEncrypt(sender.Encryption(m, trentK));
 		setPcs();
 		return pcs;
@@ -48,7 +53,7 @@ public class PCSFabric {
 	 */
 	public boolean PCSVerifies(Or privateCS, byte[] m){
 		setPcs(privateCS);
-		return this.getPcs(m).Verifies(res);
+		return this.createPcs(m).Verifies(res);
 	}
 	
 	

@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Tue Dec 20 11:13:00 CET 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0159-1bb8-4eb0-00001bf728b3 
+Wed Feb 15 10:03:40 CET 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-015a-4103-50b4-00001bf728b3 
 on database directory /home/nath/Programmation/Java/SXP/.db-8081/simpleDb with class loader sun.misc.Launcher$AppClassLoader@3d4eac69 
 Loaded from file:/home/nath/.gradle/caches/modules-2/files-2.1/org.apache.derby/derby/10.12.1.1/75070c744a8e52a7d17b8b476468580309d5cd09/derby-10.12.1.1.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_111-8u111-b14-2ubuntu0.16.04.2-b14
+java.runtime.version=1.8.0_121-8u121-b13-0ubuntu1.16.04.2-b13
 user.dir=/home/nath/Programmation/Java/SXP
 os.name=Linux
 os.arch=amd64
-os.version=4.4.0-53-generic
+os.version=4.4.0-62-generic
 derby.system.home=./.db-8081/
 Database Class Loader started - derby.database.classpath=''

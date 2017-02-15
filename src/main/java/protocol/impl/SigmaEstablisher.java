@@ -3,9 +3,11 @@ package protocol.impl;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import controller.Application;
 import controller.tools.JsonTools;
 import crypt.api.signatures.Signable;
 import model.entity.ElGamalKey;
+import network.api.EstablisherService;
 import protocol.api.Contract;
 import protocol.api.Establisher;
 import protocol.api.Status;
@@ -34,10 +36,11 @@ public class SigmaEstablisher implements Establisher{
 	private Contract<?,?,?,?> contract;
 	private byte[] message;
 	private Sender sender;
-//	private Trent trent;
+//	private Trent trent; //Useful when we need resolve
 	private ElGamalKey receiverK;
 	private ElGamalKey trentK;
 	private Or pcs;
+	private final EstablisherService establisher =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
 
 	
 	//Getters
@@ -77,7 +80,7 @@ public class SigmaEstablisher implements Establisher{
 	public void sign(){
 		status = Status.SIGNING;
 		PCSFabric pcsf = new PCSFabric(sender, receiverK , trentK); 
-		pcs = pcsf.getPcs(message);
+		pcs = pcsf.createPcs(message);
 	}
 
 	
@@ -94,7 +97,7 @@ public class SigmaEstablisher implements Establisher{
 	
 	
 	/**
-	 * What follows is the necessary primitives for the signature to be done over the network
+	 * What follows are the necessary primitives for the signature to be done over the network
 	 * @return
 	 */
 	

@@ -9,11 +9,10 @@ import network.api.Messages;
 import network.impl.messages.EstablisherMessage;
 
 /**
- * @author soriano
+ * @author Nathanaël EON
  *
  */
-public class JxtaEstablisherService extends JxtaService implements EstablisherService 
-{
+public class JxtaEstablisherService extends JxtaService implements EstablisherService{
 	public static final String NAME = "establisher";
 	
 	public JxtaEstablisherService ()
@@ -21,20 +20,14 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 		this.name = NAME;
 	}
 	
-	/*private Messages getResponseMessage(Messages msg) {
-		MessagesGeneric m = new MessagesGeneric();
-		m.addField("type", "response");
-		m.setWho(msg.getWho());
-		return m;
-	}*/
 	
 	@Override
-	public EstablisherMessage sendPromI(String title, String whoId, String promI, String... peerURIs) 
+	public EstablisherMessage sendPromI(String title, String who, String promI, String... peerURIs) 
 	{
 		EstablisherMessage m = new EstablisherMessage();
 		m.setTitle(title);
-		m.setWho(whoId);
-		m.setReceiver(peerURIs[0]);
+		m.setWho(who);
+		m.setSource(this.peerUri);
 		m.setPromI(promI);
 		this.sendMessages(m, peerURIs);
 		return m;
@@ -48,8 +41,6 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 			return;
 		}
 		super.pipeMsgEvent(event);
-		//this.sendMessages(getResponseMessage(message), message.getMessage("source"));
-		
 	}
 
 }

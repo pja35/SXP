@@ -9,7 +9,8 @@ public class EstablisherListener implements ServiceListener {
 	public void notify(Messages messages) {
 		if(messages.getMessage("type").equals("establisher"))
 		{
-				System.out.println("Receiver :" + messages.getWho() + "\nTitre :" + messages.getMessage("title") + "\nContenu : " + messages.getMessage("promI") + "\n");
+				System.out.println("\n----ESTABLISHER MESSAGE RECEIVER----\nReceiver :" + messages.getWho() + "\nTitle : " +
+								messages.getMessage("title") + "\nMessage : " + messages.getMessage("promI") + "\n----END----\n");
 		}
 	}
 

@@ -5,16 +5,16 @@ import network.impl.MessagesImpl;
 
 /**
  * 
- * @author soriano
+ * @author Nathanaël EON
  *
  */
 public class EstablisherMessage extends MessagesImpl 
 {
-	@MessageElement("receiver")
-	private String receiverUid;
-	
 	@MessageElement("title")
 	private String title;
+
+	@MessageElement("source")
+	private String sourceUri;
 	
 	@MessageElement("type")
 	private String type = "establisher";
@@ -29,7 +29,6 @@ public class EstablisherMessage extends MessagesImpl
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
 	/**
 	 * 
 	 * @return
@@ -40,20 +39,18 @@ public class EstablisherMessage extends MessagesImpl
 	
 	/**
 	 * 
-	 * @param dest
+	 * @param source
 	 */
-	public void setReceiver(String source) {
-		this.receiverUid = source;
+	public void setSource(String source) {
+		this.sourceUri = source;
 	}
-	
 	/**
 	 * 
 	 * @return
 	 */
-	public String getReceiver() {
-		return receiverUid;
+	public String getSource() {
+		return sourceUri;
 	}
-
 
 	/**
 	 * 
@@ -62,7 +59,6 @@ public class EstablisherMessage extends MessagesImpl
 	public String getPromI() {
 		return promI;
 	}
-
 	/**
 	 * 
 	 * @param Prom_i(k) (cf sigma protocols in SXP)
