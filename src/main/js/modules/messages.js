@@ -1,6 +1,5 @@
 (function() {
 	var module = angular.module('app.messages',  ['ui.directives','ui.filters']);
-
 	module.config(function($stateProvider, $urlRouterProvider) {
 		$urlRouterProvider.otherwise("/");
 		$stateProvider
@@ -23,12 +22,14 @@
 					if(messageContent){
 						//Message is available thanks to restApi.js
 						var message = new Message({
-							senderName: chat,
-	      					body: messageContent
+							receiverName: chat,
+	      					messageContent: messageContent
 						});
 						message.$save(function(){
-							refresh();
-						});
+								refresh();
+						},function(err){
+      						$scope.errorFields = true;
+    					});
 					}
 				};
 
@@ -42,10 +43,10 @@
 					$scope.messages = Message.query(function(){
 						var tmp = {};
 						for(var i = 0; i < $scope.messages.length; i++){
-							if($scope.messages[i].senderName != $scope.user.nick)
-								tmp[$scope.messages[i].senderName] = 0;
+							if($scope.messages[i].sendName != $scope.user.nick)
+								tmp[$scope.messages[i].sendName] = 0;
 							else 
-								tmp[$scope.messages[i].receiversNames] = [];
+								tmp[$scope.messages[i].receiverName] = 0;
 						}
 						for(var j in tmp){
 							$scope.chats.push(j);
@@ -66,7 +67,7 @@
 					id: $scope.app.userid
 				});
 				$scope.submit = function() {
-					if($scope.messageContent && $scope.receiver){
+					if($scope.messageContent && $scope.receiverName){
 						$scope.errorUsername = false;
 						$scope.errorFields = false;
 			            RESTAPISERVER = $scope.$parent.apiUrl;
@@ -74,10 +75,10 @@
 		                function(response) {
 		                    var userList = response.data;
 		                    for(var i = 0; i < userList.length; i++){
-	        					if($scope.receiver == userList[i].nick && $scope.receiver != currentUser.nick){
+	        					if($scope.receiverName == userList[i].nick && $scope.receiverName != currentUser.nick){
 	        						var message = new Message({
-	        							receiversNames: [$scope.receiver],
-				      					body: $scope.messageContent
+										receiverName: $scope.receiverName,
+				      					messageContent: $scope.messageContent
 									});
 									message.$save(function() {
 										$state.go('messages');

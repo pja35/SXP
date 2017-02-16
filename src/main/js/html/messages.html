@@ -10,10 +10,10 @@
 	<div class="col-sm-12">
 		<div class="well" ng-repeat="chat in chats" id="{{chat}}">
 			<div ng-repeat="message in messages | orderBy: 'sendingDate'">
-	            <p ng-if="(message.senderName == user.nick && chat message.receiversNames.indexOf(chat) > -1) || (message.senderName == chat && message.receiversNames.indexOf(user.nick) > -1)">
-	            <b ng-if="message.senderName == user.nick">Me:</b> 
-	            <b ng-if="message.senderName != user.nick">{{message.senderName}}:</b> 
-	            {{message.body}}<span class="pull-right"><em><small>{{message.sendingDate}}</small></em></span>
+	            <p ng-if="(message.sendName == user.nick && message.receiverName == chat) || (message.sendName == chat && message.receiverName == user.nick)">
+	            <b ng-if="message.sendName == user.nick">Me:</b> 
+	            <b ng-if="message.sendName != user.nick">{{message.sendName}}:</b> 
+	            {{message.messageContent}}<span class="pull-right"><em><small>{{message.sendingDate}}</small></em></span>
 	            </p>
 			</div>
 			<div class="input-group input-group-lg">

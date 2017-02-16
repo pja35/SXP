@@ -7,6 +7,9 @@ import network.impl.AbstractAdvertisement;
 
 /**
  * Advertisement for a peer that host an message
+ * @author Julien Prudhomme
+ *
+ * @param <Sign>
  */
 @ServiceName(name = "messages")
 public class MessageAdvertisement extends AbstractAdvertisement implements MessageAdvertisementInterface{

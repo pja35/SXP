@@ -1,5 +1,6 @@
 package model.syncManager;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.EntityManager;
@@ -86,31 +87,6 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	public Entity findOneByCollAttribute(String attribute, String value) {
-		Query q = em.createQuery("select t from " + theClass.getSimpleName() + " t, in(t."+ attribute + ") s where s=:value");
-		q.setParameter("value", value);
-		try {
-			return (Entity) q.getSingleResult();
-		} catch(Exception e) {
-			log.info(LoggerUtilities.getStackTrace(e));
-			return null;
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public Collection<Entity> findAllByCollAttribute(String attribute, String value) {
-		Query q = em.createQuery("select t from " + theClass.getSimpleName() + " t, in(t."+ attribute + ") s where s=:value");
-		q.setParameter("value", value);
-		try {
-			return q.getResultList();
-		} catch(Exception e) {
-			log.info(LoggerUtilities.getStackTrace(e));
-			return null;
-		}
-	}
-	
 	@Override
 	public boolean begin() {
 		try

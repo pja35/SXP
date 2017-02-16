@@ -62,11 +62,11 @@ public class ElGamal  {
 	public ElGamalSign getMessageSignature(byte[] M)
 	{
 		if(keys.getPrivateKey() == null)
-			try {
-				throw new Exception("Private key unknown");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			//try {
+			throw new NullPointerException("Private key unknown");
+		//	} catch (Exception e) {
+		//		e.printStackTrace();
+		//	}
 		BigInteger k;
 		BigInteger l;
 		BigInteger r;

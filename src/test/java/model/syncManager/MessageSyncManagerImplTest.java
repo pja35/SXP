@@ -29,17 +29,15 @@ import util.TestUtils;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MessageSyncManagerImplTest {
 	private final static Logger log = LogManager.getLogger(MessageSyncManagerImplTest.class);
-	
+
 	private static String id;
-	private static String object = TestInputGenerator.getRandomIpsumString(TestInputGenerator.getRandomInt(1, 129));
 	private static Date sendingDate = TestInputGenerator.getTodayDate();;
 	private static String senderId = TestInputGenerator.getRandomIpsumString(TestInputGenerator.getRandomInt(1, 129));
 	private static String senderName = TestInputGenerator.getRandomUser(20);
-	private static List<String> receiversIds = new ArrayList<String>();
-	private static List<String> receiversNames = new ArrayList<String>();
-	private static String body = TestInputGenerator.getRandomIpsumString(TestInputGenerator.getRandomInt(1, 1025));
+	private static String receiverId = TestInputGenerator.getRandomIpsumString(TestInputGenerator.getRandomInt(1, 129));
+	private static String receiverName = TestInputGenerator.getRandomUser(20);
+	private static String messageContent = TestInputGenerator.getRandomIpsumString(TestInputGenerator.getRandomInt(1, 1025));
 	private static ReceptionStatus status;
-	private static int nbReceivers = TestInputGenerator.getRandomInt(1, 100);
 	private static String dbname = TestInputGenerator.getRandomDbName();
 
 	private MessageSyncManager msm;
@@ -49,21 +47,17 @@ public class MessageSyncManagerImplTest {
 	public static void setUp() throws Exception {
 		Properties p = System.getProperties();
 		p.put("derby.system.home", "./" + dbname + "/");
-		for(int x=0; x<nbReceivers; ++x){
-			receiversIds.add("#" + x);
-			receiversNames.add(TestInputGenerator.getRandomUser());
-		}
 		int s = TestInputGenerator.getRandomInt(0, 3);
 		switch(s){
-			case 0:
-				status = ReceptionStatus.DRAFT;
-				break;
-			case 1:
-				status = ReceptionStatus.RECEIVED;
-				break;
-			default:
-				status = ReceptionStatus.SENT;
-				break;				
+		case 0:
+			status = ReceptionStatus.DRAFT;
+			break;
+		case 1:
+			status = ReceptionStatus.RECEIVED;
+			break;
+		default:
+			status = ReceptionStatus.SENT;
+			break;				
 		}
 	}
 
@@ -96,14 +90,12 @@ public class MessageSyncManagerImplTest {
 
 	@Test
 	public final void testB() {
-		message.setBody(body);
-		message.setObject(object);
+		message.setMessageContent(messageContent);
 		message.setSendingDate(sendingDate);
 		message.setSender(senderId, senderName);
 		message.setStatus(status);
-		for(int x=0; x<nbReceivers; ++x){
-			message.addReceivers(receiversIds.get(x), receiversNames.get(x));
-		}
+		message.setReceiver(receiverId, receiverName);
+
 		assertTrue(msm.begin());
 		assertTrue(msm.persist(message));
 		log.debug(dumpWL(msm));
@@ -111,43 +103,38 @@ public class MessageSyncManagerImplTest {
 		assertTrue(msm.end());
 		assertFalse(msm.contains(message));	
 	}
-	
+
 	@Test
 	public final void testC() {
 		Collection<Message> mess = msm.findAll();
 		int x = 0;
 		for(Message m : mess){
 			id = m.getId();
-			log.debug(x + " : " + m.getId() + " : " + m.getObject());
-			assertTrue(m.getObject().equals(object));
-			assertTrue(m.getBody().equals(body));
+			log.debug(x + " : " + m.getId() + " : " + m.getMessageContent());
+			assertTrue(m.getMessageContent().equals(messageContent));
 			x++;
 		}
 		assertTrue(x == 1);		
 		Message m = msm.findOneById(id);
-		assertTrue(m.getObject().equals(object));
-		assertTrue(m.getBody().equals(body));
+		assertTrue(m.getMessageContent().equals(messageContent));
 	}
-	
+
 	@Test
 	public final void testD() {
-		object = TestInputGenerator.getRandomIpsumString(TestInputGenerator.getRandomInt(1, 129));
-		body = TestInputGenerator.getRandomIpsumString(TestInputGenerator.getRandomInt(1, 1025));
-		message.setBody(body);
-		message.setObject(object);
+		messageContent = TestInputGenerator.getRandomIpsumString(TestInputGenerator.getRandomInt(1, 1025));
+		message.setMessageContent(messageContent);;
 		message.setSendingDate(sendingDate);
 		message.setSender(senderId, senderName);
 		message.setStatus(status);
-		for(int x=0; x<nbReceivers; ++x){
-			message.addReceivers(receiversIds.get(x), receiversNames.get(x));
-		}
+		message.setReceiver(receiverId, receiverName);
+
 		assertTrue(msm.begin());
 		assertTrue(msm.persist(message));
 		log.debug(dumpWL(msm));
 		assertTrue(msm.check());
-		message.setObject("");
+		message.setMessageContent("");
 		assertFalse(msm.check());
-		message.setObject(object);
+		message.setMessageContent(messageContent);
 		assertTrue(msm.contains(message));
 		assertTrue(msm.end());
 	}
@@ -158,17 +145,7 @@ public class MessageSyncManagerImplTest {
 		Set<Message> mss = (Set<Message>) msm.watchlist();
 		buff.append("\n**** Watchlist ****" + "\n");
 		for (Message m : mss){
-			buff.append("------------" + "\n");
-			buff.append(m.getId() + "\n");
-			buff.append(m.getObject() + "\n");
-			buff.append(m.getSenderId() + "\n");
-			buff.append(m.getSendName() + "\n");
-			buff.append(m.getSendingDate() + "\n");
-			buff.append(m.getStatus() + "\n");
-			buff.append(m.getBody() + "\n");
-			for(int x=0; x<m.getReceiversIds().length; ++x){
-				buff.append("Reciever .... " + m.getReceiversIds()[x] + "\n");
-			}
+			buff.append(m.getString());
 		}
 		buff.append("******************" + "\n");
 		return buff.toString();

@@ -35,22 +35,6 @@ public interface Manager<Entity> {
 
 	
 	/**
-	 * Find all entity that match one of the attribute collection
-	 * @param attribute name of the attribute
-	 * @param value that the attribute of the returned entity must contain
-	 * @param l
-	 */
-	public void findOneByCollAttribute(String attribute, String value, ManagerListener<Entity> l);
-	
-	/**
-	 * Find one entity that match one of the attribute collection
-	 * @param attribute name of the attribute collection
-	 * @param value that the attribute of the returned entities must contain 
-	 * @param l
-	 */
-	public void findAllByCollAttribute(String attribute, String value, ManagerListener<Entity> l);
-	
-	/**
 	 * Persist the entity in the manager
 	 * @param entity
 	 * @return true if done

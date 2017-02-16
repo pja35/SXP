@@ -37,20 +37,6 @@ public class ManagerAdapter<Entity> implements Manager<Entity>{
 	
 	
 	@Override
-	public void findOneByCollAttribute(String attribute, String value, ManagerListener<Entity> l) {
-		ArrayList<Entity> r = new ArrayList<>();
-		r.add(em.findOneByCollAttribute(attribute, value));
-		l.notify(r);
-		
-	}
-
-	@Override
-	public void findAllByCollAttribute(String attribute, String value, ManagerListener<Entity> l) {
-		l.notify(em.findAllByCollAttribute(attribute, value));
-		
-	}
-
-	@Override
 	public boolean persist(Entity entity) {
 		return em.persist(entity);
 	}

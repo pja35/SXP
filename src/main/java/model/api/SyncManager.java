@@ -47,22 +47,6 @@ public interface SyncManager<Entity> {
 	public Entity findOneByAttribute(String attribute, String value);
 
 	/**
-	 * Return an entity which contains value as one of the attribute collection
-	 * @param attribute name of the attribute
-	 * @param value that the attribute of the returned entity must contain
-	 * @return
-	 */
-	public Entity findOneByCollAttribute(String attribute, String value);
-	
-	/**
-	 * Return a collection of entities which contain value as one of the attribute collection
-	 * @param attribute name of the attribute collection
-	 * @param value that the attribute of the returned entities must contain 
-	 * @return
-	 */
-	public Collection<Entity> findAllByCollAttribute(String attribute, String value);
-	
-	/**
 	 * Persist(insert) this instance to the database
 	 * @param entity
 	 * @return true if done

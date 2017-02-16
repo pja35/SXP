@@ -14,6 +14,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
@@ -31,7 +34,7 @@ import rest.api.ServletPath;
 @ServletPath("/api/messages/*")
 @Path("/")
 public class Messages {
-
+	private final static Logger log = LogManager.getLogger(Message.class);
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -40,18 +43,29 @@ public class Messages {
 		Authentifier auth = Application.getInstance().getAuth();
 		UserSyncManager users = new UserSyncManagerImpl();
 		User sender = users.getUser(auth.getLogin(token), auth.getPassword(token));
-		
+
 		message.setSendingDate(new Date());
 		message.setSender(sender.getId(), sender.getNick());
-		
-		SyncManager<Message> em = new MessageSyncManagerImpl();
-		em.begin();
-		em.persist(message);
-		em.end();
-		em.close();
-		
-		JsonTools<Message> json = new JsonTools<>(new TypeReference<Message>(){});
-		return json.toJson(message);
+		SyncManager<User> um = new UserSyncManagerImpl();
+		User reciever = um.findOneByAttribute("nick", message.getReceiverName());
+		um.close();
+		if (reciever != null){
+			message.setReceiver(reciever.getId(), reciever.getNick());
+			SyncManager<Message> em = new MessageSyncManagerImpl();
+			log.debug(message.getString());
+			boolean pushDbOk = em.begin();
+			pushDbOk &= em.persist(message);
+			pushDbOk &= em.end();
+			pushDbOk &= em.close();
+			if (!pushDbOk){
+				log.warn("Message might not have been sent.");
+				return "{\"error\": \"Message might not have been sent.\"}";
+			}
+
+			JsonTools<Message> json = new JsonTools<>(new TypeReference<Message>(){});
+			return json.toJson(message);
+		}		
+		return "{\"error\": \"No receiver specified.\"}";
 	}
 
 	@GET
@@ -63,7 +77,7 @@ public class Messages {
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		SyncManager<Message> em = new MessageSyncManagerImpl();
 		JsonTools<Collection<Message>> json = new JsonTools<>(new TypeReference<Collection<Message>>(){});
-		Collection<Message> collec = em.findAllByCollAttribute("receiversNames", currentUser.getNick());
+		Collection<Message> collec = em.findAllByAttribute("receiverName", currentUser.getNick());
 		collec.addAll(em.findAllByAttribute("senderName", currentUser.getNick()));
 		em.close();
 		return json.toJson(collec);

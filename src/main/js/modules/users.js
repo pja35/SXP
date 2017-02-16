@@ -131,7 +131,7 @@
                 $scope.app.userid = data.userid;
                 $state.go("myItemsView");
             }, function(response) {
-				$scope.errorServer = true;
+		$scope.errorServer = true;
             });
         };
     });

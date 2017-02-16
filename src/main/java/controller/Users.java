@@ -15,6 +15,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
@@ -32,6 +35,8 @@ import rest.api.ServletPath;
 @ServletPath("/api/users/*")
 @Path("/")
 public class Users {
+	private final static Logger log = LogManager.getLogger(Users.class);
+	
 	//@GET
 	@POST
 	@Path("/login")
@@ -47,6 +52,7 @@ public class Users {
 		Authentifier auth = Application.getInstance().getAuth();
 		UserSyncManager em = new UserSyncManagerImpl();
 		User u = em.getUser(login, password);
+		log.info(login + " - " + password);
 		if(u != null) {
 			LoginToken token = new LoginToken();
 			token.setToken(auth.getToken(login, password));
