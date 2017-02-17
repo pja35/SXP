@@ -20,7 +20,6 @@ import model.validator.EntityValidator;
 
 
 public abstract class AbstractSyncManager<Entity> implements model.api.SyncManager<Entity>{
-	private final static Logger log = LogManager.getLogger(AbstractSyncManager.class);
 	private EntityManagerFactory factory;
 	private EntityManager em;
 	private Class<?> theClass;
@@ -41,7 +40,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 		}
 		catch(Exception e)
 		{
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return null;
 		}
 	}
@@ -56,7 +55,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 		}
 		catch(Exception e)
 		{
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return null;
 		}
 
@@ -69,7 +68,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 		try {
 			return (Entity) q.getSingleResult();
 		} catch(Exception e) {
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return null;
 		}
 	}
@@ -82,7 +81,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 		try {
 			return q.getResultList();
 		} catch(Exception e) {
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return null;
 		}
 	}
@@ -96,7 +95,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 		}
 		catch(Exception e)
 		{
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return false;
 		}
 	}
@@ -126,7 +125,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 			em.clear(); // Should it be done here or before the close method?
 			return true;
 		}catch(Exception e){
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return false;
 		}
 	}
@@ -137,7 +136,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 			em.persist(entity);
 			return true;
 		}catch(Exception e){
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return false;
 		}
 	}
@@ -148,7 +147,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 			em.remove(entity);
 			return true;
 		}catch(Exception e){
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return false;
 		}
 	}
@@ -158,7 +157,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 		try{
 			return em.contains(entity);
 		}catch(Exception e){
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return false;
 		}
 	}
@@ -178,7 +177,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 			em = null;
 			return true;
 		}catch(Exception e){
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return false;
 		}
 	}

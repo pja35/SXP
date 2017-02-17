@@ -1,5 +1,3 @@
-RESTAPISERVER = 'https://localhost:8081';
-
 (function() {
 
     var module = angular.module('app', ['ui.router', 'ngAnimate', 'ngResource', 'services.rest', 'app.myItems', 'search', 'app.messages', 'app.users', 'app.settings', 'ngOboe', 'app.contracts', 'app.contact']);

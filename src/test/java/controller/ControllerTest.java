@@ -193,9 +193,8 @@ public class ControllerTest {
 			data += "password=foo";
 			JSONObject js = new JSONObject(connectAction("POST", "api/users/login/", null, data, true));
 			assertTrue(js.get("error").equals("true"));
-		} catch (Exception e) {
-			log.error(LoggerUtilities.getStackTrace(e));
-			fail(e.getMessage());
+		} catch (Exception e) {			
+			fail(LoggerUtilities.logStackTrace(e));
 		}
 	}
 
@@ -215,8 +214,7 @@ public class ControllerTest {
 			assertFalse(token.isEmpty());
 			assertFalse(userid.isEmpty());
 		} catch (Exception e) {
-			log.error(LoggerUtilities.getStackTrace(e));
-			fail(e.getMessage());
+			fail(LoggerUtilities.logStackTrace(e));
 		}
 	}
 
@@ -239,8 +237,7 @@ public class ControllerTest {
 			assertTrue(lgt.getUserid().equals(userid));
 			token = lgt.getToken();
 		} catch (Exception e) {
-			log.error(LoggerUtilities.getStackTrace(e));
-			fail(e.getMessage());
+			fail(LoggerUtilities.logStackTrace(e));
 		}
 	}
 
@@ -260,7 +257,7 @@ public class ControllerTest {
 		} catch (Exception e) {
 			log.error("Associated bug : \"Unable to convert output of http request api/users/{id} into json object\"\n"
 					+ e.getMessage());
-			log.error(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			//fail(e.getMessage());
 		}
 	}
@@ -277,7 +274,7 @@ public class ControllerTest {
 		} catch (Exception e) {
 			log.error("Associated bug : \"Unable to convert output of http request api/users/{id} into json object\"\n"
 					+ e.getMessage());
-			log.error(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			//fail(e.getMessage());
 		}
 	}
@@ -300,8 +297,7 @@ public class ControllerTest {
 			Collection<Item> it = itjs.toEntity(connectAction("GET", "api/items", properties, null, true));
 			assertTrue(it.isEmpty());
 		} catch (Exception e) {
-			log.error(LoggerUtilities.getStackTrace(e));
-			fail(e.getMessage());
+			fail(LoggerUtilities.logStackTrace(e));
 		}
 	}
 
@@ -328,8 +324,7 @@ public class ControllerTest {
 				assertTrue(it.getUsername().equals(username));
 			}
 		} catch (Exception e) {
-			log.error(LoggerUtilities.getStackTrace(e));
-			fail(e.getMessage());
+			fail(LoggerUtilities.logStackTrace(e));
 		}
 	}
 
@@ -349,8 +344,7 @@ public class ControllerTest {
 			itemTitle = it.get(n).getTitle();
 			log.debug(itemId + " --- " + itemTitle);
 		} catch (Exception e) {
-			log.error(LoggerUtilities.getStackTrace(e));
-			fail(e.getMessage());
+			fail(LoggerUtilities.logStackTrace(e));
 		}
 	}
 
@@ -374,8 +368,7 @@ public class ControllerTest {
 			assertTrue(it.getUserid().equals(userid));
 			assertTrue(it.getUsername().equals(username));
 		} catch (Exception e) {
-			log.error(LoggerUtilities.getStackTrace(e));
-			fail(e.getMessage());
+			fail(LoggerUtilities.logStackTrace(e));
 		} 
 	}
 
@@ -398,8 +391,7 @@ public class ControllerTest {
 			assertTrue(it.getUsername().equals(username));
 			assertTrue(it.getDescription().contains("Special"));
 		} catch (Exception e) {
-			log.error(LoggerUtilities.getStackTrace(e));
-			fail(e.getMessage());
+			fail(LoggerUtilities.logStackTrace(e));
 		} 
 	}
 
@@ -422,8 +414,7 @@ public class ControllerTest {
 			assertTrue(it.getUsername().equals(username));
 			assertTrue(it.getDescription().contains("Special"));
 		} catch (Exception e) {
-			log.error(LoggerUtilities.getStackTrace(e));
-			fail(e.getMessage());
+			fail(LoggerUtilities.logStackTrace(e));
 		} 
 	}
 
@@ -447,9 +438,7 @@ public class ControllerTest {
 			//			assertTrue(it.getUsername().equals(username));
 			//			assertTrue(it.getDescription().contains("Special"));
 		} catch (Exception e) {
-			log.error(LoggerUtilities.getStackTrace(e));
-			fail(e.getMessage());
-
+			fail(LoggerUtilities.logStackTrace(e));
 		} 
 	}
 
@@ -470,8 +459,7 @@ public class ControllerTest {
 			}
 
 		} catch (Exception e) {
-			log.error(LoggerUtilities.getStackTrace(e));
-			fail(e.getMessage());
+			fail(LoggerUtilities.logStackTrace(e));
 		}
 
 	}
@@ -488,8 +476,7 @@ public class ControllerTest {
 			assertTrue(js.get("deleted").equals("true"));
 			log.debug("User " + username + " has been deleted.");
 		} catch (Exception e) {
-			log.error(LoggerUtilities.getStackTrace(e));
-			fail(e.getMessage());
+			fail(LoggerUtilities.logStackTrace(e));
 		}
 
 	}

@@ -1,3 +1,5 @@
+RESTAPISERVER = 'https://localhost:8081';
+
 (function() {
     var module = angular.module('services.rest', []);
 

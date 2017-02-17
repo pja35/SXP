@@ -8,6 +8,10 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import controller.tools.LoggerUtilities;
 import net.jxta.discovery.DiscoveryEvent;
 import net.jxta.discovery.DiscoveryListener;
 import net.jxta.discovery.DiscoveryService;
@@ -41,6 +45,7 @@ import network.impl.MessagesGeneric;
  *
  */
 public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
+	private final static Logger log = LogManager.getLogger(JxtaService.class);
 
 	protected PeerGroup pg = null;
 	private SearchListener<Advertisement> currentSl;
@@ -67,7 +72,8 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 			pg.getDiscoveryService().publish(jxtaAdv.getJxtaAdvertisementBridge());
 			pg.getDiscoveryService().remotePublish(jxtaAdv.getJxtaAdvertisementBridge());
 		} catch (IOException e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -90,7 +96,8 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 		try {
 			pg.getPipeService().createInputPipe(getAdvertisement(), this);
 		} catch (IOException e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
+			throw new RuntimeException(e);
 		}
 	}
 	
@@ -180,7 +187,8 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 				PeerID pid = PeerID.create(new URI(pidUri));
 				to.add(pid);
 			} catch (URISyntaxException e) {
-				e.printStackTrace();
+				LoggerUtilities.logStackTrace(e);
+				throw new RuntimeException(e);
 			}
 		}
 		try {
@@ -188,8 +196,8 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 			pipe.send(message);
 			pipe.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
+			throw new RuntimeException(e);
 		}
 	}
 

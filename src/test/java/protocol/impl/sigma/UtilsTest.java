@@ -63,6 +63,12 @@ public class UtilsTest {
 		log.debug(TestInputGenerator.byteToString(b) + " =? " + TestInputGenerator.byteToString(bb));
 		assertArrayEquals(bb, b);
 	}
+	
+	@Test(timeout=1000)
+	public void zeroRandTest(){
+		BigInteger bir = Utils.rand(5, new BigInteger("00000"));
+		assert(bir.compareTo(BigInteger.ZERO) == 0);
+	}
 
 }
 
