@@ -1,12 +1,12 @@
 package network.impl.advertisement;
 
-import network.api.advertisement.ContractAdvertisementInterface;
+import network.api.advertisement.EstablisherAdvertisementInterface;
 import network.api.annotation.AdvertisementAttribute;
 import network.api.annotation.ServiceName;
 import network.impl.AbstractAdvertisement;
 
 @ServiceName(name = "establisher")
-public class ContractAdvertisement extends AbstractAdvertisement implements ContractAdvertisementInterface{
+public class EstablisherAdvertisement extends AbstractAdvertisement implements EstablisherAdvertisementInterface{
 
 	@AdvertisementAttribute(indexed = true)
 	private String title;
@@ -15,7 +15,7 @@ public class ContractAdvertisement extends AbstractAdvertisement implements Cont
 	
 	@Override
 	public String getName() {
-		return "item";
+		return "contractEstablisher";
 	}
 
 	@Override
@@ -31,11 +31,11 @@ public class ContractAdvertisement extends AbstractAdvertisement implements Cont
 		this.title = title;
 	}
 
-	public String getPromI() {
+	public String getContract() {
 		return promI;
 	}
 	
-	public void setPromI(String prom) {
+	public void setContract(String prom) {
 		this.promI = prom;
 	}
 }

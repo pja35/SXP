@@ -11,15 +11,20 @@ import network.api.EstablisherService;
 import network.api.Messages;
 import network.api.Peer;
 import network.api.SearchListener;
-import network.api.advertisement.ContractAdvertisementInterface;
+import network.api.ServiceListener;
+import network.api.advertisement.EstablisherAdvertisementInterface;
 
 /**
- * Main class
+ * !!!! This test cannot be launched as a junit test !!!!!
+ * 	We need to start 2 peers which JXTA won't allow for 
+ * 	a single app, thus, we need to test it manually by
+ *	starting 2 applications. Down is the code for the "main"
+ * 	method
  * @author Nathanaël EON
  *
  */
 
-public class EstablisherTest {
+public class EstablisherServiceTest {
 	
 	/*
 	 * First launch, create a contract advertisement and set a listener for "test2" the other user
@@ -33,20 +38,19 @@ public class EstablisherTest {
 		final Peer peer=Application.getInstance().getPeer();
 		
 		// Sending an advertisement (trick to get the other peer URI)
-		ContractAdvertisementInterface cadv = AdvertisementFactory.createContractAdvertisement();
+		EstablisherAdvertisementInterface cadv = AdvertisementFactory.createsEstablisherAdvertisement();
 		cadv.setTitle("Un Contrat");
 		cadv.publish(peer);
 		
 		// Listener on establisher events
 		final EstablisherService establisher =(EstablisherService) peer.getService(EstablisherService.NAME);
-		establisher.addListener(new EstablisherListener() {
+		establisher.addListener(new ServiceListener() {
 			@Override
 			public void notify(Messages messages) {
-				super.notify(messages);
-				Integer m1 = new Integer(messages.getMessage("promI"));
+				Integer m1 = new Integer(messages.getMessage("contract"));
 				String msg = String.valueOf(m1 + 1);
 				if (m1<6) {
-					establisher.sendPromI("Contrat "+msg, "test", msg, messages.getMessage("source"));
+					establisher.sendContract("Contrat "+msg, "test", msg, messages.getMessage("source"));
 				}
 				try{
 					Thread.sleep(1000);
@@ -71,14 +75,13 @@ public class EstablisherTest {
 		
 		final EstablisherService establisher =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
 		
-		establisher.addListener(new EstablisherListener() {
+		establisher.addListener(new ServiceListener() {
 			@Override
 			public void notify(Messages messages) {
-				super.notify(messages);
-				Integer m1 = new Integer(messages.getMessage("promI"));
+				Integer m1 = new Integer(messages.getMessage("contract"));
 				String msg = String.valueOf(m1 + 1);
 				if (m1<6) {
-					establisher.sendPromI("Contrat "+msg, "test2", msg, messages.getMessage("source"));
+					establisher.sendContract("Contract "+msg, "test2", msg, messages.getMessage("source"));
 				}
 				try{
 					Thread.sleep(1000);
@@ -94,14 +97,14 @@ public class EstablisherTest {
 		}catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		establisher.search("title", null, new SearchListener<ContractAdvertisementInterface>() {
+		establisher.search("title", null, new SearchListener<EstablisherAdvertisementInterface>() {
 			@Override
-			public void notify(Collection<ContractAdvertisementInterface> result) {
+			public void notify(Collection<EstablisherAdvertisementInterface> result) {
 				ArrayList<String> uids = new ArrayList<>();
-				for(ContractAdvertisementInterface i: result) {
+				for(EstablisherAdvertisementInterface i: result) {
 					uids.add(i.getSourceURI());
 				}
-				establisher.sendPromI("Contrat 1", "test2", "1", uids.toArray(new String[1]));
+				establisher.sendContract("Contract 1", "test2", "1", uids.toArray(new String[1]));
 			}
 			
 		});

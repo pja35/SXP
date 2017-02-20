@@ -19,8 +19,8 @@ public class EstablisherMessage extends MessagesImpl
 	@MessageElement("type")
 	private String type = "establisher";
 	
-	@MessageElement("promI")
-	private String promI;
+	@MessageElement("contract")
+	private String contract;
 	
 	/**
 	 * 
@@ -56,14 +56,14 @@ public class EstablisherMessage extends MessagesImpl
 	 * 
 	 * @return
 	 */
-	public String getPromI() {
-		return promI;
+	public String getContract() {
+		return contract;
 	}
 	/**
 	 * 
-	 * @param Prom_i(k) (cf sigma protocols in SXP)
+	 * @param Message content
 	 */
-	public void setPromI(String p) {
-		this.promI = p;
+	public void setContract(String c) {
+		this.contract = c;
 	}
 }

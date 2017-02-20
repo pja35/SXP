@@ -15,17 +15,17 @@ public interface EstablisherService extends Service
 	/**
 	 * 
 	 * @param title
-	 * 		titre du message
+	 * 		Message title
 	 * @param who
-	 * 		An id (the name we will put a listener on)
-	 * @param promI
-	 * 		Prom_i(k) (cf SXP website) 
+	 * 		An id (the name the receiver will put a listener on)
+	 * @param contract
+	 * 		Content of the message
 	 * @param uris
-	 * 		Receiver location
+	 * 		Receivers location
 	 * @return
 	 * 		sent contract
 	 */
-	public EstablisherMessage sendPromI(String title, String who, String promI, String ...uris);
+	public EstablisherMessage sendContract(String title, String who, String contract, String ...uris);
 	
 	
 	public static final String NAME = "establisher";
