@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import crypt.api.signatures.Signable;
 import crypt.factories.ElGamalAsymKeyFactory;
-import crypt.impl.key.ElGamalAsymKey;
 import crypt.impl.signatures.ElGamalSignature;
 import crypt.impl.signatures.ElGamalSigner;
 import model.entity.ElGamalKey;

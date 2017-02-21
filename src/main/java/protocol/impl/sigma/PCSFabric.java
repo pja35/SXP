@@ -57,6 +57,7 @@ public class PCSFabric {
 	 * Checks a PCS according to a message
 	 */
 	public boolean PCSVerifies(Or privateCS, byte[] m){
+		if (privateCS==null) {return false;}
 		setPcs(privateCS);
 		return this.createPcs(m).Verifies(res);
 	}
@@ -121,17 +122,18 @@ public class PCSFabric {
 	}
 	
 	// Send the signature in clear (end of protocol)
-	public ElGamalSignature getClearSignature(String contract){
+	public ElGamalSignature getClearSignature(String clausesString){
 		Signer<ElGamalSignature,ElGamalKey> sig = SignerFactory.createElGamalSigner(); 
 		sig.setKey(sender.getKeys());
-		return sig.sign(contract.getBytes());
+		return sig.sign(clausesString.getBytes());
 	}
 	
 	// Check if the signature is ok (end of protocol)
-	public boolean verifySignature(ElGamalSignature signature, String contract){
+	public boolean verifySignature(ElGamalSignature signature, String clausesString){
+		if (signature == null ){return false;}
 		Signer<ElGamalSignature,ElGamalKey> sig = SignerFactory.createElGamalSigner(); 
 		sig.setKey(receiverK);
-		return sig.verify(contract.getBytes(),signature);
+		return sig.verify(clausesString.getBytes(),signature);
 	}
 	
 }

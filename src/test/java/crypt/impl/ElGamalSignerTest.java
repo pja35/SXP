@@ -3,7 +3,6 @@ package crypt.impl;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import crypt.factories.ElGamalAsymKeyFactory;
-import crypt.impl.key.ElGamalAsymKey;
 import crypt.impl.signatures.ElGamalSignature;
 import crypt.impl.signatures.ElGamalSigner;
 import model.entity.ElGamalKey;

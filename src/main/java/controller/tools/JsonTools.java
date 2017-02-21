@@ -3,8 +3,10 @@ package controller.tools;
 import java.io.IOException;
 import java.util.Map;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
@@ -74,12 +76,15 @@ public class JsonTools<Entity> {
 		SimpleModule simpleModule = new SimpleModule("SimpleModule");
 		simpleModule.addDeserializer(Map.class, new MapResponseKeyDeserializer());
 		mapper.registerModule(simpleModule);
-		
 		try {
 			return (Entity) mapper.readValue(json, type);
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (JsonParseException ex) {
 			return null;
+		} catch (JsonMappingException ex){
+			return null;
+		}catch (IOException e){
+		e.printStackTrace();
+		return null;
 		}
 	}
 }

@@ -49,7 +49,6 @@ public class Application {
 	public static void main(String[] args) {
 		new Application();
 		Application.getInstance().runForTests(8081);
-		
 	}
 	
 	public Peer getPeer() {

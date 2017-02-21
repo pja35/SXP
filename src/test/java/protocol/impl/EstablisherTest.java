@@ -2,51 +2,80 @@ package protocol.impl;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
+
 import org.junit.Test;
 
 import controller.Application;
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
-import protocol.impl.sigma.Sender;
+import protocol.impl.contract.ElGamalClauses;
+import protocol.impl.contract.ElGamalContract;
+import protocol.impl.sigma.SigmaEstablisher;
 
 public class EstablisherTest {
-
+	
+	public static final int N = 3;
+		
 	@Test
 	public void test(){
 		// Starting the Application to be able to test it
 		new Application();
 		Application.getInstance().runForTests(8081);
-		
-		//Message for the example, in the end it will be the contract
-		String msg = "hi";
 
-		//Initialize the arguments
-		ElGamalKey bobK, bobRK, aliK, aliRK, treK;
-		bobK = ElGamalAsymKeyFactory.create(false);
-		aliK = ElGamalAsymKeyFactory.create(false);
-		treK = ElGamalAsymKeyFactory.create(false);
-		Sender bob = new Sender(bobK);
-		Sender alice = new Sender(aliK);
+		//Initialize the keys
+		ElGamalKey treK = ElGamalAsymKeyFactory.create(false);
+		ElGamalKey[] keys = new ElGamalKey[N];
+		ElGamalKey[] keysR = new ElGamalKey[N];
+		// Creating the contracts 
+		ElGamalClauses signable1 = new ElGamalClauses("Hi");
+		ElGamalContract[] c = new ElGamalContract[N];
 		
-		bobRK = new ElGamalKey();
-		aliRK = new ElGamalKey();
-		bobRK.setG(bobK.getG());bobRK.setP(bobK.getP());bobRK.setPublicKey(bobK.getPublicKey());
-		aliRK.setG(aliK.getG());aliRK.setP(aliK.getP());aliRK.setPublicKey(aliK.getPublicKey());
+		// Creating the map of URIS
+		String uri = Application.getInstance().getPeer().getUri();
+		HashMap<ElGamalKey, String> uris = new HashMap<ElGamalKey, String>();
+		HashMap<ElGamalKey, String> pwds = new HashMap<ElGamalKey, String>();
+		
 
-		//Bob side
-		SigmaEstablisher sigmaE = new SigmaEstablisher(bob, aliRK, treK, msg);
+		for (int k=0; k<N; k++){
+			keys[k] = ElGamalAsymKeyFactory.create(false);
+			keysR[k] = new ElGamalKey();
+			keysR[k].setG(keys[k].getG());
+			keysR[k].setP(keys[k].getP());
+			keysR[k].setPublicKey(keys[k].getPublicKey());
+			
+			uris.put(keysR[k], uri);
+			pwds.put(keysR[k], String.valueOf(k));
+		}
 		
-		//Alice side
-		SigmaEstablisher sigmaE2 = new SigmaEstablisher(alice, bobRK, treK, msg);
+		for (int k=0; k<N; k++){
+			c[k] = new ElGamalContract();
+			c[k].setClauses(signable1);
+			for (int i=0; i<N; i++){
+				c[k].addParty(keysR[i]);
+			}
+		}
+		SigmaEstablisher[] sigmaE = new SigmaEstablisher[N];
 		
-		sigmaE2.initialize(msg, Application.getInstance().getPeer().getUri());
+		for (int k=0; k<N; k++){
+			sigmaE[k] = new SigmaEstablisher(c[k], keys[k], treK, uris, pwds);
+		}
 		
+		sigmaE[0].start();
+		
+
 		try{
-			Thread.sleep(15000);
+			Thread.sleep(3001);
 		}catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		boolean res = true;
+		for (int k=0; k<N; k++){
+			System.out.println(k + " : " +c[k].isFinalized()); 
+			res =  res && c[k].isFinalized();
+		}
 		
 		assertTrue(true);
+//		assertTrue(res);
 	}
 }
