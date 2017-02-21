@@ -1,37 +1,49 @@
 package protocol.api;
 
-import crypt.api.signatures.Signable;
-
 public interface Establisher {
 	/**
-	 * Get the contract
-	 * @return c : Contract
-	 */
-//	public Contract<?,?,?,?> getContract();
-	public String getContract();
-	/**
 	 * Initialize the establisher with a contract
-	 * Set the signers and change status to signing
 	 * @param c
 	 */
-//	public void initialize(Contract<?,?,?,?> c);
-	public void initialize(String c, String receiverUri);
+	public void initialize(Contract<?,?,?,?> c);
 	
+	/**
+	 * Start establisher signature protocol
+	 */
+	public void start();
+	
+	/**
+	 * Get the contract to be signed
+	 * @return
+	 */
+	public Contract<?,?,?,?> getContract();
+	
+	/**
+	 * Set the current wish of the owner of this establisher
+	 * @param w
+	 */
+	public void setWish(Wish w);
+	
+	/**
+	 * Get the current wish of the owner of this establisher
+	 * @param w
+	 */
+	public void getWish(Wish w);
+	
+	/**
+	 * Get the current status of the protocol
+	 * @return
+	 */
 	public Status getStatus();
-	/**
-	 * Sign the contract with a Sigma-Protocol
-	 */
-	public void sign(String receiverUri);
 	
 	/**
-	 * Resolve function when something goes wrong with the protocol
-	 * @param k : round of the protocol
+	 * Add a listener of establisher events
+	 * @param l
 	 */
-	public Signable<?> resolve(int k);
+	public void addListener(EstablisherListener l);
 	
 	/**
-	 * Trent (TTP) resolve function
+	 * Notify the listener of this establisher
 	 */
-	public Signable<?> resolveTrent();
-	
+	public void notifyListeners();
 }

@@ -38,8 +38,8 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 		Messages message = toMessages(event.getMessage());
 		if(message.getMessage("type").equals("establisher")) {
 			super.pipeMsgEvent(event);
-			System.out.println("\n----ESTABLISHER MESSAGE RECEIVED----\nReceiver : " + message.getWho() + "\nTitle : " +
-					message.getMessage("title") + "\nMessage : " + message.getMessage("contract") + "\n----END----\n");
+//			System.out.println("\n----ESTABLISHER MESSAGE RECEIVED----\nReceiver : " + message.getWho() + "\nTitle : " +
+//					message.getMessage("title") + "\nMessage : " + message.getMessage("contract") + "\n----END OF ESTABLISHER MESSAGE----\n");
 			return;
 		}
 		super.pipeMsgEvent(event);

@@ -6,13 +6,15 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import controller.Application;
 import controller.tools.JsonTools;
 import crypt.api.signatures.Signable;
+import crypt.api.signatures.Signer;
+import crypt.factories.SignerFactory;
+import crypt.impl.signatures.ElGamalSignature;
 import model.entity.ElGamalKey;
 import network.api.EstablisherService;
 import network.api.Messages;
 import network.api.ServiceListener;
-import protocol.api.Establisher;
-import protocol.api.Status;
 import protocol.impl.sigma.Sender;
+import protocol.impl.contract.ElGamalContract;
 import protocol.impl.sigma.ElGamal;
 import protocol.impl.sigma.Or;
 import protocol.impl.sigma.PCSFabric;
@@ -23,147 +25,153 @@ import protocol.impl.sigma.PCSFabric;
  * @author Nathanaël EON
  *
  *	Implements the sigma protocol
+ *		For the messages sent, the who param of sendContract method is the sender public key
  */
 
-public class SigmaEstablisher implements Establisher{
+public class SigmaEstablisher{
+	
 	
 	/**
-	 * status : ongoing state of signature
 	 * contract : contract which is being signed
-	 * Sender, Receiver, Trent : instances necessary to the signature
+	 * contractSigned
+	 * sender : instance necessary to the signature
+	 * receiverK & trentK : keys necessary to the signature
+	 * 
+	 * status : ongoing state of signature
+	 * establisherService : object to send messages
+	 * pcs : store the received pcs (array for which each index matches a round in the protocol)
+	 * round : keeping track of the rounds in the protocol 
 	 */
-	private Status status = Status.NOWHERE;
-	private String contract;
+	
+	private String contract ;
+	private String contractSigned;
 	private Sender sender;
 	private ElGamalKey receiverK;
 	private ElGamalKey trentK;
-	private final EstablisherService establisher =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
-	private Or[] pcs = new Or[5];
+
+	private final EstablisherService establisherService =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
+	private Or[] pcs = new Or[4];
 	private int round = 0;
 
 	
-	
-	//Getters
-	public String getContract(){
-		return contract;
-	}
-	public Status getStatus(){
-		return status;
-	}
 
-	
-	//Initialization (on clicking sign button)
-	public void initialize(String c, String receiverUri){
-		contract = c;
-		establisher.sendContract("start", sender.getKeys().getPublicKey().toString(), contract, receiverUri);
-		sign(receiverUri);
-	}
-	
-	
-	/**
-	 * Constructor
-	 * @param sen : Sender
-	 * @param receK : Receiver Keys
-	 * @param trenK : Trent Keys
-	 */
 	public SigmaEstablisher(Sender sen, ElGamalKey receK, ElGamalKey trenK, String msg){
 		receiverK = receK;
 		trentK = trenK;
 		sender = sen;
 		contract = msg;
 		
-		
-		// A listener to launch the signature process if the other already started it 
-		establisher.addListener(new ServiceListener() {
+		// A listener to launch the signature process if the other
+		// started initialize method with the correct contract
+		establisherService.addListener(new ServiceListener() {
 			@Override
 			public void notify(Messages messages) {
-				if (messages.getMessage("title").equals("start") && messages.getMessage("promI").equals(contract)){
+				if (messages.getMessage("title").equals("start") &&
+					messages.getMessage("contract").equals(contract)){
 					sign(messages.getMessage("source"));
 				}
 			}
-		}, receiverK.getPublicKey().toString());
+		}, sender.getKeys().getPublicKey().toString());
 	}
 	
 	
+	public void initialize(String c, String receiverUri){
+		contract = c;
+		establisherService.sendContract("start",
+										receiverK.getPublicKey().toString(), 
+										contract,
+										receiverUri);
+		sign(receiverUri);
+	}
 	
-	/**
-	 * Called to realize the signing protocol, users already know each other
-	 */
+	
 	public void sign(String receiverUri){
-		establisher.removeListener(receiverUri);
-		status = Status.SIGNING;
-		final PCSFabric pcsf = new PCSFabric(sender, receiverK , trentK);
 		
-		// Listeners for other rounds, when we receive the k-1 response, we can send the round k
-		// When we receive the 4th round, then we have the signature
-		establisher.addListener(new ServiceListener() {
+		final PCSFabric pcsf = new PCSFabric(sender, receiverK , trentK);
+		round = 1;
+		
+		establisherService.removeListener(sender.getKeys().getPublicKey().toString());
+		
+		establisherService.addListener(new ServiceListener() {
 			@Override
 			public void notify(Messages messages) {
-				// Round of the message received
 				int k = Integer.parseInt(messages.getMessage("title"));
+				String msg = messages.getMessage("contract");
 				
-				// We check the clear signature on the last round
-				if (round>=4 && k==4 && isSigned(messages.getMessage("promI"))){
-					contract = messages.getMessage("promI");
-					pcs[4]=getPrivateCS(contract);
-					status = Status.FINALIZED;
-					System.out.println("\n----SIGNATURE FINALISÉE----\n Contrat signée : "+contract);
-				}else if (k==4){
-					resolve(4);
+				boolean isVerified = verifySignature(msg, contract, round, pcsf);
+				if (k<4 && isVerified){
+					pcs[k]=getPrivateCS(msg);
 				}
-				
-				// If someone sent us the round+1 (or more) PCS, there is problem cause we didn't send the actual round
-				else if(round<k){
-					resolve(round);
-				}
-				
-				// If we receive the message of round before we send one (before receiving the round -1) we shall store it for when needed
-				else if(round==k && pcsf.PCSVerifies(getPrivateCS(messages.getMessage("promI")), (contract + k).getBytes())){
-					pcs[k]=getPrivateCS(messages.getMessage("promI"));
-				}
-				
-				// Otherwise, we just need to send the round
-				else if(round==(k+1) && pcsf.PCSVerifies(getPrivateCS(messages.getMessage("promI")), (contract + k).getBytes())){
-					pcs[k]=getPrivateCS(messages.getMessage("promI"));
-					establisher.sendContract(String.valueOf(round), 
-										sender.getKeys().getPublicKey().toString(),
-										getJson(pcsf.createPcs((contract+(round)).getBytes())),
-										messages.getMessage("source"));
-					
-					try{
-						Thread.sleep(1000);
-					}catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					if (pcs[round]!= null){
-						establisher.sendContract(String.valueOf(++round), 
-								sender.getKeys().getPublicKey().toString(),
-								getJson(pcsf.createPcs((contract+(round)).getBytes())),
-								messages.getMessage("source"));
-					}
-					round++;
+
+				while (round<4 && pcs[round] != null ){
+					sendRound(++round, pcsf, messages.getMessage("source"));
 				}
 			}
-			// Check the final message to be sure it has the signature on it
-			private boolean isSigned(String s){
-				//TODO make sure s contains the clear signature
-				return true;
-			}
-		}, receiverK.getPublicKey().toString());
+		}, sender.getKeys().getPublicKey().toString());
 
 		// Send the first round
-		round=2;
 		pcs[0]=pcsf.createPcs((contract+1).getBytes());
-		establisher.sendContract("1", 
-				sender.getKeys().getPublicKey().toString(),
+		establisherService.sendContract("1", 
+				receiverK.getPublicKey().toString(),
 				getJson(pcsf.createPcs((contract+1).getBytes())),
 				receiverUri);
 	}
+	
+	/**
+	 * Send the needed message to do the protocol
+	 * @param round : round we are at
+	 * @param uris : the destination peers uris
+	 */
+	private void sendRound(int round, PCSFabric pcsf, String... uris){
+		String content;
+		if (round==4){
+			JsonTools<ElGamalSignature> json = new JsonTools<>(new TypeReference<ElGamalSignature>(){});
+			content = json.toJson(pcsf.getClearSignature(contract));
+		}else {
+			content = getJson(pcsf.createPcs((contract+(round)).getBytes()));
+		}
+		
+		establisherService.sendContract(String.valueOf(round), 
+							receiverK.getPublicKey().toString(),
+							content,
+							uris);
+	}
+	
+	/**
+	 * Verify the message send (if the message is the last, check if the signature is ok)
+	 * @param message : message we receive (messages.getMessage("contract"))
+	 * @param contract : the contract we want to be signed in the end
+	 * @param round : the round we are at
+	 * @return
+	 */
+	private boolean verifySignature(String message, String contract, int round, PCSFabric pcsf){
+		if (round == 4){
+			JsonTools<ElGamalSignature> json = new JsonTools<>(new TypeReference<ElGamalSignature>(){});
+			ElGamalSignature signature = json.toEntity(message, true);
+			System.out.println("\n----SIGNATURE FINALIZED----\n Contract signed : "+contract);
+			if (pcsf.verifySignature(signature, contract)) {
+				contractSigned = message;
+				return true;
+			}
+			return false;
+		}else {
+			return pcsf.PCSVerifies(getPrivateCS(message), (contract + round).getBytes());
+		}
+	}
+	
+	
+	
 	
 	
 	private Signable<?> s;
 	//Resolve in case of error
 	public Signable<?> resolve(int k){
+		Signer<ElGamalSignature,ElGamalKey> sig = SignerFactory.createElGamalSigner(); 
+		sig.setKey(sender.getKeys());
+		ElGamalSignature sigClaimK = sig.sign(getJson(pcs[k]).getBytes());
+		
+		
+		
 		return s;
 	}
 
@@ -174,11 +182,16 @@ public class SigmaEstablisher implements Establisher{
 	}
 	
 	
+
+	public String getSignedContract(){
+		return contractSigned;
+	}
+	
+	
 	/**
 	 * What follows are the necessary primitives for the signature to be done over the network
 	 * @return
-	 */
-	
+	 */	
 	//Return the string representing the private contract signature
 	public String getJson(Or pcs){
 		JsonTools<Or> json = new JsonTools<>(new TypeReference<Or>(){});

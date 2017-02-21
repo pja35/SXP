@@ -2,6 +2,11 @@ package protocol.impl.sigma;
 
 import model.entity.ElGamalKey;
 import java.util.HashMap;
+
+import crypt.api.signatures.Signer;
+import crypt.factories.SignerFactory;
+import crypt.impl.signatures.ElGamalSignature;
+
 import java.math.BigInteger;
 
 /**
@@ -113,6 +118,20 @@ public class PCSFabric {
 		
 		//Make the PCS
 		setPcs(new Or(receiver, mask.getA(), ands));
+	}
+	
+	// Send the signature in clear (end of protocol)
+	public ElGamalSignature getClearSignature(String contract){
+		Signer<ElGamalSignature,ElGamalKey> sig = SignerFactory.createElGamalSigner(); 
+		sig.setKey(sender.getKeys());
+		return sig.sign(contract.getBytes());
+	}
+	
+	// Check if the signature is ok (end of protocol)
+	public boolean verifySignature(ElGamalSignature signature, String contract){
+		Signer<ElGamalSignature,ElGamalKey> sig = SignerFactory.createElGamalSigner(); 
+		sig.setKey(receiverK);
+		return sig.verify(contract.getBytes(),signature);
 	}
 	
 }

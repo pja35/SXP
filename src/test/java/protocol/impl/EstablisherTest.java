@@ -21,18 +21,23 @@ public class EstablisherTest {
 		String msg = "hi";
 
 		//Initialize the arguments
-		ElGamalKey senK, recK, treK;
-		senK = ElGamalAsymKeyFactory.create(false);
-		recK = ElGamalAsymKeyFactory.create(false);
+		ElGamalKey bobK, bobRK, aliK, aliRK, treK;
+		bobK = ElGamalAsymKeyFactory.create(false);
+		aliK = ElGamalAsymKeyFactory.create(false);
 		treK = ElGamalAsymKeyFactory.create(false);
-		Sender bob = new Sender(senK);
-		Sender alice = new Sender(recK);
+		Sender bob = new Sender(bobK);
+		Sender alice = new Sender(aliK);
+		
+		bobRK = new ElGamalKey();
+		aliRK = new ElGamalKey();
+		bobRK.setG(bobK.getG());bobRK.setP(bobK.getP());bobRK.setPublicKey(bobK.getPublicKey());
+		aliRK.setG(aliK.getG());aliRK.setP(aliK.getP());aliRK.setPublicKey(aliK.getPublicKey());
 
 		//Bob side
-		SigmaEstablisher sigmaE = new SigmaEstablisher(bob, recK, treK,msg);
+		SigmaEstablisher sigmaE = new SigmaEstablisher(bob, aliRK, treK, msg);
 		
 		//Alice side
-		SigmaEstablisher sigmaE2 = new SigmaEstablisher(alice, senK, treK,msg);
+		SigmaEstablisher sigmaE2 = new SigmaEstablisher(alice, bobRK, treK, msg);
 		
 		sigmaE2.initialize(msg, Application.getInstance().getPeer().getUri());
 		
@@ -42,8 +47,6 @@ public class EstablisherTest {
 			e.printStackTrace();
 		}
 		
-		System.out.println(sigmaE.getStatus());
-		System.out.println(sigmaE2.getStatus());
 		assertTrue(true);
 	}
 }

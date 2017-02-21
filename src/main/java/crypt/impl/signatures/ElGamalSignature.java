@@ -2,17 +2,27 @@ package crypt.impl.signatures;
 
 import java.math.BigInteger;
 
+import javax.xml.bind.annotation.XmlElement;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Object that represent an ElGamal signature
  * @author Prudhomme Julien
  *
  */
 public class ElGamalSignature {
+
+	@XmlElement(name="r")
 	private BigInteger r;
+	@XmlElement(name="s")
 	private BigInteger s;
 	
 	/* For sigma protocols */
+	@XmlElement(name="k")
 	private BigInteger k;
+	@XmlElement(name="m")
 	private byte[] m;
 	
 	
@@ -34,7 +44,8 @@ public class ElGamalSignature {
 	 * @param u
 	 * @param m
 	 */
-	public ElGamalSignature(BigInteger r, BigInteger s, BigInteger k, byte[] m) {
+	@JsonCreator
+	public ElGamalSignature(@JsonProperty("r") BigInteger r, @JsonProperty("s") BigInteger s, @JsonProperty("k") BigInteger k, @JsonProperty("m") byte[] m) {
 		this.r = r;
 		this.s = s;
 		this.k = k;
