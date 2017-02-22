@@ -50,7 +50,7 @@ public class EstablisherServiceTest {
 				Integer m1 = new Integer(messages.getMessage("contract"));
 				String msg = String.valueOf(m1 + 1);
 				if (m1<6) {
-					establisher.sendContract("Contrat "+msg, "test", msg, messages.getMessage("source"));
+					establisher.sendContract("Contrat "+msg, "test", "test2", msg, messages.getMessage("source"));
 				}
 				try{
 					Thread.sleep(1000);
@@ -81,7 +81,7 @@ public class EstablisherServiceTest {
 				Integer m1 = new Integer(messages.getMessage("contract"));
 				String msg = String.valueOf(m1 + 1);
 				if (m1<6) {
-					establisher.sendContract("Contract "+msg, "test2", msg, messages.getMessage("source"));
+					establisher.sendContract("Contract "+msg, "test2" , "test" , msg, messages.getMessage("source"));
 				}
 				try{
 					Thread.sleep(1000);
@@ -104,7 +104,7 @@ public class EstablisherServiceTest {
 				for(EstablisherAdvertisementInterface i: result) {
 					uids.add(i.getSourceURI());
 				}
-				establisher.sendContract("Contract 1", "test2", "1", uids.toArray(new String[1]));
+				establisher.sendContract("Contract 1", "test2", "test", "1", uids.toArray(new String[1]));
 			}
 			
 		});

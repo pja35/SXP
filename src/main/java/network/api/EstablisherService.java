@@ -18,6 +18,8 @@ public interface EstablisherService extends Service
 	 * 		Message title
 	 * @param who
 	 * 		An id (the name the receiver will put a listener on)
+	 * @param sourceId
+	 * 		The user id of the sender
 	 * @param contract
 	 * 		Content of the message
 	 * @param uris
@@ -25,7 +27,7 @@ public interface EstablisherService extends Service
 	 * @return
 	 * 		sent contract
 	 */
-	public EstablisherMessage sendContract(String title, String who, String contract, String ...uris);
+	public EstablisherMessage sendContract(String title, String who, String sourceId, String contract, String ...uris);
 	
 	
 	public static final String NAME = "establisher";

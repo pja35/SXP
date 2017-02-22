@@ -1,18 +1,27 @@
 package protocol.impl;
 
+import java.util.HashMap;
+
+import model.entity.ElGamalKey;
 import protocol.api.Contract;
 import protocol.api.Establisher;
 import protocol.api.EstablisherListener;
 import protocol.api.Status;
 import protocol.api.Wish;
 import protocol.impl.sigma.SigmaEstablisher;
+import protocol.impl.contract.ElGamalContract;
 
 public class SigmaEstablisherAdapter implements Establisher {
-	
+
+	private Status status;
 	private SigmaEstablisher establisher;
+	private ElGamalContract contract;
+	private HashMap<ElGamalKey, String> uris;
 	
 	@Override
-	public void initialize(Contract<?, ?, ?, ?> c) {
+	public void initialize(Contract<?, ?, ?, ?> c, HashMap<ElGamalKey, String> u) {
+		contract = (ElGamalContract) c;
+		uris = u;
 		// TODO Auto-generated method stub
 
 	}
@@ -25,8 +34,7 @@ public class SigmaEstablisherAdapter implements Establisher {
 
 	@Override
 	public Contract<?, ?, ?, ?> getContract() {
-		// TODO Auto-generated method stub
-		return null;
+		return contract;
 	}
 
 	@Override
@@ -36,9 +44,9 @@ public class SigmaEstablisherAdapter implements Establisher {
 	}
 
 	@Override
-	public void getWish(Wish w) {
+	public Wish getWish(Wish w) {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 	@Override

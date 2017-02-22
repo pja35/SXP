@@ -12,6 +12,9 @@ public class EstablisherMessage extends MessagesImpl
 {
 	@MessageElement("title")
 	private String title;
+	
+	@MessageElement("sourceId")
+	private String sourceId;
 
 	@MessageElement("source")
 	private String sourceUri;
@@ -22,47 +25,34 @@ public class EstablisherMessage extends MessagesImpl
 	@MessageElement("contract")
 	private String contract;
 	
-	/**
-	 * 
-	 * @param title
-	 */
+	
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	/**
-	 * 
-	 * @return
-	 */
 	public String getTitle() {
 		return title;
 	}
 	
-	/**
-	 * 
-	 * @param source
-	 */
+	
+	public void setSourceId(String sourceI) {
+		this.sourceId = sourceI;
+	}
+	public String getSourceId() {
+		return sourceId;
+	}
+	
+	
 	public void setSource(String source) {
 		this.sourceUri = source;
 	}
-	/**
-	 * 
-	 * @return
-	 */
 	public String getSource() {
 		return sourceUri;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
+	
 	public String getContract() {
 		return contract;
 	}
-	/**
-	 * 
-	 * @param Message content
-	 */
 	public void setContract(String c) {
 		this.contract = c;
 	}

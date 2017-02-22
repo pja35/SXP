@@ -1,11 +1,15 @@
 package protocol.api;
 
+import java.util.HashMap;
+
+import model.entity.ElGamalKey;
+
 public interface Establisher {
 	/**
 	 * Initialize the establisher with a contract
 	 * @param c
 	 */
-	public void initialize(Contract<?,?,?,?> c);
+	public void initialize(Contract<?,?,?,?> c, HashMap<ElGamalKey, String> u);
 	
 	/**
 	 * Start establisher signature protocol
@@ -28,7 +32,7 @@ public interface Establisher {
 	 * Get the current wish of the owner of this establisher
 	 * @param w
 	 */
-	public void getWish(Wish w);
+	public Wish getWish(Wish w);
 	
 	/**
 	 * Get the current status of the protocol

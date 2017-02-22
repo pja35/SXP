@@ -22,11 +22,12 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 	
 	
 	@Override
-	public EstablisherMessage sendContract(String title, String who, String contract, String... peerURIs) 
+	public EstablisherMessage sendContract(String title, String who, String sourceId, String contract, String... peerURIs) 
 	{
 		EstablisherMessage m = new EstablisherMessage();
 		m.setTitle(title);
 		m.setWho(who);
+		m.setSourceId(sourceId);
 		m.setSource(this.peerUri);
 		m.setContract(contract);
 		this.sendMessages(m, peerURIs);

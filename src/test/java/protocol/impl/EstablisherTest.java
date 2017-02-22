@@ -15,7 +15,7 @@ import protocol.impl.sigma.SigmaEstablisher;
 
 public class EstablisherTest {
 	
-	public static final int N = 3;
+	public static final int N = 2;
 		
 	@Test
 	public void test(){
@@ -58,17 +58,22 @@ public class EstablisherTest {
 		SigmaEstablisher[] sigmaE = new SigmaEstablisher[N];
 		
 		for (int k=0; k<N; k++){
-			sigmaE[k] = new SigmaEstablisher(c[k], keys[k], treK, uris, pwds);
+			sigmaE[k] = new SigmaEstablisher(c[k], keys[k], treK, uris);
 		}
-		
+
+		try{
+			Thread.sleep(1000);
+		}catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		sigmaE[0].start();
-		
 
 		try{
 			Thread.sleep(3001);
 		}catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+
 		boolean res = true;
 		for (int k=0; k<N; k++){
 			System.out.println(k + " : " +c[k].isFinalized()); 
