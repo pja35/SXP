@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import controller.tools.LoggerUtilities;
 import net.jxta.document.AdvertisementFactory;
 import net.jxta.exception.PeerGroupException;
 import network.api.Peer;
@@ -42,7 +43,7 @@ public class PeerFactory {
 			itemService.initAndStart(p);
 		} catch (InvalidServiceException e) {
 			// TODO manage the exception
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}
 		return p;
 	}

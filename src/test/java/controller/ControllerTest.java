@@ -419,30 +419,6 @@ public class ControllerTest {
 	}
 
 	/**
-	 * Search for an item with simple2
-	 */
-	@Test
-	public void testJ(){
-		try {
-
-			JsonTools<Collection<Item>> json = new JsonTools<>(new TypeReference<Collection<Item>>(){});
-			Collection<Item> itcoll = json.toEntity(connectAction("GET", "api/search/simple2?title=" + itemTitle));
-			log.error("Associated bug : \"In Search.java algorithm simple2 does not work.\"");
-			//			assertTrue(itcoll.size() == 1);
-			//			Item it = itcoll.iterator().next();
-			//			String createdDate = dateFormat.format(it.getCreatedAt());
-			//			assertTrue(createdDate.equals(TestInputGenerator.getFormatedTodayDate("dd-MM-yyyy")));
-			//			assertTrue(it.getPbkey() != BigInteger.ZERO);			
-			//			assertTrue(it.getTitle().equals(itemTitle));
-			//			assertTrue(it.getUserid().equals(userid));
-			//			assertTrue(it.getUsername().equals(username));
-			//			assertTrue(it.getDescription().contains("Special"));
-		} catch (Exception e) {
-			fail(LoggerUtilities.logStackTrace(e));
-		} 
-	}
-
-	/**
 	 * Delete all items
 	 */
 	@Test

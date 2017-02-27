@@ -2,6 +2,7 @@ package controller;
 
 import java.util.Properties;
 
+import controller.tools.LoggerUtilities;
 import model.syncManager.UserSyncManagerImpl;
 import network.api.Peer;
 import network.factories.PeerFactory;
@@ -49,7 +50,7 @@ public class Application {
 			setAuth(AuthentifierFactory.createDefaultAuthentifier());
 			RestServerFactory.createAndStartDefaultRestServer(restPort);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}		
 	}
 

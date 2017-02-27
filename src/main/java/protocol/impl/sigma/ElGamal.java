@@ -22,6 +22,7 @@ import org.bouncycastle.crypto.params.ElGamalParameters;
 import org.bouncycastle.crypto.params.ElGamalPrivateKeyParameters;
 import org.bouncycastle.crypto.params.ElGamalPublicKeyParameters;
 
+import controller.tools.LoggerUtilities;
 import crypt.ElGamalEngineK;
 import model.entity.ElGamalKey;
 import crypt.impl.hashs.SHA256Hasher;
@@ -65,7 +66,7 @@ public class ElGamal  {
 			//try {
 			throw new NullPointerException("Private key unknown");
 		//	} catch (Exception e) {
-		//		e.printStackTrace();
+		//		LoggerUtilities.logStackTrace(e);
 		//	}
 		BigInteger k;
 		BigInteger l;
@@ -100,7 +101,7 @@ public class ElGamal  {
 				throw new Exception("Public key unknown");
 			}
 		} catch(Exception e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}
 		
 		

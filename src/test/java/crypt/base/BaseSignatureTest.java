@@ -21,7 +21,6 @@ public class BaseSignatureTest {
 
 	/**
 	 * Test method for {@link crypt.base.BaseSignature#getParam(java.lang.String)}.
-	 * This test only check the exception as ParamName has no runtime retention specified.
 	 */
 	@Test
 	public void testGetParam() {
