@@ -1,4 +1,4 @@
-package protocol.impl;
+package protocol.impl.sigma;
 
 import static org.junit.Assert.assertTrue;
 
@@ -13,18 +13,19 @@ import protocol.impl.contract.ElGamalClauses;
 import protocol.impl.contract.ElGamalContract;
 import protocol.impl.sigma.SigmaEstablisher;
 
-public class EstablisherTest {
+public class SigmaEstablisherTest {
 	
-	public static final int N = 2;
+	public static final int N = 3;
 		
 	@Test
 	public void test(){
 		// Starting the Application to be able to test it
-		new Application();
-		Application.getInstance().runForTests(8081);
+		if (Application.getInstance()==null){
+			new Application();
+			Application.getInstance().runForTests(8081);
+		}
 
 		//Initialize the keys
-		ElGamalKey treK = ElGamalAsymKeyFactory.create(false);
 		ElGamalKey[] keys = new ElGamalKey[N];
 		ElGamalKey[] keysR = new ElGamalKey[N];
 		// Creating the contracts 
@@ -58,16 +59,19 @@ public class EstablisherTest {
 		SigmaEstablisher[] sigmaE = new SigmaEstablisher[N];
 		
 		for (int k=0; k<N; k++){
-			sigmaE[k] = new SigmaEstablisher(c[k], keys[k], treK, uris);
+			sigmaE[k] = new SigmaEstablisher(c[k], keys[k], uris);
 		}
-
+		
+		// Time to setup the passwords
 		try{
 			Thread.sleep(1000);
 		}catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		sigmaE[0].start();
-
+		
+		for (int k=0; k<N; k++)
+			sigmaE[k].start();
+		
 		try{
 			Thread.sleep(3001);
 		}catch (InterruptedException e) {
@@ -80,7 +84,6 @@ public class EstablisherTest {
 			res =  res && c[k].isFinalized();
 		}
 		
-		assertTrue(true);
-//		assertTrue(res);
+		assertTrue(res);
 	}
 }

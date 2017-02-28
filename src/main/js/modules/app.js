@@ -2,7 +2,7 @@ RESTAPISERVER = 'http://localhost:8081';
 
 (function() {
 
-    var module = angular.module('app', ['ui.router', 'ngAnimate', 'ngResource', 'services.rest', 'app.myItems', 'search', 'messages', 'app.users', 'app.settings', 'ngOboe']);
+    var module = angular.module('app', ['ui.router', 'ngAnimate', 'ngResource', 'services.rest', 'app.myItems', 'search', 'messages', 'app.users', 'app.settings', 'app.contracts', 'ngOboe']);
     //app is the name of this module, what follows are depencies
     //ui.router is standard, for routing
     //ngOboe is standard to stream the results of the searches

@@ -1,6 +1,8 @@
 package protocol.impl.sigma;
 
 import model.entity.ElGamalKey;
+import protocol.api.Contract;
+
 import java.util.HashMap;
 
 import crypt.api.signatures.Signer;
@@ -59,7 +61,9 @@ public class PCSFabric {
 	public boolean PCSVerifies(Or privateCS, byte[] m){
 		if (privateCS==null) {return false;}
 		setPcs(privateCS);
-		return this.createPcs(m).Verifies(res);
+		ResEncrypt res = privateCS.ands[0].resEncrypt;
+		res.setM(m);
+		return privateCS.Verifies(res);
 	}
 	
 	
@@ -86,54 +90,54 @@ public class PCSFabric {
 	 * Make the PCS
 	 */
 	private void setPcs(){
-		Receiver receiver = new Receiver();
-		
-		//Creates the Schnorr and CCE signature we will "AND"
-		//2 of them are fabricated
-		ResponsesCCE resCce2 = sender.SendResponseCCEFabric(res, trentK);
-		ResponsesSchnorr resSchnorr2 = sender.SendResponseSchnorrFabric(receiverK);
-		ResponsesCCE resCce1 = sender.SendResponseCCE(res.getM(), trentK);
-		
-		//For the last response, we need to choose the right challenge (to be able to compose in the or) :
-		Masks mask = sender.SendMasksSchnorr();
-		BigInteger c = sender.SendChallenge(mask, res.getM());
-		BigInteger challenge = c.xor(resSchnorr2.getChallenge().xor(resCce1.getChallenge().xor(resCce2.getChallenge())));
-		ResponsesSchnorr resSchnorr1 = sender.SendResponseSchnorr(mask, challenge);
-		
-		//Maps the responses with the right key (receiver for Schnorr, trent for CCE)
-		HashMap<Responses,ElGamalKey> rK1 = new HashMap <Responses,ElGamalKey>();
-		rK1.put(resSchnorr1, senderK);
-		rK1.put(resCce1, trentK);
-		
-		HashMap<Responses,ElGamalKey> rK2 = new HashMap <Responses,ElGamalKey>();
-		rK2.put(resSchnorr2, receiverK);
-		rK2.put(resCce2, trentK);
-		
-		
-		//Create the arrays of responses and make the "ands"
-		Responses[] resp1={resSchnorr1,resCce1};
-		Responses[] resp2={resSchnorr2,resCce2};
-		
-		ands[0] = new And(receiver,rK1,res,resp1);
-		ands[1] = new And(receiver,rK2,res,resp2);
-		
-		//Make the PCS
-		setPcs(new Or(receiver, mask.getA(), ands));
-	}
+			Receiver receiver = new Receiver();
+			
+			//Creates the Schnorr and CCE signature we will "AND"
+			//2 of them are fabricated
+			ResponsesCCE resCce2 = sender.SendResponseCCEFabric(res, trentK);
+			ResponsesSchnorr resSchnorr2 = sender.SendResponseSchnorrFabric(receiverK);
+			ResponsesCCE resCce1 = sender.SendResponseCCE(res.getM(), trentK);
+			
+			//For the last response, we need to choose the right challenge (to be able to compose in the or) :
+			Masks mask = sender.SendMasksSchnorr();
+			BigInteger c = sender.SendChallenge(mask, res.getM());
+			BigInteger challenge = c.xor(resSchnorr2.getChallenge().xor(resCce1.getChallenge().xor(resCce2.getChallenge())));
+			ResponsesSchnorr resSchnorr1 = sender.SendResponseSchnorr(mask, challenge);
+			
+			//Maps the responses with the right key (receiver for Schnorr, trent for CCE)
+			HashMap<Responses,ElGamalKey> rK1 = new HashMap <Responses,ElGamalKey>();
+			rK1.put(resSchnorr1, senderK);
+			rK1.put(resCce1, trentK);
+			
+			HashMap<Responses,ElGamalKey> rK2 = new HashMap <Responses,ElGamalKey>();
+			rK2.put(resSchnorr2, receiverK);
+			rK2.put(resCce2, trentK);
+			
+			
+			//Create the arrays of responses and make the "ands"
+			Responses[] resp1={resSchnorr1,resCce1};
+			Responses[] resp2={resSchnorr2,resCce2};
+			
+			ands[0] = new And(receiver,rK1,res,resp1);
+			ands[1] = new And(receiver,rK2,res,resp2);
+			
+			//Make the PCS
+			setPcs(new Or(receiver, mask.getA(), ands));
+		}
 	
 	// Send the signature in clear (end of protocol)
-	public ElGamalSignature getClearSignature(String clausesString){
+	public ElGamalSignature getClearSignature(Contract<?,?,?,?> contract){
 		Signer<ElGamalSignature,ElGamalKey> sig = SignerFactory.createElGamalSigner(); 
 		sig.setKey(sender.getKeys());
-		return sig.sign(clausesString.getBytes());
+		return sig.sign(contract.getClauses().getHashableData());
 	}
 	
-	// Check if the signature is ok (end of protocol)
-	public boolean verifySignature(ElGamalSignature signature, String clausesString){
+	// Check if the clear signature is ok (end of protocol)
+	public boolean verifySignature(ElGamalSignature signature, Contract<?,?,?,?> contract, ElGamalKey key){
 		if (signature == null ){return false;}
 		Signer<ElGamalSignature,ElGamalKey> sig = SignerFactory.createElGamalSigner(); 
-		sig.setKey(receiverK);
-		return sig.verify(clausesString.getBytes(),signature);
+		sig.setKey(key);
+		return sig.verify(contract.getClauses().getHashableData(),signature);
 	}
 	
 }

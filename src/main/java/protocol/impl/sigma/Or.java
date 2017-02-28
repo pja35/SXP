@@ -74,7 +74,7 @@ public class Or {
 		{
 			if (!receiver.Verifies(and, true))
 			{
-				System.out.println("il y a un probleme");
+				System.out.println("Signature problem");
 				return false;
 			}
 			
@@ -84,7 +84,7 @@ public class Or {
 		}
 		if (!receiver.VerifiesChallenges(resEncrypt.getM(), getA(), challenges))
 		{
-			System.out.println("probleme dans les challenges");
+			System.out.println("problem in challenges");
 		}
 		challenges=new ArrayList <BigInteger>();
 		return true;

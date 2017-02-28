@@ -54,12 +54,12 @@ public class PeerFactory {
 		
 		Service itemService = new JxtaItemService();
 		itemService.initAndStart(p);
-
-		Service establisherService = new JxtaEstablisherService();
-		establisherService.initAndStart(p);
 		
 		Service itemsSender = new JxtaItemsSenderService();
 		itemsSender.initAndStart(p);
+
+		Service establisherService = new JxtaEstablisherService();
+		establisherService.initAndStart(p);
 		return p;
 	}
 	

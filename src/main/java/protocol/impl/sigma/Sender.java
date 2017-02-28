@@ -181,7 +181,7 @@ public class Sender extends Fabric{
 		byte[] buffer, resume;
 		MessageDigest hash_function = null;
 		
-		String tmp = message.toString().concat(mask.getA().toString());
+		String tmp = (new String(message)).concat(mask.getA().toString());
 		
 		buffer = tmp.getBytes();
 		
@@ -208,7 +208,6 @@ public class Sender extends Fabric{
 		ElGamal elGamal = new ElGamal(tKeys);
 		encrypt  = elGamal.encryptForContract(input);
         ResEncrypt res = new ResEncrypt(encrypt.getU(),encrypt.getV(),input);
-        
         return res;
 	}
 	

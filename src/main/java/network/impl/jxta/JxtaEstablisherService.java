@@ -37,10 +37,8 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 	@Override
 	public void pipeMsgEvent(PipeMsgEvent event) {
 		Messages message = toMessages(event.getMessage());
-		if(message.getMessage("type").equals("establisher")) {
+		if(message.getMessage("type").equals("trentResolve")) {
 			super.pipeMsgEvent(event);
-//			System.out.println("\n----ESTABLISHER MESSAGE RECEIVED----\nReceiver : " + message.getWho() + "\nTitle : " +
-//					message.getMessage("title") + "\nMessage : " + message.getMessage("contract") + "\n----END OF ESTABLISHER MESSAGE----\n");
 			return;
 		}
 		super.pipeMsgEvent(event);

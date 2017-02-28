@@ -114,11 +114,11 @@ public class And {
 
 			if (!receiver.Verifies(res, rK.get(res), resEncrypt))
 			{
-				System.out.println("il y a un probleme");
+				System.out.println("There is a problem in signatures");
 				return false;
 			}
 		}
-		System.out.println("tout est ok");
+//		System.out.println("And signature verified");
 		return true;
 		
 	}

@@ -1,6 +1,7 @@
 package protocol.impl.sigma;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
@@ -32,5 +33,8 @@ public class PCSTest {
 		//Alice checks the signature
 		PCSFabric pcsf = new PCSFabric(alice, bobK, trentK);
 		assertTrue(pcsf.PCSVerifies(pcs, buffer));
+
+		buffer = "c".getBytes();
+		assertFalse(pcsf.PCSVerifies(pcs, buffer));
 	}
 }
