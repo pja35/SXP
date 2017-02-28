@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.glassfish.hk2.utilities.RethrowErrorService;
 
+import controller.tools.LoggerUtilities;
 import net.jxta.exception.PeerGroupException;
 import net.jxta.id.IDFactory;
 import net.jxta.peergroup.PeerGroup;
@@ -98,14 +99,14 @@ public class JxtaNode implements Node{
 			configurator.setTcpPublicAddress(IpChecker.getIp(), false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}
 		configurator.setHttpInterfaceAddress("0.0.0.0");
 		try {
 			configurator.setHttpPublicAddress(IpChecker.getIp(), false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}
         configurator.setTcpEndPort(-1);
         configurator.setTcpStartPort(-1);
@@ -140,7 +141,7 @@ public class JxtaNode implements Node{
 			try {
 				madv = netpeerGroup.getAllPurposePeerGroupImplAdvertisement();
 			} catch(Exception e) {
-				e.printStackTrace();
+				LoggerUtilities.logStackTrace(e);
 			}
 			
 			defaultPeerGroup = netpeerGroup.newGroup(this.generatePeerGroupID(netpeerGroup.getPeerGroupID(), "SXP group"),
@@ -149,10 +150,10 @@ public class JxtaNode implements Node{
 			defaultPeerGroup.getRendezVousService().setAutoStart(true, 60*1000);
 		} catch (PeerGroupException e) {
 			System.err.println("impossible to create default group");
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 			System.exit(-1);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}
 		System.out.println("Group created !");
 	}
@@ -168,7 +169,7 @@ public class JxtaNode implements Node{
 			temp.startApp(new String[0]);
 			temp.getRendezVousService().setAutoStart(true, 60);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		} /* Getting the advertisement of implemented modules */
 		return temp;
 	}

@@ -40,16 +40,16 @@ public class TestUtils {
 			return false;
 		if (!file.exists())
 			return true;
-		if (!file.isDirectory())
-			return false;
+		if (file.isDirectory()){
 
-		File[] contents = file.listFiles();
-		if (contents != null) {
-			for (File f : contents) {
-				if (f.isDirectory())
-					removeRecursively(f);
-				else
-					f.delete();
+			File[] contents = file.listFiles();
+			if (contents != null) {
+				for (File f : contents) {
+					if (f.isDirectory())
+						removeRecursively(f);
+					else
+						f.delete();
+				}
 			}
 		}
 		return file.delete();
@@ -82,9 +82,9 @@ public class TestUtils {
 				buff.append("\n");
 				InputStream is;
 				if (con.getResponseCode() >= 400) {
-				    is = con.getErrorStream();
+					is = con.getErrorStream();
 				} else {
-				    is = con.getInputStream();
+					is = con.getInputStream();
 				}
 				InputStreamReader ri = new InputStreamReader(is);
 				buff.append(IOUtils.toString(ri)); 

@@ -20,6 +20,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import controller.tools.LoggerUtilities;
 import model.entity.ElGamalKey;
 
 
@@ -102,7 +103,7 @@ public class Receiver {
 		try {
 			hash_function = MessageDigest.getInstance("SHA-256");
 		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}
 		
 		resume = hash_function.digest(buffer);
@@ -130,7 +131,7 @@ public class Receiver {
 		try {
 			hash_function = MessageDigest.getInstance("SHA-256");
 		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}
 		
 		resume = hash_function.digest(buffer);

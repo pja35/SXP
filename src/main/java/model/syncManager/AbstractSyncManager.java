@@ -1,29 +1,25 @@
 package model.syncManager;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.persistence.RollbackException;
+
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.eclipse.persistence.internal.jpa.EntityManagerImpl;
+import org.eclipse.persistence.internal.sessions.UnitOfWorkImpl;
+import org.eclipse.persistence.sessions.UnitOfWork;
 
 import controller.tools.LoggerUtilities;
-import model.entity.Item;
-import model.factory.ValidatorFactory;
 import model.validator.EntityValidator;
-import model.validator.ItemValidator;
 
 
 public abstract class AbstractSyncManager<Entity> implements model.api.SyncManager<Entity>{
-	private final static Logger log = LogManager.getLogger(AbstractSyncManager.class);
 	private EntityManagerFactory factory;
 	private EntityManager em;
 	private Class<?> theClass;
@@ -44,7 +40,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 		}
 		catch(Exception e)
 		{
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return null;
 		}
 	}
@@ -59,7 +55,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 		}
 		catch(Exception e)
 		{
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return null;
 		}
 
@@ -72,7 +68,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 		try {
 			return (Entity) q.getSingleResult();
 		} catch(Exception e) {
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return null;
 		}
 	}
@@ -85,7 +81,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 		try {
 			return q.getResultList();
 		} catch(Exception e) {
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return null;
 		}
 	}
@@ -99,7 +95,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 		}
 		catch(Exception e)
 		{
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return false;
 		}
 	}
@@ -117,7 +113,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 		}
 		return ret;
 	}
-	
+
 	@Override
 	public boolean end() {
 		//Validate all the entities in the Watchlist
@@ -126,10 +122,10 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 			EntityTransaction emtr = em.getTransaction();
 			if (!emtr.getRollbackOnly())
 				em.getTransaction().commit();
-			em.clear(); //Ici on détache toutes les entitées. Devrait-on plutot fermer (em.close()) ?
+			em.clear(); // Should it be done here or before the close method?
 			return true;
 		}catch(Exception e){
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return false;
 		}
 	}
@@ -140,7 +136,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 			em.persist(entity);
 			return true;
 		}catch(Exception e){
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return false;
 		}
 	}
@@ -151,7 +147,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 			em.remove(entity);
 			return true;
 		}catch(Exception e){
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return false;
 		}
 	}
@@ -161,22 +157,28 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 		try{
 			return em.contains(entity);
 		}catch(Exception e){
-			log.info(LoggerUtilities.getStackTrace(e));
+			LoggerUtilities.logStackTrace(e);
 			return false;
 		}
 	}
 
-	/**
-	 * Ici on fait des choses pas très propres !
-	 * Des casts pas trop vérifiés, il faut croiser les doigts
-	 * Des accès à des méthodes bien cachées qu'on ne comprend pas tout à fait,...
-	 */
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Entity> watchlist() {
-		//EntityManagerImpl emi = (EntityManagerImpl)em;
-		EntityManagerImpl emi = em.unwrap(EntityManagerImpl.class);
-		Map<Object,Object> wlMap = emi.getActivePersistenceContext(null).getCloneMapping();
-		return (Collection<Entity>) wlMap.keySet();
+		UnitOfWorkImpl uow = (UnitOfWorkImpl) em.unwrap(UnitOfWork.class);
+		return (Collection<Entity>) uow.getCloneMapping().keySet();
+	}
+
+	@Override
+	public boolean close() {
+		try{
+			em.close();
+			em = null;
+			return true;
+		}catch(Exception e){
+			LoggerUtilities.logStackTrace(e);
+			return false;
+		}
 	}
 }

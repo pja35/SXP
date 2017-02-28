@@ -36,10 +36,9 @@ public class UtilsTest {
 	}
 		
 	@Test
-	public void randIllegalArgumentExceptionTest1(){
-		exception.expect(IllegalArgumentException.class);
-		exception.expectMessage("numBits must be non-negative");
-		Utils.rand(-1, p);
+	public void negativeLimitTest(){
+		BigInteger bir = Utils.rand(-1, p);
+		assert(bir.compareTo(BigInteger.ZERO) == 0);
 	}
 	
 	@Test(timeout=1000)
@@ -62,6 +61,12 @@ public class UtilsTest {
 		byte[] bb = DatatypeConverter.parseHexBinary(bHex);
 		log.debug(TestInputGenerator.byteToString(b) + " =? " + TestInputGenerator.byteToString(bb));
 		assertArrayEquals(bb, b);
+	}
+	
+	@Test(timeout=1000)
+	public void zeroRandTest(){
+		BigInteger bir = Utils.rand(5, new BigInteger("00000"));
+		assert(bir.compareTo(BigInteger.ZERO) == 0);
 	}
 
 }

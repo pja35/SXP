@@ -1,3 +1,5 @@
+RESTAPISERVER = 'https://localhost:8081';
+
 (function() {
     var module = angular.module('services.rest', []);
 
@@ -36,5 +38,14 @@
         });
     });
 
+    module.factory('Message', function($resource) {
+        return $resource(RESTAPISERVER + '/api/messages/:id', {
+            id: '@id'
+        },  {
+             update: {
+                method: 'PUT'
+             }
+        });
+    });
 
 })();

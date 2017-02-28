@@ -1,8 +1,6 @@
-RESTAPISERVER = 'https://localhost:8081';
-
 (function() {
 
-    var module = angular.module('app', ['ui.router', 'ngAnimate', 'ngResource', 'services.rest', 'app.myItems', 'search', 'messages', 'app.users', 'app.settings', 'ngOboe']);
+    var module = angular.module('app', ['ui.router', 'ngAnimate', 'ngResource', 'services.rest', 'app.myItems', 'search', 'app.messages', 'app.users', 'app.settings', 'ngOboe', 'app.contracts', 'app.contact']);
     //app is the name of this module, what follows are depencies
     //ui.router is standard, for routing
     //ngOboe is standard to stream the results of the searches
@@ -51,13 +49,6 @@ RESTAPISERVER = 'https://localhost:8081';
                 return self.contextId;
             }
             //GUI togglers
-        this.toggleMenu = function() {
-            $("#wrapper").toggleClass("toggled");
-            //selects the element that has id wrapper (i.e. the whole page)
-            //makes it member of class toggled or not
-            //this is used by simples-sidebar.css in order to show the sidebar or not
-            //TODO: shouldn't we do all of these hiding things with ng-show(), so it's more unified?
-        };
         this.showContextButton = function(button) {
             return button === self.contextButton;
             //to display the right kind of contextButton according to situation, see contextButtons.html
@@ -100,12 +91,7 @@ RESTAPISERVER = 'https://localhost:8081';
                 url: '/', //route
                 templateUrl: 'home.html', //appeareance
                 controller: function($scope, $state) { //controller function
-                    //scope contains the variables associated to the state
-                    //state contains the variables associated to the routing
-                    //TODO: use configHeader for that :
-                    $scope.app.setBackUrl(null); //hides this button
-                    $scope.app.setContextButton('search'); //sets the role of the context button
-                    $scope.app.setTitle('SXP network');
+                    $scope.app.configHeader({contextButton:'search'});
                     if ($scope.app.getCurrentUser() == null) {
                         $state.go("login"); //go to the login state defined in users.js
                     }
@@ -147,3 +133,16 @@ RESTAPISERVER = 'https://localhost:8081';
     });
 
 })();
+
+function isUserConnected($rootScope, $scope, $state){
+		if ($scope.app.userid != undefined) {
+			$rootScope.userLogged = true;
+			console.log("user connected "+$scope.app.userid );
+		}
+		else{
+			$rootScope.userLogged = false;
+			console.log("user not connected "+$scope.app.userid +" redirect->login");
+			$state.go('login');
+		}
+	}
+

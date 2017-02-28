@@ -2,6 +2,8 @@ package model.api;
 
 import java.util.Collection;
 
+import model.entity.Item;
+
 /**
  * Entities manager. Handle local and distant storage, search.
  * @author Julien Prudhomme
@@ -95,6 +97,14 @@ public abstract class ManagerDecorator<Entity> implements Manager<Entity>{
 	@Override
 	public boolean check(){
 		return em.check();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean close() {
+		return em.close();
 	}
 
 

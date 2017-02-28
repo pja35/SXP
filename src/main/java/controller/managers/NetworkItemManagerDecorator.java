@@ -110,7 +110,7 @@ public class NetworkItemManagerDecorator extends ManagerDecorator<Item>{
 		super.findOneByAttribute(attribute, value, l);
 		//TODO
 	}
-
+	
 	@Override
 	public boolean persist(Item entity) {
 		if (super.persist(entity)){
@@ -136,5 +136,12 @@ public class NetworkItemManagerDecorator extends ManagerDecorator<Item>{
 	public boolean check(){
 		return super.check();
 	}
+	
+	@Override
+	public boolean close(){
+		return super.close();
+	}
+
+
 	
 }

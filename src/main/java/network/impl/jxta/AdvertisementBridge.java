@@ -6,6 +6,7 @@ import java.util.Enumeration;
 
 import org.jdom2.Element;
 
+import controller.tools.LoggerUtilities;
 import net.jxta.document.Advertisement;
 import net.jxta.document.Attributable;
 import net.jxta.document.Document;
@@ -43,7 +44,7 @@ public class AdvertisementBridge extends Advertisement{
 			this.adv = (network.api.advertisement.Advertisement) cons.newInstance();
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | 
 				InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}
 		Element rootElement = new Element("root");
 		@SuppressWarnings("rawtypes")

@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -39,6 +40,11 @@ public class X509V3GeneratorTest {
 
 
 	static private X509V3Generator gen;
+	
+	@BeforeClass
+	public static void setUpClass() {
+		log.debug("**************** Starting test");
+	}
 
 	@Before
 	public void instantiate(){

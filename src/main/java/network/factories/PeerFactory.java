@@ -5,13 +5,14 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import controller.tools.LoggerUtilities;
 import net.jxta.document.AdvertisementFactory;
 import net.jxta.exception.PeerGroupException;
 import network.api.Peer;
 import network.api.service.InvalidServiceException;
 import network.api.service.Service;
 import network.impl.jxta.AdvertisementBridge;
-import network.impl.jxta.AdvertisementInstaciator;
+import network.impl.jxta.AdvertisementInstanciator;
 import network.impl.jxta.JxtaItemService;
 import network.impl.jxta.JxtaItemsSenderService;
 import network.impl.jxta.JxtaPeer;
@@ -42,7 +43,7 @@ public class PeerFactory {
 			itemService.initAndStart(p);
 		} catch (InvalidServiceException e) {
 			// TODO manage the exception
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}
 		return p;
 	}
@@ -72,7 +73,7 @@ public class PeerFactory {
 	public static JxtaPeer createJxtaPeer() {
 		Logger.getLogger("net.jxta").setLevel(Level.SEVERE);
 		AdvertisementBridge i = new AdvertisementBridge();
-		AdvertisementFactory.registerAdvertisementInstance(i.getAdvType(), new AdvertisementInstaciator(i));
+		AdvertisementFactory.registerAdvertisementInstance(i.getAdvType(), new AdvertisementInstanciator(i));
 		return new JxtaPeer();
 	}
 	

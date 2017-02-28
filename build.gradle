@@ -79,7 +79,16 @@ task selenium(type: Test) {
 }
 
 test{
- exclude 'model/syncManager/**'
+ //exclude 'model/syncManager/**'
+ //exclude 'controller/**'
+ //exclude 'crypt/**'
+ //exclude 'model/entity/**'
+ //exclude 'model/validator/**'
+ //exclude 'network/**'
+ //exclude 'protocol/**'
+ //exclude 'rest/**'
+ //exclude 'util/**'
+ 
  if (System.getProperty('DEBUG', 'false') == 'true') {
         jvmArgs '-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5006'
     }

@@ -29,15 +29,10 @@ public class Message {
 	@GeneratedValue(generator="uuid")
 	private String id;
 
-	@XmlElement(name="object")
-	@NotNull
-	@Size(min = 1, max = 128)
-	private String object;
-
 	@XmlElement(name="sendingDate")
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss")
 	private Date sendingDate;
 
 	@XmlElement(name="senderId")
@@ -50,40 +45,31 @@ public class Message {
 	@Size(min = 1, max = 128)
 	private String senderName;
 
-	@XmlElement(name="receiversIds")
+	@XmlElement(name="receiverId")
 	@NotNull
-	@ElementCollection
-	private Set<String> receiversIds = new HashSet<String>();
+	private String receiverId;
 
-	@XmlElement(name="receiversNames")
+	@XmlElement(name="receiverName")
 	@NotNull
-	@ElementCollection
-	private Set<String> receiversNames = new HashSet<String>();
+	private String receiverName;
 
 	@Lob
-	@XmlElement(name="body")
+	@XmlElement(name="messageContent")
 	@NotNull
 	@Size(min = 1, max = 1024)
-	private String body;
+	private String messageContent;
 
 	public static enum ReceptionStatus {DRAFT, SENT, RECEIVED}
 	@XmlElement(name="status")
 	@Enumerated(STRING)
-	public ReceptionStatus status;   
+	public ReceptionStatus status = ReceptionStatus.DRAFT;   
 
 	public String getId(){
 		return this.id;
 	}
 
-	public void setObject (String object){
-		this.object = object;
-	}
 
-	public String getObject(){
-		return this.object;
-	}
-
-	public void setSendingDate (Date date){
+	public void setSendingDate(Date date){
 		this.sendingDate = date;
 	}
 
@@ -91,7 +77,7 @@ public class Message {
 		return this.sendingDate;
 	}
 
-	public void setSender (String id, String name){
+	public void setSender(String id, String name){
 		this.senderId = id;
 		this.senderName = name;
 	}
@@ -103,26 +89,26 @@ public class Message {
 		return this.senderName;
 	}
 
-	public void addReceivers (String id, String name){
-		this.receiversIds.add(id);
-		this.receiversNames.add(name);
+	public void setReceiver(String id, String name){
+		this.receiverId = id;
+		this.receiverName = name;
 	}
 
-	public int sizeOfReceivers(){
-		return this.receiversIds.size();
+	public String getReceiverId(){
+		return this.receiverId;
 	}
 
-	public String[] getReceiversIds(){
-		String[] ids = new String[this.receiversIds.size()];
-		return this.receiversIds.toArray(ids);
+	public String getReceiverName(){
+		return this.receiverName;
 	}
 
-	public void setBody (String body){
-		this.body = body;
+
+	public void setMessageContent(String content){
+		this.messageContent = content;
 	}
 
-	public String getBody(){
-		return this.body;
+	public String getMessageContent(){
+		return this.messageContent;
 	}
 
 	public void setStatus(ReceptionStatus status){
@@ -131,6 +117,24 @@ public class Message {
 
 	public ReceptionStatus getStatus(){
 		return this.status;
+	}
+
+	/**
+	 * @return a complete string with all attributes (mainly used for debug)
+	 */
+	public String getString(){
+		StringBuffer buff = new StringBuffer();		
+		buff.append("******************" + "\n");
+		buff.append("Message Id = " + getId() + "\n");
+		buff.append("Sender Id = " + getSenderId() + "\n");
+		buff.append("Sender Name = " + getSendName() + "\n");
+		buff.append("Sending date = " + getSendingDate() + "\n");
+		buff.append(getStatus() + "\n");
+		buff.append(getMessageContent() + "\n");
+		buff.append("Receiver Id = " + getReceiverId() + "\n");
+		buff.append("Receiver name = " + getReceiverName() + "\n");
+		buff.append("******************" + "\n");
+		return buff.toString();
 	}
 
 }
