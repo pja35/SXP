@@ -91,4 +91,10 @@ public interface SyncManager<Entity> {
 	 * @return True if the entity has been removed, false otherwise
 	 */
 	public boolean remove(Entity entity);
+	
+	/**
+	 * Close the entity manager
+	 * @return false if the operation fails (exceptions are logged)
+	 */
+	public boolean close();
 }

@@ -18,6 +18,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
 import model.api.Manager;
+import model.api.ManagerListener;
 import model.api.SyncManager;
 import model.api.UserSyncManager;
 import model.entity.Item;
@@ -50,7 +51,8 @@ public class Items {
 		item.setUserid(currentUser.getId());
 		em.persist(item);
 		em.end();
-
+		em.close();
+		users.close();
 		/*ItemAdvertisement iadv = new ItemAdvertisement();
 		iadv.setTitle(item.getTitle());
 		iadv.publish(Application.getInstance().getPeer()); */
@@ -66,7 +68,9 @@ public class Items {
 			@PathParam("id")String id) {
 		SyncManager<Item> em = new ItemSyncManagerImpl();
 		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
-		return json.toJson(em.findOneById(id));
+		String ret = json.toJson(em.findOneById(id));
+		em.close();
+		return ret;
 	}
 
 	@GET
@@ -78,7 +82,10 @@ public class Items {
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		SyncManager<Item> em = new ItemSyncManagerImpl();
 		JsonTools<Collection<Item>> json = new JsonTools<>(new TypeReference<Collection<Item>>(){});
-		return json.toJson(em.findAllByAttribute("userid", currentUser.getId()));
+		String ret = json.toJson(em.findAllByAttribute("userid", currentUser.getId()));
+		em.close();
+		users.close();
+		return ret;
 	}
 
 	@PUT
@@ -94,18 +101,39 @@ public class Items {
 		em.end();
 
 		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
-		return json.toJson(item2);
-
-		//return JsonUtils.BeanStringify(item2);
+		String ret = json.toJson(item2);
+		
+		em.close();
+		return ret;
 	}
 
+	/** 
+	 * This only deletes items from local base.
+	 * TO DO : connect to jxta
+	 * @param id
+	 * @param token
+	 * @return
+	 */
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String delete(
-			@PathParam("id")int id) {
-		//TODO
-		return null;
+	public String delete(@PathParam("id")String id, @HeaderParam(Authentifier.PARAM_NAME) String token) {
+		Authentifier auth = Application.getInstance().getAuth();
+		UserSyncManager users = new UserSyncManagerImpl();
+		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
+		users.close();
+		if (currentUser == null)
+			return "{\"deleted\": \"false\"}";
+		
+		SyncManager<Item> em = new ItemSyncManagerImpl();
+		boolean ret = em.begin();
+		Item it = em.findOneById(id);
+		if (it.getUserid() != currentUser.getId()){
+			em.end();
+			em.close();
+			return "{\"deleted\": \"false\"}";
+		}
+		return "{\"deleted\": \"" + (ret && em.remove(it) && em.end() && em.close()) + "\"}";
 	}
 
 }

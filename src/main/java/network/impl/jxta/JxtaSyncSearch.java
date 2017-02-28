@@ -3,6 +3,7 @@ package network.impl.jxta;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import controller.tools.LoggerUtilities;
 import network.api.Search;
 import network.api.SearchListener;
 import network.api.advertisement.Advertisement;
@@ -25,7 +26,7 @@ public class JxtaSyncSearch<T extends Advertisement> implements Search<T>, Searc
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}
 		return results;
 	}

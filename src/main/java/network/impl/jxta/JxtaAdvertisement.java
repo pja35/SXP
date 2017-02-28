@@ -1,5 +1,7 @@
 package network.impl.jxta;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.jdom2.Document;
 import org.jdom2.output.XMLOutputter;
 
@@ -8,12 +10,12 @@ import network.api.Peer;
 import network.api.advertisement.Advertisement;
 
 public class JxtaAdvertisement implements Advertisement{
-
+    static private Logger log = LogManager.getLogger(JxtaAdvertisement.class);
 	private Advertisement adv;
 	
 	
 	public JxtaAdvertisement(Advertisement adv) {
-		System.out.println("Adv : \n" + new XMLOutputter().outputString(adv.getDocument()));
+		log.info("Adv : \n" + new XMLOutputter().outputString(adv.getDocument()));
 		this.adv = adv;
 	}
 	
@@ -28,7 +30,7 @@ public class JxtaAdvertisement implements Advertisement{
 	}
 	
 	public AdvertisementBridge getJxtaAdvertisementBridge() {
-		System.out.println(new AdvertisementBridge(this).getDocument(MimeMediaType.XML_DEFAULTENCODING));
+		log.info(new AdvertisementBridge(this).getDocument(MimeMediaType.XML_DEFAULTENCODING));
 		return new AdvertisementBridge(this);
 	}
 

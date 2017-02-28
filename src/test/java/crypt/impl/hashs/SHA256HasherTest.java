@@ -28,7 +28,8 @@ public class SHA256HasherTest {
 	public static Object[] data() {
 		SHA256Hasher hasherNoSalt = new SHA256Hasher();
 		byte[] salt = HasherFactory.generateSalt();
-		SHA256Hasher hasherSalt = new SHA256Hasher(salt);
+		SHA256Hasher hasherSalt = new SHA256Hasher();
+		hasherSalt.setSalt(salt);
 		return new Object[] {new HasherTest(hasherNoSalt), new HasherTest(hasherSalt)};
 	}
 

@@ -2,6 +2,7 @@ package controller;
 
 import java.util.Properties;
 
+import controller.tools.LoggerUtilities;
 import model.syncManager.UserSyncManagerImpl;
 import network.api.Peer;
 import network.factories.PeerFactory;
@@ -17,6 +18,7 @@ import rest.factories.RestServerFactory;
  */
 public class Application {
 	private static Application instance = null;
+	private static UserSyncManagerImpl umg;
 	private Peer peer;
 	private Authentifier auth;
 
@@ -40,13 +42,15 @@ public class Application {
 	public void runForTests(int restPort) {
 		Properties p = System.getProperties();
 		p.put("derby.system.home", "./.db-" + restPort + "/");
-		new UserSyncManagerImpl(); //just init the db
+		umg = new UserSyncManagerImpl(); //just init the db
+		umg.close();
+		umg = null;
 		try {
 			setPeer(PeerFactory.createDefaultAndStartPeerForTest());
 			setAuth(AuthentifierFactory.createDefaultAuthentifier());
 			RestServerFactory.createAndStartDefaultRestServer(restPort);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}		
 	}
 
@@ -54,6 +58,11 @@ public class Application {
 		new Application();
 		Application.getInstance().runForTests(8081);
 
+	}
+	
+	public void stop(){
+		peer.stop();
+		instance = null;
 	}
 
 	public Peer getPeer() {

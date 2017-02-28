@@ -38,6 +38,7 @@ public class JxtaNodeTest {
 
 	@BeforeClass
 	public static void setUpClass() {
+		log.debug("**************** Starting test");
 		TestUtils.removeRecursively(new File(cache));
 		node = new JxtaNode();
 		try {

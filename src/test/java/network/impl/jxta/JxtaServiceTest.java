@@ -7,17 +7,17 @@ import network.api.Messages;
 import network.api.service.InvalidServiceException;
 import network.factories.PeerFactory;
 import network.impl.jxta.JxtaService;
-import network.impl.messages.RequestItemMessageTest;
 import util.TestInputGenerator;
 import util.TestUtils;
 
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import controller.tools.LoggerUtilities;
+
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -66,10 +66,8 @@ public class JxtaServiceTest {
 	@Test
 	public void addServiceToPeer() throws InvalidServiceException{
 		exception.expect(InvalidServiceException.class);
-		exception.expectMessage("Service name is empty");	
+		exception.expectMessage("Service name is empty");
 		jxtaPeer.addService(jxtaService);
-//		//The service has not been added and we can check it with~:
-//		assertNull(jxtaService.pg);
 	}
 
 	@Test

@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.google.common.reflect.ClassPath;
 
+import controller.tools.LoggerUtilities;
 import rest.api.RestServer;
 import rest.api.ServletPath;
 import crypt.impl.certificate.X509V3Generator;
@@ -58,8 +59,7 @@ public class JettyRestServer implements RestServer{
 				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}
 
 		/*for(Class<?> c : entryPoints) {

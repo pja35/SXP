@@ -35,6 +35,7 @@ public class JxtaAdvertisementTest {
 
 	@BeforeClass
 	public static void setUpClass() {
+		log.debug("**************** Starting test");
 		TestUtils.removeRecursively(new File(cache));
 		jxtaPeer = PeerFactory.createJxtaPeer();
 		try {

@@ -5,6 +5,7 @@ import java.net.URI;
 import java.util.Collection;
 import java.util.HashMap;
 
+import controller.tools.LoggerUtilities;
 import net.jxta.exception.PeerGroupException;
 import net.jxta.platform.NetworkManager;
 import network.api.Peer;
@@ -42,7 +43,7 @@ public class JxtaPeer implements Peer{
 		try {
 			return IpChecker.getIp();
 		} catch (Exception e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}
 		return null;
 	}
@@ -67,15 +68,15 @@ public class JxtaPeer implements Peer{
 		s.setPeerGroup(node.createGroup(service.getName()));
 	}
 	
-	public static void main(String[] args) {
-		JxtaPeer peer = new JxtaPeer();
-		try {
-			peer.start(".test", 9800);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		JxtaPeer peer = new JxtaPeer();
+//		try {
+//			peer.start(".test", 9800);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			LoggerUtilities.logStackTrace(e);
+//		}
+//	}
 
 	@Override
 	public String getUri() {
@@ -92,7 +93,7 @@ public class JxtaPeer implements Peer{
 				System.out.println("server added :" + theSeed);
 				networkManager.getConfigurator().addSeedRendezvous(theSeed);
 			} catch (IOException e) {
-				e.printStackTrace();
+				LoggerUtilities.logStackTrace(e);
 			}
 		}
 		

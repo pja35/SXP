@@ -1,5 +1,6 @@
 package network.impl.jxta;
 
+import controller.tools.LoggerUtilities;
 import net.jxta.document.Advertisement;
 import net.jxta.document.Element;
 import net.jxta.document.AdvertisementFactory.Instantiator;
@@ -11,12 +12,12 @@ import net.jxta.document.AdvertisementFactory.Instantiator;
  * @author Prudhomme Julien
  *
  */
-public class AdvertisementInstaciator implements Instantiator{
+public class AdvertisementInstanciator implements Instantiator{
 	
 	private Class<? extends Advertisement> advClass;
 	private String advType;
 	
-	public AdvertisementInstaciator(Advertisement advClass) {
+	public AdvertisementInstanciator(Advertisement advClass) {
 		this.advClass = advClass.getClass();
 		this.advType = advClass.getAdvType();
 	}
@@ -31,9 +32,9 @@ public class AdvertisementInstaciator implements Instantiator{
 		try {
 			return advClass.newInstance();
 		} catch (InstantiationException e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}
 		return null;
 	}
@@ -44,7 +45,7 @@ public class AdvertisementInstaciator implements Instantiator{
 		try {
 			return advClass.getConstructor(Element.class).newInstance(root);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}
 		return null;
 	}

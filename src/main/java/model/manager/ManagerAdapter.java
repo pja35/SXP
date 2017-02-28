@@ -33,7 +33,9 @@ public class ManagerAdapter<Entity> implements Manager<Entity>{
 		r.add(em.findOneByAttribute(attribute, value));
 		l.notify(r);
 	}
-
+	
+	
+	
 	@Override
 	public boolean persist(Entity entity) {
 		return em.persist(entity);
@@ -66,6 +68,11 @@ public class ManagerAdapter<Entity> implements Manager<Entity>{
 	@Override
 	public boolean check() {
 		return em.check();
+	}
+	
+	@Override
+	public boolean close(){
+		return em.close();
 	}
 
 }

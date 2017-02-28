@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import Serpent.Serpent_BitSlice;
+import controller.tools.LoggerUtilities;
 import crypt.api.encryption.Encrypter;
 
 /**
@@ -125,7 +126,7 @@ public class SerpentEncrypter implements Encrypter<byte[]>{
 			//generate the key with Serpent
 			this.key = Serpent_BitSlice.makeKey(key);
 		} catch (InvalidKeyException e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}
 	}
 }

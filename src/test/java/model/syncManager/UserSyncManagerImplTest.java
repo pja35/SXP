@@ -28,7 +28,7 @@ import util.TestUtils;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserSyncManagerImplTest {
-	private final static Logger log = LogManager.getLogger(UserSyncManagerImpl.class);
+	private final static Logger log = LogManager.getLogger(UserSyncManagerImplTest.class);
 	
 	private static String id;
 	private static String nick = TestInputGenerator.getRandomUser(TestInputGenerator.getRandomInt(3, 65));
@@ -63,6 +63,10 @@ public class UserSyncManagerImplTest {
 		usm = SyncManagerFactory.createUserSyncManager();
 	}
 
+	@After
+	public void tearDown() throws Exception {
+		usm.close();
+	}
 	
 	public static void clean() throws Exception {
 		File db = new File(dbname);
