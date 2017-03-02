@@ -51,6 +51,12 @@ public interface SyncManager<Entity> {
 	public void persist(Entity entity);
 	
 	/**
+	 * Delete the entity with corresponding @param id in the database
+	 * @param entity
+	 */
+	public void delete(String id);
+	
+	/**
 	 * Begin the transaction
 	 */
 	public void begin();

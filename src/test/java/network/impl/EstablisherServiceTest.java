@@ -38,7 +38,7 @@ public class EstablisherServiceTest {
 		final Peer peer=Application.getInstance().getPeer();
 		
 		// Sending an advertisement (trick to get the other peer URI)
-		EstablisherAdvertisementInterface cadv = AdvertisementFactory.createsEstablisherAdvertisement();
+		EstablisherAdvertisementInterface cadv = AdvertisementFactory.createEstablisherAdvertisement();
 		cadv.setTitle("Un Contrat");
 		cadv.publish(peer);
 		

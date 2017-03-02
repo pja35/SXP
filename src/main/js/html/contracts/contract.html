@@ -1,7 +1,7 @@
-<h1>{{contract.title}}</h1>
-<p><strong>Clauses : </strong>{{contract.clauses}}</p>
-<p>Parties : {{contract.parties}}</p>
+<h1>{{title}}</h1>
+<p>Parties :<span ng-repeat="party in parties"> -{{party}}- </span></p>
+<p><strong>Clauses : <span ng-repeat="clause in clauses"> -{{clause}}- </span></strong></p>
 
-<button class="btn btn-default" type="button">Accept</button>
-<button class="btn btn-default" type="button">Modify</button>
-<button class="btn btn-default" type="button">Decline</button>
+<button class="btn btn-info" type="button">Accept</button>
+<button class="btn btn-warning" type="button">Modify</button>
+<button class="btn btn-danger" type="button">Decline</button>

@@ -10,6 +10,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
+import model.entity.ElGamalKey;
+import protocol.impl.sigma.Responses;
+
 public class JsonTools<Entity> {
 	
 	private TypeReference<Entity> type;
@@ -52,7 +55,7 @@ public class JsonTools<Entity> {
 	public String toJson(Entity entity, boolean containsMap) {
 		ObjectMapper mapper = new ObjectMapper();
 		SimpleModule simpleModule = new SimpleModule("SimpleModule");
-		simpleModule.addSerializer(new MapResponseKeySerializer());
+		simpleModule.addSerializer(new MapSerializer<Responses, ElGamalKey>());
 		mapper.registerModule(simpleModule);
 		try {
 			return mapper.writeValueAsString(entity);

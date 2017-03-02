@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import crypt.factories.ElGamalAsymKeyFactory;
 import crypt.impl.encryption.ElGamalEncrypter;
-import crypt.impl.key.ElGamalAsymKey;
 import model.entity.ElGamalKey;
 
 public class ElGamalEncrypterTest {

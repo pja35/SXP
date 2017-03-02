@@ -1,0 +1,66 @@
+<h2 ng-show="{{action === 'add'}}">Add a new contract</h2>
+<h2 ng-show="{{action === 'edit'}}">Edit a contract</h2>
+
+<form class="form-horizontal" ng-submit="submit()">
+
+	<div class="form-group">
+		<label for="title" class="col-sm-2 control-label">Title</label>
+	    <div class="col-sm-5">
+	    	<input type="hidden" id="id" ng-model="form.id">
+	    	<input type="text" class="form-control" id="title" placeholder="Un titre" ng-model="form.title">
+	    </div>
+	</div>
+	
+	<div class="form-group">
+    	<label for="parties" class="col-sm-2 control-label">Parties</label>
+   		<div class="col-sm-10 form-group">
+    
+			<div class="col-sm-12 col-md-6" ng-repeat="party in parties">
+				<party/>
+			</div>
+		
+			<div class="col-sm-5">
+				<input type="text" class="form-control" id="addParty" placeholder="" ng-model="form.addParty">
+			</div>
+		    <div class="col-sm-1">
+		    	<button type="button" class="btn btn-secondary" ng-click="updateparties()">Add party</button>
+		    </div>
+	  </div>
+	</div>
+  
+  	<div class="form-group">
+    	<label for="clauses" class="col-sm-2 control-label">Clauses</label>
+      
+      	<div class="col-sm-10 form-group">
+			<div class="col-sm-12 col-md-12" ng-repeat="clause in clauses">
+				<clause/>
+			</div>
+			<div  class="col-sm-2">
+		    	<select class="form-control" ng-model="fromparty" title="From Party">
+	    			<option ng-repeat="party in parties"><span>{{party}}</span></option>
+		    	</select>
+	    	</div>
+			<div class="col-sm-6">
+				<input type="text" class="form-control" id="addClause" placeholder=" give ... " ng-model="form.addClause">
+			</div>
+			<div  class="col-sm-2">
+		    	<select class="form-control" ng-model="forparty" title="For Party">
+	    			<option ng-repeat="party in parties"><span>{{party}}</span></option>
+		    	</select>
+	    	</div>
+	    	<div class="col-sm-2">
+	    		<button type="button" class="btn btn-secondary" ng-click="updateclauses()">Add Clause</button>
+	    	</div>
+	  	</div>
+	</div>
+  
+  
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Submit</button>
+      <button class="btn btn-warning" type="button" onclick="window.history.back()">Cancel</button>
+      <button class="btn btn-danger" type="button" ng-click="delete()" ng-show="{{action === 'edit'}}">Delete</button>
+    </div>
+  </div>
+  
+</form>

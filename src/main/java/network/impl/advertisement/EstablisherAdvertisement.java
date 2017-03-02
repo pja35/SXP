@@ -11,7 +11,7 @@ public class EstablisherAdvertisement extends AbstractAdvertisement implements E
 	@AdvertisementAttribute(indexed = true)
 	private String title;
 	
-	private String promI;
+	private String contract;
 	
 	@Override
 	public String getName() {
@@ -32,10 +32,10 @@ public class EstablisherAdvertisement extends AbstractAdvertisement implements E
 	}
 
 	public String getContract() {
-		return promI;
+		return contract;
 	}
 	
 	public void setContract(String prom) {
-		this.promI = prom;
+		this.contract = prom;
 	}
 }

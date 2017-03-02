@@ -15,7 +15,8 @@ public class EstablisherMessage extends MessagesImpl
 	
 	@MessageElement("sourceId")
 	private String sourceId;
-
+	
+	// Contains the current Uri of the peer who sent the message
 	@MessageElement("source")
 	private String sourceUri;
 	

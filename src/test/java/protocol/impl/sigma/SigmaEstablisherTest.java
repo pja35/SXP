@@ -15,7 +15,7 @@ import protocol.impl.sigma.SigmaEstablisher;
 
 public class SigmaEstablisherTest {
 	
-	public static final int N = 3;
+	public static final int N = 2;
 		
 	@Test
 	public void test(){

@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import controller.tools.MapResponseKeyDeserializer;
-import controller.tools.MapResponseKeySerializer;
+import controller.tools.MapSerializer;
 import model.entity.ElGamalKey;
 
 
@@ -43,7 +43,7 @@ public class And {
 	
 
 	@XmlElement(name="rK")
-    @JsonSerialize(using = MapResponseKeySerializer.class)
+    @JsonSerialize(using = MapSerializer.class)
     @JsonDeserialize(using = MapResponseKeyDeserializer.class)
 	public Map<Responses,ElGamalKey> rK  = new HashMap <>();
 	

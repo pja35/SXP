@@ -34,6 +34,9 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 		return m;
 	}
 	
+	/**
+	 * Method called when a message is caught in the pipe
+	 */
 	@Override
 	public void pipeMsgEvent(PipeMsgEvent event) {
 		Messages message = toMessages(event.getMessage());

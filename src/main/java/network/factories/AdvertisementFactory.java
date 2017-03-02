@@ -22,7 +22,7 @@ public class AdvertisementFactory {
 		return new PeerAdvertisement();
 	}
 	
-	public static EstablisherAdvertisementInterface createsEstablisherAdvertisement() {
+	public static EstablisherAdvertisementInterface createEstablisherAdvertisement() {
 		return new EstablisherAdvertisement();
 	}
 }

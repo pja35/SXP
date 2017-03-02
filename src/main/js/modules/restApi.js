@@ -38,7 +38,7 @@
 
 
     module.factory('Contract', function($resource) {
-        return $resource(RESTAPISERVER + '/api/contract/:id', {
+        return $resource(RESTAPISERVER + '/api/contracts/:id', {
             id: '@id'
         }, {
             update: {

@@ -24,10 +24,10 @@ import rest.api.Authentifier;
 
 public class SigmaEstablisherAdapterTest {
 	
-	public static final int N = 3;
+	public static final int N = 2;
 		
 	@Test
-	public void test(){
+	public void test(){		
 		// Starting the Application (if needed) to be able to test it
 		if (Application.getInstance()==null){
 			new Application();
@@ -50,7 +50,6 @@ public class SigmaEstablisherAdapterTest {
 			u[k].setPasswordHash(hasher.getHash(passwords[k].getBytes()));
 			u[k].setCreatedAt(new Date());
 			u[k].setKey(ElGamalAsymKeyFactory.create(false));
-			
 			SyncManager<User> em = new UserSyncManagerImpl();
 			em.begin();
 			em.persist(u[k]);
