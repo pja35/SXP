@@ -1,4 +1,4 @@
-package protocol.impl.contract;
+package protocol.impl.sigma;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -14,8 +14,9 @@ import crypt.api.signatures.Signable;
 import crypt.factories.ElGamalAsymKeyFactory;
 import crypt.impl.signatures.ElGamalSignature;
 import crypt.impl.signatures.ElGamalSigner;
+import model.api.Wish;
 import model.entity.ElGamalKey;
-import protocol.api.Wish;
+import protocol.impl.sigma.SigmaContractAdapter;
 import util.TestInputGenerator;
 
 /**
@@ -23,8 +24,8 @@ import util.TestInputGenerator;
  * @author denis.arrivault[@]univ-amu.fr
  *
  */
-public class ElGamalContractTest {
-	private final static Logger log = LogManager.getLogger(ElGamalContractTest.class);
+public class SigmaContractAdapterTest {
+	private final static Logger log = LogManager.getLogger(SigmaContractAdapterTest.class);
 	@Rule public ExpectedException exception = ExpectedException.none();
 
 	class Clauses implements Signable<ElGamalSignature> {
@@ -52,7 +53,7 @@ public class ElGamalContractTest {
 	}
 
 	private final int N = TestInputGenerator.getRandomInt(1, 20);
-	private ElGamalContract contract;
+	private SigmaContractAdapter contract;
 	private String text;
 	private Clauses clauses;
 
@@ -60,12 +61,12 @@ public class ElGamalContractTest {
 	public void instantiate(){
 		text = TestInputGenerator.getRandomIpsumText();
 		clauses = new Clauses(text);
-		contract = new ElGamalContract(clauses);
+		contract = new SigmaContractAdapter(clauses);
 	}
 
 	@Test
 	public void clausesGetterTest(){
-		ElGamalContract newContract = new ElGamalContract();
+		SigmaContractAdapter newContract = new SigmaContractAdapter();
 		newContract.setClauses(clauses);
 		assertArrayEquals(newContract.getClauses().getHashableData(), clauses.getHashableData());
 		assertArrayEquals(contract.getClauses().getHashableData(), clauses.getHashableData());
@@ -106,7 +107,7 @@ public class ElGamalContractTest {
 		}
 		assertFalse(contract.isFinalized());
 		assertFalse(contract.checkContrat(contract));
-		assertFalse(contract.checkContrat(new ElGamalContract(new Clauses(TestInputGenerator.getRandomIpsumText()))));
+		assertFalse(contract.checkContrat(new SigmaContractAdapter(new Clauses(TestInputGenerator.getRandomIpsumText()))));
 	}
 
 	@Test
@@ -123,7 +124,7 @@ public class ElGamalContractTest {
 		}
 		assertTrue(contract.isFinalized());
 		assertTrue(contract.checkContrat(contract));
-		assertFalse(contract.checkContrat(new ElGamalContract(new Clauses(TestInputGenerator.getRandomIpsumText()))));
+		assertFalse(contract.checkContrat(new SigmaContractAdapter(new Clauses(TestInputGenerator.getRandomIpsumText()))));
 	}
 
 	@Test

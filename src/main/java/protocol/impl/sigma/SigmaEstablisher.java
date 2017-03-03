@@ -17,13 +17,12 @@ import crypt.factories.EncrypterFactory;
 import crypt.factories.SignerFactory;
 import crypt.impl.signatures.ElGamalSignature;
 import crypt.impl.signatures.ElGamalSigner;
+import model.api.Status;
 import model.entity.ElGamalKey;
 import network.api.EstablisherService;
 import network.api.Messages;
 import network.api.ServiceListener;
 import protocol.api.EstablisherListener;
-import protocol.api.Status;
-import protocol.impl.contract.ElGamalContract;
 
 
 /**
@@ -37,9 +36,8 @@ import protocol.impl.contract.ElGamalContract;
 public class SigmaEstablisher{
 	
 	public ArrayList<EstablisherListener> listeners = new ArrayList<EstablisherListener>();
-	public Status status = Status.NOWHERE;
 	
-	private ElGamalContract contract;
+	private SigmaContractAdapter contract;
 	private ElGamalSigner signer = new ElGamalSigner();
 	private HashMap<ElGamalKey, String> uris;
 	private ElGamalKey trentK;
@@ -68,7 +66,7 @@ public class SigmaEstablisher{
 	 * @param senderK
 	 * @param uri : parties matching uri
 	 */
-	public SigmaEstablisher(ElGamalContract c, ElGamalKey senderK, 
+	public SigmaEstablisher(SigmaContractAdapter c, ElGamalKey senderK, 
 						HashMap<ElGamalKey, String> uri){
 		contract = c;
 		signer.setKey(senderK);
@@ -329,7 +327,7 @@ public class SigmaEstablisher{
 		content[1] = json1.toJson(uris,false);
 		
 		// Contract
-		JsonTools<ElGamalContract> json2 = new JsonTools<>(new TypeReference<ElGamalContract>(){});
+		JsonTools<SigmaContractAdapter> json2 = new JsonTools<>(new TypeReference<SigmaContractAdapter>(){});
 		content[2] = json2.toJson(contract,false);
 		
 		// Claim(k)
@@ -367,13 +365,16 @@ public class SigmaEstablisher{
 	
 	
 	
-	public ElGamalContract getContract(){
+	public SigmaContractAdapter getContract(){
 		return contract;
 	}
 	
-	private void setStatus(Status s){
-		status = s;
+	public void setStatus(Status s){
+		contract.setStatus(s);
 		notifyListeners();
+	}
+	public Status getStatus(){
+		return contract.getStatus();
 	}
 
 	public void addListener(EstablisherListener l) {
@@ -382,7 +383,7 @@ public class SigmaEstablisher{
 	
 	public void notifyListeners() {
 		for (EstablisherListener l : listeners){
-			l.establisherEvent(this.status);
+			l.establisherEvent(this.contract.getStatus());
 		}
 	}
 	

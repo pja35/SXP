@@ -2,6 +2,7 @@ package protocol.impl.sigma;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.Test;
@@ -9,8 +10,6 @@ import org.junit.Test;
 import controller.Application;
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
-import protocol.impl.contract.ElGamalClauses;
-import protocol.impl.contract.ElGamalContract;
 
 public class SigmaEstablisherTest {
 	
@@ -28,8 +27,10 @@ public class SigmaEstablisherTest {
 		ElGamalKey[] keys = new ElGamalKey[N];
 		ElGamalKey[] keysR = new ElGamalKey[N];
 		// Creating the contracts 
-		ElGamalClauses signable1 = new ElGamalClauses("Hi");
-		ElGamalContract[] c = new ElGamalContract[N];
+		ArrayList<String> cl = new ArrayList<String>();
+		cl.add("hi");cl.add("hi2");
+		ElGamalClauses signable1 = new ElGamalClauses(cl);
+		SigmaContractAdapter[] c = new SigmaContractAdapter[N];
 		
 		// Creating the map of URIS
 		String uri = Application.getInstance().getPeer().getUri();
@@ -49,7 +50,7 @@ public class SigmaEstablisherTest {
 		}
 		
 		for (int k=0; k<N; k++){
-			c[k] = new ElGamalContract();
+			c[k] = new SigmaContractAdapter();
 			c[k].setClauses(signable1);
 			for (int i=0; i<N; i++){
 				c[k].addParty(keysR[i]);
@@ -79,7 +80,6 @@ public class SigmaEstablisherTest {
 
 		boolean res = true;
 		for (int k=0; k<N; k++){
-			System.out.println(k + " : " +c[k].isFinalized()); 
 			res =  res && c[k].isFinalized();
 		}
 		

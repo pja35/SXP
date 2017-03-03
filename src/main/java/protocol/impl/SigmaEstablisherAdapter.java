@@ -3,23 +3,23 @@ package protocol.impl;
 import java.util.HashMap;
 
 import controller.Application;
+import model.api.Status;
 import model.api.UserSyncManager;
+import model.api.Wish;
 import model.entity.ElGamalKey;
 import model.entity.User;
 import model.syncManager.UserSyncManagerImpl;
-import protocol.api.Contract;
+import protocol.api.EstablisherContract;
 import protocol.api.Establisher;
 import protocol.api.EstablisherListener;
-import protocol.api.Status;
-import protocol.api.Wish;
-import protocol.impl.contract.ElGamalContract;
+import protocol.impl.sigma.SigmaContractAdapter;
 import protocol.impl.sigma.SigmaEstablisher;
 import rest.api.Authentifier;
 
 public class SigmaEstablisherAdapter implements Establisher {
 
 	private SigmaEstablisher establisher;
-	private ElGamalContract contract;
+	private SigmaContractAdapter contract;
 	private HashMap<ElGamalKey, String> uris;
 	private ElGamalKey key;
 	
@@ -42,8 +42,8 @@ public class SigmaEstablisherAdapter implements Establisher {
 	 * Initialize the contract with
 	 */
 	@Override
-	public void initialize(Contract<?, ?, ?, ?> c) {
-		contract = (ElGamalContract) c;
+	public void initialize(EstablisherContract<?, ?, ?, ?> c) {
+		contract = (SigmaContractAdapter) c;
 		
 		establisher = new SigmaEstablisher(contract, key, uris);
 	}
@@ -60,7 +60,7 @@ public class SigmaEstablisherAdapter implements Establisher {
 	 * @return contract being signed 
 	 */
 	@Override
-	public Contract<?, ?, ?, ?> getContract() {
+	public EstablisherContract<?, ?, ?, ?> getContract() {
 		this.contract = establisher.getContract();
 		return contract;
 	}
@@ -91,7 +91,7 @@ public class SigmaEstablisherAdapter implements Establisher {
 	 */
 	@Override
 	public Status getStatus() {
-		return establisher.status;
+		return establisher.getStatus();
 	}
 
 	/**

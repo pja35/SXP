@@ -1,7 +1,7 @@
 package model.validator;
 
-import model.entity.Contract;
+import model.entity.ContractEntity;
 
-public class ContractValidator extends EntityValidator<Contract> {
+public class ContractValidator extends EntityValidator<ContractEntity> {
 
 }

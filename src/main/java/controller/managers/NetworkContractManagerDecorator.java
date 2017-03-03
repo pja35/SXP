@@ -9,7 +9,7 @@ import controller.tools.JsonTools;
 import model.api.Manager;
 import model.api.ManagerDecorator;
 import model.api.ManagerListener;
-import model.entity.Contract;
+import model.entity.ContractEntity;
 import model.syncManager.ContractSyncManagerImpl;
 import network.api.EstablisherService;
 import network.api.Messages;
@@ -20,7 +20,7 @@ import network.api.advertisement.EstablisherAdvertisementInterface;
 import network.api.service.Service;
 import network.factories.AdvertisementFactory;
 
-public class NetworkContractManagerDecorator extends ManagerDecorator<Contract> {
+public class NetworkContractManagerDecorator extends ManagerDecorator<ContractEntity> {
 	private Peer peer;
 	private String who;
 	
@@ -30,20 +30,20 @@ public class NetworkContractManagerDecorator extends ManagerDecorator<Contract> 
 	 * @param peer Peer instance, started
 	 * @param who who own this instance
 	 */
-	public NetworkContractManagerDecorator(Manager<Contract> em, Peer peer, String who) {
+	public NetworkContractManagerDecorator(Manager<ContractEntity> em, Peer peer, String who) {
 		super(em);
 		this.peer = peer;
 		this.who = who;
 	}
 
 	@Override
-	public void findOneById(final String id, final ManagerListener<Contract> l) {
+	public void findOneById(final String id, final ManagerListener<ContractEntity> l) {
 		super.findOneById(id, l);
 		//TODO
 	}
 
 	@Override
-	public void findAllByAttribute(String attribute, final String value, final ManagerListener<Contract> l) {
+	public void findAllByAttribute(String attribute, final String value, final ManagerListener<ContractEntity> l) {
 		super.findAllByAttribute(attribute, value, l);
 		final EstablisherService establisher = (EstablisherService) peer.getService(EstablisherService.NAME);
 		Service service = peer.getService(EstablisherService.NAME);
@@ -53,11 +53,11 @@ public class NetworkContractManagerDecorator extends ManagerDecorator<Contract> 
 			
 			@Override
 			public void notify(Messages messages) {
-				JsonTools<ArrayList<Contract>> json = new JsonTools<>(new TypeReference<ArrayList<Contract>>(){});
-				ArrayList<Contract> contracts = json.toEntity(messages.getMessage("contract"));
+				JsonTools<ArrayList<ContractEntity>> json = new JsonTools<>(new TypeReference<ArrayList<ContractEntity>>(){});
+				ArrayList<ContractEntity> contracts = json.toEntity(messages.getMessage("contract"));
 				System.out.println("contract found !");
 				System.out.println(messages.getMessage("contract"));
-				for(Contract c : contracts) {
+				for(ContractEntity c : contracts) {
 					System.out.println(c.getId());
 				}
 				l.notify(json.toEntity(messages.getMessage("contract")));
@@ -73,8 +73,8 @@ public class NetworkContractManagerDecorator extends ManagerDecorator<Contract> 
 					uids.add(i.getSourceURI());
 				}
 				ContractSyncManagerImpl co = new ContractSyncManagerImpl();
-				Collection<Contract> c = co.findAllByAttribute("id", value);
-				JsonTools<Collection<Contract>> json = new JsonTools<>(new TypeReference<Collection<Contract>>(){});
+				Collection<ContractEntity> c = co.findAllByAttribute("id", value);
+				JsonTools<Collection<ContractEntity>> json = new JsonTools<>(new TypeReference<Collection<ContractEntity>>(){});
 				establisher.sendContract(value, who == null ? "test":who, "",json.toJson(c) , uids.toArray(new String[1]));
 			}
 			
@@ -82,13 +82,13 @@ public class NetworkContractManagerDecorator extends ManagerDecorator<Contract> 
 	}
 
 	@Override
-	public void findOneByAttribute(String attribute, String value, ManagerListener<Contract> l) {
+	public void findOneByAttribute(String attribute, String value, ManagerListener<ContractEntity> l) {
 		super.findOneByAttribute(attribute, value, l);
 		//TODO
 	}
 
 	@Override
-	public boolean persist(Contract entity) {
+	public boolean persist(ContractEntity entity) {
 		boolean b = super.persist(entity);
 		EstablisherAdvertisementInterface iadv = AdvertisementFactory.createEstablisherAdvertisement();
 		iadv.setTitle(entity.getId());

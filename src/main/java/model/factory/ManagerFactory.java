@@ -5,7 +5,7 @@ import controller.managers.NetworkItemManagerDecorator;
 import controller.managers.ResilienceContractManagerDecorator;
 import controller.managers.ResilienceItemManagerDecorator;
 import model.api.Manager;
-import model.entity.Contract;
+import model.entity.ContractEntity;
 import model.entity.Item;
 import model.manager.ManagerAdapter;
 import model.syncManager.ContractSyncManagerImpl;
@@ -19,8 +19,8 @@ public class ManagerFactory {
 		ResilienceItemManagerDecorator resiNetworkD = new ResilienceItemManagerDecorator(networkD, peer);
 		return resiNetworkD;
 	}
-	public static Manager<Contract> createNetworkResilianceContractManager(Peer peer, String who) {
-		ManagerAdapter<Contract> adapter = new ManagerAdapter<Contract>(new ContractSyncManagerImpl());
+	public static Manager<ContractEntity> createNetworkResilianceContractManager(Peer peer, String who) {
+		ManagerAdapter<ContractEntity> adapter = new ManagerAdapter<ContractEntity>(new ContractSyncManagerImpl());
 		NetworkContractManagerDecorator networkD = new NetworkContractManagerDecorator (adapter, peer, who);
 		ResilienceContractManagerDecorator resiNetworkD = new ResilienceContractManagerDecorator(networkD, peer);
 		return resiNetworkD;

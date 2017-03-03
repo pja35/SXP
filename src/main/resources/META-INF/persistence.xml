@@ -6,7 +6,7 @@
   	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 	<class>model.entity.Item</class>
     	<class>model.entity.User</class>
-	<class>model.entity.Contract</class>
+	<class>model.entity.ContractEntity</class>
         <class>model.entity.Message</class>
  	<properties>
  		<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />

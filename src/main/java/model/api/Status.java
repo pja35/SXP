@@ -1,4 +1,4 @@
-package protocol.api;
+package model.api;
 
 public enum Status {
 	NOWHERE,

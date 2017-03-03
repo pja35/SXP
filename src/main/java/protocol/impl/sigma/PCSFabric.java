@@ -7,7 +7,7 @@ import crypt.api.signatures.Signer;
 import crypt.factories.SignerFactory;
 import crypt.impl.signatures.ElGamalSignature;
 import model.entity.ElGamalKey;
-import protocol.api.Contract;
+import protocol.api.EstablisherContract;
 
 /**
  * 
@@ -124,14 +124,14 @@ public class PCSFabric {
 		}
 	
 	// Send the signature in clear (end of protocol)
-	public ElGamalSignature getClearSignature(Contract<?,?,?,?> contract){
+	public ElGamalSignature getClearSignature(EstablisherContract<?,?,?,?> contract){
 		Signer<ElGamalSignature,ElGamalKey> sig = SignerFactory.createElGamalSigner(); 
 		sig.setKey(sender.getKeys());
 		return sig.sign(contract.getClauses().getHashableData());
 	}
 	
 	// Check if the clear signature is ok (end of protocol)
-	public boolean verifySignature(ElGamalSignature signature, Contract<?,?,?,?> contract, ElGamalKey key){
+	public boolean verifySignature(ElGamalSignature signature, EstablisherContract<?,?,?,?> contract, ElGamalKey key){
 		if (signature == null ){return false;}
 		Signer<ElGamalSignature,ElGamalKey> sig = SignerFactory.createElGamalSigner(); 
 		sig.setKey(key);

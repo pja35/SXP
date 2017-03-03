@@ -18,9 +18,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
 import model.api.Manager;
+import model.api.Status;
 import model.api.SyncManager;
 import model.api.UserSyncManager;
-import model.entity.Contract;
+import model.api.Wish;
+import model.entity.ContractEntity;
 import model.entity.User;
 import model.factory.ManagerFactory;
 import model.syncManager.ContractSyncManagerImpl;
@@ -36,22 +38,25 @@ public class Contracts {
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String add(Contract contract, @HeaderParam(Authentifier.PARAM_NAME) String token) {
+	public String add(ContractEntity contract, @HeaderParam(Authentifier.PARAM_NAME) String token) {
 		Authentifier auth = Application.getInstance().getAuth();
 		UserSyncManager users = new UserSyncManagerImpl();
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
-		Manager<Contract> em = ManagerFactory.createNetworkResilianceContractManager(Application.getInstance().getPeer(), token);
+		Manager<ContractEntity> em = ManagerFactory.createNetworkResilianceContractManager(Application.getInstance().getPeer(), token);
 		
 		em.begin();
 		//TODO VALIDATION
-		System.out.println(contract.getTitle());
+		if (contract.getTitle() == "")
+			contract.setTitle("Secure Exchange Protocol Contract");
 		contract.setCreatedAt(new Date());
 		contract.setUserid(currentUser.getId());
-		contract.setSigned(false);
+		contract.setWish(Wish.NEUTRAL);
+		contract.setStatus(Status.NOWHERE);
+		contract.setSignatures(null);
 		em.persist(contract);
 		em.end();
 		
-		JsonTools<Contract> json = new JsonTools<>(new TypeReference<Contract>(){});
+		JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
 		return json.toJson(contract);
 	}
 	
@@ -59,8 +64,8 @@ public class Contracts {
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getId(@PathParam("id")String id) {
-		SyncManager<Contract> em = new ContractSyncManagerImpl();
-		JsonTools<Contract> json = new JsonTools<>(new TypeReference<Contract>(){});
+		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
+		JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
 		return json.toJson(em.findOneById(id));
 	}
 
@@ -71,8 +76,8 @@ public class Contracts {
 		Authentifier auth = Application.getInstance().getAuth();
 		UserSyncManager users = new UserSyncManagerImpl();
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
-		SyncManager<Contract> em = new ContractSyncManagerImpl();
-		JsonTools<Collection<Contract>> json = new JsonTools<>(new TypeReference<Collection<Contract>>(){});
+		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
+		JsonTools<Collection<ContractEntity>> json = new JsonTools<>(new TypeReference<Collection<ContractEntity>>(){});
 		return json.toJson(em.findAllByAttribute("userid", currentUser.getId()));
 	}
 
@@ -80,15 +85,15 @@ public class Contracts {
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String edit(Contract c) {
-		SyncManager<Contract> em = new ContractSyncManagerImpl();
+	public String edit(ContractEntity c) {
+		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
 		em.begin();
-		Contract contract = em.findOneById(c.getId());
+		ContractEntity contract = em.findOneById(c.getId());
 		contract.setClauses(c.getClauses());
 		contract.setParties(c.getParties());
 		contract.setTitle(c.getTitle());
 		em.end();
-		JsonTools<Contract> json = new JsonTools<>(new TypeReference<Contract>(){});
+		JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
 		return json.toJson(contract);
 	}
 	
@@ -103,9 +108,9 @@ public class Contracts {
 	if (currentUser == null)
 		return "{\"deleted\": \"false\"}";
 	
-	SyncManager<Contract> em = new ContractSyncManagerImpl();
+	SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
 	boolean ret = em.begin();
-	Contract it = em.findOneById(id);
+	ContractEntity it = em.findOneById(id);
 	if (it.getUserid() != currentUser.getId()){
 		em.end();
 		em.close();

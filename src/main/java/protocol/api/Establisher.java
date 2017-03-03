@@ -1,11 +1,14 @@
 package protocol.api;
 
+import model.api.Status;
+import model.api.Wish;
+
 public interface Establisher {
 	/**
 	 * Initialize the establisher with a contract
 	 * @param c
 	 */
-	public void initialize(Contract<?,?,?,?> c);
+	public void initialize(EstablisherContract<?,?,?,?> c);
 	
 	/**
 	 * Start establisher signature protocol
@@ -16,7 +19,7 @@ public interface Establisher {
 	 * Get the contract to be signed
 	 * @return
 	 */
-	public Contract<?,?,?,?> getContract();
+	public EstablisherContract<?,?,?,?> getContract();
 	
 	/**
 	 * Set the current wish of the owner of this establisher

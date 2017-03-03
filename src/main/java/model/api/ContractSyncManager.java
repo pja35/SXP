@@ -1,7 +1,7 @@
 package model.api;
 
-import model.entity.Contract;
+import model.entity.ContractEntity;
 
-public interface ContractSyncManager extends SyncManager<Contract> {
+public interface ContractSyncManager extends SyncManager<ContractEntity> {
 
 }

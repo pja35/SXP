@@ -2,12 +2,12 @@ package controller.managers;
 
 import model.api.Manager;
 import model.api.ManagerDecorator;
-import model.entity.Contract;
+import model.entity.ContractEntity;
 import network.api.Peer;
 
-public class ResilienceContractManagerDecorator extends ManagerDecorator<Contract> {
+public class ResilienceContractManagerDecorator extends ManagerDecorator<ContractEntity> {
 
-	public ResilienceContractManagerDecorator(Manager<Contract> em, Peer peer) {
+	public ResilienceContractManagerDecorator(Manager<ContractEntity> em, Peer peer) {
 		super(em);
 	}
 }
