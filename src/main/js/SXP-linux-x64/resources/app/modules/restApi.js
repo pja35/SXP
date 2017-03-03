@@ -37,4 +37,15 @@
     });
 
 
+    module.factory('Contract', function($resource) {
+        return $resource(RESTAPISERVER + '/api/contracts/:id', {
+            id: '@id'
+        }, {
+            update: {
+                method: 'PUT'
+            }
+        });
+    });
+
+
 })();

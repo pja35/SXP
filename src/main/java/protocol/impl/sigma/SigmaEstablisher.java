@@ -44,12 +44,18 @@ public class SigmaEstablisher{
 	private HashMap<ElGamalKey, String> uris;
 	private ElGamalKey trentK;
 	
+	// Identifier for the contract (make sure we sign the same)
 	private String contractId;
+	// Clauses that will be signed during the contract
+	private String contractClauses;
+	// Key of the parties (contract.getParties())
 	private ArrayList<ElGamalKey> keys;
 	private BigInteger senPubK;
 	private int N;
 	private final EstablisherService establisherService =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
+	// Know which parties are ready to sign
 	private String[] ready;
+	// Store the different rounds of the signing protocol
 	private Or[][] pcs;
 	private int round = 0;
 	
@@ -77,9 +83,8 @@ public class SigmaEstablisher{
 	 * Setup the starting protocol listener 
 	 */
 	private void setup(){
-		// A hash of the clauses : should be unique (same clauses = same contract)
-		// TODO : check if "contract.getHashableData()" could work
-		contractId = new String(contract.getClauses().getHashableData());
+		contractId = new String(contract.getHashableData());
+		contractClauses = new String(contract.getClauses().getHashableData());
 		// The El Gamal keys of all parties 
 		keys = contract.getParties();
 		senPubK = signer.getKey().getPublicKey();
@@ -228,7 +233,7 @@ public class SigmaEstablisher{
 			
 			// Otherwise send round k
 			}else {
-				Or p = pcsfs[k].createPcs((contractId+(round)).getBytes());
+				Or p = pcsfs[k].createPcs((contractClauses+(round)).getBytes());
 				content=encryptMsg(getJson(p), key);
 				if (isSender){
 					pcs[round][k] = p;
@@ -296,7 +301,7 @@ public class SigmaEstablisher{
 			// Otherwise, test if it is the correct PCS, if so : store it
 			}else {
 				String msg = decryptMsg(content, signer.getKey());
-				if (pcsfs[i].PCSVerifies(getPrivateCS(msg),(contractId + k).getBytes())) {
+				if (pcsfs[i].PCSVerifies(getPrivateCS(msg),(contractClauses + k).getBytes())) {
 					pcs[k][i]=getPrivateCS(msg);
 				}
 			}

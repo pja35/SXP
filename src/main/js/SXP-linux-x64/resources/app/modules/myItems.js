@@ -78,7 +78,7 @@ module.controller('editItem', function($scope, $stateParams, Item, $state) {
   };
 
   $scope.delete = function() {
-    //TODO: is there a button for that?
+    //TODO: Really delete item
     item.$delete(function() {
       $state.go('myItemsView');
     });

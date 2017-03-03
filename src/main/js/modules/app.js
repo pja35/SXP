@@ -48,8 +48,8 @@ RESTAPISERVER = 'http://localhost:8081';
             self.contextId = id;
         }
         this.getContextId = function() {
-                return self.contextId;
-            }
+            return self.contextId;
+        }
             //GUI togglers
         this.toggleMenu = function() {
             $("#wrapper").toggleClass("toggled");
