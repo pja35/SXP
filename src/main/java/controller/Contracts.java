@@ -12,9 +12,11 @@ import model.api.Manager;
 import model.api.SyncManager;
 import model.api.UserSyncManager;
 import model.entity.Contract;
+import model.entity.Item;
 import model.entity.User;
 import model.factory.ManagerFactory;
 import model.syncManager.ContractSyncManagerImpl;
+import model.syncManager.ItemSyncManagerImpl;
 import model.syncManager.UserSyncManagerImpl;
 
 import java.util.Collection;
@@ -96,11 +98,22 @@ public class Contracts {
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String delete(@PathParam("id")String id) {
-		SyncManager<Contract> em = new ContractSyncManagerImpl();
-		em.begin();
-		em.delete(id);
+	public String delete(@PathParam("id")String id, @HeaderParam(Authentifier.PARAM_NAME) String token) {
+	Authentifier auth = Application.getInstance().getAuth();
+	UserSyncManager users = new UserSyncManagerImpl();
+	User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
+	users.close();
+	if (currentUser == null)
+		return "{\"deleted\": \"false\"}";
+	
+	SyncManager<Contract> em = new ContractSyncManagerImpl();
+	boolean ret = em.begin();
+	Contract it = em.findOneById(id);
+	if (it.getUserid() != currentUser.getId()){
 		em.end();
-		return null;
+		em.close();
+		return "{\"deleted\": \"false\"}";
+	}
+	return "{\"deleted\": \"" + (ret && em.remove(it) && em.end() && em.close()) + "\"}";
 	}
 }

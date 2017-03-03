@@ -88,20 +88,21 @@ public class NetworkContractManagerDecorator extends ManagerDecorator<Contract> 
 	}
 
 	@Override
-	public void persist(Contract entity) {
-		super.persist(entity);
+	public boolean persist(Contract entity) {
+		boolean b = super.persist(entity);
 		EstablisherAdvertisementInterface iadv = AdvertisementFactory.createEstablisherAdvertisement();
 		iadv.setTitle(entity.getId());
 		iadv.publish(peer);
+		return b;
 	}
 
 	@Override
-	public void begin() {
-		super.begin();
+	public boolean begin() {
+		return super.begin();
 	}
 
 	@Override
-	public void end() {
-		super.end();
+	public boolean end() {
+		return super.end();
 	}
 }

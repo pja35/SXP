@@ -101,6 +101,7 @@
     
     
     module.controller('addContract', function($scope, Contract, $state){
+    	
     	$scope.app.configHeader({back: true, title: 'Add contracts'});
     	$scope.action = 'add';
     	

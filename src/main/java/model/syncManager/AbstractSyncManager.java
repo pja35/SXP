@@ -181,15 +181,4 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 			return false;
 		}
 	}
-	
-	@Override
-	public void delete(String value){
-		Query q = em.createQuery("delete from " + theClass.getSimpleName() + " where id =:value");
-		q.setParameter("value", value);
-		try {
-			q.executeUpdate();
-		} catch(Exception e) {
-			System.out.println("--- SUPPRESSION ECHEC ----" + e);
-		}
-	}
 }

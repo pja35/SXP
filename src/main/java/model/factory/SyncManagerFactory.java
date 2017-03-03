@@ -18,6 +18,7 @@ public class SyncManagerFactory {
 	}
 	public static ContractSyncManager createContractSyncManager() {
 		return new ContractSyncManagerImpl();
+	}
 	public static MessageSyncManager createMessageSyncManager() {
 		return new MessageSyncManagerImpl();
 	}

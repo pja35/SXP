@@ -52,12 +52,6 @@ public interface SyncManager<Entity> {
 	 * @return true if done
 	 */
 	public boolean persist(Entity entity);
-
-	/**
-	 * Delete the entity with corresponding @param id in the database
-	 * @param entity
-	 */
-	public void delete(String id);
 	
 	/**
 	 * Begin the transaction

@@ -97,13 +97,8 @@
       });
     };
  });
-
-<<<<<<< HEAD
-  $scope.delete = function() {
-    //TODO: Really delete item
-    item.$delete(function() {
-      $state.go('myItemsView');
-=======
+ 
+ 
  // 'View item' state controller function
  module.controller('viewItem', function($rootScope, $scope, $stateParams, $state, Item) {
  	isUserConnected($rootScope, $scope, $state);
@@ -111,7 +106,6 @@
     var item = Item.get({id: $stateParams.id}, function() {
       //Just load the item and display it via the bindings with items.html
       $scope.item = item;
->>>>>>> 707dfd521f7181140d15460e8c814d45353affae
     });
  });
 
