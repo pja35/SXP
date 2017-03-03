@@ -2,6 +2,8 @@ package network.api;
 
 import java.io.IOException;
 
+import net.jxta.exception.PeerGroupException;
+
 /**
  * Network Node interface. Handle P2P server.
  * @author Julien Prudhomme
@@ -27,8 +29,10 @@ public interface Node {
 	 * Start the P2P server.
 	 * @param port the listening port.
 	 * @throws RuntimeException the init method was not called before starting server
+	 * @throws PeerGroupException : Peer group failed to initialized
+	 * @throws IOException : cacheFolder read/write error.
 	 */
-	public void start(int port) throws RuntimeException;
+	public void start(int port) throws RuntimeException, IOException, PeerGroupException;
 	
 	/**
 	 * Return true if the server is succesfully started

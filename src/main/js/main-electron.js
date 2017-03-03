@@ -13,11 +13,12 @@ let win;
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({ width: 800, height: 600, 'node-integration': false, title: 'SXP network', frame: true});
-
+  
   // and load the index.html of the app.
   win.loadURL(`file://${__dirname}/html/index.html`);
-
-
+  
+  //Open dev tools
+  //win.openDevTools();
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -49,6 +50,21 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
+  var nodeConsole = require('console');
+  var myConsole = new nodeConsole.Console(process.stdout, process.stderr);
+  myConsole.log('Certificate-error caught.');
+  if (url.startsWith('https://localhost')) {
+    myConsole.log("Certificate-error management.")
+    // Verification logic.
+    event.preventDefault()
+    callback(true)
+  } else {
+    callback(false)
+  }
+});
+
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

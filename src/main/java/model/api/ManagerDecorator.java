@@ -1,5 +1,9 @@
 package model.api;
 
+import java.util.Collection;
+
+import model.entity.Item;
+
 /**
  * Entities manager. Handle local and distant storage, search.
  * @author Julien Prudhomme
@@ -9,11 +13,11 @@ package model.api;
 public abstract class ManagerDecorator<Entity> implements Manager<Entity>{
 
 	private Manager<Entity> em;
-	
+
 	public ManagerDecorator(Manager<Entity> em) {
 		this.em = em;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -21,7 +25,7 @@ public abstract class ManagerDecorator<Entity> implements Manager<Entity>{
 	public void findOneById(String id, ManagerListener<Entity> l) {
 		em.findOneById(id, l);
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -42,24 +46,66 @@ public abstract class ManagerDecorator<Entity> implements Manager<Entity>{
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void persist(Entity entity) {
-		em.persist(entity);
+	public boolean persist(Entity entity) {
+		return em.persist(entity);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void begin() {
-		em.begin();
+	public boolean begin() {
+		return em.begin();
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void end() {
-		em.end();
+	public boolean end() {
+		return em.end();
 	}
+
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean remove(Entity entity){
+		return em.remove(entity);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Collection<Entity> watchlist(){
+		return em.watchlist();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean contains(Entity entity){
+		return em.contains(entity);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean check(){
+		return em.check();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean close() {
+		return em.close();
+	}
+
 
 }

@@ -3,6 +3,7 @@ package crypt.impl.hashs;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import controller.tools.LoggerUtilities;
 import crypt.base.AbstractHasher;
 
 /**
@@ -19,14 +20,6 @@ public class SHA256Hasher extends AbstractHasher {
 		super();
 	}
 	
-	/**
-	 * Create a new SHA256Hasher instance that will hash with {@code SHA-256} and the provided {@code salt}
-	 * @param salt The salt that will be used for hashing
-	 */
-	public SHA256Hasher(byte[] salt) {
-		super(salt);
-	}
-	
 	@Override
 	public byte[] getHash(byte[] message) {
 		MessageDigest md = null;
@@ -40,7 +33,7 @@ public class SHA256Hasher extends AbstractHasher {
 			}
 			return md.digest(message);
 		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 			//SHA-256 algorithm doesn't exist on this machine
 			return null;
 		}

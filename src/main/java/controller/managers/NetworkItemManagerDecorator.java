@@ -110,23 +110,38 @@ public class NetworkItemManagerDecorator extends ManagerDecorator<Item>{
 		super.findOneByAttribute(attribute, value, l);
 		//TODO
 	}
-
+	
 	@Override
-	public void persist(Item entity) {
-		super.persist(entity);
+	public boolean persist(Item entity) {
+		if (super.persist(entity)){
 		ItemAdvertisementInterface iadv = AdvertisementFactory.createItemAdvertisement();
 		iadv.setTitle(entity.getTitle());
 		iadv.publish(peer);
+		return true;
+		}
+		return false;
 	}
 
 	@Override
-	public void begin() {
-		super.begin();
+	public boolean begin() {
+		return super.begin();
 	}
 
 	@Override
-	public void end() {
-		super.end();
+	public boolean end() {
+		return super.end();
 	}
+	
+	@Override
+	public boolean check(){
+		return super.check();
+	}
+	
+	@Override
+	public boolean close(){
+		return super.close();
+	}
+
+
 	
 }

@@ -1,13 +1,14 @@
-<h2>Write a new message. TO BE DONE.</h2>
-
-<form class="form-group">
+<h2>New Message</h2>
+<div class="alert alert-danger ng-clignotement" role="alert" ng-show="errorUsername">Invalid login</div>
+<div class="alert alert-danger ng-clignotement" role="alert" ng-show="errorFields">Fields required</div>
+<form class="form-group" ng-submit="submit()">
     <div class="input-group">
         <span class="input-group-addon" id="basic-addon">@</span>
-        <input type="text" class="form-control" placeholder="type a username" ng-model="user" aria-describedby="basic-addon">
+        <input type="text" class="form-control" placeholder="type a username" ng-model="receiverName" aria-describedby="basic-addon">
     </div>
     <div class="form-group">
         <br>
-        <textarea class="form-control" rows="3">Hi {{user}}, my name is Exemple, do you want to trade with me ?</textarea>
+        <textarea class="form-control" rows="3" placeholder="type your message" ng-model="messageContent"></textarea>
     </div>
     <button type="submit" class="btn btn-default">Submit</button>
     <button type="submit" class="btn btn-warning" onclick="window.history.back();">Cancel</button>

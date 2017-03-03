@@ -10,11 +10,8 @@
             .state('search', {
                 url: '/search',
                 templateUrl: 'search.html',
-                controller: function($scope, $http, Oboe) {
-                    //TODO: use configHeader for some of that
-                    $scope.app.setBackUrl(null);
-                    $scope.app.setTitle('Search');
-                    $scope.app.setContextButton(null);
+                controller: function($rootScope, $scope, $http, $state, Oboe) {
+                    $scope.app.configHeader({title: 'Search'});
 
                     $scope.results = []; //The currently received and displaid results
                     $scope.stream = null; //The stream of async results
@@ -29,6 +26,8 @@
 
                     $scope.search = function() { //The function that launches the search
                         $scope.results = [];
+                        $scope.errorSearch = false;
+                        $scope.searchItem = true;
                         if ($scope.stream != null) { //Abort currently running search
                             $scope.stream.abort();
                         }
@@ -55,12 +54,21 @@
                                 for (var i = 0; i < node.length; i++) { // push it to results
                                     console.log(node[i]);
                                     $scope.pushResult(node[i]);
+                                    $scope.searchItem = false;
                                 }
 
                             }
+                            
+                            console.log($scope.results.length);
+                            if($scope.results.length == 0)
+                            	$scope.errorSearch = true;
+                            else
+                            	$scope.errorSearch = false;
+                            	
                             if ($scope.results.length === 1000 || node == null || node.length == 0) { //Abort the search when too many matches, or none left
                                 $scope.stream.abort();
                                 $scope.stream = null;
+                                $scope.searchItem = false;
                             }
                         });
 
@@ -72,6 +80,18 @@
                     }
 
                 }
-            });
+            })
+            
+            .state('searchViewItem', {
+			  url: '/search/view/:id',
+			  templateUrl: 'items/item.html',
+			  controller: function($rootScope,$scope, $state, $stateParams, Item) {
+				  var item = Item.get({id: $stateParams.id}, function() {
+				    $scope.app.configHeader({back: true, title: 'Search : '+item.title, contextButton: 'null', contextId: $stateParams.id});
+					//Just load the item and display it via the bindings with items.html
+					$scope.item = item;
+				  });
+				}
+			});
     });
 })();

@@ -1,5 +1,6 @@
 package rest.factories;
 
+import controller.tools.LoggerUtilities;
 import rest.api.RestServer;
 import rest.impl.JettyRestServer;
 
@@ -38,7 +39,7 @@ public class RestServerFactory {
 				try {
 					serv.start(port);
 				} catch (Exception e) {
-					e.printStackTrace();
+					LoggerUtilities.logStackTrace(e);
 				} finally {
 					serv.stop();
 				}

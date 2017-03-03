@@ -27,7 +27,7 @@ public class JsonTools<Entity> {
 		try {
 			return mapper.writeValueAsString(entity);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}
 		return "error";
 	}
@@ -38,7 +38,7 @@ public class JsonTools<Entity> {
 		try {
 			return (Entity) mapper.readValue(json, type);
 		} catch (IOException e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 			return null;
 		}
 	}

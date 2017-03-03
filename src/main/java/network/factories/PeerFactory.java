@@ -5,11 +5,14 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import controller.tools.LoggerUtilities;
 import net.jxta.document.AdvertisementFactory;
+import net.jxta.exception.PeerGroupException;
 import network.api.Peer;
+import network.api.service.InvalidServiceException;
 import network.api.service.Service;
 import network.impl.jxta.AdvertisementBridge;
-import network.impl.jxta.AdvertisementInstaciator;
+import network.impl.jxta.AdvertisementInstanciator;
 import network.impl.jxta.JxtaItemService;
 import network.impl.jxta.JxtaItemsSenderService;
 import network.impl.jxta.JxtaEstablisherService;
@@ -37,10 +40,15 @@ public class PeerFactory {
 	public static Peer createDefaultAndStartPeer() {
 		Peer p = createAndStartPeer("jxta", ".peercache", 9578);
 		Service itemService = new JxtaItemService();
-		itemService.initAndStart(p);
-
 		Service establisherService = new JxtaEstablisherService();
-		establisherService.initAndStart(p);
+		
+		try {
+			itemService.initAndStart(p);
+			establisherService.initAndStart(p);
+		} catch (InvalidServiceException e) {
+			// TODO manage the exception
+			LoggerUtilities.logStackTrace(e);
+		}
 		return p;
 	}
 	
@@ -52,14 +60,16 @@ public class PeerFactory {
 		System.out.println("jxta will run on port " + port);
 		Peer p = createAndStartPeer("jxta", cache, port);
 		
-		Service itemService = new JxtaItemService();
-		itemService.initAndStart(p);
-		
-		Service itemsSender = new JxtaItemsSenderService();
-		itemsSender.initAndStart(p);
-
-		Service establisherService = new JxtaEstablisherService();
-		establisherService.initAndStart(p);
+		try {
+			Service itemService = new JxtaItemService();
+			itemService.initAndStart(p);
+			Service itemsSender = new JxtaItemsSenderService();
+			itemsSender.initAndStart(p);
+			Service establisherService = new JxtaEstablisherService();
+			establisherService.initAndStart(p);
+		} catch (InvalidServiceException e) {
+			throw new RuntimeException(e);
+		}		
 		return p;
 	}
 	
@@ -70,7 +80,7 @@ public class PeerFactory {
 	public static JxtaPeer createJxtaPeer() {
 		Logger.getLogger("net.jxta").setLevel(Level.SEVERE);
 		AdvertisementBridge i = new AdvertisementBridge();
-		AdvertisementFactory.registerAdvertisementInstance(i.getAdvType(), new AdvertisementInstaciator(i));
+		AdvertisementFactory.registerAdvertisementInstance(i.getAdvType(), new AdvertisementInstanciator(i));
 		return new JxtaPeer();
 	}
 	
@@ -78,7 +88,7 @@ public class PeerFactory {
 	 * Create, initialize, and start a {@link JxtaPeer}
 	 * @return an initialized and started {@link Peer}
 	 */
-	public static Peer createAndStartPeer(String impl, String tmpFolder, int port) {
+	public static Peer createAndStartPeer(String impl, String tmpFolder, int port){
 		Peer peer;
 		switch(impl) {
 		case "jxta": peer = createJxtaPeer(); break;
@@ -86,8 +96,8 @@ public class PeerFactory {
 		}
 		try {
 			peer.start(tmpFolder, port, "tcp://109.15.222.135:9800");
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
 		return peer;
 	}

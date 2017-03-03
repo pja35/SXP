@@ -6,6 +6,9 @@ import crypt.api.hashs.Hasher;
 import crypt.factories.HasherFactory;
 import model.api.UserSyncManager;
 import model.entity.User;
+import model.factory.ValidatorFactory;
+import model.validator.EntityValidator;
+import model.validator.ItemValidator;
 
 public class UserSyncManagerImpl extends AbstractSyncManager<User> implements UserSyncManager{
 	public UserSyncManagerImpl() {
@@ -28,5 +31,9 @@ public class UserSyncManagerImpl extends AbstractSyncManager<User> implements Us
 		}
 		return null;
 	}
-	
+
+	@Override
+	protected EntityValidator getAdaptedValidator() {
+		return ValidatorFactory.createUserValidator();
+	}
 }

@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+import controller.tools.LoggerUtilities;
+
 
 /**
  * Retrieve net public IP address
@@ -46,7 +48,7 @@ public class IpChecker {
                 try {
                     in.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LoggerUtilities.logStackTrace(e);
                 }
             }
         }

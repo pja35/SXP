@@ -29,7 +29,7 @@ public abstract class AbstractAdvertisement implements Advertisement{
 				try {
 					data.add((String) field.get(this));
 				} catch (IllegalArgumentException | IllegalAccessException e) {
-					e.printStackTrace();
+					LoggerUtilities.logStackTrace(e);
 				}
 			}
 			field.setAccessible(false);

@@ -59,7 +59,7 @@ public class ElGamalKey implements AsymKey<BigInteger>, Serializable{
 		switch(param) {
 		case "p": return p;
 		case "g": return g;
-		default: throw new RuntimeException("param " + param + "undefined");
+		default: throw new RuntimeException("param " + param + " undefined");
 		}
 	}
 	@Override

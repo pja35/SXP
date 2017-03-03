@@ -26,7 +26,7 @@
             });
     });
 
-    module.controller('login', function($scope, $state, $http) {
+    module.controller('login', function($rootScope, $scope, $state, $http) {
         //$http is to access the http services, to make GET requests.
         $scope.app.configHeader({
             title: "Login"
@@ -36,37 +36,49 @@
 
         $scope.submit = function() {
             //gets called by login.html upon submit
+            $scope.errorLogin = false;
+          	$scope.errorServer = false;
             RESTAPISERVER = $scope.form.server;
-            var user = $scope.form.login;
-            var password = $scope.form.password;
-            $http.get(RESTAPISERVER + "/api/users/login?login=" + user + "&password=" + password).then(
+            var data = $.param({
+                login: $scope.form.login,
+                password: $scope.form.password
+            });
+            $http.post(RESTAPISERVER + "/api/users/login", data).then(
                 function(response) {
                     //if GET succeeds
                     var obj = response.data;
                     //load the answer
-                    console.debug(obj);
+                    // console.debug(obj);
                     //print it to the console just for debugging
                     if (obj.error) {
-                        $scope.error = true;
-                    } else {
+                        $scope.errorLogin = true;
+                    } 
+                    else if(obj == undefined){
+                    	$scope.errorLogin = true;
+                    }
+                    else {
                         $http.defaults.headers.common['Auth-Token'] = obj.token;
                         //Put the obtained authentification token in what is common to http headers
                         //so that it will always be sent with http requests from now on
                         $scope.app.userid = obj.userid;
                         //remember userid
+                        //affiche plus d'options dans le side-menu (ng-show="userLogged")
+						//$rootScope est "le $scope principal" de l'application il "voit" tous les scopes quelque soit le state/controller...
+                        isUserConnected($rootScope,$scope,$state);
                         $state.go('myItemsView');
                         //go to the state that shows items
                     }
 
                 },
                 function(response) {
-                    //TODO: describe here what happens if server not found.
-
+                    //user feedback
+                	$scope.errorServer = true;
                 });
         };
     });
 
-    module.controller('account', function($scope, $state, $http, User) {
+    module.controller('account', function($rootScope, $scope, $state, $http, User) {
+    	isUserConnected($rootScope,$scope,$state);
         $scope.app.configHeader({
             title: "Account"
         });
@@ -82,12 +94,17 @@
         //I can then save the result in scope.user
     });
 
-    module.controller('logout', function($scope, $state, $http) {
+    module.controller('logout', function($rootScope, $scope, $state, $http) {
+    	isUserConnected($rootScope,$scope,$state);
         $scope.app.configHeader({
             title: "logout"
         });
         $http.get(RESTAPISERVER + "/api/users/logout");
         $scope.app.setCurrentUser(null);
+        $scope.app.userid = undefined;
+        
+        //on cache les options dans le side-menu
+        $rootScope.userLogged = false;
     });
 
     module.controller('subscribe', function($scope, $state, $http) {
@@ -99,17 +116,22 @@
         $scope.form.server = RESTAPISERVER;
 
         $scope.submit = function() {
+            $scope.error = false;
+            $scope.errorServer = false;
             RESTAPISERVER = $scope.form.server;
-            var user = $scope.form.login;
-            var password = $scope.form.password;
-            $http.get(RESTAPISERVER + "/api/users/subscribe?login=" + user + "&password=" + password).then(function(response) {
+            var data = $.param({
+                login: $scope.form.login,
+                password: $scope.form.password
+            });
+            $http.post(RESTAPISERVER + "/api/users/subscribe", data).then(
+            function(response) {
                 var data = response.data;
-                $scope.app.setCurrentUser(user);
+                $scope.app.setCurrentUser(login);
                 $http.defaults.headers.common['Auth-Token'] = data.token;
                 $scope.app.userid = data.userid;
                 $state.go("myItemsView");
             }, function(response) {
-								//TODO: describe here what happens if server not found.
+		$scope.errorServer = true;
             });
         };
     });

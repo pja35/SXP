@@ -1,0 +1,140 @@
+package model.validator;
+
+
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import static org.junit.Assert.*;
+
+import java.math.BigInteger;
+import java.util.Date;
+
+import model.validator.ItemValidator;
+import util.TestInputGenerator;
+import crypt.api.signatures.Signer;
+import crypt.factories.SignerFactory;
+import model.entity.Item;
+import model.factory.ValidatorFactory;
+
+/**
+ * ItemValidator unit tests
+ * @author denis.arrivault[@]univ-amu.fr
+ */
+public class ItemValidatorTest {
+	@Rule public ExpectedException exception = ExpectedException.none();
+	
+	Item item;
+	String title;
+	String description;
+	Date date;
+	BigInteger publicKey;
+	String username;
+	String userid;
+	ItemValidator validator;
+	ValidatorFactory factory;
+	Signer signer;
+	
+	@Before
+	public void initialize(){
+		item = new Item();
+		title = TestInputGenerator.getRandomIpsumString(TestInputGenerator.getRandomInt(3, 256));
+		description = TestInputGenerator.getRandomIpsumString(TestInputGenerator.getRandomInt(3, 2001));
+		date = TestInputGenerator.getTodayDate();
+		publicKey = TestInputGenerator.getRandomBigInteger(TestInputGenerator.getRandomInt(3, 256));
+		username = TestInputGenerator.getRandomUser(100); 
+		userid = TestInputGenerator.getRandomUser();
+		item.setTitle(title);
+		item.setDescription(description);
+		item.setCreatedAt(date);
+		item.setPbkey(publicKey);
+		item.setUsername(username);
+		item.setUserid(userid);
+		factory = new ValidatorFactory();
+		validator = factory.createItemValidator();
+		signer = SignerFactory.createDefaultSigner();
+	}
+	
+	@Test
+	public void badTitleValidationTest(){
+		item.setTitle(null);
+		validator.setEntity(item);
+		assertFalse(validator.validate());
+		title = TestInputGenerator.getRandomIpsumString(2);
+		item.setTitle(title);
+		validator.setEntity(item);
+		assertFalse(validator.validate());
+		title = TestInputGenerator.getRandomIpsumString(256);
+		item.setTitle(title);
+		validator.setEntity(item);
+		assertFalse(validator.validate());
+	}
+	
+	@Test
+	public void badDescriptionValidationTest(){
+		item.setDescription(null);
+		validator.setEntity(item);
+		assertFalse(validator.validate());
+		description = TestInputGenerator.getRandomIpsumString(2);
+		item.setDescription(description);
+		validator.setEntity(item);
+		assertFalse(validator.validate());
+		description = TestInputGenerator.getRandomIpsumString(2001);
+		item.setDescription(description);
+		validator.setEntity(item);
+		assertFalse(validator.validate());
+	}
+	
+	@Test
+	public void badDateValidationTest(){
+		item.setCreatedAt(null);
+		validator.setEntity(item);
+		assertFalse(validator.validate());
+	}
+	
+	@Test
+	public void badpbKeyValidationTest(){
+		item.setPbkey(null);
+		validator.setEntity(item);
+		assertFalse(validator.validate());
+	}
+	
+	@Test
+	public void badUsernameValidationTest(){
+		item.setUsername(null);
+		validator.setEntity(item);
+		assertFalse(validator.validate());
+		username = TestInputGenerator.getRandomUser(1);
+		item.setUsername(username);
+		validator.setEntity(item);
+		assertFalse(validator.validate());
+		username = TestInputGenerator.getRandomUser(256);
+		item.setUsername(username);
+		validator.setEntity(item);
+		assertFalse(validator.validate());
+	}
+	
+	@Test
+	public void badUseridValidationTest(){
+		item.setUserid(null);
+		validator.setEntity(item);
+		assertFalse(validator.validate());
+	}
+	
+//	@Test
+//	public void signerExceptionTest() throws RuntimeException {
+//		assertFalse(validator.validate());
+//		validator.setEntity(item);
+//		exception.expect(RuntimeException.class);
+//		exception.expectMessage("no signer were setteld");
+//		validator.validate();
+//	}
+	
+	@Test
+	public void signatureValidationTest(){
+		validator.setEntity(item);
+		validator.setSigner(signer);
+		assertTrue(validator.validate());
+	}
+}
