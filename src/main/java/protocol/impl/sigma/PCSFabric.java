@@ -1,15 +1,13 @@
 package protocol.impl.sigma;
 
-import model.entity.ElGamalKey;
-import protocol.api.Contract;
-
+import java.math.BigInteger;
 import java.util.HashMap;
 
 import crypt.api.signatures.Signer;
 import crypt.factories.SignerFactory;
 import crypt.impl.signatures.ElGamalSignature;
-
-import java.math.BigInteger;
+import model.entity.ElGamalKey;
+import protocol.api.Contract;
 
 /**
  * 

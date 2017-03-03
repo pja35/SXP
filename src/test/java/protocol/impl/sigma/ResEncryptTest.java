@@ -1,14 +1,16 @@
 package protocol.impl.sigma;
 
+import static org.junit.Assert.assertTrue;
+
+import java.math.BigInteger;
+import java.util.Arrays;
+
 /**
  * ResEncryptTest unit test
  * @author denis.arrivault[@]univ-amu.fr
  */
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import java.util.Arrays;
-import java.math.BigInteger;
 
 import util.TestInputGenerator;
 

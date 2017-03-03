@@ -1,5 +1,9 @@
 package network.impl.messages;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.HashMap;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -7,16 +11,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.*;
-
-import network.impl.messages.RequestItemMessage;
 import util.TestInputGenerator;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import network.api.annotation.MessageElement;
-import network.impl.MessagesGeneric;
-import network.impl.MessagesImpl;
 
 /**
  * RequestItemMessage unit tests

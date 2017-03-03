@@ -1,20 +1,15 @@
 package protocol.impl.sigma;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigInteger;
 import java.util.HashMap;
-import protocol.impl.sigma.And;
-import protocol.impl.sigma.Or;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
-import protocol.impl.sigma.Receiver;
-import protocol.impl.sigma.ResEncrypt;
-import protocol.impl.sigma.ResponsesSchnorr;
-import protocol.impl.sigma.Sender;
-import protocol.impl.sigma.Trent;
 import util.TestInputGenerator;
 
 /**

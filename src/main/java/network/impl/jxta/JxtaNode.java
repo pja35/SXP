@@ -3,8 +3,6 @@ package network.impl.jxta;
 import java.io.File;
 import java.io.IOException;
 
-import org.glassfish.hk2.utilities.RethrowErrorService;
-
 import controller.tools.LoggerUtilities;
 import net.jxta.exception.PeerGroupException;
 import net.jxta.id.IDFactory;

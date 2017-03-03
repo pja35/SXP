@@ -1,13 +1,13 @@
 package protocol.impl.sigma;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-import protocol.impl.sigma.Fabric;
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
-import protocol.impl.sigma.ResponsesSchnorr;
 
 /**
  * ResponsesSchnorr unit test

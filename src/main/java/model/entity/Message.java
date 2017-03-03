@@ -1,12 +1,10 @@
 package model.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
 import static javax.persistence.EnumType.STRING;
+
+import java.util.Date;
+
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,7 +15,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
 import org.eclipse.persistence.annotations.UuidGenerator;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @XmlRootElement
 @Entity

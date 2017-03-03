@@ -1,5 +1,7 @@
 package protocol.impl.contract;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -13,10 +15,8 @@ import crypt.factories.ElGamalAsymKeyFactory;
 import crypt.impl.signatures.ElGamalSignature;
 import crypt.impl.signatures.ElGamalSigner;
 import model.entity.ElGamalKey;
-import protocol.impl.contract.ElGamalContract;
-import protocol.impl.sigma.ElGamalTest;
-import util.TestInputGenerator;
 import protocol.api.Wish;
+import util.TestInputGenerator;
 
 /**
  * ElGamalContract unit test

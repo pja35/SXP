@@ -1,18 +1,17 @@
 package crypt.impl.encryption;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.junit.Rule;
-import org.junit.Test;
 
-import crypt.impl.encryption.SerpentEncrypter;
 import util.TestInputGenerator;
 
 /**

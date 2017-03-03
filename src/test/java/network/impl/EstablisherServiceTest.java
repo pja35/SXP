@@ -6,13 +6,13 @@ import java.util.Collection;
 import org.junit.Test;
 
 import controller.Application;
-import network.factories.AdvertisementFactory;
 import network.api.EstablisherService;
 import network.api.Messages;
 import network.api.Peer;
 import network.api.SearchListener;
 import network.api.ServiceListener;
 import network.api.advertisement.EstablisherAdvertisementInterface;
+import network.factories.AdvertisementFactory;
 
 /**
  * !!!! This test cannot be launched as a junit test !!!!!

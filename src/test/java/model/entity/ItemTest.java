@@ -1,8 +1,11 @@
 package model.entity;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.eclipse.persistence.annotations.UuidGenerator;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.lang.reflect.Field;
+import java.math.BigInteger;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +15,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.eclipse.persistence.annotations.UuidGenerator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,17 +28,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import static org.junit.Assert.*;
-
-import model.entity.Item;
 import util.TestInputGenerator;
-
-import java.lang.reflect.Field;
-import java.math.BigInteger;
-import java.util.Date;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Item unit tests

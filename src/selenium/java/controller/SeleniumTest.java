@@ -3,12 +3,9 @@
 
 package controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.LogManager;
@@ -22,7 +19,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import util.TestInputGenerator;
-import util.TestUtils;
 
 public class SeleniumTest {
 	private final static Logger log = LogManager.getLogger(SeleniumTest.class);

@@ -18,7 +18,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
 import model.api.Manager;
-import model.api.ManagerListener;
 import model.api.SyncManager;
 import model.api.UserSyncManager;
 import model.entity.Item;

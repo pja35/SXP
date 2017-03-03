@@ -1,15 +1,12 @@
 package protocol.impl.sigma;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
-import protocol.impl.sigma.Or;
-import protocol.impl.sigma.PCSFabric;
-import protocol.impl.sigma.Sender;
 
 public class PCSTest {
 	

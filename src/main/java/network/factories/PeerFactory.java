@@ -1,21 +1,19 @@
 package network.factories;
 
-import java.io.IOException;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import controller.tools.LoggerUtilities;
 import net.jxta.document.AdvertisementFactory;
-import net.jxta.exception.PeerGroupException;
 import network.api.Peer;
 import network.api.service.InvalidServiceException;
 import network.api.service.Service;
 import network.impl.jxta.AdvertisementBridge;
 import network.impl.jxta.AdvertisementInstanciator;
+import network.impl.jxta.JxtaEstablisherService;
 import network.impl.jxta.JxtaItemService;
 import network.impl.jxta.JxtaItemsSenderService;
-import network.impl.jxta.JxtaEstablisherService;
 import network.impl.jxta.JxtaPeer;
 
 /**

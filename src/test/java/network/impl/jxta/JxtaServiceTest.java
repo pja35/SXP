@@ -1,21 +1,8 @@
 package network.impl.jxta;
 
 
-import net.jxta.endpoint.Message;
-
-import network.api.Messages;
-import network.api.service.InvalidServiceException;
-import network.factories.PeerFactory;
-import network.impl.jxta.JxtaService;
-import util.TestInputGenerator;
-import util.TestUtils;
-
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
-import controller.tools.LoggerUtilities;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -25,6 +12,15 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import net.jxta.endpoint.Message;
+import network.api.Messages;
+import network.api.service.InvalidServiceException;
+import network.factories.PeerFactory;
+import util.TestInputGenerator;
+import util.TestUtils;
 
 
 /**

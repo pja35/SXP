@@ -2,31 +2,35 @@
 <h2 ng-show="{{action === 'edit'}}">Edit a contract</h2>
 
 <form class="form-horizontal" ng-submit="submit()">
-	<div class="form-group">
+	
+	<div class="row"><div class="form-group well well-sm col-sm-12 col-md-6">
 		<label for="title" class="col-sm-2 control-label">Title</label>
 	    <div class="col-sm-5">
 	    	<input type="hidden" id="id" ng-model="form.id">
 	    	<input type="text" class="form-control" id="title" placeholder="Un titre" ng-model="form.title">
 	    </div>
-	</div>
+	</div></div>
 	
-	<div class="form-group well well-sm">
+	<div class="row"><div class="form-group well well-sm col-sm-12 col-md-6">
     	<label for="parties" class="col-sm-2 control-label">Parties</label>
    		<div class="col-sm-10 form-group">
     
-			<div class="col-sm-12 col-md-6" ng-repeat="party in parties">
+			<div class="col-sm-12" ng-repeat="party in parties">
 				<party/>
 			</div>
-			<div class="col-sm-5">
-				<input type="text" class="form-control" id="addParty" placeholder="" ng-model="form.addParty" ui-keypress="{13 :updateparties()}">
+			<div class="col-sm-10">
+				<select class="form-control" id="addParty" ng-model="form.addParty">
+	    			<option value="Choose a user" selected="selected" disabled>Choose a user<option/>
+					<option ng-repeat="user in userList">{{user.name}}</option>
+				</select>
 			</div>
-		    <div class="col-sm-1">
+		    <div class="col-sm-2">
 		    	<button type="button" class="btn btn-default" ng-click="updateparties()">Add party</button>
 		    </div>
 	  </div>
-	</div>
+	</div></div>
   
-  	<div class="form-group well well-sm">
+  	<div class="row"><div class="form-group well well-sm col-sm-12 col-md-6">
     	<label for="clauses" class="col-sm-2 control-label">Clauses</label>
       
       	<div class="col-sm-10 form-group">
@@ -34,16 +38,17 @@
 				<clause/>
 			</div>
 			
-			<div class="col-sm-12 col-md-10 col-lg-6 well well-sm">
+			<div class="col-sm-12 well well-sm">
 				<div  class="row">
 			    	<label for="selectfrom"  class="col-sm-3 col-md-2">From : </label>
 			    	<span class="col-sm-9 col-md-10"><select id="selectfrom" class="form-control" ng-model="fromparty" title="From Party">
-		    			<option ng-repeat="party in parties"><span>{{party}}</span></option>
+		    			<option value="Choose a user" selected="selected" disabled>Choose a user<option/>
+		    			<option ng-repeat="party in parties">{{party}}</option>
 			    	</select></span>
 		    	</div>
 				<br/>
 				<div class="row">
-			    	<label for="addClause"  class="col-sm-3 col-md-2">Giving : </label>
+			    	<label for="addClause"  class="col-sm-3 col-md-2">Gives : </label>
 					<span class="col-sm-9 col-md-10">
 						<input type="text" class="form-control" id="addClause" placeholder=" give ... " ng-model="form.addClause"/>
 					</span>
@@ -52,7 +57,8 @@
 				<div  class="row">
 			    	<label for="selectfor"  class="col-sm-3 col-md-2">For : </label>
 			    	<span class="col-sm-9 col-md-10"><select class="form-control col-sm-2" id="selectfor" ng-model="forparty" title="For Party">
-		    			<option ng-repeat="party in parties"><span>{{party}}</span></option>
+		    			<option value="Choose a user" selected="selected" disabled>Choose a user<option/>
+		    			<option ng-repeat="party in parties">{{party}}</option>
 			    	</select></span>
 		    	</div>
 				<br/>
@@ -61,7 +67,7 @@
 		    	</div>
 	    	</div>
 	  	</div>
-	</div>
+	</div></div>
   
   
   <div class="form-group">

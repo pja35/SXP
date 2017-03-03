@@ -1,14 +1,13 @@
 package network.impl;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
-
-
-import network.impl.MessagesGeneric;
-import util.TestInputGenerator;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import util.TestInputGenerator;
 
 /**
  * MessagesGenericTest unit tests

@@ -11,7 +11,6 @@ import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
 import protocol.impl.contract.ElGamalClauses;
 import protocol.impl.contract.ElGamalContract;
-import protocol.impl.sigma.SigmaEstablisher;
 
 public class SigmaEstablisherTest {
 	

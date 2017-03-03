@@ -1,17 +1,13 @@
 package network.impl.jxta;
 
-import org.junit.Test;
-
-import net.jxta.document.Advertisement;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.junit.Test;
 
+import net.jxta.document.Advertisement;
 import network.factories.AdvertisementFactory;
-import network.impl.jxta.AdvertisementInstanciator;
-import network.impl.messages.RequestItemMessageTest;
 
 
 /**

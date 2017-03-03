@@ -1,6 +1,5 @@
 package model.syncManager;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.EntityManager;
@@ -9,9 +8,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.eclipse.persistence.internal.sessions.UnitOfWorkImpl;
 import org.eclipse.persistence.sessions.UnitOfWork;
 

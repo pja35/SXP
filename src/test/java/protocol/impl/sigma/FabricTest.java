@@ -1,16 +1,13 @@
 package protocol.impl.sigma;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.Test;
 
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
-import protocol.impl.sigma.ResponsesCCE;
-import protocol.impl.sigma.ResponsesSchnorr;
 import util.TestInputGenerator;
-import protocol.impl.sigma.Fabric;
 
 /**
  * Fabric unit test

@@ -2,8 +2,6 @@ package model.api;
 
 import java.util.Collection;
 
-import model.validator.EntityValidator;
-
 /**
  * General interface for entity managers
  * @author Julien Prudhomme

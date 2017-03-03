@@ -2,8 +2,8 @@ package network.impl.jxta;
 
 import controller.tools.LoggerUtilities;
 import net.jxta.document.Advertisement;
-import net.jxta.document.Element;
 import net.jxta.document.AdvertisementFactory.Instantiator;
+import net.jxta.document.Element;
 
 /**
  * This class is a wrapper to construct an Instantiator for our Advertisements

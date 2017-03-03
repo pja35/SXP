@@ -4,7 +4,6 @@ import model.api.MessageSyncManager;
 import model.entity.Message;
 import model.factory.ValidatorFactory;
 import model.validator.EntityValidator;
-import model.validator.ItemValidator;
 
 public class MessageSyncManagerImpl extends AbstractSyncManager<Message> implements MessageSyncManager {
 

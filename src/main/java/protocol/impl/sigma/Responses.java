@@ -22,9 +22,6 @@ import javax.xml.bind.annotation.XmlElement;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-import model.entity.ElGamalKey;
-
-
 /**
  * It's response to need to send in the protocol
  * it's abstract, for the different response in the protocol
@@ -36,6 +33,8 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+
+import model.entity.ElGamalKey;
 
 @JsonTypeInfo(use = Id.CLASS,
          include = JsonTypeInfo.As.PROPERTY,

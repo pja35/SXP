@@ -96,7 +96,7 @@ public class Receiver {
 		byte[] buffer, resume;
 		MessageDigest hash_function = null;
 		
-		String tmp = message.toString().concat(mask.getA().toString());
+		String tmp = new String(message).concat(mask.getA().toString());
 		
 		buffer = tmp.getBytes();
 		

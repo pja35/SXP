@@ -3,8 +3,8 @@ package util;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Random;
 import java.util.Date;
+import java.util.Random;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.LogManager;

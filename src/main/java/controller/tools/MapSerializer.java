@@ -1,7 +1,6 @@
 package controller.tools;
 
 import java.io.IOException;
-
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonGenerator;

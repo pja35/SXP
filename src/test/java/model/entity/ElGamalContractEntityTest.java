@@ -1,9 +1,9 @@
 package model.entity;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
-import model.entity.ElGamalContractEntity;
+import org.junit.Test;
+
 import protocol.api.Wish;
 
 /**

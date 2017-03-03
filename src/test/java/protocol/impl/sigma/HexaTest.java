@@ -1,5 +1,8 @@
 package protocol.impl.sigma;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -7,9 +10,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.*;
-
-import protocol.impl.sigma.Hexa;
 import util.TestInputGenerator;
 
 /**

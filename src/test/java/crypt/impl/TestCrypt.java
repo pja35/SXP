@@ -1,14 +1,12 @@
 package crypt.impl;
 
 import java.math.BigInteger;
-
-import crypt.impl.hashs.SHA256Hasher;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import crypt.api.hashs.Hasher;
 import crypt.factories.HasherFactory;
+import crypt.impl.hashs.SHA256Hasher;
 
 public class TestCrypt {
 	public static void main(String[] args){

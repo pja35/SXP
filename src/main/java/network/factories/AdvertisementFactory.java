@@ -1,15 +1,15 @@
 package network.factories;
 
+import network.api.advertisement.EstablisherAdvertisementInterface;
 import network.api.advertisement.ItemAdvertisementInterface;
 import network.api.advertisement.MessageAdvertisementInterface;
 import network.api.advertisement.PeerAdvertisementInterface;
 import network.api.advertisement.UserAdvertisementInterface;
-import network.api.advertisement.EstablisherAdvertisementInterface;
+import network.impl.advertisement.EstablisherAdvertisement;
 import network.impl.advertisement.ItemAdvertisement;
 import network.impl.advertisement.MessageAdvertisement;
 import network.impl.advertisement.PeerAdvertisement;
 import network.impl.advertisement.UserAdvertisement;
-import network.impl.advertisement.EstablisherAdvertisement;
 
 public class AdvertisementFactory {
 	public static ItemAdvertisementInterface createItemAdvertisement() {

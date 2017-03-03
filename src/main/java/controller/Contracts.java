@@ -1,5 +1,14 @@
 package controller;
 
+import java.util.Collection;
+import java.util.Date;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -12,23 +21,10 @@ import model.api.Manager;
 import model.api.SyncManager;
 import model.api.UserSyncManager;
 import model.entity.Contract;
-import model.entity.Item;
 import model.entity.User;
 import model.factory.ManagerFactory;
 import model.syncManager.ContractSyncManagerImpl;
-import model.syncManager.ItemSyncManagerImpl;
 import model.syncManager.UserSyncManagerImpl;
-
-import java.util.Collection;
-import java.util.Date;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-
 import rest.api.Authentifier;
 import rest.api.ServletPath;
 
@@ -48,6 +44,7 @@ public class Contracts {
 		
 		em.begin();
 		//TODO VALIDATION
+		System.out.println(contract.getTitle());
 		contract.setCreatedAt(new Date());
 		contract.setUserid(currentUser.getId());
 		contract.setSigned(false);

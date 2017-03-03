@@ -20,12 +20,10 @@ import org.apache.log4j.Logger;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
-import model.api.Manager;
 import model.api.SyncManager;
 import model.api.UserSyncManager;
-import model.entity.User;
 import model.entity.Message;
-import model.factory.ManagerFactory;
+import model.entity.User;
 import model.syncManager.MessageSyncManagerImpl;
 import model.syncManager.UserSyncManagerImpl;
 import rest.api.Authentifier;

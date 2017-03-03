@@ -12,9 +12,9 @@ import protocol.api.Establisher;
 import protocol.api.EstablisherListener;
 import protocol.api.Status;
 import protocol.api.Wish;
+import protocol.impl.contract.ElGamalContract;
 import protocol.impl.sigma.SigmaEstablisher;
 import rest.api.Authentifier;
-import protocol.impl.contract.ElGamalContract;
 
 public class SigmaEstablisherAdapter implements Establisher {
 

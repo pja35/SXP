@@ -2,8 +2,6 @@ package model.api;
 
 import java.util.Collection;
 
-import model.entity.Item;
-
 /**
  * Entities manager. Handle local and distant storage, search.
  * @author Julien Prudhomme

@@ -1,5 +1,7 @@
 package crypt.api.key;
 
+import static org.junit.Assert.assertTrue;
+
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collection;
@@ -9,9 +11,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import static org.junit.Assert.*;
 import crypt.factories.AsymKeyFactory;
-import crypt.api.key.AsymKey;
 import util.TestInputGenerator;
 
 

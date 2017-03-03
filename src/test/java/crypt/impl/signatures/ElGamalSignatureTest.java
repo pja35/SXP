@@ -1,15 +1,16 @@
 package crypt.impl.signatures;
 
+import static org.junit.Assert.assertTrue;
+
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collection;
-import java.math.BigInteger;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import static org.junit.Assert.*;
-import crypt.impl.signatures.ElGamalSignature;
 import util.TestInputGenerator;
 
 

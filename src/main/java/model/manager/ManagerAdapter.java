@@ -1,11 +1,11 @@
 package model.manager;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import model.api.Manager;
 import model.api.ManagerListener;
 import model.api.SyncManager;
-import java.util.Collection;
 
 public class ManagerAdapter<Entity> implements Manager<Entity>{
 

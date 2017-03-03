@@ -1,6 +1,13 @@
 package model.validator;
 
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Date;
+
+import javax.validation.ConstraintViolation;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -8,17 +15,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.*;
-
-import java.util.Date;
-
-import javax.validation.ConstraintViolation;
-
-import model.validator.UserValidator;
-import util.TestInputGenerator;
 import model.entity.ElGamalKey;
 import model.entity.User;
 import model.factory.ValidatorFactory;
+import util.TestInputGenerator;
 
 /**
  * UserValidator unit tests

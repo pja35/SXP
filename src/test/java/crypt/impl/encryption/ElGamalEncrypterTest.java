@@ -1,17 +1,16 @@
 package crypt.impl.encryption;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
-import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-
 import crypt.factories.ElGamalAsymKeyFactory;
-import crypt.impl.encryption.ElGamalEncrypter;
 import model.entity.ElGamalKey;
 import util.TestInputGenerator;
 

@@ -59,18 +59,22 @@
     
     
     
-    module.controller('editContract', function($scope, $stateParams, Contract, $state){
+    module.controller('editContract', function($scope, $stateParams, Contract, $state, $http){
     	$scope.app.configHeader({back: true, title: 'Edit contracts', contextId: $stateParams.id});
     	$scope.action = 'edit';
 
 		$scope.form = {};
+    	$scope.userList =[];
+    	getUsers($http, $scope);
+		
 		var contract = Contract.get({id: $stateParams.id}, function() {
 			//First, load the item and display it via the bindings with item-form.html
 			$scope.form.title = contract.title
 			$scope.clauses = JSON.parse(contract.clauses);
 			$scope.parties = JSON.parse(contract.parties);
 		});
-
+		
+		
     	$scope.updateparties = function() {updateParties($scope)};
     	$scope.updateclauses= function() {updateClauses($scope)};
 
@@ -100,14 +104,17 @@
     
     
     
-    module.controller('addContract', function($scope, Contract, $state){
+    module.controller('addContract', function($scope, Contract, $state, $http){
     	
     	$scope.app.configHeader({back: true, title: 'Add contracts'});
     	$scope.action = 'add';
     	
     	$scope.parties=[];
     	$scope.clauses=[];
+    	$scope.userList =[];
     	
+		getUsers($http, $scope);
+		
     	$scope.updateparties = function() {updateParties($scope)};
     	$scope.updateclauses= function() {updateClauses($scope)};
     	
@@ -167,6 +174,21 @@ function deleteClause($scope, clause){
 	return false;
 }
 
+function getUsers($http, $scope){
+	RESTAPISERVER = "https://localhost:8081";
+	$http.get(RESTAPISERVER + "/api/users/").then(
+			function(response){
+				var userList = response.data;
+				$scope.userList = [];
+
+				for(i=0; i<userList.length; i++){
+					if (userList[i].nick != ""){
+						$scope.userList[i] = { 'name' : userList[i].nick };
+					}
+				}
+			}
+		);
+}
 function deleteParty($scope, p){
 	var index = $scope.parties.indexOf(p);
 	if (index > -1){
