@@ -41,26 +41,30 @@ public class SigmaEstablisher{
 	private ElGamalSigner signer = new ElGamalSigner();
 	private HashMap<ElGamalKey, String> uris;
 	private ElGamalKey trentK;
+	private final EstablisherService establisherService =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
 	
-	// Identifier for the contract (make sure we sign the same)
+	
+	// Id for the contract (make sure we sign the same)
 	private String contractId;
 	// Clauses that will be signed during the contract
 	private String contractClauses;
 	// Key of the parties (contract.getParties())
 	private ArrayList<ElGamalKey> keys;
+	// sender public Key
 	private BigInteger senPubK;
+	// Number of signers (protocol will have N+2 rounds)
 	private int N;
-	private final EstablisherService establisherService =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
 	// Know which parties are ready to sign
 	private String[] ready;
 	// Store the different rounds of the signing protocol
 	private Or[][] pcs;
+	// Current signature round
 	private int round = 0;
 	
 	
 	
 	/**
-	 * Constructor
+	 * Beginning Constructor
 	 * 		Setup the signing protocol
 	 * @param c : contract to be signed
 	 * @param senderK
@@ -158,10 +162,10 @@ public class SigmaEstablisher{
 		setStatus(Status.SIGNING);
 		
 		// Necessary tools to create the PCS
-		final PCSFabric[] pcsf = new PCSFabric[N];
+		final PCS[] pcsf = new PCS[N];
 		Sender sender = new Sender(signer.getKey());
 		for (int k=0; k<N; k++){
-			pcsf[k] = new PCSFabric(sender, keys.get(k), trentK);
+			pcsf[k] = new PCS(sender, keys.get(k), trentK);
 		}
 		round = 1;
 
@@ -174,10 +178,8 @@ public class SigmaEstablisher{
 					// Checks if the message is a PCS, if yes store it in "pcs[round][k]"
 					verifyAndStoreSignature(msg, messages.getMessage("sourceId") ,round, pcsf);
 					
-					/*
-					 *  Send the rounds (if we have the claim needed):
+					/*	Send the rounds (if we have the claim needed):
 					 *  	We do a loop because sometimes, we receive the PCS for round+1 before the one for the current round
-					 *  
 					 */  
 					
 					while (round<=(N+1) && claimFormed()){
@@ -208,7 +210,7 @@ public class SigmaEstablisher{
 	 * @param round : round we are at
 	 * @param uris : the destination peers uris
 	 */
-	private void sendRound(int round, PCSFabric[] pcsfs){
+	private void sendRound(int round, PCS[] pcsfs){
 		// Loop : send to every party the correct message
 		for (int k=0; k<N; k++){
 			
@@ -231,7 +233,7 @@ public class SigmaEstablisher{
 			
 			// Otherwise send round k
 			}else {
-				Or p = pcsfs[k].createPcs((contractClauses+(round)).getBytes());
+				Or p = pcsfs[k].getPcs((contractClauses+(round)).getBytes());
 				content=encryptMsg(getJson(p), key);
 				if (isSender){
 					pcs[round][k] = p;
@@ -265,7 +267,7 @@ public class SigmaEstablisher{
 	 * @param round : the round we are at
 	 * @return
 	 */
-	private void verifyAndStoreSignature(String message, String pubK ,int round, PCSFabric[] pcsfs){
+	private void verifyAndStoreSignature(String message, String pubK ,int round, PCS[] pcsfs){
 		
 		// Get the keys of the sender of the message
 		BigInteger msgSenKey = new BigInteger(pubK);

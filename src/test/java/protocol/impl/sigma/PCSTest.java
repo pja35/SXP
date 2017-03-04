@@ -25,10 +25,10 @@ public class PCSTest {
 		byte[] buffer = message.getBytes();
 		
 		//Create the PCS
-		Or pcs = (new PCSFabric(bob, aliceK, trentK)).createPcs(buffer);
+		Or pcs = (new PCS(bob, aliceK, trentK)).getPcs(buffer);
 		
 		//Alice checks the signature
-		PCSFabric pcsf = new PCSFabric(alice, bobK, trentK);
+		PCS pcsf = new PCS(alice, bobK, trentK);
 		assertTrue(pcsf.PCSVerifies(pcs, buffer));
 		
 		buffer = "c".getBytes();
