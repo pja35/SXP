@@ -13,6 +13,9 @@ public class EstablisherAdvertisement extends AbstractAdvertisement implements E
 	
 	private String contract;
 	
+	// Sender userid
+	private String userid;
+	
 	@Override
 	public String getName() {
 		return "contractEstablisher";
@@ -37,5 +40,13 @@ public class EstablisherAdvertisement extends AbstractAdvertisement implements E
 	
 	public void setContract(String prom) {
 		this.contract = prom;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+	
+	public void setUserid(String u) {
+		this.userid = u;
 	}
 }
