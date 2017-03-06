@@ -53,6 +53,17 @@ public class PCS {
 	}
 	
 	/**
+	 * Checks the current pcs according to a message
+	 */
+	public boolean PCSVerifies(byte[] m){
+		if (pcs==null) {return false;}
+		setPcs(pcs);
+		ResEncrypt resE = pcs.ands[0].resEncrypt;
+		resE.setM(m);
+		return pcs.Verifies(resE);
+	}
+	
+	/**
 	 * Checks a PCS according to a message
 	 */
 	public boolean PCSVerifies(Or privateCS, byte[] m){

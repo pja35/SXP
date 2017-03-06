@@ -9,6 +9,8 @@ import crypt.api.hashs.Hashable;
 import crypt.api.key.AsymKey;
 import crypt.api.signatures.Signable;
 import crypt.api.signatures.Signer;
+import model.api.Status;
+import model.api.Wish;
 
 /**
  * Contrat abstract class. A contrat typically contain parties (they had to sign) and clauses
@@ -30,19 +32,11 @@ public abstract class EstablisherContract<T, Key extends AsymKey<T>, Sign, _Sign
 	protected HashMap<Key, Sign> signatures = new HashMap<Key, Sign>();
 	protected Signable<Sign> clauses = null;
 	protected _Signer signer;
-	
-	/**
-	 * Create an empty contrat
-	 */
-	public EstablisherContract() {}
-	
-	/**
-	 * Create a new contract with clauses
-	 * @param clauses the clauses
-	 */
-	public EstablisherContract(Signable<Sign> clauses) {
-		setClauses(clauses);
-	}
+
+	public abstract Wish getWish();
+	public abstract Status getStatus();
+	public abstract void setWish(Wish w);
+	public abstract void setStatus(Status s);
 
 	/**
 	 * Add a party (have to sign the contrat)

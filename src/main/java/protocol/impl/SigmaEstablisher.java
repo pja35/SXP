@@ -1,4 +1,4 @@
-package protocol.impl.sigma;
+package protocol.impl;
 
 
 import java.math.BigInteger;
@@ -18,30 +18,36 @@ import crypt.factories.SignerFactory;
 import crypt.impl.signatures.ElGamalSignature;
 import crypt.impl.signatures.ElGamalSigner;
 import model.api.Status;
+import model.api.UserSyncManager;
 import model.entity.ElGamalKey;
+import model.entity.User;
+import model.syncManager.UserSyncManagerImpl;
 import network.api.EstablisherService;
 import network.api.Messages;
 import network.api.ServiceListener;
-import protocol.api.EstablisherListener;
+import protocol.api.Establisher;
+import protocol.impl.sigma.Or;
+import protocol.impl.sigma.PCS;
+import protocol.impl.sigma.Sender;
+import protocol.impl.sigma.SigmaContractAdapter;
+import rest.api.Authentifier;
 
 
 /**
  * 
  * @author Nathanaël EON
  *
- *	Implements the sigma protocol
- *		It will sign an unsigned contract
+ *	Establisher for sigma protocol
+ * TODO : Change the messaging system to an asymetric one
  */
 
-public class SigmaEstablisher{
+public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, ElGamalSignature, ElGamalSigner, SigmaContractAdapter> {
 	
-	public ArrayList<EstablisherListener> listeners = new ArrayList<EstablisherListener>();
 	
-	private SigmaContractAdapter contract;
-	private ElGamalSigner signer = new ElGamalSigner();
-	private HashMap<ElGamalKey, String> uris;
 	private ElGamalKey trentK;
 	private final EstablisherService establisherService =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
+	// Store the different rounds of the signing protocol
+	private Or[][] pcs;
 	
 	
 	// Id for the contract (make sure we sign the same)
@@ -56,8 +62,6 @@ public class SigmaEstablisher{
 	private int N;
 	// Know which parties are ready to sign
 	private String[] ready;
-	// Store the different rounds of the signing protocol
-	private Or[][] pcs;
 	// Current signature round
 	private int round = 0;
 	
@@ -66,25 +70,30 @@ public class SigmaEstablisher{
 	/**
 	 * Beginning Constructor
 	 * 		Setup the signing protocol
-	 * @param c : contract to be signed
-	 * @param senderK
-	 * @param uri : parties matching uri
+	 * @param <token> : token for authentifier (getting current user)
+	 * @param <uri> : parties matching uri
 	 */
-	public SigmaEstablisher(SigmaContractAdapter c, ElGamalKey senderK, 
-						HashMap<ElGamalKey, String> uri){
-		contract = c;
-		signer.setKey(senderK);
+	public SigmaEstablisher(String token, HashMap<ElGamalKey, String> uri){
+		// Matching the uris
 		uris = uri;
 		
-		setup();
+		// Setup the signer
+		Authentifier auth = Application.getInstance().getAuth();
+		UserSyncManager users = new UserSyncManagerImpl();
+		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
+		signer = new ElGamalSigner();
+		signer.setKey(currentUser.getKey());
 	}
 	
-	
 	/**
-	 * Setup the fields
-	 * Setup the starting protocol listener 
+	 * @param <c> : contract to be signed
 	 */
-	private void setup(){
+	public void initialize(SigmaContractAdapter c){
+		contract = c;
+		
+		/*
+		 *Setup the field 
+		 */
 		contractId = new String(contract.getHashableData());
 		contractClauses = new String(contract.getClauses().getHashableData());
 		// The El Gamal keys of all parties 
@@ -108,7 +117,7 @@ public class SigmaEstablisher{
 				int i = 0;
 				while (!(keys.get(i).getPublicKey().equals(msgSenKey))){i++;}
 				
-				if (messages.getMessage("contract").equals("start") &&
+				if (decryptMsg(messages.getMessage("contract"),signer.getKey()).equals("start") &&
 					messages.getMessage("title").equals(contractId)){
 					ready[i] = "";
 					// Checks if everyone is ready
@@ -120,6 +129,7 @@ public class SigmaEstablisher{
 		}, senPubK.toString());
 	}
 	
+	
 	/**
 	 * Launch the protocol : tell everyone that the user is ready to sign (pressed signing button)
 	 */
@@ -129,7 +139,7 @@ public class SigmaEstablisher{
 			establisherService.sendContract(contractId,
 											key.getPublicKey().toString(), 
 											senPubK.toString(),
-											"start",
+											encryptMsg("start",key),
 											uris.get(key));
 		}
 	}
@@ -157,6 +167,7 @@ public class SigmaEstablisher{
 	
 	/**
 	 * The contract signing protocol
+	 * TODO : Setup a timer for Trent
 	 */
 	private void sign(){
 		setStatus(Status.SIGNING);
@@ -178,11 +189,16 @@ public class SigmaEstablisher{
 					// Checks if the message is a PCS, if yes store it in "pcs[round][k]"
 					verifyAndStoreSignature(msg, messages.getMessage("sourceId") ,round, pcsf);
 					
+
+					// Check if the round is complete
+					boolean claimFormed = true;
+					for (int k=0; k<N; k++)
+						if (pcs[round][k] == null)
+							claimFormed= false;
 					/*	Send the rounds (if we have the claim needed):
 					 *  	We do a loop because sometimes, we receive the PCS for round+1 before the one for the current round
 					 */  
-					
-					while (round<=(N+1) && claimFormed()){
+					while (round<=(N+1) && claimFormed){
 						sendRound(++round, pcsf);
 					}
 				}
@@ -193,20 +209,66 @@ public class SigmaEstablisher{
 		sendRound(1, pcsf);
 	}
 	
+
+	
 	/**
-	 * Check if the current round is completely received
-	 * @return
-	 * 		true : round ok, can send the next one
-	 * 		false : round not complete, keep waiting
+	 * Function to call if something goes wrong.
+	 * It send Trent 4 informations : 
+	 *		the round
+	 * 		the uris of the parties
+	 * 		the contract to be signed
+	 * 		the encrypted (for Trent) signed claim 
 	 */
-	private boolean claimFormed(){
-		for (int k=0; k<N; k++)
-			if (pcs[round][k] == null)
-				return false;
-		return true;
-	}	
+	public void resolve(){		
+		String[] content = new String[4];
+		
+		// Round
+		content[0] = String.valueOf(round);
+		
+		// Uris
+		JsonTools<HashMap<ElGamalKey, String>> json1 = new JsonTools<>(new TypeReference<HashMap<ElGamalKey, String>>(){});
+		content[1] = json1.toJson(uris,false);
+		
+		// Contract
+		JsonTools<SigmaContractAdapter> json2 = new JsonTools<>(new TypeReference<SigmaContractAdapter>(){});
+		content[2] = json2.toJson(contract,false);
+		
+		// Claim(k)
+		Signer<ElGamalSignature,ElGamalKey> sig = SignerFactory.createElGamalSigner(); 
+		sig.setKey(signer.getKey());
+		ElGamalSignature sigClaimK;
+		if (round==0){
+			sigClaimK = sig.sign("ABORT".getBytes());
+		}else {
+			JsonTools<Or[]> json = new JsonTools<>(new TypeReference<Or[]>(){});
+			String claimK = json.toJson(pcs[round], true);
+			sigClaimK = sig.sign(claimK.getBytes());
+		}
+		JsonTools<ElGamalSignature> json3 = new JsonTools<>(new TypeReference<ElGamalSignature>(){});
+		content[3] = encryptMsg(json3.toJson(sigClaimK, false), trentK);
+		
+		// Concatenate the content
+		JsonTools<String[]> json = new JsonTools<>(new TypeReference<String[]>(){});
+		String fullContent = json.toJson(content, false);
+		
+		establisherService.sendContract(contractId,
+							trentK.getPublicKey().toString()+"TRENT",
+							senPubK.toString(),
+							fullContent,
+							uris.get(trentK));
+	}
+	
+	
 	/**
-	 * Send the needed message to do the protocol
+	 * Trent function when there is a problem 
+	 * TODO : create it !
+	 */
+	public void resolveTrent(){
+	}
+	
+	
+	/*
+	 * Send the needed message to do the protocol, called in sign() method
 	 * @param round : round we are at
 	 * @param uris : the destination peers uris
 	 */
@@ -260,8 +322,9 @@ public class SigmaEstablisher{
 			}
 		}
 	}
-	/**
+	/*
 	 * Verify the message received (if the message is the last, check if the signature is ok)
+	 * 		called in sign() method
 	 * @param message : message we receive (messages.getMessage("contract"))
 	 * @param contract : the contract we want to be signed in the end
 	 * @param round : the round we are at
@@ -310,92 +373,12 @@ public class SigmaEstablisher{
 	
 	
 	
-	/**
-	 * Function to call if something goes wrong.
-	 * It send Trent 4 informations : 
-	 *		the round
-	 * 		the uris of the parties
-	 * 		the contract to be signed
-	 * 		the encrypted (for Trent) signed claim 
-	 */
-	public void resolve(){		
-		String[] content = new String[4];
-		
-		// Round
-		content[0] = String.valueOf(round);
-		
-		// Uris
-		JsonTools<HashMap<ElGamalKey, String>> json1 = new JsonTools<>(new TypeReference<HashMap<ElGamalKey, String>>(){});
-		content[1] = json1.toJson(uris,false);
-		
-		// Contract
-		JsonTools<SigmaContractAdapter> json2 = new JsonTools<>(new TypeReference<SigmaContractAdapter>(){});
-		content[2] = json2.toJson(contract,false);
-		
-		// Claim(k)
-		Signer<ElGamalSignature,ElGamalKey> sig = SignerFactory.createElGamalSigner(); 
-		sig.setKey(signer.getKey());
-		ElGamalSignature sigClaimK;
-		if (round==0){
-			sigClaimK = sig.sign("ABORT".getBytes());
-		}else {
-			JsonTools<Or[]> json = new JsonTools<>(new TypeReference<Or[]>(){});
-			String claimK = json.toJson(pcs[round], true);
-			sigClaimK = sig.sign(claimK.getBytes());
-		}
-		JsonTools<ElGamalSignature> json3 = new JsonTools<>(new TypeReference<ElGamalSignature>(){});
-		content[3] = encryptMsg(json3.toJson(sigClaimK, false), trentK);
-		
-		// Concatenate the content
-		JsonTools<String[]> json = new JsonTools<>(new TypeReference<String[]>(){});
-		String fullContent = json.toJson(content, false);
-		
-		establisherService.sendContract(contractId,
-							trentK.getPublicKey().toString()+"TRENT",
-							senPubK.toString(),
-							fullContent,
-							uris.get(trentK));
-	}
-
-	
-	//What Trent got to do
-	public void resolveTrent(){
-		
-	}
-	
-
-	
-	
-	
-	public SigmaContractAdapter getContract(){
-		return contract;
-	}
-	
-	public void setStatus(Status s){
-		contract.setStatus(s);
-		notifyListeners();
-	}
-	public Status getStatus(){
-		return contract.getStatus();
-	}
-
-	public void addListener(EstablisherListener l) {
-		listeners.add(l);
-	}
-	
-	public void notifyListeners() {
-		for (EstablisherListener l : listeners){
-			l.establisherEvent(this.contract.getStatus());
-		}
-	}
-	
 	
 	
 	/*
-	 * What follows are the necessary primitives for the signature to be done over the network
+	 * Primitives
 	 * 		Transformation json <-> object
 	 * 		Decrypting <-> Encrypting
-	 * 		Password creation
 	 */	
 	// Return the string representing the private contract signature
 	private String getJson(Or pcs){
@@ -407,13 +390,13 @@ public class SigmaEstablisher{
 		JsonTools<Or> json = new JsonTools<>(new TypeReference<Or>(){});
 		return json.toEntity(pcs, true);
 	}
-	// Return the encrypted message
+	// Return the message encrypted with public key
 	private String encryptMsg(String msg, ElGamalKey key){
 		Encrypter<ElGamalKey> encrypter = EncrypterFactory.createElGamalSerpentEncrypter();
 		encrypter.setKey(key);
 		return new String(encrypter.encrypt(msg.getBytes()));
 	}
-	// Return the decrypted message
+	// Return the message decrypted with private key 
 	private String decryptMsg(String msg, ElGamalKey key){
 		Encrypter<ElGamalKey> encrypter = EncrypterFactory.createElGamalSerpentEncrypter();
 		encrypter.setKey(key);

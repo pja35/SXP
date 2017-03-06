@@ -43,7 +43,7 @@ public class SigmaContractAdapter extends EstablisherContract<BigInteger, ElGama
 	
 	// Constructor from clauses
 	public SigmaContractAdapter(Signable<ElGamalSignature> clauses){
-		super(clauses);
+		super();
 		this.signer = new ElGamalSigner();
 		this.contract = new ContractEntity();
 		this.setClauses(clauses);
@@ -69,11 +69,12 @@ public class SigmaContractAdapter extends EstablisherContract<BigInteger, ElGama
 		contract.setTitle(t);
 	}
 	public void setClauses(ArrayList<String> c){
-		super.setClauses(new ElGamalClauses(c));
+		this.clauses = new ElGamalClauses(c);
 		this.contract.setClauses(c);
 	}
-	public void setClauses(ElGamalClauses c){
-		super.setClauses(c);
+	@Override
+	public void setClauses(Signable<ElGamalSignature> c){
+		this.clauses = c;
 		ArrayList<String> a = new ArrayList<String>();
 		a.add(new String(c.getHashableData()));
 		this.contract.setClauses(a);
@@ -92,7 +93,7 @@ public class SigmaContractAdapter extends EstablisherContract<BigInteger, ElGama
 	/************* Adding classes ***********/
 	@Override 
 	public void addParty(ElGamalKey k){
-		super.addParty(k);
+		this.parties.add(k);
 		this.contract.getParties().add(k.getPublicKey().toString());
 	}
 	

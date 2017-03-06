@@ -14,22 +14,22 @@ import crypt.api.hashs.Hasher;
 import crypt.factories.ElGamalAsymKeyFactory;
 import crypt.factories.HasherFactory;
 import model.api.SyncManager;
-import model.api.Wish;
 import model.entity.ElGamalKey;
 import model.entity.LoginToken;
 import model.entity.User;
 import model.syncManager.UserSyncManagerImpl;
+import protocol.impl.SigmaEstablisher;
 import protocol.impl.sigma.ElGamalClauses;
 import protocol.impl.sigma.SigmaContractAdapter;
 import rest.api.Authentifier;
 
-public class SigmaEstablisherAdapterTest {
+public class SigmaEstablisherTest {
 	
 	public static final int N = 2;
 		
 	@Test
-	public void test(){		
-		// Starting the Application (if needed) to be able to test it
+	public void test(){
+		// Starting the Application to be able to test it
 		if (Application.getInstance()==null){
 			new Application();
 			Application.getInstance().runForTests(8081);
@@ -91,11 +91,12 @@ public class SigmaEstablisherAdapterTest {
 				c[k].addParty(keysR[i]);
 			}
 		}
-		SigmaEstablisherAdapter[] sigmaE = new SigmaEstablisherAdapter[N];
+		
+		SigmaEstablisher[] sigmaE = new SigmaEstablisher[N];
 		
 		for (int k=0; k<N; k++){
 			Authentifier auth = Application.getInstance().getAuth();
-			sigmaE[k] = new SigmaEstablisherAdapter(auth.getToken(logins[k], passwords[k]), uris);
+			sigmaE[k] = new SigmaEstablisher(auth.getToken(logins[k], passwords[k]), uris);
 			sigmaE[k].initialize(c[k]);
 		}
 		
@@ -107,7 +108,7 @@ public class SigmaEstablisherAdapterTest {
 		}
 		
 		for (int k=0; k<N; k++)
-			sigmaE[k].setWish(Wish.ACCEPT);
+			sigmaE[k].start();
 		
 		try{
 			Thread.sleep(3001);
@@ -122,6 +123,7 @@ public class SigmaEstablisherAdapterTest {
 		
 		assertTrue(res);
 	}
+	
 	private String createString(int len){
 		// Characters we will use to encrypt
 		char[] characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:\'\",<.>/?".toCharArray();
@@ -135,5 +137,4 @@ public class SigmaEstablisherAdapterTest {
 		}
 		return sb.toString();
 	}
-
 }
