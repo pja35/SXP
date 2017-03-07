@@ -3,6 +3,8 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -16,7 +18,7 @@ import crypt.impl.signatures.ElGamalSignature;
 import crypt.impl.signatures.ElGamalSigner;
 import model.api.Wish;
 import model.entity.ElGamalKey;
-import protocol.impl.sigma.SigmaContractAdapter;
+import protocol.impl.sigma.SigmaContract;
 import util.TestInputGenerator;
 
 /**
@@ -24,8 +26,8 @@ import util.TestInputGenerator;
  * @author denis.arrivault[@]univ-amu.fr
  *
  */
-public class SigmaContractAdapterTest {
-	private final static Logger log = LogManager.getLogger(SigmaContractAdapterTest.class);
+public class SigmaContractTest {
+	private final static Logger log = LogManager.getLogger(SigmaContractTest.class);
 	@Rule public ExpectedException exception = ExpectedException.none();
 
 	class Clauses implements Signable<ElGamalSignature> {
@@ -53,7 +55,7 @@ public class SigmaContractAdapterTest {
 	}
 
 	private final int N = TestInputGenerator.getRandomInt(1, 20);
-	private SigmaContractAdapter contract;
+	private SigmaContract contract;
 	private String text;
 	private Clauses clauses;
 
@@ -61,12 +63,12 @@ public class SigmaContractAdapterTest {
 	public void instantiate(){
 		text = TestInputGenerator.getRandomIpsumText();
 		clauses = new Clauses(text);
-		contract = new SigmaContractAdapter(clauses);
+		contract = new SigmaContract(clauses);
 	}
 
 	@Test
 	public void clausesGetterTest(){
-		SigmaContractAdapter newContract = new SigmaContractAdapter();
+		SigmaContract newContract = new SigmaContract();
 		newContract.setClauses(clauses);
 		assertArrayEquals(newContract.getClauses().getHashableData(), clauses.getHashableData());
 		assertArrayEquals(contract.getClauses().getHashableData(), clauses.getHashableData());
@@ -94,10 +96,12 @@ public class SigmaContractAdapterTest {
 
 	@Test
 	public void badFinalizationTest(){
+		ArrayList<ElGamalKey> parties = new ArrayList<ElGamalKey>();
 		for(int i = 0; i<N; i++){
 			ElGamalKey key = ElGamalAsymKeyFactory.create(false);
-			contract.addParty(key);
+			parties.add(key);
 		}
+		contract.setParties(parties, true);
 		assertFalse(contract.isFinalized());
 		for(ElGamalKey key : contract.getParties()){
 			assertTrue(key.getClass().getName().equals("model.entity.ElGamalKey"));
@@ -107,15 +111,17 @@ public class SigmaContractAdapterTest {
 		}
 		assertFalse(contract.isFinalized());
 		assertFalse(contract.checkContrat(contract));
-		assertFalse(contract.checkContrat(new SigmaContractAdapter(new Clauses(TestInputGenerator.getRandomIpsumText()))));
+		assertFalse(contract.checkContrat(new SigmaContract(new Clauses(TestInputGenerator.getRandomIpsumText()))));
 	}
 
 	@Test
 	public void finalizedTest(){
+		ArrayList<ElGamalKey> parties = new ArrayList<ElGamalKey>();
 		for(int i = 0; i<N; i++){
 			ElGamalKey key = ElGamalAsymKeyFactory.create(false);
-			contract.addParty(key);
+			parties.add(key);
 		}
+		contract.setParties(parties, true);
 		for(ElGamalKey key : contract.getParties()){
 			assertTrue(key.getClass().getName().equals("model.entity.ElGamalKey"));
 			ElGamalSigner signer = new ElGamalSigner();
@@ -124,7 +130,7 @@ public class SigmaContractAdapterTest {
 		}
 		assertTrue(contract.isFinalized());
 		assertTrue(contract.checkContrat(contract));
-		assertFalse(contract.checkContrat(new SigmaContractAdapter(new Clauses(TestInputGenerator.getRandomIpsumText()))));
+		assertFalse(contract.checkContrat(new SigmaContract(new Clauses(TestInputGenerator.getRandomIpsumText()))));
 	}
 
 	@Test

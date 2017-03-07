@@ -7,7 +7,6 @@ import crypt.api.signatures.Signer;
 import crypt.factories.SignerFactory;
 import crypt.impl.signatures.ElGamalSignature;
 import model.entity.ElGamalKey;
-import protocol.api.EstablisherContract;
 
 /**
  * 
@@ -141,7 +140,7 @@ public class PCS {
 	 * @param contract
 	 * @return Signature on contract
 	 */
-	public ElGamalSignature getClearSignature(EstablisherContract<?,?,?,?> contract){
+	public ElGamalSignature getClearSignature(SigmaContract contract){
 		Signer<ElGamalSignature,ElGamalKey> sig = SignerFactory.createElGamalSigner(); 
 		sig.setKey(sender.getKeys());
 		return sig.sign(contract.getClauses().getHashableData());
@@ -154,7 +153,7 @@ public class PCS {
 	 * @param key
 	 * @return
 	 */
-	public boolean verifySignature(ElGamalSignature signature, EstablisherContract<?,?,?,?> contract, ElGamalKey key){
+	public boolean verifySignature(ElGamalSignature signature, SigmaContract contract, ElGamalKey key){
 		if (signature == null ){return false;}
 		Signer<ElGamalSignature,ElGamalKey> sig = SignerFactory.createElGamalSigner(); 
 		sig.setKey(key);

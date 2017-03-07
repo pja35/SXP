@@ -29,7 +29,7 @@ import protocol.api.Establisher;
 import protocol.impl.sigma.Or;
 import protocol.impl.sigma.PCS;
 import protocol.impl.sigma.Sender;
-import protocol.impl.sigma.SigmaContractAdapter;
+import protocol.impl.sigma.SigmaContract;
 import rest.api.Authentifier;
 
 
@@ -41,7 +41,7 @@ import rest.api.Authentifier;
  * TODO : Change the messaging system to an asymetric one
  */
 
-public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, ElGamalSignature, ElGamalSigner, SigmaContractAdapter> {
+public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, ElGamalSignature, ElGamalSigner, SigmaContract> {
 	
 	
 	private ElGamalKey trentK;
@@ -88,7 +88,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, ElGama
 	/**
 	 * @param <c> : contract to be signed
 	 */
-	public void initialize(SigmaContractAdapter c){
+	public void initialize(SigmaContract c){
 		contract = c;
 		
 		/*
@@ -230,7 +230,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, ElGama
 		content[1] = json1.toJson(uris,false);
 		
 		// Contract
-		JsonTools<SigmaContractAdapter> json2 = new JsonTools<>(new TypeReference<SigmaContractAdapter>(){});
+		JsonTools<SigmaContract> json2 = new JsonTools<>(new TypeReference<SigmaContract>(){});
 		content[2] = json2.toJson(contract,false);
 		
 		// Claim(k)

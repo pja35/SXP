@@ -49,11 +49,21 @@ public class ContractEntity {
 	@NotNull
 	private ArrayList<String> clauses;
 	
+	// Id of the parties
 	@XmlElement(name="parties")
 	@NotNull
 	@Lob
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	private ArrayList<String> parties;
+	
+	// Maps the id with the name
+	@XmlElement(name="partiesNames")
+	@NotNull
+	@Lob
+	@JsonSerialize(using=controller.tools.MapStringSerializer.class)
+	@JsonDeserialize(using=controller.tools.MapStringDeserializer.class)
+	@JsonFormat(shape=JsonFormat.Shape.STRING)
+	private HashMap<String,String> partiesNames;
 
 	@XmlElement(name="wish")
 	@NotNull
@@ -70,7 +80,11 @@ public class ContractEntity {
 	@JsonDeserialize(using=controller.tools.MapStringDeserializer.class)
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	private HashMap<String, String> signatures;
-	
+
+
+	@XmlElement(name="establishementData")
+	@JsonFormat(shape=JsonFormat.Shape.STRING)
+	private String establishementData;
 	
 	
 	public String getId() {
@@ -119,6 +133,14 @@ public class ContractEntity {
 	}
 	
 	
+	public HashMap<String,String> getPartiesNames() {
+		return partiesNames;
+	}
+	public void setPartiesNames(HashMap<String,String> n) {
+		this.partiesNames=n;
+	}
+	
+	
 	public Wish getWish() {
 		return wish;
 	}
@@ -140,5 +162,13 @@ public class ContractEntity {
 	}
 	public void setSignatures(HashMap<String,String> s) {
 		this.signatures=s;
+	}
+	
+	
+	public String getEstablishementData() {
+		return establishementData;
+	}
+	public void setEstablishementData(String e) {
+		this.establishementData = e;
 	}
 }

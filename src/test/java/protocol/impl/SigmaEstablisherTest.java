@@ -20,7 +20,7 @@ import model.entity.User;
 import model.syncManager.UserSyncManagerImpl;
 import protocol.impl.SigmaEstablisher;
 import protocol.impl.sigma.ElGamalClauses;
-import protocol.impl.sigma.SigmaContractAdapter;
+import protocol.impl.sigma.SigmaContract;
 import rest.api.Authentifier;
 
 public class SigmaEstablisherTest {
@@ -68,7 +68,7 @@ public class SigmaEstablisherTest {
 		ArrayList<String> cl = new ArrayList<String>();
 		cl.add("hi");cl.add("hi2");
 		ElGamalClauses signable1 = new ElGamalClauses(cl);
-		SigmaContractAdapter[] c = new SigmaContractAdapter[N];
+		SigmaContract[] c = new SigmaContract[N];
 		
 		// Creating the map of URIS
 		String uri = Application.getInstance().getPeer().getUri();
@@ -84,11 +84,16 @@ public class SigmaEstablisherTest {
 			
 			uris.put(keysR[k], uri);
 		}
-		
+
+		ArrayList<ElGamalKey> parties = new ArrayList<ElGamalKey>();
+		for(int i = 0; i<N; i++){
+			ElGamalKey key = keysR[i];
+			parties.add(key);
+		}
 		for (int k=0; k<N; k++){
-			c[k] = new SigmaContractAdapter(signable1);
+			c[k] = new SigmaContract(signable1);
 			for (int i=0; i<N; i++){
-				c[k].addParty(keysR[i]);
+				c[k].setParties(parties, true);
 			}
 		}
 		
