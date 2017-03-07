@@ -4,7 +4,6 @@ import model.api.ItemSyncManager;
 import model.entity.Item;
 import model.factory.ValidatorFactory;
 import model.validator.EntityValidator;
-import model.validator.ItemValidator;
 
 public class ItemSyncManagerImpl extends AbstractSyncManager<Item> implements ItemSyncManager {
 

@@ -1,0 +1,75 @@
+<h2 ng-show="{{action === 'add'}}">Add a new contract</h2>
+<h2 ng-show="{{action === 'edit'}}">Edit a contract</h2>
+
+<form class="form-horizontal" ng-submit="submit()">
+	<div class="form-group">
+		<label for="title" class="col-sm-2 control-label">Title</label>
+	    <div class="col-sm-5">
+	    	<input type="hidden" id="id" ng-model="form.id">
+	    	<input type="text" class="form-control" id="title" placeholder="Un titre" ng-model="form.title">
+	    </div>
+	</div>
+	
+	<div class="form-group well well-sm">
+    	<label for="parties" class="col-sm-2 control-label">Parties</label>
+   		<div class="col-sm-10 form-group">
+    
+			<div class="col-sm-12 col-md-6" ng-repeat="party in parties">
+				<party/>
+			</div>
+			<div class="col-sm-5">
+				<input type="text" class="form-control" id="addParty" placeholder="" ng-model="form.addParty" ui-keypress="{13 :updateparties()}">
+			</div>
+		    <div class="col-sm-1">
+		    	<button type="button" class="btn btn-default" ng-click="updateparties()">Add party</button>
+		    </div>
+	  </div>
+	</div>
+  
+  	<div class="form-group well well-sm">
+    	<label for="clauses" class="col-sm-2 control-label">Clauses</label>
+      
+      	<div class="col-sm-10 form-group">
+			<div class="col-sm-12 col-md-12" ng-repeat="clause in clauses">
+				<clause/>
+			</div>
+			
+			<div class="col-sm-12 col-md-10 col-lg-6 well well-sm">
+				<div  class="row">
+			    	<label for="selectfrom"  class="col-sm-3 col-md-2">From : </label>
+			    	<span class="col-sm-9 col-md-10"><select id="selectfrom" class="form-control" ng-model="fromparty" title="From Party">
+		    			<option ng-repeat="party in parties"><span>{{party}}</span></option>
+			    	</select></span>
+		    	</div>
+				<br/>
+				<div class="row">
+			    	<label for="addClause"  class="col-sm-3 col-md-2">Giving : </label>
+					<span class="col-sm-9 col-md-10">
+						<input type="text" class="form-control" id="addClause" placeholder=" give ... " ng-model="form.addClause"/>
+					</span>
+				</div>
+				<br/>
+				<div  class="row">
+			    	<label for="selectfor"  class="col-sm-3 col-md-2">For : </label>
+			    	<span class="col-sm-9 col-md-10"><select class="form-control col-sm-2" id="selectfor" ng-model="forparty" title="For Party">
+		    			<option ng-repeat="party in parties"><span>{{party}}</span></option>
+			    	</select></span>
+		    	</div>
+				<br/>
+		    	<div class="row">
+		    		<button type="button" class="btn btn-default col-sm-offset-4 col-md-offset-5 btn btn-secondary col-sm-3 col-md-2" ng-click="updateclauses()">Add Clause</button>
+		    	</div>
+	    	</div>
+	  	</div>
+	</div>
+  
+  
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Submit</button>
+      <button class="btn btn-warning" type="button" onclick="window.history.back()">Cancel</button>
+      <button class="btn btn-danger" type="button" ng-click="delete()" ng-show="{{action === 'edit'}}">Delete</button>
+    </div>
+  </div>
+  
+</form>

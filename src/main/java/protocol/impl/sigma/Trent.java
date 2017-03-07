@@ -43,7 +43,16 @@ public class Trent {
 	public  Trent(ElGamalKey keys){
 			
 		this.keys = keys;
-	
+		
+//		EstablisherService establisherService =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
+//		establisherService.addListener(new ServiceListener() {
+//			@Override
+//			public void notify(Messages messages) {// Finding the sender
+//				BigInteger msgSenKey = new BigInteger(messages.getMessage("sourceId"));
+//				
+//			}
+//		}, this.keys.getPublicKey().toString()+"TRENT");
+		
 	 }
 
 	/**

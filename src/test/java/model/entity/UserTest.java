@@ -1,14 +1,8 @@
 package model.entity;
 
 
-import org.eclipse.persistence.annotations.UuidGenerator;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
-
-import model.entity.User;
-import util.TestInputGenerator;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.Field;
 import java.util.Date;
@@ -16,13 +10,19 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.eclipse.persistence.annotations.UuidGenerator;
+import org.junit.Before;
+import org.junit.Test;
+
+import util.TestInputGenerator;
 
 /**
  * User unit tests

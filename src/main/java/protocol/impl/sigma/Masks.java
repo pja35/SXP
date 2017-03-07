@@ -17,6 +17,8 @@ package protocol.impl.sigma;
 
 import java.math.BigInteger;
 
+import javax.xml.bind.annotation.XmlElement;
+
 
 /**
  * Mask to send in the protocolSigma
@@ -26,8 +28,11 @@ import java.math.BigInteger;
  */
 
 public class Masks {
-
+	
+	@XmlElement(name="a")
 	private BigInteger a;
+
+	@XmlElement(name="aBis")
 	private BigInteger aBis;
 	
 	/**
@@ -41,6 +46,8 @@ public class Masks {
 		this.setaBis(aBis);
 	}
 	
+	public Masks (){
+	}
 	
 
 	public BigInteger getA() {
@@ -63,8 +70,43 @@ public class Masks {
 		StringBuffer s = new StringBuffer();
 		s.append("<" + this.getClass().getSimpleName().toLowerCase() + ">");
 		s.append("<a>" + a.toString(16) + "</a>");
-		s.append("<aBis>" + aBis.toString(16) + "</aBis>");
+		if (aBis==null) {
+			s.append("<aBis></aBis>");
+		} else {
+			s.append("<aBis>" + aBis.toString(16) + "</aBis>");
+		}
 		s.append("</" + this.getClass().getSimpleName().toLowerCase() + ">");
 		return s.toString();
+	}
+	
+	/**
+	 * Override equals to be able to compare masks
+	 */
+	public boolean equals(Object o){
+		if (!(o instanceof Masks)){
+			return false;
+		}
+		Masks m = (Masks) o; 
+		boolean okA =a.toString().equals(m.getA().toString());
+		boolean okaBis;
+		if (aBis == null && m.getaBis()==null){
+			okaBis = true;
+		}else if (aBis==null || m.getaBis()==null){
+			return false;
+		}else{
+			okaBis = aBis.toString().equals(m.getaBis().toString());
+		}
+		return okA && okaBis;
+	}
+	
+	/**
+	 * Override hashcode to be able to compare masks
+	 */
+	@Override
+	public int hashCode(){
+		if (aBis==null){
+			return a.intValue();
+		}
+		return a.intValue() + aBis.intValue();
 	}
 }

@@ -1,17 +1,17 @@
 package network.impl.advertisement;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import network.impl.advertisement.PeerAdvertisement;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import network.api.annotation.AdvertisementAttribute;
+import java.lang.reflect.Field;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
+import org.junit.Before;
+import org.junit.Test;
 
+import network.api.annotation.AdvertisementAttribute;
 import network.factories.AdvertisementFactory;
 import util.TestInputGenerator;
-import java.lang.reflect.Field;
 
 /**
  * PeerAdvertisement unit tests

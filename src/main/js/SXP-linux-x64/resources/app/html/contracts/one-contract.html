@@ -1,0 +1,12 @@
+<a href ui-sref="viewContract({id: contract.id})" style="text-decoration : none;">
+	<div class="panel panel-default">
+	  	<div class="panel-heading">
+	    	<h3 class="panel-title"> {{contract.title}}</h3>
+	  	</div>
+	  	{{getclauses(contract)}}
+	  	<div class="panel-body">
+	  		<label for="cl">Clauses :</label>
+			<p id="cl" ng-repeat="clause in contract.clauses">&nbsp;&nbsp;&nbsp;&nbsp;{{clause}}</p>
+	  	</div>
+	</div>
+</a>

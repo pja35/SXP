@@ -13,8 +13,6 @@ import static org.junit.Assert.*;
 import java.util.*;
 
 import javax.net.ssl.HttpsURLConnection;
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 
 import controller.Application;
 import controller.tools.JsonTools;
@@ -22,7 +20,6 @@ import controller.tools.LoggerUtilities;
 import model.entity.Item;
 import model.entity.LoginToken;
 import model.entity.User;
-import model.syncManager.UserSyncManagerImpl;
 import util.TestInputGenerator;
 import util.TestUtils;
 
@@ -204,7 +201,7 @@ public class ControllerTest {
 	@Test
 	public void testB(){
 		try {
-			String data = "login=" + username; 
+			String data = "login=" + username;
 			data += "&";
 			data += "password=" + password;
 			JsonTools<LoginToken> json = new JsonTools<>(new TypeReference<LoginToken>(){});
@@ -262,22 +259,22 @@ public class ControllerTest {
 		}
 	}
 
-	/**
-	 * Retriev all users
-	 */
-	@Test
-	public void testCb(){
-		try {			
-			JsonTools<Collection<User>> json = new JsonTools<>(new TypeReference<Collection<User>>(){});
-			Collection<User> uscoll = json.toEntity(connectAction("GET", "api/users/"));
-			assertTrue(uscoll.size() == 1);
-		} catch (Exception e) {
-			log.error("Associated bug : \"Unable to convert output of http request api/users/{id} into json object\"\n"
-					+ e.getMessage());
-			LoggerUtilities.logStackTrace(e);
-			//fail(e.getMessage());
-		}
-	}
+//	/**
+//	 * Retriev all users
+//	 */
+//	@Test
+//	public void testCb(){
+//		try {			
+//			JsonTools<Collection<User>> json = new JsonTools<>(new TypeReference<Collection<User>>(){});
+//			Collection<User> uscoll = json.toEntity(connectAction("GET", "api/users/"));
+//			assertTrue(uscoll.size() == 1);
+//		} catch (Exception e) {
+//			log.error("Associated bug : \"Unable to convert output of http request api/users/{id} into json object\"\n"
+//					+ e.getMessage());
+//			LoggerUtilities.logStackTrace(e);
+//			//fail(e.getMessage());
+//		}
+//	}
 
 	/**
 	 * Get empty item test 

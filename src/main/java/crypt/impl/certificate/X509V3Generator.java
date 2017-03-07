@@ -1,50 +1,26 @@
 package crypt.impl.certificate;
 
-import java.net.URI;
-import java.util.Arrays;
-
-import javax.swing.JOptionPane;
-
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.shredzone.acme4j.challenge.Challenge;
-import org.shredzone.acme4j.challenge.Dns01Challenge;
-import org.shredzone.acme4j.challenge.Http01Challenge;
-import org.shredzone.acme4j.exception.AcmeConflictException;
-import org.shredzone.acme4j.exception.AcmeException;
-import org.shredzone.acme4j.exception.AcmeUnauthorizedException;
-import org.shredzone.acme4j.util.CSRBuilder;
-import org.shredzone.acme4j.util.CertificateUtils;
-import org.shredzone.acme4j.util.KeyPairUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.shredzone.acme4j.Session;
-import org.shredzone.acme4j.Registration;
-import org.shredzone.acme4j.RegistrationBuilder;
-import org.shredzone.acme4j.Authorization;
-import org.shredzone.acme4j.Status;
-
-
-
-import crypt.api.certificate.CertificateGenerator;
-
-import java.security.KeyStore;
-import java.security.PrivateKey;
-import java.security.KeyPairGenerator;
-import java.security.KeyPair;
-import java.security.Security;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigInteger;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.KeyStore;
+import java.security.Security;
+import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
 import java.util.Date;
 
-import java.security.cert.Certificate;
 import javax.security.auth.x500.X500Principal;
-import java.security.cert.X509Certificate;
-import org.bouncycastle.x509.extension.SubjectKeyIdentifierStructure;
-import org.bouncycastle.x509.X509V3CertificateGenerator;
-import org.bouncycastle.asn1.x509.X509Extensions;
-import org.bouncycastle.operator.ContentSigner;
-import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 
-import java.io.*;
+import org.bouncycastle.x509.X509V3CertificateGenerator;
+
+import crypt.api.certificate.CertificateGenerator;
 
 
 public class X509V3Generator implements CertificateGenerator

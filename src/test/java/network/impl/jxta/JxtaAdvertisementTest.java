@@ -1,5 +1,11 @@
 package network.impl.jxta;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.io.File;
+import java.util.Arrays;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.jdom2.Document;
@@ -8,20 +14,11 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 import network.api.advertisement.Advertisement;
 import network.factories.AdvertisementFactory;
 import network.factories.PeerFactory;
-import network.impl.jxta.JxtaAdvertisement;
-import network.impl.messages.RequestItemMessageTest;
 import util.TestInputGenerator;
 import util.TestUtils;
-import network.impl.jxta.AdvertisementBridge;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * JxtaAdvertisement unit tests

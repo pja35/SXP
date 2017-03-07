@@ -1,28 +1,27 @@
 package network.impl.advertisement;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.io.File;
+import java.lang.reflect.Field;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.jdom2.Document;
+import org.jdom2.Element;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Field;
-
-import network.impl.advertisement.ItemAdvertisement;
-import network.impl.jxta.JxtaItemService;
-import network.impl.jxta.JxtaPeer;
-import util.TestInputGenerator;
-import util.TestUtils;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.jdom2.*;
 
 import network.api.annotation.AdvertisementAttribute;
 import network.api.annotation.ServiceName;
 import network.factories.AdvertisementFactory;
 import network.factories.PeerFactory;
+import network.impl.jxta.JxtaItemService;
+import network.impl.jxta.JxtaPeer;
+import util.TestInputGenerator;
+import util.TestUtils;
 
 
 

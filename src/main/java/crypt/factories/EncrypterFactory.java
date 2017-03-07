@@ -2,6 +2,7 @@ package crypt.factories;
 
 import crypt.api.encryption.Encrypter;
 import crypt.impl.encryption.ElGamalEncrypter;
+import crypt.impl.encryption.ElGamalSerpentEncrypter;
 import crypt.impl.encryption.SerpentEncrypter;
 
 /**
@@ -41,5 +42,13 @@ public class EncrypterFactory {
 	 */
 	public static ElGamalEncrypter createElGamalEncrypter() {
 		return new ElGamalEncrypter();
+	}
+	
+	/**
+	 * Create an ElGamalSerpent implementation of {@link Encrypter}
+	 * @return an {@link ElGamalSerpentEncrypter}
+	 */
+	public static ElGamalSerpentEncrypter createElGamalSerpentEncrypter() {
+		return new ElGamalSerpentEncrypter();
 	}
 }

@@ -2,8 +2,6 @@ package model.api;
 
 import java.util.Collection;
 
-import model.validator.EntityValidator;
-
 /**
  * General interface for entity managers
  * @author Julien Prudhomme
@@ -52,7 +50,7 @@ public interface SyncManager<Entity> {
 	 * @return true if done
 	 */
 	public boolean persist(Entity entity);
-
+	
 	/**
 	 * Begin the transaction
 	 * @return true if done

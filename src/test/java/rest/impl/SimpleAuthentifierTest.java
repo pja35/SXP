@@ -1,20 +1,22 @@
 package rest.impl;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import rest.api.Authentifier;
 import rest.factories.AuthentifierFactory;
 import util.TestInputGenerator;
-import rest.api.Authentifier;
 
 /**
  * SimpleAuthentifier unit tests

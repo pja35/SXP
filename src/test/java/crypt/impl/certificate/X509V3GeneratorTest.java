@@ -1,20 +1,16 @@
 package crypt.impl.certificate;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.attribute.PosixFilePermission;
 import java.security.KeyPair;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.validation.constraints.AssertTrue;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

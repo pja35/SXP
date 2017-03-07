@@ -4,8 +4,9 @@
   version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
   <persistence-unit name="persistence" transaction-type="RESOURCE_LOCAL">
   	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <class>model.entity.Item</class>
-        <class>model.entity.User</class>
+	<class>model.entity.Item</class>
+    	<class>model.entity.User</class>
+	<class>model.entity.ContractEntity</class>
         <class>model.entity.Message</class>
  	<properties>
  		<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />

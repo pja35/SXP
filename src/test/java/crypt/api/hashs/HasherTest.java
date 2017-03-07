@@ -1,5 +1,8 @@
 package crypt.api.hashs;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -7,9 +10,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import static org.junit.Assert.*;
-import crypt.api.hashs.Hasher;
-import crypt.api.hashs.Hashable;
 import crypt.factories.HasherFactory;
 import util.TestInputGenerator;
 

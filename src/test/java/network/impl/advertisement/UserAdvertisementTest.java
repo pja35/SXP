@@ -1,20 +1,18 @@
 package network.impl.advertisement;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.Field;
 
-import network.impl.advertisement.UserAdvertisement;
-import util.TestInputGenerator;
-
 import org.jdom2.Document;
 import org.jdom2.Element;
+import org.junit.Before;
+import org.junit.Test;
 
 import network.api.annotation.AdvertisementAttribute;
 import network.factories.AdvertisementFactory;
+import util.TestInputGenerator;
 
 /**
  * UserAdvertisement unit tests

@@ -1,20 +1,19 @@
 package crypt.impl.signatures;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.junit.Rule;
-import org.junit.Test;
 
 import crypt.factories.ElGamalAsymKeyFactory;
-import crypt.impl.signatures.ElGamalSignature;
-import crypt.impl.signatures.ElGamalSigner;
 import model.entity.ElGamalKey;
 import util.TestInputGenerator;
 

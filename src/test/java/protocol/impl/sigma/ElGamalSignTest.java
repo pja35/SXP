@@ -1,13 +1,15 @@
 package protocol.impl.sigma;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.math.BigInteger;
-import protocol.impl.sigma.ElGamalSign;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import util.TestInputGenerator;
 
 /**

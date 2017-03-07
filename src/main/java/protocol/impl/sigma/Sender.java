@@ -106,6 +106,17 @@ public class Sender extends Fabric{
 	}
 	
 	/**
+	 * Create responseSchnorr will send, with challenge fixed
+	 * @return response in bigInteger
+	 */
+	public ResponsesSchnorr SendResponseSchnorr(Masks mask, BigInteger challenge)
+	{
+		BigInteger response = this.ResponseSchnorr(challenge, mask);
+		
+		return new ResponsesSchnorr(mask,challenge,response);
+	}
+	
+	/**
 	 * Create mask to need send for the CCE 
 	 * @return Masks
 	 */
@@ -171,7 +182,7 @@ public class Sender extends Fabric{
 		byte[] buffer, resume;
 		MessageDigest hash_function = null;
 		
-		String tmp = message.toString().concat(mask.getA().toString());
+		String tmp = (new String(message)).concat(mask.getA().toString());
 		
 		buffer = tmp.getBytes();
 		
@@ -198,7 +209,6 @@ public class Sender extends Fabric{
 		ElGamal elGamal = new ElGamal(tKeys);
 		encrypt  = elGamal.encryptForContract(input);
         ResEncrypt res = new ResEncrypt(encrypt.getU(),encrypt.getV(),input);
-        
         return res;
 	}
 	

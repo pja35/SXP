@@ -24,8 +24,8 @@ import org.bouncycastle.crypto.params.ElGamalPublicKeyParameters;
 
 import controller.tools.LoggerUtilities;
 import crypt.ElGamalEngineK;
-import model.entity.ElGamalKey;
 import crypt.impl.hashs.SHA256Hasher;
+import model.entity.ElGamalKey;
 
 /**
  * This class is used for encryption, decryption, signs and verify signature.

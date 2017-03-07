@@ -17,6 +17,10 @@ package protocol.impl.sigma;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlElement;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * This class is for the composability. This is clause Or.
  * @author sarah
@@ -24,10 +28,18 @@ import java.util.ArrayList;
  */
 public class Or {
 
-	public Receiver receiver;
+	private Receiver receiver;
 	
+
+	@XmlElement(name="ands")
 	public And[] ands;
+	
+	
+	@JsonIgnore
 	public ArrayList <BigInteger> challenges = new ArrayList <BigInteger>(); 
+	
+
+	@XmlElement(name="a")
 	private BigInteger a;
 	
 	/**
@@ -44,6 +56,14 @@ public class Or {
 	}
 	
 	/**
+	 * Constructor
+	 * Useful to get back a json String into an Or object
+	 */
+	public Or(){
+		receiver = new Receiver();
+	}
+	
+	/**
 	 * Verifies if clauses in the Or is true or not for the receiver
 	 * @param resEncrypt
 	 * @return Boolean
@@ -54,18 +74,19 @@ public class Or {
 		{
 			if (!receiver.Verifies(and, true))
 			{
-				System.out.println("il y a un probleme");
+				System.out.println("Signature problem");
 				return false;
 			}
 			
-			for (Responses res : and.responses)
+			for (Responses res : and.responses){
 				challenges.add(res.getChallenge());
+			}
 		}
-		
 		if (!receiver.VerifiesChallenges(resEncrypt.getM(), getA(), challenges))
 		{
-			System.out.println("probleme dans les challenges");
+			System.out.println("problem in challenges");
 		}
+		challenges=new ArrayList <BigInteger>();
 		return true;
 		
 	}

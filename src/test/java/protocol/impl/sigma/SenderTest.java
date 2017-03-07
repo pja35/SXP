@@ -1,16 +1,14 @@
 package protocol.impl.sigma;
 
+import static org.junit.Assert.assertTrue;
+
+import java.math.BigInteger;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-import java.math.BigInteger;
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
-import protocol.impl.sigma.ResponsesCCE;
-import protocol.impl.sigma.ResponsesSchnorr;
-import protocol.impl.sigma.Sender;
 import util.TestInputGenerator;
 
 /**

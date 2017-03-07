@@ -5,9 +5,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import crypt.factories.HasherFactory;
-import crypt.impl.hashs.SHA256Hasher;
 import crypt.api.hashs.HasherTest;
+import crypt.factories.HasherFactory;
 
 
 /**

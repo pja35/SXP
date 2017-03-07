@@ -1,13 +1,14 @@
 package protocol.impl.sigma;
 
+import static org.junit.Assert.assertTrue;
+
+import java.math.BigInteger;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-import java.math.BigInteger;
-import protocol.impl.sigma.Masks;
 import util.TestInputGenerator;
 
 /**

@@ -1,22 +1,22 @@
 package model.validator;
 
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.math.BigInteger;
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.*;
-
-import java.math.BigInteger;
-import java.util.Date;
-
-import model.validator.ItemValidator;
-import util.TestInputGenerator;
 import crypt.api.signatures.Signer;
 import crypt.factories.SignerFactory;
 import model.entity.Item;
 import model.factory.ValidatorFactory;
+import util.TestInputGenerator;
 
 /**
  * ItemValidator unit tests

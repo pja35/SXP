@@ -11,6 +11,7 @@ import crypt.api.hashs.Hashable;
  * @param <Sign> The type of the signature
  */
 public interface Signable<Sign> extends Hashable{
+	
 	/**
 	 * Simple signature setter. You should'nt call this method directly and use a {@link Signer}
 	 * @param s the signature

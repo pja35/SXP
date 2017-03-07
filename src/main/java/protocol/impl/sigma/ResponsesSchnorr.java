@@ -16,6 +16,9 @@
 package protocol.impl.sigma;
 import java.math.BigInteger;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import model.entity.ElGamalKey;
 
 
@@ -27,28 +30,48 @@ import model.entity.ElGamalKey;
 public class ResponsesSchnorr extends Responses{
 
 	/**
-	 * Constructo
+	 * Constructor
 	 * @param mask
 	 * @param challenge
 	 * @param response
 	 */
-	public ResponsesSchnorr(Masks mask, BigInteger challenge,
-			BigInteger response) {
+	@JsonCreator
+	public ResponsesSchnorr(@JsonProperty("masks") Masks mask, @JsonProperty("challenge") BigInteger challenge,@JsonProperty("response") BigInteger response) {
 		super(mask, challenge, response);
 	}
 	
+	public ResponsesSchnorr(){
+		super();
+	}
 	
-
-	@Override
 	/**
 	 * Extends Responses
 	 * Verify if the Schnorr response is good or not 
 	 */
+	
+	@Override
 	public Boolean Verifies(ElGamalKey tKeys, ResEncrypt res) {
 		return (tKeys.getG().modPow(getResponse(), tKeys.getP()).equals(((tKeys.getPublicKey().modPow(getChallenge(), tKeys.getP())).multiply(getMasks().getA())).mod(tKeys.getP())));
 	}
-
 	
 	
+	/**
+	 * Override equals to be able to compare two responses
+	 */
+	@Override
+	public boolean equals(Object o){
+		if (! (o instanceof ResponsesSchnorr)){
+			return false;
+		}
+		return super.equals(o);
+	}
 
+	/**
+	 * Override hashCode to be able to compare two responses
+	 */
+	@Override
+	public int hashCode(){
+		int hashS = super.hashCode();
+		return hashS + 1;
+	}
 }

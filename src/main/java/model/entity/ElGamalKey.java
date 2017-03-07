@@ -8,7 +8,8 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import crypt.api.key.AsymKey;
 
@@ -21,26 +22,27 @@ public class ElGamalKey implements AsymKey<BigInteger>, Serializable{
 	private static final long serialVersionUID = -6531626985325397645L;
 
 	@NotNull
-	@XmlElement(name="privateKey")
-	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
+//	@XmlElement(name="privateKey")
+//	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
+	@JsonIgnore
 	private BigInteger privateKey;
 	
 	@NotNull
 	@XmlElement(name="publicKey")
-	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
+//	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	private BigInteger publicKey;
 	
 	@NotNull
 	@XmlElement(name="p")
-	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
+//	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	private BigInteger p;
 	
 	@NotNull
 	@XmlElement(name="g")
-	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
+//	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	private BigInteger g;
 	
@@ -83,6 +85,16 @@ public class ElGamalKey implements AsymKey<BigInteger>, Serializable{
 	
 	public BigInteger getG() {
 		return g;
+	}
+	
+	public String toString(){
+		StringBuffer s = new StringBuffer();
+		s.append("<" + this.getClass().getSimpleName().toLowerCase() + ">");
+		s.append("<g>" + this.getG() + "</g>");
+		s.append("<p>" + this.getP() + "</p>");
+		s.append("<pbK>" + this.getPublicKey() + "</pbK>");
+		s.append("</" + this.getClass().getSimpleName().toLowerCase() + ">");
+		return s.toString();
 	}
 	
 }

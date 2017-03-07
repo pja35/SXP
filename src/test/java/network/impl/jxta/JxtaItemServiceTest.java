@@ -1,20 +1,10 @@
 package network.impl.jxta;
 
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
-import net.jxta.endpoint.Message;
-import network.api.Messages;
-import network.api.service.InvalidServiceException;
-import network.factories.PeerFactory;
-import network.impl.messages.RequestItemMessageTest;
-import util.TestInputGenerator;
-import util.TestUtils;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -22,6 +12,15 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import net.jxta.endpoint.Message;
+import network.api.Messages;
+import network.api.service.InvalidServiceException;
+import network.factories.PeerFactory;
+import util.TestInputGenerator;
+import util.TestUtils;
 
 /**
  * JxtaItemSerice unit tests

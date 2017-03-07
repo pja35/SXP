@@ -1,6 +1,7 @@
 package model.syncManager;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.Collection;
@@ -20,7 +21,6 @@ import org.junit.runners.MethodSorters;
 
 import model.api.UserSyncManager;
 import model.entity.ElGamalKey;
-import model.entity.Message;
 import model.entity.User;
 import model.factory.SyncManagerFactory;
 import util.TestInputGenerator;

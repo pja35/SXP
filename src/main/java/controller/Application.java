@@ -64,7 +64,7 @@ public class Application {
 		peer.stop();
 		instance = null;
 	}
-
+	
 	public Peer getPeer() {
 		return peer;
 	}

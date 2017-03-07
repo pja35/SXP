@@ -96,7 +96,7 @@ public class Receiver {
 		byte[] buffer, resume;
 		MessageDigest hash_function = null;
 		
-		String tmp = message.toString().concat(mask.getA().toString());
+		String tmp = new String(message).concat(mask.getA().toString());
 		
 		buffer = tmp.getBytes();
 		
@@ -124,7 +124,7 @@ public class Receiver {
 		byte[] buffer, resume;
 		MessageDigest hash_function = null;
 		
-		String tmp = message.toString().concat(a.toString());
+		String tmp = (new String(message)).concat(a.toString());
 		
 		buffer = tmp.getBytes();
 		
@@ -140,7 +140,6 @@ public class Receiver {
 		BigInteger challenges = BigInteger.ZERO;
 		for(BigInteger c : challenge)
 			challenges = challenges.xor(c);
-		
 		return (challenges.equals(test));
 	}
 	

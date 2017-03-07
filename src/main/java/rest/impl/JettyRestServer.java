@@ -1,33 +1,28 @@
 package rest.impl;
 
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.server.HttpConnectionFactory;
-import org.eclipse.jetty.server.SslConnectionFactory;
-import org.eclipse.jetty.util.ssl.SslContextFactory;
-import org.eclipse.jetty.server.SecureRequestCustomizer;
-import org.eclipse.jetty.server.HttpConfiguration;
-import org.eclipse.jetty.server.SecureRequestCustomizer;
-import org.eclipse.jetty.server.SslConnectionFactory;
+import java.io.IOException;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.http.HttpVersion;
-
 import org.eclipse.jetty.server.Connector;
+import org.eclipse.jetty.server.HttpConfiguration;
+import org.eclipse.jetty.server.HttpConnectionFactory;
+import org.eclipse.jetty.server.SecureRequestCustomizer;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.server.SslConnectionFactory;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import org.eclipse.jetty.util.ssl.SslContextFactory;
 
 import com.google.common.reflect.ClassPath;
 
 import controller.tools.LoggerUtilities;
+import crypt.api.certificate.CertificateGenerator;
+import crypt.impl.certificate.X509V3Generator;
 import rest.api.RestServer;
 import rest.api.ServletPath;
-import crypt.impl.certificate.X509V3Generator;
-import crypt.api.certificate.CertificateGenerator;
 
 public class JettyRestServer implements RestServer{
 	private final static Logger log = LogManager.getLogger(JettyRestServer.class);
