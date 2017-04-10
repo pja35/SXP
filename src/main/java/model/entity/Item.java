@@ -19,6 +19,8 @@ import org.eclipse.persistence.annotations.UuidGenerator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import crypt.annotations.CryptSigneAnnotation;
+
 
 @XmlRootElement
 @Entity
@@ -62,7 +64,12 @@ public class Item {
 	@XmlElement(name="userid")
 	@NotNull
 	private String userid;
-
+	
+	@CryptSigneAnnotation(signeWithFields={"title","description","createdAt","username","userid","pbkey"},checkByKey="pbkey")
+	@XmlElement(name="signature")
+	@NotNull
+	private String signature;
+	
 	
 	public String getId() {
 		return id;
@@ -115,4 +122,14 @@ public class Item {
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
+
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
+	
+	
 }

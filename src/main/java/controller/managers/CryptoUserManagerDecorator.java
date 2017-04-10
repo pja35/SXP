@@ -24,7 +24,6 @@ public class CryptoUserManagerDecorator extends ManagerDecorator<User>{
 		this.user = user;
 	}
 	
-	
 	@Override
 	public boolean persist(User entity) {
 		
@@ -33,13 +32,5 @@ public class CryptoUserManagerDecorator extends ManagerDecorator<User>{
 		entity = (User) parser.parseAnnotation(ParserAction.HasherAction);
 		
 		return super.persist(entity);
-		
-	}
-
-
-	
-	
-	
-	
-	
+	}	
 }
