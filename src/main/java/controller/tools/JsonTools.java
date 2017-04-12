@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import model.entity.ElGamalKey;
+import model.entity.ElGamalSignEntity;
 import protocol.impl.sigma.Responses;
 
 public class JsonTools<Entity> {
@@ -56,6 +57,7 @@ public class JsonTools<Entity> {
 		ObjectMapper mapper = new ObjectMapper();
 		SimpleModule simpleModule = new SimpleModule("SimpleModule");
 		simpleModule.addSerializer(new MapSerializer<Responses, ElGamalKey>());
+		//simpleModule.addSerializer(new MapSerializer<Responses, ElGamalSignEntity>());
 		mapper.registerModule(simpleModule);
 		try {
 			return mapper.writeValueAsString(entity);
@@ -78,6 +80,7 @@ public class JsonTools<Entity> {
 		ObjectMapper mapper = new ObjectMapper();
 		SimpleModule simpleModule = new SimpleModule("SimpleModule");
 		simpleModule.addDeserializer(Map.class, new MapResponseKeyDeserializer());
+		//simpleModule.addDeserializer(Map.class, new MapResponseSignatureDeserializer());
 		mapper.registerModule(simpleModule);
 		try {
 			return (Entity) mapper.readValue(json, type);

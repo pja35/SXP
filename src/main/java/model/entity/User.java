@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -53,10 +54,12 @@ public class User {
 	@XmlElement(name="keys")
 	private ElGamalKey keys;
 	
+	/*
 	@CryptSigneAnnotation(signeWithFields={"id","nick","createdAt","passwordHash","salt"})
 	@XmlElement(name="signature")
-	@NotNull
-	private String signature;
+	@Null
+	private ElGamalSignEntity signature;
+	*/
 	
 	public void setId(String id) {
 		this.id = id;
@@ -106,11 +109,13 @@ public class User {
 		this.keys = key;
 	}
 
-	public String getSignature() {
+	/*
+	public ElGamalSignEntity getSignature() {
 		return signature;
 	}
 
-	public void setSignature(String signature) {
+	public void setSignature(ElGamalSignEntity signature) {
 		this.signature = signature;
 	}
+	*/
 }

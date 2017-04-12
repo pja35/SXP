@@ -1,5 +1,6 @@
 package crypt.utils;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -16,12 +17,14 @@ import crypt.annotations.CryptSigneAnnotation;
 import crypt.api.annotation.ParserAction;
 import crypt.api.hashs.Hasher;
 import crypt.api.signatures.Signer;
+import crypt.factories.AsymKeyFactory;
 import crypt.factories.ElGamalAsymKeyFactory;
 import crypt.factories.EncrypterFactory;
 import crypt.factories.HasherFactory;
 import crypt.factories.SignerFactory;
 import crypt.impl.encryption.ElGamalEncrypter;
 import crypt.impl.signatures.ElGamalSignature;
+import crypt.impl.signatures.ElGamalSigner;
 import model.entity.ElGamalKey;
 import model.entity.ElGamalSignEntity;
 import model.entity.User;
@@ -33,11 +36,9 @@ import model.entity.User;
  */
 public class CryptoParser<Entity> extends AbstractParser<Entity> {
 
-	
 	public CryptoParser(Entity entity) {
 		super(entity);
 	}
-	
 	
 	public CryptoParser(Entity entity,User user) {
 		super(entity,user);
@@ -109,7 +110,6 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	/**
@@ -231,32 +231,41 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 					
 					f.setAccessible(true);
 					
-					sb.append(String.valueOf(f.get(getEntity())));
-					
-				} catch (NoSuchFieldException e) {
-					e.printStackTrace();
-				} catch (SecurityException e) {
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
+					if(f.get(getEntity()) instanceof byte[]){
+						sb.append(new String((byte[])f.get(getEntity()), "UTF-8"));
+					}else{
+						sb.append(String.valueOf(f.get(getEntity())));
+					}
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 			
-			Signer<ElGamalSignature, ElGamalKey> signer = (Signer<ElGamalSignature, ElGamalKey>) SignerFactory.createDefaultSigner();
+			Signer<ElGamalSignature, ElGamalKey> signer = SignerFactory.createElGamalSigner();
 			
-			signer.setKey(getKey());
+			ElGamalKey elgamalkey = AsymKeyFactory.createElGamalAsymKey(false);
 			
+			elgamalkey.setPublicKey(null);
+			
+			elgamalkey.setPrivateKey(getPrivateKey());
+			
+			signer.setKey(elgamalkey);
+			
+			//System.out.println("[SIGNED ACTION] : "+sb.toString());
 			ElGamalSignature elGamalSignature = signer.sign(sb.toString().getBytes());
 			
-			ElGamalSignEntity signatureEntity=new ElGamalSignEntity();
+			ElGamalSignEntity signatureEntity = new ElGamalSignEntity();
 			
 			signatureEntity.setR(elGamalSignature.getR());
 			signatureEntity.setS(elGamalSignature.getS());
 			
+			//sb = new StringBuilder();
+			//sb.append(elGamalSignature.getR());
+			//sb.append(elGamalSignature.getS());
+			
 			try {
 				
+				//field.set(getEntity(), sb.toString());
 				field.set(getEntity(), signatureEntity);
 				
 			} catch (IllegalArgumentException e) {
@@ -292,52 +301,67 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 					
 					f.setAccessible(true);
 					
-					sb.append(String.valueOf(f.get(getEntity())));
+					if(f.get(getEntity()) instanceof byte[]){
+						sb.append(new String((byte[])f.get(getEntity()), "UTF-8"));
+					}else{
+						sb.append(String.valueOf(f.get(getEntity())));
+					}
 					
-				} catch (NoSuchFieldException e) {
-					e.printStackTrace();
-				} catch (SecurityException e) {
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 			
-			Signer<ElGamalSignature, ElGamalKey> signer = (Signer<ElGamalSignature, ElGamalKey>) SignerFactory.createDefaultSigner();
-			
 			try {
-			
+				
+				Signer<ElGamalSignature, ElGamalKey> signer = SignerFactory.createElGamalSigner();
+				
+				ElGamalKey elgamalkey = AsymKeyFactory.createElGamalAsymKey(false);
+				
+				elgamalkey.setPrivateKey(null);
+				
 				Field keyField = getEntity().getClass().getDeclaredField(annotation.checkByKey());
 				
 				keyField.setAccessible(true);
 				
 				if(keyField.get(getEntity()) instanceof ElGamalKey){
 					
-					signer.setKey((ElGamalKey) keyField.get(getEntity()));
+					//elgamalkey =(ElGamalKey) keyField.get(getEntity());
+					
+					elgamalkey.setPublicKey(((ElGamalKey) keyField.get(getEntity())).getPublicKey());
 					
 				}else if(keyField.get(getEntity()) instanceof BigInteger){					//key is BigInteger
-					
-					ElGamalKey elGamalKey = ElGamalAsymKeyFactory.createFromParameters(new ElGamalParameters((BigInteger) keyField.get(getEntity()),BigInteger.ZERO));
-					
-					signer.setKey(elGamalKey);
-				}
-			
-				ElGamalSignEntity  signEntity = (ElGamalSignEntity) field.get(getEntity());
 				
-				if(!signer.verify(sb.toString().getBytes(), new ElGamalSignature(signEntity.getR(), signEntity.getS()))){
+					//elgamalkey = AsymKeyFactory.createElGamalAsymKey(false);
+					//elgamalkey.setPublicKey((BigInteger) keyField.get(getEntity()));
+					
+					//elgamalkey = AsymKeyFactory.createElGamalAsymKey(new ElGamalParameters((BigInteger) keyField.get(getEntity()),BigInteger.ONE));
+					elgamalkey.setPublicKey((BigInteger) keyField.get(getEntity()));
+				}else{
+					
+					throw new RuntimeException("Check-key must be a BigInteger or ElGamalKey !");
+				
+				}
+				
+				signer.setKey(elgamalkey);
+				
+				ElGamalSignEntity signEntity = (ElGamalSignEntity) field.get(getEntity());
+				
+				ElGamalSignature signatue = new ElGamalSignature(signEntity.getR(), signEntity.getS());
+				
+				//System.out.println("[CHECK ACTION] : "+sb.toString());
+				
+				if(!signer.verify(sb.toString().getBytes(), signatue)){
+					
 					field.set(getEntity(), null);
+					
+					setEntityToNull();
+					
+					return;
 				}
 				
-			} catch (NoSuchFieldException e1) {
+			} catch (Exception e1) {
 				e1.printStackTrace();
-			} catch (SecurityException e1) {
-				e1.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
 			}
 		}
 		

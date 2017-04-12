@@ -47,6 +47,7 @@ public abstract class AbstractParser<Entity> implements ParserAnnotation<Entity>
 	 */
 	public AbstractParser(Entity entity,User user){
 		this.entity = entity;
+	    this.user = user;
 		fieldsToCrypt = new Hashtable<>();
 		fieldsToHash = new Hashtable<>();
 		fieldsToSign = new Hashtable<>();
@@ -217,6 +218,18 @@ public abstract class AbstractParser<Entity> implements ParserAnnotation<Entity>
 	 */
 	public ElGamalKey getKey(){
 		return user.getKey();
+	}
+
+	
+	
+	/**
+	 * if entity signature not correct set to null
+	 */
+	public void setEntityToNull() {
+		this.entity = null;
+		this.fieldsToCrypt = null;
+		this.fieldsToHash = null;
+		this.fieldsToSign = null;
 	}
 	
 }

@@ -89,6 +89,25 @@ test{
  //exclude 'rest/**'
  //exclude 'util/**'
  
+   testLogging {
+       // Make sure output from
+       // standard out or error is shown
+       // in Gradle output.
+       showStandardStreams = true
+ 
+       // Or we use events method:
+       // events 'standard_out', 'standard_error'
+ 
+       // Or set property events:
+       // events = ['standard_out', 'standard_error']
+ 
+       // Instead of string values we can
+       // use enum values:
+       // events org.gradle.api.tasks.testing.logging.TestLogEvent.STANDARD_OUT,
+       //        org.gradle.api.tasks.testing.logging.TestLogEvent.STANDARD_ERROR,
+    }
+ 
+ 
  if (System.getProperty('DEBUG', 'false') == 'true') {
         jvmArgs '-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5006'
     }

@@ -25,7 +25,6 @@ public class CryptoItemManagerDecorator extends ManagerDecorator<Item>{
 		this.user = user;
 	}
 	
-	
 	@Override
 	public boolean persist(Item entity) {
 		
@@ -37,17 +36,8 @@ public class CryptoItemManagerDecorator extends ManagerDecorator<Item>{
 		
 	}
 
-
 	@Override
 	public void findOneById(String id, ManagerListener<Item> l) {
 		super.findOneById(id,l);
-		
-	}
-
-
-	
-	
-	
-	
-	
+	}	
 }

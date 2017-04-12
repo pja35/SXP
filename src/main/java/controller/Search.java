@@ -30,6 +30,7 @@ public class Search{
 	public ChunkedOutput<String> chunckedSearchByTitle2(
 			@QueryParam("title") final String title,
 			@HeaderParam(Authentifier.PARAM_NAME) final String token) {
+		
 		final ChunkedOutput<String> output = new ChunkedOutput<String>(String.class);
 		
 		new Thread(new Runnable() {

@@ -40,8 +40,11 @@ public class Items {
 		Authentifier auth = Application.getInstance().getAuth();
 		UserSyncManager users = new UserSyncManagerImpl();
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
+		
 		Manager<Item> em = ManagerFactory.createNetworkResilianceItemManager(Application.getInstance().getPeer(), token);
 		//EntityManager<Item> em = new ItemManager();
+		
+		
 		em.begin();
 		//TODO VALIDATION
 		item.setCreatedAt(new Date());

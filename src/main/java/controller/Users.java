@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import controller.managers.CryptoUserManagerDecorator;
 import controller.tools.JsonTools;
 import crypt.api.hashs.Hasher;
 import crypt.factories.ElGamalAsymKeyFactory;
@@ -28,6 +29,7 @@ import model.api.SyncManager;
 import model.api.UserSyncManager;
 import model.entity.LoginToken;
 import model.entity.User;
+import model.manager.ManagerAdapter;
 import model.syncManager.UserSyncManagerImpl;
 import rest.api.Authentifier;
 import rest.api.ServletPath;
@@ -107,18 +109,25 @@ public class Users {
 
 		User u = new User();
 		u.setNick(login);
-		Hasher hasher = HasherFactory.createDefaultHasher();
+		//Hasher hasher = HasherFactory.createDefaultHasher();
 		u.setSalt(HasherFactory.generateSalt());
-		hasher.setSalt(u.getSalt());
-		u.setPasswordHash(hasher.getHash(password.getBytes()));
+		//hasher.setSalt(u.getSalt());
+		//u.setPasswordHash(hasher.getHash(password.getBytes()));
+		u.setPasswordHash(password.getBytes());//replace
 		u.setCreatedAt(new Date());
 		u.setKey(ElGamalAsymKeyFactory.create(false));
-
-		SyncManager<User> em = new UserSyncManagerImpl();
-		em.begin();
-		em.persist(u);
-		em.end();
-		em.close();
+		
+		//SyncManager<User> em = new UserSyncManagerImpl();
+		
+		ManagerAdapter<User> adapter = new ManagerAdapter<User>(new UserSyncManagerImpl());
+		
+		CryptoUserManagerDecorator hasherDecoratorUser = new CryptoUserManagerDecorator(adapter,u);
+		
+		hasherDecoratorUser.begin();
+		hasherDecoratorUser.persist(u);
+		hasherDecoratorUser.end();
+		hasherDecoratorUser.close();
+		
 		Authentifier auth = Application.getInstance().getAuth();
 		LoginToken token = new LoginToken();
 		token.setToken(auth.getToken(login, password));
