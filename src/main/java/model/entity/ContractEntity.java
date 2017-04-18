@@ -46,19 +46,16 @@ public class ContractEntity {
 	private String title;
 	
 	@XmlElement(name="clauses")
-	@NotNull
 	private ArrayList<String> clauses;
 	
 	// Id of the parties
 	@XmlElement(name="parties")
-	@NotNull
 	@Lob
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	private ArrayList<String> parties;
 	
 	// Maps the id with the name
 	@XmlElement(name="partiesNames")
-	@NotNull
 	@Lob
 	@JsonSerialize(using=controller.tools.MapStringSerializer.class)
 	@JsonDeserialize(using=controller.tools.MapStringDeserializer.class)

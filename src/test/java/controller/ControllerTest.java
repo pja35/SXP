@@ -17,6 +17,7 @@ import javax.net.ssl.HttpsURLConnection;
 import controller.Application;
 import controller.tools.JsonTools;
 import controller.tools.LoggerUtilities;
+import model.entity.ContractEntity;
 import model.entity.Item;
 import model.entity.LoginToken;
 import model.entity.User;
@@ -61,9 +62,13 @@ public class ControllerTest {
 
 	private static final DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 	private static final int NbItems = 10;
+	private static final int NbContracts = 10;
 
 	private static String itemTitle;
 	private static String itemId;
+	
+	private static String contractTitle;
+	private static String contractId;
 
 	@BeforeClass
 	static public void initialize() throws IOException{
@@ -436,12 +441,194 @@ public class ControllerTest {
 		}
 
 	}
+	
+	/**
+	 * Get empty contract list
+	 */
+	@Test
+	public void testL(){
+		try {
+			String data = "login=" + username; 
+			data += "&";
+			data += "password=" + password;
+			JsonTools<LoginToken> lgtjs = new JsonTools<>(new TypeReference<LoginToken>(){});
+			LoginToken lgt = lgtjs.toEntity(connectAction("POST", "api/users/login", null, data, true));
+			token = lgt.getToken();
+			HashMap<String, String> properties = new HashMap<String, String>();
+			properties.put("Auth-Token", token);
+			JsonTools<Collection<ContractEntity>> ctjs = new JsonTools<>(new TypeReference<Collection<ContractEntity>>(){});
+			Collection<ContractEntity> ct = ctjs.toEntity(connectAction("GET", "api/contracts", properties, null, true));
+			assertTrue(ct.isEmpty());
+		} catch (Exception e) {
+			fail(LoggerUtilities.logStackTrace(e));
+		}
+	}
+	
+	/**
+	 * Add contracts
+	 */
+	@Test
+	public void testM(){
+		try {
+			for(int i=0; i<NbContracts; ++i){
+				HashMap<String, String> properties = new HashMap<String, String>();
+				properties.put("Auth-Token", token);
+				String data = "{\"title\":\"Object_"+ i + "\"}";
+				if (i==0)
+					data = "{\"title\":\"\"}";
+				JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
+				ContractEntity ct = json.toEntity(connectAction("POST", "api/contracts/", properties, data, false));
+				String createdDate = dateFormat.format(ct.getCreatedAt());
+				assertTrue(createdDate.equals(TestInputGenerator.getFormatedTodayDate("dd-MM-yyyy")));
+				assertFalse(ct.getId().isEmpty());
+				if (i!=0)
+					assertTrue(ct.getTitle().equals("Object_" + i));
+				else
+					assertTrue(ct.getTitle().equals("Secure Exchange Protocol Contract"));
+				assertTrue(ct.getUserid().equals(userid));
+			}
+		} catch (Exception e) {
+			fail(LoggerUtilities.logStackTrace(e));
+		}
+	}
 
+
+	/**
+	 * Check contract list test and pick one
+	 */
+	@Test
+	public void testN(){
+		try {
+			HashMap<String, String> properties = new HashMap<String, String>();
+			properties.put("Auth-Token", token);
+			JsonTools<Collection<ContractEntity>> json = new JsonTools<>(new TypeReference<Collection<ContractEntity>>(){});
+			ArrayList<ContractEntity> ct = (ArrayList<ContractEntity>)json.toEntity(connectAction("GET", "api/contracts", properties, null, true));
+			assertTrue(ct.size() == NbContracts);
+			int n = TestInputGenerator.getRandomInt(0, 10);
+			contractId = ct.get(n).getId();
+			itemTitle = ct.get(n).getTitle();
+			log.debug(contractId + " --- " + contractTitle);
+		} catch (Exception e) {
+			fail(LoggerUtilities.logStackTrace(e));
+		}
+	}
+
+
+
+	/**
+	 * Get a contract by its id
+	 */
+	@Test
+	public void testO(){
+		try {
+			HashMap<String, String> properties = new HashMap<String, String>();
+			properties.put("Auth-Token", token);
+			JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
+			ContractEntity ct = json.toEntity(connectAction("GET", "api/contracts/" + contractId, properties, null, true));
+			String createdDate = dateFormat.format(ct.getCreatedAt());
+			assertTrue(createdDate.equals(TestInputGenerator.getFormatedTodayDate("dd-MM-yyyy")));
+			assertTrue(ct.getTitle().equals(itemTitle));
+			assertTrue(ct.getUserid().equals(userid));
+		} catch (Exception e) {
+			fail(LoggerUtilities.logStackTrace(e));
+		} 
+	}
+	
+	/**
+	 * Edit the previous contract
+	 */
+	@Test
+	public void testP(){
+		try{	
+			HashMap<String, String> properties = new HashMap<String, String>();
+			properties.put("Auth-Token", token);
+			JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
+			String c = connectAction("GET", "api/contracts/" + contractId, properties, null, true);
+			ContractEntity ct = json.toEntity(c);
+			ct.setTitle("Second Title");
+			String c2 = connectAction("PUT", "api/contracts/" + contractId, properties, json.toJson(ct), false);
+			ContractEntity ct2 = json.toEntity(c2);
+			assertFalse(c2.equals(c));
+			assertTrue(ct2.getTitle().equals(ct.getTitle()));
+		}catch (Exception e){
+			fail(LoggerUtilities.logStackTrace(e));
+		}
+	}
+	
+	/**
+	 * Try to delete a contract with an undefined user
+	 */
+	@Test
+	public void testQ(){
+		try {
+			HashMap<String, String> properties = new HashMap<String, String>();
+			properties.put("Auth-Token", token);
+			JsonTools<Collection<ContractEntity>> json = new JsonTools<>(new TypeReference<Collection<ContractEntity>>(){});
+			ArrayList<ContractEntity> ctList = (ArrayList<ContractEntity>)json.toEntity(connectAction("GET", "api/contracts", properties, null, true));
+			for(ContractEntity ct : ctList){
+				properties.put("Auth-Token", "");
+				JSONObject js = new JSONObject(connectAction("DELETE", "api/contracts/" + ct.getId(), properties, null, true));
+				assertFalse(js.get("deleted").equals("true"));
+			}
+		} catch (Exception e) {
+			fail(LoggerUtilities.logStackTrace(e));
+		}
+	}
+	
+	/**
+	 * Try to delete with the wrong user
+	 */
+	@Test
+	public void testQa(){
+		try {
+			//Create user 2
+			String data = "login=" + username + "1";
+			data += "&";
+			data += "password=" + password + "1";
+			JsonTools<LoginToken> json = new JsonTools<>(new TypeReference<LoginToken>(){});
+			LoginToken lgt = json.toEntity(connectAction("POST", "api/users/subscribe", null, data, true));
+			String token2 = lgt.getToken();
+			
+			HashMap<String, String> properties = new HashMap<String, String>();
+			properties.put("Auth-Token", token);
+			JsonTools<Collection<ContractEntity>> json2 = new JsonTools<>(new TypeReference<Collection<ContractEntity>>(){});
+			ArrayList<ContractEntity> ctList = (ArrayList<ContractEntity>)json2.toEntity(connectAction("GET", "api/contracts", properties, null, true));
+			for(ContractEntity ct : ctList){
+				properties.put("Auth-Token", token2);
+				JSONObject js = new JSONObject(connectAction("DELETE", "api/contracts/" + ct.getId(), properties, null, true));
+				assertFalse(js.get("deleted").equals("true"));
+			}
+		}catch (Exception e) {
+			fail(LoggerUtilities.logStackTrace(e));
+		}
+	}
+	
+	/**
+	 * Delete all contracts
+	 */
+	@Test
+	public void testQb(){
+		try {
+			HashMap<String, String> properties = new HashMap<String, String>();
+			properties.put("Auth-Token", token);
+			JsonTools<Collection<ContractEntity>> json = new JsonTools<>(new TypeReference<Collection<ContractEntity>>(){});
+			ArrayList<ContractEntity> ctList = (ArrayList<ContractEntity>)json.toEntity(connectAction("GET", "api/contracts", properties, null, true));
+			for(ContractEntity ct : ctList){
+				JSONObject js = new JSONObject(connectAction("DELETE", "api/contracts/" + ct.getId(), properties, null, true));
+				assertTrue(js.get("deleted").equals("true"));
+				log.debug("Contract " + ct.getTitle() + " is deleted.");
+			}
+
+		} catch (Exception e) {
+			fail(LoggerUtilities.logStackTrace(e));
+		}
+	}
+	
 	/**
 	 * Delete the user
 	 */
 	@Test
-	public void testL(){
+	public void testR(){
 		try {
 			HashMap<String, String> properties = new HashMap<String, String>();
 			properties.put("Auth-Token", token);

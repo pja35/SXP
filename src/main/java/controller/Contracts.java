@@ -55,6 +55,8 @@ public class Contracts {
 		contract.setSignatures(null);
 		em.persist(contract);
 		em.end();
+		em.close();
+		users.close();
 		
 		JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
 		return json.toJson(contract);
@@ -66,7 +68,9 @@ public class Contracts {
 	public String getId(@PathParam("id")String id) {
 		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
 		JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
-		return json.toJson(em.findOneById(id));
+		String ret = json.toJson(em.findOneById(id));
+		em.close();
+		return ret;
 	}
 
 	@GET
@@ -78,7 +82,10 @@ public class Contracts {
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
 		JsonTools<Collection<ContractEntity>> json = new JsonTools<>(new TypeReference<Collection<ContractEntity>>(){});
-		return json.toJson(em.findAllByAttribute("userid", currentUser.getId()));
+		String ret = json.toJson(em.findAllByAttribute("userid", currentUser.getId()));
+		em.close();
+		users.close();
+		return ret;
 	}
 
 	@PUT
@@ -101,21 +108,21 @@ public class Contracts {
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String delete(@PathParam("id")String id, @HeaderParam(Authentifier.PARAM_NAME) String token) {
-	Authentifier auth = Application.getInstance().getAuth();
-	UserSyncManager users = new UserSyncManagerImpl();
-	User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
-	users.close();
-	if (currentUser == null)
-		return "{\"deleted\": \"false\"}";
-	
-	SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
-	boolean ret = em.begin();
-	ContractEntity it = em.findOneById(id);
-	if (it.getUserid() != currentUser.getId()){
-		em.end();
-		em.close();
-		return "{\"deleted\": \"false\"}";
-	}
-	return "{\"deleted\": \"" + (ret && em.remove(it) && em.end() && em.close()) + "\"}";
+		Authentifier auth = Application.getInstance().getAuth();
+		UserSyncManager users = new UserSyncManagerImpl();
+		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
+		users.close();
+		if (currentUser == null)
+			return "{\"deleted\": \"false\"}";
+		
+		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
+		boolean ret = em.begin();
+		ContractEntity it = em.findOneById(id);
+		if (it.getUserid() != currentUser.getId()){
+			em.end();
+			em.close();
+			return "{\"deleted\": \"false\"}";
+		}
+		return "{\"deleted\": \"" + (ret && em.remove(it) && em.end() && em.close()) + "\"}";
 	}
 }

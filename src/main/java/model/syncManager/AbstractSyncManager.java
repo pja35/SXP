@@ -132,6 +132,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 			em.persist(entity);
 			return true;
 		}catch(Exception e){
+			System.out.println(e);
 			LoggerUtilities.logStackTrace(e);
 			return false;
 		}
