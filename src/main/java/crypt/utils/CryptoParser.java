@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Hashtable;
 import java.util.Map.Entry;
 
@@ -129,16 +130,23 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 
 				field.setAccessible(true);
 
-				Object valueOfField = field.get(getEntity());
+				String valueOfField = String.valueOf(field.get(getEntity()));
 
 				ElGamalEncrypter encrypter = EncrypterFactory.createElGamalEncrypter();
-
+				
 				encrypter.setKey(getKey());
 				
-				valueOfField = encrypter.encrypt((byte[]) valueOfField);
+				String encodedString = Base64.getEncoder().encodeToString(encrypter.encrypt(valueOfField.getBytes()));
+				field.set(getEntity(), encodedString);
 
-				field.set(getEntity(), valueOfField);
-
+				
+				//byte [] crypted = encrypter.encrypt(valueOfField.getBytes());
+			    //try {
+			    //	field.set(getEntity(), new String(crypted, "ISO-8859-1"));
+				//} catch (UnsupportedEncodingException e1) {
+				//	e1.printStackTrace();
+				//}
+			    
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
@@ -164,44 +172,26 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 				
 				field.setAccessible(true);
 
-				Object valueOfField = field.get(getEntity());
-					
-				String nameOfFieldKey = annotation.decryptByKey();
+				String valueOfField = String.valueOf(field.get(getEntity()));
 				
-				Field keyField = getEntity().getClass().getDeclaredField(nameOfFieldKey);
-				keyField.setAccessible(true);
+				ElGamalEncrypter decrypter = EncrypterFactory.createElGamalEncrypter();
 				
-				ElGamalEncrypter encrypterElGamal = EncrypterFactory.createElGamalEncrypter();
+				decrypter.setKey(getKey());
 				
-				if( keyField.get(getEntity()) instanceof ElGamalKey){
-					
-					encrypterElGamal.setKey((ElGamalKey) keyField.get(getEntity()));
-					
-				}else if(keyField.get(getEntity()) instanceof BigInteger){
-					//key is BigInteger
-					
-					ElGamalKey elGamalKey;
-					
-					if(annotation.isDecryptKeyPublic()){
-						elGamalKey = ElGamalAsymKeyFactory.createFromParameters(new ElGamalParameters((BigInteger) keyField.get(getEntity()),null));
-					}else{
-						elGamalKey = ElGamalAsymKeyFactory.createFromParameters(new ElGamalParameters(null, (BigInteger) keyField.get(getEntity())));
-					}
-					
-					encrypterElGamal.setKey(elGamalKey);
+				byte [] decrypted = decrypter.decrypt(Base64.getDecoder().decode(valueOfField));
+				
+				/*
+				byte[] decrypted = null;
+				try {
+					decrypted = decrypter.decrypt(valueOfField.getBytes("ISO-8859-1"));
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
 				}
+				*/
 				
-				valueOfField = encrypterElGamal.decrypt((byte[]) valueOfField);
+				field.set(getEntity(), new String(decrypted));
 
-				field.set(getEntity(), valueOfField);
-
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (NoSuchFieldException e) {
-				e.printStackTrace();
-			} catch (SecurityException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -251,23 +241,21 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 			
 			signer.setKey(elgamalkey);
 			
-			//System.out.println("[SIGNED ACTION] : "+sb.toString());
 			ElGamalSignature elGamalSignature = signer.sign(sb.toString().getBytes());
 			
-			ElGamalSignEntity signatureEntity = new ElGamalSignEntity();
-			
+			ElGamalSignEntity signatureEntity = new ElGamalSignEntity(); //save signature in entity Item as a ElGamalSignEntity object
 			signatureEntity.setR(elGamalSignature.getR());
 			signatureEntity.setS(elGamalSignature.getS());
 			
 			//sb = new StringBuilder();
 			//sb.append(elGamalSignature.getR());
+			//sb.append(";");
 			//sb.append(elGamalSignature.getS());
 			
 			try {
-				
 				//field.set(getEntity(), sb.toString());
 				field.set(getEntity(), signatureEntity);
-				
+
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
@@ -327,15 +315,10 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 				if(keyField.get(getEntity()) instanceof ElGamalKey){
 					
 					//elgamalkey =(ElGamalKey) keyField.get(getEntity());
-					
 					elgamalkey.setPublicKey(((ElGamalKey) keyField.get(getEntity())).getPublicKey());
 					
 				}else if(keyField.get(getEntity()) instanceof BigInteger){					//key is BigInteger
 				
-					//elgamalkey = AsymKeyFactory.createElGamalAsymKey(false);
-					//elgamalkey.setPublicKey((BigInteger) keyField.get(getEntity()));
-					
-					//elgamalkey = AsymKeyFactory.createElGamalAsymKey(new ElGamalParameters((BigInteger) keyField.get(getEntity()),BigInteger.ONE));
 					elgamalkey.setPublicKey((BigInteger) keyField.get(getEntity()));
 				}else{
 					
@@ -346,10 +329,10 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 				signer.setKey(elgamalkey);
 				
 				ElGamalSignEntity signEntity = (ElGamalSignEntity) field.get(getEntity());
-				
 				ElGamalSignature signatue = new ElGamalSignature(signEntity.getR(), signEntity.getS());
 				
-				//System.out.println("[CHECK ACTION] : "+sb.toString());
+				//String signStrTab [] =  ((String) field.get(getEntity())).split(";");
+				//ElGamalSignature signatue = new ElGamalSignature(new BigInteger(signStrTab[0]), new BigInteger(signStrTab[1]));
 				
 				if(!signer.verify(sb.toString().getBytes(), signatue)){
 					

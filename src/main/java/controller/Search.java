@@ -38,7 +38,7 @@ public class Search{
 			@Override
 			public void run() {
 				Manager<Item> em = 
-						ManagerFactory.createNetworkResilianceItemManager(Application.getInstance().getPeer(), token);
+						ManagerFactory.createCryptoNetworkResilianceItemManager(Application.getInstance().getPeer(), token,null);
 				em.findAllByAttribute("title", title, new ManagerListener<Item>() {
 					
 					@Override

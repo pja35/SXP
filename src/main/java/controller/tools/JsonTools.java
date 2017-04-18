@@ -57,7 +57,7 @@ public class JsonTools<Entity> {
 		ObjectMapper mapper = new ObjectMapper();
 		SimpleModule simpleModule = new SimpleModule("SimpleModule");
 		simpleModule.addSerializer(new MapSerializer<Responses, ElGamalKey>());
-		//simpleModule.addSerializer(new MapSerializer<Responses, ElGamalSignEntity>());
+		//simpleModule.addSerializer(new MapSerializer<String, ElGamalSignEntity>());
 		mapper.registerModule(simpleModule);
 		try {
 			return mapper.writeValueAsString(entity);

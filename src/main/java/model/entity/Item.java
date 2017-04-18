@@ -10,7 +10,6 @@ import javax.persistence.Lob;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,12 +19,14 @@ import org.eclipse.persistence.annotations.UuidGenerator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import crypt.annotations.CryptSigneAnnotation;
 
 
 @XmlRootElement
 @Entity
 public class Item {
+	
 	@XmlElement(name="id")
 	@UuidGenerator(name="uuid")
     @Id
@@ -66,11 +67,19 @@ public class Item {
 	@NotNull
 	private String userid;
 	
-	@Null
+	
 	@CryptSigneAnnotation(signeWithFields={"title","description","createdAt","username","userid","pbkey"},checkByKey="pbkey")
 	@XmlElement(name="signature")
+	@NotNull
 	private ElGamalSignEntity signature;
 	
+	/*
+	@CryptSigneAnnotation(signeWithFields={"title","description","createdAt","username","userid","pbkey"},checkByKey="pbkey")
+	@XmlElement(name="signature")
+	@Lob
+	@NotNull
+	private String signature;
+	*/
 	
 	public String getId() {
 		return id;
@@ -133,5 +142,13 @@ public class Item {
 		this.signature = signature;
 	}
 	
-	
+	/*
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
+	*/
 }

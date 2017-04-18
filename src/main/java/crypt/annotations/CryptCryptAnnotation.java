@@ -17,19 +17,19 @@ public @interface CryptCryptAnnotation {
 	 * get the field name that contain the key to encrypt data
 	 * @return String name of field
 	 */
-	public String cryptByKey() default "keys";
+	public boolean isEncryptKeyPrivate() default true;
 	
-	/**
+	/*
 	 * get the field name that contain the key to decrypt data
 	 * @return String name of field
 	 */
-	public String decryptByKey() default "pbkey";
+	//public String isDecryptByPublicKey() default "pbkey";
 	
-	/**
+	/*
 	 * specify that the decrypt key is public or private key
 	 * @return Boolean  
 	 */
-	public boolean isDecryptKeyPublic() default true;
+	//public boolean isDecryptKeyPublic() default true;
 	
 	
 	

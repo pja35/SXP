@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.eclipse.persistence.annotations.UuidGenerator;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import crypt.annotations.CryptCryptAnnotation;
 
 @XmlRootElement
 @Entity
@@ -53,7 +54,8 @@ public class Message {
 	@XmlElement(name="receiverName")
 	@NotNull
 	private String receiverName;
-
+	
+	@CryptCryptAnnotation(isEncryptKeyPrivate=true)
 	@Lob
 	@XmlElement(name="messageContent")
 	@NotNull
