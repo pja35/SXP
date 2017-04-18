@@ -61,7 +61,7 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, E
 		contract.setSignatures(new HashMap<String,String>());
 	}
 	
-	// Constructor from a ContractEntity (what will be most use)
+	// Constructor from a ContractEntity (what will be most used)
 	public SigmaContract(ContractEntity c){
 		super();
 		this.contract=c;
@@ -91,7 +91,7 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, E
 	}
 	
 	/**
-	 * Get the parties keys
+	 * Find the parties keys
 	 * @param s : List of user ids
 	 */
 	public void setParties(ArrayList<String> s){
