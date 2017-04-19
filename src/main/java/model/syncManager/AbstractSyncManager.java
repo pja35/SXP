@@ -177,4 +177,5 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 			return false;
 		}
 	}
+
 }

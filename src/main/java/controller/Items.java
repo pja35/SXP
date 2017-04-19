@@ -200,13 +200,16 @@ public class Items {
 		//}
 		
 	    SyncManager<Item> em = new ItemSyncManagerImpl();
+	    Item item2 = em.findOneById(item.getId());
+		
+	
 		em.begin();
-		Item item2 = em.findOneById(item.getId());
+		
 		item2.setTitle(item.getTitle());
 		item2.setDescription(item.getDescription());
-		
-		//ParserAnnotation<Item> parser = ParserFactory.createDefaultParser(item2, currentUser);
-		//item2 = parser.parseAnnotation(ParserAction.SigneAction);
+	
+		ParserAnnotation<Item> parser = ParserFactory.createDefaultParser(item2, currentUser);
+		item2 = parser.parseAnnotation(ParserAction.SigneAction);
 		
 		em.end();
 		
@@ -267,8 +270,7 @@ public class Items {
 		sb.append("<th>Sign S</th>");
 		sb.append("</tr>");
 		sb.append("</thead><tbody>");
-		
-		
+			
 		ManagerAdapter<Item> adapter = new ManagerAdapter<Item>(new ItemSyncManagerImpl());
 		CryptoItemManagerDecorator em = new CryptoItemManagerDecorator(adapter, null);
 		
@@ -287,20 +289,6 @@ public class Items {
 				}
 			}
 		});
-		
-		
-		/*
-		for (Item item : collections) {
-			sb.append("<tr>");
-			sb.append("<td>"+item.getId()+"</td>");
-			sb.append("<td>"+item.getTitle()+"</td>");
-			sb.append("<td>"+item.getDescription()+"</td>");
-			sb.append("<td>"+item.getUsername()+"</td>");
-			sb.append("<td>"+item.getSignature()+"</td>");
-			//sb.append("<td>"+item.getSignature().getS()+"</td>");
-			sb.append("</tr>");
-		}
-		*/
 		
 		sb.append("</tbody></table></div></div></div></body></html>");
 		

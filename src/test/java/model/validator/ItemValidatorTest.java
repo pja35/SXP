@@ -14,6 +14,7 @@ import org.junit.rules.ExpectedException;
 
 import crypt.api.signatures.Signer;
 import crypt.factories.SignerFactory;
+import model.entity.ElGamalSignEntity;
 import model.entity.Item;
 import model.factory.ValidatorFactory;
 import util.TestInputGenerator;
@@ -34,6 +35,7 @@ public class ItemValidatorTest {
 	String userid;
 	ItemValidator validator;
 	ValidatorFactory factory;
+	ElGamalSignEntity signature;
 	Signer signer;
 	
 	@Before
@@ -45,12 +47,17 @@ public class ItemValidatorTest {
 		publicKey = TestInputGenerator.getRandomBigInteger(TestInputGenerator.getRandomInt(3, 256));
 		username = TestInputGenerator.getRandomUser(100); 
 		userid = TestInputGenerator.getRandomUser();
+		signature = new ElGamalSignEntity();
+		signature.setR(TestInputGenerator.getRandomBigInteger(TestInputGenerator.getRandomInt(3, 256)));
+		signature.setS(TestInputGenerator.getRandomBigInteger(TestInputGenerator.getRandomInt(3, 256)));
+		
 		item.setTitle(title);
 		item.setDescription(description);
 		item.setCreatedAt(date);
 		item.setPbkey(publicKey);
 		item.setUsername(username);
 		item.setUserid(userid);
+		item.setSignature(signature);
 		factory = new ValidatorFactory();
 		validator = factory.createItemValidator();
 		signer = SignerFactory.createDefaultSigner();

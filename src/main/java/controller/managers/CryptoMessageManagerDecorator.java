@@ -42,6 +42,7 @@ public class CryptoMessageManagerDecorator extends ManagerDecorator<Message>{
 
 	@Override
 	public void findAllByAttribute(String attribute, String value, final ManagerListener<Message> l) {
+		
 		super.findAllByAttribute(attribute, value, new ManagerListener<Message>() {
 			@Override
 			public void notify(Collection<Message> results) {

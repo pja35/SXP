@@ -5,6 +5,13 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+
+import org.eclipse.persistence.internal.sessions.ObjectChangeSet;
+import org.eclipse.persistence.internal.sessions.UnitOfWorkChangeSet;
+import org.eclipse.persistence.internal.sessions.UnitOfWorkImpl;
+import org.eclipse.persistence.jpa.JpaEntityManager;
+import org.eclipse.persistence.sessions.UnitOfWork;
 
 import crypt.api.annotation.ParserAction;
 import crypt.api.annotation.ParserAnnotation;
@@ -34,7 +41,7 @@ public class CryptoItemManagerDecorator extends ManagerDecorator<Item>{
 		
 		ParserAnnotation parser = ParserFactory.createDefaultParser(entity, user);
 		
-		entity = (Item) parser.parseAnnotation(ParserAction.SigneAction);
+		entity =(Item) parser.parseAnnotation(ParserAction.SigneAction);
 		
 		return super.persist(entity);
 		
@@ -117,9 +124,51 @@ public class CryptoItemManagerDecorator extends ManagerDecorator<Item>{
 				l.notify(rest);
 			}
 		});
-		
 	}
+
 	
+	@Override
+	public boolean end() {
+		/*
+		final JpaEntityManager jpaEntityManager = (JpaEntityManager) this.getEm().getDelegate();
+		final UnitOfWorkChangeSet changeSet = (UnitOfWorkChangeSet) jpaEntityManager.getUnitOfWork().getCurrentChanges();
+		UnitOfWorkImpl uow = (UnitOfWorkImpl) this.getEm().unwrap(UnitOfWork.class);
+		Collection<Item> collection = this.watchlist();
+		
+		if(changeSet.hasChanges() && collection.size()==1){
+				
+				Item item = collection.iterator().next();
+				
+				ParserAnnotation parser = ParserFactory.createDefaultParser(item, user);
+				
+				final ObjectChangeSet objectChangeSet = (ObjectChangeSet) changeSet.getObjectChangeSetForClone(item);
+				
+				if(objectChangeSet.hasChangeFor("title") || objectChangeSet.hasChangeFor("description")){
+					item =(Item) parser.parseAnnotation(ParserAction.SigneAction);
+					changeSet.mergeObjectChanges(objectChangeSet, changeSet);
+				}
+		}
+		*/
+		/*
+		final ObjectChangeSet objectChangeSet = changeSet.getObjectChangeSetForClone(bean);
+		 
+		// Get a list of changed propertys and do something with that.
+		final List<String> changedProperties = objectChangeSet.getChanges();
+		for(final String property : changedProperties) {
+		    System.out.println("Changed property: '" + property);
+		}
+		 
+		// Check if a property called "coolProperty" has changed.
+		final ChangeRecord coolPropertyChanges = objectChangeSet.getChangesForAttributeNamed("coolProperty");
+		if(coolPropertyChanges != null) {
+		    System.out.println("Property 'coolProperty' has changed from '" + coolPropertyChanges.getOldValue() + "' to '" + bean.getCoolProperty() + "'");
+		}
+		*/
+		
+		
+		
+		return super.end();
+	}
 	
 	
 }

@@ -25,12 +25,16 @@ public class ElGamalSignEntity extends BaseSignature<BigInteger> implements Seri
 	@ParamName("r")
 	@XmlElement(name="r")
 	@NotNull
+	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
+	@JsonDeserialize(using=controller.tools.BigIntegerDeserializer.class)
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	private BigInteger r;
 	
 	@ParamName("s")
 	@XmlElement(name="s")
 	@NotNull
+	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
+	@JsonDeserialize(using=controller.tools.BigIntegerDeserializer.class)
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	private BigInteger s;
 	

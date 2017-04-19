@@ -109,11 +109,8 @@ public class Users {
 
 		User u = new User();
 		u.setNick(login);
-		//Hasher hasher = HasherFactory.createDefaultHasher();
 		u.setSalt(HasherFactory.generateSalt());
-		//hasher.setSalt(u.getSalt());
-		//u.setPasswordHash(hasher.getHash(password.getBytes()));
-		u.setPasswordHash(password.getBytes());//replace
+		u.setPasswordHash(password.getBytes());
 		u.setCreatedAt(new Date());
 		u.setKey(ElGamalAsymKeyFactory.create(false));
 		

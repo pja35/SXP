@@ -3,6 +3,8 @@ package model.manager;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.EntityManager;
+
 import model.api.Manager;
 import model.api.ManagerListener;
 import model.api.SyncManager;

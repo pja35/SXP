@@ -17,9 +17,11 @@ import javax.net.ssl.HttpsURLConnection;
 import controller.Application;
 import controller.tools.JsonTools;
 import controller.tools.LoggerUtilities;
+import model.api.SyncManager;
 import model.entity.Item;
 import model.entity.LoginToken;
 import model.entity.User;
+import model.syncManager.ItemSyncManagerImpl;
 import util.TestInputGenerator;
 import util.TestUtils;
 
@@ -410,6 +412,7 @@ public class ControllerTest {
 			assertTrue(it.getUserid().equals(userid));
 			assertTrue(it.getUsername().equals(username));
 			assertTrue(it.getDescription().contains("Special"));
+			
 		} catch (Exception e) {
 			fail(LoggerUtilities.logStackTrace(e));
 		} 

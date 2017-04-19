@@ -2,6 +2,8 @@ package model.api;
 
 import java.util.Collection;
 
+import javax.persistence.EntityManager;
+
 /**
  * Entities manager. Handle local and distant storage, search.
  * @author Julien Prudhomme
@@ -104,6 +106,5 @@ public abstract class ManagerDecorator<Entity> implements Manager<Entity>{
 	public boolean close() {
 		return em.close();
 	}
-
 
 }

@@ -233,7 +233,7 @@ public abstract class AbstractParser<Entity> implements ParserAnnotation<Entity>
 	
 	
 	/**
-	 * if entity signature not correct set to null
+	 * if entity signature not correct set entity to null
 	 */
 	public void setEntityToNull() {
 		this.entity = null;
@@ -242,113 +242,41 @@ public abstract class AbstractParser<Entity> implements ParserAnnotation<Entity>
 		this.fieldsToSign = null;
 	}
 	
-
-	public String encrypt(String data){
+	/**
+	 * encrypt String data 
+	 * using an asymmetric protocol to encrypt a password and encrypt data using this password by a symmetric system 
+	 * @param data : String
+	 * @return : encrypted data as a json String
+	 */
+	protected String encrypt(String data){
 		    
 			int bitSize = getKey().getPublicKey().bitLength();
 			
 			StringBuilder resultat=new StringBuilder();
 			
-			Encrypter<ElGamalKey> encrypter = EncrypterFactory.createElGamalEncrypter();
+			Encrypter<ElGamalKey> encrypter = EncrypterFactory.createElGamalSerpentEncrypter();
 		    
 			encrypter.setKey(getKey());
-			/*
-			int readBytes = data.length();
 			
-			byte[] bytesToBeEncoded = new byte[(bitSize - 1) / 8];
-			
-			InputStream in = null;
-			
-			byte [] res = new byte[0];
-			
-			try {
-				
-				in = new ByteArrayInputStream(data.getBytes());
-				
-				while(readBytes != -1){
-	                
-					readBytes = in.read(bytesToBeEncoded, 0, bytesToBeEncoded.length);
-					
-					res = appendBytes(res, encrypter.encrypt(bytesToBeEncoded));
-					//resultat.append(Base64.getEncoder().encodeToString(encrypter.encrypt(bytesToBeEncoded)));
-	            }
-				
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			//resultat.append(Base64.getEncoder().encodeToString(encrypter.encrypt(data.getBytes())));
-			    	
-		    return Base64.getEncoder().encodeToString(res);
-		    
-		    */
-			String encodedString = Base64.getEncoder().encodeToString(encrypter.encrypt(data.getBytes()));
-			return encodedString;
+			return new String(encrypter.encrypt(data.getBytes()));
     }
-		 
-    public String decrypt(String data){
+	
+	/**
+	 * decrypt String data 
+	 * using an asymmetric protocol to decrypt a password and decrypt data using this password by a symmetric system 
+	 * @param data : String as json format
+	 * @return : decrypted data as String
+	 */
+	protected String decrypt(String data){
     		
     		int bitSize = getKey().getPrivateKey().bitLength();
     		
     		StringBuilder resultat=new StringBuilder();
     		
-    	 	Encrypter<ElGamalKey> decrypter = EncrypterFactory.createElGamalEncrypter();
+    	 	Encrypter<ElGamalKey> decrypter = EncrypterFactory.createElGamalSerpentEncrypter();
 			
 			decrypter.setKey(getKey());
-			/*
-			int readBytes = data.length();
 			
-			byte[] bytesToBeDecoded = new byte[2 * ((bitSize + 7) / 8)];
-			
-			InputStream in = null;
-			
-			byte [] res = new byte[0];
-			
-			try {
-				byte [] arrayToDecrypt = Base64.getDecoder().decode(data);
-				
-				in = new ByteArrayInputStream(arrayToDecrypt);
-				
-				while(readBytes != -1){
-	                
-					readBytes = in.read(bytesToBeDecoded, 0, bytesToBeDecoded.length);
-					
-					res = appendBytes(res, decrypter.decrypt(bytesToBeDecoded));
-					
-					//resultat.append(new String(decrypter.decrypt(bytesToBeDecoded)));
-	            }
-				
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			
-			String s=new String(res);
-			
-			return s.substring(0, s.length()/3-1);
-			*/
-			byte [] decrypted = decrypter.decrypt(Base64.getDecoder().decode(data));
-			return new String(decrypted);
+			return new String(decrypter.decrypt(data.getBytes()));
     }
-		 
-     public static byte[] appendBytes(byte[] a, byte[] b){
-            int totalLenght = a.length + b.length;
-            byte[] resault = new byte[totalLenght];
-            int offset = 0;
-            for (int i = 0; i < a.length; i++){
-                resault[offset] = a[i];
-                offset++;
-            }
-            for (int i = 0; i < b.length; i++){
-                resault[offset] = b[i];
-                offset++;
-            }
-            return resault;
-      }
 }

@@ -2,6 +2,8 @@ package model.api;
 
 import java.util.Collection;
 
+import javax.persistence.EntityManager;
+
 /**
  * General interface for entity managers
  * @author Julien Prudhomme
@@ -95,4 +97,5 @@ public interface SyncManager<Entity> {
 	 * @return false if the operation fails (exceptions are logged)
 	 */
 	public boolean close();
+	
 }

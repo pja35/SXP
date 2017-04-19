@@ -2,6 +2,8 @@ package model.api;
 
 import java.util.Collection;
 
+import javax.persistence.EntityManager;
+
 /**
  * Asynchronous entity manager. Can handle network things
  * @author Julien Prudhomme

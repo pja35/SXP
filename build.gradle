@@ -90,7 +90,9 @@ test{
  //exclude 'util/**'
  
    testLogging {
-       showStandardStreams = true
+       showStandardStreams = false
+       showExceptions = false
+       showStackTraces = false
    }
  
  

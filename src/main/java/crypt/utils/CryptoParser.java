@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 
 import org.bouncycastle.crypto.params.ElGamalParameters;
 
+import controller.tools.LoggerUtilities;
 import crypt.annotations.CryptCryptAnnotation;
 import crypt.annotations.CryptHashAnnotation;
 import crypt.annotations.CryptSigneAnnotation;
@@ -125,26 +126,19 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 			Field field = entry.getKey();
 			
 			CryptCryptAnnotation annotation = entry.getValue();
-
+			
+			field.setAccessible(true);
+			
 			try {
 
-				field.setAccessible(true);
-
 				String valueOfField = String.valueOf(field.get(getEntity()));
-
+				
 				field.set(getEntity(), this.encrypt(valueOfField));
 				
-				//byte [] crypted = encrypter.encrypt(valueOfField.getBytes());
-			    //try {
-			    //	field.set(getEntity(), new String(crypted, "ISO-8859-1"));
-				//} catch (UnsupportedEncodingException e1) {
-				//	e1.printStackTrace();
-				//}
-			    
 			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
+				LoggerUtilities.logStackTrace(e);
 			} catch (IllegalAccessException e) {
-				e.printStackTrace();
+				LoggerUtilities.logStackTrace(e);
 			}
 		}
 	}
@@ -162,25 +156,18 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 			
 			CryptCryptAnnotation annotation = entry.getValue();
 			
+			field.setAccessible(true);
+
 			try {
 				
-				field.setAccessible(true);
-
 				String valueOfField = String.valueOf(field.get(getEntity()));
-			
-				/*
-				byte[] decrypted = null;
-				try {
-					decrypted = decrypter.decrypt(valueOfField.getBytes("ISO-8859-1"));
-				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
-				}
-				*/
 				
 				field.set(getEntity(), this.decrypt(valueOfField));
-
-			} catch (Exception e) {
-				e.printStackTrace();
+				
+			} catch (IllegalArgumentException e) {
+				LoggerUtilities.logStackTrace(e);
+			} catch (IllegalAccessException e) {
+				LoggerUtilities.logStackTrace(e);
 			}
 		}
 	}

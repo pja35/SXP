@@ -22,6 +22,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import model.api.ItemSyncManager;
+import model.entity.ElGamalSignEntity;
 import model.entity.Item;
 import model.factory.SyncManagerFactory;
 import util.TestInputGenerator;
@@ -43,6 +44,9 @@ public class ItemSyncManagerImplTest {
 	private static String userId = TestInputGenerator.getRandomUser();
 	private static String dbname = TestInputGenerator.getRandomDbName();
 	private static String Id;
+	private static ElGamalSignEntity signature = new ElGamalSignEntity();
+	
+	
 	
 	private ItemSyncManager ism;
 	private Item it;	
@@ -55,6 +59,9 @@ public class ItemSyncManagerImplTest {
 	public void initialize() throws Exception {
 		ism = SyncManagerFactory.createItemSyncManager();
 		it = new Item();
+		
+		signature.setR(TestInputGenerator.getRandomBigInteger(TestInputGenerator.getRandomInt(3, 256)));
+		signature.setS(TestInputGenerator.getRandomBigInteger(TestInputGenerator.getRandomInt(3, 256)));
 	}
 
 	/**
@@ -96,7 +103,8 @@ public class ItemSyncManagerImplTest {
 		it.setCreatedAt(dt);
 		it.setPbkey(pbkey);
 		it.setUsername(userName);
-		it.setUserid(userId);		
+		it.setUserid(userId);
+		it.setSignature(signature); // add to resolve validator not null for signature attribute
 		assertTrue(ism.begin());
 		assertTrue(ism.persist(it));
 		log.debug(dumpWL(ism));
@@ -132,7 +140,8 @@ public class ItemSyncManagerImplTest {
 		it.setCreatedAt(dt);
 		it.setPbkey(pbkey);
 		it.setUsername(userName);
-		it.setUserid(userId);		
+		it.setUserid(userId);
+		it.setSignature(signature);
 		assertTrue(ism.begin());
 		assertTrue(ism.persist(it));
 		log.debug(dumpWL(ism));
