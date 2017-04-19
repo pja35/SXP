@@ -132,13 +132,7 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 
 				String valueOfField = String.valueOf(field.get(getEntity()));
 
-				ElGamalEncrypter encrypter = EncrypterFactory.createElGamalEncrypter();
-				
-				encrypter.setKey(getKey());
-				
-				String encodedString = Base64.getEncoder().encodeToString(encrypter.encrypt(valueOfField.getBytes()));
-				field.set(getEntity(), encodedString);
-
+				field.set(getEntity(), this.encrypt(valueOfField));
 				
 				//byte [] crypted = encrypter.encrypt(valueOfField.getBytes());
 			    //try {
@@ -173,13 +167,7 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 				field.setAccessible(true);
 
 				String valueOfField = String.valueOf(field.get(getEntity()));
-				
-				ElGamalEncrypter decrypter = EncrypterFactory.createElGamalEncrypter();
-				
-				decrypter.setKey(getKey());
-				
-				byte [] decrypted = decrypter.decrypt(Base64.getDecoder().decode(valueOfField));
-				
+			
 				/*
 				byte[] decrypted = null;
 				try {
@@ -189,7 +177,7 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 				}
 				*/
 				
-				field.set(getEntity(), new String(decrypted));
+				field.set(getEntity(), this.decrypt(valueOfField));
 
 			} catch (Exception e) {
 				e.printStackTrace();

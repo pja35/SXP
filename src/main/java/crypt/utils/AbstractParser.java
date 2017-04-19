@@ -1,13 +1,23 @@
 package crypt.utils;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Hashtable;
 import crypt.annotations.CryptCryptAnnotation;
 import crypt.annotations.CryptHashAnnotation;
 import crypt.annotations.CryptSigneAnnotation;
 import crypt.api.annotation.ParserAnnotation;
+import crypt.api.encryption.Encrypter;
+import crypt.factories.EncrypterFactory;
 import crypt.factories.HasherFactory;
+import crypt.impl.encryption.ElGamalEncrypter;
 import model.entity.ElGamalKey;
 import model.entity.User;
 
@@ -232,4 +242,113 @@ public abstract class AbstractParser<Entity> implements ParserAnnotation<Entity>
 		this.fieldsToSign = null;
 	}
 	
+
+	public String encrypt(String data){
+		    
+			int bitSize = getKey().getPublicKey().bitLength();
+			
+			StringBuilder resultat=new StringBuilder();
+			
+			Encrypter<ElGamalKey> encrypter = EncrypterFactory.createElGamalEncrypter();
+		    
+			encrypter.setKey(getKey());
+			/*
+			int readBytes = data.length();
+			
+			byte[] bytesToBeEncoded = new byte[(bitSize - 1) / 8];
+			
+			InputStream in = null;
+			
+			byte [] res = new byte[0];
+			
+			try {
+				
+				in = new ByteArrayInputStream(data.getBytes());
+				
+				while(readBytes != -1){
+	                
+					readBytes = in.read(bytesToBeEncoded, 0, bytesToBeEncoded.length);
+					
+					res = appendBytes(res, encrypter.encrypt(bytesToBeEncoded));
+					//resultat.append(Base64.getEncoder().encodeToString(encrypter.encrypt(bytesToBeEncoded)));
+	            }
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			//resultat.append(Base64.getEncoder().encodeToString(encrypter.encrypt(data.getBytes())));
+			    	
+		    return Base64.getEncoder().encodeToString(res);
+		    
+		    */
+			String encodedString = Base64.getEncoder().encodeToString(encrypter.encrypt(data.getBytes()));
+			return encodedString;
+    }
+		 
+    public String decrypt(String data){
+    		
+    		int bitSize = getKey().getPrivateKey().bitLength();
+    		
+    		StringBuilder resultat=new StringBuilder();
+    		
+    	 	Encrypter<ElGamalKey> decrypter = EncrypterFactory.createElGamalEncrypter();
+			
+			decrypter.setKey(getKey());
+			/*
+			int readBytes = data.length();
+			
+			byte[] bytesToBeDecoded = new byte[2 * ((bitSize + 7) / 8)];
+			
+			InputStream in = null;
+			
+			byte [] res = new byte[0];
+			
+			try {
+				byte [] arrayToDecrypt = Base64.getDecoder().decode(data);
+				
+				in = new ByteArrayInputStream(arrayToDecrypt);
+				
+				while(readBytes != -1){
+	                
+					readBytes = in.read(bytesToBeDecoded, 0, bytesToBeDecoded.length);
+					
+					res = appendBytes(res, decrypter.decrypt(bytesToBeDecoded));
+					
+					//resultat.append(new String(decrypter.decrypt(bytesToBeDecoded)));
+	            }
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			String s=new String(res);
+			
+			return s.substring(0, s.length()/3-1);
+			*/
+			byte [] decrypted = decrypter.decrypt(Base64.getDecoder().decode(data));
+			return new String(decrypted);
+    }
+		 
+     public static byte[] appendBytes(byte[] a, byte[] b){
+            int totalLenght = a.length + b.length;
+            byte[] resault = new byte[totalLenght];
+            int offset = 0;
+            for (int i = 0; i < a.length; i++){
+                resault[offset] = a[i];
+                offset++;
+            }
+            for (int i = 0; i < b.length; i++){
+                resault[offset] = b[i];
+                offset++;
+            }
+            return resault;
+      }
 }

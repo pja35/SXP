@@ -96,7 +96,7 @@ public class CryptoParserTest {
 	    
 	    StringBuilder sb=new StringBuilder();
 	    
-	    for (int i = 20; i < 139; i++) {
+	    for (int i = 20; i < 48; i++) {
 			sb.append(((char)i));
 		}
 	    
@@ -106,7 +106,7 @@ public class CryptoParserTest {
 	    
 	    BigInteger p = (ElGamalAsymKeyFactory.create(false)).getP();
         int bitSize = p.bitLength();
-        System.out.println("bitSize length="+text.getBytes());
+        System.out.println("bitSize length="+bitSize);
         
 		User user = new User();
 		user.setNick("radoua");
