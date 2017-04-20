@@ -1,4 +1,4 @@
-package protocol.impl.sigma;
+package model.entity.sigma;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -10,6 +10,15 @@ import org.junit.Test;
 
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
+import model.entity.sigma.And;
+import model.entity.sigma.ResEncrypt;
+import model.entity.sigma.Responses;
+import model.entity.sigma.ResponsesCCD;
+import model.entity.sigma.ResponsesCCE;
+import model.entity.sigma.ResponsesSchnorr;
+import protocol.impl.sigma.Receiver;
+import protocol.impl.sigma.Sender;
+import protocol.impl.sigma.Trent;
 import util.TestInputGenerator;
 
 
@@ -40,7 +49,7 @@ public class AndTest {
 		rK = new HashMap<Responses, ElGamalKey>();
 		rK.put(responseSchnorr, senderKey);
 		rK.put(responseCCE, trentKey);
-		and = new And(receiver, rK, resEncrypt, responseSchnorr, responseCCE); 
+		and = new And(rK, resEncrypt, responseSchnorr, responseCCE); 
 	}
 	
 	
@@ -54,7 +63,7 @@ public class AndTest {
 	public void falseVerifyTest() {		
 		ResponsesCCD responseCCD = trent.SendResponse(resEncrypt);
 		rK.put(responseCCD, ElGamalAsymKeyFactory.create(false));
-		and = new And(receiver, rK, resEncrypt, responseCCD);
+		and = new And(rK, resEncrypt, responseCCD);
 		assertFalse(and.Verifies(false));
 		
 	}

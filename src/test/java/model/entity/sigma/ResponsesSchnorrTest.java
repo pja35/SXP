@@ -1,4 +1,4 @@
-package protocol.impl.sigma;
+package model.entity.sigma;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
+import model.entity.sigma.ResponsesSchnorr;
+import protocol.impl.sigma.Fabric;
 
 /**
  * ResponsesSchnorr unit test

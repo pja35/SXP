@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
+import model.entity.sigma.Or;
 
 public class PCSTest {
 	
@@ -31,11 +32,11 @@ public class PCSTest {
 		buffer = message.getBytes();
 		
 		//Create the PCS
-		o = (new PCS(bob, aliceK, trentK)).getPcs(buffer);
+		o = (new PCS(bob, trentK)).getPcs(buffer,  aliceK, true);
 		
 		//Alice creates the signature
-		pcs = new PCS(alice, bobK, trentK);
-		pcs.getPcs(buffer);
+		pcs = new PCS(alice, trentK);
+		pcs.getPcs(buffer,  bobK, true);
 	}
 	
 	/**
@@ -43,7 +44,7 @@ public class PCSTest {
 	 */
 	@Test
 	public void TestAa(){
-		assertTrue(pcs.PCSVerifies(buffer));
+		assertTrue(pcs.Verifies(buffer));
 	}
 	
 	/**
@@ -52,7 +53,8 @@ public class PCSTest {
 	@Test
 	public void TestAb(){
 		System.out.println("---- Begining ----\n -->No need to worry, the following 3 lines are meant to be");
-		assertFalse(pcs.PCSVerifies("c".getBytes()));
+		System.out.println("Ab :" + pcs.Verifies("c".getBytes()));
+		assertFalse(pcs.Verifies("c".getBytes()));
 		System.out.println("---- END ----\n");
 	}
 	
@@ -61,7 +63,7 @@ public class PCSTest {
 	 */
 	@Test
 	public void TestBa(){
-		assertTrue(pcs.PCSVerifies(o,buffer));
+		assertTrue(pcs.Verifies(o,buffer));
 	}
 	
 	/**
@@ -70,7 +72,7 @@ public class PCSTest {
 	@Test
 	public void TestBb(){
 		System.out.println("---- Begining ----\n -->No need to worry, the following 3 lines are meant to be");
-		assertFalse(pcs.PCSVerifies(o,"c".getBytes()));
+		assertFalse(pcs.Verifies(o,"c".getBytes()));
 		System.out.println("---- END ----");
 	}
 	

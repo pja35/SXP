@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
+import model.entity.sigma.ResEncrypt;
+import model.entity.sigma.ResponsesCCD;
 import util.TestInputGenerator;
 
 /**

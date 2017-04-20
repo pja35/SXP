@@ -18,8 +18,8 @@ import controller.Users;
 import controller.tools.JsonTools;
 import crypt.api.signatures.Signable;
 import crypt.factories.ElGamalAsymKeyFactory;
-import crypt.impl.signatures.ElGamalSignature;
-import crypt.impl.signatures.ElGamalSigner;
+import crypt.impl.signatures.SigmaSignature;
+import crypt.impl.signatures.SigmaSigner;
 import model.api.Status;
 import model.api.Wish;
 import model.entity.ContractEntity;
@@ -37,8 +37,8 @@ import util.TestInputGenerator;
 public class SigmaContractTest {
 	@Rule public ExpectedException exception = ExpectedException.none();
 
-	class Clauses implements Signable<ElGamalSignature> {
-		private ElGamalSignature sign;
+	class Clauses implements Signable<SigmaSignature> {
+		private SigmaSignature sign;
 		private String text;
 
 		public Clauses(String text) {
@@ -51,12 +51,12 @@ public class SigmaContractTest {
 		}
 
 		@Override
-		public void setSign(ElGamalSignature s) {
+		public void setSign(SigmaSignature s) {
 			this.sign = s;
 		}
 
 		@Override
-		public ElGamalSignature getSign() {
+		public SigmaSignature getSign() {
 			return this.sign;
 		}
 	}
@@ -110,9 +110,10 @@ public class SigmaContractTest {
 		exception.expect(RuntimeException.class);
 		exception.expectMessage("invalid key");
 		ElGamalKey key = ElGamalAsymKeyFactory.create(false);
-		ElGamalSigner signer = new ElGamalSigner();
-		signer.setKey(key);
-		contract.addSignature(key, contract.sign(signer, null));
+		SigmaSigner signer = new SigmaSigner();
+		signer.setTrentK(ElGamalAsymKeyFactory.create(false));
+		signer.setReceiverK(ElGamalAsymKeyFactory.create(false));
+		contract.addSignature(key, contract.sign(signer, key));
 	}
 
 	@Test
@@ -120,9 +121,10 @@ public class SigmaContractTest {
 		exception.expect(RuntimeException.class);
 		exception.expectMessage("invalid key");
 		ElGamalKey key = ElGamalAsymKeyFactory.create(false);
-		ElGamalSigner signer = new ElGamalSigner();
-		signer.setKey(key);
-		contract.addSignature(null, contract.sign(signer, null));
+		SigmaSigner signer = new SigmaSigner();
+		signer.setTrentK(ElGamalAsymKeyFactory.create(false));
+		signer.setReceiverK(ElGamalAsymKeyFactory.create(false));
+		contract.addSignature(null, contract.sign(signer, key));
 	}
 
 	@Test
@@ -133,12 +135,16 @@ public class SigmaContractTest {
 			parties.add(key);
 		}
 		contract.setParties(parties, true);
+		SigmaSigner signer = new SigmaSigner();
+		signer.setTrentK(ElGamalAsymKeyFactory.create(false));
+		/* It doesn't matter who is the receiver (in signature protocol, we need it
+			to forge one part of the "OR" */
+		signer.setReceiverK(ElGamalAsymKeyFactory.create(false));
 		assertFalse(contract.isFinalized());
 		for(ElGamalKey key : contract.getParties()){
 			assertTrue(key.getClass().getName().equals("model.entity.ElGamalKey"));
-			ElGamalSigner signer = new ElGamalSigner();
-			signer.setKey(ElGamalAsymKeyFactory.create(false));
-			contract.addSignature(key, contract.sign(signer, null));
+			ElGamalKey k = ElGamalAsymKeyFactory.create(false);
+			contract.addSignature(key, contract.sign(signer, k));
 		}
 		assertFalse(contract.isFinalized());
 		assertFalse(contract.checkContrat(contract));
@@ -152,12 +158,20 @@ public class SigmaContractTest {
 			ElGamalKey key = ElGamalAsymKeyFactory.create(false);
 			parties.add(key);
 		}
+		ElGamalKey trentK = ElGamalAsymKeyFactory.create(false);
+		ElGamalKey receiverK = ElGamalAsymKeyFactory.create(false);
 		contract.setParties(parties, true);
+		contract.setTrentKey(trentK);
+		
+		SigmaSigner signer = new SigmaSigner();
+		signer.setTrentK(trentK);
+		/* It doesn't matter who is the receiver (in signature protocol, we need it
+			to forge one part of the "OR" */
+		signer.setReceiverK(receiverK);
+		
 		for(ElGamalKey key : contract.getParties()){
 			assertTrue(key.getClass().getName().equals("model.entity.ElGamalKey"));
-			ElGamalSigner signer = new ElGamalSigner();
-			signer.setKey(key);
-			contract.addSignature(key, contract.sign(signer, null));
+			contract.addSignature(key, contract.sign(signer, key));
 		}
 		assertTrue(contract.isFinalized());
 		assertTrue(contract.checkContrat(contract));

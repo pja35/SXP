@@ -1,4 +1,4 @@
-package protocol.impl.sigma;
+package model.entity.sigma;
 
 import static org.junit.Assert.assertTrue;
 
@@ -12,6 +12,7 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
+import model.entity.sigma.ResEncrypt;
 import util.TestInputGenerator;
 
 public class ResEncryptTest {

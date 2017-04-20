@@ -21,7 +21,13 @@ import java.security.SecureRandom;
 import java.util.HashMap;
 
 import controller.tools.LoggerUtilities;
+import crypt.impl.signatures.SigmaSignature;
 import model.entity.ElGamalKey;
+import model.entity.sigma.Masks;
+import model.entity.sigma.Or;
+import model.entity.sigma.ResEncrypt;
+import model.entity.sigma.Responses;
+import model.entity.sigma.ResponsesCCD;
 
 
 /**
@@ -60,7 +66,7 @@ public class Trent {
 	 * @param res
 	 * @return Masks
 	 */
-	private Masks SendMasks(ResEncrypt res)
+	public Masks SendMasks(ResEncrypt res)
 	{
 		BigInteger s;
 		s = Utils.rand(160, keys.getP());
@@ -82,7 +88,7 @@ public class Trent {
 	 * @param message
 	 * @return
 	 */
-	private BigInteger SendChallenge(Masks mask, byte[] message)
+	public BigInteger SendChallenge(Masks mask, byte[] message)
 	{
 		BigInteger challenge;
 		byte[] buffer, resume;
@@ -109,7 +115,7 @@ public class Trent {
 	 * @param mask
 	 * @return BigInteger
 	 */
-	private BigInteger SendAnswer(BigInteger challenge, Masks mask)
+	public BigInteger SendAnswer(BigInteger challenge, Masks mask)
 	{
 		BigInteger r = (keys.getPrivateKey().multiply(challenge)).add(eph.get(mask));
 		return r;	
@@ -128,6 +134,25 @@ public class Trent {
 		
 		return new ResponsesCCD(mask,challenge,response);
 	}
+
+	/**
+	 * Create response CCD will send
+	 * @param resEncrypt
+	 * @return
+	 */
+	public ResponsesCCD SendResponse(ResEncrypt resEncrypt, byte[] m)
+	{		
+		Masks mask = this.SendMasks(resEncrypt);
+		BigInteger challenge = this.SendChallenge(mask, m);
+		BigInteger response = this.SendAnswer(challenge, mask);
+		
+		return new ResponsesCCD(mask,challenge,response);
+	}
+	
+	public SigmaSignature SendCompleteSignature(Or pcs, ResEncrypt resEncrypt, byte[] message){
+		Responses rpcs = this.SendResponse(resEncrypt, message);
+		return new SigmaSignature(pcs, rpcs);
+	}
 	
 	/**
 	 * decrypt
@@ -139,10 +164,12 @@ public class Trent {
 		ElGamal elGamal = new ElGamal (keys);
         return elGamal.decryptWithPrivateKey(cipherText);
 	}
-
 	
-	public ElGamalKey getKey() {
-		return keys;
+	/**
+	 * gives trent keys
+	 * @return
+	 */
+	public ElGamalKey getKey(){
+		return this.keys;
 	}
-
 }

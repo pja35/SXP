@@ -22,6 +22,11 @@ import java.util.HashMap;
 
 import controller.tools.LoggerUtilities;
 import model.entity.ElGamalKey;
+import model.entity.sigma.And;
+import model.entity.sigma.Masks;
+import model.entity.sigma.Or;
+import model.entity.sigma.ResEncrypt;
+import model.entity.sigma.Responses;
 
 
 /**
@@ -54,7 +59,7 @@ public class Receiver {
 	 */
 	public Boolean Verifies(Boolean or, HashMap <Responses,ElGamalKey> rK,ResEncrypt resEncrypt, Responses ... responses)
 	{
-		And and = new And(this, rK, resEncrypt, responses);
+		And and = new And(rK, resEncrypt, responses);
 		return and.Verifies(or);
 	}
 	
@@ -78,8 +83,8 @@ public class Receiver {
 	 */
 	public Boolean Verifies(BigInteger a,ResEncrypt resEncrypt, And... ands )
 	{	
-		Or or = new Or(this, a, ands);
-		return or.Verifies(resEncrypt);
+		Or or = new Or(a, ands);
+		return or.Verifies(resEncrypt.getM());
 	}
 	
 	/**
@@ -90,7 +95,7 @@ public class Receiver {
 	 * @return Boolean
 	 */
 	
-	protected Boolean VerifiesChallenge(BigInteger challenge,Masks mask, byte[] message)
+	public Boolean VerifiesChallenge(BigInteger challenge,Masks mask, byte[] message)
 	{
 		BigInteger test;
 		byte[] buffer, resume;
@@ -119,7 +124,7 @@ public class Receiver {
 	 * @param challenge
 	 * @return Boolean
 	 */
-	protected Boolean VerifiesChallenges(byte[] message, BigInteger a, ArrayList<BigInteger> challenge)
+	public Boolean VerifiesChallenges(byte[] message, BigInteger a, ArrayList<BigInteger> challenge)
 	{
 		byte[] buffer, resume;
 		MessageDigest hash_function = null;

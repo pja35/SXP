@@ -11,8 +11,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import controller.Users;
 import controller.tools.JsonTools;
 import crypt.api.signatures.Signable;
-import crypt.impl.signatures.ElGamalSignature;
-import crypt.impl.signatures.ElGamalSigner;
+import crypt.impl.signatures.SigmaSignature;
+import crypt.impl.signatures.SigmaSigner;
 import model.api.Status;
 import model.api.Wish;
 import model.entity.ContractEntity;
@@ -28,23 +28,23 @@ import protocol.api.EstablisherContract;
  * @author Nathanaël Eon
  *
  */
-public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, ElGamalSignature, ElGamalSigner>{
+public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, SigmaSignature, SigmaSigner>{
 	
 	// List of parties keys
 	protected ArrayList<ElGamalKey> parties = new ArrayList<>();
 	// Maps the keys with the id of a user
 	protected HashMap<ElGamalKey,String> partiesId = new HashMap<ElGamalKey, String>();
 	// Maps the keys with the signatures
-	protected HashMap<ElGamalKey, ElGamalSignature> signatures = new HashMap<ElGamalKey, ElGamalSignature>();
+	protected HashMap<ElGamalKey, SigmaSignature> signatures = new HashMap<ElGamalKey, SigmaSignature>();
 	// Clauses in the format we need them
-	protected Signable<ElGamalSignature> clauses = null;
+	protected Signable<SigmaSignature> clauses = null;
 	// Signer object
-	protected ElGamalSigner signer;
+	protected SigmaSigner signer;
 	
 	// Basic constructor
 	public SigmaContract(){
 		super();
-		this.signer = new ElGamalSigner();
+		this.signer = new SigmaSigner();
 		this.contract = new ContractEntity();
 		contract.setClauses(new ArrayList<String>());
 		contract.setParties(new ArrayList<String>());
@@ -52,9 +52,9 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, E
 	}
 	
 	// Constructor from clauses
-	public SigmaContract(Signable<ElGamalSignature> clauses){
+	public SigmaContract(Signable<SigmaSignature> clauses){
 		super();
-		this.signer = new ElGamalSigner();
+		this.signer = new SigmaSigner();
 		this.contract = new ContractEntity();
 		this.setClauses(clauses);
 		contract.setParties(new ArrayList<String>());
@@ -65,25 +65,39 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, E
 	public SigmaContract(ContractEntity c){
 		super();
 		this.contract=c;
-		this.signer = new ElGamalSigner();
+		this.signer = new SigmaSigner();
 		this.setClauses(contract.getClauses());
 		this.setParties(contract.getParties());
 	}
 
 	/************* GETTERS ***********/
-	public Signable<ElGamalSignature> getClauses(){
+	public Signable<SigmaSignature> getClauses(){
 		return clauses;
 	}
 	public ArrayList<ElGamalKey> getParties(){
 		return parties;
 	}
+	public HashMap<String,String> getEstablishementData(){
+		if (contract.getEstablishementData() == null){
+			return new HashMap<String, String>();
+		}			
+		JsonTools<HashMap<String, String>> json = new JsonTools<>(new TypeReference<HashMap<String,String>>(){});
+		return json.toEntity(contract.getEstablishementData());
+	}
+	public ElGamalKey getTrentKey(){
+		String k = this.getEstablishementData().get("trentKey");
+		if (k == null)
+			return null;
+		JsonTools<ElGamalKey> json = new JsonTools<>(new TypeReference<ElGamalKey>(){});
+		return json.toEntity(k);
+	}
 	
 	/************* SETTERS ***********/
 	public void setClauses(ArrayList<String> c){
-		this.clauses = new ElGamalClauses(c);
+		this.clauses = new SigmaClauses(c);
 		this.contract.setClauses(c);
 	}
-	public void setClauses(Signable<ElGamalSignature> c){
+	public void setClauses(Signable<SigmaSignature> c){
 		this.clauses = c;
 		ArrayList<String> a = new ArrayList<String>();
 		a.add(new String(c.getHashableData()));
@@ -111,6 +125,24 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, E
 		this.parties = p;
 	}
 	
+	/**
+	 * Set the establishement data (with a name and a field)
+	 */
+	public void setEstablishementData(String name, String value){
+		HashMap<String, String> estData = this.getEstablishementData();
+		estData.put(name, value);
+		JsonTools<HashMap<String, String>> json = new JsonTools<>(new TypeReference<HashMap<String,String>>(){});
+		contract.setEstablishementData(json.toJson(estData));
+	}
+
+	/**
+	 * Set Trent key and store it into Establishement data
+	 */
+	public void setTrentKey (ElGamalKey k){
+		signer.setTrentK(k);
+		JsonTools<ElGamalKey> json = new JsonTools<>(new TypeReference<ElGamalKey>(){});
+		this.setEstablishementData("trentKey", json.toJson(k));
+	}
 	
 	/************* STATUS / WISH ***********/
 	public Status getStatus(){
@@ -128,10 +160,13 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, E
 	}
 	
 	/************* Abstract method implementation **********/
+	
 	@Override
 	public boolean isFinalized() {
+		if (this.getTrentKey() == null){
+			return false;}
 		for(ElGamalKey k: parties) {
-			signer.setKey(k);
+			signer.setReceiverK(k);
 			if(signatures.get(k) == null || !signer.verify(clauses.getHashableData(), signatures.get(k))) {
 				return false;
 			}
@@ -140,7 +175,7 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, E
 	}
 
 	@Override
-	public void addSignature(ElGamalKey k, ElGamalSignature s) {
+	public void addSignature(ElGamalKey k, SigmaSignature s) {
 		if(k == null || !this.parties.contains(k)) {
 			throw new RuntimeException("invalid key");
 		}
@@ -149,12 +184,12 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, E
 	}
 	
 	@Override
-	public boolean checkContrat(EstablisherContract<BigInteger, ElGamalKey, ElGamalSignature, ElGamalSigner> contract) {
+	public boolean checkContrat(EstablisherContract<BigInteger, ElGamalKey, SigmaSignature, SigmaSigner> contract) {
 		return this.equals(contract) && this.isFinalized();
 	}
 	
 	@Override
-	public boolean equals(EstablisherContract<BigInteger, ElGamalKey, ElGamalSignature, ElGamalSigner> c) {
+	public boolean equals(EstablisherContract<BigInteger, ElGamalKey, SigmaSignature, SigmaSigner> c) {
 		return Arrays.areEqual(this.getHashableData(), c.getHashableData());
 	}
 	
@@ -176,7 +211,8 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, E
 	}
 	
 	@Override
-	public ElGamalSignature sign(ElGamalSigner signer, ElGamalKey k) {
+	public SigmaSignature sign(SigmaSigner signer, ElGamalKey k) {
+		signer.setKey(k);
 		return signer.sign(clauses);
 	}
 

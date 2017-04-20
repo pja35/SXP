@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import model.entity.ElGamalKey;
-import protocol.impl.sigma.Responses;
+import model.entity.sigma.Responses;
 
 public class JsonTools<Entity> {
 	

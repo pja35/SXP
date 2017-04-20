@@ -19,7 +19,7 @@ import model.entity.LoginToken;
 import model.entity.User;
 import model.syncManager.UserSyncManagerImpl;
 import protocol.impl.SigmaEstablisher;
-import protocol.impl.sigma.ElGamalClauses;
+import protocol.impl.sigma.SigmaClauses;
 import protocol.impl.sigma.SigmaContract;
 import rest.api.Authentifier;
 
@@ -29,6 +29,8 @@ public class SigmaEstablisherTest {
 		
 	@Test
 	public void test(){
+		ElGamalKey trentK = ElGamalAsymKeyFactory.create(false);
+		
 		// Starting the Application to be able to test it
 		if (Application.getInstance()==null){
 			new Application();
@@ -39,6 +41,7 @@ public class SigmaEstablisherTest {
 		User[] u = new User[N];
 		String[] logins = new String[N];
 		String[] passwords = new String[N];
+		
 		for (int k=0; k<N; k++){
 			logins[k] = createString(5);
 			passwords[k] = createString(10);
@@ -55,35 +58,30 @@ public class SigmaEstablisherTest {
 			em.begin();
 			em.persist(u[k]);
 			em.end();
-
-			Authentifier auth = Application.getInstance().getAuth();
-			LoginToken token = new LoginToken();
-			token.setToken(auth.getToken(logins[k], passwords[k]));
-			token.setUserid(u[k].getId());
 		}
-		
-		//Initialize the keys
-		ElGamalKey[] keysR = new ElGamalKey[N];
-		// Creating the contracts 
-		ArrayList<String> cl = new ArrayList<String>();
-		cl.add("hi");cl.add("hi2");
-		ElGamalClauses signable1 = new ElGamalClauses(cl);
-		SigmaContract[] c = new SigmaContract[N];
 		
 		// Creating the map of URIS
 		String uri = Application.getInstance().getPeer().getUri();
 		HashMap<ElGamalKey, String> uris = new HashMap<ElGamalKey, String>();
-		
-
+		//Initialize the keys
+		ElGamalKey[] keysR = new ElGamalKey[N];		
 		for (int k=0; k<N; k++){
 			ElGamalKey key = u[k].getKey();
 			keysR[k] = new ElGamalKey();
 			keysR[k].setG(key.getG());
 			keysR[k].setP(key.getP());
 			keysR[k].setPublicKey(key.getPublicKey());
-			
 			uris.put(keysR[k], uri);
 		}
+		
+		// Creating the contracts 
+		ArrayList<String> cl = new ArrayList<String>();
+		cl.add("clause 1");
+		cl.add("second clause");
+		SigmaClauses signable1 = new SigmaClauses(cl);
+		
+		SigmaContract[] c = new SigmaContract[N];
+		
 
 		ArrayList<ElGamalKey> parties = new ArrayList<ElGamalKey>();
 		for(int i = 0; i<N; i++){
@@ -101,7 +99,7 @@ public class SigmaEstablisherTest {
 		
 		for (int k=0; k<N; k++){
 			Authentifier auth = Application.getInstance().getAuth();
-			sigmaE[k] = new SigmaEstablisher(auth.getToken(logins[k], passwords[k]), uris);
+			sigmaE[k] = new SigmaEstablisher(auth.getToken(logins[k], passwords[k]), uris, trentK);
 			sigmaE[k].initialize(c[k]);
 		}
 		

@@ -1,4 +1,4 @@
-package protocol.impl.sigma;
+package model.entity.sigma;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -8,6 +8,10 @@ import org.junit.Test;
 
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
+import model.entity.sigma.ResEncrypt;
+import model.entity.sigma.ResponsesCCE;
+import protocol.impl.sigma.Fabric;
+import protocol.impl.sigma.Sender;
 import util.TestInputGenerator;
 
 /**

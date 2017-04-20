@@ -1,12 +1,20 @@
 package protocol.impl.sigma;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.HashMap;
 
-import crypt.api.signatures.Signer;
 import crypt.factories.SignerFactory;
-import crypt.impl.signatures.ElGamalSignature;
+import crypt.impl.signatures.SigmaSignature;
+import crypt.impl.signatures.SigmaSigner;
 import model.entity.ElGamalKey;
+import model.entity.sigma.And;
+import model.entity.sigma.Masks;
+import model.entity.sigma.Or;
+import model.entity.sigma.ResEncrypt;
+import model.entity.sigma.Responses;
+import model.entity.sigma.ResponsesCCE;
+import model.entity.sigma.ResponsesSchnorr;
 
 /**
  * 
@@ -14,63 +22,56 @@ import model.entity.ElGamalKey;
  */
 
 public class PCS {
-	//The pcs (an Or object)
-	private Or pcs;
+	//The PCS (resEncrypt + Or)
+	public ResEncrypt res;
+	public Or pcs;
 	
-	//Elements used to create the Pcs
-	private And[] ands = new And[2];
-	private ElGamalKey senderK;
-	private ElGamalKey receiverK;
+	//Elements used to create the PCS
 	private ElGamalKey trentK;
-	private ResEncrypt res;
 	private Sender sender;
+	private And[] ands = new And[2];
 	
 	
 
 	/**
 	 * Constructor
-	 * @param m : message to be signed
 	 * @param s : sender keys
 	 * @param r : receiver public key
 	 * @param t : trent public key
 	 */
-	public PCS(Sender s, ElGamalKey r, ElGamalKey t){
+	public PCS(Sender s, ElGamalKey t){
 		setSender(s);
-		setReceiverKeys(r);
 		setTrentKeys(t);
+		setResEncrypt(sender.getResEncrypt());
 	}
 	
 	
-
 	/**
-	 * Getter, m is  the message we want to encrypt
-	 * @return pcs : the private contract signature
+	 * 
 	 */
-	public Or getPcs(byte[] m){
-		createPcs(m);
+	public Or getPcs(byte[] m, ElGamalKey r, boolean changeEncrypter){
+		if (changeEncrypter){
+			byte[] publicKey = sender.getPublicKeys().getPublicKey().toByteArray();
+			byte[] b = Arrays.copyOfRange(publicKey, 0, 125);
+			res = sender.Encryption(b, this.trentK);
+		}
+		createPcs(m, r);
 		return pcs;
 	}
 	
 	/**
 	 * Checks the current pcs according to a message
 	 */
-	public boolean PCSVerifies(byte[] m){
+	public boolean Verifies(byte[] m){
 		if (pcs==null) {return false;}
-		setPcs(pcs);
-		ResEncrypt resE = pcs.ands[0].resEncrypt;
-		resE.setM(m);
-		return pcs.Verifies(resE);
+		return pcs.Verifies(m);
 	}
-	
 	/**
 	 * Checks a PCS according to a message
 	 */
-	public boolean PCSVerifies(Or privateCS, byte[] m){
+	public boolean Verifies(Or privateCS, byte[] m){
 		if (privateCS==null) {return false;}
-		setPcs(privateCS);
-		ResEncrypt resE = privateCS.ands[0].resEncrypt;
-		resE.setM(m);
-		return privateCS.Verifies(resE);
+		return privateCS.Verifies(m);
 	}
 	
 	
@@ -80,43 +81,36 @@ public class PCS {
 	}
 	private void setSender(Sender s){
 		sender = s;
-		senderK = s.getKeys();
-	}
-	private void setReceiverKeys(ElGamalKey r){
-		receiverK=r;
 	}
 	private void setTrentKeys(ElGamalKey t){
 		trentK=t;
 	}
-	private void setResEncrypt (ResEncrypt r){
+	private void setResEncrypt(ResEncrypt r){
 		res = r;
+		
 	}
 	
 	
 	/**
 	 * Create the PCS from what is in here 
 	 */
-	private void createPcs(byte[] m){
-		
-		setResEncrypt(sender.Encryption(m, trentK));
-	
-		Receiver receiver = new Receiver();
-		
+	private void createPcs(byte[] m, ElGamalKey receiverK){
 		//Creates the Schnorr and CCE signature we will "AND"
 		//2 of them are fabricated
-		ResponsesCCE resCce2 = sender.SendResponseCCEFabric(res, trentK);
-		ResponsesSchnorr resSchnorr2 = sender.SendResponseSchnorrFabric(receiverK);
-		ResponsesCCE resCce1 = sender.SendResponseCCE(res.getM(), trentK);
 		
-		//For the last response, we need to choose the right challenge (to be able to compose in the or) :
+		ResponsesSchnorr resSchnorr2 = sender.SendResponseSchnorrFabric(receiverK);
+		ResponsesCCE resCce2 = sender.SendResponseCCEFabric(res, trentK);
+		ResponsesCCE resCce1 = sender.SendResponseCCE(m, trentK);
+		
+		//Forge the last response using a special challenge (composition in the or) :
 		Masks mask = sender.SendMasksSchnorr();
-		BigInteger c = sender.SendChallenge(mask, res.getM());
+		BigInteger c = sender.SendChallenge(mask, m);
 		BigInteger challenge = c.xor(resSchnorr2.getChallenge().xor(resCce1.getChallenge().xor(resCce2.getChallenge())));
 		ResponsesSchnorr resSchnorr1 = sender.SendResponseSchnorr(mask, challenge);
 		
 		//Maps the responses with the right key (receiver for Schnorr, trent for CCE)
 		HashMap<Responses,ElGamalKey> rK1 = new HashMap <Responses,ElGamalKey>();
-		rK1.put(resSchnorr1, senderK);
+		rK1.put(resSchnorr1, sender.getPublicKeys());
 		rK1.put(resCce1, trentK);
 		
 		HashMap<Responses,ElGamalKey> rK2 = new HashMap <Responses,ElGamalKey>();
@@ -128,11 +122,11 @@ public class PCS {
 		Responses[] resp1={resSchnorr1,resCce1};
 		Responses[] resp2={resSchnorr2,resCce2};
 		
-		ands[0] = new And(receiver,rK1,res,resp1);
-		ands[1] = new And(receiver,rK2,res,resp2);
+		ands[0] = new And(rK1,res,resp1);
+		ands[1] = new And(rK2,res,resp2);
 		
 		//Make the PCS
-		setPcs(new Or(receiver, mask.getA(), ands));
+		setPcs(new Or(mask.getA(), ands));
 	}
 	
 	
@@ -140,9 +134,11 @@ public class PCS {
 	 * @param contract
 	 * @return Signature on contract
 	 */
-	public ElGamalSignature getClearSignature(SigmaContract contract){
-		Signer<ElGamalSignature,ElGamalKey> sig = SignerFactory.createElGamalSigner(); 
+	public SigmaSignature getClearSignature(SigmaContract contract, ElGamalKey r){
+		SigmaSigner sig =(SigmaSigner) SignerFactory.createSigmaSigner(); 
 		sig.setKey(sender.getKeys());
+		sig.setTrentK(this.trentK);
+		sig.setReceiverK(r);
 		return sig.sign(contract.getClauses().getHashableData());
 	}
 	
@@ -153,11 +149,11 @@ public class PCS {
 	 * @param key
 	 * @return
 	 */
-	public boolean verifySignature(ElGamalSignature signature, SigmaContract contract, ElGamalKey key){
-		if (signature == null ){return false;}
-		Signer<ElGamalSignature,ElGamalKey> sig = SignerFactory.createElGamalSigner(); 
-		sig.setKey(key);
-		return sig.verify(contract.getClauses().getHashableData(),signature);
+	public boolean verifySignature(SigmaSignature signature, SigmaSigner signer, SigmaContract contract){
+		if (signature == null ){
+			return false;
+		}
+		return signer.verify(contract.getClauses().getHashableData(), signature);
 	}
 	
 }

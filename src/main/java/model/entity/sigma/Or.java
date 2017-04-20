@@ -13,13 +13,15 @@
 
    You should have received a copy of the GNU Lesser General Public License along with SXP. 
    If not, see <http://www.gnu.org/licenses/>. */
-package protocol.impl.sigma;
+package model.entity.sigma;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import protocol.impl.sigma.Receiver;
 
 /**
  * This class is for the composability. This is clause Or.
@@ -48,9 +50,9 @@ public class Or {
 	 * @param a (a mask)
 	 * @param ands (set of clause and to need to verify)
 	 */
-	public Or (Receiver receiver, BigInteger a, And ... ands)
+	public Or (BigInteger a, And ... ands)
 	{
-		this.receiver = receiver;
+		this.receiver = new Receiver();
 		this.ands  = ands;
 		this.setA(a);
 	}
@@ -68,7 +70,7 @@ public class Or {
 	 * @param resEncrypt
 	 * @return Boolean
 	 */
-	public Boolean Verifies(ResEncrypt resEncrypt)
+	public Boolean Verifies(byte[] m)
 	{
 		for(And and : ands)
 		{
@@ -82,9 +84,10 @@ public class Or {
 				challenges.add(res.getChallenge());
 			}
 		}
-		if (!receiver.VerifiesChallenges(resEncrypt.getM(), getA(), challenges))
+		if (!receiver.VerifiesChallenges(m, getA(), challenges))
 		{
-			System.out.println("problem in challenges");
+			System.out.println("Problem in challenges");
+			return false;
 		}
 		challenges=new ArrayList <BigInteger>();
 		return true;

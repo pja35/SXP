@@ -1,4 +1,4 @@
-package protocol.impl.sigma;
+package model.entity.sigma;
 
 import static org.junit.Assert.assertTrue;
 
@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
+import model.entity.sigma.Masks;
 import util.TestInputGenerator;
 
 /**

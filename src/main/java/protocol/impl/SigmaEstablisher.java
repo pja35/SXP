@@ -15,39 +15,39 @@ import crypt.api.signatures.Signer;
 import crypt.factories.ElGamalAsymKeyFactory;
 import crypt.factories.EncrypterFactory;
 import crypt.factories.SignerFactory;
-import crypt.impl.signatures.ElGamalSignature;
-import crypt.impl.signatures.ElGamalSigner;
+import crypt.impl.signatures.SigmaSignature;
+import crypt.impl.signatures.SigmaSigner;
 import model.api.Status;
 import model.api.UserSyncManager;
 import model.entity.ElGamalKey;
 import model.entity.User;
+import model.entity.sigma.Or;
 import model.syncManager.UserSyncManagerImpl;
 import network.api.EstablisherService;
 import network.api.Messages;
 import network.api.ServiceListener;
 import protocol.api.Establisher;
-import protocol.impl.sigma.Or;
 import protocol.impl.sigma.PCS;
 import protocol.impl.sigma.Sender;
 import protocol.impl.sigma.SigmaContract;
 import rest.api.Authentifier;
 
 
-/**
- * 
+/** 
+ *	Establisher for sigma protocol
+ *
  * @author Nathanaël EON
  *
- *	Establisher for sigma protocol
  * TODO : Change the messaging system to an asymetric one
  */
 
-public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, ElGamalSignature, ElGamalSigner, SigmaContract> {
+public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaSignature, SigmaSigner, SigmaContract> {
 	
 	
 	private ElGamalKey trentK;
 	private final EstablisherService establisherService =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
 	// Store the different rounds of the signing protocol
-	private Or[][] pcs;
+	private Or[][] promRoundSender;
 	
 	
 	// Id for the contract (make sure we sign the same)
@@ -64,6 +64,8 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, ElGama
 	private String[] ready;
 	// Current signature round
 	private int round = 0;
+	// The PCS maker
+	private PCS pcs; 
 	
 	
 	
@@ -73,7 +75,10 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, ElGama
 	 * @param <token> : token for authentifier (getting current user)
 	 * @param <uri> : parties matching uri
 	 */
-	public SigmaEstablisher(String token, HashMap<ElGamalKey, String> uri){
+	// TODO : REMOVE trentK
+	public SigmaEstablisher(String token, HashMap<ElGamalKey, String> uri, ElGamalKey t){
+		trentK = t;
+		
 		// Matching the uris
 		uris = uri;
 		
@@ -81,7 +86,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, ElGama
 		Authentifier auth = Application.getInstance().getAuth();
 		UserSyncManager users = new UserSyncManagerImpl();
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
-		signer = new ElGamalSigner();
+		signer = new SigmaSigner();
 		signer.setKey(currentUser.getKey());
 	}
 	
@@ -103,7 +108,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, ElGama
 		// Used to know wether everyone has yet accepted the contract or not
 		ready = new String[N];
 		// Store the PCS received
-		pcs = new Or[N+2][N];
+		promRoundSender = new Or[N+2][N];
 		
 		/*
 		 * Get ready to start
@@ -150,8 +155,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, ElGama
 	 */
 	private void chooseTrent(){
 		// TODO : choose trent and associate its uri in uris
-		trentK = ElGamalAsymKeyFactory.create(false);
-		
+		contract.setTrentKey(trentK);
 		// Put a listener on Trent in case something goes wrong
 		establisherService.addListener(new ServiceListener(){
 			@Override
@@ -173,11 +177,8 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, ElGama
 		setStatus(Status.SIGNING);
 		
 		// Necessary tools to create the PCS
-		final PCS[] pcsf = new PCS[N];
 		Sender sender = new Sender(signer.getKey());
-		for (int k=0; k<N; k++){
-			pcsf[k] = new PCS(sender, keys.get(k), trentK);
-		}
+		pcs = new PCS(sender, trentK);
 		round = 1;
 
 		establisherService.addListener(new ServiceListener() {
@@ -187,26 +188,28 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, ElGama
 					String msg = messages.getMessage("contract");
 					
 					// Checks if the message is a PCS, if yes store it in "pcs[round][k]"
-					verifyAndStoreSignature(msg, messages.getMessage("sourceId") ,round, pcsf);
+					verifyAndStoreSignature(msg, messages.getMessage("sourceId"));
 					
 
 					// Check if the round is complete
 					boolean claimFormed = true;
-					for (int k=0; k<N; k++)
-						if (pcs[round][k] == null)
+					for (int k=0; k<N; k++){
+						if (promRoundSender[round][k] == null){
 							claimFormed= false;
+						}
+					}
 					/*	Send the rounds (if we have the claim needed):
 					 *  	We do a loop because sometimes, we receive the PCS for round+1 before the one for the current round
 					 */  
 					while (round<=(N+1) && claimFormed){
-						sendRound(++round, pcsf);
+						sendRound(++round);
 					}
 				}
 			}
 		}, senPubK.toString());
 
 		// Send the first round
-		sendRound(1, pcsf);
+		sendRound(1);
 	}
 	
 
@@ -234,17 +237,17 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, ElGama
 		content[2] = json2.toJson(contract,false);
 		
 		// Claim(k)
-		Signer<ElGamalSignature,ElGamalKey> sig = SignerFactory.createElGamalSigner(); 
+		Signer<SigmaSignature,ElGamalKey> sig = SignerFactory.createSigmaSigner(); 
 		sig.setKey(signer.getKey());
-		ElGamalSignature sigClaimK;
+		SigmaSignature sigClaimK;
 		if (round==0){
 			sigClaimK = sig.sign("ABORT".getBytes());
 		}else {
 			JsonTools<Or[]> json = new JsonTools<>(new TypeReference<Or[]>(){});
-			String claimK = json.toJson(pcs[round], true);
+			String claimK = json.toJson(promRoundSender[round], true);
 			sigClaimK = sig.sign(claimK.getBytes());
 		}
-		JsonTools<ElGamalSignature> json3 = new JsonTools<>(new TypeReference<ElGamalSignature>(){});
+		JsonTools<SigmaSignature> json3 = new JsonTools<>(new TypeReference<SigmaSignature>(){});
 		content[3] = encryptMsg(json3.toJson(sigClaimK, false), trentK);
 		
 		// Concatenate the content
@@ -272,33 +275,33 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, ElGama
 	 * @param round : round we are at
 	 * @param uris : the destination peers uris
 	 */
-	private void sendRound(int round, PCS[] pcsfs){
+	private void sendRound(int round){
 		// Loop : send to every party the correct message
 		for (int k=0; k<N; k++){
 			
 			// Public key of the receiver
-			ElGamalKey key = keys.get(k);
+			ElGamalKey receiverK = keys.get(k);
 			
 			// If the receiver is the sender, isSender = true 
-			boolean isSender = key.getPublicKey().equals(senPubK);
+			boolean isSender = receiverK.getPublicKey().equals(senPubK);
 			
 			// Content of the message which will be sent
 			String content;
 			
 			// On the last round, send the clear signature
 			if (round==(N+2)){
-				JsonTools<ElGamalSignature> json = new JsonTools<>(new TypeReference<ElGamalSignature>(){});
-				ElGamalSignature signature = pcsfs[k].getClearSignature(contract);
-				if (isSender) 
+				JsonTools<SigmaSignature> json = new JsonTools<>(new TypeReference<SigmaSignature>(){});
+				SigmaSignature signature = pcs.getClearSignature(contract, receiverK);
+				if (isSender)
 					contract.addSignature(keys.get(k), signature);
-				content = json.toJson(signature);
+				content = json.toJson(signature, true);
 			
 			// Otherwise send round k
 			}else {
-				Or p = pcsfs[k].getPcs((contractClauses+(round)).getBytes());
-				content=encryptMsg(getJson(p), key);
+				Or p = pcs.getPcs((contractClauses+(round)).getBytes(), keys.get(k), true);
+				content=encryptMsg(getJson(p), receiverK);
 				if (isSender){
-					pcs[round][k] = p;
+					promRoundSender[round][k] = p;
 				}
 			} 
 			
@@ -315,10 +318,10 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, ElGama
 				System.out.println("Sending Round : " + round + " - for " + k + " : by " + i);
 				
 				establisherService.sendContract(contractId, 
-									key.getPublicKey().toString(),
+									receiverK.getPublicKey().toString(),
 									senPubK.toString(),
 									fullContentS,
-									uris.get(key));
+									uris.get(receiverK));
 			}
 		}
 	}
@@ -326,33 +329,39 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, ElGama
 	 * Verify the message received (if the message is the last, check if the signature is ok)
 	 * 		called in sign() method
 	 * @param message : message we receive (messages.getMessage("contract"))
-	 * @param contract : the contract we want to be signed in the end
-	 * @param round : the round we are at
+	 * @param pubK : the sender ElGamal public key
+	 * @param pcs : 
 	 * @return
 	 */
-	private void verifyAndStoreSignature(String message, String pubK ,int round, PCS[] pcsfs){
+	private void verifyAndStoreSignature(String message, String pubK){
 		
 		// Get the keys of the sender of the message
 		BigInteger msgSenKey = new BigInteger(pubK);
 		int i = 0;
 		while (!(keys.get(i).getPublicKey().equals(msgSenKey))){i++;}
-		ElGamalKey key = keys.get(i);
+		ElGamalKey senderKey = keys.get(i);
 		
 		// From json message to the object {"k", PCS}
 		JsonTools<String[]> json0 = new JsonTools<>(new TypeReference<String[]>(){});
-		String[] fullContent = json0.toEntity(message);
+		String[] fullContent = json0.toEntity(message, true);
 		
 		int k= Integer.parseInt(fullContent[0]);
 		String content = fullContent[1];
 		
 		// Don't do anything if the sender is the actual user (shouldn't happen though)
-		if (!(key.getPublicKey().equals(senPubK))){
+		if (!(senderKey.getPublicKey().equals(senPubK))){
 			// If it's the last round, test the clear signature
 			if (k == (N+2)){
-				JsonTools<ElGamalSignature> json = new JsonTools<>(new TypeReference<ElGamalSignature>(){});
-				ElGamalSignature signature;
+				JsonTools<SigmaSignature> json = new JsonTools<>(new TypeReference<SigmaSignature>(){});
+				SigmaSignature signature;
 				signature = json.toEntity(content, true);
-				if (pcsfs[i].verifySignature(signature, contract, keys.get(i))) {
+				ElGamalKey ke = new ElGamalKey();
+				ke.setPublicKey(senPubK);
+				SigmaSigner s = new SigmaSigner();
+				s.setKey(ke);
+				s.setTrentK(trentK);
+				s.setReceiverK(senderKey);
+				if (pcs.verifySignature(signature, s, contract)) {
 					contract.addSignature(keys.get(i), signature);
 					if (contract.isFinalized()){
 						int j = 0;
@@ -364,8 +373,8 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, ElGama
 			// Otherwise, test if it is the correct PCS, if so : store it
 			}else {
 				String msg = decryptMsg(content, signer.getKey());
-				if (pcsfs[i].PCSVerifies(getPrivateCS(msg),(contractClauses + k).getBytes())) {
-					pcs[k][i]=getPrivateCS(msg);
+				if (getPrivateCS(msg).Verifies((contractClauses + k).getBytes())){
+					promRoundSender[k][i]=getPrivateCS(msg);
 				}
 			}
 		}

@@ -2,6 +2,7 @@ package crypt.factories;
 
 import crypt.api.signatures.Signer;
 import crypt.impl.signatures.ElGamalSigner;
+import crypt.impl.signatures.SigmaSigner;
 
 /**
  * {@linkplain Signer} factory
@@ -16,5 +17,9 @@ public class SignerFactory {
 	
 	public static ElGamalSigner createElGamalSigner() {
 		return new ElGamalSigner();
+	}
+	
+	public static SigmaSigner createSigmaSigner() {
+		return new SigmaSigner();
 	}
 }
