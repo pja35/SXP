@@ -59,9 +59,8 @@ public class ItemSyncManagerImplTest {
 	public void initialize() throws Exception {
 		ism = SyncManagerFactory.createItemSyncManager();
 		it = new Item();
-		
-		signature.setR(TestInputGenerator.getRandomBigInteger(TestInputGenerator.getRandomInt(3, 256)));
-		signature.setS(TestInputGenerator.getRandomBigInteger(TestInputGenerator.getRandomInt(3, 256)));
+		signature.setR(TestInputGenerator.getRandomBigInteger(100));
+		signature.setS(TestInputGenerator.getRandomBigInteger(100));
 	}
 
 	/**

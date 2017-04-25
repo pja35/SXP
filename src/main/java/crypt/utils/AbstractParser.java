@@ -15,6 +15,7 @@ import crypt.annotations.CryptHashAnnotation;
 import crypt.annotations.CryptSigneAnnotation;
 import crypt.api.annotation.ParserAnnotation;
 import crypt.api.encryption.Encrypter;
+import crypt.api.key.AsymKey;
 import crypt.factories.EncrypterFactory;
 import crypt.factories.HasherFactory;
 import crypt.impl.encryption.ElGamalEncrypter;
@@ -29,7 +30,8 @@ import model.entity.User;
  */
 public abstract class AbstractParser<Entity> implements ParserAnnotation<Entity>{
 	
-	private User user;
+	//private User user;
+	
 	
 	private Entity entity;
 	private byte[] salt;
@@ -38,6 +40,7 @@ public abstract class AbstractParser<Entity> implements ParserAnnotation<Entity>
 	private Hashtable<Field,CryptHashAnnotation> fieldsToHash;
 	private Hashtable<Field,CryptSigneAnnotation> fieldsToSign;
 	
+	private AsymKey<BigInteger> key;
 	
 	/**
 	 * Constructor
@@ -55,9 +58,9 @@ public abstract class AbstractParser<Entity> implements ParserAnnotation<Entity>
 	 * Constructor
 	 * @param entity
 	 */
-	public AbstractParser(Entity entity,User user){
+	public AbstractParser(Entity entity,AsymKey<BigInteger> key){
 		this.entity = entity;
-	    this.user = user;
+	    this.key = key;
 		fieldsToCrypt = new Hashtable<>();
 		fieldsToHash = new Hashtable<>();
 		fieldsToSign = new Hashtable<>();
@@ -124,50 +127,6 @@ public abstract class AbstractParser<Entity> implements ParserAnnotation<Entity>
 		
 		return null;
 	}
-	
-	/**
-	 * return the salt that will be used to hash the entity field.
-	 * if the Entity has one, return that salt, if not generate a new one.
-	 * @deprecated 
-	 * @return byte[]
-	 */
-	public byte[] generateSalt(){
-		
-		if( salt == null || salt.length == 0){
-			
-			Field [] tabsField = entity.getClass().getDeclaredFields();      
-		    
-			
-	        for (Field field : tabsField) {
-	        	
-	        	if(field.getName().equals("salt")){
-	        		
-	        		try {
-	        			
-	        			field.setAccessible(true);
-	        			
-	        			this.salt = (byte []) field.get(entity);
-						
-	        			if(this.salt == null || this.salt.length == 0){
-	        				
-	        				this.salt = HasherFactory.generateSalt();
-	        				
-	        				field.set(entity, this.salt);
-	        			}
-					} catch (IllegalArgumentException e) {
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						e.printStackTrace();
-					}
-	        		
-	        		break;
-	        	}
-	        }
-			
-		}
-		
-		return salt;
-	}
 
 	/**
 	 * getter
@@ -210,7 +169,7 @@ public abstract class AbstractParser<Entity> implements ParserAnnotation<Entity>
 	 * @return BigInteger
 	 */
 	public BigInteger getPrivateKey(){
-		return user.getKey().getPrivateKey();
+		return this.key.getPrivateKey();
 	}
 	
 	/**
@@ -218,7 +177,7 @@ public abstract class AbstractParser<Entity> implements ParserAnnotation<Entity>
 	 * @return BigInteger
 	 */
 	public BigInteger getPublicKey(){
-		return user.getKey().getPublicKey();
+		return this.key.getPublicKey();
 	}
 	
 	/**
@@ -227,19 +186,21 @@ public abstract class AbstractParser<Entity> implements ParserAnnotation<Entity>
 	 * @return ElGamalKey
 	 */
 	public ElGamalKey getKey(){
-		return user.getKey();
+		return (ElGamalKey) this.key;
+	}
+	
+	public void setKey(AsymKey<BigInteger> key) {
+		this.key = key;
 	}
 
-	
-	
 	/**
 	 * if entity signature not correct set entity to null
 	 */
 	public void setEntityToNull() {
 		this.entity = null;
-		this.fieldsToCrypt = null;
-		this.fieldsToHash = null;
-		this.fieldsToSign = null;
+		this.fieldsToCrypt = new Hashtable<>();
+		this.fieldsToHash = new Hashtable<>();
+		this.fieldsToSign = new Hashtable<>();
 	}
 	
 	/**
@@ -248,17 +209,13 @@ public abstract class AbstractParser<Entity> implements ParserAnnotation<Entity>
 	 * @param data : String
 	 * @return : encrypted data as a json String
 	 */
-	protected String encrypt(String data){
+	protected String encrypt(String data,boolean isKeyPublic){
 		    
-			int bitSize = getKey().getPublicKey().bitLength();
-			
-			StringBuilder resultat=new StringBuilder();
-			
-			Encrypter<ElGamalKey> encrypter = EncrypterFactory.createElGamalSerpentEncrypter();
-		    
-			encrypter.setKey(getKey());
-			
-			return new String(encrypter.encrypt(data.getBytes()));
+		Encrypter<ElGamalKey> encrypter = EncrypterFactory.createElGamalSerpentEncrypter();
+	 	
+		encrypter.setKey(getKey());
+		
+		return new String(encrypter.encrypt(data.getBytes()));
     }
 	
 	/**
@@ -267,16 +224,12 @@ public abstract class AbstractParser<Entity> implements ParserAnnotation<Entity>
 	 * @param data : String as json format
 	 * @return : decrypted data as String
 	 */
-	protected String decrypt(String data){
+	protected String decrypt(String data,boolean isKeyPublic){
     		
-    		int bitSize = getKey().getPrivateKey().bitLength();
-    		
-    		StringBuilder resultat=new StringBuilder();
-    		
-    	 	Encrypter<ElGamalKey> decrypter = EncrypterFactory.createElGamalSerpentEncrypter();
-			
-			decrypter.setKey(getKey());
-			
-			return new String(decrypter.decrypt(data.getBytes()));
+	 	Encrypter<ElGamalKey> decrypter = EncrypterFactory.createElGamalSerpentEncrypter();
+		
+		decrypter.setKey(getKey());
+		
+		return new String(decrypter.decrypt(data.getBytes()));
     }
 }

@@ -4,21 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-
-import org.eclipse.persistence.internal.sessions.ObjectChangeSet;
-import org.eclipse.persistence.internal.sessions.UnitOfWorkChangeSet;
-import org.eclipse.persistence.internal.sessions.UnitOfWorkImpl;
-import org.eclipse.persistence.jpa.JpaEntityManager;
-import org.eclipse.persistence.sessions.UnitOfWork;
-
 import crypt.api.annotation.ParserAction;
 import crypt.api.annotation.ParserAnnotation;
 import crypt.factories.ParserFactory;
 import model.api.Manager;
 import model.api.ManagerDecorator;
 import model.api.ManagerListener;
+import model.entity.ElGamalSignEntity;
 import model.entity.Item;
 import model.entity.User;
 
@@ -38,13 +30,7 @@ public class CryptoItemManagerDecorator extends ManagerDecorator<Item>{
 	
 	@Override
 	public boolean persist(Item entity) {
-		
-		ParserAnnotation parser = ParserFactory.createDefaultParser(entity, user);
-		
-		entity =(Item) parser.parseAnnotation(ParserAction.SigneAction);
-		
 		return super.persist(entity);
-		
 	}
 
 	@Override
@@ -57,7 +43,7 @@ public class CryptoItemManagerDecorator extends ManagerDecorator<Item>{
 				
 				Item item = results.iterator().next();
 				
-				ParserAnnotation parser = ParserFactory.createDefaultParser(item, user);
+				ParserAnnotation parser = ParserFactory.createDefaultParser(item, null);
 				
 				item = (Item) parser.parseAnnotation(ParserAction.CheckAction);
 				
@@ -86,7 +72,7 @@ public class CryptoItemManagerDecorator extends ManagerDecorator<Item>{
 					
 					Item item = (Item) iterator.next();
 					
-					ParserAnnotation parser = ParserFactory.createDefaultParser(item, user);
+					ParserAnnotation parser = ParserFactory.createDefaultParser(item, null);
 					
 					item = (Item) parser.parseAnnotation(ParserAction.CheckAction);
 					
@@ -111,7 +97,7 @@ public class CryptoItemManagerDecorator extends ManagerDecorator<Item>{
 				
 				Item item = results.iterator().next();
 				
-				ParserAnnotation parser = ParserFactory.createDefaultParser(item, user);
+				ParserAnnotation parser = ParserFactory.createDefaultParser(item, null);
 				
 				item = (Item) parser.parseAnnotation(ParserAction.CheckAction);
 				
@@ -129,43 +115,18 @@ public class CryptoItemManagerDecorator extends ManagerDecorator<Item>{
 	
 	@Override
 	public boolean end() {
-		/*
-		final JpaEntityManager jpaEntityManager = (JpaEntityManager) this.getEm().getDelegate();
-		final UnitOfWorkChangeSet changeSet = (UnitOfWorkChangeSet) jpaEntityManager.getUnitOfWork().getCurrentChanges();
-		UnitOfWorkImpl uow = (UnitOfWorkImpl) this.getEm().unwrap(UnitOfWork.class);
-		Collection<Item> collection = this.watchlist();
 		
-		if(changeSet.hasChanges() && collection.size()==1){
-				
-				Item item = collection.iterator().next();
-				
-				ParserAnnotation parser = ParserFactory.createDefaultParser(item, user);
-				
-				final ObjectChangeSet objectChangeSet = (ObjectChangeSet) changeSet.getObjectChangeSetForClone(item);
-				
-				if(objectChangeSet.hasChangeFor("title") || objectChangeSet.hasChangeFor("description")){
-					item =(Item) parser.parseAnnotation(ParserAction.SigneAction);
-					changeSet.mergeObjectChanges(objectChangeSet, changeSet);
-				}
-		}
-		*/
-		/*
-		final ObjectChangeSet objectChangeSet = changeSet.getObjectChangeSetForClone(bean);
-		 
-		// Get a list of changed propertys and do something with that.
-		final List<String> changedProperties = objectChangeSet.getChanges();
-		for(final String property : changedProperties) {
-		    System.out.println("Changed property: '" + property);
-		}
-		 
-		// Check if a property called "coolProperty" has changed.
-		final ChangeRecord coolPropertyChanges = objectChangeSet.getChangesForAttributeNamed("coolProperty");
-		if(coolPropertyChanges != null) {
-		    System.out.println("Property 'coolProperty' has changed from '" + coolPropertyChanges.getOldValue() + "' to '" + bean.getCoolProperty() + "'");
-		}
-		*/
+		Collection<Item> collection = this.changesInWatchlist();
 		
-		
+		for (Item item : collection) {
+			
+			if(item.getUserid() == user.getId()){
+				
+				ParserAnnotation parser = ParserFactory.createDefaultParser(item, user.getKey());
+				
+				item = (Item) parser.parseAnnotation(ParserAction.SigneAction);			
+			}
+		}
 		
 		return super.end();
 	}

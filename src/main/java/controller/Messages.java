@@ -26,6 +26,7 @@ import controller.tools.JsonTools;
 import model.api.ManagerListener;
 import model.api.SyncManager;
 import model.api.UserSyncManager;
+import model.entity.ElGamalSignEntity;
 import model.entity.Item;
 import model.entity.Message;
 import model.entity.User;
@@ -51,18 +52,24 @@ public class Messages {
 
 		message.setSendingDate(new Date());
 		message.setSender(sender.getId(), sender.getNick());
+		
 		SyncManager<User> um = new UserSyncManagerImpl();
 		User reciever = um.findOneByAttribute("nick", message.getReceiverName());
 		um.close();
+		
 		if (reciever != null){
+			
 			message.setReceiver(reciever.getId(), reciever.getNick());
+			message.setPbkey(reciever.getKey().getPublicKey());
 			
 			//SyncManager<Message> em = new MessageSyncManagerImpl();
 			ManagerAdapter<Message> adapter = new ManagerAdapter<Message>(new MessageSyncManagerImpl());
 			CryptoMessageManagerDecorator em = new CryptoMessageManagerDecorator(adapter, reciever); 
 			log.debug(message.getString());
 			boolean pushDbOk = em.begin();
+			
 			pushDbOk &= em.persist(message);
+			
 			pushDbOk &= em.end();
 			pushDbOk &= em.close();
 			if (!pushDbOk){
@@ -95,7 +102,7 @@ public class Messages {
 		final ArrayList<Message> list = new ArrayList<>();
  		
 		
-		em.findAllByAttribute("receiverName", currentUser.getNick(), new ManagerListener<Message> (){
+		em.findAllByAttribute("receiverId", currentUser.getId(), new ManagerListener<Message> (){
 			@Override
 			public void notify(Collection<Message> results) {
 				list.addAll(results);
@@ -103,7 +110,7 @@ public class Messages {
 			
 		});
 		
-		em.findAllByAttribute("senderName", currentUser.getNick(), new ManagerListener<Message> (){
+		em.findAllByAttribute("senderId", currentUser.getId(), new ManagerListener<Message> (){
 			@Override
 			public void notify(Collection<Message> results) {
 				list.addAll(results);
@@ -133,48 +140,5 @@ public class Messages {
 			@PathParam("id") long id) {
 		return null;
 	}
-	
-	
-	
-	
-	@GET
-	@Path("/List")
-	@Produces(MediaType.TEXT_HTML)
-	public String lister(){
 		
-		final StringBuilder sb=new StringBuilder();
-		
-		sb.append("<!DOCTYPE html><html><head><title>Users Table</title> <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">");
-		sb.append("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css\">");
-		sb.append("<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>");
-		sb.append("</head><body><div class=\"container\"><div class=\"row\"><div class=\"jumbotron\"><h1>List</h1><table class=\"table table-bordered\"><thead>");
-		sb.append("<tr>");
-		sb.append("<th>id</th>");
-		sb.append("<th>senderName</th>");
-		sb.append("<th>receiverName</th>");
-		sb.append("<th>messageContent</th>");
-		sb.append("<th>status</th>");
-		sb.append("</tr>");
-		sb.append("</thead><tbody>");
-		
-		SyncManager<Message> syncManager= new MessageSyncManagerImpl();
-		
-		Collection<Message> results = syncManager.findAll();
-		
-		for (Message message : results) {
-			sb.append("<tr>");
-			sb.append("<td>"+message.getId()+"</td>");
-			sb.append("<td>"+message.getSendName()+"</td>");
-			sb.append("<td>"+message.getReceiverName()+"</td>");
-			sb.append("<td>"+message.getMessageContent()+"</td>");
-			sb.append("<td>"+message.getStatus()+"</td>");
-			sb.append("</tr>");
-		}
-		
-		
-		sb.append("</tbody></table></div></div></div></body></html>");
-		
-		syncManager.close();
-		return sb.toString();
-	}
 }

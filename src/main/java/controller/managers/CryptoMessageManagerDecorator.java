@@ -1,9 +1,12 @@
 package controller.managers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 import javax.persistence.Entity;
+
+import org.eclipse.persistence.internal.jpa.metadata.structures.ArrayAccessor;
 
 import crypt.api.annotation.ParserAction;
 import crypt.api.annotation.ParserAnnotation;
@@ -14,6 +17,8 @@ import model.api.ManagerListener;
 import model.api.UserSyncManager;
 import model.entity.User;
 import model.syncManager.UserSyncManagerImpl;
+import model.entity.ElGamalSignEntity;
+import model.entity.Item;
 import model.entity.Message;
 
 /**
@@ -33,9 +38,9 @@ public class CryptoMessageManagerDecorator extends ManagerDecorator<Message>{
 	@Override
 	public boolean persist(Message entity) {
 		
-		ParserAnnotation parser = ParserFactory.createDefaultParser(entity, user);
+		ParserAnnotation parser = ParserFactory.createDefaultParser(entity, user.getKey());
 		
-		entity = (Message) parser.parseAnnotation(ParserAction.CryptAction);
+		entity = (Message) parser.parseAnnotation(ParserAction.SigneAction,ParserAction.CryptAction);
 		
 		return super.persist(entity);
 	}
@@ -47,11 +52,13 @@ public class CryptoMessageManagerDecorator extends ManagerDecorator<Message>{
 			@Override
 			public void notify(Collection<Message> results) {
 				
+				ArrayList<Message> res = new ArrayList<>(); 
+				
 				for (Iterator iterator = results.iterator(); iterator.hasNext();) {
 					
 					Message message = (Message) iterator.next();
 					
-					ParserAnnotation parser;
+					ParserAnnotation<Message> parser;
 					
 					User receiver = null;
 					
@@ -64,18 +71,34 @@ public class CryptoMessageManagerDecorator extends ManagerDecorator<Message>{
 						UserSyncManager em = new UserSyncManagerImpl();
 					    receiver = em.findOneById(message.getReceiverId());
 					    em.close();
-					    
 					}
 					
-					parser = ParserFactory.createDefaultParser(message, receiver);
+					parser = ParserFactory.createDefaultParser(message, receiver.getKey());
 					
-					message = (Message) parser.parseAnnotation(ParserAction.DecryptAction);
+					message = (Message) parser.parseAnnotation(ParserAction.DecryptAction,ParserAction.CheckAction);
+					
+					if(message != null){
+						res.add(message);
+					}
 				}
 				
-				l.notify(results);
+				l.notify(res);
 			}
 		});
 	}
 	
-	
+	@Override
+	public boolean end() {
+		/*
+		Collection<Message> collection = this.changesInWatchlist();
+		
+		for (Message message : collection) {
+			
+				ParserAnnotation parser = ParserFactory.createDefaultParser(message, user.getKey());
+				
+				message = (Message) parser.parseAnnotation(ParserAction.SigneAction,ParserAction.CryptAction);			
+		}
+		*/
+		return super.end();
+	}
 }

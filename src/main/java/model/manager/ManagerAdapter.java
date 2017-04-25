@@ -77,4 +77,11 @@ public class ManagerAdapter<Entity> implements Manager<Entity>{
 		return em.close();
 	}
 
+	@Override
+	public Collection<Entity> changesInWatchlist() {
+		return em.changesInWatchlist();
+	}
+	
+	
+
 }

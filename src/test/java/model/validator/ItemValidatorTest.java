@@ -48,8 +48,8 @@ public class ItemValidatorTest {
 		username = TestInputGenerator.getRandomUser(100); 
 		userid = TestInputGenerator.getRandomUser();
 		signature = new ElGamalSignEntity();
-		signature.setR(TestInputGenerator.getRandomBigInteger(TestInputGenerator.getRandomInt(3, 256)));
-		signature.setS(TestInputGenerator.getRandomBigInteger(TestInputGenerator.getRandomInt(3, 256)));
+		signature.setR(TestInputGenerator.getRandomBigInteger(100));
+		signature.setS(TestInputGenerator.getRandomBigInteger(100));
 		
 		item.setTitle(title);
 		item.setDescription(description);

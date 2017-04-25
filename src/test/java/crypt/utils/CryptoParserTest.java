@@ -97,7 +97,7 @@ public class CryptoParserTest {
 		item.setCreatedAt(date);
 		item.setPbkey(TestInputGenerator.getRandomBigInteger(16));
 		
-		ParserAnnotation<Item> parser = ParserFactory.createDefaultParser(item, user);
+		ParserAnnotation<Item> parser = ParserFactory.createDefaultParser(item, user.getKey());
 	    item = parser.parseAnnotation(ParserAction.SigneAction);
 	    
 	    JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});

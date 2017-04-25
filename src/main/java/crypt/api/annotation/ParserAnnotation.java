@@ -1,5 +1,8 @@
 package crypt.api.annotation;
 
+import java.math.BigInteger;
+
+import crypt.api.key.AsymKey;
 
 /**
  * Instances of objects that implements ParserAnnotation can parse object with CryptAnnotation. 
@@ -16,4 +19,6 @@ public interface ParserAnnotation<Entity> {
 	 */
 	public Entity parseAnnotation(ParserAction ...actions);
 	
-	}
+	
+	public void setKey(AsymKey<BigInteger> key);
+}

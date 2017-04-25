@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Properties;
@@ -19,6 +20,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import model.api.MessageSyncManager;
+import model.entity.ElGamalSignEntity;
 import model.entity.Message;
 import model.entity.Message.ReceptionStatus;
 import model.factory.SyncManagerFactory;
@@ -38,7 +40,9 @@ public class MessageSyncManagerImplTest {
 	private static String messageContent = TestInputGenerator.getRandomIpsumString(TestInputGenerator.getRandomInt(1, 1025));
 	private static ReceptionStatus status;
 	private static String dbname = TestInputGenerator.getRandomDbName();
-
+	private static BigInteger pbkey = TestInputGenerator.getRandomBigInteger(100);
+	private static ElGamalSignEntity signature = new ElGamalSignEntity();
+	
 	private MessageSyncManager msm;
 	private Message message; 
 
@@ -94,7 +98,8 @@ public class MessageSyncManagerImplTest {
 		message.setSender(senderId, senderName);
 		message.setStatus(status);
 		message.setReceiver(receiverId, receiverName);
-
+		message.setPbkey(pbkey);
+		message.setSignature(signature);
 		assertTrue(msm.begin());
 		assertTrue(msm.persist(message));
 		log.debug(dumpWL(msm));
@@ -126,7 +131,8 @@ public class MessageSyncManagerImplTest {
 		message.setSender(senderId, senderName);
 		message.setStatus(status);
 		message.setReceiver(receiverId, receiverName);
-
+		message.setPbkey(pbkey);
+		message.setSignature(signature);
 		assertTrue(msm.begin());
 		assertTrue(msm.persist(message));
 		log.debug(dumpWL(msm));

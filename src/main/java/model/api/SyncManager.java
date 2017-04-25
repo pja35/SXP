@@ -86,6 +86,11 @@ public interface SyncManager<Entity> {
 	public Collection<Entity> watchlist();
 
 	/**
+	 * Returns a list of changed entities that currently in "managed" state.
+	 */
+	public Collection<Entity> changesInWatchlist();
+	
+	/**
 	 * Remove an entity from the DB
 	 * @param an entity
 	 * @return True if the entity has been removed, false otherwise

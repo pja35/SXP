@@ -31,6 +31,7 @@ import model.api.Manager;
 import model.api.ManagerListener;
 import model.api.SyncManager;
 import model.api.UserSyncManager;
+import model.entity.ElGamalSignEntity;
 import model.entity.Item;
 import model.entity.User;
 import model.factory.ManagerFactory;
@@ -56,7 +57,6 @@ public class Items {
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		
 		Manager<Item> em = ManagerFactory.createCryptoNetworkResilianceItemManager(Application.getInstance().getPeer(), token,currentUser);
-		//EntityManager<Item> em = new ItemManager();
 		
 		em.begin();
 		//TODO VALIDATION
@@ -64,14 +64,12 @@ public class Items {
 		item.setUsername(currentUser.getNick());
 		item.setPbkey(currentUser.getKey().getPublicKey());
 		item.setUserid(currentUser.getId());
+		item.setSignature(new ElGamalSignEntity());
 		em.persist(item);
 		em.end();
 		em.close();
 		users.close();
-		/*ItemAdvertisement iadv = new ItemAdvertisement();
-		iadv.setTitle(item.getTitle());
-		iadv.publish(Application.getInstance().getPeer()); */
-
+		
 		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
 		return json.toJson(item);
 	}
@@ -185,38 +183,46 @@ public class Items {
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String edit(Item item,@HeaderParam(Authentifier.PARAM_NAME) String token) {
+	public String edit(final Item item,@HeaderParam(Authentifier.PARAM_NAME) String token) {
 		
 		Authentifier auth = Application.getInstance().getAuth();
 		UserSyncManager users = new UserSyncManagerImpl();
-		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
-		//ManagerAdapter<Item> adapter = new ManagerAdapter<Item>(new ItemSyncManagerImpl());
-		//CryptoItemManagerDecorator em = new CryptoItemManagerDecorator(adapter, currentUser);
+		final User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		
+		Manager<Item> entityManager = ManagerFactory.createCryptoNetworkResilianceItemManager(Application.getInstance().getPeer(), token,currentUser);
 		
-		//if (item.getUserid() != currentUser.getId()){
-		//	users.close();
-		//	return "{\"edited\": \"false\"}";
-		//}
+		final ArrayList<Item> result = new ArrayList<>();
+ 		
+		entityManager.begin();
 		
-	    SyncManager<Item> em = new ItemSyncManagerImpl();
-	    Item item2 = em.findOneById(item.getId());
+		entityManager.findOneById(item.getId(), new ManagerListener<Item>(){
 		
-	
-		em.begin();
+			@Override
+			public void notify(Collection<Item> results) {
+				
+				Item it = results.iterator().next();
+				
+				if(it.getUserid()==currentUser.getId()){
+					it.setTitle(item.getTitle());
+					it.setDescription(item.getDescription());
+					result.add(it);
+				}
+			}
+			
+		});
 		
-		item2.setTitle(item.getTitle());
-		item2.setDescription(item.getDescription());
-	
-		ParserAnnotation<Item> parser = ParserFactory.createDefaultParser(item2, currentUser);
-		item2 = parser.parseAnnotation(ParserAction.SigneAction);
+		entityManager.end();
 		
-		em.end();
+		entityManager.close();
+		
+		if (result.size()==0){
+			return "{\"edit\": \"false\"}";
+		}
 		
 		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
-	    String ret = json.toJson(item2);
-		em.close();
+	    String ret = json.toJson(result.get(0));
 		users.close();
+		
 		return ret;
 	}
 
@@ -248,52 +254,5 @@ public class Items {
 		}
 		return "{\"deleted\": \"" + (ret && em.remove(it) && em.end() && em.close()) + "\"}";
 	}
-	
-	
-	@GET
-	@Path("/List")
-	@Produces(MediaType.TEXT_HTML)
-	public String lister(){
-		
-		final StringBuilder sb=new StringBuilder();
-		
-		sb.append("<!DOCTYPE html><html><head><title>Users Table</title> <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">");
-		sb.append("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css\">");
-		sb.append("<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>");
-		sb.append("</head><body><div class=\"container\"><div class=\"row\"><div class=\"jumbotron\"><h1>List</h1><table class=\"table table-bordered\"><thead>");
-		sb.append("<tr>");
-		sb.append("<th>id</th>");
-		sb.append("<th>title</th>");
-		sb.append("<th>description</th>");
-		sb.append("<th>UserName</th>");
-		sb.append("<th>Sign R</th>");
-		sb.append("<th>Sign S</th>");
-		sb.append("</tr>");
-		sb.append("</thead><tbody>");
-			
-		ManagerAdapter<Item> adapter = new ManagerAdapter<Item>(new ItemSyncManagerImpl());
-		CryptoItemManagerDecorator em = new CryptoItemManagerDecorator(adapter, null);
-		
-		em.findAllByAttribute("username", "radoua",new ManagerListener<Item>() {
-			@Override
-			public void notify(Collection<Item> results) {
-				for (Item item : results) {
-					sb.append("<tr>");
-					sb.append("<td>"+item.getId()+"</td>");
-					sb.append("<td>"+item.getTitle()+"</td>");
-					sb.append("<td>"+item.getDescription()+"</td>");
-					sb.append("<td>"+item.getUsername()+"</td>");
-					sb.append("<td>"+item.getSignature().getR()+"</td>");
-					sb.append("<td>"+item.getSignature().getS()+"</td>");
-					sb.append("</tr>");
-				}
-			}
-		});
-		
-		sb.append("</tbody></table></div></div></div></body></html>");
-		
-		return sb.toString();
-	}
-	
 	
 }

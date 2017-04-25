@@ -15,6 +15,7 @@ import crypt.factories.ElGamalAsymKeyFactory;
 import crypt.factories.HasherFactory;
 import model.api.SyncManager;
 import model.entity.ElGamalKey;
+import model.entity.ElGamalSignEntity;
 import model.entity.LoginToken;
 import model.entity.User;
 import model.syncManager.UserSyncManagerImpl;
@@ -22,6 +23,7 @@ import protocol.impl.SigmaEstablisher;
 import protocol.impl.sigma.ElGamalClauses;
 import protocol.impl.sigma.SigmaContract;
 import rest.api.Authentifier;
+import util.TestInputGenerator;
 
 public class SigmaEstablisherTest {
 	
@@ -51,6 +53,12 @@ public class SigmaEstablisherTest {
 			u[k].setPasswordHash(hasher.getHash(passwords[k].getBytes()));
 			u[k].setCreatedAt(new Date());
 			u[k].setKey(ElGamalAsymKeyFactory.create(false));
+			
+			ElGamalSignEntity s = new ElGamalSignEntity();
+			s.setR(TestInputGenerator.getRandomBigInteger(100));
+			s.setS(TestInputGenerator.getRandomBigInteger(100));
+			u[k].setSignature(s);
+			
 			SyncManager<User> em = new UserSyncManagerImpl();
 			em.begin();
 			em.persist(u[k]);

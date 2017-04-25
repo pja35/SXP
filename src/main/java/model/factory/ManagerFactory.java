@@ -16,6 +16,8 @@ import network.api.Peer;
 
 public class ManagerFactory {
 	
+	//TODO : to be deleted
+	//old version, the new version is createCryptoNetworkResilianceItemManager(...)
 	public static Manager<Item> createNetworkResilianceItemManager(Peer peer, String who) {
 		
 		ManagerAdapter<Item> adapter = new ManagerAdapter<Item>(new ItemSyncManagerImpl());
@@ -40,12 +42,6 @@ public class ManagerFactory {
 		
 		return resiNetworkD;
 	}
-	
-	
-	
-	
-	
-	
 	
 	public static Manager<ContractEntity> createNetworkResilianceContractManager(Peer peer, String who) {
 		ManagerAdapter<ContractEntity> adapter = new ManagerAdapter<ContractEntity>(new ContractSyncManagerImpl());

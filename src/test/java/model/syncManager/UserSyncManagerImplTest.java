@@ -21,6 +21,7 @@ import org.junit.runners.MethodSorters;
 
 import model.api.UserSyncManager;
 import model.entity.ElGamalKey;
+import model.entity.ElGamalSignEntity;
 import model.entity.User;
 import model.factory.SyncManagerFactory;
 import util.TestInputGenerator;
@@ -40,7 +41,8 @@ public class UserSyncManagerImplTest {
 	
 	private UserSyncManager usm;
 	private User user;
-
+	private static ElGamalSignEntity signature = new ElGamalSignEntity();
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		Properties p = System.getProperties();
@@ -49,6 +51,8 @@ public class UserSyncManagerImplTest {
 		keys.setP(TestInputGenerator.getRandomBigInteger(100));
 		keys.setPrivateKey(TestInputGenerator.getRandomBigInteger(100));
 		keys.setPublicKey(TestInputGenerator.getRandomBigInteger(100));
+		signature.setR(TestInputGenerator.getRandomBigInteger(100));
+		signature.setS(TestInputGenerator.getRandomBigInteger(100));
 	}
 
 	@AfterClass
@@ -88,6 +92,7 @@ public class UserSyncManagerImplTest {
 		user.setPasswordHash(passwordHash);
 		user.setKey(keys);
 		user.setSalt(salt);
+		user.setSignature(signature);
 		assertTrue(usm.begin());
 		assertTrue(usm.persist(user));
 		log.debug(dumpWL(usm));
@@ -107,7 +112,7 @@ public class UserSyncManagerImplTest {
 			assertTrue(u.getNick().equals(nick));		
 			assertTrue(u.getCreatedAt().equals(createdDate));	
 			assertTrue(u.getSalt().equals(salt));
-			assertTrue(u.getPasswordHash().equals(passwordHash));				
+			assertTrue(u.getPasswordHash().equals(passwordHash));
 			//assertTrue(u.getKey().equals(keys));
 			x++;
 		}
@@ -130,6 +135,7 @@ public class UserSyncManagerImplTest {
 		user.setPasswordHash(passwordHash);
 		user.setKey(keys);
 		user.setSalt(salt);
+		user.setSignature(signature);
 		assertTrue(usm.begin());
 		assertTrue(usm.persist(user));
 		log.debug(dumpWL(usm));

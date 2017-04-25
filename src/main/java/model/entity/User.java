@@ -54,12 +54,10 @@ public class User {
 	@XmlElement(name="keys")
 	private ElGamalKey keys;
 	
-	/*
-	@CryptSigneAnnotation(signeWithFields={"id","nick","createdAt","passwordHash","salt"})
+	@CryptSigneAnnotation(signeWithFields={"nick","createdAt","passwordHash","salt"},checkByKey="keys") //,ownerAttribute="id")
 	@XmlElement(name="signature")
-	@Null
+	@NotNull
 	private ElGamalSignEntity signature;
-	*/
 	
 	public void setId(String id) {
 		this.id = id;
@@ -109,7 +107,6 @@ public class User {
 		this.keys = key;
 	}
 
-	/*
 	public ElGamalSignEntity getSignature() {
 		return signature;
 	}
@@ -117,5 +114,4 @@ public class User {
 	public void setSignature(ElGamalSignEntity signature) {
 		this.signature = signature;
 	}
-	*/
 }

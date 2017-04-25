@@ -68,18 +68,10 @@ public class Item {
 	private String userid;
 	
 	
-	@CryptSigneAnnotation(signeWithFields={"title","description","createdAt","username","userid","pbkey"},checkByKey="pbkey")
+	@CryptSigneAnnotation(signeWithFields={"title","description","createdAt","username","userid","pbkey"},checkByKey="pbkey") //,ownerAttribute="userid")
 	@XmlElement(name="signature")
 	@NotNull
 	private ElGamalSignEntity signature;
-	
-	/*
-	@CryptSigneAnnotation(signeWithFields={"title","description","createdAt","username","userid","pbkey"},checkByKey="pbkey")
-	@XmlElement(name="signature")
-	@Lob
-	@NotNull
-	private String signature;
-	*/
 	
 	public String getId() {
 		return id;
@@ -141,14 +133,4 @@ public class Item {
 	public void setSignature(ElGamalSignEntity signature) {
 		this.signature = signature;
 	}
-	
-	/*
-	public String getSignature() {
-		return signature;
-	}
-
-	public void setSignature(String signature) {
-		this.signature = signature;
-	}
-	*/
 }

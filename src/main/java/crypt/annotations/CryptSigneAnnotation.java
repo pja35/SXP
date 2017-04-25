@@ -13,6 +13,12 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CryptSigneAnnotation {
 	
+	/*
+	 * return the name of attribute that contain the Id of user that own the Object.
+	 * @return String : name of attribute
+	 */
+	//public String ownerAttribute();
+	
 	/**
 	 * The name of field that has the key.
 	 * @return String
@@ -31,5 +37,4 @@ public @interface CryptSigneAnnotation {
 	 * @return
 	 */
 	public String [] signeWithFields();
-	
 }

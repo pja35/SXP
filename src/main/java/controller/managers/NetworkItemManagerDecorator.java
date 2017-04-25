@@ -6,6 +6,9 @@ import java.util.Collection;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
+import crypt.api.annotation.ParserAction;
+import crypt.api.annotation.ParserAnnotation;
+import crypt.factories.ParserFactory;
 import model.api.Manager;
 import model.api.ManagerDecorator;
 import model.api.ManagerListener;
@@ -114,9 +117,9 @@ public class NetworkItemManagerDecorator extends ManagerDecorator<Item>{
 	@Override
 	public boolean persist(Item entity) {
 		if (super.persist(entity)){
-		ItemAdvertisementInterface iadv = AdvertisementFactory.createItemAdvertisement();
-		iadv.setTitle(entity.getTitle());
-		iadv.publish(peer);
+		//ItemAdvertisementInterface iadv = AdvertisementFactory.createItemAdvertisement();
+		//iadv.setTitle(entity.getTitle());
+		//iadv.publish(peer);
 		return true;
 		}
 		return false;
@@ -129,7 +132,26 @@ public class NetworkItemManagerDecorator extends ManagerDecorator<Item>{
 
 	@Override
 	public boolean end() {
-		return super.end();
+		
+		if(super.end()){
+			
+			Collection<Item> collection = this.watchlist();
+		
+			for (Item item : collection) {
+				
+				ItemAdvertisementInterface iadv = AdvertisementFactory.createItemAdvertisement();
+				
+				iadv.setTitle(item.getTitle());
+				
+				iadv.publish(peer);
+				
+			}
+			
+			return true;
+		}
+		
+		return false;
+		//return super.end();
 	}
 	
 	@Override

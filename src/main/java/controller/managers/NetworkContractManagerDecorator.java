@@ -2,6 +2,7 @@ package controller.managers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
@@ -10,6 +11,7 @@ import model.api.Manager;
 import model.api.ManagerDecorator;
 import model.api.ManagerListener;
 import model.entity.ContractEntity;
+import model.entity.Item;
 import model.syncManager.ContractSyncManagerImpl;
 import network.api.EstablisherService;
 import network.api.Messages;
@@ -89,11 +91,7 @@ public class NetworkContractManagerDecorator extends ManagerDecorator<ContractEn
 
 	@Override
 	public boolean persist(ContractEntity entity) {
-		boolean b = super.persist(entity);
-		EstablisherAdvertisementInterface iadv = AdvertisementFactory.createEstablisherAdvertisement();
-		iadv.setTitle(entity.getId());
-		iadv.publish(peer);
-		return b;
+		return super.persist(entity);
 	}
 
 	@Override
@@ -103,6 +101,25 @@ public class NetworkContractManagerDecorator extends ManagerDecorator<ContractEn
 
 	@Override
 	public boolean end() {
-		return super.end();
+		
+		if(super.end()){
+			
+			Collection<ContractEntity> collection = this.watchlist();
+			
+			for (Iterator iterator = collection.iterator(); iterator.hasNext();) {
+				
+				ContractEntity contractEntity = (ContractEntity) iterator.next();
+				
+				EstablisherAdvertisementInterface iadv = AdvertisementFactory.createEstablisherAdvertisement();
+				
+				iadv.setTitle(contractEntity.getId());
+				
+				iadv.publish(peer);
+			}
+			
+			return true;
+		}
+		
+		return false;
 	}
 }

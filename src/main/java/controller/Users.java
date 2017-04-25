@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
@@ -20,16 +21,21 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import controller.managers.CryptoItemManagerDecorator;
 import controller.managers.CryptoUserManagerDecorator;
 import controller.tools.JsonTools;
 import crypt.api.hashs.Hasher;
 import crypt.factories.ElGamalAsymKeyFactory;
 import crypt.factories.HasherFactory;
+import model.api.ManagerListener;
 import model.api.SyncManager;
 import model.api.UserSyncManager;
+import model.entity.ElGamalSignEntity;
+import model.entity.Item;
 import model.entity.LoginToken;
 import model.entity.User;
 import model.manager.ManagerAdapter;
+import model.syncManager.ItemSyncManagerImpl;
 import model.syncManager.UserSyncManagerImpl;
 import rest.api.Authentifier;
 import rest.api.ServletPath;
@@ -113,7 +119,7 @@ public class Users {
 		u.setPasswordHash(password.getBytes());
 		u.setCreatedAt(new Date());
 		u.setKey(ElGamalAsymKeyFactory.create(false));
-		
+		u.setSignature(new ElGamalSignEntity());
 		//SyncManager<User> em = new UserSyncManagerImpl();
 		
 		ManagerAdapter<User> adapter = new ManagerAdapter<User>(new UserSyncManagerImpl());
@@ -175,29 +181,45 @@ public class Users {
 	@Path("/password")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String changePassword(@HeaderParam(Authentifier.PARAM_NAME) String token, String jsonCredentials) {
+		
 		String[] credentials = jsonCredentials.split("&");
-		String passwordNew = credentials[0].split("=")[1];
-
+		String passwordOld = credentials[0].split("=")[1];
+		String passwordNew = credentials[1].split("=")[1];
+		String passwordNewConfirm = credentials[2].split("=")[1];
+		
+		
+		if(!passwordNew.equals(passwordNewConfirm)){
+			return "{\"error\": \"true\"}";
+		}
+		
 		Authentifier auth = Application.getInstance().getAuth();
+		
 		UserSyncManager em = new UserSyncManagerImpl();
-		User u = em.getUser(auth.getLogin(token), auth.getPassword(token));
+		
+		User u = em.getUser(auth.getLogin(token), passwordOld);
+		
+		ManagerAdapter<User> adapter = new ManagerAdapter<User>(em);
+		CryptoUserManagerDecorator decoratorUserMg = new CryptoUserManagerDecorator(adapter,u);
+		
 		if(u != null) {
+			
+			decoratorUserMg.begin();
+			
 			LoginToken newToken = new LoginToken();
 			newToken.setToken(auth.getToken(u.getNick(), passwordNew));
 			newToken.setUserid(u.getId());		
 
 			Hasher hasher = HasherFactory.createDefaultHasher();
 			u.setSalt(HasherFactory.generateSalt());
-			hasher.setSalt(u.getSalt());
-			u.setPasswordHash(hasher.getHash(passwordNew.getBytes()));
-
-			if (em.begin() && em.persist(u) && em.end()){
-				em.close();
+			u.setPasswordHash(passwordNew.getBytes());
+			
+			if (decoratorUserMg.end()){
+				decoratorUserMg.close();
 				JsonTools<LoginToken> json = new JsonTools<>(new TypeReference<LoginToken>(){});
 				return json.toJson(newToken);
 			}
 		}
-		em.close();
+		decoratorUserMg.close();
 		return null;
 	}
 
@@ -223,5 +245,5 @@ public class Users {
 		User us = users.findOneById(id);
 		return "{\"deleted\": \"" + (ret && users.remove(us) && users.end() && users.close()) + "\"}";		
 	}
-
+	
 }

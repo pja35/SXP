@@ -1,5 +1,7 @@
 package controller.managers;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
 
 import crypt.api.annotation.ParserAction;
@@ -8,6 +10,8 @@ import crypt.factories.ParserFactory;
 import model.api.Manager;
 import model.api.ManagerDecorator;
 import model.api.ManagerListener;
+import model.entity.ElGamalSignEntity;
+import model.entity.Item;
 import model.entity.User;
 
 /**
@@ -26,11 +30,25 @@ public class CryptoUserManagerDecorator extends ManagerDecorator<User>{
 	
 	@Override
 	public boolean persist(User entity) {
-		
-		ParserAnnotation parser = ParserFactory.createDefaultParser(entity, user);
-		
-		entity = (User) parser.parseAnnotation(ParserAction.HasherAction);
-		
 		return super.persist(entity);
-	}	
+	}
+
+	@Override
+	public boolean end() {
+		
+		Collection<User> collection = this.changesInWatchlist();
+		
+		for (User u : collection) {
+			
+			if(u.getId() == user.getId()){
+			
+				ParserAnnotation parser = ParserFactory.createDefaultParser(u, user.getKey());
+				
+				u =(User) parser.parseAnnotation(ParserAction.HasherAction,ParserAction.SigneAction);
+				
+			}
+		}
+		return super.end();
+	}
+	
 }

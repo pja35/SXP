@@ -107,4 +107,15 @@ public abstract class ManagerDecorator<Entity> implements Manager<Entity>{
 		return em.close();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Collection<Entity> changesInWatchlist() {
+		return em.changesInWatchlist();
+	}
+	
+	
+	
+	
 }

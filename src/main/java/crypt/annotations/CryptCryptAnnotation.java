@@ -14,10 +14,9 @@ import java.lang.annotation.Target;
 public @interface CryptCryptAnnotation {
 	
 	/**
-	 * get the field name that contain the key to encrypt data
-	 * @return String name of field
+	 * 
 	 */
-	public boolean isEncryptKeyPrivate() default true;
+	public boolean isEncryptKeyPublic() default true;
 	
 	/*
 	 * get the field name that contain the key to decrypt data
