@@ -78,6 +78,7 @@ public class JettyRestServer implements RestServer{
 		server = new Server();
 		server.setHandler(context);
 
+		@SuppressWarnings("unused")
 		String signe_type = "self-signed";
 
 		/*if( signe_type == "CA-signed" )

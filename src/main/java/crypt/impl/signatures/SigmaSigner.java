@@ -1,6 +1,5 @@
 package crypt.impl.signatures;
 
-import java.math.BigInteger;
 import java.util.Arrays;
 
 import crypt.base.AbstractSigner;
@@ -51,7 +50,6 @@ public class SigmaSigner  extends AbstractSigner<SigmaSignature, ElGamalKey>{
 		
 		SigmaSignature s = new SigmaSignature(pcs, rpcs);
 		s.setTrenK(trentK);
-		s.setSignerK(this.key);
 		return s;
 	}
 	
@@ -61,20 +59,13 @@ public class SigmaSigner  extends AbstractSigner<SigmaSignature, ElGamalKey>{
 	@Override
 	public boolean verify(byte[] message, SigmaSignature sign) {
 		ElGamalKey trentKey = sign.getTrentK();
-		ElGamalKey signerKey = sign.getSignerK();
-		BigInteger u = sign.getPcs().ands[0].resEncrypt.getU();
-		BigInteger v = sign.getPcs().ands[0].resEncrypt.getV();
-		byte[] b = sign.getPcs().ands[0].resEncrypt.getM();
-		ResEncrypt resE = new ResEncrypt(u, v, b);
-		
+		ResEncrypt resE = sign.getPcs().ands[0].resEncrypt;
 		// If trent and sender keys not set, just check signature
-		if (this.getReceiverK() == null || this.getTrentK() == null){
+		if (this.getTrentK() == null){
 			return sign.getPcs().Verifies(message) && sign.getRpcs().Verifies(trentKey, resE);
 		}
-		// Check the signature and if keys match (trent and sender keys)
-		
+		// Check the signature and if keys match (Trent and sender keys)
 		return sign.getPcs().Verifies(message) && sign.getRpcs().Verifies(trentKey, resE)
-				&& receiverK.getPublicKey().equals(signerKey.getPublicKey())
 				&& trentK.getPublicKey().equals(trentKey.getPublicKey());
 	}
 	

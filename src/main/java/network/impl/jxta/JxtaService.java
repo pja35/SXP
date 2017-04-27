@@ -45,6 +45,7 @@ import network.impl.MessagesGeneric;
  *
  */
 public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
+	@SuppressWarnings("unused")
 	private final static Logger log = LogManager.getLogger(JxtaService.class);
 
 	protected PeerGroup pg = null;

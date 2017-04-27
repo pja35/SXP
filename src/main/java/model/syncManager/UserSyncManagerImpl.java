@@ -32,7 +32,7 @@ public class UserSyncManagerImpl extends AbstractSyncManager<User> implements Us
 	}
 
 	@Override
-	protected EntityValidator getAdaptedValidator() {
+	protected EntityValidator<?> getAdaptedValidator() {
 		return ValidatorFactory.createUserValidator();
 	}
 }

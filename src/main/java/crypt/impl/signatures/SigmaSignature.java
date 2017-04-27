@@ -20,10 +20,6 @@ public class SigmaSignature {
 	@XmlElement(name="trentK")
 	private ElGamalKey trentK;
 	
-	/* Store the signer public key */
-	@XmlElement(name="signerK")
-	private ElGamalKey signerK;
-	
 	/* Simple constructor for Json */
 	public SigmaSignature(){}
 	
@@ -52,18 +48,5 @@ public class SigmaSignature {
 	}
 	public void setTrenK(ElGamalKey t){
 		this.trentK = t;
-	}
-	
-	
-	public ElGamalKey getSignerK(){
-		return signerK;
-	}
-	/* Only store public key */
-	public void setSignerK(ElGamalKey t){
-		ElGamalKey k = new ElGamalKey();
-		k.setP(t.getP());
-		k.setG(t.getG());
-		k.setPublicKey(t.getPublicKey());
-		this.signerK = k;
 	}
 }

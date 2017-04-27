@@ -53,7 +53,6 @@ public class PCSTest {
 	@Test
 	public void TestAb(){
 		System.out.println("---- Begining ----\n -->No need to worry, the following 3 lines are meant to be");
-		System.out.println("Ab :" + pcs.Verifies("c".getBytes()));
 		assertFalse(pcs.Verifies("c".getBytes()));
 		System.out.println("---- END ----\n");
 	}

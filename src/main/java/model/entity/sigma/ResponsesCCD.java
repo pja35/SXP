@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import model.entity.ElGamalKey;
+import protocol.impl.sigma.Trent;
 
 
 /**
@@ -61,6 +62,14 @@ public class ResponsesCCD extends Responses {
 		}
 		
 		return true;
+	}
+	
+	public Boolean Verifies(ElGamalKey tKeys, ResEncrypt res, byte[] message){
+		Trent t = new Trent(tKeys);
+		BigInteger c = t.SendChallenge(this.getMasks(), message);
+		if (!(this.getChallenge().equals(c)))
+			return false;
+		return this.Verifies(tKeys, res);
 	}
 
 

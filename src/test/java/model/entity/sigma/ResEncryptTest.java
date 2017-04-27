@@ -47,5 +47,14 @@ public class ResEncryptTest {
 		assertTrue(v.equals(res.getV()));
 		assertTrue(Arrays.equals(M, res.getM()));
 	}
-
+	
+	@Test
+	public void toStringTest(){
+		String str = "<" + res.getClass().getSimpleName().toLowerCase() + ">"
+				+ "<u>" + u.toString() + "</u>"
+				+ "<v>" + v.toString() + "</v>"
+				+ "<M>" + M.toString() + "</M>"
+				+ "</" + res.getClass().getSimpleName().toLowerCase() + ">";
+		assertTrue(str.equals(res.toString()));
+	}
 }

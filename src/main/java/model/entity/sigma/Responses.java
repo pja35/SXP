@@ -107,10 +107,15 @@ public abstract class Responses{
 	 */
 	@Override
 	public boolean equals(Object o){
-		if (! (o instanceof Responses)){
+		if (!(o instanceof Responses))
 			return false;
-		}
+		
 		Responses r = (Responses) o;
+		if (r.getMasks() == null 
+				|| r.getResponse() == null 
+				|| r.getChallenge() == null)
+			return false;
+		
 		boolean okM = r.getMasks().equals(this.getMasks());
 		boolean okRes = r.getResponse().toString().equals(this.getResponse().toString());
 		boolean okCha = r.getChallenge().toString().equals(this.getChallenge().toString());

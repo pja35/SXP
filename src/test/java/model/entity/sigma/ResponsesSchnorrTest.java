@@ -29,6 +29,16 @@ public class ResponsesSchnorrTest {
 	}
 	
 	@Test
+	public void equalTest(){
+		ResponsesSchnorr response2 = new ResponsesSchnorr();
+		ResponsesSchnorr response3 = (new Fabric()).SendResponseSchnorrFabric(key);
+		assertFalse(response.equals(1));
+		assertFalse(response.equals(response2));
+		assertFalse(response.equals(response3)); //Different masks
+		assertTrue(response.equals(response));
+	}
+	
+	@Test
 	public void verifyTest() {
 		assertTrue(response.Verifies(key, null));
 		assertFalse(response.Verifies(badKey, null));

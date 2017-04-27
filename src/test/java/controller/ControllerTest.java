@@ -51,7 +51,7 @@ public class ControllerTest {
 
 	private static Application application;
 	private static HttpsURLConnection https;
-	private static final int restPort = 5600;
+	public static final int restPort = 5600;
 	private static final String baseURL = "https://localhost:" + String.valueOf(restPort) + "/";
 
 	private static final String username = TestInputGenerator.getRandomAlphaWord(20);
@@ -316,7 +316,7 @@ public class ControllerTest {
 						+ "\",\"description\":\"Description_" + i + "\"}";
 				JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
 				Item it = json.toEntity(connectAction("POST", "api/items", properties, data, false));
-				String createdDate = dateFormat.format(it.getCreatedAt());
+				//String createdDate = dateFormat.format(it.getCreatedAt());
 				// TODO : make the date identicals
 				//assertTrue(createdDate.equals(TestInputGenerator.getFormatedTodayDate("dd-MM-yyyy")));
 				assertTrue(it.getDescription().equals("Description_" + i));
@@ -364,7 +364,7 @@ public class ControllerTest {
 			//properties.put("Connection", "keep-alive");
 			JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
 			Item it = json.toEntity(connectAction("GET", "api/items/" + itemId, properties, null, true));
-			String createdDate = dateFormat.format(it.getCreatedAt());
+			//String createdDate = dateFormat.format(it.getCreatedAt());
 			// TODO : set equal dates (problem on midnight here
 			//assertTrue(createdDate.equals(TestInputGenerator.getFormatedTodayDate("dd-MM-yyyy")));
 			assertTrue(it.getPbkey() != BigInteger.ZERO);
@@ -387,7 +387,7 @@ public class ControllerTest {
 			String data = "{\"id\":\"" + itemId + "\",\"title\":\"" + itemTitle + "\",\"description\":\"Special description\"}";
 			JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
 			Item it = json.toEntity(connectAction("PUT", "api/items/" + itemId, properties, data, false));
-			String createdDate = dateFormat.format(it.getCreatedAt());
+			//String createdDate = dateFormat.format(it.getCreatedAt());
 			// TODO : set equal dates (problem on midnight here
 			//assertTrue(createdDate.equals(TestInputGenerator.getFormatedTodayDate("dd-MM-yyyy")));
 			assertTrue(it.getPbkey() != BigInteger.ZERO);			
@@ -411,7 +411,7 @@ public class ControllerTest {
 			Collection<Item> itcoll = json.toEntity(connectAction("GET", "api/search/simple?title=" + itemTitle));
 			assertTrue("If this failed, verify that no XP server is running in background.", itcoll.size() == 1);
 			Item it = itcoll.iterator().next();
-			String createdDate = dateFormat.format(it.getCreatedAt());
+			//String createdDate = dateFormat.format(it.getCreatedAt());
 			// TODO : set equal dates (problem on midnight here
 			//assertTrue(createdDate.equals(TestInputGenerator.getFormatedTodayDate("dd-MM-yyyy")));
 			assertTrue(it.getPbkey() != BigInteger.ZERO);			
@@ -482,7 +482,7 @@ public class ControllerTest {
 					data = "{\"title\":\"\"}";
 				JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
 				ContractEntity ct = json.toEntity(connectAction("POST", "api/contracts/", properties, data, false));
-				String createdDate = dateFormat.format(ct.getCreatedAt());
+				//String createdDate = dateFormat.format(ct.getCreatedAt());
 				// TODO : set equal dates (problem on midnight here)
 				//assertTrue(createdDate.equals(TestInputGenerator.getFormatedTodayDate("dd-MM-yyyy")));
 				assertFalse(ct.getId().isEmpty());
@@ -530,7 +530,7 @@ public class ControllerTest {
 			properties.put("Auth-Token", token);
 			JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
 			ContractEntity ct = json.toEntity(connectAction("GET", "api/contracts/" + contractId, properties, null, true));
-			String createdDate = dateFormat.format(ct.getCreatedAt());
+			//String createdDate = dateFormat.format(ct.getCreatedAt());
 			// TODO : set equal dates (problem on midnight here)
 			//assertTrue(createdDate.equals(TestInputGenerator.getFormatedTodayDate("dd-MM-yyyy")));
 			assertTrue(ct.getTitle().equals(itemTitle));

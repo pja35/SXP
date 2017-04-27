@@ -17,17 +17,31 @@ package protocol.impl.sigma;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.HashMap;
 
-import controller.tools.LoggerUtilities;
+import com.fasterxml.jackson.core.type.TypeReference;
+
+/*
+ * TODO : Respect design pattern factory
+ */
 import crypt.impl.signatures.SigmaSignature;
+import crypt.impl.signatures.SigmaSigner;
+
+import controller.Application;
+import controller.tools.JsonTools;
+import controller.tools.LoggerUtilities;
+import crypt.api.encryption.Encrypter;
+import crypt.factories.EncrypterFactory;
+import model.entity.ContractEntity;
 import model.entity.ElGamalKey;
 import model.entity.sigma.Masks;
 import model.entity.sigma.Or;
 import model.entity.sigma.ResEncrypt;
 import model.entity.sigma.Responses;
 import model.entity.sigma.ResponsesCCD;
+import network.api.EstablisherService;
+import network.api.Messages;
+import network.api.ServiceListener;
 
 
 /**
@@ -37,29 +51,110 @@ import model.entity.sigma.ResponsesCCD;
  *
  */
 public class Trent {
-
-	SecureRandom  random = new SecureRandom();
-	int keyLength = 1024;
 	
-	ElGamalKey keys;
+	protected final EstablisherService establisherService =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
+	
+	protected ElGamalKey keys;
 	private HashMap<Masks,BigInteger> eph = new HashMap<Masks, BigInteger>();
+	
+	private HashMap<SigmaContract, TrentSolver> solvers = new HashMap<SigmaContract, TrentSolver>();
+
+	private Encrypter<ElGamalKey> encrypter;
+	
 	/**
 	 * Constructor
 	 */
 	public  Trent(ElGamalKey keys){
-			
+		
 		this.keys = keys;
 		
-//		EstablisherService establisherService =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
-//		establisherService.addListener(new ServiceListener() {
-//			@Override
-//			public void notify(Messages messages) {// Finding the sender
-//				BigInteger msgSenKey = new BigInteger(messages.getMessage("sourceId"));
-//				
-//			}
-//		}, this.keys.getPublicKey().toString()+"TRENT");
+		encrypter = EncrypterFactory.createElGamalSerpentEncrypter();
+		encrypter.setKey(keys);
+		
+		// Add a listener in case someone ask to resolve
+		establisherService.addListener(new ServiceListener() {
+			@Override
+			public void notify(Messages messages) {// Finding the sender
+				BigInteger msgSenKey = new BigInteger(messages.getMessage("sourceId"));
+				ElGamalKey senderK = new ElGamalKey();
+				senderK.setPublicKey(msgSenKey);
+				
+				String content = messages.getMessage("contract");
+				
+				resolve(content, senderK);
+			}
+		}, this.keys.getPublicKey().toString()+"TRENT");
 		
 	 }
+	
+	/*
+	 * Trent resolve function
+	 */
+	private void resolve(String message, ElGamalKey senderK){
+		JsonTools<String[]> json = new JsonTools<>(new TypeReference<String[]>(){});
+		String[] content = json.toEntity(message);
+
+		if (content != null){
+			
+			int round = Integer.parseInt(content[0]);
+			
+			JsonTools<HashMap<BigInteger, String>> json1 = new JsonTools<>(new TypeReference<HashMap<BigInteger, String>>(){});
+			HashMap<BigInteger, String> uris = json1.toEntity(content[1]);
+			
+			JsonTools<ContractEntity> json2 = new JsonTools<>(new TypeReference<ContractEntity>(){});
+			SigmaContract contract = new SigmaContract(json2.toEntity(content[2]));
+			
+			String m = new String(encrypter.decrypt(content[3].getBytes()));
+
+			JsonTools<SigmaSignature> json4 = new JsonTools<>(new TypeReference<SigmaSignature>(){});
+			String sign = new String(encrypter.decrypt(content[4].getBytes()));
+			SigmaSignature signature = json4.toEntity(sign);
+			
+			
+			SigmaSigner s = new SigmaSigner();
+			s.setKey(this.keys);
+			s.setReceiverK(senderK);
+			s.setTrentK(this.keys);
+
+			boolean verifiedOr = true;
+			if (round > 0){
+				byte[] data = (new String(contract.getHashableData()) + round).getBytes();
+				JsonTools<Or[]> json3 = new JsonTools<>(new TypeReference<Or[]>(){});
+				Or[] orT = json3.toEntity(m);
+
+				// Checks the signature
+				for (Or o : orT){
+					verifiedOr = verifiedOr && o.Verifies(data);
+				}
+			}
+			if (s.verify(m.getBytes(), signature) && verifiedOr){
+				if (solvers.get(contract) == null){
+					solvers.put(contract, new TrentSolver(contract, this));
+				}
+				
+				TrentSolver ts = solvers.get(contract);
+				String[] resolved = ts.resolveT(m, round, senderK.getPublicKey().toString());
+				
+				if (resolved == null){
+					establisherService.sendContract(new String(contract.getHashableData()), 
+							senderK.getPublicKey().toString() + "TRENT",
+							keys.getPublicKey().toString(),
+							"You were dishonest",
+							uris.get(senderK));
+				} else{
+					JsonTools<String[]> jsons = new JsonTools<>(new TypeReference<String[]>(){});
+					String answer = jsons.toJson(resolved);
+					for (BigInteger k : uris.keySet()){
+						establisherService.sendContract(new String(contract.getHashableData()), 
+								k.toString()+"TRENT",
+								keys.getPublicKey().toString(),
+								answer,
+								uris.get(k));
+					}
+				}
+			}
+		}
+	}
 
 	/**
 	 * Create mask for the CCD response
@@ -170,6 +265,10 @@ public class Trent {
 	 * @return
 	 */
 	public ElGamalKey getKey(){
-		return this.keys;
+		ElGamalKey pubKey = new ElGamalKey();
+		pubKey.setG(this.keys.getG());
+		pubKey.setP(this.keys.getP());
+		pubKey.setPublicKey(this.keys.getPublicKey());
+		return pubKey;
 	}
 }

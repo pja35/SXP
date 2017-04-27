@@ -190,24 +190,32 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
 	
 	@Override
 	public boolean equals(EstablisherContract<BigInteger, ElGamalKey, SigmaSignature, SigmaSigner> c) {
-		return Arrays.areEqual(this.getHashableData(), c.getHashableData());
+		if (!(c instanceof SigmaContract))
+			return false;
+		SigmaContract contract = (SigmaContract) c;
+		if (contract.clauses == null)
+			return false;
+		return Arrays.areEqual(this.getHashableData(), contract.getHashableData());
 	}
 	
+	/* TODO : Put the parties in hash
+	 * Here it leads to a problem in equals
+	 */
 	@Override
 	public byte[] getHashableData() {
-		StringBuffer buffer = new StringBuffer();
-		for(ElGamalKey k: parties) {
-			buffer.append(k.getPublicKey().toString());
-		}
+//		StringBuffer buffer = new StringBuffer();
+//		for(ElGamalKey k: parties) {
+//			buffer.append(k.getPublicKey().toString());
+//		}
 		byte[] signable = this.clauses.getHashableData();
+		return signable;
+//		int signableL = signable.length;
+//		int bufferL = buffer.toString().getBytes().length;
+//		byte[] concate = new byte[signableL + bufferL];
+//		System.arraycopy(new String(buffer).getBytes(), 0, concate, 0, bufferL);
+//		System.arraycopy(signable, 0, concate, bufferL, signableL);
 		
-		int signableL = signable.length;
-		int bufferL = buffer.toString().getBytes().length;
-		byte[] concate = new byte[signableL + bufferL];
-		System.arraycopy(buffer.toString().getBytes(), 0, concate, 0, bufferL);
-		System.arraycopy(signable, 0, concate, bufferL, signableL);
-		
-		return concate;
+//		return concate;
 	}
 	
 	@Override

@@ -42,6 +42,14 @@ public abstract class EstablisherContract<T, Key extends AsymKey<T>, Sign, _Sign
 	};
 	
 	
+	/*
+	 * Entity getter
+	 */
+	public ContractEntity getEntity(){
+		return contract;
+	}
+	
+	
 	/**
 	 * Add a signature to the contrat
 	 * @param k public key who is signing

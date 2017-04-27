@@ -68,7 +68,8 @@ public class SigmaContractTest {
 	private String text;
 	private Clauses clauses;
 	private ArrayList<String> cl = new ArrayList<String>();
-
+	private ArrayList<ElGamalKey> keys;
+	
 	@Before
 	public void instantiate(){
 		text = TestInputGenerator.getRandomIpsumText();
@@ -78,11 +79,19 @@ public class SigmaContractTest {
 		contractE.setParties(new ArrayList<String>());
 		contractE.setSignatures(new HashMap<String,String>());
 		contractE.setClauses(new ArrayList<String>());
+		contract2 = new SigmaContract(contractE);
 	}
 
 	@Test
+	public void equalsTest(){
+		SigmaContract contractBis = new SigmaContract();
+		assertFalse(contract.equals(contractBis));
+		contractBis.setClauses(clauses);
+		assertTrue(contract.equals(contractBis));
+	}
+	
+	@Test
 	public void clausesGetterTest(){
-		contract2 = new SigmaContract(contractE);
 		contract2.setClauses(clauses);
 		assertArrayEquals(contract2.getClauses().getHashableData(), clauses.getHashableData());
 		contract2.setClauses(cl);
@@ -96,12 +105,13 @@ public class SigmaContractTest {
 		Users users = new Users();
 		Collection<User> u = json.toEntity(users.get());
 		ArrayList<String> ids = new ArrayList<String>();
-		ArrayList<ElGamalKey> keys = new ArrayList<ElGamalKey>(); 
+		keys = new ArrayList<ElGamalKey>(); 
 		for (User user : u){
 			ids.add(user.getId());
 			keys.add(user.getKey());
 		}
 		contract.setParties(ids);
+		contract2.setParties(ids);
 		assertTrue(contract.getParties().toString().equals(keys.toString()));
 	}
 	

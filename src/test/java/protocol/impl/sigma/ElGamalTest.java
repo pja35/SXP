@@ -13,6 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import controller.Application;
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
 import model.entity.sigma.ResEncrypt;
@@ -27,6 +28,7 @@ import util.TestInputGenerator;
  */
 public class ElGamalTest {
 	private final static Logger log = LogManager.getLogger(ElGamalTest.class);
+	public static final int restPort = 5600;
 	@Rule public ExpectedException exception = ExpectedException.none();
 
 	private ElGamalKey keys;
@@ -119,11 +121,14 @@ public class ElGamalTest {
 
 	@Test
 	public void encryptForContractTest(){
+		Application application = new Application();
+		application.runForTests(restPort);
 		Trent trent = new Trent(keys);
 		ElGamalEncrypt encrMess = elg.encryptForContract(message);
 		ResEncrypt res = new ResEncrypt(encrMess.getU(), encrMess.getV(), message);
 		ResponsesCCD response = trent.SendResponse(res);
 		assertTrue(response.Verifies(keys, res));
+		application.stop();
 	}
 }
 

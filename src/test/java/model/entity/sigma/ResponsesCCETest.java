@@ -38,6 +38,16 @@ public class ResponsesCCETest {
 		response = (new Fabric()).SendResponseCCEFabric(res, key);
 	}
 	
+	@Test
+	public void equalTest(){
+		ResponsesCCE response2 = new ResponsesCCE();
+		ResponsesCCE response3 = (new Fabric()).SendResponseCCEFabric(res, key);
+		assertFalse(response.equals(1));
+		assertFalse(response.equals(response2)); //Response not initialized
+		assertFalse(response.equals(response3)); //Different masks
+		assertTrue(response.equals(response));
+	}
+	
 
 	@Test
 	public void verifyTest() {

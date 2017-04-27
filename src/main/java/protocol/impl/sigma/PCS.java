@@ -139,7 +139,7 @@ public class PCS {
 		sig.setKey(sender.getKeys());
 		sig.setTrentK(this.trentK);
 		sig.setReceiverK(r);
-		return sig.sign(contract.getClauses().getHashableData());
+		return sig.sign(contract.getHashableData());
 	}
 	
 	/**
@@ -153,7 +153,7 @@ public class PCS {
 		if (signature == null ){
 			return false;
 		}
-		return signer.verify(contract.getClauses().getHashableData(), signature);
+		return signer.verify(contract.getHashableData(), signature);
 	}
 	
 }

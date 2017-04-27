@@ -5,7 +5,6 @@ package network.impl.jxta;
 
 import net.jxta.pipe.PipeMsgEvent;
 import network.api.EstablisherService;
-import network.api.Messages;
 import network.impl.messages.EstablisherMessage;
 
 /**
@@ -39,11 +38,6 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 	 */
 	@Override
 	public void pipeMsgEvent(PipeMsgEvent event) {
-		Messages message = toMessages(event.getMessage());
-		if(message.getMessage("type").equals("trentResolve")) {
-			super.pipeMsgEvent(event);
-			return;
-		}
 		super.pipeMsgEvent(event);
 	}
 
