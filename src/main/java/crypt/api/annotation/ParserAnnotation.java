@@ -20,5 +20,9 @@ public interface ParserAnnotation<Entity> {
 	public Entity parseAnnotation(ParserAction ...actions);
 	
 	
-	public void setKey(AsymKey<BigInteger> key);
+	/*
+	 * set key as ElGamalKey, this key contains a pair of public and private key, they will be used in Crypt, Hash, Sign ... actions
+	 * @param key
+	 */
+	//public void setKey(AsymKey<BigInteger> key);
 }

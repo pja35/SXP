@@ -64,7 +64,7 @@ public class Message {
 	@Lob
 	@XmlElement(name="messageContent")
 	@NotNull
-	@Size(min = 1, max = 1024)
+	@Size(min = 1, max = 2048)
 	private String messageContent;
 
 	public static enum ReceptionStatus {DRAFT, SENT, RECEIVED}

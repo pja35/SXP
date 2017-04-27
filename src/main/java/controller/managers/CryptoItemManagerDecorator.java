@@ -41,16 +41,19 @@ public class CryptoItemManagerDecorator extends ManagerDecorator<Item>{
 			@Override
 			public void notify(Collection<Item> results) {
 				
-				Item item = results.iterator().next();
-				
-				ParserAnnotation parser = ParserFactory.createDefaultParser(item, null);
-				
-				item = (Item) parser.parseAnnotation(ParserAction.CheckAction);
-				
 				ArrayList<Item> rest = new ArrayList<>();
 				
-				if(item !=null){
-					rest.add(item);
+				Item item = results.iterator().next();
+				
+				if(item != null){
+					
+					ParserAnnotation parser = ParserFactory.createDefaultParser(item, null);
+				
+					item = (Item) parser.parseAnnotation(ParserAction.CheckAction);
+					
+					if(item != null){
+						rest.add(item);
+					}
 				}
 				
 				l.notify(rest);
@@ -95,16 +98,19 @@ public class CryptoItemManagerDecorator extends ManagerDecorator<Item>{
 			@Override
 			public void notify(Collection<Item> results) {
 				
+				ArrayList<Item> rest = new ArrayList<>();
+			
 				Item item = results.iterator().next();
 				
-				ParserAnnotation parser = ParserFactory.createDefaultParser(item, null);
-				
-				item = (Item) parser.parseAnnotation(ParserAction.CheckAction);
-				
-				ArrayList<Item> rest = new ArrayList<>();
-				
 				if(item != null){
-					rest.add(item);
+					
+					ParserAnnotation parser = ParserFactory.createDefaultParser(item, null);
+				
+					item = (Item) parser.parseAnnotation(ParserAction.CheckAction);
+					
+					if(item != null){
+						rest.add(item);
+					}
 				}
 				
 				l.notify(rest);
@@ -122,7 +128,7 @@ public class CryptoItemManagerDecorator extends ManagerDecorator<Item>{
 			
 			if(item.getUserid() == user.getId()){
 				
-				ParserAnnotation parser = ParserFactory.createDefaultParser(item, user.getKey());
+				ParserAnnotation<Item> parser = ParserFactory.createDefaultParser(item, user.getKey());
 				
 				item = (Item) parser.parseAnnotation(ParserAction.SigneAction);			
 			}

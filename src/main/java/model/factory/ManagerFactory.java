@@ -49,4 +49,9 @@ public class ManagerFactory {
 		ResilienceContractManagerDecorator resiNetworkD = new ResilienceContractManagerDecorator(networkD, peer);
 		return resiNetworkD;
 	}
+	
+	
+	
+	
+	
 }

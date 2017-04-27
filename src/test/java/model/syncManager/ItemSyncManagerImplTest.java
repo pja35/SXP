@@ -170,5 +170,5 @@ public class ItemSyncManagerImplTest {
 		buff.append("******************" + "\n");
 		return buff.toString();
 	}
-}
+	}
 
