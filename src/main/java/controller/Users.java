@@ -21,21 +21,20 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
-import controller.managers.CryptoItemManagerDecorator;
 import controller.managers.CryptoUserManagerDecorator;
 import controller.tools.JsonTools;
 import crypt.api.hashs.Hasher;
 import crypt.factories.ElGamalAsymKeyFactory;
 import crypt.factories.HasherFactory;
-import model.api.ManagerListener;
+import model.api.Manager;
 import model.api.SyncManager;
 import model.api.UserSyncManager;
 import model.entity.ElGamalSignEntity;
-import model.entity.Item;
 import model.entity.LoginToken;
 import model.entity.User;
+import model.factory.ManagerFactory;
+import model.factory.SyncManagerFactory;
 import model.manager.ManagerAdapter;
-import model.syncManager.ItemSyncManagerImpl;
 import model.syncManager.UserSyncManagerImpl;
 import rest.api.Authentifier;
 import rest.api.ServletPath;
@@ -50,16 +49,18 @@ public class Users {
 	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON)	
 	public String login(String jsonCredentials) {
+		
 		String[] credentials = jsonCredentials.split("&");
+		
 		String login = credentials[0].split("=")[1];
 		String password = credentials[1].split("=")[1];
-		/*	public String login(
-			@QueryParam("login") String login,
-			@QueryParam("password") String password) {*/
 
 		Authentifier auth = Application.getInstance().getAuth();
-		UserSyncManager em = new UserSyncManagerImpl();
+		
+		UserSyncManager em = SyncManagerFactory.createUserSyncManager();
+		
 		User u = em.getUser(login, password);
+		
 		log.info(login + " - " + password);
 		if(u != null) {
 			LoginToken token = new LoginToken();
@@ -71,26 +72,6 @@ public class Users {
 		}
 		em.close();
 		return "{\"error\": \"true\"}";
-		/*EntityManager<User> em = new UserManager();
-		User u = em.findOneByAttribute("nick", login);
-		if(u == null) return "{\"error\": \"true\"}";
-		System.out.println("user trouve !");
-		Hasher hasher = HasherFactory.createDefaultHasher();
-		hasher.setSalt(u.getSalt());
-		//check if passwords are the sames
-		String hash1 = new String(u.getPasswordHash());
-		String hash2 = new String(hasher.getHash(password.getBytes()));
-
-		if(hash1.equals(hash2)) {
-			LoginToken token = new LoginToken();
-			token.setToken(auth.getToken(login, password));
-			token.setUserid(u.getId());
-			JsonTools<LoginToken> json = new JsonTools<>();
-			json.initialize(LoginToken.class);
-			return json.toJson(token);
-		}
-
-		return "{\"error\": \"true\"}";*/
 	}
 
 	@GET
@@ -109,10 +90,7 @@ public class Users {
 		String[] credentials = jsonCredentials.split("&");
 		String login = credentials[0].split("=")[1];
 		String password = credentials[1].split("=")[1];
-		/*public String subscribe(
-			@QueryParam("login") String login,
-			@QueryParam("password") String password) {*/
-
+		
 		User u = new User();
 		u.setNick(login);
 		u.setSalt(HasherFactory.generateSalt());
@@ -120,16 +98,13 @@ public class Users {
 		u.setCreatedAt(new Date());
 		u.setKey(ElGamalAsymKeyFactory.create(false));
 		u.setSignature(new ElGamalSignEntity());
-		//SyncManager<User> em = new UserSyncManagerImpl();
 		
-		ManagerAdapter<User> adapter = new ManagerAdapter<User>(new UserSyncManagerImpl());
+		Manager<User> hasherDecoratorManager = ManagerFactory.createCryptoUserManager(u);
 		
-		CryptoUserManagerDecorator hasherDecoratorUser = new CryptoUserManagerDecorator(adapter,u);
-		
-		hasherDecoratorUser.begin();
-		hasherDecoratorUser.persist(u);
-		hasherDecoratorUser.end();
-		hasherDecoratorUser.close();
+		hasherDecoratorManager.begin();
+		hasherDecoratorManager.persist(u);
+		hasherDecoratorManager.end();
+		hasherDecoratorManager.close();
 		
 		Authentifier auth = Application.getInstance().getAuth();
 		LoginToken token = new LoginToken();
@@ -153,7 +128,9 @@ public class Users {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String get(
 			@PathParam("id") String id) {
-		SyncManager<User> em = new UserSyncManagerImpl();
+		
+		UserSyncManager em = SyncManagerFactory.createUserSyncManager();
+		
 		JsonTools<User> json = new JsonTools<>(new TypeReference<User>(){});
 		return json.toJson(em.findOneById(id));
 	}
@@ -162,7 +139,9 @@ public class Users {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String get() {
-		SyncManager<User> em = new UserSyncManagerImpl();
+		
+		UserSyncManager em = SyncManagerFactory.createUserSyncManager();
+		
 		JsonTools<Collection<User>> json = new JsonTools<>(new TypeReference<Collection<User>>(){});
 		return json.toJson(em.findAll());
 		//return JsonUtils.collectionStringify(em.findAll());
@@ -194,12 +173,11 @@ public class Users {
 		
 		Authentifier auth = Application.getInstance().getAuth();
 		
-		UserSyncManager em = new UserSyncManagerImpl();
+		UserSyncManager em = SyncManagerFactory.createUserSyncManager();
 		
-		User u = em.getUser(auth.getLogin(token), passwordOld);
+		User u = em.getUser(auth.getLogin(token), passwordOld);  //search in local
 		
-		ManagerAdapter<User> adapter = new ManagerAdapter<User>(em);
-		CryptoUserManagerDecorator decoratorUserMg = new CryptoUserManagerDecorator(adapter,u);
+		Manager<User> decoratorUserMg = ManagerFactory.createCryptoUserManager(em,u); // encapsulation of UserSyncManager to hash the new password using decorator pattern
 		
 		if(u != null) {
 			
@@ -235,7 +213,9 @@ public class Users {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String delete(@PathParam("id") String id, @HeaderParam(Authentifier.PARAM_NAME) String token) {
 		Authentifier auth = Application.getInstance().getAuth();
-		UserSyncManager users = new UserSyncManagerImpl();
+		
+		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
+		
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		if (currentUser == null){
 			users.close();

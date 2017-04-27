@@ -57,7 +57,19 @@ public class Application {
 	public static void main(String[] args) {
 		new Application();
 		Application.getInstance().runForTests(8081);
+		
+		/*
+		 Properties p = System.getProperties();
+		
+		Enumeration e = p.propertyNames();
 
+	    while (e.hasMoreElements()) {
+	      String key = (String) e.nextElement();
+	      System.out.println(key + " -- " + p.getProperty(key));
+	    }
+		
+		System.out.println("derby.system.home : " + p.getProperty("derby.system.home"));
+		 */
 	}
 	
 	public void stop(){
