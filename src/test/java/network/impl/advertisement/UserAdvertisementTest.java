@@ -51,7 +51,7 @@ public class UserAdvertisementTest {
 	public void fieldsAnnotationsTest(){
 		//nickName
 		try{
-			Field nickField = user.getClass().getDeclaredField("nickName");
+			Field nickField = user.getClass().getDeclaredField("nick");
 			assertTrue(nickField.getAnnotation(AdvertisementAttribute.class).indexed());
 		}catch(Exception e){
 			e.printStackTrace();
@@ -59,7 +59,7 @@ public class UserAdvertisementTest {
 		}
 		//publicKey
 		try{
-			Field pkeyField = user.getClass().getDeclaredField("publicKey");
+			Field pkeyField = user.getClass().getDeclaredField("pbkey");
 			assertTrue(pkeyField.getAnnotation(AdvertisementAttribute.class).indexed());			
 		}catch(Exception e){
 			e.printStackTrace();

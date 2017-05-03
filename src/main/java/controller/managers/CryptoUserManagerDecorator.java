@@ -13,6 +13,8 @@ import model.api.ManagerListener;
 import model.entity.ElGamalSignEntity;
 import model.entity.Item;
 import model.entity.User;
+import network.api.advertisement.UserAdvertisementInterface;
+import network.factories.AdvertisementFactory;
 
 /**
  * 
@@ -45,9 +47,10 @@ public class CryptoUserManagerDecorator extends ManagerDecorator<User>{
 				ParserAnnotation parser = ParserFactory.createDefaultParser(u, user.getKey());
 				
 				u =(User) parser.parseAnnotation(ParserAction.HasherAction,ParserAction.SigneAction);
-				
+
 			}
 		}
+		
 		return super.end();
 	}
 	

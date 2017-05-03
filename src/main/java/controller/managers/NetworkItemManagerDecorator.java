@@ -84,12 +84,12 @@ public class NetworkItemManagerDecorator extends ManagerDecorator<Item>{
 			@Override
 			public void notify(Messages messages) {
 				JsonTools<ArrayList<Item>> json = new JsonTools<>(new TypeReference<ArrayList<Item>>(){});
-				ArrayList<Item> items = json.toEntity(messages.getMessage("items"));
-				System.out.println("items found !");
-				System.out.println(messages.getMessage("items"));
-				for(Item i : items) {
-					System.out.println(i.getTitle());
-				}
+//				ArrayList<Item> items = json.toEntity(messages.getMessage("items"));
+//				System.out.println("items found !");
+//				System.out.println(messages.getMessage("items"));
+//				for(Item i : items) {
+//					System.out.println(i.getTitle());
+//				}
 				l.notify(json.toEntity(messages.getMessage("items")));
 			}
 			

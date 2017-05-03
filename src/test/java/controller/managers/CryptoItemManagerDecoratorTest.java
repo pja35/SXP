@@ -65,14 +65,11 @@ public class CryptoItemManagerDecoratorTest {
 	@Before
 	public void initialize() throws Exception {
 		
-		
 		itemSyncManager = SyncManagerFactory.createItemSyncManager();
 		
 		ManagerAdapter<Item> adapter = new ManagerAdapter<>(itemSyncManager);
 		
 		ism = new CryptoItemManagerDecorator(adapter, user);
-		
-		
 		
 		signature = new ElGamalSignEntity();
 		signature.setR(TestInputGenerator.getRandomBigInteger(100));
