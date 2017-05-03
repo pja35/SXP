@@ -1,7 +1,7 @@
 ---
 title: Related Articles
 permalink: wiki/Related_Articles/
-layout: None
+layout: wiki
 tags:
  - Discussion Pages
 ---

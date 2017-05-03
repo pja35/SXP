@@ -1,7 +1,7 @@
 ---
 title: XML
 permalink: wiki/XML/
-layout: None
+layout: wiki
 tags:
  - Technical Glossary
 ---

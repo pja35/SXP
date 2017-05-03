@@ -1,7 +1,7 @@
 ---
 title: Category:Conceptual Glossary
 permalink: wiki/Category:Conceptual_Glossary/
-layout: None
+layout: tagpage
 tag: Conceptual Glossary
 ---
 

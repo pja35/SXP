@@ -1,7 +1,7 @@
 ---
 title: Contracts Specification
 permalink: wiki/Contracts_Specification/
-layout: None
+layout: wiki
 ---
 
 The goal of these specifications is to define the possible terms of a

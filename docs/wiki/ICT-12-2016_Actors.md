@@ -1,7 +1,7 @@
 ---
 title: ICT-12-2016:Actors
 permalink: wiki/ICT-12-2016:Actors/
-layout: None
+layout: wiki
 ---
 
 Protagonists

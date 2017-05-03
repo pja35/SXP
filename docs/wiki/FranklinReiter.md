@@ -1,7 +1,7 @@
 ---
 title: FranklinReiter
 permalink: wiki/FranklinReiter/
-layout: None
+layout: wiki
 ---
 
 This paper is referenced by [AsokanSchunter](/wiki/AsokanSchunter "wikilink").

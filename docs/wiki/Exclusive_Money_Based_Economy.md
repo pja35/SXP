@@ -1,7 +1,7 @@
 ---
 title: Exclusive Money Based Economy
 permalink: wiki/Exclusive_Money_Based_Economy/
-layout: None
+layout: wiki
 tags:
  - Discussion Pages
 ---

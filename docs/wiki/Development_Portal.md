@@ -1,7 +1,7 @@
 ---
 title: Development Portal
 permalink: wiki/Development_Portal/
-layout: None
+layout: wiki
 ---
 
 Fast links: [Main page,](/wiki/Secure_eXchange_Procotols "wikilink") [Current

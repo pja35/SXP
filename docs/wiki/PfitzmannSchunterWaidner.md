@@ -1,7 +1,7 @@
 ---
 title: PfitzmannSchunterWaidner
 permalink: wiki/PfitzmannSchunterWaidner/
-layout: None
+layout: wiki
 ---
 
 This paper is referenced by [AsokanSchunter](/wiki/AsokanSchunter "wikilink").

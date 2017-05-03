@@ -1,7 +1,7 @@
 ---
 title: Current Needs
 permalink: wiki/Current_Needs/
-layout: None
+layout: wiki
 ---
 
 We call on:

@@ -1,7 +1,7 @@
 ---
 title: Sigma Protocols
 permalink: wiki/Sigma_Protocols/
-layout: None
+layout: wiki
 ---
 
 Those are key to understanding [Private Contract

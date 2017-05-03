@@ -1,7 +1,7 @@
 ---
 title: BaoDengMao
 permalink: wiki/BaoDengMao/
-layout: None
+layout: wiki
 ---
 
 This paper is referenced by [AsokanSchunter](/wiki/AsokanSchunter "wikilink").

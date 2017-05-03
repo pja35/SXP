@@ -1,7 +1,7 @@
 ---
 title: MukhamedovRyan
 permalink: wiki/MukhamedovRyan/
-layout: None
+layout: wiki
 ---
 
 Provides abuse-free asynchronous multi-party optimistic contract

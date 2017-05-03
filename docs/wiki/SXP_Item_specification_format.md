@@ -1,7 +1,7 @@
 ---
 title: SXP Item specification format
 permalink: wiki/SXP_Item_specification_format/
-layout: None
+layout: wiki
 ---
 
 We make the Items Specification via an [XML schema](/wiki/XSD "wikilink"). The

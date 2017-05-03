@@ -1,7 +1,7 @@
 ---
 title: Chains
 permalink: wiki/Chains/
-layout: None
+layout: wiki
 tags:
  - Technical Glossary
 ---

@@ -1,7 +1,7 @@
 ---
 title: Related Projects
 permalink: wiki/Related_Projects/
-layout: None
+layout: wiki
 tags:
  - Discussion Pages
 ---

@@ -1,7 +1,7 @@
 ---
 title: ICT-12-2016:Main
 permalink: wiki/ICT-12-2016:Main/
-layout: None
+layout: wiki
 ---
 
 This page is the root of our contributions concerning application to

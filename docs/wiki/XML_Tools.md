@@ -1,7 +1,7 @@
 ---
 title: XML Tools
 permalink: wiki/XML_Tools/
-layout: None
+layout: wiki
 ---
 
 PDF Generator of an XML SXP Contract File

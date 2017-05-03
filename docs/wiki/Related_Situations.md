@@ -1,7 +1,7 @@
 ---
 title: Related Situations
 permalink: wiki/Related_Situations/
-layout: None
+layout: wiki
 tags:
  - Discussion Pages
 ---

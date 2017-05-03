@@ -1,7 +1,7 @@
 ---
 title: LETS
 permalink: wiki/LETS/
-layout: None
+layout: wiki
 tags:
  - Conceptual Glossary
 ---

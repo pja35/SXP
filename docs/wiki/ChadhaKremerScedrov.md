@@ -1,7 +1,7 @@
 ---
 title: ChadhaKremerScedrov
 permalink: wiki/ChadhaKremerScedrov/
-layout: None
+layout: wiki
 ---
 
 This paper inspires the structure of

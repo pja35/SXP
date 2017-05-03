@@ -1,7 +1,7 @@
 ---
 title: Broken Contract
 permalink: wiki/Broken_Contract/
-layout: None
+layout: wiki
 tags:
  - Discussion Pages
 ---

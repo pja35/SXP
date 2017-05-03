@@ -1,7 +1,7 @@
 ---
 title: Pearson
 permalink: wiki/Pearson/
-layout: None
+layout: wiki
 ---
 
 This paper is referenced by [AsokanSchunter](/wiki/AsokanSchunter "wikilink").

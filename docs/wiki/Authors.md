@@ -1,7 +1,7 @@
 ---
 title: Authors
 permalink: wiki/Authors/
-layout: None
+layout: wiki
 ---
 
 The project is currently led by

@@ -1,7 +1,7 @@
 ---
 title: Related Trading Sites
 permalink: wiki/Related_Trading_Sites/
-layout: None
+layout: wiki
 tags:
  - Discussion Pages
 ---

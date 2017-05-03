@@ -1,7 +1,7 @@
 ---
 title: Ateniese
 permalink: wiki/Ateniese/
-layout: None
+layout: wiki
 ---
 
 This paper is referenced by [AsokanSchunter](/wiki/AsokanSchunter "wikilink").

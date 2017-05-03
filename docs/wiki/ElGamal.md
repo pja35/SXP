@@ -1,7 +1,7 @@
 ---
 title: ElGamal
 permalink: wiki/ElGamal/
-layout: None
+layout: wiki
 ---
 
 Fix \(p\) a prime and \(g\) an integer. The powers of \(g\) form a

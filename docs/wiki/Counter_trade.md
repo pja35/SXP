@@ -1,7 +1,7 @@
 ---
 title: Counter trade
 permalink: wiki/Counter_trade/
-layout: None
+layout: wiki
 tags:
  - Conceptual Glossary
 ---
