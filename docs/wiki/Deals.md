@@ -1,7 +1,7 @@
 ---
 title: Deals
 permalink: wiki/Deals/
-layout: wiki
+layout: None
 tags:
  - Technical Glossary
 ---

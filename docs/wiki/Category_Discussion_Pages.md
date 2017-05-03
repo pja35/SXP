@@ -1,7 +1,7 @@
 ---
 title: Category:Discussion Pages
 permalink: wiki/Category:Discussion_Pages/
-layout: tagpage
+layout: None
 tag: Discussion Pages
 ---
 

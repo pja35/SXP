@@ -1,7 +1,7 @@
 ---
 title: SXP Contract specification format
 permalink: wiki/SXP_Contract_specification_format/
-layout: wiki
+layout: None
 ---
 
 This page describes the technichal information about the SXP Contract

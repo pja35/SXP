@@ -1,7 +1,7 @@
 ---
 title: Getting Started
 permalink: wiki/Getting_Started/
-layout: wiki
+layout: None
 ---
 
 This project is at its early stages. We need all the help we can get,

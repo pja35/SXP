@@ -1,7 +1,7 @@
 ---
 title: BaumwaidnerWaidner
 permalink: wiki/BaumwaidnerWaidner/
-layout: wiki
+layout: None
 ---
 
 This paper is referenced by [AsokanSchunter](/wiki/AsokanSchunter "wikilink")

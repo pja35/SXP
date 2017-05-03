@@ -1,7 +1,7 @@
 ---
 title: Contracts
 permalink: wiki/Contracts/
-layout: wiki
+layout: None
 tags:
  - Technical Glossary
 ---

@@ -1,7 +1,7 @@
 ---
 title: Private Contract Signatures
 permalink: wiki/Private_Contract_Signatures/
-layout: wiki
+layout: None
 ---
 
 Private Contract Signatures are a cryptography primitive which we need

@@ -1,7 +1,7 @@
 ---
 title: XSD
 permalink: wiki/XSD/
-layout: wiki
+layout: None
 ---
 
 XML Schema Definition is a schema language that allow users to define
