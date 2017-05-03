@@ -10,6 +10,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Hashtable;
+
+import controller.tools.LoggerUtilities;
 import crypt.annotations.CryptCryptAnnotation;
 import crypt.annotations.CryptHashAnnotation;
 import crypt.annotations.CryptSigneAnnotation;
@@ -116,13 +118,13 @@ public abstract class AbstractParser<Entity> implements ParserAnnotation<Entity>
 			return this.salt;
 			
 		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		} catch (SecurityException e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			LoggerUtilities.logStackTrace(e);
 		}
 		
 		return null;

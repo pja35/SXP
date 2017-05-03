@@ -108,9 +108,9 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 				field.set(getEntity(), valueOfField);
 
 			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
+				LoggerUtilities.logStackTrace(e);
 			} catch (IllegalAccessException e) {
-				e.printStackTrace();
+				LoggerUtilities.logStackTrace(e);
 			}
 		}
 	}
@@ -203,7 +203,7 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 						sb.append(String.valueOf(f.get(getEntity())));
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					LoggerUtilities.logStackTrace(e);
 				}
 			}
 			
@@ -229,9 +229,9 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 				field.set(getEntity(), signatureEntity);
 
 			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
+				LoggerUtilities.logStackTrace(e);
 			} catch (IllegalAccessException e) {
-				e.printStackTrace();
+				LoggerUtilities.logStackTrace(e);
 			}
 			
 		}
@@ -268,7 +268,7 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 					}
 					
 				} catch (Exception e) {
-					e.printStackTrace();
+					LoggerUtilities.logStackTrace(e);
 				}
 			}
 			
@@ -311,8 +311,8 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 					return;
 					
 				}
-			} catch (Exception e1) {
-				e1.printStackTrace();
+			} catch (Exception e) {
+				LoggerUtilities.logStackTrace(e);
 			}
 		}
 		
