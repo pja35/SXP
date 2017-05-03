@@ -1,7 +1,7 @@
 ---
 title: Category:Technical Glossary
 permalink: wiki/Category:Technical_Glossary/
-layout: tagpage
+layout: None
 tag: Technical Glossary
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Markets
 permalink: wiki/Markets/
-layout: wiki
+layout: None
 tags:
  - Technical Glossary
 ---

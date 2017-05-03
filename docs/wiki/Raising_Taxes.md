@@ -1,7 +1,7 @@
 ---
 title: Raising Taxes
 permalink: wiki/Raising_Taxes/
-layout: wiki
+layout: None
 tags:
  - Discussion Pages
 ---

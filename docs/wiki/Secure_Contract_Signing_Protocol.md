@@ -1,7 +1,7 @@
 ---
 title: Secure Contract Signing Protocol
 permalink: wiki/Secure_Contract_Signing_Protocol/
-layout: wiki
+layout: None
 ---
 
 The Secure Contract Signing protocol of [SXP](/wiki/Main_Page "wikilink") is a

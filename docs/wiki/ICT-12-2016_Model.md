@@ -1,7 +1,7 @@
 ---
 title: ICT-12-2016:Model
 permalink: wiki/ICT-12-2016:Model/
-layout: wiki
+layout: None
 ---
 
 Factorize

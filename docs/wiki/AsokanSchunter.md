@@ -1,7 +1,7 @@
 ---
 title: AsokanSchunter
 permalink: wiki/AsokanSchunter/
-layout: wiki
+layout: None
 ---
 
 The link does not grant access to the whole document, but was recovered.

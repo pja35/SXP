@@ -1,7 +1,7 @@
 ---
 title: TODOList
 permalink: wiki/TODOList/
-layout: wiki
+layout: None
 ---
 
 To Contact

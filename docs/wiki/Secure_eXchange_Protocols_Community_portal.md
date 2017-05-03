@@ -1,7 +1,7 @@
 ---
 title: Secure eXchange Protocols:Community portal
 permalink: wiki/Secure_eXchange_Protocols:Community_portal/
-layout: wiki
+layout: None
 ---
 
 Do

@@ -1,7 +1,7 @@
 ---
 title: Questions That Bother Us
 permalink: wiki/Questions_That_Bother_Us/
-layout: wiki
+layout: None
 tags:
  - Discussion Pages
 ---

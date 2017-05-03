@@ -1,7 +1,7 @@
 ---
 title: Gresham's law
 permalink: wiki/Gresham's_law/
-layout: wiki
+layout: None
 tags:
  - Conceptual Glossary
 ---

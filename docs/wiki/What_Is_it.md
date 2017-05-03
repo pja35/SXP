@@ -1,7 +1,7 @@
 ---
 title: What Is it
 permalink: wiki/What_Is_it/
-layout: wiki
+layout: None
 ---
 
 What is it?

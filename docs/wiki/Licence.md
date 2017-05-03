@@ -1,7 +1,7 @@
 ---
 title: Licence
 permalink: wiki/Licence/
-layout: wiki
+layout: None
 ---
 
 SXP protocols should be totally open and free. This is the only things

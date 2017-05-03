@@ -1,7 +1,7 @@
 ---
 title: Why Do This
 permalink: wiki/Why_Do_This/
-layout: wiki
+layout: None
 ---
 
 This project is mainly technical. Yet, here are some motivations. An

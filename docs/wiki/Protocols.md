@@ -1,7 +1,7 @@
 ---
 title: Protocols
 permalink: wiki/Protocols/
-layout: wiki
+layout: None
 tags:
  - Technical Glossary
 ---

@@ -1,7 +1,7 @@
 ---
 title: Say's law
 permalink: wiki/Say's_law/
-layout: wiki
+layout: None
 tags:
  - Conceptual Glossary
 ---
