@@ -1,6 +1,6 @@
 ---
 title: test
-permalink: wiki/test/
+permalink: wiki/
 layout: wiki
 ---
 
