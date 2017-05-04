@@ -40,8 +40,8 @@ import java.math.BigInteger;
 
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+//import java.text.DateFormat;
+//import java.text.SimpleDateFormat;
 
 import util.TrustModifier;
 
@@ -60,7 +60,7 @@ public class ControllerTest {
 	private static String token;
 	private static String userid;
 
-	private static final DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	//private static final DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 	private static final int NbItems = 10;
 	private static final int NbContracts = 10;
 

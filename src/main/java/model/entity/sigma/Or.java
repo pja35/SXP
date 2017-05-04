@@ -32,7 +32,9 @@ public class Or {
 
 	private Receiver receiver;
 	
-
+	@XmlElement(name="contract")
+	public byte[] contract;
+	
 	@XmlElement(name="ands")
 	public And[] ands;
 	
@@ -72,6 +74,7 @@ public class Or {
 	 */
 	public Boolean Verifies(byte[] m)
 	{
+		challenges.clear();
 		for(And and : ands)
 		{
 			if (!receiver.Verifies(and, true))
@@ -79,7 +82,6 @@ public class Or {
 				System.out.println("Signature problem");
 				return false;
 			}
-			
 			for (Responses res : and.responses){
 				challenges.add(res.getChallenge());
 			}

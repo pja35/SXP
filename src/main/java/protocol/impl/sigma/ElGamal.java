@@ -132,7 +132,7 @@ public class ElGamal  {
 		byte[] m = e.processBlock(data, 0, data.length);
 		BigInteger k = e.getK();
         BigInteger u = keys.getG().modPow(k,keys.getP());
-        BigInteger v = (keys.getPublicKey().modPow(e.getK(), keys.getP()).multiply(new BigInteger(data)));
+        BigInteger v = (keys.getPublicKey().modPow(k, keys.getP()).multiply(new BigInteger(data)));
         return new ElGamalEncrypt (u,v,k, m);
 	}
 

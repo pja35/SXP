@@ -35,6 +35,7 @@ import util.TestInputGenerator;
  * @author denis.arrivault[@]univ-amu.fr
  */
 public class ItemTest {
+	@SuppressWarnings("unused")
 	private final static Logger log = LogManager.getLogger(ItemTest.class);
 	Item item;
 	String title;

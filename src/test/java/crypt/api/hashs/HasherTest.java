@@ -38,7 +38,6 @@ public class HasherTest {
 
 	@Parameters
 	public static Object[] data() {
-		HasherFactory factory = new HasherFactory();
 		byte[] salt = HasherFactory.generateSalt();
 		Hasher hasherNoSalt = HasherFactory.createDefaultHasher();
 		Hasher hasherSalt = HasherFactory.createDefaultHasher();

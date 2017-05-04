@@ -14,6 +14,7 @@ public class BigIntegerRandomTest {
 
 	@Test
 	public void testRand(){
+		@SuppressWarnings("unused")
 		BigIntegerRandom bg = new BigIntegerRandom();
 		BigInteger bigInt = TestInputGenerator.getRandomBigInteger(100);
 		BigInteger randBigInt = BigIntegerRandom.rand(bigInt.bitLength(), bigInt);

@@ -1,6 +1,7 @@
 package protocol.impl;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,15 +17,15 @@ import controller.Application;
 import crypt.api.hashs.Hasher;
 import crypt.factories.ElGamalAsymKeyFactory;
 import crypt.factories.HasherFactory;
+import model.api.Status;
 import model.api.SyncManager;
+import model.entity.ContractEntity;
 import model.entity.ElGamalKey;
 import model.entity.User;
 import model.syncManager.UserSyncManagerImpl;
 import protocol.impl.SigmaEstablisher;
-import protocol.impl.sigma.SigmaClauses;
 import protocol.impl.sigma.SigmaContract;
 import protocol.impl.sigma.Trent;
-import rest.api.Authentifier;
 import util.TestInputGenerator;
 import util.TestUtils;
 
@@ -34,24 +35,61 @@ public class SigmaEstablisherTest {
 	
 	public static final int N = 2;
 	
+	// Users
+	private static User[] u;
+	private static ElGamalKey[] keysR;
 	private static ElGamalKey trentK = ElGamalAsymKeyFactory.create(false);
-	
-	// Users logins and pwds
-	private static String[] logins;
-	private static String[] passwords;
-	
 	// Map of URIS
 	private static HashMap<ElGamalKey, String> uris;
-	
 
 	// A contract for each signer
 	private static SigmaContract[] c;
-
+	// A contract entity
+	private static ContractEntity[] ce;
 	
+
+	/*
+	 * Create the users, the application
+	 */
 	@BeforeClass
 	static public void initialize(){
 		application = new Application();
 		application.runForTests(restPort);
+		
+		// Initialize the users
+		u = new User[N];
+		uris = new HashMap<ElGamalKey, String>();
+		for (int k=0; k<N; k++){
+			String login = TestInputGenerator.getRandomAlphaWord(20);
+			String password = TestInputGenerator.getRandomPwd(20);
+			
+			u[k] = new User();
+			u[k].setNick(login);
+			Hasher hasher = HasherFactory.createDefaultHasher();
+			u[k].setSalt(HasherFactory.generateSalt());
+			hasher.setSalt(u[k].getSalt());
+			u[k].setPasswordHash(hasher.getHash(password.getBytes()));
+			u[k].setCreatedAt(new Date());
+			u[k].setKey(ElGamalAsymKeyFactory.create(false));
+			SyncManager<User> em = new UserSyncManagerImpl();
+			em.begin();
+			em.persist(u[k]);
+			em.end();
+		}
+		
+		// Initialize the keys
+		keysR = new ElGamalKey[N];	
+		String uri = Application.getInstance().getPeer().getUri();	
+		for (int k=0; k<N; k++){
+			ElGamalKey key = u[k].getKey();
+			keysR[k] = new ElGamalKey();
+			keysR[k].setG(key.getG());
+			keysR[k].setP(key.getP());
+			keysR[k].setPublicKey(key.getPublicKey());
+			uris.put(keysR[k], uri);
+		}
+		uris.put(trentK, uri);
+		
 	}
 
 	@AfterClass
@@ -64,60 +102,26 @@ public class SigmaEstablisherTest {
 	
 	@Before
 	public void instantiate(){
-		// Initialize the users
-		User[] u = new User[N];
-		logins = new String[N];
-		passwords = new String[N];
-		uris = new HashMap<ElGamalKey, String>();
 		c = new SigmaContract[N];
-		
-		for (int k=0; k<N; k++){
-			logins[k] = TestInputGenerator.getRandomAlphaWord(20);
-			passwords[k] = TestInputGenerator.getRandomPwd(20);
-			
-			u[k] = new User();
-			u[k].setNick(logins[k]);
-			Hasher hasher = HasherFactory.createDefaultHasher();
-			u[k].setSalt(HasherFactory.generateSalt());
-			hasher.setSalt(u[k].getSalt());
-			u[k].setPasswordHash(hasher.getHash(passwords[k].getBytes()));
-			u[k].setCreatedAt(new Date());
-			u[k].setKey(ElGamalAsymKeyFactory.create(false));
-			SyncManager<User> em = new UserSyncManagerImpl();
-			em.begin();
-			em.persist(u[k]);
-			em.end();
-		}
-		
-		// Initialize the keys
-		ElGamalKey[] keysR = new ElGamalKey[N];	
-		String uri = Application.getInstance().getPeer().getUri();	
-		for (int k=0; k<N; k++){
-			ElGamalKey key = u[k].getKey();
-			keysR[k] = new ElGamalKey();
-			keysR[k].setG(key.getG());
-			keysR[k].setP(key.getP());
-			keysR[k].setPublicKey(key.getPublicKey());
-			uris.put(keysR[k], uri);
-		}
-		uris.put(trentK, uri);
+		ce = new ContractEntity[N];
 		
 		// Initialize the contracts 
 		ArrayList<String> cl = new ArrayList<String>();
 		cl.add("clause 1");
 		cl.add("second clause");
-		SigmaClauses signable1 = new SigmaClauses(cl);
 		
 
-		ArrayList<ElGamalKey> parties = new ArrayList<ElGamalKey>();
-		for(int i = 0; i<N; i++)
-			parties.add(keysR[i]);
-		
+		ArrayList<String> parties = new ArrayList<String>();
+		for(int i = 0; i<u.length; i++){
+			parties.add(u[i].getId());
+		}
+
 		for (int k=0; k<N; k++){
-			c[k] = new SigmaContract(signable1);
-			for (int i=0; i<N; i++){
-				c[k].setParties(parties, true);
-			}
+			ce[k] = new ContractEntity();
+			ce[k].setParties(parties);
+			ce[k].setClauses(cl);
+			ce[k].setSignatures(new HashMap<String, String>());
+			c[k] = new SigmaContract(ce[k]);
 		}
 	}
 	
@@ -127,8 +131,7 @@ public class SigmaEstablisherTest {
 		SigmaEstablisher[] sigmaE = new SigmaEstablisher[N];
 		
 		for (int k=0; k<N; k++){
-			Authentifier auth = Application.getInstance().getAuth();
-			sigmaE[k] = new SigmaEstablisher(auth.getToken(logins[k], passwords[k]), uris, trentK);
+			sigmaE[k] = new SigmaEstablisher(u[k].getKey(), uris, trentK);
 			sigmaE[k].initialize(c[k]);
 		}
 		
@@ -147,6 +150,7 @@ public class SigmaEstablisherTest {
 		}catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		
 		boolean res = true;
 		for (int k=0; k<N; k++){
 			res =  res && c[k].isFinalized();
@@ -155,23 +159,18 @@ public class SigmaEstablisherTest {
 		assertTrue(res);
 	}
 
-	
-	@Test
-	public void resolveTest(){
-		// Failing round
-		int limit = 1;
+	// resolveInitiater, limit is the failing round
+	public void resolveInitiator(int limit){
 		
 		new Trent(trentK);
 		
 		SigmaEstablisher[] sigmaE = new SigmaEstablisher[N];
 		
 		for (int k=1; k<N; k ++){
-			Authentifier auth = Application.getInstance().getAuth();
-			sigmaE[k] = new SigmaEstablisher(auth.getToken(logins[k], passwords[k]), uris, trentK);
+			sigmaE[k] = new SigmaEstablisher(u[k].getKey(), uris, trentK);
 			sigmaE[k].initialize(c[k]);
 		}
-		Authentifier auth = Application.getInstance().getAuth();
-		sigmaE[0] = new SigmaEstablisherFailer(auth.getToken(logins[0], passwords[0]), uris, trentK, limit);
+		sigmaE[0] = new SigmaEstablisherFailer(u[0].getKey(), uris, trentK, limit);
 		sigmaE[0].initialize(c[0]);
 		
 		// Time to setup the passwords
@@ -191,4 +190,30 @@ public class SigmaEstablisherTest {
 			e.printStackTrace();
 		}
 	}
+
+	@Test
+	public void abortTest(){
+		resolveInitiator(1);
+		
+		boolean res = true;
+		for (int k=0; k<N; k++){
+			res =  res && c[k].isFinalized();
+			assertTrue(c[k].getStatus().equals(Status.CANCELLED));
+		}
+		
+		assertFalse(res);
+	}
+	
+	@Test
+	public void resolveTest(){
+		resolveInitiator(2);
+
+		boolean res = true;
+		for (int k=0; k<N; k++){
+			res =  res && c[k].isFinalized();
+		}
+
+		assertTrue(res);
+	}
+	
 }

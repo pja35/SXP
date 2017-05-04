@@ -215,7 +215,7 @@ public class Sender extends Fabric{
 	{
 		ElGamal elGamal = new ElGamal(tKeys);
 		encrypt  = elGamal.encryptForContract(input);
-        resEncrypt = new ResEncrypt(encrypt.getU(),encrypt.getV(),input);
+        resEncrypt = new ResEncrypt(encrypt.getU(),encrypt.getV(), input);
         return resEncrypt;
 	}
 	
@@ -234,5 +234,11 @@ public class Sender extends Fabric{
 		k.setP(keys.getP());
 		k.setPublicKey(keys.getPublicKey());
 		return k;
+	}
+	
+	// Returns a byte[] that is not too long for ElGamal
+	public static byte[] getIdentificationData(ElGamalKey k){
+		String data = k.getPublicKey().toString();
+		return data.substring(0, 125).getBytes();
 	}
 }

@@ -35,29 +35,33 @@ public class TrentSolver {
 	/**
 	 * Send the answer to resolveT
 	 * @param orT	: a claim by i on round : @param round
-	 * @return : A string list {answer type, Json answer}
+	 * @return : A string list of the form {answer type, Json answer}
 	 */
-	public String[] resolveT(String m, int round, String senderId){
+	public ArrayList<String> resolveT(String m, int round, String senderId){
 		int N = contract.getParties().size();
-		
+
 		// j was dishonest and i shows it
 		for (int k=0; k+1<round; k++){
-			if (possiblyHonestClaims.get(k) != null){
-				HashMap<String,String> claims = possiblyHonestClaims.get(k);
-				Set<String> set = claims.keySet();
-				for (String s : set){
-					if (s != senderId){
-						String[] dishonestC = {claims.get(s), m};
-						dishonestClaims.put(s, dishonestC);
-						possiblyHonestClaims.get(k).remove(s);
-
-						String[] res = {"honestyToken", honestyToken()};
-						return res;
+			try {
+				if (possiblyHonestClaims.get(k) != null){
+					HashMap<String,String> claims = possiblyHonestClaims.get(k);
+					Set<String> set = claims.keySet();
+					for (String s : set){
+						if (s != senderId){
+							String[] dishonestC = {claims.get(s), m};
+							dishonestClaims.put(s, dishonestC);
+							possiblyHonestClaims.get(k).remove(s);
+	
+							ArrayList<String> res =  new ArrayList<String>();
+							res.add("honestyToken");
+							res.add(honestyToken());
+							return res;
+						}
 					}
 				}
-			}
+			} catch ( IndexOutOfBoundsException e ) {}
 		}
-		
+
 		// i was dishonest and i shows it
 		for (HashMap<String, String> claim : possiblyHonestClaims){
 			int k = possiblyHonestClaims.indexOf(claim);
@@ -68,34 +72,43 @@ public class TrentSolver {
 				return null; 
 			}
 		}
-		
+
 		// i was dishonest and j shows it
 		for (int k=round+1; k<N; k++){
-			if (possiblyHonestClaims.get(k) != null){
-				HashMap<String,String> claims = possiblyHonestClaims.get(k);
-				Set<String> set = claims.keySet();
-				for (String s : set){
-					if (s != senderId){
-						String[] dishonestC = {m, claims.get(s)};
-						dishonestClaims.put(senderId, dishonestC);
-						possiblyHonestClaims.get(k).remove(senderId);
-						return null; 
+			try {
+				if (possiblyHonestClaims.get(k) != null){
+					HashMap<String,String> claims = possiblyHonestClaims.get(k);
+					Set<String> set = claims.keySet();
+					for (String s : set){
+						if (s != senderId){
+							String[] dishonestC = {m, claims.get(s)};
+							dishonestClaims.put(senderId, dishonestC);
+							possiblyHonestClaims.get(k).remove(senderId);
+							return null; 
+						}
 					}
 				}
-			}
+			} catch ( IndexOutOfBoundsException e ) {}
 		}
-		
+
 		/***** Now the claim may be honest ****/
 		// Claim with promises, wins
 		if ((possiblyHonestClaims.isEmpty() && round>0) || !optimistic){
 			optimistic = false;
-			String[] res = {"resolved", resolveToken(m, round)};
+			
+			ArrayList<String> res =  new ArrayList<String>();
+			res.add("resolved");
+			res.add(resolveToken(m, round));
 			return res;
+			
 		}else if ((!possiblyHonestClaims.isEmpty() || round <= 0) && optimistic){
 			HashMap<String, String> h = new HashMap<String, String>();
 			h.put(senderId, m);
 			possiblyHonestClaims.add(round, h);
-			String[] res = {"aborted", honestyToken()};
+			
+			ArrayList<String> res =  new ArrayList<String>();
+			res.add("aborted");
+			res.add(honestyToken());
 			return res;
 		}
 		
@@ -104,9 +117,11 @@ public class TrentSolver {
 	
 	// This returns the full set of signatures
 	public String resolveToken(String m, int round){
-		int n = contract.getParties().size();JsonTools<Or[]> json3 = new JsonTools<>(new TypeReference<Or[]>(){});
+		int n = contract.getParties().size();
+		JsonTools<Or[]> json3 = new JsonTools<>(new TypeReference<Or[]>(){});
 		Or[] orT = json3.toEntity(m);
 		ArrayList<SigmaSignature> signatures = new ArrayList<SigmaSignature>();
+		
 		
 		byte[] data = (new String(contract.getClauses().getHashableData()) + String.valueOf(round)).getBytes();
 		ResponsesCCD response;
@@ -119,7 +134,7 @@ public class TrentSolver {
 			SigmaSignature s = new SigmaSignature(orT[k], response);
 			s.setTrenK(trent.getKey());
 			signatures.add(k,s);
-		}
+		} 
 		return json.toJson(signatures);
 	}
 	

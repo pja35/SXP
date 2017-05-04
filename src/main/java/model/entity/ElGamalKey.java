@@ -103,4 +103,19 @@ public class ElGamalKey implements AsymKey<BigInteger>, Serializable{
 		return s.toString();
 	}
 	
+	@Override
+	public boolean equals(Object o){
+		if (! (o instanceof ElGamalKey))
+			return false;
+		ElGamalKey k = (ElGamalKey) o;
+		return k.getP().equals(this.getP())
+				&& k.getG().equals(this.getG())
+				&& k.getPublicKey().equals(this.getPublicKey());
+	}
+	
+	@Override
+	public int hashCode(){
+		return this.getPublicKey().hashCode();
+	}
+	
 }

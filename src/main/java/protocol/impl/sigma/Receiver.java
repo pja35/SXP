@@ -141,10 +141,11 @@ public class Receiver {
 		
 		resume = hash_function.digest(buffer);
 		BigInteger test = new BigInteger(resume);
-		 
+		
 		BigInteger challenges = BigInteger.ZERO;
 		for(BigInteger c : challenge)
 			challenges = challenges.xor(c);
+		
 		return (challenges.equals(test));
 	}
 	

@@ -1,6 +1,6 @@
 package crypt.impl.signatures;
 
-import java.util.Arrays;
+import java.math.BigInteger;
 
 import crypt.base.AbstractSigner;
 import model.entity.ElGamalKey;
@@ -31,17 +31,17 @@ public class SigmaSigner  extends AbstractSigner<SigmaSignature, ElGamalKey>{
 	}
 	
 	
-	/* Sign the message
+	/* Sign the message 
 	 */
 	@Override
 	public SigmaSignature sign(byte[] message) {
 		if (this.getReceiverK() == null || this.getTrentK() == null){
 			throw new RuntimeException("Trent and receiver keys not set");
 		}
+		
 		Sender sender = new Sender(this.key);
 		// Need to setup the "encrypt
-		byte[] publicKey = sender.getPublicKeys().getPublicKey().toByteArray();
-		byte[] b = Arrays.copyOfRange(publicKey, 0, 125);
+		byte[] b = Sender.getIdentificationData(this.key);
 		sender.Encryption(b, this.getTrentK());
 		
 		Responses rpcs = sender.SendResponseCCE(message, this.trentK);
@@ -59,11 +59,26 @@ public class SigmaSigner  extends AbstractSigner<SigmaSignature, ElGamalKey>{
 	@Override
 	public boolean verify(byte[] message, SigmaSignature sign) {
 		ElGamalKey trentKey = sign.getTrentK();
+		
 		ResEncrypt resE = sign.getPcs().ands[0].resEncrypt;
+		
+		// checks the resEncrypt according to the receiverK
+		if (this.getReceiverK() != null){
+			BigInteger m = new BigInteger(resE.getM()).mod(trentKey.getP());
+			BigInteger n = new BigInteger(Sender.getIdentificationData(getReceiverK()));
+			if (!m.equals(n)){
+				System.out.println(m);
+				System.out.println(n + "\n");
+				return false;
+				
+			}
+		}
+
 		// If trent and sender keys not set, just check signature
 		if (this.getTrentK() == null){
 			return sign.getPcs().Verifies(message) && sign.getRpcs().Verifies(trentKey, resE);
 		}
+		
 		// Check the signature and if keys match (Trent and sender keys)
 		return sign.getPcs().Verifies(message) && sign.getRpcs().Verifies(trentKey, resE)
 				&& trentK.getPublicKey().equals(trentKey.getPublicKey());

@@ -1,7 +1,6 @@
 package protocol.impl.sigma;
 
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import crypt.factories.SignerFactory;
@@ -50,9 +49,9 @@ public class PCS {
 	 * 
 	 */
 	public Or getPcs(byte[] m, ElGamalKey r, boolean changeEncrypter){
+
 		if (changeEncrypter){
-			byte[] publicKey = sender.getPublicKeys().getPublicKey().toByteArray();
-			byte[] b = Arrays.copyOfRange(publicKey, 0, 125);
+			byte[] b = Sender.getIdentificationData(sender.getPublicKeys());
 			res = sender.Encryption(b, this.trentK);
 		}
 		createPcs(m, r);
@@ -97,36 +96,37 @@ public class PCS {
 	private void createPcs(byte[] m, ElGamalKey receiverK){
 		//Creates the Schnorr and CCE signature we will "AND"
 		//2 of them are fabricated
-		
 		ResponsesSchnorr resSchnorr2 = sender.SendResponseSchnorrFabric(receiverK);
 		ResponsesCCE resCce2 = sender.SendResponseCCEFabric(res, trentK);
 		ResponsesCCE resCce1 = sender.SendResponseCCE(m, trentK);
-		
+
 		//Forge the last response using a special challenge (composition in the or) :
 		Masks mask = sender.SendMasksSchnorr();
 		BigInteger c = sender.SendChallenge(mask, m);
 		BigInteger challenge = c.xor(resSchnorr2.getChallenge().xor(resCce1.getChallenge().xor(resCce2.getChallenge())));
 		ResponsesSchnorr resSchnorr1 = sender.SendResponseSchnorr(mask, challenge);
-		
+
 		//Maps the responses with the right key (receiver for Schnorr, trent for CCE)
 		HashMap<Responses,ElGamalKey> rK1 = new HashMap <Responses,ElGamalKey>();
 		rK1.put(resSchnorr1, sender.getPublicKeys());
 		rK1.put(resCce1, trentK);
-		
+
 		HashMap<Responses,ElGamalKey> rK2 = new HashMap <Responses,ElGamalKey>();
 		rK2.put(resSchnorr2, receiverK);
 		rK2.put(resCce2, trentK);
 		
-		
 		//Create the arrays of responses and make the "ands"
 		Responses[] resp1={resSchnorr1,resCce1};
 		Responses[] resp2={resSchnorr2,resCce2};
-		
+
+		ands = new And[2];
 		ands[0] = new And(rK1,res,resp1);
 		ands[1] = new And(rK2,res,resp2);
-		
+
 		//Make the PCS
-		setPcs(new Or(mask.getA(), ands));
+		Or o = new Or(mask.getA(), ands);
+		o.contract=m;
+		setPcs(o);
 	}
 	
 	

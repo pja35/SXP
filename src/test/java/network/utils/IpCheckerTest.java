@@ -9,6 +9,7 @@ public class IpCheckerTest {
 
 	private static final IpChecker ipChecker = new IpChecker();
 
+	@SuppressWarnings("static-access")
 	@Test
 	public void test() {
 		String ip = null;

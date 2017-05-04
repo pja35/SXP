@@ -29,7 +29,7 @@ public class TestCrypt {
 		SHA256Hasher hash2 = new SHA256Hasher();
 		byte[] hashed2 = hash2.getHash(byted);
 
-		System.out.println(md.isEqual(hashed,hashed2));
+		System.out.println(MessageDigest.isEqual(hashed,hashed2));
 		
 		BigInteger test= new BigInteger(hashed);
 		BigInteger test2= new BigInteger(hashed2);

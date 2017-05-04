@@ -31,7 +31,7 @@ public class SimpleAuthentifierTest {
 	@Before
 	public void initialize(){
 		users = new HashMap<String, List<String>>();
-		authentifier = factory.createAuthentifier("simple");
+		authentifier = AuthentifierFactory.createAuthentifier("simple");
 		for(int i=0; i<TestInputGenerator.getRandomInt(10, 100); ++i){
 			String username = TestInputGenerator.getRandomUser();
 			String password = TestInputGenerator.getRandomPwd();

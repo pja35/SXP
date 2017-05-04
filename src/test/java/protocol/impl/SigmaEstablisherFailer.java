@@ -18,6 +18,11 @@ public class SigmaEstablisherFailer extends SigmaEstablisher{
 		this.failingRound = f;
 	}
 	
+	public SigmaEstablisherFailer(ElGamalKey k, HashMap<ElGamalKey, String> uri, ElGamalKey t, int f) {
+		super(k, uri, t);
+		this.failingRound = f;
+	}
+	
 	@Override
 	protected void sign(){
 		setStatus(Status.SIGNING);
@@ -53,9 +58,11 @@ public class SigmaEstablisherFailer extends SigmaEstablisher{
 						while (round<=(N+1) && claimFormed){
 							sendRound(++round);
 							for (int k=0; k<N; k++){
-								if (promRoundSender[round][k] == null  || round<failingRound){
+								if (round >= failingRound){
+									claimFormed = false;
+									resolve();
+								}else if (promRoundSender[round][k] == null )
 									claimFormed= false;
-								}
 							}
 						}
 					}

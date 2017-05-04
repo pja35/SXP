@@ -17,6 +17,7 @@ package protocol.impl.sigma;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -34,6 +35,7 @@ import crypt.api.encryption.Encrypter;
 import crypt.factories.EncrypterFactory;
 import model.entity.ContractEntity;
 import model.entity.ElGamalKey;
+import model.entity.sigma.And;
 import model.entity.sigma.Masks;
 import model.entity.sigma.Or;
 import model.entity.sigma.ResEncrypt;
@@ -54,7 +56,7 @@ public class Trent {
 	
 	protected final EstablisherService establisherService =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
 	
-	protected ElGamalKey keys;
+	protected final ElGamalKey keys;
 	private HashMap<Masks,BigInteger> eph = new HashMap<Masks, BigInteger>();
 	
 	private HashMap<SigmaContract, TrentSolver> solvers = new HashMap<SigmaContract, TrentSolver>();
@@ -64,9 +66,9 @@ public class Trent {
 	/**
 	 * Constructor
 	 */
-	public  Trent(ElGamalKey keys){
+	public  Trent(final ElGamalKey key){
 		
-		this.keys = keys;
+		this.keys = key;
 		
 		encrypter = EncrypterFactory.createElGamalSerpentEncrypter();
 		encrypter.setKey(keys);
@@ -78,6 +80,8 @@ public class Trent {
 				BigInteger msgSenKey = new BigInteger(messages.getMessage("sourceId"));
 				ElGamalKey senderK = new ElGamalKey();
 				senderK.setPublicKey(msgSenKey);
+				senderK.setG(keys.getG());
+				senderK.setP(keys.getP());
 				
 				String content = messages.getMessage("contract");
 				
@@ -95,7 +99,6 @@ public class Trent {
 		String[] content = json.toEntity(message);
 
 		if (content != null){
-			
 			int round = Integer.parseInt(content[0]);
 			
 			JsonTools<HashMap<BigInteger, String>> json1 = new JsonTools<>(new TypeReference<HashMap<BigInteger, String>>(){});
@@ -121,29 +124,36 @@ public class Trent {
 				byte[] data = (new String(contract.getHashableData()) + round).getBytes();
 				JsonTools<Or[]> json3 = new JsonTools<>(new TypeReference<Or[]>(){});
 				Or[] orT = json3.toEntity(m);
-
+				
 				// Checks the signature
 				for (Or o : orT){
-					verifiedOr = verifiedOr && o.Verifies(data);
+					verifiedOr = verifiedOr 
+								&& o.Verifies(data) 
+								&& this.VerifiesRes(o, senderK.getPublicKey());
 				}
 			}
 			if (s.verify(m.getBytes(), signature) && verifiedOr){
 				if (solvers.get(contract) == null){
 					solvers.put(contract, new TrentSolver(contract, this));
 				}
-				
+
 				TrentSolver ts = solvers.get(contract);
-				String[] resolved = ts.resolveT(m, round, senderK.getPublicKey().toString());
-				
+				ArrayList<String> resolved = ts.resolveT(m, round, senderK.getPublicKey().toString());
+
 				if (resolved == null){
 					establisherService.sendContract(new String(contract.getHashableData()), 
 							senderK.getPublicKey().toString() + "TRENT",
 							keys.getPublicKey().toString(),
-							"You were dishonest",
+							"Dishonest",
 							uris.get(senderK));
 				} else{
-					JsonTools<String[]> jsons = new JsonTools<>(new TypeReference<String[]>(){});
+					SigmaSignature signa = s.sign(resolved.get(1).getBytes());
+					JsonTools<SigmaSignature> jsona = new JsonTools<>(new TypeReference<SigmaSignature>(){});
+					resolved.add(jsona.toJson(signa));
+					
+					JsonTools<ArrayList<String>> jsons = new JsonTools<>(new TypeReference<ArrayList<String>>(){});
 					String answer = jsons.toJson(resolved);
+
 					for (BigInteger k : uris.keySet()){
 						establisherService.sendContract(new String(contract.getHashableData()), 
 								k.toString()+"TRENT",
@@ -249,6 +259,17 @@ public class Trent {
 		return new SigmaSignature(pcs, rpcs);
 	}
 	
+	public boolean VerifiesRes(Or o, BigInteger senPubK){
+		boolean isVerified = false;
+		for (And a : o.ands){
+			byte[] data = Sender.getIdentificationData(a.rK.get(a.responses[0]));
+			BigInteger k = new BigInteger(data);
+			BigInteger h = decryption(a.resEncrypt);
+			isVerified = isVerified || h.equals(k);
+		}
+		return isVerified;
+	}
+	
 	/**
 	 * decrypt
 	 * @param cipherText
@@ -260,8 +281,16 @@ public class Trent {
         return elGamal.decryptWithPrivateKey(cipherText);
 	}
 	
+	public BigInteger decryption(ResEncrypt res){
+		BigInteger u = res.getU();
+		BigInteger v = res.getV();
+		BigInteger p = keys.getP();
+		BigInteger data = u.modPow(p.subtract(BigInteger.ONE).subtract(keys.getPrivateKey()), p).multiply(v).mod(p);
+		return data;
+	}
+	
 	/**
-	 * gives trent keys
+	 * gives trent public keys
 	 * @return
 	 */
 	public ElGamalKey getKey(){

@@ -19,7 +19,6 @@ import controller.Application;
 import controller.tools.JsonTools;
 import crypt.api.encryption.Encrypter;
 import crypt.factories.EncrypterFactory;
-import crypt.factories.SignerFactory;
 import model.api.Status;
 import model.api.UserSyncManager;
 import model.entity.ContractEntity;
@@ -92,6 +91,13 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 		signer.setKey(currentUser.getKey());
 	}
 	
+	public SigmaEstablisher(ElGamalKey k, HashMap<ElGamalKey, String> uri, ElGamalKey t){
+		signer = new SigmaSigner();
+		signer.setKey(k);
+		uris = uri;
+		trentK = t;
+	}
+	
 	/**
 	 * @param <c> : contract to be signed
 	 */
@@ -157,12 +163,54 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	protected void chooseTrent(){
 		// TODO : choose trent and associate its uri in uris
 		contract.setTrentKey(trentK);
+		signer.setTrentK(trentK);
+		
 		// Put a listener on Trent in case something goes wrong
 		establisherService.addListener(new ServiceListener(){
 			@Override
 			public void notify(Messages messages){
-				System.out.println("ehe, message received : " + senPubK);
-				// TODO : deal with Trent messages (cf Trent class)
+				// If the message is for another contract
+				if (messages.getMessage("title").equals(contractId)){
+					
+					// If Trent found we were dishonest (second time a resolve sent)
+					if (messages.getMessage("contract").equals("Dishonest")){
+						System.out.println("You were dishonest, third party didn't do nothing");
+					} else{
+						JsonTools<ArrayList<String>> jsons = new JsonTools<>(new TypeReference<ArrayList<String>>(){});
+						ArrayList<String> answer = jsons.toEntity(messages.getMessage("contract"));
+
+						// Making sure the message is from Trent
+						signer.setTrentK(trentK);
+						JsonTools<SigmaSignature> json = new JsonTools<>(new TypeReference<SigmaSignature>(){});
+
+						if(signer.verify(answer.get(1).getBytes() ,json.toEntity(answer.get(2)))){
+							// If Trent aborted the contract
+							if (answer.get(0).equals("aborted") || answer.get(0).equals("honestyToken")){
+								setStatus(Status.CANCELLED);
+								System.out.println("Signature cancelled");
+								establisherService.removeListener(senPubK + "TRENT");
+							}
+							
+							// If Trent solved the problem
+							else if (answer.get(0).equals("resolved")){
+								JsonTools<ArrayList<SigmaSignature>> jsonSignatures = new JsonTools<>(new TypeReference<ArrayList<SigmaSignature>>(){});
+								ArrayList<SigmaSignature> sigSign = jsonSignatures.toEntity(answer.get(1));
+
+								byte[] data = (new String(contract.getHashableData()) + (round-1)).getBytes();
+								for (SigmaSignature signature : sigSign){
+									if (signer.verify(data, signature))
+										contract.addSignature(keys.get(sigSign.indexOf(signature)), signature);
+								}
+
+								if (contract.isFinalized()){
+									setStatus(Status.FINALIZED);
+									System.out.println("CONTRACT FINALIZED"); 
+								}
+							}
+						}
+						
+					}
+				}
 			}
 		}, senPubK + "TRENT");
 		
@@ -191,7 +239,6 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 					
 					// Checks if the message is a PCS, if yes store it in "pcs[round][k]"
 					verifyAndStoreSignature(msg, messages.getMessage("sourceId"));
-					
 
 					// Check if the round is complete
 					boolean claimFormed = true;
@@ -232,6 +279,8 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	 * Trent resolve function is in Trent Class
 	 */
 	protected void resolve(){
+
+		establisherService.removeListener(senPubK.toString());
 		
 		String[] content = new String[5];
 
@@ -251,19 +300,16 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 		content[2] = json2.toJson(contract.getEntity(),false);
 		
 		// Claim(k)
-		SigmaSigner sig = SignerFactory.createSigmaSigner(); 
-		sig.setKey(signer.getKey());
-		sig.setTrentK(trentK);
-		sig.setReceiverK(trentK);
+		signer.setReceiverK(trentK);
 		SigmaSignature sigClaimK;
 		if (round<=1){
 			content[3] = encryptMsg("ABORT", trentK);
-			sigClaimK = sig.sign("ABORT".getBytes());
+			sigClaimK = signer.sign("ABORT".getBytes());
 		}else {
 			JsonTools<Or[]> json = new JsonTools<>(new TypeReference<Or[]>(){});
 			String claimK = json.toJson(promRoundSender[round-1], true);
 			content[3] = encryptMsg(claimK, trentK);
-			sigClaimK = sig.sign(claimK.getBytes());
+			sigClaimK = signer.sign(claimK.getBytes());
 		}
 		JsonTools<SigmaSignature> json3 = new JsonTools<>(new TypeReference<SigmaSignature>(){});
 		content[4] = encryptMsg(json3.toJson(sigClaimK, false), trentK);
@@ -291,13 +337,13 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	protected void sendRound(int round){
 		// Loop : send to every party the correct message
 		for (int k=0; k<N; k++){
-			
+
 			// Public key of the receiver
 			ElGamalKey receiverK = keys.get(k);
 			
 			// If the receiver is the sender, isSender = true 
 			boolean isSender = receiverK.getPublicKey().equals(senPubK);
-			
+
 			// Content of the message which will be sent
 			String content;
 			
@@ -308,11 +354,10 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 				if (isSender)
 					contract.addSignature(keys.get(k), signature);
 				content = json.toJson(signature, true);
-			
 			// Otherwise send round k
 			}else {
 				byte[] data = (new String(contract.getHashableData()) + round).getBytes();
-				Or p = pcs.getPcs(data, keys.get(k), true);
+				Or p = pcs.getPcs(data, receiverK, true);
 				content=encryptMsg(getJson(p), receiverK);
 				if (isSender){
 					promRoundSender[round][k] = p;

@@ -97,7 +97,7 @@ public class Fabric {
 		BigInteger gPowr = keys.getG().modPow(r, keys.getP());
 		BigInteger modInv = res.getU().modPow(c,  keys.getP()).modInverse(keys.getP());
 		BigInteger a = gPowr.multiply(modInv);
-		
+
 		BigInteger pubPowr = keys.getPublicKey().modPow(r, keys.getP());
 		BigInteger M = new BigInteger (res.getM());
 		BigInteger vDivMPwc = res.getV().divide(M).modPow(c, keys.getP());

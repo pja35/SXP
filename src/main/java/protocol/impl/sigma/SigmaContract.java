@@ -13,6 +13,7 @@ import controller.tools.JsonTools;
 import crypt.api.signatures.Signable;
 import crypt.impl.signatures.SigmaSignature;
 import crypt.impl.signatures.SigmaSigner;
+import model.api.EstablisherType;
 import model.api.Status;
 import model.api.Wish;
 import model.entity.ContractEntity;
@@ -49,9 +50,10 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
 		contract.setClauses(new ArrayList<String>());
 		contract.setParties(new ArrayList<String>());
 		contract.setSignatures(new HashMap<String,String>());
+		contract.setEstablisherType(EstablisherType.Sigma);
 	}
 	
-	// Constructor from clauses
+	// Constructor from clauses (problem when resolve, because no partiesId set)
 	public SigmaContract(Signable<SigmaSignature> clauses){
 		super();
 		this.signer = new SigmaSigner();
@@ -59,6 +61,7 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
 		this.setClauses(clauses);
 		contract.setParties(new ArrayList<String>());
 		contract.setSignatures(new HashMap<String,String>());
+		contract.setEstablisherType(EstablisherType.Sigma);
 	}
 	
 	// Constructor from a ContractEntity (what will be most used)
@@ -67,7 +70,8 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
 		this.contract=c;
 		this.signer = new SigmaSigner();
 		this.setClauses(contract.getClauses());
-		this.setParties(contract.getParties());
+		this.setParties(contract.getParties());		
+		this.contract.setEstablisherType(EstablisherType.Sigma);
 	}
 
 	/************* GETTERS ***********/
@@ -116,6 +120,7 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
 			this.parties.add(user.getKey());
 			this.partiesId.put(user.getKey(), user.getId());
 		}
+		this.contract.setParties(s);
 	}
 	/**
 	 * Set the parties from a list of ElGamalKey
