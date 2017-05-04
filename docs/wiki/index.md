@@ -1,5 +1,5 @@
 ---
-title: test
+title: index
 permalink: wiki/
 layout: wiki
 ---
