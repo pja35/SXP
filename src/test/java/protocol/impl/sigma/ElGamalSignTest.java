@@ -10,6 +10,7 @@ import java.math.BigInteger;
 import org.junit.Before;
 import org.junit.Test;
 
+import crypt.impl.signatures.ElGamalSignature;
 import util.TestInputGenerator;
 
 /**
@@ -20,13 +21,13 @@ import util.TestInputGenerator;
 public class ElGamalSignTest {
 	private BigInteger r;
 	private BigInteger s;
-	ElGamalSign sign;
+	ElGamalSignature sign;
 	
 	@Before
 	public void instantiate(){
 		r = TestInputGenerator.getRandomBigInteger(100);
 		s = TestInputGenerator.getRandomBigInteger(100);
-		sign = new ElGamalSign(r, s);
+		sign = new ElGamalSignature(r, s);
 	}
 		
 	@Test
