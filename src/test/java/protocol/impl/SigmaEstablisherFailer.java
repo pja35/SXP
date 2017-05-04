@@ -12,15 +12,12 @@ import protocol.impl.sigma.Sender;
 public class SigmaEstablisherFailer extends SigmaEstablisher{
 
 	private int failingRound;
+	private boolean liar;
 	
-	public SigmaEstablisherFailer(String token, HashMap<ElGamalKey, String> uri, ElGamalKey t, int f) {
-		super(token, uri, t);
-		this.failingRound = f;
-	}
-	
-	public SigmaEstablisherFailer(ElGamalKey k, HashMap<ElGamalKey, String> uri, ElGamalKey t, int f) {
+	public SigmaEstablisherFailer(ElGamalKey k, HashMap<ElGamalKey, String> uri, ElGamalKey t, int f, boolean liar) {
 		super(k, uri, t);
 		this.failingRound = f;
+		this.liar = liar;
 	}
 	
 	@Override
@@ -52,17 +49,21 @@ public class SigmaEstablisherFailer extends SigmaEstablisher{
 					/*	Send the rounds (if we have the claim needed):
 					 *  	We do a loop because sometimes, we receive the PCS for round+1 before the one for the current round
 					 */  
-					if (round >= failingRound){
+					if (round == failingRound){
 						resolve();
-					} else{
+					}
+					if (round< failingRound || liar){
 						while (round<=(N+1) && claimFormed){
 							sendRound(++round);
-							for (int k=0; k<N; k++){
-								if (round >= failingRound){
+							if (round == failingRound){
+								resolve();
+								if (!liar)
 									claimFormed = false;
-									resolve();
-								}else if (promRoundSender[round][k] == null )
-									claimFormed= false;
+							}else{
+								for (int k=0; k<N; k++){
+									if (promRoundSender[round][k] == null )
+										claimFormed= false;
+								}
 							}
 						}
 					}

@@ -78,9 +78,6 @@ public class ResponsesCCD extends Responses {
 	 */
 	@Override
 	public boolean equals(Object o){
-		if (! (o instanceof ResponsesCCD)){
-			return false;
-		}
 		return super.equals(o);
 	}
 

@@ -20,12 +20,9 @@ import controller.tools.JsonTools;
 import crypt.api.encryption.Encrypter;
 import crypt.factories.EncrypterFactory;
 import model.api.Status;
-import model.api.UserSyncManager;
 import model.entity.ContractEntity;
 import model.entity.ElGamalKey;
-import model.entity.User;
 import model.entity.sigma.Or;
-import model.factory.SyncManagerFactory;
 import network.api.EstablisherService;
 import network.api.Messages;
 import network.api.ServiceListener;
@@ -33,7 +30,6 @@ import protocol.api.Establisher;
 import protocol.impl.sigma.PCS;
 import protocol.impl.sigma.Sender;
 import protocol.impl.sigma.SigmaContract;
-import rest.api.Authentifier;
 
 
 /** 
@@ -72,23 +68,10 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	
 	/**
 	 * Setup the signing protocol
-	 * @param <token> : token for authentifier (getting current user)
+	 * @param <senderK> : elgamalkey (public and private) of the user
 	 * @param <uri> : parties matching uri
 	 */
 	// TODO : REMOVE trentK
-	public SigmaEstablisher(String token, HashMap<ElGamalKey, String> uri, ElGamalKey t){
-		trentK = t;
-		
-		// Matching the uris
-		uris = uri;
-		
-		// Setup the signer
-		Authentifier auth = Application.getInstance().getAuth();
-		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
-		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
-		signer = new SigmaSigner();
-		signer.setKey(currentUser.getKey());
-	}
 	public SigmaEstablisher(ElGamalKey senderK, HashMap<ElGamalKey, String> uri, ElGamalKey t){
 		signer = new SigmaSigner();
 		signer.setKey(senderK);
@@ -187,7 +170,6 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 							if (answer.get(0).equals("aborted") || answer.get(0).equals("honestyToken")){
 								setStatus(Status.CANCELLED);
 								System.out.println("Signature cancelled");
-								establisherService.removeListener(senPubK + "TRENT");
 							}
 							
 							// If Trent solved the problem

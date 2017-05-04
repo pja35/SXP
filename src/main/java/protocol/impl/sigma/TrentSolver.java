@@ -39,7 +39,6 @@ public class TrentSolver {
 	 */
 	public ArrayList<String> resolveT(String m, int round, String senderId){
 		int N = contract.getParties().size();
-
 		// j was dishonest and i shows it
 		for (int k=0; k+1<round; k++){
 			try {

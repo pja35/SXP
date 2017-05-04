@@ -39,7 +39,6 @@ import model.entity.sigma.And;
 import model.entity.sigma.Masks;
 import model.entity.sigma.Or;
 import model.entity.sigma.ResEncrypt;
-import model.entity.sigma.Responses;
 import model.entity.sigma.ResponsesCCD;
 import network.api.EstablisherService;
 import network.api.Messages;
@@ -59,7 +58,7 @@ public class Trent {
 	protected final ElGamalKey keys;
 	private HashMap<Masks,BigInteger> eph = new HashMap<Masks, BigInteger>();
 	
-	private HashMap<SigmaContract, TrentSolver> solvers = new HashMap<SigmaContract, TrentSolver>();
+	private HashMap<String, TrentSolver> solvers = new HashMap<String, TrentSolver>();
 
 	private Encrypter<ElGamalKey> encrypter;
 	
@@ -97,7 +96,7 @@ public class Trent {
 	private void resolve(String message, ElGamalKey senderK){
 		JsonTools<String[]> json = new JsonTools<>(new TypeReference<String[]>(){});
 		String[] content = json.toEntity(message);
-
+		
 		if (content != null){
 			int round = Integer.parseInt(content[0]);
 			
@@ -133,11 +132,12 @@ public class Trent {
 				}
 			}
 			if (s.verify(m.getBytes(), signature) && verifiedOr){
-				if (solvers.get(contract) == null){
-					solvers.put(contract, new TrentSolver(contract, this));
+				String id = new String(contract.getHashableData());
+				if (solvers.get(id) == null){
+					solvers.put(id, new TrentSolver(contract, this));
 				}
 
-				TrentSolver ts = solvers.get(contract);
+				TrentSolver ts = solvers.get(id);
 				ArrayList<String> resolved = ts.resolveT(m, round, senderK.getPublicKey().toString());
 
 				if (resolved == null){
@@ -252,11 +252,6 @@ public class Trent {
 		BigInteger response = this.SendAnswer(challenge, mask);
 		
 		return new ResponsesCCD(mask,challenge,response);
-	}
-	
-	public SigmaSignature SendCompleteSignature(Or pcs, ResEncrypt resEncrypt, byte[] message){
-		Responses rpcs = this.SendResponse(resEncrypt, message);
-		return new SigmaSignature(pcs, rpcs);
 	}
 	
 	public boolean VerifiesRes(Or o, BigInteger senPubK){

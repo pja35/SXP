@@ -93,5 +93,10 @@ public class AndTest {
 		assertFalse(and.Verifies(true));
 		assertFalse(and.Verifies(false));	
 	}
+	
+	@Test
+	public void toStringTest(){
+		assertTrue(!(and.toString().equals("")));
+	}
 }
 

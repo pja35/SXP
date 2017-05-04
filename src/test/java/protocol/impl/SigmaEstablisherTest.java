@@ -31,7 +31,7 @@ import util.TestUtils;
 
 public class SigmaEstablisherTest {
 	public static Application application;
-	public static final int restPort = 5600;
+	public static final int restPort = 5601;
 	
 	public static final int N = 2;
 	
@@ -170,7 +170,7 @@ public class SigmaEstablisherTest {
 			sigmaE[k] = new SigmaEstablisher(u[k].getKey(), uris, trentK);
 			sigmaE[k].initialize(c[k]);
 		}
-		sigmaE[0] = new SigmaEstablisherFailer(u[0].getKey(), uris, trentK, limit);
+		sigmaE[0] = new SigmaEstablisherFailer(u[0].getKey(), uris, trentK, limit, false);
 		sigmaE[0].initialize(c[0]);
 		
 		// Time to setup the passwords
