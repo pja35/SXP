@@ -25,7 +25,7 @@ PrivKA/PrivKB, Trent (T) is the Trusted Third Party. See
 [here](http://en.wikipedia.org/wiki/Security_protocol_notation) for the
 notation.
 
-\\[A\rightarrow B:\{\{C\}_{PrivKA}\}_{K}\\]
+$$A\rightarrow B:\{\{C\}_{PrivKA}\}_{K}$$
 
 \[A\rightarrow T:K\]
 
