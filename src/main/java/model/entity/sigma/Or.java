@@ -88,7 +88,7 @@ public class Or {
 		}
 		if (!receiver.VerifiesChallenges(m, getA(), challenges))
 		{
-			System.out.println("Problem in challenges");
+//			System.out.println("Problem in challenges");
 			return false;
 		}
 		challenges=new ArrayList <BigInteger>();

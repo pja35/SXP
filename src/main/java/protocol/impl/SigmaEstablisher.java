@@ -49,9 +49,9 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	
 	protected ElGamalKey trentK;
 	protected final EstablisherService establisherService =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
+	
 	// Store the different rounds of the signing protocol
 	protected Or[][] promRoundSender;
-	
 	
 	// Id for the contract (make sure we sign the same)
 	protected String contractId;
@@ -71,8 +71,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	
 	
 	/**
-	 * Beginning Constructor
-	 * 		Setup the signing protocol
+	 * Setup the signing protocol
 	 * @param <token> : token for authentifier (getting current user)
 	 * @param <uri> : parties matching uri
 	 */
@@ -90,10 +89,9 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 		signer = new SigmaSigner();
 		signer.setKey(currentUser.getKey());
 	}
-	
-	public SigmaEstablisher(ElGamalKey k, HashMap<ElGamalKey, String> uri, ElGamalKey t){
+	public SigmaEstablisher(ElGamalKey senderK, HashMap<ElGamalKey, String> uri, ElGamalKey t){
 		signer = new SigmaSigner();
-		signer.setKey(k);
+		signer.setKey(senderK);
 		uris = uri;
 		trentK = t;
 	}
@@ -141,7 +139,6 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 		}, senPubK.toString());
 	}
 	
-	
 	/**
 	 * Launch the protocol : tell everyone that the user is ready to sign (pressed signing button)
 	 */
@@ -155,7 +152,6 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 											uris.get(key));
 		}
 	}
-	
 
 	/**
 	 * Choose Trent, put a listener for him, then start signing
@@ -169,13 +165,16 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 		establisherService.addListener(new ServiceListener(){
 			@Override
 			public void notify(Messages messages){
+				
 				// If the message is for another contract
 				if (messages.getMessage("title").equals(contractId)){
 					
 					// If Trent found we were dishonest (second time a resolve sent)
 					if (messages.getMessage("contract").equals("Dishonest")){
 						System.out.println("You were dishonest, third party didn't do nothing");
-					} else{
+					} 
+					
+					else{
 						JsonTools<ArrayList<String>> jsons = new JsonTools<>(new TypeReference<ArrayList<String>>(){});
 						ArrayList<String> answer = jsons.toEntity(messages.getMessage("contract"));
 
@@ -196,12 +195,19 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 								JsonTools<ArrayList<SigmaSignature>> jsonSignatures = new JsonTools<>(new TypeReference<ArrayList<SigmaSignature>>(){});
 								ArrayList<SigmaSignature> sigSign = jsonSignatures.toEntity(answer.get(1));
 
-								byte[] data = (new String(contract.getHashableData()) + (round-1)).getBytes();
+								
+								// Check the signatures (we don't if it was on round -1 or -2)
+								byte[] data = (new String(contract.getHashableData()) + (round - 1)).getBytes();
+								byte[] data2 = (new String(contract.getHashableData()) + (round - 2)).getBytes();
+								
 								for (SigmaSignature signature : sigSign){
-									if (signer.verify(data, signature))
+									signer.setReceiverK(keys.get(sigSign.indexOf(signature)));
+									
+									if (signer.verify(data, signature) || signer.verify(data2, signature)){
 										contract.addSignature(keys.get(sigSign.indexOf(signature)), signature);
+									}
 								}
-
+								
 								if (contract.isFinalized()){
 									setStatus(Status.FINALIZED);
 									System.out.println("CONTRACT FINALIZED"); 
@@ -216,8 +222,6 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 		
 		sign();
 	}
-	
-	
 	
 	/**
 	 * The contract signing protocol
@@ -265,10 +269,8 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 		sendRound(1);
 	}
 	
-	
-	
 	/**
-	 * Function to call if something goes wrong.
+	 * Called if something goes wrong.
 	 * It send Trent 5 informations : 
 	 *		the round
 	 * 		the uris of the parties
@@ -318,7 +320,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 		JsonTools<String[]> json = new JsonTools<>(new TypeReference<String[]>(){});
 		String fullContent = json.toJson(content, false);
 
-		System.out.println("\n--- Sending resolve request to Trent ---\n");
+		System.out.println("--- Sending resolve request to Trent --- Round : " + (round-1));
 		
 		establisherService.sendContract(contractId,
 							trentK.getPublicKey().toString()+"TRENT",
@@ -326,8 +328,6 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 							fullContent,
 							uris.get(trentK));
 	}
-
-	
 	
 	/*
 	 * Send the needed message to do the protocol, called in sign() method
@@ -384,6 +384,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 			}
 		}
 	}
+	
 	/*
 	 * Verify the message received (if the message is the last, check if the signature is ok)
 	 * 		called in sign() method
@@ -439,9 +440,6 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 			}
 		}
 	}
-	
-	
-	
 	
 	
 	/*

@@ -117,19 +117,21 @@ public class TrentSolver {
 	
 	// This returns the full set of signatures
 	public String resolveToken(String m, int round){
+
 		int n = contract.getParties().size();
+
 		JsonTools<Or[]> json3 = new JsonTools<>(new TypeReference<Or[]>(){});
 		Or[] orT = json3.toEntity(m);
 		ArrayList<SigmaSignature> signatures = new ArrayList<SigmaSignature>();
-		
-		
+
 		byte[] data = (new String(contract.getClauses().getHashableData()) + String.valueOf(round)).getBytes();
 		ResponsesCCD response;
 		ResEncrypt res;
-		
+
 		JsonTools<ArrayList<SigmaSignature>> json = new JsonTools<>(new TypeReference<ArrayList<SigmaSignature>>(){});
+		
 		for (int k=0; k<n; k++){
-			res = orT[k].ands[k].resEncrypt;
+			res = orT[k].ands[0].resEncrypt;
 			response= trent.SendResponse(res, data);
 			SigmaSignature s = new SigmaSignature(orT[k], response);
 			s.setTrenK(trent.getKey());

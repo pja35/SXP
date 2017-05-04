@@ -168,15 +168,30 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
 	
 	@Override
 	public boolean isFinalized() {
+		boolean result = false;
+		
 		if (this.getTrentKey() == null){
 			return false;}
+		
 		for(ElGamalKey k: parties) {
 			signer.setReceiverK(k);
-			if(signatures.get(k) == null || !signer.verify(clauses.getHashableData(), signatures.get(k))) {
+			if(signatures.get(k) == null){
 				return false;
 			}
+			
+			byte[] data = (new String(clauses.getHashableData())).getBytes();
+			if (signer.verify(data, signatures.get(k)))
+				return true;
+			
+			for (int round=1; round<parties.size() + 2; round++){
+				data = (new String(clauses.getHashableData()) + round).getBytes();
+				if (signer.verify(data, signatures.get(k))){
+					result = true;
+					break;
+				}
+			}
 		}
-		return true;
+		return result;
 	}
 
 	@Override

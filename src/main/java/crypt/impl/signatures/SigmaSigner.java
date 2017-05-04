@@ -67,10 +67,7 @@ public class SigmaSigner  extends AbstractSigner<SigmaSignature, ElGamalKey>{
 			BigInteger m = new BigInteger(resE.getM()).mod(trentKey.getP());
 			BigInteger n = new BigInteger(Sender.getIdentificationData(getReceiverK()));
 			if (!m.equals(n)){
-				System.out.println(m);
-				System.out.println(n + "\n");
 				return false;
-				
 			}
 		}
 
