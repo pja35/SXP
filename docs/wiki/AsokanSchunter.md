@@ -27,7 +27,7 @@ notation.
 
 $$ A\rightarrow B:\{\{C\}_{PrivKA}\}_{K} $$
 
-\[ A\rightarrow T:K \]
+\\[ A\rightarrow T:K \\]
 
 
 $ B\rightarrow T:\{\{C\}_{PrivKA}\}_{K},\{C\}_{PrivKB} $
