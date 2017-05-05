@@ -4,6 +4,7 @@ package protocol.impl;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -16,12 +17,14 @@ import crypt.impl.signatures.SigmaSignature;
 import crypt.impl.signatures.SigmaSigner;
 
 import controller.Application;
+import controller.Users;
 import controller.tools.JsonTools;
 import crypt.api.encryption.Encrypter;
 import crypt.factories.EncrypterFactory;
 import model.api.Status;
 import model.entity.ContractEntity;
 import model.entity.ElGamalKey;
+import model.entity.User;
 import model.entity.sigma.Or;
 import network.api.EstablisherService;
 import network.api.Messages;

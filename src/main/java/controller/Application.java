@@ -5,8 +5,6 @@ import java.util.Properties;
 import controller.tools.LoggerUtilities;
 import model.syncManager.UserSyncManagerImpl;
 import network.api.Peer;
-import network.api.advertisement.EstablisherAdvertisementInterface;
-import network.factories.AdvertisementFactory;
 import network.factories.PeerFactory;
 import rest.api.Authentifier;
 import rest.factories.AuthentifierFactory;

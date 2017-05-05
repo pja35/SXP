@@ -38,7 +38,6 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 	 */
 	@Override
 	public void pipeMsgEvent(PipeMsgEvent event) {
-		System.out.println("ADVERTISEMENT ?");
 		super.pipeMsgEvent(event);
 	}
 
