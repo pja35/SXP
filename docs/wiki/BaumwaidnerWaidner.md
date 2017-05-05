@@ -1,11 +1,11 @@
 ---
-title: BaumwaidnerWaidner
+title: Baumwaidner Waidner
 permalink: wiki/BaumwaidnerWaidner/
 layout: wiki
 ---
 
-This paper is referenced by [AsokanSchunter](/SXP/wiki/AsokanSchunter "wikilink")
-and [MukhamedovRyan](/SXP/wiki/MukhamedovRyan "wikilink"). It is an abuse-free
+This paper is referenced by [Asokan Schunter](/SXP/wiki/AsokanSchunter "wikilink")
+and [Mukhamedov Ryan](/SXP/wiki/MukhamedovRyan "wikilink"). It is an abuse-free
 asynchronous multi-party optimistic contract signing protocols. Say
 there are *n* parties:
 
@@ -34,3 +34,4 @@ For $t=2...n+1$ do:
 the protocol by asking $T$ to take a decision whether the contract is
 valid and provide a certificate of that. If provided enough grounds for
 doing it, $T$ will do so.
+

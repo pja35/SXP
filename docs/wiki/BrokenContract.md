@@ -1,6 +1,6 @@
 ---
 title: Broken Contract
-permalink: wiki/Broken_Contract/
+permalink: wiki/BrokenContract/
 layout: wiki
 tags:
  - Discussion Pages
@@ -41,3 +41,4 @@ enable parties to turn to the judiciary system of their countries.
 Sometimes it is unclear which country has jurisdiction; this could be
 specified in the contract. Sometimes contracts can even designate a
 third party to arbitrage any eventual dispute.
+
