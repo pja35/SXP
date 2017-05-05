@@ -135,3 +135,7 @@ img {
 .chatActive {
 	display: block;
 }
+
+#navbarbackground  {
+	background-color: #fff;
+}
