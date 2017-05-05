@@ -21,13 +21,13 @@ It uses only standard asymmetric cryptography.
 Outline of the protocol
 -----------------------
 
--   Send to $j=1...n$ : $(C,1)\_Pi$.
--   Await from $j=1...n$ : $(C,1)\_Pj$. Else *resolve*.
+-   Send to $j=1...n$ : $(C,1)\_{Pi}$.
+-   Await from $j=1...n$ : $(C,1)\_{Pj}$. Else *resolve*.
 
 For $t=2...n+1$ do:
 
--   Send to $j=1...n$ : $((C,t-1)\_P1...(C,t-1)\_Pn)\_P\_i,(C,t)\_Pi$.
--   Await from $j=1...n$ : $((C,t-1)\_P1...(C,t-1)\_Pn)\_P\_j,(C,t)\_Pj$.
+-   Send to $j=1...n$ : $((C,t-1)\_{P1}...(C,t-1)\_{Pn})\_{Pi},(C,t)\_{Pi}$.
+-   Await from $j=1...n$ : $((C,t-1)\_{P1}...(C,t-1)\_{Pn})\_{Pj},(C,t)\_{Pj}$.
     Else *resolve*.
 
 *Resolve* is a subprotocol, where $T$ intervenes, it aims at completing
