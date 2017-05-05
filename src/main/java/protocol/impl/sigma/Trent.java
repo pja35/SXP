@@ -92,12 +92,17 @@ public class Trent {
 	
 	/*
 	 * Trent resolve function
+	 * Send a message to each signer of the contract
+	 * 		Message format : ArrayList<String> = {title, content}
 	 */
 	private void resolve(String message, ElGamalKey senderK){
 		JsonTools<String[]> json = new JsonTools<>(new TypeReference<String[]>(){});
 		String[] content = json.toEntity(message);
 		
+		// Message received useless
 		if (content != null){
+			
+			// Data stored in the message
 			int round = Integer.parseInt(content[0]);
 			
 			JsonTools<HashMap<BigInteger, String>> json1 = new JsonTools<>(new TypeReference<HashMap<BigInteger, String>>(){});
@@ -113,6 +118,7 @@ public class Trent {
 			SigmaSignature signature = json4.toEntity(sign);
 			
 			
+			// Setup the necessary to check signature
 			SigmaSigner s = new SigmaSigner();
 			s.setKey(this.keys);
 			s.setReceiverK(senderK);
@@ -137,6 +143,7 @@ public class Trent {
 					solvers.put(id, new TrentSolver(contract, this));
 				}
 
+				// TrentSolver is the class dealing with the message
 				TrentSolver ts = solvers.get(id);
 				ArrayList<String> resolved = ts.resolveT(m, round, senderK.getPublicKey().toString());
 

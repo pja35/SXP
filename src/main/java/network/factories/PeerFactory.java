@@ -23,6 +23,9 @@ import network.impl.jxta.JxtaPeer;
  */
 public class PeerFactory {
 	
+	public final static String[] rdvPeerIds = {"tcp://176.132.64.68:9800"}; 
+	public final static int port = 9800;
+	
 	/**
 	 * create the default implementation of {@link Peer}
 	 * @return a {@link Peer}
@@ -54,7 +57,6 @@ public class PeerFactory {
 		Random r = new Random();
 		String cache = ".peer" + r.nextInt(10000);
 		//int port = 9800 + r.nextInt(100);
-		int port = 9800;
 		System.out.println("jxta will run on port " + port);
 		Peer p = createAndStartPeer("jxta", cache, port);
 		
@@ -93,7 +95,7 @@ public class PeerFactory {
 		default: throw new RuntimeException(impl + "doesn't exist");
 		}
 		try {
-			peer.start(tmpFolder, port, "tcp://109.15.222.135:9800");
+			peer.start(tmpFolder, port, rdvPeerIds);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

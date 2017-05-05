@@ -9,6 +9,12 @@ import network.api.ServiceListener;
 import protocol.impl.sigma.PCS;
 import protocol.impl.sigma.Sender;
 
+/**
+ * 
+ * @author Nathanaël Eon
+ *
+ * Hack of SigmaEstablisher to produce fails
+ */
 public class SigmaEstablisherFailer extends SigmaEstablisher{
 
 	private int failingRound;

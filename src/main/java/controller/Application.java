@@ -22,6 +22,8 @@ public class Application {
 	private Peer peer;
 	private Authentifier auth;
 
+	
+	
 	public Application() {
 		if(instance != null) {
 			throw new RuntimeException("Application can be instanciate only once !");
