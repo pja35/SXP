@@ -151,13 +151,13 @@ message one he has a proof that Alice was willing to to the exchange.
 Apparently this is avoidable with "designated verifier proofs", i.e.
 making sure that \$$ VE\_A $$ is only a proof in the eyes of Bob and the TTP.
 
-\$$ test $$
+$ test $
 
-\$$ test $$ bla
+$ test $ bla
 
-bla \$$ test $$
+bla $ test $
 
-bla \$$ test $$ bli
+bla $ test $ bli
 
 Other stuff
 -----------
