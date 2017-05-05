@@ -4,7 +4,6 @@ package protocol.impl;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -17,18 +16,19 @@ import crypt.impl.signatures.SigmaSignature;
 import crypt.impl.signatures.SigmaSigner;
 
 import controller.Application;
-import controller.Users;
 import controller.tools.JsonTools;
 import crypt.api.encryption.Encrypter;
 import crypt.factories.EncrypterFactory;
 import model.api.Status;
 import model.entity.ContractEntity;
 import model.entity.ElGamalKey;
-import model.entity.User;
 import model.entity.sigma.Or;
 import network.api.EstablisherService;
 import network.api.Messages;
+import network.api.Peer;
 import network.api.ServiceListener;
+import network.api.advertisement.EstablisherAdvertisementInterface;
+import network.factories.AdvertisementFactory;
 import protocol.api.Establisher;
 import protocol.impl.sigma.PCS;
 import protocol.impl.sigma.Sender;
@@ -124,6 +124,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 				}
 			}
 		}, senPubK.toString());
+		
 	}
 	
 	/**
@@ -131,6 +132,13 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	 */
 	@Override
 	public void start(){
+		
+		final Peer peer=Application.getInstance().getPeer();
+		// Sending an advertisement (trick to get the other peer URI)
+		EstablisherAdvertisementInterface cadv = AdvertisementFactory.createEstablisherAdvertisement();
+		cadv.setTitle("Un Contrat");
+		cadv.publish(peer);
+		
 		for (int k=0; k<N; k++){
 			ElGamalKey key = keys.get(k);
 			establisherService.sendContract(contractId,

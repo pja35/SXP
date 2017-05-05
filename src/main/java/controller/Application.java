@@ -17,7 +17,7 @@ import rest.factories.RestServerFactory;
  *
  */
 public class Application {
-	public final static int jxtaPort = 9800;
+	public final static int jxtaPort = 9801;
 	public final static int restPort = 8081;
 	
 	private static Application instance = null;
@@ -62,6 +62,7 @@ public class Application {
 	public static void main(String[] args) {
 		new Application();
 		Application.getInstance().runForTests(restPort);
+		
 	}
 	
 	public void stop(){
