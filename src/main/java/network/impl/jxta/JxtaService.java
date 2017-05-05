@@ -68,7 +68,7 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 	 */
 	@Override
 	public void publishAdvertisement(Advertisement adv) {
-		JxtaAdvertisement jxtaAdv = new JxtaAdvertisement((Advertisement) adv);
+		JxtaAdvertisement jxtaAdv = new JxtaAdvertisement(adv);
 		try {
 			pg.getDiscoveryService().publish(jxtaAdv.getJxtaAdvertisementBridge());
 			pg.getDiscoveryService().remotePublish(jxtaAdv.getJxtaAdvertisementBridge());

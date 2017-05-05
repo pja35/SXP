@@ -83,6 +83,7 @@ public abstract class EstablisherContract<T, Key extends AsymKey<T>, Sign, _Sign
 	/**
 	 * Returns a hash of the contract
 	 */
+	@Override
 	public abstract byte[] getHashableData();
 	
 	/**

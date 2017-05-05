@@ -66,6 +66,7 @@ public class Masks {
 		this.aBis = aBis;
 	}
 	
+	@Override
 	public String toString() {
 		StringBuffer s = new StringBuffer();
 		s.append("<" + this.getClass().getSimpleName().toLowerCase() + ">");
@@ -82,6 +83,7 @@ public class Masks {
 	/**
 	 * Override equals to be able to compare masks
 	 */
+	@Override
 	public boolean equals(Object o){
 		if (!(o instanceof Masks)){
 			return false;

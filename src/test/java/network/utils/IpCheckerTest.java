@@ -6,16 +6,12 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 public class IpCheckerTest {
-
-	private static final IpChecker ipChecker = new IpChecker();
-
-	@SuppressWarnings("static-access")
 	@Test
 	public void test() {
 		String ip = null;
 
 		try {
-			ip = ipChecker.getIp();
+			ip = IpChecker.getIp();
 		} catch (Exception e) {e.printStackTrace(); fail("");};
 
 		assertTrue(ip != null);

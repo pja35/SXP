@@ -36,6 +36,7 @@ public class SigmaClauses implements Signable<SigmaSignature>{
 		return this.sign;
 	}
 	
+	@Override
 	public boolean equals(Object o) {
 		SigmaClauses s2 = (SigmaClauses) o;
 		if (s2.clauses.size() != this.clauses.size())

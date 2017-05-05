@@ -82,6 +82,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	/**
 	 * @param <c> : contract to be signed
 	 */
+	@Override
 	public void initialize(SigmaContract c){
 		contract = c;
 		
@@ -125,6 +126,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	/**
 	 * Launch the protocol : tell everyone that the user is ready to sign (pressed signing button)
 	 */
+	@Override
 	public void start(){
 		for (int k=0; k<N; k++){
 			ElGamalKey key = keys.get(k);

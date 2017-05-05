@@ -26,18 +26,22 @@ public class EstablisherAdvertisement extends AbstractAdvertisement implements E
 		return null;
 	}
 	
+	@Override
 	public String getTitle() {
 		return title;
 	}
 	
+	@Override
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
+	@Override
 	public String getContract() {
 		return contract;
 	}
 	
+	@Override
 	public void setContract(String prom) {
 		this.contract = prom;
 	}

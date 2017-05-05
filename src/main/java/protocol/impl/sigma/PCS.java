@@ -135,7 +135,7 @@ public class PCS {
 	 * @return Signature on contract
 	 */
 	public SigmaSignature getClearSignature(SigmaContract contract, ElGamalKey r){
-		SigmaSigner sig =(SigmaSigner) SignerFactory.createSigmaSigner(); 
+		SigmaSigner sig =SignerFactory.createSigmaSigner(); 
 		sig.setKey(sender.getKeys());
 		sig.setTrentK(this.trentK);
 		sig.setReceiverK(r);

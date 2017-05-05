@@ -128,6 +128,7 @@ public class JettyRestServer implements RestServer{
 		javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
 				new javax.net.ssl.HostnameVerifier(){
 
+					@Override
 					public boolean verify(String hostname,
 							javax.net.ssl.SSLSession sslSession) {
 						if (hostname.equals("localhost")) {

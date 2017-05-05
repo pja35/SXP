@@ -63,6 +63,7 @@ public class ResEncrypt {
 	 * Create a toString method
 	 * @return : representative Sting of the instance
 	 */
+	@Override
 	public String toString(){
 		StringBuffer s = new StringBuffer();
 		s.append("<" + this.getClass().getSimpleName().toLowerCase() + ">");

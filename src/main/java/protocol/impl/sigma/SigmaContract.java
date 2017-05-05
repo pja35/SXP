@@ -150,16 +150,20 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
 	}
 	
 	/************* STATUS / WISH ***********/
+	@Override
 	public Status getStatus(){
 		return contract.getStatus();
 	}
+	@Override
 	public void setStatus(Status s){
 		contract.setStatus(s);
 	}
 	
+	@Override
 	public Wish getWish(){
 		return contract.getWish();
 	}
+	@Override
 	public void setWish(Wish w){
 		contract.setWish(w);
 	}

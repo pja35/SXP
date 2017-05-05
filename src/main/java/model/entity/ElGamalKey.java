@@ -93,6 +93,7 @@ public class ElGamalKey implements AsymKey<BigInteger>, Serializable{
 		return g;
 	}
 	
+	@Override
 	public String toString(){
 		StringBuffer s = new StringBuffer();
 		s.append("<" + this.getClass().getSimpleName().toLowerCase() + ">");

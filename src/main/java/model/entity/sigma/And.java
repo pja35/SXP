@@ -57,6 +57,7 @@ public class And {
 	 * Transform the And into a String
 	 * @return the string corresponding to the AND
 	 */
+	@Override
 	public String toString(){
 		StringBuffer andS = new StringBuffer();
 		andS.append("<" + this.getClass().getSimpleName().toLowerCase() + ">");
