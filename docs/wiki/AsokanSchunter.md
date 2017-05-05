@@ -149,7 +149,7 @@ see further reading.
 A further feature is the abuse-free property: if Bob aborts after
 message one he has a proof that Alice was willing to to the exchange.
 Apparently this is avoidable with "designated verifier proofs", i.e.
-making sure that \$$VE\_A$$ is only a proof in the eyes of Bob and the TTP.
+making sure that \$$ VE\_A $$ is only a proof in the eyes of Bob and the TTP.
 
 Other stuff
 -----------
