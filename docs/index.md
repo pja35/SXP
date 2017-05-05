@@ -4,5 +4,5 @@ permalink: /
 layout: wiki
 ---
 
-see the [wiki](/wiki/ "wikilink").
+see the [wiki](wiki/ "wikilink").
 
