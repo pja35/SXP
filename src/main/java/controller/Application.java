@@ -5,6 +5,8 @@ import java.util.Properties;
 import controller.tools.LoggerUtilities;
 import model.syncManager.UserSyncManagerImpl;
 import network.api.Peer;
+import network.api.advertisement.EstablisherAdvertisementInterface;
+import network.factories.AdvertisementFactory;
 import network.factories.PeerFactory;
 import rest.api.Authentifier;
 import rest.factories.AuthentifierFactory;
@@ -17,6 +19,9 @@ import rest.factories.RestServerFactory;
  *
  */
 public class Application {
+	public final static int jxtaPort = 9800;
+	public final static int restPort = 8081;
+	
 	private static Application instance = null;
 	private static UserSyncManagerImpl umg;
 	private Peer peer;
@@ -58,8 +63,7 @@ public class Application {
 
 	public static void main(String[] args) {
 		new Application();
-		Application.getInstance().runForTests(8081);
-
+		Application.getInstance().runForTests(restPort);
 	}
 	
 	public void stop(){

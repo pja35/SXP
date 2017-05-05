@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import controller.Application;
 import controller.tools.LoggerUtilities;
 import net.jxta.document.AdvertisementFactory;
 import network.api.Peer;
@@ -23,8 +24,8 @@ import network.impl.jxta.JxtaPeer;
  */
 public class PeerFactory {
 	
-	public final static String[] rdvPeerIds = {"tcp://176.132.64.68:9800"}; 
-	public final static int port = 9800;
+	public final static String[] rdvPeerIds = {"tcp://176.132.64.68:9800", "tcp://localhost:9800"}; 
+	public final static int port = Application.jxtaPort ;
 	
 	/**
 	 * create the default implementation of {@link Peer}
