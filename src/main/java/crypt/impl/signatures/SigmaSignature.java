@@ -2,6 +2,10 @@ package crypt.impl.signatures;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import controller.tools.JsonTools;
+import crypt.base.BaseSignature;
 import model.entity.ElGamalKey;
 import model.entity.sigma.Or;
 import model.entity.sigma.Responses;
@@ -9,7 +13,7 @@ import model.entity.sigma.Responses;
 /**
  * @author Nathanaël Eon
  */
-public class SigmaSignature {
+public class SigmaSignature extends BaseSignature<String>{
 
 	/* Element that compose a Sigma Signature */
 	@XmlElement(name="pcs")
@@ -49,4 +53,20 @@ public class SigmaSignature {
 	public void setTrenK(ElGamalKey t){
 		this.trentK = t;
 	}
+	
+	@Override
+	public String getParam(String p){
+		if (p.equals("pcs")){
+			JsonTools<Or> json = new JsonTools<>(new TypeReference<Or>(){});
+			return json.toJson(pcs, true);
+		}else if (p.equals("rpcs")){
+			JsonTools<Responses> json = new JsonTools<>(new TypeReference<Responses>(){});
+			return json.toJson(rpcs);
+		}else if (p.equals("trentK")){
+			JsonTools<ElGamalKey> json = new JsonTools<>(new TypeReference<ElGamalKey>(){});
+			return json.toJson(trentK);
+		}
+		return null;
+	}
+	
 }
