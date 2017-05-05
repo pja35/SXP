@@ -4,7 +4,6 @@ permalink: wiki/AsokanSchunter/
 layout: wiki
 ---
 
-The link does not grant access to the whole document, but was recovered.
 This is a recent review paper by specialists, hence a good entry to the
 topic. The comments here are biased towards SXP.
 
@@ -20,16 +19,16 @@ Requires a referee. In the setting of SXP, maybe the market could maybe
 play such a role, but this is costly.
 
 The protocols that implement this have a simple common pattern. Alice
-(A) and Bob (B) need to sign contract (C) with there private keys
-PrivKA/PrivKB, Trent (T) is the Trusted Third Party. See
+(\$$A$$) and Bob (\$$B$$) need to sign contract (\$$C$$) with there private keys
+\$$PrivKA/PrivKB$$, Trent (\$$T$$) is the Trusted Third Party. See
 [here](http://en.wikipedia.org/wiki/Security_protocol_notation) for the
 notation.
 
-$$ A\rightarrow B:\{\{C\}_{PrivKA}\}_{K} $$
+$$A\rightarrow B:\{\{C\}_{PrivKA}\}_{K}$$
 
-$$ A\rightarrow T:K $$
+$$A\rightarrow T:K$$
 
-$$ B\rightarrow T:\{\{C\}_{PrivKA}\}_{K},\{C\}_{PrivKB} $$
+$$B\rightarrow T:\{\{C\}_{PrivKA}\}_{K},\{C\}_{PrivKB}$$
 
 $$T\rightarrow B:K$$
 
@@ -75,10 +74,10 @@ Solving these issues is done successively by the two next subsections.
 Wouldn't it solve the problem if Alice was able to give Bob something
 which:
 
--   Is the contract signed by her, but protected under PubKT;
+-   Is the contract signed by her, but protected under \$$PubKT$$;
 -   A proof that this is indeed what she is giving to him.
 
-Let us call this magic thing VE\_A.
+Let us call this magic thing \$$VE\_A$$.
 
 The protocol would then run as follows:
 
@@ -100,7 +99,7 @@ $$T\rightarrow B:\{C\}_{PrivKA}$$
 
 $$T\rightarrow A:\{C\}_{PrivKB}$$
 
-This sounds great. Apparently these VE\_A exist, they are called
+This sounds great. Apparently these \$$VE\_A$$ exist, they are called
 Verifiable Escrows.
 
 ### Asynchrony
@@ -129,12 +128,12 @@ $$B\rightarrow A:\{C\}_{PrivKB}$$
 
 To summarize main idea is that now Alice is allowed to contact the TTP
 and tell it it wants to cancel the protocol, i.e. demand that he no
-longer agrees to open VE\_A upon demand of Bob. Now, that would have
+longer agrees to open \$$VE\_A$$ upon demand of Bob. Now, that would have
 seemed like a possibility in the protocol of the subsection just before,
-but this is not true, because Alice could have cheated by sending VE\_A
+but this is not true, because Alice could have cheated by sending \$$VE\_A$$
 to Bob and then cancelling it, and still getting his signed contract in
 the second step. Here, on the other hand, all she gets in the second
-step is VE\_B, and if she cancelled VE\_A she cancelled VE\_B, too.
+step is \$$VE\_B$$, and if she cancelled \$$VE\_A$$ she cancelled \$$VE\_B$$, too.
 
 This is looking good, it seems that this is the kind of things needed
 for SXP.
@@ -150,7 +149,7 @@ see further reading.
 A further feature is the abuse-free property: if Bob aborts after
 message one he has a proof that Alice was willing to to the exchange.
 Apparently this is avoidable with "designated verifier proofs", i.e.
-making sure that VE\_A is only a proof in the eyes of Bob and the TTP.
+making sure that \$$VE\_A$$ is only a proof in the eyes of Bob and the TTP.
 
 Other stuff
 -----------
@@ -181,11 +180,11 @@ VE schemes can be done via [Ateniese](/wiki/Ateniese "wikilink") (2004).
 Naive reactions to this paper
 =============================
 
-Why not go for the following natural solutions: the contract C wears the
-mention "This contract is not valid if not signed by PubKA, and then by
-PubKB by time t". This way Alice can safely sign it with PrivB and send
+Why not go for the following natural solutions: the contract \$$C$$ wears the
+mention "This contract is not valid if not signed by \$$PubKA$$, and then by
+\$$PubKB$$ by time \$$t$$". This way Alice can safely sign it with \$$PrivB$$ and send
 it to Bob. Bob may not sign it but then the contract is not valid. To
-validate he must sign it and have it time-stamped by time t... OK maybe
+validate he must sign it and have it time-stamped by time \$$t$$... OK maybe
 there would be two problems:
 
 -   Alice is not ensured to get her copy of the valid contract;
