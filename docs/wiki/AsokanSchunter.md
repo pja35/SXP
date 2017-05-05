@@ -162,20 +162,20 @@ purpose of SXP this is a bit unpractical.
 References
 ==========
 
-Going multi-party: [BaoDengMao](/wiki/BaoDengMao "wikilink") (1998),
-[Pearson](/wiki/Pearson "wikilink") (2003).
+Going multi-party: [BaoDengMao](/SXP/wiki/BaoDengMao "wikilink") (1998),
+[Pearson](/SXP/wiki/Pearson "wikilink") (2003).
 
-P2P context, see [BaumwaidnerWaidner](/wiki/BaumwaidnerWaidner "wikilink")
+P2P context, see [BaumwaidnerWaidner](/SXP/wiki/BaumwaidnerWaidner "wikilink")
 (2000).
 
-Using peers as TTP, see [FranklinReiter](/wiki/FranklinReiter "wikilink")
+Using peers as TTP, see [FranklinReiter](/SXP/wiki/FranklinReiter "wikilink")
 (1997).
 
 To analyze communication complexity:
-[PfitzmannSchunterWaidner](/wiki/PfitzmannSchunterWaidner "wikilink") (1998).
+[PfitzmannSchunterWaidner](/SXP/wiki/PfitzmannSchunterWaidner "wikilink") (1998).
 
 To analyze computational complexity: It is suggested that more efficient
-$VE$ schemes can be done via [Ateniese](/wiki/Ateniese "wikilink") (2004).
+$VE$ schemes can be done via [Ateniese](/SXP/wiki/Ateniese "wikilink") (2004).
 
 Naive reactions to this paper
 =============================

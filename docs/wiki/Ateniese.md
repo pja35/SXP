@@ -4,4 +4,4 @@ permalink: wiki/Ateniese/
 layout: wiki
 ---
 
-This paper is referenced by [AsokanSchunter](/wiki/AsokanSchunter "wikilink").
+This paper is referenced by [AsokanSchunter](/SXP/wiki/AsokanSchunter "wikilink").
