@@ -5,8 +5,6 @@ import java.util.Properties;
 import controller.tools.LoggerUtilities;
 import model.syncManager.UserSyncManagerImpl;
 import network.api.Peer;
-import network.api.advertisement.EstablisherAdvertisementInterface;
-import network.factories.AdvertisementFactory;
 import network.factories.PeerFactory;
 import rest.api.Authentifier;
 import rest.factories.AuthentifierFactory;
@@ -61,13 +59,6 @@ public class Application {
 	public static void main(String[] args) {
 		new Application();
 		Application.getInstance().runForTests(8081);
-		
-		final Peer peer=Application.getInstance().getPeer();
-		
-		// Sending an advertisement (trick to get the other peer URI)
-		EstablisherAdvertisementInterface cadv = AdvertisementFactory.createEstablisherAdvertisement();
-		cadv.setTitle("Un Contrat");
-		cadv.publish(peer);
 
 	}
 	
