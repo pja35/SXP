@@ -27,25 +27,25 @@ notation.
 
 $$ A\rightarrow B:\{\{C\}_{PrivKA}\}_{K} $$
 
-\$$ A\rightarrow T:K $$
+$$ A\rightarrow T:K $$
 
 $$ B\rightarrow T:\{\{C\}_{PrivKA}\}_{K},\{C\}_{PrivKB} $$
 
-\[T\rightarrow B:K\]
+$$T\rightarrow B:K$$
 
-\[T\rightarrow A:\{C\}_{PrivKB}\]
+$$T\rightarrow A:\{C\}_{PrivKB}$$
 
 To be honest I am not sure why going through K is necessary, this looks
 like an optimization for Digital Certified Mail. In the explanations all
 this seems to boil down to the boring protocol:
 
-\[A\rightarrow T:\{C\}_{PrivKA}\]
+$$A\rightarrow T:\{C\}_{PrivKA}$$
 
-\[B\rightarrow T:\{C\}_{PrivKB}\]
+$$B\rightarrow T:\{C\}_{PrivKB}$$
 
-\[T\rightarrow A:\{C\}_{PrivKB}\]
+$$T\rightarrow A:\{C\}_{PrivKB}$$
 
-\[T\rightarrow B:\{C\}_{PrivKA}\]
+$$T\rightarrow B:\{C\}_{PrivKA}$$
 
 Optimistic Fair Exchange
 ------------------------
@@ -82,11 +82,11 @@ Let us call this magic thing VE\_A.
 
 The protocol would then run as follows:
 
-\[A\rightarrow B:VE_A\]
+$$A\rightarrow B:VE_A$$
 
-\[B\rightarrow A:\{C\}_{PrivKB}\]
+$$B\rightarrow A:\{C\}_{PrivKB}$$
 
-\[A\rightarrow B:\{C\}_{PrivKA}\]
+$$A\rightarrow B:\{C\}_{PrivKA}$$
 
 If Alice disappears after step one, no worries, there is a recovery
 protocol. Indeed Bob can go to the TTP with the contract signed by him,
@@ -94,11 +94,11 @@ and get from the TTP the contract signed by her. It is important that he
 brings the contract signed by him, so that the TTP takes it and gives it
 to Alice when she wakes up. More precisely the recovery protocol is:
 
-\[B\rightarrow T:\{C\}_{PrivKB}, VE_A\]
+$$B\rightarrow T:\{C\}_{PrivKB}, VE_A$$
 
-\[T\rightarrow B:\{C\}_{PrivKA}\]
+$$T\rightarrow B:\{C\}_{PrivKA}$$
 
-\[T\rightarrow A:\{C\}_{PrivKB}\]
+$$T\rightarrow A:\{C\}_{PrivKB}$$
 
 This sounds great. Apparently these VE\_A exist, they are called
 Verifiable Escrows.
@@ -119,13 +119,13 @@ Solving this without time-limits is called the asynchronous model. The
 authors explain that the following minor modification is secure and
 minimal for the asynchronous model:
 
-\[A\rightarrow B:VE_A\]
+$$A\rightarrow B:VE_A$$
 
-\[B\rightarrow A:VE_B\]
+$$B\rightarrow A:VE_B$$
 
-\[A\rightarrow B:\{C\}_{PrivKA}\]
+$$A\rightarrow B:\{C\}_{PrivKA}$$
 
-\[B\rightarrow A:\{C\}_{PrivKB}\]
+$$B\rightarrow A:\{C\}_{PrivKB}$$
 
 To summarize main idea is that now Alice is allowed to contact the TTP
 and tell it it wants to cancel the protocol, i.e. demand that he no
