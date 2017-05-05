@@ -175,7 +175,7 @@ To analyze communication complexity:
 [PfitzmannSchunterWaidner](/wiki/PfitzmannSchunterWaidner "wikilink") (1998).
 
 To analyze computational complexity: It is suggested that more efficient
-VE schemes can be done via [Ateniese](/wiki/Ateniese "wikilink") (2004).
+\$$VE$$ schemes can be done via [Ateniese](/wiki/Ateniese "wikilink") (2004).
 
 Naive reactions to this paper
 =============================
