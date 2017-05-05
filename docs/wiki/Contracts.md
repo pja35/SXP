@@ -14,15 +14,15 @@ settle a barter, a payment, or any combination of both.
 
 More concretely, SXP will include:
 
--   a standardized [XML](/wiki/XML "wikilink") format for describing items to
+-   a standardized [XML](/SXP/wiki/XML "wikilink") format for describing items to
     be exchanged. [More on
-    specifying items.](/wiki/Items_Specification "wikilink")
--   a standardized [XML](/wiki/XML "wikilink") format for [specifiying the
-    terms of a contract](/wiki/ContractsSpecification "wikilink"). Currently
+    specifying items.](/SXP/wiki/ItemsSpecification "wikilink")
+-   a standardized [XML](/SXP/wiki/XML "wikilink") format for [specifiying the
+    terms of a contract](/SXP/wiki/ContractsSpecification "wikilink"). Currently
     this is done by the [SXP Contract Specification
-    Schema](/wiki/SXPContract "wikilink").
+    Schema](/SXP/wiki/SXPContract "wikilink").
 -   a secure way to proceed to their signature, as the
     bottom-layer protocol. [More on the Secure Contract
-    Signing protocol.](/wiki/SecureContractSigningProtocol "wikilink")
+    Signing protocol.](/SXP/wiki/SecureContractSigningProtocol "wikilink")
 -   an authentication architecture for identifying parties.
 

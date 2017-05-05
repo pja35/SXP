@@ -5,4 +5,4 @@ layout: wiki
 ---
 
 This paper inspires the structure of
-[Mukhamedov Ryan](/wiki/MukhamedovRyan "wikilink").
+[Mukhamedov Ryan](/SXP/wiki/MukhamedovRyan "wikilink").
