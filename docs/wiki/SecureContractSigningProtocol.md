@@ -50,6 +50,7 @@ The Protocol
 ------------
 
 Conventions:
+
     c is the contract
     P1...Pn are the parties having to sign c
     T is the TTP
@@ -70,12 +71,14 @@ Conventions:
     optimistic is set to true
 
 `Main\_i` :
+
     For k=1...n+2 :  
        broadcast Prom_i(k)  
        i awaits and checks until she forms Claim_i(k)  
        failing that, Resolve_i(k) and _exit_ otherwise you may produce a DishonestClaim_i(k)!
     
 `Resolve\_i(k)`:
+
     broadcast E_T(S_Pi(Claim_i(k-1)))  
     i gets either ResolveToken  
     or gets AbortToken  
