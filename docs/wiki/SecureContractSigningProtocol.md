@@ -49,8 +49,7 @@ Which cryptographic primitive does it rely upon?
 The Protocol
 ------------
 
-Conventions
-
+Conventions:
     c is the contract
     P1...Pn are the parties having to sign c
     T is the TTP
@@ -70,51 +69,49 @@ Conventions
     ResolveToken is SP_T(Claim_i(n+2), HonestyToken)
     optimistic is set to true
 
-Main\_i :
-
-` For k=1...n+2 :`  
-`    broadcast Prom_i(k)`  
-`    i awaits and checks until she forms Claim_i(k)`  
-`    failing that, Resolve_i(k) and _exit_ otherwise you may produce a DishonestClaim_i(k)!`
-
-Resolve\_i(k):
-
-` broadcast E_T(S_Pi(Claim_i(k-1)))`  
-` i gets either ResolveToken`  
-` or gets AbortToken`  
-` _exit_ otherwise you may produce a DishonestClaim_i(k)!`
-
-ResolveT:
-
-` Await and check S_Pi(Claim_i(k-1)).`  
-` % j was dishonest and i shows it`  
-` If PossiblyHonestClaims has some S_Pj(Claim_i(k')) with k'<k-2, then`  
-`    constitute DishonestClaim_j(k) into DishonestClaims, `  
-`    remove j from PossiblyHonestClaims`  
-`    broadcast HonestyToken`  
-` % i was dishonest and i shows it`  
-` If i is in PossiblyHonestClaims or DishonestClaims already, and if this is no duplicate, then`  
-`    constitute DishonestClaim_i(k) into DishonestClaims, `  
-`    remove i from PossiblyHonestClaims,`  
-`    optionally, broadcast HonestyToken `  
-`    exit.`  
-` %  i was dishonest and j shows it`  
-` If PossiblyHonestClaims or DishonestClaims has some S_Pj(Claim_i(k')) with k'>k, then`  
-`    constitute DishonestClaim_i(k) into DishonestClaims, `  
-`    remove i from PossiblyHonestClaims, `  
-`    optionally, broadcast HonestyToken`  
-`    exit.`  
-` % now the claim is possibly honest`  
-` % intial, claim with promises, wins`  
-` If (k>1 and PossiblyHonestsClaims is empty) or !optimistic, then`  
-`    set optimistic to false`  
-`    broadcast ResolveToken`  
-`    exit.`  
-` % initial, claim without nothing, triggers the piling up of all further possibly honest claims with promises, unless these get overturned`  
-` If (k==1 or PossiblyHonestsClaims is not empty) and optimistic, then`  
-`    add S_Pi(Claim_i(k-1)) to PossiblyHonestsClaims`  
-`    broadcast AbortToken`  
-`    exit.`
+`Main\_i` :
+    For k=1...n+2 :  
+       broadcast Prom_i(k)  
+       i awaits and checks until she forms Claim_i(k)  
+       failing that, Resolve_i(k) and _exit_ otherwise you may produce a DishonestClaim_i(k)!
+    
+`Resolve\_i(k)`:
+    broadcast E_T(S_Pi(Claim_i(k-1)))  
+    i gets either ResolveToken  
+    or gets AbortToken  
+    _exit_ otherwise you may produce a DishonestClaim_i(k)!
+    
+`ResolveT`:
+    
+    Await and check S_Pi(Claim_i(k-1)).  
+    % j was dishonest and i shows it  
+    If PossiblyHonestClaims has some S_Pj(Claim_i(k')) with k'<k-2, then  
+       constitute DishonestClaim_j(k) into DishonestClaims,   
+       remove j from PossiblyHonestClaims  
+       broadcast HonestyToken  
+    % i was dishonest and i shows it  
+    If i is in PossiblyHonestClaims or DishonestClaims already, and if this is no duplicate, then  
+       constitute DishonestClaim_i(k) into DishonestClaims,   
+       remove i from PossiblyHonestClaims,  
+       optionally, broadcast HonestyToken   
+       exit.  
+    %  i was dishonest and j shows it  
+    If PossiblyHonestClaims or DishonestClaims has some S_Pj(Claim_i(k')) with k'>k, then  
+       constitute DishonestClaim_i(k) into DishonestClaims,   
+       remove i from PossiblyHonestClaims,   
+       optionally, broadcast HonestyToken  
+       exit.  
+    % now the claim is possibly honest  
+    % intial, claim with promises, wins  
+    If (k>1 and PossiblyHonestsClaims is empty) or !optimistic, then  
+       set optimistic to false  
+       broadcast ResolveToken  
+       exit.  
+    % initial, claim without nothing, triggers the piling up of all further possibly honest claims with promises, unless these get overturned  
+    If (k==1 or PossiblyHonestsClaims is not empty) and optimistic, then  
+       add S_Pi(Claim_i(k-1)) to PossiblyHonestsClaims  
+       broadcast AbortToken  
+       exit.
 
 Why does the protocol accomplishes its aims?
 --------------------------------------------
@@ -131,78 +128,75 @@ formalization, do contact us!
 **Proof outline.** First, here is how the security requirements impose
 themselves upon the TTP:
 
--   At round 1&lt;=k&lt;=n+1 an honest player may send
-    (1&lt;=k&lt;=n+1)-level promises but never get the other's back, and
+-   At round $1&lt;=k&lt;=n+1$ an honest player may send
+    $(1&lt;=k&lt;=n+1)$-level promises but never get the other's back, and
     so timeliness demands that he is able to either cancel his
-    (j&lt;=k)-level promises, or to get his complete set of (k-1)-level
+    $(j&lt;=k)$-level promises, or to get his complete set of $(k-1)$-level
     promises opened by the TTP. He does this by sending the TTP a
-    resolve request with a complete set of (k-1)-level promi
-
-ses.
+    resolve request with a complete set of $(k-1)$-level promises.
 
 -   If the TTP initially gets contacted by a player with a resolve
-    request showing a complete set of (k-1&gt;0)-level promises, then it
+    request showing a complete set of $(k-1&gt;0)$-level promises, then it
     is fair and timely for him to accept to open everything from now on:
     we fall back into the non-optimistic case forever.
 -   But if the TTP initially gets contacted by player i with a resolve
-    request showing (k-1=0)-level promises, i.e. nothing, then by
+    request showing $(k-1=0)$-level promises, i.e. nothing, then by
     fairness the only thing he can do is to accept to cancel the
-    player's (k=1)-level promises. Then player's claim gets added to the
+    player's $(k=1)$-level promises. Then player's claim gets added to the
     PossiblyHonestsClaims list.
--   Say Player\_i sent a complete set of (k-1&gt;0)-level promises in a
+-   Say $Player\_i$ sent a complete set of $(k-1&gt;0)$-level promises in a
     resolve request. Later, if the TTP gets contacted by a player with a
-    resolve request showing a complete set of (k'&gt;k+1)-level
-    promises, it may deduce from them that Player\_i's claim was
-    dishonest, because is shows that Player\_i has continued beyond
-    round k. It follows that Player\_i's claim can be safely removed
+    resolve request showing a complete set of $(k'&gt;k+1)$-level
+    promises, it may deduce from them that $Player\_i$'s claim was
+    dishonest, because is shows that $Player\_i$ has continued beyond
+    round k. It follows that $Player\_i$'s claim can be safely removed
     from the PossiblyHonestsClaims list.
--   The same is true if the complete k'-level promises got there first,
-    or if Player\_i does different requests at different rounds; then
-    the Player\_i 's claim is dishonest and can safely be ignored.
--   If the TTP gets contacted by Player\_i with a resolve request
-    showing (k-1&gt;0)-level promises, and it follows from there that
-    the PossiblyHonestsClaims list is emptied, then it is fair and
+-   The same is true if the complete $k'$-level promises got there first,
+    or if $Player\_i$ does different requests at different rounds; then
+    the $Player\_i$'s claim is dishonest and can safely be ignored.
+-   If the TTP gets contacted by $Player\_i$ with a resolve request
+    showing $(k-1&gt;0)$-level promises, and it follows from there that
+    the $PossiblyHonestsClaims$ list is emptied, then it is fair and
     timely for him to accept to open everything from now on: again we
     fall back into the non-optimistic case forever. This is an overturn.
--   If the TTP gets contacted by Player\_i with a resolve request
-    showing (k-1&gt;0)-level promises, but it does not follow from there
+-   If the TTP gets contacted by $Player\_i$ with a resolve request
+    showing $(k-1&gt;0)$-level promises, but it does not follow from there
     that the PossiblyHonestsClaims list is emptied, then by fairness the
     only thing he can do is to accept to cancel the player's
-    k-level promises. Then that player's claim gets added to the
-    PossiblyHonestsClaims list.
--   At round n+2 an honest player may send his cleartext signature but
+    $k$-level promises. Then that player's claim gets added to the
+    $PossiblyHonestsClaims$ list.
+-   At round $n+2$ an honest player may send his cleartext signature but
     never get the other's back, and so fairness demands that he is
-    always able to get his complete set of (n+1)-level promises opened
+    always able to get his complete set of $(n+1)$-level promises opened
     by sending a resolve to the TTP. the TTP has to accept this, even if
     this means an overturn: we fall back into the non-optimistic
     case forever.
 
 Second, notice that most these specifications are met just by
-construction, i.e they really describe the TTP's behaviour. Except for
+construction, i.e. they really describe the TTP's behaviour. Except for
 the last two points which seem contradictory... unless it is the case
-that complete sets of (n+1)-level promises constitute proofs that any
+that complete sets of $(n+1)$-level promises constitute proofs that any
 earlier claim is dishonest! This seems to be the only thing we need to
 convince ourselves of.
 
-Now, it is clear that a complete set of (n+1)-level promises sheds
-discredit on all complete set of (n-1)-level promises that the TTP may
+Now, it is clear that a complete set of $(n+1)$-level promises sheds
+discredit on all complete set of $(n-1)$-level promises that the TTP may
 have received. Hence the only way a possibly honest claim could remain,
-is if it is a complete set of n-level promises. Similarly, it is clear
-this complete set of n-level promises had shed discredit on all complete
-set of (n-2)-level promises that the TTP may have received. Hence the
+is if it is a complete set of $n$-level promises. Similarly, it is clear
+this complete set of $n$-level promises had shed discredit on all complete
+set of $(n-2)$-level promises that the TTP may have received. Hence the
 only way it could not have caused an overturn itself is if there was a
-complete set of (n-1)-level promises. And so on. Basically for something
-wrong to happen at the (n+2)-level, there must have been complete sets
-of 0...n-level sent through resolve requests to the TTP, and accepted
+complete set of $(n-1)$-level promises. And so on. Basically for something
+wrong to happen at the $(n+2)$-level, there must have been complete sets
+of $0...n$-level sent through resolve requests to the TTP, and accepted
 for cancellation, i.e. not causing overturns. But this is impossible
-because there are only n-players, and the TTP is not OK with receiving
+because there are only $n$-players, and the TTP is not OK with receiving
 two different claims from the same player.
 
 Directly relevant bibliography
 ------------------------------
 
-\[<http://books.google.fr/books?hl=en&lr>=&id=DUFqRPNqBrQC&oi=fnd&pg=PA365&dq=%22optimistic+fair%22&ots=HSsEcwYi5v&sig=d4Z6to7fQ06fl-OXlLkQKLIP8Cc\#v=onepage&q=%22optimistic%20fair%22&f=false
-Review of optimistic fair exchange\] by Asokan, Schunter, (2009).
+[Review of optimistic fair exchange](http://books.google.fr/books?hl=en&lr=&id=DUFqRPNqBrQC&oi=fnd&pg=PA365&dq=%22optimistic+fair%22&ots=HSsEcwYi5v&sig=d4Z6to7fQ06fl-OXlLkQKLIP8Cc\#v=onepage&q=%22optimistic%20fair%22&f=false) by Asokan, Schunter, (2009).
 **Reviewed [here](/SXP/wiki/AsokanSchunter "wikilink").** A great entry point to
 the topic of secure contract signing.
 
@@ -288,8 +282,7 @@ Signing](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.20.3562)
 by Asokan, Baum-waidner, Schunter , Waidner (1998). Comment on the
 usefulness of this paper to the project [here](/SXP/wiki/ABSW98 "wikilink").
 
-\[<http://ieeexplore.ieee.org/xpl/login.jsp?tp>=&arnumber=674825&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs\_all.jsp%3Farnumber%3D674825
-Efficient and practical fair exchange with offline TTP\] by Bao, Deng,
+[Efficient and practical fair exchange with offline TTP](http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=674825&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs\_all.jsp%3Farnumber%3D674825) by Bao, Deng,
 Mao, (1998) Comment on the usefulness of this paper to the project
 [here](/SXP/wiki/BaoDengMao "wikilink"). Multi-party abuse-free contract signing.
 Asynchronous?
