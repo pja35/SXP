@@ -1,12 +1,12 @@
 ---
 title: Secure eXchange Protocols
-permalink: wiki/Secure_eXchange_Protocols/
+permalink: wiki/
 layout: wiki
 ---
 
 **A soft alternative to an exclusive money-based economy.**
 
-Fast link: [Development Portal.](/wiki/Development_Portal "wikilink")
+Fast link: [Development Portal.](/SXP/wiki/DevelopmentPortal "wikilink")
 
 In short
 --------
@@ -27,16 +27,16 @@ anyone.*
 More
 ----
 
--   [Why do this?](/wiki/Why_Do_This "wikilink")
--   [What is it? What is *not*?](/wiki/What_Is_it "wikilink")
--   [Who are we?](/wiki/Authors "wikilink")
+-   [Why do this?](/SXP/wiki/WhyDoThis "wikilink")
+-   [What is it? What is *not*?](/SXP/wiki/WhatIsit "wikilink")
+-   [Who are we?](/SXP/wiki/Authors "wikilink")
 
 Join us
 -------
 
--   [Current needs.](/wiki/Current_Needs "wikilink")
--   [Getting Started.](/wiki/Getting_Started "wikilink")
--   [Development Portal.](/wiki/Development_Portal "wikilink")
+-   [Current needs.](/SXP/wiki/CurrentNeeds "wikilink")
+-   [Getting Started.](/SXP/wiki/GettingStarted "wikilink")
+-   [Development Portal.](/SXP/wiki/DevelopmentPortal "wikilink")
 
 A question
 ----------
@@ -49,4 +49,5 @@ for wealth cumulation and participate in all deals? Would people trust
 pieces of paper back again? Or would more dynamic, blended and local
 currencies start to emerge? Is there a good theory of emergence of
 moneys in distributed, decentralized economies?* More on [these
-questions](/wiki/Questions_That_Bother_Us "wikilink").
+questions](/SXP/wiki/QuestionsThatBotherUs "wikilink").
+
