@@ -1,6 +1,6 @@
 ---
 title: XML Tools
-permalink: wiki/XML_Tools/
+permalink: wiki/XMLTools/
 layout: wiki
 ---
 
@@ -8,7 +8,7 @@ PDF Generator of an XML SXP Contract File
 -----------------------------------------
 
 It is possible to generate PDF files according to contracts that follows
-the [SXP Contract Specification](/wiki/SXP_Contract "wikilink"). These PDF
+the [SXP Contract Specification](/SXP/wiki/SXPContract "wikilink"). These PDF
 files are intended to extract the xml files and present it in a
 narrative way.
 

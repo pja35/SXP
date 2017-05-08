@@ -1,6 +1,6 @@
 ---
 title: What Is it
-permalink: wiki/What_Is_it/
+permalink: wiki/WhatIsIt/
 layout: wiki
 ---
 
@@ -27,7 +27,7 @@ secure protocol suite for multi-party exchanges of contracts**.
 
 A protocol is an agreed common language, and an agreed series of steps,
 designed in order to achieve some task, over the network. [More on
-protocols.](/wiki/Protocols "wikilink")
+protocols.](/SXP/wiki/Protocols "wikilink")
 
 ### Contracts
 
@@ -36,7 +36,7 @@ signed by the different parties, where the parties engage in doing or
 giving something in due time. Hence, being able to exchange contracts
 means being able to exchange anything from goods to services. A protocol
 will serve to settle a barter, a payment, or any combination of both.
-[More on contracts.](/wiki/Contracts "wikilink")
+[More on contracts.](/SXP/wiki/Contracts "wikilink")
 
 ### Multi-party exchanges
 
@@ -48,17 +48,17 @@ moneys; allowing exchanges between many parties at the same time;
 facilitating further exchanges of newly acquired items. This way
 contracts do not have to be between or depend upon just two
 participants, they can involve several transactions that are
-interdependent, such as a chain. [More on chains.](/wiki/Chains "wikilink")
+interdependent, such as a chain. [More on chains.](/SXP/wiki/Chains "wikilink")
 
 #### Markets
 
 In the real world shops or markets have several beneficial roles: they
 facilitate offer/demand encounter, they secure the producer/consumer
 exchange, they guarantee the quality of the items, they generate
-[VAT](/wiki/Raising_Taxes "wikilink") for the good functioning of states. The
+[VAT](/SXP/wiki/RaisingTaxes "wikilink") for the good functioning of states. The
 protocols will allow for virtual counterparts of these markets,
 accomplishing just the same purposes. [More on
-markets.](/wiki/Markets "wikilink")
+markets.](/SXP/wiki/Markets "wikilink")
 
 #### Deals
 
@@ -67,7 +67,7 @@ chains, also referred to as deals. The protocol will promote openness
 for facilitating the computation of the best possible deals within a
 market. Moreover since they will run the same protocols, markets will be
 interoperable. Hence cross-market exchanges will often happen. [More on
-deals](/wiki/Deals "wikilink").
+deals](/SXP/wiki/Deals "wikilink").
 
 ### Peer-to-peer
 
@@ -101,7 +101,7 @@ Secure eXchange Protocols. The following are potential uses of such
 protocols, in increasing orders of magnitude, and decreasing likelihood:
 
 -   Secure multi-party contracts. Thus, [in case one breaks the
-    contract](/wiki/Broken_Contract "wikilink"), another can prove that the
+    contract](/SXP/wiki/BrokenContract "wikilink"), another can prove that the
     contract has been established. Still, for this to be of some effect,
     one needs a guarantee policy, an insurance policy, a trust system,
     or even a judiciary system that are willing to back up
@@ -110,17 +110,17 @@ protocols, in increasing orders of magnitude, and decreasing likelihood:
     systems in particular.
 -   Create virtual markets. Those may look like the merchant sites,
     second-hand sites, barter sites, gift economy sites that we [already
-    know of](/wiki/Related_Trading_Sites "wikilink")... or novel, unexpected,
+    know of](/SXP/wiki/RelatedTradingSites "wikilink")... or novel, unexpected,
     ad hoc virtual markets. But SXP does not promote any such sites or
     markets in particular.
 -   Witness the rise of novel currencies. Having a fast and secure way
     to exchange items may ease the appearance of novel forms of moneys
     such as those proposed in [related
-    projects](/wiki/Related_Projects "wikilink"). But SXP does not promote any
+    projects](/SXP/wiki/RelatedProjects "wikilink"). But SXP does not promote any
     such scheme in particular.
 -   Help suggest improved economic systems. Solidarity and ecology are
     natural aims, and there should be some [ways of raising
-    taxes](/wiki/Raising_Taxes "wikilink") on the virtual markets. But SXP
+    taxes](/SXP/wiki/RaisingTaxes "wikilink") on the virtual markets. But SXP
     does not promote any such vision or method in particular.
 
 The reason for this apparent neutrality of the project is its
@@ -130,3 +130,4 @@ should not be bound to any potential use. Since part of the aesthetics
 of the project is to fully generalize payment methods; we are fully
 aware that trying to enforce a particular use will immediately lead to a
 fork.
+

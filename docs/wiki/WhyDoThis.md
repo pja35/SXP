@@ -1,6 +1,6 @@
 ---
 title: Why Do This
-permalink: wiki/Why_Do_This/
+permalink: wiki/WhyDoThis/
 layout: wiki
 ---
 
@@ -28,27 +28,27 @@ Of course no fixed notion of money is an absolute scale of people's
 merit, nor an absolute scale on which to measure all things. What is
 money, then? Money is an instrument for facilitating exchanges.
 Enforcing an exclusive money has both [advantages and
-disadvantages](/wiki/Exclusive_Money_Based_Economy "wikilink"). We take the
+disadvantages](/SXP/wiki/ExclusiveMoneyBasedEconomy "wikilink"). We take the
 pragmatic view that whatever can be made in order to facilitate
 exchanges, is worth doing for the economy.
 
-There are a number of [related projects](/wiki/Related_Projects "wikilink")
+There are a number of [related projects](/SXP/wiki/RelatedProjects "wikilink")
 seeking to address the above-mentioned downsides. The idea of going for
 Secure eXchange Protocols has been envisioned by others in the past, see
-[related articles](/wiki/Related_Articles "wikilink"). Certainly, having such
+[related articles](/SXP/wiki/RelatedArticles "wikilink"). Certainly, having such
 protocols implemented would come as handy in a number of
-[situations](/wiki/Related_Situations "wikilink"). The aim of this project is
+[situations](/SXP/wiki/RelatedSituations "wikilink"). The aim of this project is
 to make these protocols a reality.
 
 More on why we should do this:
 
 -   A page dedicated to listing [advantages and disadvantages of
     exclusively money-driven
-    economy](/wiki/Exclusively_Money_Based_Economy "wikilink").
+    economy](/SXP/wiki/ExclusivelyMoneyBasedEconomy "wikilink").
 -   A page dedicated to [articles addressing the same
-    issues](/wiki/Related_Articles "wikilink").
+    issues](/SXP/wiki/RelatedArticles "wikilink").
 -   A page dedicated to [projects addressing the same
-    issues](/wiki/Related_Projects "wikilink").
+    issues](/SXP/wiki/RelatedProjects "wikilink").
 -   A page dedicated to [situations related to the
-    project](/wiki/Related_Situations "wikilink").
+    project](/SXP/wiki/RelatedSituations "wikilink").
 

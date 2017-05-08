@@ -18,8 +18,8 @@ consequence:
 
 -   there are many tools around for manipulating XML.
 -   there may already by some tuned versions of XML for specifying
-    [items](/wiki/Items_Specification "wikilink") and
-    [contracts](/wiki/Contracts_Specification "wikilink"), which is what
+    [items](/SXP/wiki/ItemsSpecification "wikilink") and
+    [contracts](/SXP/wiki/ContractsSpecification "wikilink"), which is what
     we want.
 -   once GUIs will be developed none will have to see the
     underlying XML.
@@ -43,18 +43,17 @@ Basic Structure
 
 Here is an example of an .xml file:
 
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<note id=“1245”>
-`         `<to>`Tove`</to>  
-`         `<from>`Jani`</from>  
-`         `<heading>`Reminder`</heading>  
-`         `
+    <?xml version="1.0" encoding="ISO-8859-1"?>
+    <note id=“1245”>
+      <to>Tove</to>  
+      <from>Jani</from>  
+      <heading>Reminder</heading>  
+      
+      <body>
+        Don't forget me this weekend!
+      </body>
+    </note>
 
-<body>
-Don't forget me this weekend!
-
-</body>
-</note>
 In the example, *note* is an element and *id* is an attribute.
 
 Defining XML structures
@@ -71,7 +70,7 @@ documents to accomplish that:
 
 -   DTD (Document Type Definition).
 -   XSD (XML Schemas). Schemas are the most used way to the define a
-    XML structure. The [SXP Contract](/wiki/SXP_Contract "wikilink") schema is
+    XML structure. The [SXP Contract](/SXP/wiki/SXPContract "wikilink") schema is
     an XSD.
 -   Relax NG files.
 

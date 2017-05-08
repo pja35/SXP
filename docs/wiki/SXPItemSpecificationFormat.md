@@ -1,13 +1,13 @@
 ---
 title: SXP Item specification format
-permalink: wiki/SXP_Item_specification_format/
+permalink: wiki/SXPItemSpecificationFormat/
 layout: wiki
 ---
 
-We make the Items Specification via an [XML schema](/wiki/XSD "wikilink"). The
+We make the Items Specification via an [XML schema](/SXP/wiki/XSD "wikilink"). The
 Items described can be products and services. Users can create an xml
 file for describing their item and then insert it on the respective
-clause of the [SXP Contract](/wiki/SXP_Contract "wikilink").
+clause of the [SXP Contract](/SXP/wiki/SXPContract "wikilink").
 
 [Download SXP
 specification](https://docs.google.com/file/d/0B4JKZAq0izyxN2MzVkZnR29CN1E/edit?usp=sharing)
