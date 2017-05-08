@@ -4,7 +4,7 @@ permalink: wiki/DevelopmentPortal/
 layout: wiki
 ---
 
-Fast links: [Main page](/SXP/wiki/SecureEXchangeProcotols "wikilink"), [Current
+Fast links: [SXP](/SXP/wiki/ "wikilink"), [Current
 Needs](/SXP/wiki/CurrentNeeds "wikilink"), [Getting
 Started](/SXP/wiki/GettingStarted "wikilink").
 
