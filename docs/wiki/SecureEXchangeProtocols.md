@@ -53,3 +53,8 @@ currencies start to emerge? Is there a good theory of emergence of
 moneys in distributed, decentralized economies?* More on [these
 questions](/SXP/wiki/QuestionsThatBotherUs "wikilink").
 
+Credits
+-------
+
+*(A preliminary version of this wiki has been quite succesfully converted from mediawiki to kramdown using the great [media wiki to git md](https://github.com/peterjc/mediawiki_to_git_md) converter by Peter Cock)*
+
