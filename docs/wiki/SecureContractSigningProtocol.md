@@ -70,14 +70,14 @@ Conventions:
     ResolveToken is SP_T(Claim_i(n+2), HonestyToken)
     optimistic is set to true
 
-`Main\_i` :
+`Main_i` :
 
     For k=1...n+2 :  
        broadcast Prom_i(k)  
        i awaits and checks until she forms Claim_i(k)  
        failing that, Resolve_i(k) and _exit_ otherwise you may produce a DishonestClaim_i(k)!
     
-`Resolve\_i(k)`:
+`Resolve_i(k)`:
 
     broadcast E_T(S_Pi(Claim_i(k-1)))  
     i gets either ResolveToken  
@@ -146,14 +146,14 @@ themselves upon the TTP:
     request showing $(k-1=0)$-level promises, i.e. nothing, then by
     fairness the only thing he can do is to accept to cancel the
     player's $(k=1)$-level promises. Then player's claim gets added to the
-    PossiblyHonestsClaims list.
+    $PossiblyHonestsClaims$ list.
 -   Say $Player\_i$ sent a complete set of $(k-1&gt;0)$-level promises in a
     resolve request. Later, if the TTP gets contacted by a player with a
     resolve request showing a complete set of $(k'&gt;k+1)$-level
     promises, it may deduce from them that $Player\_i$'s claim was
     dishonest, because is shows that $Player\_i$ has continued beyond
     round k. It follows that $Player\_i$'s claim can be safely removed
-    from the PossiblyHonestsClaims list.
+    from the $PossiblyHonestsClaims$ list.
 -   The same is true if the complete $k'$-level promises got there first,
     or if $Player\_i$ does different requests at different rounds; then
     the $Player\_i$'s claim is dishonest and can safely be ignored.
