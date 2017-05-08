@@ -1,6 +1,6 @@
 ---
 title: Secure Contract Signing Protocol
-permalink: wiki/SecureContractSigningProtocol
+permalink: wiki/SecureContractSigningProtocol/
 layout: wiki
 ---
 
@@ -123,7 +123,7 @@ Security proofs of protocols can be rather tricky, and exist at various
 degrees of formalization. To understand why this protocol is as it is,
 we recommend that the reader goes through our reviews of the directly
 related bibliography,
-[here](#Directly_relevant_bibliography "wikilink"). Armed with these
+[here](/SXP/wiki/SecureContractSigningProtocol#Directly_relevant_bibliography "wikilink"). Armed with these
 intuitions, the reader can then go through the following proof outline.
 In case of any doubt of wanting to take this to a higher degree of
 formalization, do contact us!
