@@ -40,7 +40,7 @@ edit button at top of the page.
 
 If you are not sure how a wiki works, you can check out the [MediaWiki 
 formatting 
-guide](http://www.mediawiki.org/wiki/Help:Formatting "wikilink").
+guide](http://www.mediawiki.org/wiki/Help:Formatting).
 
 Style of expected contributions
 -------------------------------

@@ -21,8 +21,8 @@ tags:
 
 -   [Bootstrapping a distributed computational economy with peer-to-peer
     bartering](http://www.theether.org/papers/econp2p03.pdf) by Chun,
-    Fu, Vahdat, 2003. Comment it [here](/wiki/ChunFuVahdat "wikilink").
+    Fu, Vahdat, 2003. Comment it [here](/SXP/wiki/ChunFuVahdat "wikilink").
 -   [A lightweight currency paradigm for the P2P resource
     market](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.5.9502)
-    by Turner and Ross, 2004. Comment it [here](/wiki/TurnerRoss "wikilink").
+    by Turner and Ross, 2004. Comment it [here](/SXP/wiki/TurnerRoss "wikilink").
 

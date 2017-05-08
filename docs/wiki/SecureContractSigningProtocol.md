@@ -1,6 +1,6 @@
 ---
 title: Secure Contract Signing Protocol
-permalink: wiki/SecureContractSigningProtocol/
+permalink: wiki/SecureContractSigningProtocol
 layout: wiki
 ---
 
