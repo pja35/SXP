@@ -1,6 +1,7 @@
 ---
 title: Items Specification
 permalink: wiki/ItemsSpecification/
+layout: wiki
 redirect_to: /wiki/SXPItem/
 ---
 

@@ -1,6 +1,7 @@
 ---
 title: SXP Contract
 permalink: wiki/SXPContract/
+layout: wiki
 redirect_to: /wiki/SXPContractSpecificationFormat/
 ---
 

@@ -1,6 +1,7 @@
 ---
 title: Hall of Fame
 permalink: wiki/HallOfFame/
+layout: wiki
 redirect_to: /wiki/Authors/
 ---
 

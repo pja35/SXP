@@ -1,6 +1,7 @@
 ---
 title: ElGamal Schnorr
 permalink: wiki/ElGamalSchnorr/
+layout: wiki
 redirect_to: /wiki/ElGamal/
 ---
 

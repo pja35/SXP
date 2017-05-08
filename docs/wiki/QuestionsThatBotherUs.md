@@ -31,6 +31,8 @@ Reference
 
 [Gresham's law](/SXP/wiki/GreshamLaw "wikilink").
 
+[Say's law](/SXP/wiki/SayLaw "wikilink").
+
 [Price stability in peer-to-peer resource
 markets](http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5662594)
 by Okaie, Nakano. Comment this paper

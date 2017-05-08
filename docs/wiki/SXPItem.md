@@ -1,6 +1,7 @@
 ---
 title: SXP Item
 permalink: wiki/SXPItem/
+layout: wiki
 redirect_to: /wiki/SXPItemSpecificationFormat/
 ---
 

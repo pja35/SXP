@@ -1,6 +1,7 @@
 ---
 title: Exclusively Money Based Economy
 permalink: wiki/ExclusivelyMoneyBasedEconomy/
+layout: wiki
 redirect_to: /wiki/FixedMoneyBasedEconomy/
 ---
 
