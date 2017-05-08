@@ -7,7 +7,7 @@ layout: wiki
 The Secure Contract Signing protocol of [SXP](/SXP/wiki/SecureEXchangeProtocols "wikilink") is a
 [Protocol](/SXP/wiki/Protocols "wikilink").
 
-**Current status: The version 1 protocol is defined.**
+**Current status: The version 1 protocol is in test.**
 
 Aims of the protocol
 --------------------
@@ -16,12 +16,12 @@ To allow several parties to sign a contract securely.
 
 What is meant by secure?
 
--   *Fairness*. No party should be left having sent his signature on the
+-   ***Fairness***. No party should be left having sent his signature on the
     contract; but not having received that of the other parties.
--   *Timeliness*. At every point any party can decide to leave. If that
+-   ***Timeliness***. At every point any party can decide to leave. If that
     happens either the entire exchange either gets aborted, or can be
     completed without this party.
--   *Abuse-freeness*. No party is not able produce to an external party
+-   ***Abuse-freeness***. No party is not able produce to an external party
     a proof that the others were willing to sign the contract, which
     she aborted.
 
@@ -41,7 +41,7 @@ Does it rely on a Trusted Third Party (TTP)?
 Which cryptographic primitive does it rely upon?
 
 -   [Private Contract
-    Signatures](/SXP/wiki/Private_Contract_Signatures "wikilink").
+    Signatures](/SXP/wiki/PrivateContractSignatures "wikilink").
 -   Those are constructed via non-interactive zero-knowledge proofs
     constructions, and based upon the [Decisional
     Diffie-Hellman](http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption) assumption.
@@ -51,24 +51,24 @@ The Protocol
 
 Conventions
 
-` c is the contract`  
-` P1...Pn are the parties having to sign c`  
-` T is the TTP`  
-` E_Pi(m) is P_i public key encryption on m`  
-` S_Pi(m) is P_i's signature on m`  
-` PCS_Pi(m,Pj,T)  is a private contract signature by party Pi for party Pj on message m than can be opened by T into S_Pi(m)`  
-` Prom_i(k) is (E_P1(PCSPi(c,P1,T)),...,E_Pn(PCS_Pi(c,Pn,T)),E_P1(PCS_Pi((c,k),P1,T)),...,E_Pn(PCS_Pi((c,k),Pn,T)))`  
-`    except for Prom_i(n+1) which is S_Pi(c)`  
-` Claim_i(k) is (PCS_P1(c,Pi,T),...,PCS_Pn(c,Pi,T),PCS_P1((c,k),Pi,T),...,PCS_Pn((c,k),Pi,T))`  
-`    except for Claim_i(0) which is "I wish to cancel c"`  
-`    and Claim_i(n+2) which is (S_P1(c),..,S_Pn(c))`  
-` PossiblyHonestClaims is a list of Claims maintainted by T`  
-` DishonestClaim_i(k) is either (Claim_i(k-1), Claim_j(k')) with k'>k, or (Claim_i(k-1), Claim_i(k')) with k'>k-1`  
-` PossiblyDishonestClaims is a list of DishonestClaims maintainted by T`  
-` HonestyToken is SP_T(PossiblyHonestClaims,DishonestClaims)`  
-` AbortToken is SP_T("Aborted unless all PossiblyHonestsClaims become DishonestClaims", HonestyToken)`  
-` ResolveToken is SP_T(Claim_i(n+2), HonestyToken)`  
-` optimistic is set to true`
+    c is the contract
+    P1...Pn are the parties having to sign c
+    T is the TTP
+    E_Pi(m) is P_i public key encryption on m
+    S_Pi(m) is P_i's signature on m
+    PCS_Pi(m,Pj,T)  is a private contract signature by party Pi for party Pj on message m than can be opened by T into S_Pi(m)
+    Prom_i(k) is (E_P1(PCSPi(c,P1,T)),...,E_Pn(PCS_Pi(c,Pn,T)),E_P1(PCS_Pi((c,k),P1,T)),...,E_Pn(PCS_Pi((c,k),Pn,T)))
+       except for Prom_i(n+1) which is S_Pi(c)
+    Claim_i(k) is (PCS_P1(c,Pi,T),...,PCS_Pn(c,Pi,T),PCS_P1((c,k),Pi,T),...,PCS_Pn((c,k),Pi,T))
+       except for Claim_i(0) which is "I wish to cancel c"
+       and Claim_i(n+2) which is (S_P1(c),..,S_Pn(c))
+    PossiblyHonestClaims is a list of Claims maintainted by T
+    DishonestClaim_i(k) is either (Claim_i(k-1), Claim_j(k')) with k'>k, or (Claim_i(k-1), Claim_i(k')) with k'>k-1
+    PossiblyDishonestClaims is a list of DishonestClaims maintainted by T
+    HonestyToken is SP_T(PossiblyHonestClaims,DishonestClaims)
+    AbortToken is SP_T("Aborted unless all PossiblyHonestsClaims become DishonestClaims", HonestyToken)
+    ResolveToken is SP_T(Claim_i(n+2), HonestyToken)
+    optimistic is set to true
 
 Main\_i :
 
