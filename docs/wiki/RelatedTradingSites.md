@@ -1,6 +1,6 @@
 ---
 title: Related Trading Sites
-permalink: wiki/Related_Trading_Sites/
+permalink: wiki/RelatedTradingSites/
 layout: wiki
 tags:
  - Discussion Pages

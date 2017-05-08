@@ -1,6 +1,6 @@
 ---
 title: Say's law
-permalink: wiki/Say's_law/
+permalink: wiki/SayLaw/
 layout: wiki
 tags:
  - Conceptual Glossary

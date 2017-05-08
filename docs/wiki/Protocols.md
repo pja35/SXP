@@ -12,7 +12,7 @@ designed in order to achieve some task, over the network.
 The obvious place to first learn about protocols is
 [here](http://en.wikipedia.org/wiki/CommunicationsProtocol).
 
-The [Secure eXchange Protocols](/SXP/wiki/MainPage "wikilink") project aims to
+The [Secure eXchange Protocols](/SXP/wiki/SecureEXchangeProtocols "wikilink") project aims to
 design, and later implement, several layers of protocols:
 
 -   The [Secure Contract Signing

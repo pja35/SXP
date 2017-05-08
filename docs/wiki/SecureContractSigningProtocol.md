@@ -1,11 +1,11 @@
 ---
 title: Secure Contract Signing Protocol
-permalink: wiki/Secure_Contract_Signing_Protocol/
+permalink: wiki/SecureContractSigningProtocol/
 layout: wiki
 ---
 
-The Secure Contract Signing protocol of [SXP](/wiki/Main_Page "wikilink") is a
-[Protocol](/wiki/Protocols "wikilink").
+The Secure Contract Signing protocol of [SXP](/SXP/wiki/SecureEXchangeProtocols "wikilink") is a
+[Protocol](/SXP/wiki/Protocols "wikilink").
 
 **Current status: The version 1 protocol is defined.**
 
@@ -41,7 +41,7 @@ Does it rely on a Trusted Third Party (TTP)?
 Which cryptographic primitive does it rely upon?
 
 -   [Private Contract
-    Signatures](/wiki/Private_Contract_Signatures "wikilink").
+    Signatures](/SXP/wiki/Private_Contract_Signatures "wikilink").
 -   Those are constructed via non-interactive zero-knowledge proofs
     constructions, and based upon the [Decisional
     Diffie-Hellman](http://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption) assumption.
@@ -203,25 +203,25 @@ Directly relevant bibliography
 
 \[<http://books.google.fr/books?hl=en&lr>=&id=DUFqRPNqBrQC&oi=fnd&pg=PA365&dq=%22optimistic+fair%22&ots=HSsEcwYi5v&sig=d4Z6to7fQ06fl-OXlLkQKLIP8Cc\#v=onepage&q=%22optimistic%20fair%22&f=false
 Review of optimistic fair exchange\] by Asokan, Schunter, (2009).
-**Reviewed [here](/wiki/AsokanSchunter "wikilink").** A great entry point to
+**Reviewed [here](/SXP/wiki/AsokanSchunter "wikilink").** A great entry point to
 the topic of secure contract signing.
 
 [Improved multi-party contract
 signing](http://www.cs.bham.ac.uk/~mdr/research/papers/pdf/07-fc07.pdf)
 by Mukhamedov, Ryan (2007). **Reviewed
-[here](/wiki/MukhamedovRyan "wikilink").** A must read in terms of using PCS,
+[here](/SXP/wiki/MukhamedovRyan "wikilink").** A must read in terms of using PCS,
 and in terms of proof structure.
 
 [Round-optimal and abuse-free optimistic multi-party contract
 signing](http://www.springerlink.com/content/ruf1079b2vgjmm1m/) by
 Baum-Waidner, Waidner (2000). **Reviewed
-[here](/wiki/BaumwaidnerWaidner "wikilink").** A must read in terms of proof
+[here](/SXP/wiki/BaumwaidnerWaidner "wikilink").** A must read in terms of proof
 structure and communication structure.
 
 [Abuse-free optimistic contract
 signing](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.118.4142)
 by Garay, Jakobsson, MacKenzie (1999). **See [Private Contract
-Signatures](/wiki/Private_Contract_Signatures "wikilink").**
+Signatures](/SXP/wiki/Private_Contract_Signatures "wikilink").**
 
 Related bibliography
 --------------------
@@ -229,78 +229,79 @@ Related bibliography
 [An Optimistic Fair Protocol for Aggregate
 Exchange](http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=5381051)
 by Liu (2009). Comment on the usefulness of this paper to the project
-[here](/wiki/Liu "wikilink").
+[here](/SXP/wiki/Liu "wikilink").
 
 [Payment Scheme for Multi-Party Cascading P2P
 Exchange](http://www.springerlink.com/content/408876235155l787/) by Liu,
 Zhao, (2007). Comment on the usefulness of this paper to the project
-[here](/wiki/LiuZhao "wikilink").
+[here](/SXP/wiki/LiuZhao "wikilink").
 
 [Formal Analysis of Multiparty Contract
 Signing](http://www.springerlink.com/content/f301555p62357606/) by
 Chadha, Kremer, Scedrov (2006). Comment on the usefulness of this thesis
-to the project [here](/wiki/ChadhaKremerScedrov "wikilink").
+to the project [here](/SXP/wiki/ChadhaKremerScedrov "wikilink").
 
 [An exchange protocol for alternative
 currencies](http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=1428498)
 by Hao, Havey, Turner, (2005). Comment on the usefulness of this paper
-to the project [here](/wiki/HaoHaveyTurner "wikilink").
+to the project [here](/SXP/wiki/HaoHaveyTurner "wikilink").
 
 [An Optimistic Fair Protocol for P2P Chained
 Transaction](http://www.springerlink.com/content/72552jg5jk322154/) by
 Liu, Fu, Zhang, (2005). Comment on the usefulness of this paper to the
-project [here](/wiki/LiuFuZhang "wikilink").
+project [here](/SXP/wiki/LiuFuZhang "wikilink").
 
 [A Fair and Reliable P2P E-Commerce Model Based on Collaboration with
 Distributed
 Peers](http://www.springerlink.com/content/p3543433t71uh2n6/) by Sur,
 Jung, Yang, Rhee (2005). Comment on the usefulness of this paper to the
-project [here](/wiki/SurJungYangRhee "wikilink").
+project [here](/SXP/wiki/SurJungYangRhee "wikilink").
 
 [Optimistic Fair Exchange Based on Publicly Verifiable Secret
 Sharing](http://www.springerlink.com/content/28b0t21f4e5fhfb9/) by
 Avoine, Vaudenay (2004). Comment on the usefulness of this paper to the
-project [here](/wiki/AvoineVaudenay "wikilink").
+project [here](/SXP/wiki/AvoineVaudenay "wikilink").
 
 [Formal Analysis of Optimistic Fair Exchange
 Protocols](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.58.9931&rep=rep1&type=pdf)
 by Kremer, (2004). Comment on the usefulness of this thesis to the
-project [here](/wiki/Kremer "wikilink").
+project [here](/SXP/wiki/Kremer "wikilink").
 
 [Verifiable Encryption of Digital Signatures and
 Applications](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.66.4697)
 by Ateniese, (2004). For efficient Verifiable Escrows. Comment on the
-usefulness of this paper to the project [here](/wiki/Ateniese "wikilink").
+usefulness of this paper to the project [here](/SXP/wiki/Ateniese "wikilink").
 
 [Trusted computing
 platforms.](http://www.hpl.hp.com/techreports/2002/HPL-2002-221.pdf)
 Pearson, ed. (2003) Comment on the usefulness of this paper to the
-project [here](/wiki/Pearson "wikilink"). Multi-party abuse-free contract
+project [here](/SXP/wiki/Pearson "wikilink"). Multi-party abuse-free contract
 signing. Asynchronous?
 
 [A multi-party optimistic non-repudiation
 protocol](http://www.springerlink.com/content/beq9v0d41wd7g462/) by
 Markowitch, Kremer, (2001). Comment on the usefulness of this paper to
-the project [here](/wiki/MarkowitchKremer "wikilink").
+the project [here](/SXP/wiki/MarkowitchKremer "wikilink").
 
 [Optimistic Synchronous Multi-Party Contract
 Signing](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.20.3562)
 by Asokan, Baum-waidner, Schunter , Waidner (1998). Comment on the
-usefulness of this paper to the project [here](/wiki/ABSW98 "wikilink").
+usefulness of this paper to the project [here](/SXP/wiki/ABSW98 "wikilink").
 
 \[<http://ieeexplore.ieee.org/xpl/login.jsp?tp>=&arnumber=674825&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs\_all.jsp%3Farnumber%3D674825
 Efficient and practical fair exchange with offline TTP\] by Bao, Deng,
 Mao, (1998) Comment on the usefulness of this paper to the project
-[here](/wiki/BaoDengMao "wikilink"). Multi-party abuse-free contract signing.
+[here](/SXP/wiki/BaoDengMao "wikilink"). Multi-party abuse-free contract signing.
 Asynchronous?
 
 [Opimal efficiency of optimistic contract
 signing](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.43.4716)
 by Pfitzmann, Schunter, Waidner (1998) Comment on the usefulness of this
-paper to the project [here](/wiki/PfitzmannSchunterWaidner "wikilink").
+paper to the project [here](/SXP/wiki/PfitzmannSchunterWaidner "wikilink").
 Communication complexity.
 
 [Fair exchange with a semi-trusted third
 party](http://www.cs.unc.edu/~reiter/papers/1997/CCS1.pdf) by Franklin,
 Reiter, (1997). Comment on the usefulness of this paper to the project
-[here](/wiki/FranklinReiter "wikilink"). Using peers as TTP.
+[here](/SXP/wiki/FranklinReiter "wikilink"). Using peers as TTP.
+
