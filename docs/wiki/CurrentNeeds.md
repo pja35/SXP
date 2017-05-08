@@ -1,6 +1,6 @@
 ---
 title: Current Needs
-permalink: wiki/Current_Needs/
+permalink: wiki/CurrentNeeds/
 layout: wiki
 ---
 
@@ -10,7 +10,7 @@ We call on:
     design the protocols
 -   Programmers in general
 -   Economists to help us refine the
-    [discussions](/wiki/Category%3ADiscussion_Pages "wikilink"), which may
+    [discussions](/SXP/wiki/CategoryDiscussionPages "wikilink"), which may
     help us to take some design decisions
 -   Infographists, publicists to help put these ideas forward in a clear
     manner, perhaps in small cartoon/video

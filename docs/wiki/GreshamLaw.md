@@ -1,6 +1,6 @@
 ---
 title: Gresham's law
-permalink: wiki/Gresham's_law/
+permalink: wiki/GreshamLaw/
 layout: wiki
 tags:
  - Conceptual Glossary

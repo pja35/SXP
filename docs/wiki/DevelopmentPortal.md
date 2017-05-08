@@ -1,19 +1,19 @@
 ---
 title: Development Portal
-permalink: wiki/Development_Portal/
+permalink: wiki/DevelopmentPortal/
 layout: wiki
 ---
 
-Fast links: [Main page,](/wiki/Secure_eXchange_Procotols "wikilink") [Current
-Needs,](/wiki/Current_Needs "wikilink") [Getting
-Started.](/wiki/Getting_Started "wikilink")
+Fast links: [Main page](/SXP/wiki/SecureEXchangeProcotols "wikilink"), [Current
+Needs](/SXP/wiki/CurrentNeeds "wikilink"), [Getting
+Started](/SXP/wiki/GettingStarted "wikilink").
 
 Hot topics
 ----------
 
 -   Understand [Private Contract
-    Signatures](/wiki/Private_Contract_Signatures "wikilink").
--   Polish the XML formats of [Contracts](/wiki/Contracts "wikilink").
+    Signatures](/SXP/wiki/PrivateContractSignatures "wikilink").
+-   Polish the XML formats of [Contracts](/SXP/wiki/Contracts "wikilink").
 
 Stages
 ------
@@ -32,16 +32,16 @@ Status
 
 -   Overall the project is at stage 1-2-3 depending on the subtheme.
 -   The design the [Secure Contract Signing
-    protocol](/wiki/Secure_Contract_Signing_Protocol "wikilink") is at
+    protocol](/SXP/wiki/SecureContractSigningProtocol "wikilink") is at
     stage 3-4.
 -   The description of the XML formats of
-    [Contracts](/wiki/Contracts "wikilink") is at stage 3-4.
+    [Contracts](/SXP/wiki/Contracts "wikilink") is at stage 3-4.
 
 Architecture
 ------------
 
--   [Protocols.](/wiki/Secure_Contract_Signing_Protocol "wikilink")
--   [Contracts.](/wiki/Contracts "wikilink")
+-   [Protocols](/SXP/wiki/SecureContractSigningProtocol "wikilink").
+-   [Contracts](/SXP/wiki/Contracts "wikilink").
 
 Methodology
 -----------
@@ -69,3 +69,4 @@ have to be secure against all sorts of attacks, and may eventually serve
 as a basis for an exchange-based economy, it is important that designers
 be warned of all foreseeable caveats. We believe that only a
 consensus-based design can provide this degree of awareness.
+

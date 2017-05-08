@@ -1,6 +1,6 @@
 ---
-title: Counter trade
-permalink: wiki/Counter_trade/
+title: Counter Trade
+permalink: wiki/CounterTrade/
 layout: wiki
 tags:
  - Conceptual Glossary

@@ -1,6 +1,6 @@
 ---
 title: Exclusive Money Based Economy
-permalink: wiki/Exclusive_Money_Based_Economy/
+permalink: wiki/ExclusiveMoneyBasedEconomy/
 layout: wiki
 tags:
  - Discussion Pages

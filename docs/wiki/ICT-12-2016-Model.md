@@ -1,6 +1,6 @@
 ---
-title: ICT-12-2016:Model
-permalink: wiki/ICT-12-2016:Model/
+title: ICT-12-2016 Model
+permalink: wiki/ICT-12-2016-Model/
 layout: wiki
 ---
 
@@ -88,3 +88,4 @@ Techniquement parlant, on créé un client capable de se connecter à un ou
 plusieurs réseaux, qui permet de poster/rechercher des annonces, se
 mettre d'accord et signer des contrats, en faisant appel ou non à des
 services annexes.
+
