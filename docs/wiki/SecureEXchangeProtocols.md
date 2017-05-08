@@ -21,8 +21,10 @@ one person would give an item to another who gives an item to a third
 etc. If all parties concerned agree to a deal, the deal gets secured
 into an electronic contract, signed by the different parties.
 
-Hence our motto could be: *Securely exchange anything, anywhere, with
-anyone.*
+Hence our motto could be:
+
+***Securely exchange anything, anywhere, with
+anyone.***
 
 More
 ----
