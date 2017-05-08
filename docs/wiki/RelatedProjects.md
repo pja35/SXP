@@ -1,13 +1,13 @@
 ---
 title: Related Projects
-permalink: wiki/Related_Projects/
+permalink: wiki/RelatedProjects/
 layout: wiki
 tags:
  - Discussion Pages
 ---
 
 Many projects seek to address similar
-[issues](/wiki/Exclusive_Money_Based_Economy "wikilink"). They propose various
+[issues](/SXP/wiki/ExclusiveMoneyBasedEconomy "wikilink"). They propose various
 approaches. Our hope is that SXP protocols can serve as a bottom layer,
 so as to anchor some of these solutions on solid technical grounds.
 

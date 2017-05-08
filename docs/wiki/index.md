@@ -4,5 +4,5 @@ permalink: wiki/
 layout: wiki
 ---
 
-wiki under construction.
+Wiki under construction.
 

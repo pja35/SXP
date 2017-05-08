@@ -1,6 +1,6 @@
 ---
 title: Raising Taxes
-permalink: wiki/Raising_Taxes/
+permalink: wiki/RaisingTaxes/
 layout: wiki
 tags:
  - Discussion Pages

@@ -1,6 +1,6 @@
 ---
 title: Questions That Bother Us
-permalink: wiki/Questions_That_Bother_Us/
+permalink: wiki/QuestionsThatBotherUs/
 layout: wiki
 tags:
  - Discussion Pages
@@ -29,17 +29,18 @@ Attempted answers
 Reference
 ---------
 
-[Gresham's law](/wiki/Gresham%27s_law "wikilink").
+[Gresham's law](/SXP/wiki/GreshamLaw "wikilink").
 
 [Price stability in peer-to-peer resource
 markets](http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5662594)
-by Okaie, Nakano Comment this paper
-[here](/wiki/OkaieNakanoStability "wikilink").
+by Okaie, Nakano. Comment this paper
+[here](/SXP/wiki/OkaieNakanoStability "wikilink").
 
 [Resource pricing games on graphs: existence of Nash
 equilibria](http://www.springerlink.com/content/213187v363028302/) by
-Okaie, Nakano Comment this paper [here](/wiki/OkaieNakanoNash "wikilink").
+Okaie, Nakano. Comment this paper [here](/SXP/wiki/OkaieNakanoNash "wikilink").
 
 *Origins of Money*, C. Menger.
 
 *Spontaneous order*, F. Hayek.
+

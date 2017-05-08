@@ -1,8 +1,8 @@
 ---
-title: SXP
+title: Secure eXchange Protocols
 permalink: /
 layout: wiki
 ---
 
-see the [wiki](/SXP/wiki/ "wikilink").
+See the [wiki](/SXP/wiki/ "wikilink").
 

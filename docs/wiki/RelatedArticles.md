@@ -1,6 +1,6 @@
 ---
 title: Related Articles
-permalink: wiki/Related_Articles/
+permalink: wiki/RelatedArticles/
 layout: wiki
 tags:
  - Discussion Pages

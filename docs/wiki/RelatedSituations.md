@@ -1,6 +1,6 @@
 ---
 title: Related Situations
-permalink: wiki/Related_Situations/
+permalink: wiki/RelatedSituations/
 layout: wiki
 tags:
  - Discussion Pages
