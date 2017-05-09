@@ -1,6 +1,6 @@
 ---
 title: Category: Technical Glossary
-permalink: wiki/Category_Technical_Glossary/
+permalink: wiki/CategoryTechnicalGlossary/
 layout: tagpage
 tag: Technical Glossary
 ---

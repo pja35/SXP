@@ -4,7 +4,7 @@ layout: default
 
 <div class="page">
   <ul class="tag_list_in_post">
-    {% for tag in page.tags %}<li class="inline tag_list_item"><a class="tag_list_link" href="/wiki/Category%3A{{ tag | replace:' ','_' }}">{{ tag }}</a></li>{% endfor %}
+    {% for tag in page.tags %}<li class="inline tag_list_item"><a class="tag_list_link" href="/wiki/Category{{ tag | replace:' ','' }}">{{ tag }}</a></li>{% endfor %}
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
       TeX: {
