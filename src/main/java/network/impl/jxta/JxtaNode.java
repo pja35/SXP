@@ -98,14 +98,14 @@ public class JxtaNode implements Node{
 		configurator.setUseMulticast(true);
 		
 		try {
-			configurator.setTcpPublicAddress(IpChecker.getIp()+":9800", false);
+			configurator.setTcpPublicAddress("127.0.0.1:9800", false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			LoggerUtilities.logStackTrace(e);
 		}
 		configurator.setHttpInterfaceAddress("0.0.0.0");
 		try {
-			configurator.setHttpPublicAddress(IpChecker.getIp()+":9800", false);
+			configurator.setHttpPublicAddress("127.0.0.1:9800", false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			LoggerUtilities.logStackTrace(e);

@@ -36,6 +36,8 @@ import model.factory.ManagerFactory;
 import model.factory.SyncManagerFactory;
 import model.manager.ManagerAdapter;
 import model.syncManager.UserSyncManagerImpl;
+import network.api.advertisement.UserAdvertisementInterface;
+import network.factories.AdvertisementFactory;
 import rest.api.Authentifier;
 import rest.api.ServletPath;
 
@@ -99,7 +101,7 @@ public class Users {
 		u.setKey(ElGamalAsymKeyFactory.create(false));
 		u.setSignature(new ElGamalSignEntity());
 		
-		Manager<User> hasherDecoratorManager = ManagerFactory.createCryptoUserManager(u);
+		Manager<User> hasherDecoratorManager = ManagerFactory.createCryptoNetworkUserManager(Application.getInstance().getPeer(), null, u);
 		
 		hasherDecoratorManager.begin();
 		hasherDecoratorManager.persist(u);
@@ -110,6 +112,7 @@ public class Users {
 		LoginToken token = new LoginToken();
 		token.setToken(auth.getToken(login, password));
 		token.setUserid(u.getId());
+		
 		JsonTools<LoginToken> json = new JsonTools<>(new TypeReference<LoginToken>(){});
 		return json.toJson(token);
 	}

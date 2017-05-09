@@ -1,6 +1,6 @@
 <div class="input-group input-group-lg col-xs-10">
 
-	<input type="text" class="form-control" ng-model="research" placeholder="Search for user." ng-keyup="search()">
+	<input type="text" class="form-control" ng-model="research" placeholder="Search for items." ng-keyup="search()">
 
 </div>
 
@@ -10,13 +10,13 @@
 		<div class="col-xs-10">
 			<div class="alert alert-danger ng-clignotement" role="alert" ng-show="errorSearch">No objects found</div>
 			<div class="alert" role="alert" ng-show="searchItem"><div class="loader"></div></div>
-			<div href ui-sref="searchViewItem({id: user.id})" class="panel panel-default search-result" ng-repeat="user in results" style="cursor: pointer;">
+			<div href ui-sref="searchViewItem({id: item.id})" class="panel panel-default search-result" ng-repeat="item in results" style="cursor: pointer;">
 				<div class="panel-heading">
-					<h3 class="panel-title"> {{user.nick}}</h3>
+					<h3 class="panel-title"> {{item.title}}</h3>
 				</div>
 				<div class="panel-body">
-					<p>{{user.id}}</p>
-					<p><small>posted : {{user.createdAt}} by {{user.nick}}</small></p>
+					<p>{{item.description}}</p>
+					<p><small>posted : {{item.createdAt}} by {{item.username}}</small></p>
 				</div>
 			</div>
 		</div>

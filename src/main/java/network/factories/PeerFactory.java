@@ -14,7 +14,11 @@ import network.impl.jxta.AdvertisementInstanciator;
 import network.impl.jxta.JxtaEstablisherService;
 import network.impl.jxta.JxtaItemService;
 import network.impl.jxta.JxtaItemsSenderService;
+import network.impl.jxta.JxtaMessageSenderService;
+import network.impl.jxta.JxtaMessageService;
 import network.impl.jxta.JxtaPeer;
+import network.impl.jxta.JxtaUserService;
+import network.impl.jxta.JxtaUsersSenderService;
 
 /**
  * {@link Peer} factory
@@ -63,6 +67,17 @@ public class PeerFactory {
 			itemService.initAndStart(p);
 			Service itemsSender = new JxtaItemsSenderService();
 			itemsSender.initAndStart(p);
+			
+			Service userService = new JxtaUserService();
+			userService.initAndStart(p);
+			Service usersSender = new JxtaUsersSenderService();
+			usersSender.initAndStart(p);
+			
+			Service messageService = new JxtaMessageService();
+			messageService.initAndStart(p);
+			Service messagesSender = new JxtaMessageSenderService();
+			messagesSender.initAndStart(p);
+			
 			Service establisherService = new JxtaEstablisherService();
 			establisherService.initAndStart(p);
 		} catch (InvalidServiceException e) {
@@ -93,7 +108,7 @@ public class PeerFactory {
 		default: throw new RuntimeException(impl + "doesn't exist");
 		}
 		try {
-			peer.start(tmpFolder, port, "tcp://109.15.222.135:9800","tcp://192.168.182.26:9800","tcp://192.168.182.52:9800");
+			peer.start(tmpFolder, port,"tcp://127.0.0.1:9805","tcp://127.0.0.1:9800");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

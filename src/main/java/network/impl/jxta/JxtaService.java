@@ -37,6 +37,8 @@ import network.api.advertisement.Advertisement;
 import network.api.service.InvalidServiceException;
 import network.api.service.Service;
 import network.impl.MessagesGeneric;
+import network.impl.advertisement.ItemAdvertisement;
+import network.impl.advertisement.UserAdvertisement;
 
 /**
  * This is the Jxta implementation of {@link Service}
@@ -223,5 +225,37 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 	@Override
 	public void removeListener(String who) {
 		listeners.remove(who);
+	}
+	
+	
+	@Override
+	public void addAdvertisementListener(DiscoveryListener l){
+		pg.getDiscoveryService().addDiscoveryListener(l);
+		pg.getDiscoveryService().addDiscoveryListener(new DiscoveryListener(){
+			@Override
+			public void discoveryEvent(DiscoveryEvent event){
+				
+				Enumeration<net.jxta.document.Advertisement> advs = event.getResponse().getAdvertisements();
+				
+				ArrayList<Advertisement> advertisements = new ArrayList<>();
+				
+				while(advs.hasMoreElements()) {
+					AdvertisementBridge adv = (AdvertisementBridge) advs.nextElement();
+					Advertisement fadv = adv.getAdvertisement();
+					
+					if(fadv instanceof ItemAdvertisement){
+						System.out.println(" $$$$$$$$$$$ => advertisement name : "+fadv.getName()+" | item title : "+((ItemAdvertisement)fadv).getTitle());
+					}else if(fadv instanceof UserAdvertisement){
+						System.out.println(" $$$$$$$$$$$ => advertisement name : "+fadv.getName()+" | user NickName : "+((UserAdvertisement)fadv).getNick());
+					}else{
+						System.out.println(" $$$$$$$$$$$ => advertisement name : "+fadv.getName());
+					}
+					
+				}
+				
+				
+				
+			}
+		});
 	}
 }

@@ -72,6 +72,9 @@ public class NetworkUserManagerDecorator extends ManagerDecorator<User>{
 	
 		for (User u : collection) {
 			
+			
+			System.out.println("+++++++++++++++++++++NetworkUserManagerDecorator:end:"+u.getId()+" | "+u.getNick());
+			
 			UserAdvertisementInterface uadv = AdvertisementFactory.createUserAdvertisement();
 			
 			uadv.setNick(u.getNick());
