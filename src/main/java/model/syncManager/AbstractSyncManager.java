@@ -2,6 +2,8 @@ package model.syncManager;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Iterator;
 
 import javax.persistence.EntityManager;
@@ -86,7 +88,52 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 			return null;
 		}
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Entity> findAllByAttributes(Hashtable<String, String> querys) {
+		
+		int i=0;
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("select t from " + theClass.getSimpleName() + " t where");
+		
+		for (Iterator iterator = querys.keySet().iterator(); iterator.hasNext();) {
+			
+			String key = (String) iterator.next();
+			
+			sb.append(" t."+ key + "=:value_"+i);
+			
+			if(i < (querys.keySet().size()-1)){
+				sb.append(" and");
+			}
+			
+			i++;
+		}
+		
+		Query q = em.createQuery(sb.toString());
+		
+		i=0;
+		
+		for (Iterator iterator = querys.keySet().iterator(); iterator.hasNext();) {
+			
+			String key = (String) iterator.next();
+			
+			q.setParameter("value_"+i,querys.get(key));
+			
+			i++;	
+		}
+		
+		try {
+			return q.getResultList();
+		} catch(Exception e) {
+			LoggerUtilities.logStackTrace(e);
+			return null;
+		}
+	}
+	
+	
 	@Override
 	public boolean begin() {
 		try

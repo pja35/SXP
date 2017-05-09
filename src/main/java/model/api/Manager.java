@@ -1,6 +1,7 @@
 package model.api;
 
 import java.util.Collection;
+import java.util.Hashtable;
 
 import javax.persistence.EntityManager;
 
@@ -35,7 +36,13 @@ public interface Manager<Entity> {
 	 */
 	public void findOneByAttribute(String attribute, String value, ManagerListener<Entity> l);
 
-	
+	/**
+	 * Find all that match attributes/values in HashTable 
+	 * @param Hashtable
+	 * @param l
+	 */
+	public void findAllByAttributes(Hashtable<String,String> query, ManagerListener<Entity> l);
+
 	/**
 	 * Persist the entity in the manager
 	 * @param entity

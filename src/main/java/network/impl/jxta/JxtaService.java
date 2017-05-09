@@ -124,7 +124,7 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 		ArrayList<Advertisement> advertisements = new ArrayList<>();
 		while(advs.hasMoreElements()) {
 			AdvertisementBridge adv = (AdvertisementBridge) advs.nextElement();
-			Advertisement fadv = adv.getAdvertisement(); 
+			Advertisement fadv = adv.getAdvertisement();
 			fadv.setSourceURI("urn:jxta:" + event.getSource().toString().substring(7));
 			
 			advertisements.add(adv.getAdvertisement());

@@ -6,7 +6,14 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import controller.tools.LoggerUtilities;
+import net.jxta.discovery.DiscoveryEvent;
+import net.jxta.discovery.DiscoveryListener;
+import net.jxta.discovery.DiscoveryService;
+import net.jxta.endpoint.EndpointAddress;
+import net.jxta.endpoint.EndpointService;
+import net.jxta.endpoint.Message;
 import net.jxta.exception.PeerGroupException;
+import net.jxta.peergroup.PeerGroup;
 import net.jxta.platform.NetworkManager;
 import network.api.Peer;
 import network.api.service.InvalidServiceException;
@@ -96,6 +103,7 @@ public class JxtaPeer implements Peer{
 				LoggerUtilities.logStackTrace(e);
 			}
 		}
+		
 		
 	}
 

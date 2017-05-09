@@ -130,7 +130,7 @@ public class CryptoItemManagerDecorator extends ManagerDecorator<Item>{
 				
 				ParserAnnotation<Item> parser = ParserFactory.createDefaultParser(item, user.getKey());
 				
-				item = (Item) parser.parseAnnotation(ParserAction.SigneAction);			
+				item = (Item) parser.parseAnnotation(ParserAction.SigneAction);
 			}
 		}
 		

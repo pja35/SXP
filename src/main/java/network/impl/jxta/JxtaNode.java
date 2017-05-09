@@ -29,6 +29,9 @@ public class JxtaNode implements Node{
 	@Override
 	public void initialize(String cacheFolder, String name, boolean persistant) throws IOException {
 		File configFile = new File("." + System.getProperty("file.separator") + cacheFolder); /* file used by the networkManager */
+		
+		System.out.println("CONFIG FILE : "+configFile.getAbsolutePath());
+		
 		networkManager = initializeNetworkManager(configFile, name, persistant);
 		//no errors
 		initialized = true;
@@ -55,7 +58,7 @@ public class JxtaNode implements Node{
 			PeerGroup pg = networkManager.startNetwork();
 			pg.startApp(new String[0]);
 			//Switch to rendez vous mode if possible, check every 60 secs
-			pg.getRendezVousService().setAutoStart(true,60*1000);
+			pg.getRendezVousService().setAutoStart(true,15*1000);
 		} catch (IOException e) {
 			throw(e);
 		} catch (PeerGroupException e) {
@@ -93,15 +96,16 @@ public class JxtaNode implements Node{
         configurator.setUseMulticast(true);
 		configurator.setTcpInterfaceAddress("0.0.0.0");
 		configurator.setUseMulticast(true);
+		
 		try {
-			configurator.setTcpPublicAddress(IpChecker.getIp(), false);
+			configurator.setTcpPublicAddress(IpChecker.getIp()+":9800", false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			LoggerUtilities.logStackTrace(e);
 		}
 		configurator.setHttpInterfaceAddress("0.0.0.0");
 		try {
-			configurator.setHttpPublicAddress(IpChecker.getIp(), false);
+			configurator.setHttpPublicAddress(IpChecker.getIp()+":9800", false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			LoggerUtilities.logStackTrace(e);
@@ -145,7 +149,7 @@ public class JxtaNode implements Node{
 			defaultPeerGroup = netpeerGroup.newGroup(this.generatePeerGroupID(netpeerGroup.getPeerGroupID(), "SXP group"),
 					madv, "SXP group", "SXP group", true);
 			defaultPeerGroup.startApp(new String[0]);
-			defaultPeerGroup.getRendezVousService().setAutoStart(true, 60*1000);
+			defaultPeerGroup.getRendezVousService().setAutoStart(true, 15*1000);
 		} catch (PeerGroupException e) {
 			System.err.println("impossible to create default group");
 			LoggerUtilities.logStackTrace(e);

@@ -2,6 +2,7 @@ package model.manager;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Hashtable;
 
 import javax.persistence.EntityManager;
 
@@ -28,7 +29,12 @@ public class ManagerAdapter<Entity> implements Manager<Entity>{
 	public void findAllByAttribute(String attribute, String value, ManagerListener<Entity> l) {
 		l.notify(em.findAllByAttribute(attribute, value));
 	}
-
+	
+	@Override
+	public void findAllByAttributes(Hashtable<String,String> query, ManagerListener<Entity> l) {
+		l.notify(em.findAllByAttributes(query));
+	}
+	
 	@Override
 	public void findOneByAttribute(String attribute, String value, ManagerListener<Entity> l) {
 		ArrayList<Entity> r = new ArrayList<>();

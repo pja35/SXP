@@ -1,6 +1,7 @@
 package model.api;
 
 import java.util.Collection;
+import java.util.Hashtable;
 
 import javax.persistence.EntityManager;
 
@@ -37,7 +38,14 @@ public interface SyncManager<Entity> {
 	 * @return
 	 */
 	public Collection<Entity> findAllByAttribute(String attribute, String value);
-
+	
+	/**
+	 * Find all entry with corresponding (attribute/value) as hashtable (key:value) 
+	 * @param  querys Hashtable (key:value)=(attribute/value)
+	 * @return
+	 */
+	public Collection<Entity> findAllByAttributes(Hashtable<String,String> querys);
+	
 	/**
 	 * Return an object corresponding to the attribute/value
 	 * @param attribute

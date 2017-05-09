@@ -1,6 +1,7 @@
 package model.api;
 
 import java.util.Collection;
+import java.util.Hashtable;
 
 import javax.persistence.EntityManager;
 
@@ -40,6 +41,14 @@ public abstract class ManagerDecorator<Entity> implements Manager<Entity>{
 	@Override
 	public void findOneByAttribute(String attribute, String value, ManagerListener<Entity> l) {
 		em.findOneByAttribute(attribute, value, l);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void findAllByAttributes(Hashtable<String,String> query, ManagerListener<Entity> l) {
+		em.findAllByAttributes(query, l);
 	}
 
 	/**

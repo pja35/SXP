@@ -8,37 +8,37 @@ import javax.print.attribute.standard.RequestingUserName;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
-import model.api.UserSyncManager;
-import model.entity.User;
+import model.api.MessageSyncManager;
+import model.entity.Message;
 import model.factory.SyncManagerFactory;
 import net.jxta.pipe.PipeMsgEvent;
+import network.api.MessageRequestService;
 import network.api.Messages;
-import network.api.UserRequestService;
 import network.impl.MessagesGeneric;
-import network.impl.messages.RequestUserMessage;
+import network.impl.messages.RequestMessageUserMessage;
 
-public class JxtaUsersSenderService extends JxtaService implements UserRequestService{
+public class JxtaMessageSenderService extends JxtaService implements MessageRequestService{
 	
-	public static final String NAME = "usersSender";
+	public static final String NAME = "messagesSender";
 	
-	public JxtaUsersSenderService() {
+	public JxtaMessageSenderService() {
 		this.name = NAME;
 	}
 	
 	@Override
-	public void sendRequest(String nick, String who, String ... peerURIs) {
+	public void sendRequest(String senderId, String receiverId, String who, String ...uris) {
 		
-		RequestUserMessage m = new RequestUserMessage();
+		RequestMessageUserMessage m = new RequestMessageUserMessage();
 		
-		m.setNick(nick);
+		m.setSenderId(senderId);
 		
-		//m.setPbkey(pbkey);
+		m.setReceiverId(receiverId);
 		
 		m.setWho(who);
 		
 		m.setSource(this.peerUri);
 		
-		this.sendMessages(m, peerURIs);
+		this.sendMessages(m, uris);
 	}
 	
 	private Messages getResponseMessage(Messages msg) {
@@ -49,21 +49,21 @@ public class JxtaUsersSenderService extends JxtaService implements UserRequestSe
 		
 		m.addField("type", "response");
 	
-		UserSyncManager em = SyncManagerFactory.createUserSyncManager();
-		
+		MessageSyncManager em = SyncManagerFactory.createMessageSyncManager();
 		
 		Hashtable<String, String> query = new Hashtable<>();
 		
-		query.put("nick", msg.getMessage("nick"));
+		query.put("senderId", msg.getMessage("senderId"));
 		
-		//pbkey in keys attribute 
-		//query.put("pbkey", msg.getMessage("pbkey"));
+		//query.put("receiverId", msg.getMessage("receiverId"));
 		
-		Collection<User> users = em.findAllByAttributes(query);
+		Collection<Message> messages = em.findAllByAttributes(query);
 		
-		JsonTools<Collection<User>> json = new JsonTools<>(new TypeReference<Collection<User>>(){});
+		messages.addAll(em.findAllByAttribute("receiverId", msg.getMessage("senderId")));
 		
-		m.addField("users", json.toJson(users));
+		JsonTools<Collection<Message>> json = new JsonTools<>(new TypeReference<Collection<Message>>(){});
+		
+		m.addField("messages", json.toJson(messages));
 		
 		return m;
 	}

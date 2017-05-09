@@ -132,26 +132,20 @@ public class NetworkItemManagerDecorator extends ManagerDecorator<Item>{
 
 	@Override
 	public boolean end() {
-		
-		if(super.end()){
 			
-			Collection<Item> collection = this.watchlist();
+		Collection<Item> collection = this.changesInWatchlist();
 		
-			for (Item item : collection) {
-				
-				ItemAdvertisementInterface iadv = AdvertisementFactory.createItemAdvertisement();
-				
-				iadv.setTitle(item.getTitle());
-				
-				iadv.publish(peer);
-				
-			}
+		for (Item item : collection) {
 			
-			return true;
+			ItemAdvertisementInterface iadv = AdvertisementFactory.createItemAdvertisement();
+			
+			iadv.setTitle(item.getTitle());
+			
+			iadv.publish(peer);
+			
 		}
 		
-		return false;
-		//return super.end();
+		return super.end();
 	}
 	
 	@Override

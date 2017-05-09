@@ -33,7 +33,7 @@
                         }
                         Oboe( //Launch async search stream following standard Oboe syntax
 														{
-                            url: RESTAPISERVER + "/api/search/simple?title=" + $scope.research,
+                            url: RESTAPISERVER + "/api/search/users?nick=" + $scope.research,
                             pattern: '!',
                             start: function(stream) {
                                 // handle to the stream

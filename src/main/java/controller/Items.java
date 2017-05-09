@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -95,45 +96,31 @@ public class Items {
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String edit(final Item item,@HeaderParam(Authentifier.PARAM_NAME) String token) {
+	public String edit(Item item,@HeaderParam(Authentifier.PARAM_NAME) String token) {
 		
 		Authentifier auth = Application.getInstance().getAuth();
 		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
-		final User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
+		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
+		users.close();
 		
-		Manager<Item> entityManager = ManagerFactory.createCryptoNetworkResilianceItemManager(Application.getInstance().getPeer(), token,currentUser);
+		ItemSyncManager itmn = SyncManagerFactory.createItemSyncManager(); 
+		Manager<Item> entityManager = ManagerFactory.createCryptoNetworkResilianceItemManager(itmn,Application.getInstance().getPeer(), token,currentUser);
 		
-		final ArrayList<Item> result = new ArrayList<>();
- 		
+		Item it = itmn.findOneById(item.getId());
+		
 		entityManager.begin();
-		
-		entityManager.findOneById(item.getId(), new ManagerListener<Item>(){
-		
-			@Override
-			public void notify(Collection<Item> results) {
-				
-				Item it = results.iterator().next();
-				
-				if(it.getUserid()==currentUser.getId()){
-					it.setTitle(item.getTitle());
-					it.setDescription(item.getDescription());
-					result.add(it);
-				}
-			}
-			
-		});
+		it.setTitle(item.getTitle());
+		it.setDescription(item.getDescription());
 		
 		entityManager.end();
 		
 		entityManager.close();
 		
-		if (result.size()==0){
+		if (it==null)
 			return "{\"edit\": \"false\"}";
-		}
 		
 		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
-	    String ret = json.toJson(result.get(0));
-		users.close();
+	    String ret = json.toJson(item);
 		
 		return ret;
 	}

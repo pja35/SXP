@@ -58,6 +58,24 @@ public class Application {
 		new Application();
 		Application.getInstance().runForTests(8081);
 		
+		/*	
+			System.out.println("******** => PEER ID : "+node.getPeerId());
+			System.out.println("******** => GROUP : "+networkManager.getNetPeerGroup().getPeerName());
+			
+			
+			DiscoveryService myDiscoveryService = node.getDefaultPeerGroup().getDiscoveryService();
+			myDiscoveryService.getRemoteAdvertisements( null,
+		            DiscoveryService.PEER,
+		            "Name",
+		            "sxp peer",
+		            100, new DiscoveryListener() {
+						
+						@Override
+						public void discoveryEvent(DiscoveryEvent event) {
+							System.out.println("********* ====>"+event.toString());
+						}
+					} );
+			*/
 		/*
 		 Properties p = System.getProperties();
 		
