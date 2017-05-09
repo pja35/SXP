@@ -30,7 +30,7 @@ More
 ----
 
 -   [Why do this?](/SXP/wiki/WhyDoThis "wikilink")
--   [What is it? What is *not*?](/SXP/wiki/WhatIsit "wikilink")
+-   [What is it? What is *not*?](/SXP/wiki/WhatIsIt "wikilink")
 -   [Who are we?](/SXP/wiki/Authors "wikilink")
 
 Join us
