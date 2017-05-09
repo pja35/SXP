@@ -9,3 +9,9 @@ logo: /images/sxp02.png
 #  bottom: 10
 #  url: https://raw.githubusercontent.com/pja35/SXP/master/docs/images/sxp.svg
 description: Securely exchange anything, anywhere, with anyone.
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      image: /images/sxp02.png
