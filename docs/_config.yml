@@ -1,10 +1,10 @@
 theme: jekyll-theme-slate
 title: Secure eXchange Protocols
 #title: <a href="https://pja35.github.io/SXP/wiki/"><img src="/SXP/images/sxp.svg" height=108 width=622 /></a>
-avatar: https://raw.githubusercontent.com/pja35/SXP/master/docs/images/sxp.svg
-#  enable: true
-#  width: 622
-#  height: 108
-#  bottom: 10
-#  url: https://pja35.github.io/SXP/images/sxp.svg
+avatar: 
+  enable: true
+  width: 622
+  height: 108
+  bottom: 10
+  url: https://raw.githubusercontent.com/pja35/SXP/master/docs/images/sxp.svg
 description: Securely exchange anything, anywhere, with anyone.
