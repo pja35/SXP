@@ -5,7 +5,7 @@ layout: wiki
 ---
 
 Those are key to understanding [Private Contract
-Signatures](/SXP/wiki/Private_Contract_Signatures "wikilink"). A good reference is
+Signatures](/SXP/wiki/PrivateContractSignatures "wikilink"). A good reference is
 [ here](http://www.cs.au.dk/~ivan/Sigma.pdf).
 
 In general
@@ -122,7 +122,7 @@ Fix $g$ and $h=g^x=\textrm{Pub}^T$ integers.
 -   Public input $m$ and $n=(u,v)$.
 -   Agreed relation
     $((m,n),w)\in R \Leftrightarrow u=g^w \wedge v={g^x}^w m  \Leftrightarrow n=\{m\}_{\textrm{Pub}^T}$
-    under [ElGamal](/SXP/wiki/ElGamalSchnorr "wikilink") with ephemeral key
+    under [ElGamal](/SXP/wiki/ElGamal "wikilink") with ephemeral key
     $w$.
 -   Private input $w$.
 -   Bob will need some random $s\in Z_p$.
@@ -159,7 +159,7 @@ Fix $g$ and $h=g^x=\textrm{Pub}^T$ integers.
 -   Public input $m$ and $n=(u,v)$.
 -   Agreed relation
     $((m,n),w)\in R \Leftrightarrow v=u^x m  \Leftrightarrow n=\{m\}_{\textrm{Pub}^T}$
-    under [ElGamal](/SXP/wiki/ElGamalSchnorr "wikilink") for Trent.
+    under [ElGamal](/SXP/wiki/ElGamal "wikilink") for Trent.
 -   Private input $x=\textrm{Priv}_T$.
 -   Trent will need some random $s\in Z_p$.
 -   Alice will need some random $c\in Z_p$.

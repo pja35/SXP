@@ -32,7 +32,7 @@ Some Cryptography
 The following must be understood first. In particular, the description
 of $PCS$ we give uses the notations introduced there.
 
-Outline of [ElGamal encryption](/SXP/wiki/ElGamalSchnorr "wikilink"), which are
+Outline of [ElGamal encryption](/SXP/wiki/ElGamal "wikilink"), which are
 encryption and signature schemes.
 
 Outline of [Sigma protocols](/SXP/wiki/SigmaProtocols "wikilink"), which are
