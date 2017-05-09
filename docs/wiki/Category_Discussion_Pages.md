@@ -1,6 +1,6 @@
 ---
 title: Category: Discussion Pages
-permalink: wiki/CategoryDiscussionPages/
+permalink: wiki/Category_Discussion_Pages/
 layout: tagpage
 tag: Discussion Pages
 ---

@@ -51,7 +51,7 @@ and realizing the SXP protocols.
 But the SXP ideas naturally lead to interesting considerations in terms
 of the potential societal impact of such a system. These considerations
 are most welcome in the [discussion 
-pages](/SXP/wiki/CategoryDiscussionPages "wikilink"), dedicated to specific
+pages](/SXP/wiki/Category_Discussion_Pages "wikilink"), dedicated to specific
 questions, sometimes with specific formats, e.g. Pros and Cons as in
 [this page](/SXP/wiki/ExclusiveMoneyBasedEconomy "wikilink"). The direct impact
 of such discussion pages will only be to help us take the right design
