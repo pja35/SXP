@@ -44,7 +44,7 @@ More on why we should do this:
 
 -   A page dedicated to listing [advantages and disadvantages of
     exclusively money-driven
-    economy](/SXP/wiki/ExclusivelyMoneyBasedEconomy "wikilink").
+    economy](/SXP/wiki/ExclusiveMoneyBasedEconomy "wikilink").
 -   A page dedicated to [articles addressing the same
     issues](/SXP/wiki/RelatedArticles "wikilink").
 -   A page dedicated to [projects addressing the same
