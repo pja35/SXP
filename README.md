@@ -1,4 +1,4 @@
-![SXP](/docs/images/sxp.svg)
+Protocol: https://pja35.github.io/SXP/wiki/
 
 # Secure Exchange Protocols (SXP)
 
@@ -50,4 +50,3 @@ Nevertheless, there exist "optimistic" contract signing protocols, that call Tre
 
 SXP is now at a prototype stage. In particular, it has a rudimentary user interface. But main functionalities of account creation, announcement publication, announcement search, resilience of accounts and datas, confidentiality, are implemented, as well as a first version of optimistic contract signing.
 
-Protocol: https://pja35.github.io/SXP/wiki/
