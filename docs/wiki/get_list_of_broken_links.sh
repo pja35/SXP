@@ -12,7 +12,7 @@
 cat * | grep "(\/SXP\/wiki\/" | sed "s/^.*(\/SXP\/wiki\///g" | sed "s/ \"wikilink\".*$//g" | sed "s/$/.md/g" > /tmp/sxp_grep_links
 
 # get list of existing pages
-ls --color=none > /tmp/sxp_ls
+ls --color=none *.md > /tmp/sxp_ls
 
 # compare: step 1
 rm -f /tmp/sxp_grep_links2
