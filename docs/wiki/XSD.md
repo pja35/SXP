@@ -14,7 +14,7 @@ When we have an XML document whose structure conforms to a given
 structure, we may want to reference to the XSD document where that
 structure is located. This is done with the *schemaLocation* attribute
 at the root element. Here is an example of how this works on the
-[SXP Contract](/SXP/wiki/SXPContract/ "wikilink") Schema:
+[SXP Contract](/SXP/wiki/SXPContract "wikilink") Schema:
 
     <?xml version="1.0"?>
     <contract xmlns="[http://www.w3schools.com](http://www.w3schools.com)"  

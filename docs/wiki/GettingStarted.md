@@ -19,7 +19,7 @@ SXP.
 How-To: set up an account, subscribe to the newsletter, get in touch
 --------------------------------------------------------------------
 
-Do [Set up an account](/SXP/wiki/Special:UserLogin "wikilink") on this Wiki. Make
+You can simply contribute to this wiki by editing `.md` files in the `/docs/wiki` folder of the project repository. The syntax is described [here](https://kramdown.gettalong.org/syntax.html). Make
 it grow in an orderly fashion, contribute to the project with your own
 expertise.
 
@@ -65,4 +65,9 @@ allowing anyone to exchange anything, anywhere and with anybody - in a
 secure way. And to believe that this is worth the shot. They are
 expected to bring new questions and solutions in an *orderly fashion*,
 towards the accomplishment of the project.
+
+Licence
+-------
+
+See [licence](/SXP/wiki/Licence "wikilink")
 

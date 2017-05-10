@@ -217,7 +217,7 @@ structure and communication structure.
 [Abuse-free optimistic contract
 signing](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.118.4142)
 by Garay, Jakobsson, MacKenzie (1999). **See [Private Contract
-Signatures](/SXP/wiki/Private_Contract_Signatures "wikilink").**
+Signatures](/SXP/wiki/PrivateContractSignatures "wikilink").**
 
 Related bibliography
 --------------------

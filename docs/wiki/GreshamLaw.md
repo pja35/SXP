@@ -7,3 +7,4 @@ tags:
 ---
 
 [Gresham's law](https://en.wikipedia.org/wiki/Gresham's_law)
+

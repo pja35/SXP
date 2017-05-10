@@ -7,3 +7,4 @@ tags:
 ---
 
 [Say's law](https://en.wikipedia.org/wiki/Say's_law)
+

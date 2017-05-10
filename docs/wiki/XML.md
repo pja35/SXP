@@ -69,7 +69,7 @@ This definitions are made in external files. There are different
 documents to accomplish that:
 
 -   DTD (Document Type Definition).
--   XSD (XML Schemas). Schemas are the most used way to the define a
+-   [XSD](/SXP/wiki/XSD "wikilink") (XML Schemas). Schemas are the most used way to the define a
     XML structure. The [SXP Contract](/SXP/wiki/SXPContract "wikilink") schema is
     an XSD.
 -   Relax NG files.
