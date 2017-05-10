@@ -24,19 +24,17 @@ import network.api.Peer;
 
 public class ManagerFactory {
 	
+	
+	/* ============================= ITEM  ============================= */
+	
 	//TODO : to be deleted
 	//old version, the new version is createCryptoNetworkResilianceItemManager(...)
 	public static Manager<Item> createNetworkResilianceItemManager(Peer peer, String who) {
-		
 		ManagerAdapter<Item> adapter = new ManagerAdapter<Item>(new ItemSyncManagerImpl());
-		
 		NetworkItemManagerDecorator networkD = new NetworkItemManagerDecorator(adapter, peer, who);
-		
 		ResilienceItemManagerDecorator resiNetworkD = new ResilienceItemManagerDecorator(networkD, peer);
-		
 		return resiNetworkD;
 	}
-	
 	
 	public static Manager<Item> createCryptoNetworkResilianceItemManager(Peer peer, String who,User user) {
 		ManagerAdapter<Item> adapter = new ManagerAdapter<Item>(new ItemSyncManagerImpl());
@@ -53,6 +51,8 @@ public class ManagerFactory {
 		ResilienceItemManagerDecorator resiNetworkD = new ResilienceItemManagerDecorator(cyptoItemDecorator, peer);
 		return resiNetworkD;
 	}
+	
+	/* ============================= USER  ============================= */  
 	
 	public static Manager<User> createCryptoUserManager(User user) {
 		ManagerAdapter<User> adapter = new ManagerAdapter<User>(new UserSyncManagerImpl());
@@ -72,6 +72,15 @@ public class ManagerFactory {
 		return cyptoDecorator;
 	}
 	
+	public static Manager<User> createNetworkResilianceUserManager(Peer peer, String who){
+		ManagerAdapter<User> adapter = new ManagerAdapter<User>(new UserSyncManagerImpl());
+		NetworkUserManagerDecorator networkD = new NetworkUserManagerDecorator(adapter, peer, who);
+		//TODO : resilience
+		//ResilienceUserManagerDecorator resiNetworkD = new ResilienceUserManagerDecorator(networkD, peer);
+		return networkD;
+	}
+	
+	/* ============================= MESSAGE  ============================= */
 	
 	public static Manager<Message> createCryptoMessageManager(User user) {
 		
@@ -83,6 +92,7 @@ public class ManagerFactory {
 	}
 	
 	
+	/* ============================= CONTRACT  ============================= */
 	
 	public static Manager<ContractEntity> createNetworkResilianceContractManager(Peer peer, String who) {
 		ManagerAdapter<ContractEntity> adapter = new ManagerAdapter<ContractEntity>(new ContractSyncManagerImpl());

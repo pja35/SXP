@@ -38,7 +38,7 @@ public class Search{
 
 			@Override
 			public void run() {
-				Manager<Item> em = ManagerFactory.createCryptoNetworkResilianceItemManager(Application.getInstance().getPeer(), token,null);
+				Manager<Item> em = ManagerFactory.createNetworkResilianceItemManager(Application.getInstance().getPeer(), token);
 				
 				em.findAllByAttribute("title", title, new ManagerListener<Item>() {
 					
@@ -89,7 +89,7 @@ public class Search{
 
 			@Override
 			public void run() {
-				Manager<User> em = ManagerFactory.createCryptoNetworkUserManager(Application.getInstance().getPeer(), token,null);
+				Manager<User> em = ManagerFactory.createNetworkResilianceUserManager(Application.getInstance().getPeer(), token);
 				
 				em.findAllByAttribute("nick", nick, new ManagerListener<User>() {
 					

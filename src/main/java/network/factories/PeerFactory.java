@@ -108,7 +108,7 @@ public class PeerFactory {
 		default: throw new RuntimeException(impl + "doesn't exist");
 		}
 		try {
-			peer.start(tmpFolder, port,"tcp://127.0.0.1:9805","tcp://127.0.0.1:9800");
+			peer.start(tmpFolder, port);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

@@ -230,32 +230,6 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 	
 	@Override
 	public void addAdvertisementListener(DiscoveryListener l){
-		pg.getDiscoveryService().addDiscoveryListener(l);
-		pg.getDiscoveryService().addDiscoveryListener(new DiscoveryListener(){
-			@Override
-			public void discoveryEvent(DiscoveryEvent event){
-				
-				Enumeration<net.jxta.document.Advertisement> advs = event.getResponse().getAdvertisements();
-				
-				ArrayList<Advertisement> advertisements = new ArrayList<>();
-				
-				while(advs.hasMoreElements()) {
-					AdvertisementBridge adv = (AdvertisementBridge) advs.nextElement();
-					Advertisement fadv = adv.getAdvertisement();
-					
-					if(fadv instanceof ItemAdvertisement){
-						System.out.println(" $$$$$$$$$$$ => advertisement name : "+fadv.getName()+" | item title : "+((ItemAdvertisement)fadv).getTitle());
-					}else if(fadv instanceof UserAdvertisement){
-						System.out.println(" $$$$$$$$$$$ => advertisement name : "+fadv.getName()+" | user NickName : "+((UserAdvertisement)fadv).getNick());
-					}else{
-						System.out.println(" $$$$$$$$$$$ => advertisement name : "+fadv.getName());
-					}
-					
-				}
-				
-				
-				
-			}
-		});
+	//	pg.getDiscoveryService().addDiscoveryListener(l);
 	}
 }

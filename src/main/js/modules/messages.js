@@ -58,10 +58,22 @@
 		.state('addMessage', {
 			url: '/messages/new',
 			templateUrl: 'newMessage.html',
-			controller: function($rootScope,$scope, $state, Message, User, $http) {
+			controller: function($rootScope,$scope, $state, Message, User, $http,Oboe) {
 				isUserConnected($rootScope, $scope, $state);
 				$scope.app.configHeader({contextButton:'', title: 'New message', back:'yes'});
 				$scope.action = 'add'; //Specify to the template we are adding a message, since it the same template as the one for editing.
+				
+				$scope.results = []; //The currently received and displaid results
+                $scope.stream = null; //The stream of async results
+
+                $scope.pushResult = function($obj) { //to add an object in the result list
+                    if ($obj == null) return; //check if valid
+                    for (var i = 0; i < $scope.results.length; i++) { //check if not already there
+                        if ($scope.results[i].id == $obj.id) return;
+                    }
+                    $scope.results.push($obj); //OK, add
+                }
+				
 				//User is available thanks to restApi.js
 				var currentUser = User.get({
 					id: $scope.app.userid
@@ -94,6 +106,55 @@
 						$scope.errorFields = true;
 					}
 				};
+				
+				$scope.userAutoComplete = function() { 
+                    $scope.results = [];
+                    $scope.errorSearch = false;
+                    $scope.searchUser = true;
+                    if ($scope.stream != null) {
+                        $scope.stream.abort();
+                    }
+                    Oboe( 
+                    	{
+                        url: RESTAPISERVER + "/api/search/users?nick=" + $scope.receiverName,
+                        pattern: '!',
+                        start: function(stream) {
+                            // handle to the stream
+                            $scope.stream = stream;
+                            $scope.status = 'started';
+                        },
+                        done: function(parsedJSON) {
+                            $scope.status = 'done';
+                        }
+                    }).then(function() {
+                        // promise is resolved
+                    }, function(error) {
+                        // handle errors
+                    }, function(node) { //A node is just a partial list of matches from the streamed search
+                        // node received
+                        if (node != null && node.length != 0) { // if not empty
+
+                            for (var i = 0; i < node.length; i++) { // push it to results
+                                console.log(node[i]);
+                                $scope.pushResult(node[i]);
+                                $scope.searchUser = false;
+                            }
+
+                        }
+                        
+                        console.log($scope.results.length);
+                        if($scope.results.length == 0)
+                        	$scope.errorSearch = true;
+                        else
+                        	$scope.errorSearch = false;
+                        	
+                        if ($scope.results.length === 1000 || node == null || node.length == 0) { //Abort the search when too many matches, or none left
+                            $scope.stream.abort();
+                            $scope.stream = null;
+                            $scope.searchUser = false;
+                        }
+                    });
+                };
 			}
 		});
 	});

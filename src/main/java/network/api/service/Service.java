@@ -1,5 +1,6 @@
 package network.api.service;
 
+import net.jxta.discovery.DiscoveryListener;
 import network.api.Messages;
 import network.api.Peer;
 import network.api.SearchListener;
@@ -48,6 +49,13 @@ public interface Service {
 	 * @param who can be null - only who match will be notified
 	 */
 	public void addListener(ServiceListener l, String who);
+	
+	/**
+	 * 
+	 * @param l
+	 */
+	public void addAdvertisementListener(DiscoveryListener l);
+	
 	
 	public void removeListener(String who);
 	/**

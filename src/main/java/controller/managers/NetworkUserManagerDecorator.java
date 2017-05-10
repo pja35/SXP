@@ -36,8 +36,40 @@ public class NetworkUserManagerDecorator extends ManagerDecorator<User>{
 		this.peer = peer;
 		this.who = who;
 	}	
-	
-	
+
+	@Override
+	public void findOneByAttribute(String attribute, final String value, final ManagerListener<User> l) {
+		super.findOneByAttribute(attribute, value, l);
+		
+		final UserRequestService usersSender = (UserRequestService) peer.getService(UserRequestService.NAME);
+		Service users = peer.getService(UserService.NAME);
+		
+		usersSender.removeListener(who);
+		usersSender.addListener(new ServiceListener() {
+			@Override
+			public void notify(Messages messages) {
+				JsonTools<ArrayList<User>> json = new JsonTools<>(new TypeReference<ArrayList<User>>(){});
+				l.notify(json.toEntity(messages.getMessage("users")));
+			}
+		}, who == null ? "test":who);
+		
+		users.search(attribute, value, new SearchListener<UserAdvertisementInterface>() {
+			@Override
+			public void notify(Collection<UserAdvertisementInterface> result) {
+				ArrayList<String> uids = new ArrayList<>();
+				for(UserAdvertisementInterface i: result) {
+					uids.add(i.getSourceURI());
+				}
+				usersSender.sendRequest(value, who == null ? "test":who, uids.toArray(new String[1]));
+			}
+		});
+		
+	}
+
+
+
+
+
 	@Override
 	public void findAllByAttribute(String attribute, final String value, final ManagerListener<User> l) {
 		super.findAllByAttribute(attribute, value, l);

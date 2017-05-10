@@ -4,8 +4,21 @@
 <form class="form-group" ng-submit="submit()">
     <div class="input-group">
         <span class="input-group-addon" id="basic-addon">@</span>
-        <input type="text" class="form-control" placeholder="type a username" ng-model="receiverName" aria-describedby="basic-addon">
+        <input type="text" class="form-control" placeholder="type a username" ng-model="receiverName" aria-describedby="basic-addon" ng-keyup="userAutoComplete()">
+        <input type="hidden" ng-model="receiverId">
     </div>
+    <div class="form-group" ng-show="receiverName.length > 0">
+		<div class="alert alert-danger ng-clignotement" role="alert" ng-show="errorSearch">No user found</div>
+		<div class="alert" role="alert" ng-show="searchUser"><div class="loader"></div></div>
+		<div href ui-sref="selectUser({id: user.id})" class="panel panel-default search-result" ng-repeat="user in results" style="cursor: pointer;">
+			<div class="panel-heading">
+				<h3 class="panel-title"> {{user.nick}}</h3>
+			</div>
+			<div class="panel-body">
+				<p>{{user.createdAt}}</p>
+			</div>
+		</div>
+	</div>
     <div class="form-group">
         <br>
         <textarea class="form-control" rows="3" placeholder="type your message" ng-model="messageContent"></textarea>
