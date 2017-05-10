@@ -2,7 +2,8 @@
 title: Contracts
 permalink: wiki/Contracts/
 layout: wiki
-tags: Technical Glossary
+tags:
+ - Technical Glossary
 ---
 
 An electronic contract is a legally binding document, electronically
