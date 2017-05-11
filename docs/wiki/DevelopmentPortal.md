@@ -30,12 +30,13 @@ The foreseen stages of the project are:
 Status
 ------
 
--   Overall the project is at stage 1-2-3 depending on the subtheme.
+-   Overall the project is at stage 1-2-3-4 depending on the subtheme.
 -   The design the [Secure Contract Signing
     protocol](/SXP/wiki/SecureContractSigningProtocol "wikilink") is at
     stage 3-4.
 -   The description of the XML formats of
     [Contracts](/SXP/wiki/Contracts "wikilink") is at stage 3-4.
+-   [TODO list](/SXP/wiki/TODOList "wikilink")
 
 Architecture
 ------------

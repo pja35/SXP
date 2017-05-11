@@ -102,3 +102,8 @@ Here are the obvious pages about XML:
 -   [on Wikipedia](http://en.wikipedia.org/wiki/XML%7CXML)
 -   [XML tutorial at w3schools](http://www.w3schools.com/xml/)
 
+Generating PDFs from XML
+------------------------
+
+See [XML tools](/SXP/wiki/XMLTools "wikilink").
+

@@ -18,3 +18,5 @@ The search for optimal deals will be eased by SXP by:
     contents
 -   Allowing for pluggable, third-party deal computation algorithms
 
+[Counter trade](/SXP/wiki/CounterTrade "wikilink")
+

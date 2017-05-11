@@ -23,6 +23,8 @@ agreement to perform the swap.''
 Let us now explain what is meant by an **open, ubiquitous, peer-to-peer,
 secure protocol suite for multi-party exchanges of contracts**.
 
+[LETS](/SXP/wiki/LETS "wikilink")
+
 ### Protocols
 
 A protocol is an agreed common language, and an agreed series of steps,

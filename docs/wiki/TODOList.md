@@ -1,5 +1,5 @@
 ---
-title: TODOList
+title: TODO List
 permalink: wiki/TODOList/
 layout: wiki
 ---
