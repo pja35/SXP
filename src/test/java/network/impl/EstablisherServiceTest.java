@@ -48,6 +48,8 @@ public class EstablisherServiceTest {
 			@Override
 			public void notify(Messages messages) {
 				Integer m1 = new Integer(messages.getMessage("contract"));
+				System.out.println(m1 + " Contract : " + messages.getMessage("title"));
+				
 				String msg = String.valueOf(m1 + 1);
 				if (m1<6) {
 					establisher.sendContract("Contrat "+msg, "test", "test2", msg, messages.getMessage("source"));
@@ -79,6 +81,8 @@ public class EstablisherServiceTest {
 			@Override
 			public void notify(Messages messages) {
 				Integer m1 = new Integer(messages.getMessage("contract"));
+				System.out.println(m1 + " Contract : " + messages.getMessage("title"));
+				
 				String msg = String.valueOf(m1 + 1);
 				if (m1<6) {
 					establisher.sendContract("Contract "+msg, "test2" , "test" , msg, messages.getMessage("source"));

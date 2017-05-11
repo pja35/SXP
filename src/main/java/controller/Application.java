@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Properties;
 
 import controller.tools.LoggerUtilities;
@@ -7,6 +9,7 @@ import model.syncManager.UserSyncManagerImpl;
 import network.api.EstablisherService;
 import network.api.Messages;
 import network.api.Peer;
+import network.api.SearchListener;
 import network.api.ServiceListener;
 import network.api.advertisement.EstablisherAdvertisementInterface;
 import network.factories.AdvertisementFactory;
@@ -22,9 +25,9 @@ import rest.factories.RestServerFactory;
  *
  */
 public class Application {
-	public final static int jxtaPort = 9801;
-	public final static int restPort = 8081;
-	public final static String[] rdvPeerIds = {"tcp://176.132.64.68:9800", "tcp://localhost:9800"}; 
+	public final static int jxtaPort = 9800;
+	public final static int restPort = 8080;
+	public final static String[] rdvPeerIds = {"tcp://176.132.64.68:9800", "tcp://localhost:9800"};
 	
 	private static Application instance = null;
 	private static UserSyncManagerImpl umg;
@@ -67,7 +70,7 @@ public class Application {
 
 	public static void main(String[] args) {
 		new Application();
-		Application.getInstance().runForTests(8081);
+		Application.getInstance().runForTests(8080);
 		
 		final Peer peer=Application.getInstance().getPeer();
 		
@@ -82,6 +85,8 @@ public class Application {
 			@Override
 			public void notify(Messages messages) {
 				Integer m1 = new Integer(messages.getMessage("contract"));
+				System.out.println(m1 + " Contract : " + messages.getMessage("title"));
+				
 				String msg = String.valueOf(m1 + 1);
 				if (m1<6) {
 					establisher.sendContract("Contrat "+msg, "test", "test2", msg, messages.getMessage("source"));
@@ -94,7 +99,6 @@ public class Application {
 			}
 			
 		}, "test2");
-		
 	}
 	
 	public void stop(){
