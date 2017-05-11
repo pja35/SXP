@@ -55,5 +55,10 @@ questions](/SXP/wiki/QuestionsThatBotherUs "wikilink").
 
 ---
 
+[Pages list](/SXP/wiki/PagesList "wikilink")
+
+---
+
+
 *(A preliminary version of this wiki has been quite succesfully converted from mediawiki to kramdown using the great [media wiki to git md](https://github.com/peterjc/mediawiki_to_git_md) converter by Peter Cock)*
 
