@@ -25,10 +25,7 @@ import model.entity.ElGamalKey;
 import model.entity.sigma.Or;
 import network.api.EstablisherService;
 import network.api.Messages;
-import network.api.Peer;
 import network.api.ServiceListener;
-import network.api.advertisement.EstablisherAdvertisementInterface;
-import network.factories.AdvertisementFactory;
 import protocol.api.Establisher;
 import protocol.impl.sigma.PCS;
 import protocol.impl.sigma.Sender;
@@ -124,7 +121,6 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 				}
 			}
 		}, senPubK.toString());
-		
 	}
 	
 	/**
@@ -132,13 +128,6 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	 */
 	@Override
 	public void start(){
-		
-		final Peer peer=Application.getInstance().getPeer();
-		// Sending an advertisement (trick to get the other peer URI)
-		EstablisherAdvertisementInterface cadv = AdvertisementFactory.createEstablisherAdvertisement();
-		cadv.setTitle("Un Contrat");
-		cadv.publish(peer);
-		
 		for (int k=0; k<N; k++){
 			ElGamalKey key = keys.get(k);
 			establisherService.sendContract(contractId,
@@ -156,6 +145,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 		// TODO : choose trent and associate its uri in uris
 		contract.setTrentKey(trentK);
 		signer.setTrentK(trentK);
+		
 		
 		// Put a listener on Trent in case something goes wrong
 		establisherService.addListener(new ServiceListener(){

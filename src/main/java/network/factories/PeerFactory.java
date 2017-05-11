@@ -24,7 +24,7 @@ import network.impl.jxta.JxtaPeer;
  */
 public class PeerFactory {
 	
-	public final static String[] rdvPeerIds = {"tcp://176.132.64.68:9800", "tcp://localhost:9800"}; 
+	public final static String[] rdvPeerIds = Application.rdvPeerIds; 
 	public final static int port = Application.jxtaPort ;
 	
 	/**
