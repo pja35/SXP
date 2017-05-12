@@ -47,7 +47,7 @@ public abstract class ManagerDecorator<Entity> implements Manager<Entity>{
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void findAllByAttributes(Hashtable<String,String> query, ManagerListener<Entity> l) {
+	public void findAllByAttributes(Hashtable<String,Object> query, ManagerListener<Entity> l) {
 		em.findAllByAttributes(query, l);
 	}
 

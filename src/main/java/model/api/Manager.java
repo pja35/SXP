@@ -41,7 +41,7 @@ public interface Manager<Entity> {
 	 * @param Hashtable
 	 * @param l
 	 */
-	public void findAllByAttributes(Hashtable<String,String> query, ManagerListener<Entity> l);
+	public void findAllByAttributes(Hashtable<String,Object> query, ManagerListener<Entity> l);
 
 	/**
 	 * Persist the entity in the manager

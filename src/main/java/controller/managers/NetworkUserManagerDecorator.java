@@ -1,5 +1,6 @@
 package controller.managers;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
@@ -70,9 +71,6 @@ public class NetworkUserManagerDecorator extends ManagerDecorator<User>{
 	}
 
 
-
-
-
 	@Override
 	public void findAllByAttribute(String attribute, final String value, final ManagerListener<User> l) {
 		
@@ -104,7 +102,7 @@ public class NetworkUserManagerDecorator extends ManagerDecorator<User>{
 	}
 	
 	@Override
-	public void findAllByAttributes(final Hashtable<String, String> query, final ManagerListener<User> l) {
+	public void findAllByAttributes(final Hashtable<String, Object> query, final ManagerListener<User> l) {
 		super.findAllByAttributes(query, l);
 		final UserRequestService usersSender = (UserRequestService) peer.getService(UserRequestService.NAME);
 		Service users = peer.getService(UserService.NAME);
@@ -119,18 +117,25 @@ public class NetworkUserManagerDecorator extends ManagerDecorator<User>{
 			}
 		}, who == null ? "test":who);
 		
-		users.search("nick", query.get("nick"), new SearchListener<UserAdvertisementInterface>() {
+		users.search("nick", String.valueOf(query.get("nick")), new SearchListener<UserAdvertisementInterface>() {
 			@Override
 			public void notify(Collection<UserAdvertisementInterface> result) {
 				ArrayList<String> uids = new ArrayList<>();
 				for(UserAdvertisementInterface i: result) {
 					uids.add(i.getSourceURI());
 				}
-				usersSender.sendRequest(query.get("nick"),query.get("keys.publicKey"), who == null ? "test":who, uids.toArray(new String[1]));
+				
+				if(query.contains("id")){
+					usersSender.sendRequest(String.valueOf(query.get("id")),String.valueOf(query.get("nick")), who == null ? "test":who, uids.toArray(new String[1]));
+				}else{
+					usersSender.sendRequest(String.valueOf(query.get("nick")), who == null ? "test":who, uids.toArray(new String[1]));
+				}
+				
 			}
 		});
 	}
-
+	
+	
 	@Override
 	public boolean end() {
 		

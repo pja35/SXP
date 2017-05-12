@@ -1,9 +1,14 @@
 package network.impl.jxta;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
+import java.util.Iterator;
 
 import javax.print.attribute.standard.RequestingUserName;
+
+import org.eclipse.persistence.internal.jpa.metadata.structures.ArrayAccessor;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
@@ -32,7 +37,9 @@ public class JxtaUsersSenderService extends JxtaService implements UserRequestSe
 		
 		m.setNick(nick);
 		
-		m.setPbkey("");
+		m.setAttribute(null);
+		
+		m.setType("request");
 		
 		m.setWho(who);
 		
@@ -42,13 +49,33 @@ public class JxtaUsersSenderService extends JxtaService implements UserRequestSe
 	}
 	
 	@Override
-	public void sendRequest(String nick, String pbkey,String who, String ... peerURIs) {
+	public void sendRequest(String id, String nick, String who, String... targetPeers) {
 		
 		RequestUserMessage m = new RequestUserMessage();
 		
 		m.setNick(nick);
 		
-		m.setPbkey(pbkey);
+		m.setAttribute(id);
+		
+		m.setType("requestById");
+		
+		m.setWho(who);
+		
+		m.setSource(this.peerUri);
+		
+		this.sendMessages(m, targetPeers);
+	}
+	
+	@Override
+	public void sendRequest(String nick, BigInteger pbkey,String who, String ... peerURIs) {
+		
+		RequestUserMessage m = new RequestUserMessage();
+		
+		m.setNick(nick);
+		
+		m.setAttribute(String.valueOf(pbkey));
+		
+		m.setType("requestByPbkey");
 		
 		m.setWho(who);
 		
@@ -59,28 +86,47 @@ public class JxtaUsersSenderService extends JxtaService implements UserRequestSe
 	
 	private Messages getResponseMessage(Messages msg) {
 		
+		ArrayList<User> resultat = new ArrayList<>();
+		
 		MessagesGeneric m = new MessagesGeneric();
+		
+		UserSyncManager em = SyncManagerFactory.createUserSyncManager();
 		
 		m.setWho(msg.getWho());
 		
 		m.addField("type", "response");
 		
-		UserSyncManager em = SyncManagerFactory.createUserSyncManager();
+		if(msg.getMessage("type").equals("request")){
+			
+			resultat.addAll(em.findAllByAttribute("nick", msg.getMessage("nick")));
 		
-		Collection<User> users;
-		
-		if(msg.getMessage("pbkey").isEmpty()){
-			users = em.findAllByAttribute("nick", msg.getMessage("nick"));
-		}else{
-			Hashtable<String, String> query = new Hashtable<>();
+		}else if(msg.getMessage("type").equals("requestById")){
+			
+			Hashtable<String, Object> query = new Hashtable<>();
 			query.put("nick", msg.getMessage("nick"));
-			query.put("keys.publicKey", msg.getMessage("pbkey"));
-			users = em.findAllByAttributes(query);
+			query.put("id", msg.getMessage("attribute"));
+			
+			resultat.addAll(em.findAllByAttributes(query));
+			
+		}else if(msg.getMessage("type").equals("requestByPbkey")){
+			
+			Collection<User> users = em.findAllByAttribute("nick", msg.getMessage("nick"));
+			
+			for (Iterator iterator = users.iterator(); iterator.hasNext();) {
+				User user = (User) iterator.next();
+				if(user.getKey().getPublicKey().equals(new BigInteger(msg.getMessage("attribute"),16))){
+					resultat.add(user);
+					break; //return first user with the same nickName and pbkey
+				}
+			}
+			
 		}
+		
+		em.close();
 		
 		JsonTools<Collection<User>> json = new JsonTools<>(new TypeReference<Collection<User>>(){});
 		
-		m.addField("users", json.toJson(users));
+		m.addField("users", json.toJson(resultat));
 		
 		return m;
 	}
@@ -91,13 +137,14 @@ public class JxtaUsersSenderService extends JxtaService implements UserRequestSe
 		
 		Messages message = toMessages(event.getMessage());
 		
-		System.out.println("[JxtaUsersSenderService:pipeMsgEvent]===>"+message.getMessage("type")+" : "+message.getMessage("nick"));
-		
-		if(message.getMessage("type").equals("response")) {
+		if(message.getMessage("type").equals("response")) {			
 			super.pipeMsgEvent(event);
 			return;
+			
 		}
-		
+
 		this.sendMessages(getResponseMessage(message), message.getMessage("source"));
 	}
+
+	
 }

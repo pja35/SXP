@@ -51,9 +51,11 @@ public class JxtaMessageSenderService extends JxtaService implements MessageRequ
 	
 		MessageSyncManager em = SyncManagerFactory.createMessageSyncManager();
 		
-		Collection<Message> messages = em.findAllByAttribute("senderId", msg.getMessage("senderId"));
+		Collection<Message> messages =em.findAllByAttribute("receiverId", msg.getMessage("receiverId")); 
+			
+		//em.findAllByAttribute("senderId", msg.getMessage("senderId"));
 		
-		messages.addAll(em.findAllByAttribute("receiverId", msg.getMessage("receiverId")));
+		//messages.addAll(em.findAllByAttribute("receiverId", msg.getMessage("receiverId")));
 		
 		JsonTools<Collection<Message>> json = new JsonTools<>(new TypeReference<Collection<Message>>(){});
 		

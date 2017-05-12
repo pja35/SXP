@@ -86,8 +86,7 @@ public class ManagerFactory {
 	public static Manager<Message> createCryptoMessageManager(User user) {
 		
 		ManagerAdapter<Message> adapter = new ManagerAdapter<Message>(new MessageSyncManagerImpl());
-		
-		CryptoMessageManagerDecorator messageManagerDecorator = new CryptoMessageManagerDecorator(adapter,user);
+		CryptoMessageManagerDecorator messageManagerDecorator = new CryptoMessageManagerDecorator(adapter,null,user);
 		
 		return messageManagerDecorator;
 	}
@@ -95,7 +94,7 @@ public class ManagerFactory {
 	public static Manager<Message> createNetworkResilianceMessageManager(Peer peer, String who,User user){
 		ManagerAdapter<Message> adapter = new ManagerAdapter<Message>(new MessageSyncManagerImpl());
 		NetworkMessageManagerDecorator networkD = new NetworkMessageManagerDecorator(adapter, peer, who);
-		CryptoMessageManagerDecorator messageManagerDecorator = new CryptoMessageManagerDecorator(networkD,user);
+		CryptoMessageManagerDecorator messageManagerDecorator = new CryptoMessageManagerDecorator(networkD,who,user);
 		//TODO : resilience
 		//ResilienceUserManagerDecorator resiNetworkD = new ResilienceUserManagerDecorator(networkD, peer);
 		return messageManagerDecorator;

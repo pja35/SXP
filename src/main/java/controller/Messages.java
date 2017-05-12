@@ -63,21 +63,9 @@ public class Messages {
 		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
 		final User sender = users.getUser(auth.getLogin(token), auth.getPassword(token));	
 		
-		final Hashtable<String, String> query = new Hashtable<>();
+		final Hashtable<String, Object> query = new Hashtable<>();
+		query.put("id", message.getReceiverId());
 		query.put("nick", message.getReceiverName());
-		query.put("keys.publicKey", String.valueOf(message.getPbkey()));
-		
-		String pbkey = message.getSenderId();
-		message.setSender(null, null);
-		
-		BigInteger k = new BigInteger(pbkey);
-		
-		System.out.println("==========================\nNew Message :\n");
-		System.out.println("pbkey:"+String.valueOf(k));
-		System.out.println("ReceiverName:"+message.getReceiverName());
-		System.out.println("ReceiverId:"+message.getReceiverId());
-		System.out.println("ReceiverPbkey:"+message.getPbkey());
-		System.out.println("ReceiverPbkey string.valueof:"+String.valueOf(message.getPbkey()));
 		
 		new Thread(new Runnable() {
 
@@ -93,7 +81,7 @@ public class Messages {
 						
 						User reciever = results.iterator().next(); 
 						
-						reciever.getKey().setPrivateKey(sender.getKey().getPrivateKey());//TODO: add function setKey() to parser interface and change the key in cryptoMessageDecorator 
+						//reciever.getKey().setPrivateKey(sender.getKey().getPrivateKey());//TODO: add function setKey() to parser interface and change the key in cryptoMessageDecorator 
 						
 						if (reciever != null){
 							
@@ -176,12 +164,14 @@ public class Messages {
 			}
 		});
 		
+		/*
 		em.findAllByAttribute("senderId", currentUser.getId(), new ManagerListener<Message> (){
 			@Override
 			public void notify(Collection<Message> results) {
 				list.addAll(results);
 			}
 		});
+		*/
 		
 		em.close();
 		return json.toJson(list);

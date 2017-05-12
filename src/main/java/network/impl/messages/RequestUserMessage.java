@@ -11,8 +11,8 @@ public class RequestUserMessage extends MessagesImpl{
 	@MessageElement("nick")
 	private String nick;
 	
-	@MessageElement("pbkey")
-	private String pbkey;
+	@MessageElement("attribute")
+	private String attribute;
 	
 	@MessageElement("type")
 	private String type = "request";
@@ -25,12 +25,12 @@ public class RequestUserMessage extends MessagesImpl{
 		this.nick = nick;
 	}
 
-	public String getPbkey() {
-		return pbkey;
+	public String getAttribute() {
+		return attribute;
 	}
 
-	public void setPbkey(String pbkey) {
-		this.pbkey = pbkey;
+	public void setAttribute(String attribute) {
+		this.attribute = attribute;
 	}
 
 	public void setSource(String source) {
@@ -45,4 +45,7 @@ public class RequestUserMessage extends MessagesImpl{
 		return type;
 	}
 
+	public void setType(String type) {
+		this.type = type;
+	}
 }

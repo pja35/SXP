@@ -31,7 +31,7 @@ public class ManagerAdapter<Entity> implements Manager<Entity>{
 	}
 	
 	@Override
-	public void findAllByAttributes(Hashtable<String,String> query, ManagerListener<Entity> l) {
+	public void findAllByAttributes(Hashtable<String,Object> query, ManagerListener<Entity> l) {
 		l.notify(em.findAllByAttributes(query));
 	}
 	

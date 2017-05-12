@@ -65,6 +65,7 @@ public class Users {
 		
 		log.info(login + " - " + password);
 		if(u != null) {
+			System.out.println("nick:"+u.getNick()+" | pbkey"+u.getKey().getPublicKey());
 			LoginToken token = new LoginToken();
 			token.setToken(auth.getToken(login, password));
 			token.setUserid(u.getId());

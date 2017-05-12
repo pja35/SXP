@@ -44,7 +44,7 @@ public interface SyncManager<Entity> {
 	 * @param  querys Hashtable (key:value)=(attribute/value)
 	 * @return
 	 */
-	public Collection<Entity> findAllByAttributes(Hashtable<String,String> querys);
+	public Collection<Entity> findAllByAttributes(Hashtable<String,Object> querys);
 	
 	/**
 	 * Return an object corresponding to the attribute/value

@@ -28,7 +28,7 @@ public class ElGamalKey implements AsymKey<BigInteger>, Serializable{
 	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
 	@JsonDeserialize(using=controller.tools.BigIntegerDeserializer.class)
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
-	@JsonIgnore
+	//@JsonIgnore
 	private BigInteger privateKey;
 	
 	@NotNull

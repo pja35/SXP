@@ -2,12 +2,14 @@ package controller.managers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Hashtable;
 import java.util.Iterator;
 
 import javax.persistence.Entity;
 
 import org.eclipse.persistence.internal.jpa.metadata.structures.ArrayAccessor;
 
+import controller.Application;
 import crypt.api.annotation.ParserAction;
 import crypt.api.annotation.ParserAnnotation;
 import crypt.factories.ParserFactory;
@@ -31,10 +33,11 @@ import model.entity.Message;
 public class CryptoMessageManagerDecorator extends ManagerDecorator<Message>{
 	
 	private User user;
-	
-	public CryptoMessageManagerDecorator(Manager<Message> em,User user) {
+	private String who;
+	public CryptoMessageManagerDecorator(Manager<Message> em,String who,User user) {
 		super(em);
 		this.user = user;
+		this.who = who;
 	}
 	
 	@Override
@@ -62,25 +65,42 @@ public class CryptoMessageManagerDecorator extends ManagerDecorator<Message>{
 					
 					ParserAnnotation<Message> parser;
 					
-					User receiver = null;
+					final ArrayList<User> users = new ArrayList<>(); 
 					
 					if(message.getReceiverId() == user.getId()){
 						
-						receiver = user;	
+						users.add(user);
 						
 					}else{
-						UserSyncManager em = new UserSyncManagerImpl();
-					    receiver = em.findOneById(message.getReceiverId());
-					    em.close();
+						
+						Manager<User> em = ManagerFactory.createNetworkResilianceUserManager(Application.getInstance().getPeer(), who);
+						
+						Hashtable<String, Object> query = new Hashtable<>(); 
+					
+						query.put("nick", message.getReceiverName());
+						query.put("id", message.getReceiverId());
+						
+						em.findAllByAttributes(query, new ManagerListener<User>() {
+							
+							@Override
+							public void notify(Collection<User> results) {
+								User u = results.iterator().next();
+								users.add(u);
+							}
+						});
+						
 					}
 					
-					parser = ParserFactory.createDefaultParser(message, receiver.getKey());
-					
-					message = (Message) parser.parseAnnotation(ParserAction.DecryptAction,ParserAction.CheckAction);
-					
-					if(message != null){
-						res.add(message);
+					if(!users.isEmpty()){
+						
+						parser = ParserFactory.createDefaultParser(message, users.get(0).getKey());
+						message = (Message) parser.parseAnnotation(ParserAction.DecryptAction,ParserAction.CheckAction);
+						
+						if(message != null){
+							res.add(message);
+						}
 					}
+					
 				}
 				
 				l.notify(res);

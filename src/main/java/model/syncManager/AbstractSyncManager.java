@@ -91,7 +91,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public Collection<Entity> findAllByAttributes(Hashtable<String, String> querys) {
+	public Collection<Entity> findAllByAttributes(Hashtable<String, Object> querys) {
 		
 		int i=0;
 		

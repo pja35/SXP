@@ -1,5 +1,7 @@
 package network.api;
 
+import java.math.BigInteger;
+
 import network.api.service.Service;
 
 public interface UserRequestService extends Service{
@@ -8,5 +10,7 @@ public interface UserRequestService extends Service{
 	
 	public void sendRequest(String nickName, String who, String ...targetPeers);
 	
-	public void sendRequest(String nickName,String pbkey, String who, String ...targetPeers);
+	public void sendRequest(String id, String nickName, String who, String ...targetPeers);
+	
+	public void sendRequest(String nickName,BigInteger pbkey, String who, String ...targetPeers);
 }
