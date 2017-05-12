@@ -50,6 +50,9 @@ public class JsonTools<Entity> {
 	 * @return
 	 */
 	public String toJson(Entity entity, boolean containsMap) {
+		if (!containsMap)
+			return toJson(entity);
+		
 		ObjectMapper mapper = new ObjectMapper();
 		SimpleModule simpleModule = new SimpleModule("SimpleModule");
 		simpleModule.addSerializer(new MapSerializer<>());
@@ -72,6 +75,9 @@ public class JsonTools<Entity> {
 	 */
 	@SuppressWarnings("unchecked")
 	public Entity toEntity(String json, boolean containsMap) {
+		if (!containsMap)
+			return toEntity(json);
+		
 		ObjectMapper mapper = new ObjectMapper();
 		SimpleModule simpleModule = new SimpleModule("SimpleModule");
 		simpleModule.addDeserializer(Map.class, new MapResponseKeyDeserializer());

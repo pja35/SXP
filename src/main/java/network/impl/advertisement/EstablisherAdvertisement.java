@@ -15,6 +15,9 @@ public class EstablisherAdvertisement extends AbstractAdvertisement implements E
 	@AdvertisementAttribute(enabled = true)
 	private String contract;
 	
+	@AdvertisementAttribute(enabled = true)
+	private String key;
+	
 	// Sender userid
 	private String userid;
 	
@@ -46,6 +49,16 @@ public class EstablisherAdvertisement extends AbstractAdvertisement implements E
 	@Override
 	public void setContract(String c) {
 		this.contract = c;
+	}
+
+	@Override
+	public String  getKey(){
+		return key;
+	}
+	
+	@Override
+	public void setKey(String publicKey){
+		this.key = publicKey;
 	}
 
 	public String getUserid() {

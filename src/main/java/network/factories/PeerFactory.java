@@ -24,8 +24,8 @@ import network.impl.jxta.JxtaPeer;
  */
 public class PeerFactory {
 	
-	public final static String[] rdvPeerIds = Application.rdvPeerIds; 
-	public final static int port = Application.jxtaPort ;
+	public static String[] rdvPeerIds = Application.rdvPeerIds; 
+	public static int port = Application.jxtaPort ;
 	
 	/**
 	 * create the default implementation of {@link Peer}

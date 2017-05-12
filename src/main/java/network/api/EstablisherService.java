@@ -32,4 +32,5 @@ public interface EstablisherService extends Service
 	
 	public static final String NAME = "establisher";
 
+	public void listens(String field, String value, EstablisherServiceListener l);
 }

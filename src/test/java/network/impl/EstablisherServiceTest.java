@@ -123,10 +123,19 @@ public class EstablisherServiceTest {
 	}
 	
 	
-	////////// The next two methods are for advertisement listener test ///////////////
-	public void initAdvert1(){
+	////////// The next method is for advertisement listener test, you shall start it on two peers ///////////////
+	// If the same machine is used, change the port of run for test
+	public void initAdvert(){
 		new Application();
-		Application.getInstance().runForTests(8080);
+		Application.getInstance().runForTests(8081);
+
+		//Sending an advertisement
+		final Peer peer=Application.getInstance().getPeer();
+		EstablisherAdvertisementInterface cadv = AdvertisementFactory.createEstablisherAdvertisement();
+		cadv.setTitle("Contract");
+		cadv.setContract("1");
+		cadv.setKey("KEY1");
+		cadv.publish(peer);
 		
 		final EstablisherService establisher =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
 		
@@ -136,24 +145,36 @@ public class EstablisherServiceTest {
 				Enumeration<net.jxta.document.Advertisement> adverts = event.getResponse().getAdvertisements();
 				while (adverts.hasMoreElements()){
 					AdvertisementBridge adv = (AdvertisementBridge) adverts.nextElement();
-					EstablisherAdvertisement c = (EstablisherAdvertisement) adv.getAdvertisement();
-					System.out.println(adv.getAdvertisement().getClass().equals(EstablisherAdvertisement.class));
-					System.out.println(c.getTitle());
+					if (adv.getAdvertisement().getClass().equals(EstablisherAdvertisement.class)){
+						EstablisherAdvertisement c = (EstablisherAdvertisement) adv.getAdvertisement();
+						System.out.println("\n" + adv.getAdvertisement().getClass().equals(EstablisherAdvertisement.class));
+						System.out.println(c.getTitle());
+						System.out.println(c.getContract() + "\n");
+						System.out.println(c.getKey() + "\n");
+						
+						Integer i = new Integer(c.getContract());
+						
+
+						try{
+							Thread.sleep(2000);
+						}catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						
+						if (i<3){
+							final Peer peer=Application.getInstance().getPeer();
+							
+							EstablisherAdvertisementInterface cadv = AdvertisementFactory.createEstablisherAdvertisement();
+							cadv.setTitle("Contract");
+							cadv.setContract(String.valueOf(i.intValue() + 1));
+							cadv.setKey("KEY2");
+							
+							cadv.publish(peer);
+						}
+					}
 				}
 			}
 		});
-	}
-	
-	public void initAdvert2(){
-		new Application();
-		Application.getInstance().runForTests(8081);
-
-		final Peer peer=Application.getInstance().getPeer();
-		
-		// Sending an advertisement (trick to get the other peer URI)
-		EstablisherAdvertisementInterface cadv = AdvertisementFactory.createEstablisherAdvertisement();
-		cadv.setTitle("Un Contrat");
-		cadv.publish(peer);
 	}
 	
 	

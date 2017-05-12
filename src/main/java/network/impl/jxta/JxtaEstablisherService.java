@@ -3,8 +3,15 @@
  */
 package network.impl.jxta;
 
+import java.util.Enumeration;
+
+import net.jxta.discovery.DiscoveryEvent;
+import net.jxta.discovery.DiscoveryListener;
 import net.jxta.pipe.PipeMsgEvent;
 import network.api.EstablisherService;
+import network.api.EstablisherServiceListener;
+import network.api.advertisement.EstablisherAdvertisementInterface;
+import network.impl.advertisement.EstablisherAdvertisement;
 import network.impl.messages.EstablisherMessage;
 
 /**
@@ -40,5 +47,21 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 	public void pipeMsgEvent(PipeMsgEvent event) {
 		super.pipeMsgEvent(event);
 	}
-
+	
+	@Override
+	public void listens(String field, String value, final EstablisherServiceListener l){
+		this.addAdvertisementListener(new DiscoveryListener(){
+			@Override
+			public void discoveryEvent(DiscoveryEvent event){
+				Enumeration<net.jxta.document.Advertisement> adverts = event.getResponse().getAdvertisements();
+				while (adverts.hasMoreElements()){
+					AdvertisementBridge adv = (AdvertisementBridge) adverts.nextElement();
+					if (adv.getAdvertisement().getClass().equals(EstablisherAdvertisement.class)){
+						EstablisherAdvertisementInterface c = (EstablisherAdvertisementInterface) adv.getAdvertisement();
+						l.notify(c);
+					}
+				}
+			}
+		});
+	};
 }
