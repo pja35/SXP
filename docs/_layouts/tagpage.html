@@ -2,24 +2,25 @@
 layout: default
 ---
 
+ye
+
 <div class="page">
-  <ul class="tag_list_in_post">
-    {% for tag in page.tags %}<li class="inline tag_list_item"><a class="tag_list_link" href="/SXP/wiki/Category{{ tag | replace:' ','' }}">{{ tag }}</a></li>{% endfor %}
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      TeX: {
-        equationNumbers: {
-          autoNumber: "AMS"
-        }
-      },
-      tex2jax: {
-        inlineMath: [ ['$','$'] ],
-        displayMath: [ ['$$','$$'] ],
-        processEscapes: true,
-      }
-    });
-  </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> </ul>
+  yi
   <h1 class="page-title">{{ page.title }}</h1>
   {{ content }}
+  ya
+
+  <ul class="page-list">
+    yo
+    {% for p in site.pages %}
+      {% for tag in p.tags %}
+        bla: {{ p }} {{ p.tags }} {{ tag }}      
+        {% if tag == page.tag %}
+          <li>
+            <a class="page-link" href="{{ p.url }}">{{ p.title }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  </ul>
 </div>

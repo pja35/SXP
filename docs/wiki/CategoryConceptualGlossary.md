@@ -1,5 +1,5 @@
 ---
-title: Category: Conceptual Glossary
+title: Categoryi&#58; Conceptual Glossary
 permalink: wiki/CategoryConceptualGlossary/
 layout: tagpage
 tag: Conceptual Glossary

@@ -1,5 +1,5 @@
 ---
-title: Category: Technical Glossary
+title: Category&#58; Technical Glossary
 permalink: wiki/CategoryTechnicalGlossary/
 layout: tagpage
 tag: Technical Glossary
