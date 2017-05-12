@@ -8,19 +8,4 @@ ye
   yi
   <h1 class="page-title">{{ page.title }}</h1>
   {{ content }}
-  ya
-
-  <ul class="page-list">
-    yo
-    {% for p in site.pages %}
-      {% for tag in p.tags %}
-        bla: {{ p }} {{ p.tags }} {{ tag }}      
-        {% if tag == page.tag %}
-          <li>
-            <a class="page-link" href="{{ p.url }}">{{ p.title }}</a>
-          </li>
-        {% endif %}
-      {% endfor %}
-    {% endfor %}
-  </ul>
 </div>
