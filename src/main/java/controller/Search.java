@@ -97,11 +97,8 @@ public class Search{
 					@Override
 					public void notify(Collection<User> results) {
 						
-						System.out.println(" == -> chunckedSearchUser == -> User -> results.size:"+results.size());
-						
 						for (Iterator iterator = results.iterator(); iterator.hasNext();) {
 							User user = (User) iterator.next();
-							System.out.println(" == -> chunckedSearchUser == -> User -> user.nick:"+user.getNick());
 						}
 						
 						JsonTools<Collection<User>> json = new JsonTools<>(new TypeReference<Collection<User>>(){});

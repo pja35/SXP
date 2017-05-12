@@ -64,7 +64,7 @@ public class Message {
 	@Lob
 	@XmlElement(name="messageContent")
 	@NotNull
-	@Size(min = 1, max = 2048)
+	@Size(min = 1, max = 4096)
 	private String messageContent;
 
 	public static enum ReceptionStatus {DRAFT, SENT, RECEIVED}
@@ -158,7 +158,9 @@ public class Message {
 	public void setSignature(ElGamalSignEntity signature) {
 		this.signature = signature;
 	}
-
+	
+	
+	
 	
 	/**
 	 * @return a complete string with all attributes (mainly used for debug)

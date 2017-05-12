@@ -37,7 +37,7 @@ public class JxtaUsersSenderService extends JxtaService implements UserRequestSe
 		
 		m.setNick(nick);
 		
-		m.setAttribute(null);
+		m.setAttribute("");
 		
 		m.setType("request");
 		

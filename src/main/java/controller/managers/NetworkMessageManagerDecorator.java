@@ -31,7 +31,7 @@ public class NetworkMessageManagerDecorator extends ManagerDecorator<Message>{
 	
 	/**
 	 * 
-	 * @param em User async manager
+	 * @param em Message async manager
 	 * @param peer Peer instance, started
 	 * @param who who own this instance
 	 */
@@ -55,7 +55,7 @@ public class NetworkMessageManagerDecorator extends ManagerDecorator<Message>{
 			@Override
 			public void notify(Messages messages) {
 				JsonTools<ArrayList<Message>> json = new JsonTools<>(new TypeReference<ArrayList<Message>>(){});
-				Collection<Message> collections = json.toEntity(messages.getMessage("users")); 
+				Collection<Message> collections = json.toEntity(messages.getMessage("messages")); 
 				l.notify(collections);
 			}
 		}, who == null ? "test":who);
@@ -76,27 +76,22 @@ public class NetworkMessageManagerDecorator extends ManagerDecorator<Message>{
 	
 	@Override
 	public boolean end() {
-		
-		if(super.end()){
 			
-			Collection<Message> collection = this.changesInWatchlist();
-		
-			for (Message m : collection) {
-				
-				MessageAdvertisementInterface madv = AdvertisementFactory.createMessageAdvertisement();
-				
-				madv.setSenderId(m.getSenderId());
-				
-				madv.setReceiverId(m.getReceiverId());
-				
-				madv.publish(peer);
-				
-			}
+		Collection<Message> collection = this.changesInWatchlist();
+	
+		for (Message m : collection) {
 			
-			return true;
+			MessageAdvertisementInterface madv = AdvertisementFactory.createMessageAdvertisement();
+			
+			madv.setSenderId(m.getSenderId());
+			
+			madv.setReceiverId(m.getReceiverId());
+			
+			madv.publish(peer);
+			System.out.println("message publish");
 		}
 		
-		return false;
+		return super.end();
 	}
 	
 }

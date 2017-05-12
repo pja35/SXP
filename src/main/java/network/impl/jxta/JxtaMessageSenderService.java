@@ -28,6 +28,8 @@ public class JxtaMessageSenderService extends JxtaService implements MessageRequ
 	@Override
 	public void sendRequest(String senderId, String receiverId, String who, String ...uris) {
 		
+		System.out.println("JxtaMessageSenderService:sendRequest");
+		
 		RequestMessageUserMessage m = new RequestMessageUserMessage();
 		
 		m.setSenderId(senderId);
@@ -42,7 +44,7 @@ public class JxtaMessageSenderService extends JxtaService implements MessageRequ
 	}
 	
 	private Messages getResponseMessage(Messages msg) {
-		
+		System.out.println("JxtaMessageSenderService:getResponseMessage");
 		MessagesGeneric m = new MessagesGeneric();
 		
 		m.setWho(msg.getWho());

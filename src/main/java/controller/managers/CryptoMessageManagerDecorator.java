@@ -34,6 +34,7 @@ public class CryptoMessageManagerDecorator extends ManagerDecorator<Message>{
 	
 	private User user;
 	private String who;
+	
 	public CryptoMessageManagerDecorator(Manager<Message> em,String who,User user) {
 		super(em);
 		this.user = user;
