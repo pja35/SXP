@@ -16,7 +16,9 @@ import model.api.ManagerDecorator;
 import model.api.ManagerListener;
 import model.api.UserSyncManager;
 import model.entity.User;
+import model.factory.ManagerFactory;
 import model.syncManager.UserSyncManagerImpl;
+import network.api.Peer;
 import model.entity.ElGamalSignEntity;
 import model.entity.Item;
 import model.entity.Message;
@@ -67,7 +69,6 @@ public class CryptoMessageManagerDecorator extends ManagerDecorator<Message>{
 						receiver = user;	
 						
 					}else{
-						
 						UserSyncManager em = new UserSyncManagerImpl();
 					    receiver = em.findOneById(message.getReceiverId());
 					    em.close();

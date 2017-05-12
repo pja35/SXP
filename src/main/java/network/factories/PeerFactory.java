@@ -63,23 +63,32 @@ public class PeerFactory {
 		Peer p = createAndStartPeer("jxta", cache, port);
 		
 		try {
-			Service itemService = new JxtaItemService();
-			itemService.initAndStart(p);
-			Service itemsSender = new JxtaItemsSenderService();
-			itemsSender.initAndStart(p);
+			System.out.println("\n START Services \n");
 			
 			Service userService = new JxtaUserService();
 			userService.initAndStart(p);
+			
 			Service usersSender = new JxtaUsersSenderService();
 			usersSender.initAndStart(p);
 			
+			
+			Service itemService = new JxtaItemService();
+			itemService.initAndStart(p);
+			
+			Service itemsSender = new JxtaItemsSenderService();
+			itemsSender.initAndStart(p);
+			
+			
+			
 			Service messageService = new JxtaMessageService();
 			messageService.initAndStart(p);
+			
 			Service messagesSender = new JxtaMessageSenderService();
 			messagesSender.initAndStart(p);
 			
 			Service establisherService = new JxtaEstablisherService();
 			establisherService.initAndStart(p);
+			
 		} catch (InvalidServiceException e) {
 			throw new RuntimeException(e);
 		}		
@@ -108,7 +117,7 @@ public class PeerFactory {
 		default: throw new RuntimeException(impl + "doesn't exist");
 		}
 		try {
-			peer.start(tmpFolder, port);
+			peer.start(tmpFolder, port,"tcp://127.0.0.1:9802");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

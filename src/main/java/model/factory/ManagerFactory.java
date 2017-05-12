@@ -5,6 +5,7 @@ import controller.managers.CryptoMessageManagerDecorator;
 import controller.managers.CryptoUserManagerDecorator;
 import controller.managers.NetworkContractManagerDecorator;
 import controller.managers.NetworkItemManagerDecorator;
+import controller.managers.NetworkMessageManagerDecorator;
 import controller.managers.NetworkUserManagerDecorator;
 import controller.managers.ResilienceContractManagerDecorator;
 import controller.managers.ResilienceItemManagerDecorator;
@@ -90,6 +91,16 @@ public class ManagerFactory {
 		
 		return messageManagerDecorator;
 	}
+	
+	public static Manager<Message> createNetworkResilianceMessageManager(Peer peer, String who,User user){
+		ManagerAdapter<Message> adapter = new ManagerAdapter<Message>(new MessageSyncManagerImpl());
+		NetworkMessageManagerDecorator networkD = new NetworkMessageManagerDecorator(adapter, peer, who);
+		CryptoMessageManagerDecorator messageManagerDecorator = new CryptoMessageManagerDecorator(networkD,user);
+		//TODO : resilience
+		//ResilienceUserManagerDecorator resiNetworkD = new ResilienceUserManagerDecorator(networkD, peer);
+		return messageManagerDecorator;
+	}
+	
 	
 	
 	/* ============================= CONTRACT  ============================= */

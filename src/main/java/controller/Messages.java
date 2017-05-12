@@ -1,8 +1,11 @@
 package controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Hashtable;
+import java.util.Iterator;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -17,12 +20,15 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.glassfish.jersey.server.ChunkedOutput;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.managers.CryptoItemManagerDecorator;
 import controller.managers.CryptoMessageManagerDecorator;
 import controller.tools.JsonTools;
+import controller.tools.LoggerUtilities;
+import crypt.factories.ElGamalAsymKeyFactory;
 import model.api.Manager;
 import model.api.ManagerListener;
 import model.api.SyncManager;
@@ -48,53 +54,103 @@ public class Messages {
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String add(Message message, @HeaderParam(Authentifier.PARAM_NAME) String token) {
+	public ChunkedOutput<String> add(final Message message, @HeaderParam(Authentifier.PARAM_NAME) final String token) {
+		
+		final ChunkedOutput<String> output = new ChunkedOutput<String>(String.class);
 		
 		Authentifier auth = Application.getInstance().getAuth();
 		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
-		User sender = users.getUser(auth.getLogin(token), auth.getPassword(token));		
-		User reciever = users.findOneByAttribute("nick", message.getReceiverName());
-		users.close();
+		final User sender = users.getUser(auth.getLogin(token), auth.getPassword(token));	
+		
+		final Hashtable<String, String> query = new Hashtable<>();
+		query.put("nick", message.getReceiverName());
+		query.put("keys.publicKey", String.valueOf(message.getPbkey()));
+		
+		new Thread(new Runnable() {
 
-		if (reciever != null){
-			
-			message.setSendingDate(new Date());
-			message.setSender(sender.getId(), sender.getNick());
-			message.setReceiver(reciever.getId(), reciever.getNick());
-			message.setPbkey(reciever.getKey().getPublicKey());
-			
-			Manager<Message> em = ManagerFactory.createCryptoMessageManager(reciever); 
-			
-			log.debug(message.getString());
-			boolean pushDbOk = em.begin();
-			
-			pushDbOk &= em.persist(message);
-			
-			pushDbOk &= em.end();
-			pushDbOk &= em.close();
-			if (!pushDbOk){
-				log.warn("Message might not have been sent.");
-				return "{\"error\": \"Message might not have been sent.\"}";
+			@Override
+			public void run() {
+				
+				Manager<User> em = ManagerFactory.createNetworkResilianceUserManager(Application.getInstance().getPeer(), token);
+				
+				em.findAllByAttributes(query, new ManagerListener<User>() {
+					
+					@Override
+					public void notify(Collection<User> results) {
+						
+						User reciever = results.iterator().next(); 
+						
+						reciever.getKey().setPrivateKey(sender.getKey().getPrivateKey());//TODO: add function setKey() to parser interface and change the key in cryptoMessageDecorator 
+						
+						if (reciever != null){
+							
+							message.setSendingDate(new Date());
+							message.setSender(sender.getId(), sender.getNick());
+							message.setReceiver(reciever.getId(), reciever.getNick());
+							message.setPbkey(reciever.getKey().getPublicKey());
+							
+							Manager<Message> em = ManagerFactory.createCryptoMessageManager(reciever); 
+							
+							log.debug(message.getString());
+							boolean pushDbOk = em.begin();
+							
+							pushDbOk &= em.persist(message);
+							
+							pushDbOk &= em.end();
+							pushDbOk &= em.close();
+							
+							if (!pushDbOk){
+								log.warn("Message might not have been sent.");
+								try {
+									output.write("{\"error\": \"Message might not have been sent.\"}");
+								} catch (IOException e) {
+									LoggerUtilities.logStackTrace(e);
+								}
+							}
+
+							JsonTools<Message> json = new JsonTools<>(new TypeReference<Message>(){});
+							try {
+								output.write(json.toJson(message));
+							} catch (IOException e) {
+								LoggerUtilities.logStackTrace(e);
+							}
+						}	
+					}
+				});
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					LoggerUtilities.logStackTrace(e);
+				}
+				finally {
+					try {
+						output.write("[]");
+						output.close();
+					} catch (IOException e) {
+						LoggerUtilities.logStackTrace(e);
+					}
+				}
+				em.close();
 			}
-
-			JsonTools<Message> json = new JsonTools<>(new TypeReference<Message>(){});
-			return json.toJson(message);
-		}		
-		return "{\"error\": \"No receiver specified.\"}";
+			
+		}).start();
+			
+		//return "{\"error\": \"No receiver specified.\"}";
+		
+		return output;
 	}
 
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String get(@HeaderParam(Authentifier.PARAM_NAME) String token) {
+		
 		Authentifier auth = Application.getInstance().getAuth();
-		
 		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
-		
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		users.close();
 		
-		Manager<Message> em = ManagerFactory.createCryptoMessageManager(currentUser);
+		Manager<Message> em = ManagerFactory.createNetworkResilianceMessageManager(Application.getInstance().getPeer(), token, currentUser);
 		
 		JsonTools<Collection<Message>> json = new JsonTools<>(new TypeReference<Collection<Message>>(){});
 		

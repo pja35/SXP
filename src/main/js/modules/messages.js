@@ -18,11 +18,13 @@
 					angular.element('#'+chat).addClass('chatActive');
 				}
 
-				$scope.addMessage = function(chat, messageContent) {
+				$scope.addMessage = function(chatName,chatId,chatPbkey, messageContent) {
 					if(messageContent){
 						//Message is available thanks to restApi.js
 						var message = new Message({
-							receiverName: chat,
+							receiverName: chatName,
+							receiverId: chatId,
+							pbkey: chatPbkey,
 	      					messageContent: messageContent
 						});
 						message.$save(function(){
@@ -58,7 +60,7 @@
 		.state('addMessage', {
 			url: '/messages/new',
 			templateUrl: 'newMessage.html',
-			controller: function($rootScope,$scope, $state, Message, User, $http,Oboe) {
+			controller: function($rootScope,$scope, $state,$stateParams, Message, User, $http,Oboe) {
 				isUserConnected($rootScope, $scope, $state);
 				$scope.app.configHeader({contextButton:'', title: 'New message', back:'yes'});
 				$scope.action = 'add'; //Specify to the template we are adding a message, since it the same template as the one for editing.
@@ -79,9 +81,24 @@
 					id: $scope.app.userid
 				});
 				$scope.submit = function() {
-					if($scope.messageContent && $scope.receiverName){
+					if($scope.messageContent && $scope.receiverName && $scope.receiverId && $scope.receiverPbkey){
 						$scope.errorUsername = false;
 						$scope.errorFields = false;
+						
+						var message = new Message({
+							receiverName: $scope.receiverName,
+							receiverId: $scope.receiverId,
+							pbkey: $scope.receiverPbkey,
+	      					messageContent: $scope.messageContent
+						});
+						
+						message.$save(function() {
+							$state.go('messages');
+							
+						});
+						
+						
+						/*
 			            RESTAPISERVER = $scope.$parent.apiUrl;
 			           	$http.get(RESTAPISERVER + "/api/users/").then(
 		                function(response) {
@@ -90,6 +107,7 @@
 	        					if($scope.receiverName == userList[i].nick && $scope.receiverName != currentUser.nick){
 	        						var message = new Message({
 										receiverName: $scope.receiverName,
+										receiverId: $scope.receiverId,
 				      					messageContent: $scope.messageContent
 									});
 									message.$save(function() {
@@ -101,6 +119,7 @@
         					if(!message)
 	        					$scope.errorUsername = true;
 		                });
+			           	*/
 					}
 					else {
 						$scope.errorFields = true;
@@ -111,6 +130,11 @@
                     $scope.results = [];
                     $scope.errorSearch = false;
                     $scope.searchUser = true;
+                    $scope.hideAfterSelected = true;
+                    $scope.errorFields = false;
+                    $scope.receiverId = null;
+                    $scope.receiverPbkey = null;
+                    
                     if ($scope.stream != null) {
                         $scope.stream.abort();
                     }
@@ -155,6 +179,16 @@
                         }
                     });
                 };
+                
+                
+                $scope.selectUser = function($stateParams) { 
+                    $scope.hideAfterSelected = false;
+                    $scope.receiverId = $stateParams.receiver.id;
+                    $scope.receiverPbkey = $stateParams.receiver.key.publicKey;
+                    //document.getElementById("receiverId").value = $stateParams.id;
+                };
+                
+                
 			}
 		});
 	});

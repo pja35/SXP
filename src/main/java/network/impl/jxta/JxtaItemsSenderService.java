@@ -45,6 +45,9 @@ public class JxtaItemsSenderService extends JxtaService implements ItemRequestSe
 	@Override
 	public void pipeMsgEvent(PipeMsgEvent event) {
 		Messages message = toMessages(event.getMessage());
+		
+		System.out.println("[JxtaItemsSenderService:pipeMsgEvent]===>"+message.getMessage("type")+" : "+message.getMessage("title"));
+		
 		if(message.getMessage("type").equals("response")) {
 			super.pipeMsgEvent(event);
 			return;

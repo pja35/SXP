@@ -1,5 +1,6 @@
 package network.impl.advertisement;
 
+import network.api.Peer;
 import network.api.advertisement.UserAdvertisementInterface;
 import network.api.annotation.AdvertisementAttribute;
 import network.api.annotation.ServiceName;
@@ -39,5 +40,12 @@ public class UserAdvertisement extends AbstractAdvertisement implements UserAdve
 	public String getAdvertisementType() {
 		return null;
 	}
+
+	@Override
+	public void publish(Peer peer) {
+		super.publish(peer);
+	}
+	
+	
 	
 }

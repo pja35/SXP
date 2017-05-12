@@ -32,7 +32,23 @@ public class JxtaUsersSenderService extends JxtaService implements UserRequestSe
 		
 		m.setNick(nick);
 		
-		//m.setPbkey(pbkey);
+		m.setPbkey(null);
+		
+		m.setWho(who);
+		
+		m.setSource(this.peerUri);
+		
+		this.sendMessages(m, peerURIs);
+	}
+	
+	@Override
+	public void sendRequest(String nick, String pbkey,String who, String ... peerURIs) {
+		
+		RequestUserMessage m = new RequestUserMessage();
+		
+		m.setNick(nick);
+		
+		m.setPbkey(pbkey);
 		
 		m.setWho(who);
 		
@@ -48,18 +64,19 @@ public class JxtaUsersSenderService extends JxtaService implements UserRequestSe
 		m.setWho(msg.getWho());
 		
 		m.addField("type", "response");
-	
+		
 		UserSyncManager em = SyncManagerFactory.createUserSyncManager();
 		
+		Collection<User> users;
 		
-		Hashtable<String, String> query = new Hashtable<>();
-		
-		query.put("nick", msg.getMessage("nick"));
-		
-		//pbkey in keys attribute 
-		//query.put("pbkey", msg.getMessage("pbkey"));
-		
-		Collection<User> users = em.findAllByAttributes(query);
+		if(msg.getMessage("pbkey")==null){
+			users = em.findAllByAttribute("nick", msg.getMessage("nick"));
+		}else{
+			Hashtable<String, String> query = new Hashtable<>();
+			query.put("nick", msg.getMessage("nick"));
+			query.put("keys.publicKey", msg.getMessage("pbkey"));
+			users = em.findAllByAttributes(query);
+		}
 		
 		JsonTools<Collection<User>> json = new JsonTools<>(new TypeReference<Collection<User>>(){});
 		
@@ -73,6 +90,8 @@ public class JxtaUsersSenderService extends JxtaService implements UserRequestSe
 	public void pipeMsgEvent(PipeMsgEvent event) {
 		
 		Messages message = toMessages(event.getMessage());
+		
+		System.out.println("[JxtaUsersSenderService:pipeMsgEvent]===>"+message.getMessage("type")+" : "+message.getMessage("nick"));
 		
 		if(message.getMessage("type").equals("response")) {
 			super.pipeMsgEvent(event);
