@@ -109,7 +109,7 @@ public class Application {
 							// Sending an advertisement (trick to get the other peer URI)
 							EstablisherAdvertisementInterface cadv = AdvertisementFactory.createEstablisherAdvertisement();
 							cadv.setTitle("Contract");
-							cadv.setContract("2");
+							cadv.setContract(String.valueOf(i.intValue() + 1));
 							
 							cadv.publish(peer);
 						}
