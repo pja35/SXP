@@ -1,5 +1,5 @@
 ---
-title: Category: Discussion Pages
+title: Category Discussion Pages
 permalink: wiki/CategoryDiscussionPages/
 layout: tagpage
 tag: Discussion Pages
