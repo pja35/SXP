@@ -18,15 +18,18 @@
 					angular.element('#'+chat).addClass('chatActive');
 				}
 
-				$scope.addMessage = function(chatName,chatId,chatPbkey, messageContent) {
+				$scope.addMessage = function(chatName,chatId,pbkey, messageContent) {
 					if(messageContent){
 						//Message is available thanks to restApi.js
 						var message = new Message({
 							receiverName: chatName,
 							receiverId: chatId,
-							pbkey: chatPbkey,
+							pbkey: pbkey,
+							senderId:pbkey,
 	      					messageContent: messageContent
 						});
+						console.log("add message");
+						console.log(message);
 						message.$save(function(){
 								refresh();
 						},function(err){
@@ -89,6 +92,7 @@
 							receiverName: $scope.receiverName,
 							receiverId: $scope.receiverId,
 							pbkey: $scope.receiverPbkey,
+							senderId:$scope.receiverPbkey,
 	      					messageContent: $scope.messageContent
 						});
 						
@@ -185,7 +189,9 @@
                     $scope.hideAfterSelected = false;
                     $scope.receiverId = $stateParams.receiver.id;
                     $scope.receiverPbkey = $stateParams.receiver.key.publicKey;
-                    //document.getElementById("receiverId").value = $stateParams.id;
+//                    console.log($stateParams.receiver);
+//                    console.log($stateParams.receiver.key);
+//                    console.log($stateParams.receiver.key.publicKey);
                 };
                 
                 

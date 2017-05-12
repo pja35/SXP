@@ -32,7 +32,7 @@ public class JxtaUsersSenderService extends JxtaService implements UserRequestSe
 		
 		m.setNick(nick);
 		
-		m.setPbkey(null);
+		m.setPbkey("");
 		
 		m.setWho(who);
 		
@@ -69,7 +69,7 @@ public class JxtaUsersSenderService extends JxtaService implements UserRequestSe
 		
 		Collection<User> users;
 		
-		if(msg.getMessage("pbkey")==null){
+		if(msg.getMessage("pbkey").isEmpty()){
 			users = em.findAllByAttribute("nick", msg.getMessage("nick"));
 		}else{
 			Hashtable<String, String> query = new Hashtable<>();

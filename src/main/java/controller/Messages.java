@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -65,6 +66,18 @@ public class Messages {
 		final Hashtable<String, String> query = new Hashtable<>();
 		query.put("nick", message.getReceiverName());
 		query.put("keys.publicKey", String.valueOf(message.getPbkey()));
+		
+		String pbkey = message.getSenderId();
+		message.setSender(null, null);
+		
+		BigInteger k = new BigInteger(pbkey);
+		
+		System.out.println("==========================\nNew Message :\n");
+		System.out.println("pbkey:"+String.valueOf(k));
+		System.out.println("ReceiverName:"+message.getReceiverName());
+		System.out.println("ReceiverId:"+message.getReceiverId());
+		System.out.println("ReceiverPbkey:"+message.getPbkey());
+		System.out.println("ReceiverPbkey string.valueof:"+String.valueOf(message.getPbkey()));
 		
 		new Thread(new Runnable() {
 
