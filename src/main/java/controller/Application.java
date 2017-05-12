@@ -1,19 +1,19 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Enumeration;
 import java.util.Properties;
 
 import controller.tools.LoggerUtilities;
 import model.syncManager.UserSyncManagerImpl;
+import net.jxta.discovery.DiscoveryEvent;
+import net.jxta.discovery.DiscoveryListener;
 import network.api.EstablisherService;
-import network.api.Messages;
 import network.api.Peer;
-import network.api.SearchListener;
-import network.api.ServiceListener;
 import network.api.advertisement.EstablisherAdvertisementInterface;
 import network.factories.AdvertisementFactory;
 import network.factories.PeerFactory;
+import network.impl.advertisement.EstablisherAdvertisement;
+import network.impl.jxta.AdvertisementBridge;
 import rest.api.Authentifier;
 import rest.factories.AuthentifierFactory;
 import rest.factories.RestServerFactory;
@@ -71,34 +71,52 @@ public class Application {
 	public static void main(String[] args) {
 		new Application();
 		Application.getInstance().runForTests(8080);
-		
+
 		final Peer peer=Application.getInstance().getPeer();
 		
 		// Sending an advertisement (trick to get the other peer URI)
 		EstablisherAdvertisementInterface cadv = AdvertisementFactory.createEstablisherAdvertisement();
-		cadv.setTitle("Un Contrat");
+		cadv.setTitle("Contract");
+		cadv.setContract("1");
 		cadv.publish(peer);
 		
-		// Listener on establisher events
-		final EstablisherService establisher =(EstablisherService) peer.getService(EstablisherService.NAME);
-		establisher.addListener(new ServiceListener() {
+		final EstablisherService establisher =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
+		
+		establisher.addAdvertisementListener(new DiscoveryListener(){
 			@Override
-			public void notify(Messages messages) {
-				Integer m1 = new Integer(messages.getMessage("contract"));
-				System.out.println(m1 + " Contract : " + messages.getMessage("title"));
-				
-				String msg = String.valueOf(m1 + 1);
-				if (m1<6) {
-					establisher.sendContract("Contrat "+msg, "test", "test2", msg, messages.getMessage("source"));
-				}
-				try{
-					Thread.sleep(1000);
-				}catch (InterruptedException e) {
-					e.printStackTrace();
+			public void discoveryEvent(DiscoveryEvent event){
+				Enumeration<net.jxta.document.Advertisement> adverts = event.getResponse().getAdvertisements();
+				while (adverts.hasMoreElements()){
+					AdvertisementBridge adv = (AdvertisementBridge) adverts.nextElement();
+					if (adv.getAdvertisement().getClass().equals(EstablisherAdvertisement.class)){
+						EstablisherAdvertisement c = (EstablisherAdvertisement) adv.getAdvertisement();
+						System.out.println("\n" + adv.getAdvertisement().getClass().equals(EstablisherAdvertisement.class));
+						System.out.println(c.getTitle());
+						System.out.println(c.getContract() + "\n");
+						
+						Integer i = new Integer(c.getContract());
+						
+
+						try{
+							Thread.sleep(2000);
+						}catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						
+						if (i<3){
+							final Peer peer=Application.getInstance().getPeer();
+							
+							// Sending an advertisement (trick to get the other peer URI)
+							EstablisherAdvertisementInterface cadv = AdvertisementFactory.createEstablisherAdvertisement();
+							cadv.setTitle("Contract");
+							cadv.setContract("2");
+							
+							cadv.publish(peer);
+						}
+					}
 				}
 			}
-			
-		}, "test2");
+		});
 	}
 	
 	public void stop(){

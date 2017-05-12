@@ -11,6 +11,8 @@ public class EstablisherAdvertisement extends AbstractAdvertisement implements E
 	@AdvertisementAttribute(indexed = true)
 	private String title;
 	
+
+	@AdvertisementAttribute(enabled = true)
 	private String contract;
 	
 	// Sender userid
@@ -42,8 +44,8 @@ public class EstablisherAdvertisement extends AbstractAdvertisement implements E
 	}
 	
 	@Override
-	public void setContract(String prom) {
-		this.contract = prom;
+	public void setContract(String c) {
+		this.contract = c;
 	}
 
 	public String getUserid() {

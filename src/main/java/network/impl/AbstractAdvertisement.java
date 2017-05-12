@@ -73,7 +73,6 @@ public abstract class AbstractAdvertisement implements Advertisement{
 		if(name == null) {
 			throw new RuntimeException("No service name defined for this class");
 		}
-		System.out.println("CONTRACT SENT");
 		peer.getService(name.name()).publishAdvertisement(this);
 	}
 
