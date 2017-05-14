@@ -125,7 +125,7 @@ public class SigmaEstablisherAsyncTest {
 	}
 	
 	// Test a simple signing protocol
-	//@Test
+	@Test
 	public void TestA(){
 		SigmaEstablisherAsync[] sigmaE = new SigmaEstablisherAsync[N];
 		for (int k=0; k<N; k++){
@@ -181,7 +181,7 @@ public class SigmaEstablisherAsyncTest {
 	}
  
 	// Test an abort in protocol (Trent doesn't give the signature)
-	//@Test
+	@Test
 	public void TestB(){
 		resolveInitiator(1);
 		
