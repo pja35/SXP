@@ -41,8 +41,9 @@ import model.entity.sigma.Or;
 import model.entity.sigma.ResEncrypt;
 import model.entity.sigma.ResponsesCCD;
 import network.api.EstablisherService;
-import network.api.Messages;
-import network.api.ServiceListener;
+import network.api.EstablisherServiceListener;
+import network.api.Peer;
+import protocol.impl.SigmaEstablisher;
 
 
 /**
@@ -73,20 +74,18 @@ public class Trent {
 		encrypter.setKey(keys);
 		
 		// Add a listener in case someone ask to resolve
-		establisherService.addListener(new ServiceListener() {
+		establisherService.setListener("title", SigmaEstablisher.FOR_TRENT_MESSAGE + this.keys.getPublicKey().toString(), "TRENT"+this.keys.getPublicKey().toString(),new EstablisherServiceListener() {
 			@Override
-			public void notify(Messages messages) {// Finding the sender
-				BigInteger msgSenKey = new BigInteger(messages.getMessage("sourceId"));
+			public void notify(String title, String content, String senderId) {
+				BigInteger msgSenKey = new BigInteger(senderId);
 				ElGamalKey senderK = new ElGamalKey();
 				senderK.setPublicKey(msgSenKey);
 				senderK.setG(keys.getG());
 				senderK.setP(keys.getP());
 				
-				String content = messages.getMessage("contract");
-				
 				resolve(content, senderK);
 			}
-		}, this.keys.getPublicKey().toString()+"TRENT");
+		}, false);
 		
 	 }
 	
@@ -96,6 +95,8 @@ public class Trent {
 	 * 		Message format : ArrayList<String> = {title, content}
 	 */
 	private void resolve(String message, ElGamalKey senderK){
+		Peer peer = Application.getInstance().getPeer();
+		
 		JsonTools<String[]> json = new JsonTools<>(new TypeReference<String[]>(){});
 		String[] content = json.toEntity(message);
 		
@@ -105,16 +106,12 @@ public class Trent {
 			// Data stored in the message
 			int round = Integer.parseInt(content[0]);
 			
-			JsonTools<HashMap<BigInteger, String>> json1 = new JsonTools<>(new TypeReference<HashMap<BigInteger, String>>(){});
-			HashMap<BigInteger, String> uris = json1.toEntity(content[1]);
-			
 			JsonTools<ContractEntity> json2 = new JsonTools<>(new TypeReference<ContractEntity>(){});
-			SigmaContract contract = new SigmaContract(json2.toEntity(content[2]));
-			
-			String m = new String(encrypter.decrypt(content[3].getBytes()));
+			SigmaContract contract = new SigmaContract(json2.toEntity(content[1]));
+			String m = new String(encrypter.decrypt(content[2].getBytes()));
 
 			JsonTools<SigmaSignature> json4 = new JsonTools<>(new TypeReference<SigmaSignature>(){});
-			String sign = new String(encrypter.decrypt(content[4].getBytes()));
+			String sign = new String(encrypter.decrypt(content[3].getBytes()));
 			SigmaSignature signature = json4.toEntity(sign);
 			
 			
@@ -140,7 +137,7 @@ public class Trent {
 			if (s.verify(m.getBytes(), signature) && verifiedOr){
 				String id = new String(contract.getHashableData());
 				if (solvers.get(id) == null){
-					solvers.put(id, new TrentSolver(contract, this.keys));
+					solvers.put(id, new TrentSolver(contract, this));
 				}
 
 				// TrentSolver is the class dealing with the message
@@ -148,26 +145,28 @@ public class Trent {
 				ArrayList<String> resolved = ts.resolveT(m, round, senderK.getPublicKey().toString());
 
 				if (resolved == null){
-					establisherService.sendContract(new String(contract.getHashableData()), 
-							senderK.getPublicKey().toString() + "TRENT",
-							keys.getPublicKey().toString(),
+					establisherService.sendContract(SigmaEstablisher.TRENT_MESSAGE + new String(contract.getHashableData()), 
 							"Dishonest",
-							uris.get(senderK));
+							this.keys.getPublicKey().toString(),
+							peer);
 				} else{
-					SigmaSignature signa = s.sign(resolved.get(1).getBytes());
-					JsonTools<SigmaSignature> jsona = new JsonTools<>(new TypeReference<SigmaSignature>(){});
-					resolved.add(jsona.toJson(signa));
+					HashMap<String,String> signatures = new HashMap<String,String>();
+					for (ElGamalKey k : contract.getParties()){
+						s.setReceiverK(k);
+						SigmaSignature signa = s.sign(resolved.get(1).getBytes());
+						JsonTools<SigmaSignature> jsons = new JsonTools<>(new TypeReference<SigmaSignature>(){});
+						signatures.put(k.getPublicKey().toString(),jsons.toJson(signa));
+					}
+					JsonTools<HashMap<String,String>> jsona = new JsonTools<>(new TypeReference<HashMap<String,String>>(){});
+					resolved.add(jsona.toJson(signatures));
 					
 					JsonTools<ArrayList<String>> jsons = new JsonTools<>(new TypeReference<ArrayList<String>>(){});
 					String answer = jsons.toJson(resolved);
 
-					for (BigInteger k : uris.keySet()){
-						establisherService.sendContract(new String(contract.getHashableData()), 
-								k.toString()+"TRENT",
-								keys.getPublicKey().toString(),
-								answer,
-								uris.get(k));
-					}
+					establisherService.sendContract(SigmaEstablisher.TRENT_MESSAGE + new String(contract.getHashableData()),
+							answer,
+							this.keys.getPublicKey().toString(),
+							peer);
 				}
 			}
 		}

@@ -2,12 +2,10 @@ package network.api;
 
 import java.util.EventListener;
 
-import network.api.advertisement.EstablisherAdvertisementInterface;
-
 public interface EstablisherServiceListener extends EventListener {
 	
 	/*
-	 * Notify when the establisher receives an EstablisherAdvertisement
+	 * Notify when the establisher receives an EstablisherAdvertisement or a Message
 	 */
-	public void notify(EstablisherAdvertisementInterface adv);
+	public void notify(String title, String data, String senderKey);
 }

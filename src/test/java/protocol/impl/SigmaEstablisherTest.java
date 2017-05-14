@@ -1,16 +1,16 @@
 package protocol.impl;
 
-import static org.junit.Assert.assertTrue;
+
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-import org.junit.AfterClass;
+import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import controller.Application;
@@ -23,7 +23,6 @@ import model.entity.ContractEntity;
 import model.entity.ElGamalKey;
 import model.entity.User;
 import model.syncManager.UserSyncManagerImpl;
-import protocol.impl.SigmaEstablisher;
 import protocol.impl.sigma.SigmaContract;
 import protocol.impl.sigma.Trent;
 import util.TestInputGenerator;
@@ -32,7 +31,9 @@ import util.TestUtils;
 public class SigmaEstablisherTest {
 	public static Application application;
 	public static final int restPort = 5601;
+	public static final int restPort2 = 5602;
 	
+	public static final boolean useMessages = true;
 	public static final int N = 2;
 	
 	// Users
@@ -51,14 +52,13 @@ public class SigmaEstablisherTest {
 	/*
 	 * Create the users, the application
 	 */
-	@BeforeClass
-	static public void initialize(){
+	@Before
+	public void initialize(){
 		application = new Application();
 		application.runForTests(restPort);
 		
 		// Initialize the users
 		u = new User[N];
-		uris = new HashMap<ElGamalKey, String>();
 		for (int k=0; k<N; k++){
 			String login = TestInputGenerator.getRandomAlphaWord(20);
 			String password = TestInputGenerator.getRandomPwd(20);
@@ -78,37 +78,30 @@ public class SigmaEstablisherTest {
 		}
 		
 		// Initialize the keys
+		ElGamalKey key;
 		keysR = new ElGamalKey[N];	
-		String uri = Application.getInstance().getPeer().getUri();	
 		for (int k=0; k<N; k++){
-			ElGamalKey key = u[k].getKey();
+			key = u[k].getKey();
 			keysR[k] = new ElGamalKey();
 			keysR[k].setG(key.getG());
 			keysR[k].setP(key.getP());
 			keysR[k].setPublicKey(key.getPublicKey());
-			uris.put(keysR[k], uri);
 		}
-		uris.put(trentK, uri);
 		
-	}
-
-	@AfterClass
-	static public void deleteBaseAndPeer(){
-		TestUtils.removeRecursively(new File(".db-" + restPort + "/"));
-		TestUtils.removePeerCache();
-		application.stop();
-	}
-	
-	
-	@Before
-	public void instantiate(){
+		if (useMessages){
+			uris = new HashMap<ElGamalKey, String>();	
+			String uri = Application.getInstance().getPeer().getUri();
+			for (int k=0; k<N; k++)
+				uris.put(keysR[k], uri);
+		}
+		
 		c = new SigmaContract[N];
 		ce = new ContractEntity[N];
 		
 		// Initialize the contracts 
 		ArrayList<String> cl = new ArrayList<String>();
-		cl.add("clause 1");
-		cl.add("second clause");
+		cl.add(TestInputGenerator.getRandomIpsumText());
+		cl.add(TestInputGenerator.getRandomIpsumText());
 		
 
 		ArrayList<String> parties = new ArrayList<String>();
@@ -123,30 +116,44 @@ public class SigmaEstablisherTest {
 			ce[k].setSignatures(new HashMap<String, String>());
 			c[k] = new SigmaContract(ce[k]);
 		}
+		
+		new Trent(trentK);
+	}
+
+	@After
+	public void stopApp(){
+		TestUtils.removeRecursively(new File(".db-" + restPort + "/"));
+		TestUtils.removePeerCache();
+		application.stop();
 	}
 	
+	// Test a simple signing protocol
 	@Test
-	public void goodSigningTest(){
-		
+	public void TestA(){
 		SigmaEstablisher[] sigmaE = new SigmaEstablisher[N];
+		for (int k=0; k<N; k++){
+				sigmaE[k] = new SigmaEstablisher(u[k].getKey(), trentK, uris);
+		}
 		
 		for (int k=0; k<N; k++){
-			sigmaE[k] = new SigmaEstablisher(u[k].getKey(), uris, trentK);
 			sigmaE[k].initialize(c[k]);
 		}
 		
-		// Time to setup the passwords
+		// Time to setup listeners
 		try{
 			Thread.sleep(1000);
 		}catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		
-		for (int k=0; k<N; k++)
-			sigmaE[k].start();
 		
+		for (int k=0; k<N; k++){
+			sigmaE[k].start();
+		}
+		
+		// Time to realize procedure
 		try{
-			Thread.sleep(3001);
+			Thread.sleep(5000);
 		}catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -158,42 +165,50 @@ public class SigmaEstablisherTest {
 		
 		assertTrue(res);
 	}
-
+	
 	// resolveInitiater, limit is the failing round
-	public void resolveInitiator(int limit){
+	public void resolveInitiator(int limit, HashMap<ElGamalKey, String> uris){SigmaEstablisher[] sigmaE = new SigmaEstablisher[N];
 		
-		new Trent(trentK);
+		for (int k=1; k<N; k ++)
+			sigmaE[k] = new SigmaEstablisher(u[k].getKey(), trentK, uris);
 		
-		SigmaEstablisher[] sigmaE = new SigmaEstablisher[N];
+		sigmaE[0] = new SigmaEstablisherFailer(u[0].getKey(), trentK, uris, limit, false);
 		
-		for (int k=1; k<N; k ++){
-			sigmaE[k] = new SigmaEstablisher(u[k].getKey(), uris, trentK);
+		for (int k=0; k<N; k++){
 			sigmaE[k].initialize(c[k]);
 		}
-		sigmaE[0] = new SigmaEstablisherFailer(u[0].getKey(), uris, trentK, limit, false);
-		sigmaE[0].initialize(c[0]);
-		
-		// Time to setup the passwords
+
 		try{
 			Thread.sleep(1000);
 		}catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
-		for (int k=0; k<N; k++)
-			sigmaE[k].start();
 		
-		// Time for listener to react
+		for (int k=0; k<N; k++){
+			sigmaE[k].start();
+		}
+		
 		try{
-			Thread.sleep(3001);
+			Thread.sleep(3000);
 		}catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
-
+ 
+	// Test an abort in protocol (Trent doesn't give the signature)
 	@Test
-	public void abortTest(){
-		resolveInitiator(1);
+	public void TestB(){
+		resolveInitiator(1, uris);
+		
+		// Time to realize procedure
+		for (int k=0; k<10; k++){
+			try{
+				Thread.sleep(1000);
+			}catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+		}
 		
 		boolean res = true;
 		for (int k=0; k<N; k++){
@@ -204,10 +219,21 @@ public class SigmaEstablisherTest {
 		assertFalse(res);
 	}
 	
+	// Test a resolve in protocol (Trent gives the signature in the end)
 	@Test
-	public void resolveTest(){
-		resolveInitiator(2);
-
+	public void TestC(){
+		resolveInitiator(2, uris);
+		
+		// Time to realize procedure
+		for (int k=0; k<10; k++){
+			try{
+				Thread.sleep(1000);
+			}catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
 		boolean res = true;
 		for (int k=0; k<N; k++){
 			res =  res && c[k].isFinalized();
@@ -215,5 +241,4 @@ public class SigmaEstablisherTest {
 
 		assertTrue(res);
 	}
-	
 }

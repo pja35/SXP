@@ -6,15 +6,19 @@ package network.impl.jxta;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import model.entity.ElGamalKey;
 import net.jxta.discovery.DiscoveryEvent;
 import net.jxta.discovery.DiscoveryListener;
 import net.jxta.pipe.PipeMsgEvent;
 import network.api.EstablisherService;
 import network.api.EstablisherServiceListener;
+import network.api.Messages;
 import network.api.Peer;
 import network.api.SearchListener;
+import network.api.ServiceListener;
 import network.api.advertisement.EstablisherAdvertisementInterface;
 import network.factories.AdvertisementFactory;
 import network.impl.advertisement.EstablisherAdvertisement;
@@ -39,8 +43,9 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 	}
 	
 	private HashMap<String, DiscoveryListener> advertisementListeners;
-	// Hashmap of locallisteners
+	// Hashmap of localListeners
 	private ConcurrentHashMap<String, ListenerWithParam> establisherServiceListeners;
+	
 	
 	public JxtaEstablisherService ()
 	{ 
@@ -49,7 +54,27 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 		establisherServiceListeners = new ConcurrentHashMap<String, ListenerWithParam>();
 	}
 	
-	
+
+
+	// Encapsulate contract sending, through Advertisement or Messages
+	// If uris == null & peer != null => Use Advertisements
+	// Else if uris != null => Use messages
+	@Override
+	public void sendContract(String title, String data, String senderK, HashMap<ElGamalKey, String> uris, Peer peer){
+		if (uris == null && peer != null){
+			this.sendContract(title, data, senderK, peer);
+		}
+		else if(uris != null){
+			Set<ElGamalKey> keys = uris.keySet();
+			for (ElGamalKey k : keys){
+				this.sendContract(title,
+						title + k.getPublicKey().toString(), 
+						senderK,
+						data,
+						uris.get(k));				
+			}
+		}
+	}
 	// Send a message
 	@Override
 	public EstablisherMessage sendContract(String title, String who, String sourceId, String contract, String... peerURIs) 
@@ -77,7 +102,7 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 		for (String k :  establisherServiceListeners.keySet()){
 			ListenerWithParam l = establisherServiceListeners.get(k);
 			if (l.param == null || l.param.equals(title))
-				l.listener.notify(cadv);
+				l.listener.notify(title, data, sourceKey);
 		}
 	}
 	
@@ -89,6 +114,24 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 		super.pipeMsgEvent(event);
 	}
 	
+	
+	/*
+	 * Encapsulate listener adding
+	 */
+	public void setListener(final String field, final String value, String listenerId, final EstablisherServiceListener l, boolean useMessage){
+		if (useMessage){
+			this.addListener(new ServiceListener() {
+				@Override
+				public void notify(Messages messages) {
+					if (messages.getMessage(field).equals(value)){
+						l.notify(messages.getMessage("title"), messages.getMessage("contract"), messages.getMessage("sourceId"));
+					}
+				}
+			}, listenerId);
+		}else{
+			this.listens(field, value, listenerId, l);
+		}
+	}
 	@Override
 	public void listens(final String field, final String value, String listenerId, final EstablisherServiceListener l){
 		establisherServiceListeners.put(listenerId, new ListenerWithParam(value, l));
@@ -104,7 +147,7 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 						EstablisherAdvertisementInterface c = (EstablisherAdvertisementInterface) adv.getAdvertisement();
 						// If the field on which to listen is the title, then we check its validity 
 						if (!field.equals("title") || c.getTitle().equals(value))
-							l.notify(c);
+							l.notify(c.getTitle(), c.getContract(), c.getKey());
 					}
 				}
 			}
@@ -118,7 +161,7 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 			@Override
 			public void notify(Collection<EstablisherAdvertisementInterface> adverts) {
 				for(EstablisherAdvertisementInterface adv : adverts) {
-					l.notify(adv);
+					l.notify(adv.getTitle(), adv.getContract(), adv.getKey());
 				}
 			}
 		});
@@ -126,13 +169,15 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 
 
 	@Override
-	public void removeListens(String listenerId){
+	public void removeListener(String listenerId){
 		if (advertisementListeners.containsKey(listenerId)){
 			this.removeAdvertisementListener(advertisementListeners.get(listenerId));
 			advertisementListeners.remove(listenerId);
 		}
 		if (establisherServiceListeners.containsKey(listenerId)){
 			establisherServiceListeners.remove(listenerId);
+		}else{
+			super.removeListener(listenerId);
 		}
 	}
 	

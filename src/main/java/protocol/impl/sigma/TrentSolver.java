@@ -8,7 +8,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
 import crypt.impl.signatures.SigmaSignature;
-import model.entity.ElGamalKey;
 import model.entity.sigma.Or;
 import model.entity.sigma.ResEncrypt;
 import model.entity.sigma.ResponsesCCD;
@@ -25,9 +24,9 @@ public class TrentSolver {
 	private HashMap<String, String[]> dishonestClaims;
 	
 	
-	public TrentSolver(SigmaContract c, ElGamalKey k){
+	public TrentSolver(SigmaContract c, Trent t){
 		this.contract = c;
-		this.trent = new Trent(k);
+		this.trent = t;
 		
 		this.possiblyHonestClaims = new ArrayList<HashMap<String, String>>();
 		this.dishonestClaims = new HashMap<String, String[]>();
