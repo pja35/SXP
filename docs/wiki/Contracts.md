@@ -16,7 +16,7 @@ More concretely, SXP will include:
 
 -   a standardized [XML](/SXP/wiki/XML "wikilink") format for describing items to
     be exchanged. [More on
-    specifying items.](/SXP/wiki/ItemsSpecification "wikilink")
+    specifying items.](/SXP/wiki/SXPItemSpecificationFormat "wikilink")
 -   a standardized [XML](/SXP/wiki/XML "wikilink") format for [specifiying the
     terms of a contract](/SXP/wiki/ContractsSpecification "wikilink"). Currently
     this is done by the [SXP Contract Specification

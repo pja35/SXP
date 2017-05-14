@@ -62,7 +62,7 @@ eContracts).
     *SXPTransfer*, each one representing a single exchange between
     two parties. An SXPTransfer contains the following sequence:
     -   SXP Item. A reference to the [SXP
-        Item](/SXP/wiki/ItemsSpecification "wikilink") that will be exchanged.
+        Item](/SXP/wiki/SXPItem "wikilink") that will be exchanged.
     -   Party Provider. A unique reference (see xsd:IDREF) to a *party*
         id from above.
     -   Party Receiver.
@@ -87,7 +87,7 @@ Optional clauses
 
 -   **Other Clauses**. Basically, users can add as many clauses as they
     want as *items* (do not confuse with the [Items
-    Specification](/SXP/wiki/ItemsSpecification "wikilink"), which describes
+    Specification](/SXP/wiki/SXPItemSpecificationFormat "wikilink"), which describes
     objects and services), under the *body* level. These clauses are
     intended to contain text that can be read by both parties. These
     particular clauses are original from the Legal XML

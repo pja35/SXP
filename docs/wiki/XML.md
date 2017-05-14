@@ -18,7 +18,7 @@ consequence:
 
 -   there are many tools around for manipulating XML.
 -   there may already by some tuned versions of XML for specifying
-    [items](/SXP/wiki/ItemsSpecification "wikilink") and
+    [items](/SXP/wiki/SXPItemSpecificationFormat "wikilink") and
     [contracts](/SXP/wiki/ContractsSpecification "wikilink"), which is what
     we want.
 -   once GUIs will be developed none will have to see the
