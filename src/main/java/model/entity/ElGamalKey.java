@@ -119,4 +119,12 @@ public class ElGamalKey implements AsymKey<BigInteger>, Serializable{
 		return this.getPublicKey().hashCode();
 	}
 	
+	public ElGamalKey copy(){
+		ElGamalKey copy = new ElGamalKey();
+		copy.setPrivateKey(this.getPrivateKey());
+		copy.setPublicKey(this.getPublicKey());
+		copy.setG(this.getG());
+		copy.setP(this.getP());
+		return copy;
+	}
 }

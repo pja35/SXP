@@ -9,6 +9,7 @@ import java.util.HashMap;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import crypt.impl.signatures.ElGamalSignature;
+import crypt.impl.signatures.ElGamalSigner;
 /* TODO : Respect design pattern factory here
  * 		Problem here is that the implementation use other keys than the main one
  * 		Same problem in Trent
@@ -19,7 +20,6 @@ import crypt.impl.signatures.SigmaSigner;
 import controller.Application;
 import controller.tools.JsonTools;
 import crypt.api.encryption.Encrypter;
-import crypt.api.signatures.Signer;
 import crypt.factories.EncrypterFactory;
 import crypt.factories.SignerFactory;
 import model.api.Status;
@@ -47,7 +47,10 @@ import protocol.impl.sigma.SigmaContract;
 
 public class SigmaEstablisherAsync extends Establisher<BigInteger, ElGamalKey, SigmaSignature, SigmaSigner, SigmaContract> {
 	
-	private static final String STARTING_MESSAGE = "START";
+	public static final String STARTING_MESSAGE = "START";
+	public static final String TRENT_MESSAGE = "TRENT";
+	public static final String FOR_TRENT_MESSAGE = "FOR TRENT";
+	public static final String SIGNING_MESSAGE = "SIGNING_DATA";
 	
 	protected ElGamalKey trentK;
 	protected EstablisherService establisherService =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
@@ -68,11 +71,9 @@ public class SigmaEstablisherAsync extends Establisher<BigInteger, ElGamalKey, S
 	// Know which parties are ready to sign
 	protected String[] ready;
 	// Current signature round
-	protected int round = 0;
+	protected int round = -1;
 	// The PCS maker
 	protected PCS pcs; 
-	// The signer to sign short messages
-	protected Signer<ElGamalSignature, ElGamalKey> elGamalSigner;
 	
 	
 	/**
@@ -84,9 +85,6 @@ public class SigmaEstablisherAsync extends Establisher<BigInteger, ElGamalKey, S
 	public SigmaEstablisherAsync(ElGamalKey senderK, ElGamalKey t){
 		signer = SignerFactory.createSigmaSigner();
 		signer.setKey(senderK);
-		
-		elGamalSigner = SignerFactory.createElGamalSigner();
-		elGamalSigner.setKey(senderK);
 		
 		trentK = t;
 	}
@@ -105,6 +103,7 @@ public class SigmaEstablisherAsync extends Establisher<BigInteger, ElGamalKey, S
 		// The El Gamal keys of all parties 
 		keys = contract.getParties();
 		senPubK = signer.getKey().getPublicKey();
+		
 		N = keys.size();
 		// Used to know wether everyone has yet accepted the contract or not
 		ready = new String[N];
@@ -113,10 +112,10 @@ public class SigmaEstablisherAsync extends Establisher<BigInteger, ElGamalKey, S
 		
 		/*
 		 * Get ready to start
-		 * If an advertisement was or is received, it is stored and we wait until everyone has sent
-		 * 		its starting message
+		 * If an advertisement was or is received, we check the signature and it is stored and we wait until everyone has sent its starter
 		 */
-		establisherService.listens("title", contractId, new EstablisherServiceListener(){
+		establisherService.removeListens(STARTING_MESSAGE+contractId+senPubK.toString());
+		establisherService.listens("title", STARTING_MESSAGE+contractId, STARTING_MESSAGE+contractId+senPubK.toString(), new EstablisherServiceListener(){
 			@Override
 			public void notify(EstablisherAdvertisementInterface adv){
 				JsonTools<ElGamalSignature> json = new JsonTools<>(new TypeReference<ElGamalSignature>(){});
@@ -127,23 +126,20 @@ public class SigmaEstablisherAsync extends Establisher<BigInteger, ElGamalKey, S
 				int i = 0;
 				while (!(keys.get(i).getPublicKey().equals(msgSenKey))){i++;}
 				
-				byte[] data = STARTING_MESSAGE.getBytes();
+				// Prepare the elGamalSigner to check the data
+				ElGamalSigner elGamalSigner = SignerFactory.createElGamalSigner();
 				elGamalSigner.setKey(keys.get(i));
 				
-				if (elGamalSigner.verify(data, signature) &&
-					adv.getTitle().equals(contractId)){
+				if (elGamalSigner.verify(STARTING_MESSAGE.getBytes(), signature)){
 					ready[i] = "";
 					// Checks if everyone is ready
-					if (Arrays.asList(ready).indexOf(null) == (-1)){
+					if (Arrays.asList(ready).indexOf(null) == (-1) && round==-1){
+						round++;
 						chooseTrent();
 					}
 				}
 			}
 		});
-	}
-	
-	public void starter(EstablisherAdvertisementInterface c){
-		
 	}
 	
 	/**
@@ -153,23 +149,19 @@ public class SigmaEstablisherAsync extends Establisher<BigInteger, ElGamalKey, S
 	public void start(){
 		JsonTools<ElGamalSignature> json = new JsonTools<>(new TypeReference<ElGamalSignature>(){});
 		
-		String content;
-		byte[] data = STARTING_MESSAGE.getBytes();
+		ElGamalSigner elGamalSigner = SignerFactory.createElGamalSigner();
 		elGamalSigner.setKey(signer.getKey());
-		content = json.toJson(elGamalSigner.sign(data));
+		// Creates signature on message "start" and change it to Json
+		String content = json.toJson(elGamalSigner.sign((STARTING_MESSAGE).getBytes()));
 
-		
 		// Sending an advertisement
-		EstablisherAdvertisementInterface cadv = AdvertisementFactory.createEstablisherAdvertisement();
-		cadv.setTitle(contractId);
-		cadv.setContract(content);
-		cadv.setKey(senPubK.toString());
-		cadv.publish(peer);
+		establisherService.sendContract(STARTING_MESSAGE+contractId, content, senPubK.toString(), peer);
 		
 		int i=0;
 		while (!(keys.get(i).getPublicKey().equals(senPubK))){i++;}
 		ready[i] = "";
-		if (Arrays.asList(ready).indexOf(null) == (-1)){
+		if (Arrays.asList(ready).indexOf(null) == (-1) && round == -1){
+			round++;
 			chooseTrent();
 		}
 	}
@@ -178,22 +170,24 @@ public class SigmaEstablisherAsync extends Establisher<BigInteger, ElGamalKey, S
 	 * Choose Trent, put a listener for him, then start signing
 	 */
 	protected void chooseTrent(){
+		establisherService.removeListens(STARTING_MESSAGE+contractId+senPubK.toString());
+		
 		// TODO : choose trent and associate its uri in uris
 		contract.setTrentKey(trentK);
 		signer.setTrentK(trentK);
 		
 		
 		// Put a listener on Trent in case something goes wrong
-		establisherService.listens("title", contractId, new EstablisherServiceListener(){
+		establisherService.removeListens(TRENT_MESSAGE+contractId+senPubK.toString());
+		establisherService.listens("title", TRENT_MESSAGE + contractId, TRENT_MESSAGE+contractId+senPubK.toString(), new EstablisherServiceListener(){
 			@Override
 			public void notify(EstablisherAdvertisementInterface adv){
 				
 				// If the message is for another contract or by someone else thant Trent
-				if (adv.getTitle().equals(contractId) && adv.getKey().equals(trentK.getPublicKey().toString())){
-					
+				if (adv.getKey().equals(trentK.getPublicKey().toString())){
 					// If Trent found we were dishonest (second time a resolve sent)
 					if (adv.getContract().equals("Dishonest")){
-						System.out.println("You were dishonest, third party didn't do nothing");
+						System.out.println("You were dishonest or request sent twice, third party didn't do nothing on this time");
 					} 
 					
 					else{
@@ -204,7 +198,10 @@ public class SigmaEstablisherAsync extends Establisher<BigInteger, ElGamalKey, S
 						signer.setTrentK(trentK);
 						JsonTools<SigmaSignature> json = new JsonTools<>(new TypeReference<SigmaSignature>(){});
 
-						if(signer.verify(answer.get(1).getBytes() ,json.toEntity(answer.get(2)))){
+						JsonTools<HashMap<String,String>> jsonH = new JsonTools<>(new TypeReference<HashMap<String,String>>(){});
+						HashMap<String,String> signatures = jsonH.toEntity(answer.get(2));
+						
+						if(signer.verify(answer.get(1).getBytes() ,json.toEntity(signatures.get(senPubK.toString())))){
 							// If Trent aborted the contract
 							if (answer.get(0).equals("aborted") || answer.get(0).equals("honestyToken")){
 								setStatus(Status.CANCELLED);
@@ -256,31 +253,30 @@ public class SigmaEstablisherAsync extends Establisher<BigInteger, ElGamalKey, S
 		pcs = new PCS(sender, trentK);
 		round = 1;
 
-		establisherService.listens("title", contractId, new EstablisherServiceListener() {
+		establisherService.removeListens(SIGNING_MESSAGE+contractId+senPubK.toString());
+		establisherService.listens("title", SIGNING_MESSAGE+contractId, SIGNING_MESSAGE+contractId+senPubK.toString(), new EstablisherServiceListener() {
 			@Override
 			public void notify(EstablisherAdvertisementInterface adv) {
-				if (adv.getTitle().equals(contractId)){
-					String msg = adv.getContract();
-					
-					// Checks if the message is a PCS, if yes store it in "pcs[round][k]"
-					verifyAndStoreSignature(msg, adv.getKey());
+				String msg = adv.getContract();
 
-					// Check if the round is complete
-					boolean claimFormed = true;
+				// Checks if the message is a PCS, if yes store it in "pcs[round][k]"
+				verifyAndStoreSignature(msg, adv.getKey());
+
+				// Check if the round is complete
+				boolean claimFormed = true;
+				for (int k=0; k<N; k++){
+					if (promRoundSender[round][k] == null)
+						claimFormed= false;
+				}
+				
+				/*	Send the rounds (if we have the claim needed):
+				 *  	We do a loop because sometimes, we receive the PCS for round+1 before the one for the current round
+				 */  
+				while (round<=(N+1) && claimFormed){
+					sendRound(++round);
 					for (int k=0; k<N; k++){
 						if (promRoundSender[round][k] == null)
 							claimFormed= false;
-					}
-					
-					/*	Send the rounds (if we have the claim needed):
-					 *  	We do a loop because sometimes, we receive the PCS for round+1 before the one for the current round
-					 */  
-					while (round<=(N+1) && claimFormed){
-						sendRound(++round);
-						for (int k=0; k<N; k++){
-							if (promRoundSender[round][k] == null)
-								claimFormed= false;
-						}
 					}
 				}
 			}
@@ -302,52 +298,41 @@ public class SigmaEstablisherAsync extends Establisher<BigInteger, ElGamalKey, S
 	 * Trent resolve function is in Trent Class
 	 */
 	protected void resolve(){
-
-		establisherService.removeListener(senPubK.toString());
 		
-		String[] content = new String[5];
+		establisherService.removeListens(SIGNING_MESSAGE+contractId+senPubK.toString());
+		
+		String[] content = new String[4];
 
 		// Round
 		content[0] = String.valueOf(round-1);
-		// Uris
-		JsonTools<HashMap<BigInteger, String>> json1 = new JsonTools<>(new TypeReference<HashMap<BigInteger, String>>(){});
-		HashMap<BigInteger, String> u = new HashMap<BigInteger, String>();
-		for (ElGamalKey ke : uris.keySet()){
-			u.put(ke.getPublicKey(), uris.get(ke));
-		}
-		content[1] = json1.toJson(u);
 		
 		
 		// Contract
 		JsonTools<ContractEntity> json2 = new JsonTools<>(new TypeReference<ContractEntity>(){});
-		content[2] = json2.toJson(contract.getEntity(),false);
+		content[1] = json2.toJson(contract.getEntity(),false);
 		
 		// Claim(k)
 		signer.setReceiverK(trentK);
 		SigmaSignature sigClaimK;
 		if (round<=1){
-			content[3] = encryptMsg("ABORT", trentK);
+			content[2] = encryptMsg("ABORT", trentK);
 			sigClaimK = signer.sign("ABORT".getBytes());
 		}else {
 			JsonTools<Or[]> json = new JsonTools<>(new TypeReference<Or[]>(){});
 			String claimK = json.toJson(promRoundSender[round-1], true);
-			content[3] = encryptMsg(claimK, trentK);
+			content[2] = encryptMsg(claimK, trentK);
 			sigClaimK = signer.sign(claimK.getBytes());
 		}
 		JsonTools<SigmaSignature> json3 = new JsonTools<>(new TypeReference<SigmaSignature>(){});
-		content[4] = encryptMsg(json3.toJson(sigClaimK, false), trentK);
+		content[3] = encryptMsg(json3.toJson(sigClaimK, false), trentK);
 		
 		// Concatenate the content
 		JsonTools<String[]> json = new JsonTools<>(new TypeReference<String[]>(){});
 		String fullContent = json.toJson(content, false);
 
 		System.out.println("--- Sending resolve request to Trent --- Round : " + (round-1));
-		
-		establisherService.sendContract(contractId,
-							trentK.getPublicKey().toString()+"TRENT",
-							senPubK.toString(),
-							fullContent,
-							uris.get(trentK));
+
+		establisherService.sendContract(SigmaEstablisherAsync.FOR_TRENT_MESSAGE + trentK.getPublicKey().toString(), fullContent, senPubK.toString(), peer);
 	}
 	
 	/*
@@ -387,21 +372,20 @@ public class SigmaEstablisherAsync extends Establisher<BigInteger, ElGamalKey, S
 			} 
 		}
 		
+		// Adding the round to data sent
+		content.put("ROUND", String.valueOf(round));
+		
 		// Convert map to String
 		JsonTools<HashMap<String,String>> json2 = new JsonTools<>(new TypeReference<HashMap<String,String>>(){});
 		String dataToBeSent = json2.toJson(content);
-		
-		// Sending an advertisement
-		EstablisherAdvertisementInterface cadv = AdvertisementFactory.createEstablisherAdvertisement();
-		cadv.setTitle(contractId);
-		cadv.setContract(dataToBeSent);
-		cadv.setKey(senPubK.toString());
-		cadv.publish(peer);
 		
 		// Getting the sender public key index 
 		int i = 0;
 		while (!(keys.get(i).getPublicKey().equals(senPubK))){i++;}
 		System.out.println("Sending Round : " + round + " : by " + i);
+		
+		// Sending an advertisement
+		establisherService.sendContract(SIGNING_MESSAGE + contractId, dataToBeSent, senPubK.toString(), peer);
 	}
 	
 	/*
@@ -419,15 +403,12 @@ public class SigmaEstablisherAsync extends Establisher<BigInteger, ElGamalKey, S
 		int i = 0;
 		while (!(keys.get(i).getPublicKey().equals(msgSenKey))){i++;}
 		ElGamalKey senderKey = keys.get(i);
-		
+
 		// From json message to the object {"k", PCS}
-		JsonTools<String[]> json0 = new JsonTools<>(new TypeReference<String[]>(){});
-		String[] fullContent = json0.toEntity(message, true);
+		JsonTools<HashMap<String,String>> json0 = new JsonTools<>(new TypeReference<HashMap<String,String>>(){});
+		HashMap<String,String> content = json0.toEntity(message);
 		
-		int k= Integer.parseInt(fullContent[0]);
-		
-		JsonTools<HashMap<String,String>> json1 = new JsonTools<>(new TypeReference<HashMap<String,String>>(){});
-		HashMap<String,String> content = json1.toEntity(fullContent[1]);
+		int k= Integer.parseInt(content.get("ROUND"));
 		
 		// Don't do anything if the sender is the actual user (shouldn't happen though)
 		if (!(senderKey.getPublicKey().equals(senPubK))){
@@ -447,7 +428,7 @@ public class SigmaEstablisherAsync extends Establisher<BigInteger, ElGamalKey, S
 					if (contract.isFinalized()){
 						int j = 0;
 						while (!(keys.get(j).getPublicKey().equals(senPubK))){j++;}
-						System.out.println("--- CONTRACT FINALIZED -- id : " + j);
+						System.out.println("--- CONTRACT FINALIZED -- on round : "+ round + "  -- id : " + j);
 						setStatus(Status.FINALIZED);
 					}
 				}

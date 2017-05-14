@@ -220,20 +220,22 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 	public void addListener(ServiceListener l, String who) {
 		listeners.put(who, l);
 	}
-	
-	@Override
-	public void addAdvertisementListener(DiscoveryListener l){
-		pg.getDiscoveryService().addDiscoveryListener(l);
-//		pg.getDiscoveryService().addDiscoveryListener(new DiscoveryListener(){
-//			@Override
-//			public void discoveryEvent(DiscoveryEvent event){
-//				// Do what you want with the advertisement
-//			}
-//		});
-	}
 
 	@Override
 	public void removeListener(String who) {
 		listeners.remove(who);
 	}
+	
+	
+	@Override
+	public void addAdvertisementListener(DiscoveryListener l){
+		pg.getDiscoveryService().addDiscoveryListener(l);
+	}
+
+	@Override
+	public void removeAdvertisementListener(DiscoveryListener l){
+		pg.getDiscoveryService().removeDiscoveryListener(l);
+	}
+	
+	
 }

@@ -19,7 +19,7 @@ import rest.factories.RestServerFactory;
 public class Application {
 	public final static int jxtaPort = 9800;
 	public final static int restPort = 8080;
-	public final static String[] rdvPeerIds = {"tcp://176.132.64.68:9800", "tcp://localhost:9800"};
+	public final static String[] rdvPeerIds = {"tcp://176.132.64.68:9800", "tcp://localhost:9800", "tcp://localhost:9801"};
 	
 	private static Application instance = null;
 	private static UserSyncManagerImpl umg;
@@ -42,7 +42,7 @@ public class Application {
 	public void run() {
 		setPeer(PeerFactory.createDefaultAndStartPeer());
 		setAuth(AuthentifierFactory.createDefaultAuthentifier());
-		RestServerFactory.createAndStartDefaultRestServer(8080); //start the rest api
+		RestServerFactory.createAndStartDefaultRestServer(restPort); //start the rest api
 	}
 
 	public void runForTests(int restPort) {

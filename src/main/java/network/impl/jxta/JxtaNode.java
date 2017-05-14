@@ -3,6 +3,7 @@ package network.impl.jxta;
 import java.io.File;
 import java.io.IOException;
 
+import controller.Application;
 import controller.tools.LoggerUtilities;
 import net.jxta.exception.PeerGroupException;
 import net.jxta.id.IDFactory;
@@ -12,7 +13,6 @@ import net.jxta.platform.NetworkConfigurator;
 import net.jxta.platform.NetworkManager;
 import net.jxta.protocol.ModuleImplAdvertisement;
 import network.api.Node;
-import network.factories.PeerFactory;
 import network.utils.IpChecker;
 
 /**
@@ -22,7 +22,16 @@ import network.utils.IpChecker;
  * @author Julien Prudhomme
  */
 public class JxtaNode implements Node{
-
+	
+	private int port;
+	
+	public JxtaNode(){
+		this.port = Application.jxtaPort;
+	}
+	public JxtaNode(int port){
+		this.port = port;
+	}
+	
 	private NetworkManager networkManager = null;
 	private boolean initialized = false;
 	private PeerGroup defaultPeerGroup = null;
@@ -95,14 +104,14 @@ public class JxtaNode implements Node{
 		configurator.setTcpInterfaceAddress("0.0.0.0");
 		configurator.setUseMulticast(true);
 		try {
-			configurator.setTcpPublicAddress(IpChecker.getIp()+":" + PeerFactory.port, false);
+			configurator.setTcpPublicAddress(IpChecker.getIp()+":" + this.port, false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			LoggerUtilities.logStackTrace(e);
 		}
 		configurator.setHttpInterfaceAddress("0.0.0.0");
 		try {
-			configurator.setHttpPublicAddress(IpChecker.getIp()+":" + PeerFactory.port, false);
+			configurator.setHttpPublicAddress(IpChecker.getIp()+":" + this.port, false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			LoggerUtilities.logStackTrace(e);

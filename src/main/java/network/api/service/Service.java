@@ -50,14 +50,18 @@ public interface Service {
 	 */
 	public void addListener(ServiceListener l, String who);
 	
+	
+	public void removeListener(String who);
+	
 	/**
 	 * Add a listener for advertisement on this service
 	 * @param l the listener
 	 */
 	public void addAdvertisementListener(DiscoveryListener l);
 	
+	public void removeAdvertisementListener(DiscoveryListener l);
 	
-	public void removeListener(String who);
+	
 	/**
 	 * Send messages to several peer (uris)
 	 * @param messages

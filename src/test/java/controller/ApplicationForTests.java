@@ -19,7 +19,7 @@ import rest.factories.RestServerFactory;
 public class ApplicationForTests {
 	public final static int jxtaPort = 9801;
 	public final static int restPort = 8081;
-	public final static String[] rdvPeerIds = {"tcp://176.132.64.68:9800", "tcp://localhost:9800"};
+	public final static String[] rdvPeerIds = {"tcp://176.132.64.68:9800", "tcp://localhost:9800", "tcp://localhost:9801"};
 	
 	private static ApplicationForTests instance = null;
 	private static UserSyncManagerImpl umg;
@@ -52,7 +52,7 @@ public class ApplicationForTests {
 		umg.close();
 		umg = null;
 		try {
-			setPeer(PeerFactory.createDefaultAndStartPeerForTest());
+			setPeer(PeerFactory.createDefaultAndStartPeerForTest(jxtaPort, rdvPeerIds));
 			setAuth(AuthentifierFactory.createDefaultAuthentifier());
 			RestServerFactory.createAndStartDefaultRestServer(restPort);
 		} catch (Exception e) {
@@ -62,10 +62,6 @@ public class ApplicationForTests {
 
 	public static void main(String[] args) {
 		new ApplicationForTests();
-
-		PeerFactory.port = ApplicationForTests.jxtaPort;
-		PeerFactory.rdvPeerIds = ApplicationForTests.rdvPeerIds;
-		
 		ApplicationForTests.getInstance().runForTests(restPort);
 	}
 	

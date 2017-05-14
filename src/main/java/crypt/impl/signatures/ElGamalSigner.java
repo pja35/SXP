@@ -48,7 +48,7 @@ public class ElGamalSigner extends AbstractSigner<ElGamalSignature, ElGamalKey> 
 		BigInteger v = key.getG().modPow(m, key.getP());
 		BigInteger w = (key.getPublicKey().modPow(sign.getR(), 
 				key.getP()).multiply(sign.getR().modPow(sign.getS(), key.getP())).mod(key.getP()));
-		
+
 		return v.equals(w);
 	}
 
