@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -115,7 +116,7 @@ public class SigmaEstablisherAsyncTest {
 	}
 
 	@After
-	public void deleteBaseAndPeer(){
+	public void stopApp(){
 		TestUtils.removeRecursively(new File(".db-" + restPort + "/"));
 		TestUtils.removeRecursively(new File(".db-" + restPort2 + "/"));
 		TestUtils.removePeerCache();
@@ -180,7 +181,7 @@ public class SigmaEstablisherAsyncTest {
 	}
  
 	// Test an abort in protocol (Trent doesn't give the signature)
-	@Test
+	//@Test
 	public void TestB(){
 		resolveInitiator(1);
 		
@@ -208,7 +209,6 @@ public class SigmaEstablisherAsyncTest {
 	@Test
 	public void TestC(){
 		resolveInitiator(2);
-
 		
 		// Time to realize procedure
 		for (int k=0; k<5; k++){
@@ -227,5 +227,4 @@ public class SigmaEstablisherAsyncTest {
 
 		assertTrue(res);
 	}
-	
 }

@@ -150,10 +150,10 @@ public class TrentAsync {
 				ArrayList<String> resolved = ts.resolveT(m, round, senderK.getPublicKey().toString());
 
 				if (resolved == null){
-					cadv.setTitle(SigmaEstablisherAsync.TRENT_MESSAGE + new String(contract.getHashableData()));
-					cadv.setContract("Dishonest");
-					cadv.setKey(this.keys.getPublicKey().toString());
-					cadv.publish(peer);
+					establisherService.sendContract(SigmaEstablisherAsync.TRENT_MESSAGE + new String(contract.getHashableData()), 
+							"Dishonest",
+							this.keys.getPublicKey().toString(),
+							peer);
 				} else{
 					HashMap<String,String> signatures = new HashMap<String,String>();
 					for (ElGamalKey k : contract.getParties()){
@@ -168,10 +168,10 @@ public class TrentAsync {
 					JsonTools<ArrayList<String>> jsons = new JsonTools<>(new TypeReference<ArrayList<String>>(){});
 					String answer = jsons.toJson(resolved);
 
-					cadv.setTitle(SigmaEstablisherAsync.TRENT_MESSAGE + new String(contract.getHashableData()));
-					cadv.setContract(answer);
-					cadv.setKey(this.keys.getPublicKey().toString());
-					cadv.publish(peer);
+					establisherService.sendContract(SigmaEstablisherAsync.TRENT_MESSAGE + new String(contract.getHashableData()),
+							answer,
+							this.keys.getPublicKey().toString(),
+							peer);
 				}
 			}
 		}
