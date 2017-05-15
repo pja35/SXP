@@ -206,6 +206,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 							if (answer.get(0).equals("aborted") || answer.get(0).equals("honestyToken")){
 								setStatus(Status.CANCELLED);
 								System.out.println("Signature cancelled");
+								establisherService.removeListener(SIGNING_MESSAGE+contractId+senPubK.toString());
 							}
 							
 							// If Trent solved the problem
@@ -228,7 +229,8 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 								
 								if (contract.isFinalized()){
 									setStatus(Status.FINALIZED);
-									System.out.println("CONTRACT FINALIZED"); 
+									System.out.println("CONTRACT FINALIZED");
+									establisherService.removeListener(SIGNING_MESSAGE+contractId+senPubK.toString()); 
 								}
 							}
 						}
@@ -238,7 +240,10 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 			}
 		}, false);
 		
-		sign();
+		
+		// Sometimes, Trent cancel before we start signing ...
+		if (getStatus() != Status.CANCELLED && getStatus() != Status.FINALIZED)
+			sign();
 	}
 	
 	/**
@@ -247,7 +252,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	 */
 	protected void sign(){
 		setStatus(Status.SIGNING);
-		
+	
 		// Necessary tools to create the PCS
 		Sender sender = new Sender(signer.getKey());
 		pcs = new PCS(sender, trentK);
@@ -263,7 +268,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 				// Check if the round is complete
 				boolean claimFormed = true;
 				for (int k=0; k<N; k++){
-					if (promRoundSender[round][k] == null)
+					if (round < N+2 && promRoundSender[round][k] == null)
 						claimFormed= false;
 				}
 				
@@ -273,7 +278,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 				while (round<=(N+1) && claimFormed){
 					sendRound(++round);
 					for (int k=0; k<N; k++){
-						if (promRoundSender[round][k] == null)
+						if (round < N+2 && promRoundSender[round][k] == null)
 							claimFormed= false;
 					}
 				}
@@ -381,7 +386,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 		System.out.println("Sending Round : " + round + " : by " + i);
 		
 		// Sending an advertisement
-		establisherService.sendContract(SIGNING_MESSAGE + contractId, dataToBeSent, senPubK.toString(), peer, uris);
+		establisherService.sendContract(SIGNING_MESSAGE+contractId, dataToBeSent, senPubK.toString(), peer, uris);
 	}
 	
 	/*
@@ -422,11 +427,13 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 					if (contract.isFinalized()){
 						int j = 0;
 						while (!(keys.get(j).getPublicKey().equals(senPubK))){j++;}
+						System.out.println("--- CONTRACT FINALIZED -- id : " + j);
 						setStatus(Status.FINALIZED);
+						establisherService.removeListener(SIGNING_MESSAGE + contractId + senPubK.toString());
 					}
 				}
 			// Otherwise, test if it is the correct PCS, if so : store it
-			}else {
+			}else if (promRoundSender[k][i] == null){
 				String msg = decryptMsg(content.get(senPubK.toString()), signer.getKey());
 				byte[] data = (new String(contract.getHashableData()) + k).getBytes();
 				if (getPrivateCS(msg).Verifies(data)){

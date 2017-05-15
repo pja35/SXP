@@ -1,5 +1,6 @@
 package network.impl.jxta;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import crypt.api.key.AsymKey;
 import net.jxta.discovery.DiscoveryEvent;
 import net.jxta.discovery.DiscoveryListener;
+import net.jxta.discovery.DiscoveryService;
 import net.jxta.pipe.PipeMsgEvent;
 import network.api.EstablisherService;
 import network.api.EstablisherServiceListener;
@@ -170,6 +172,21 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 				}
 			}
 		});
+
+		try {
+			Enumeration<net.jxta.document.Advertisement> adverts = pg.getDiscoveryService().getLocalAdvertisements(DiscoveryService.ADV, field, value);
+			while (adverts.hasMoreElements()){
+				AdvertisementBridge adv = (AdvertisementBridge) adverts.nextElement();
+				if (adv.getAdvertisement().getClass().equals(EstablisherAdvertisement.class)){
+					EstablisherAdvertisementInterface c = (EstablisherAdvertisementInterface) adv.getAdvertisement();
+					// If the field on which to listen is the title, then we check its validity 
+					if (!field.equals("title") || c.getTitle().equals(value))
+						l.notify(c.getTitle(), c.getContract(), c.getKey());
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	};
 
 	// Remove any listener (message and Advertisement) with the given id

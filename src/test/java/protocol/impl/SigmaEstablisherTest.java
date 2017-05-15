@@ -30,7 +30,7 @@ import util.TestInputGenerator;
 import util.TestUtils;
 
 public class SigmaEstablisherTest {
-	public static final boolean useMessages = true;
+	public static final boolean useMessages = false;
 	public static final int N = 2;
 	
 	public static Application application;
@@ -118,8 +118,6 @@ public class SigmaEstablisherTest {
 			ce[k].setSignatures(new HashMap<String, String>());
 			c[k] = new SigmaContract(ce[k]);
 		}
-		
-		new Trent(trentK);
 	}
 
 	@AfterClass
@@ -154,7 +152,7 @@ public class SigmaEstablisherTest {
 		}
 		
 		// Time to realize procedure
-		for (int k=0; k<15; k++){
+		for (int k=0; k<3; k++){
 			try{
 				Thread.sleep(1000);
 			}catch (InterruptedException e) {
@@ -191,21 +189,17 @@ public class SigmaEstablisherTest {
 		for (int k=0; k<N; k++){
 			sigmaE[k].start();
 		}
-		
-		try{
-			Thread.sleep(3000);
-		}catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
  
 	// Test an abort in protocol (Trent doesn't give the signature)
 	@Test
 	public void TestB(){
+		new Trent(trentK);
+		
 		resolveInitiator(1, uris);
 		
 		// Time to realize procedure
-		for (int k=0; k<10; k++){
+		for (int k=0; k<3; k++){
 			try{
 				Thread.sleep(1000);
 			}catch (InterruptedException e) {
@@ -226,10 +220,12 @@ public class SigmaEstablisherTest {
 	// Test a resolve in protocol (Trent gives the signature in the end)
 	@Test
 	public void TestC(){
+		new Trent(trentK);
+		
 		resolveInitiator(2, uris);
 		
 		// Time to realize procedure
-		for (int k=0; k<10; k++){
+		for (int k=0; k<5; k++){
 			try{
 				Thread.sleep(1000);
 			}catch (InterruptedException e) {
@@ -241,6 +237,7 @@ public class SigmaEstablisherTest {
 		boolean res = true;
 		for (int k=0; k<N; k++){
 			res =  res && c[k].isFinalized();
+			assertTrue(c[k].getStatus().equals(Status.FINALIZED));
 		}
 
 		assertTrue(res);
