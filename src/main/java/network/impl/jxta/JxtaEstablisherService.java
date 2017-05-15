@@ -3,7 +3,6 @@ package network.impl.jxta;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import crypt.api.key.AsymKey;
@@ -27,6 +26,10 @@ import network.impl.messages.EstablisherMessage;
  */
 public class JxtaEstablisherService extends JxtaService implements EstablisherService{
 	public static final String NAME = "establisher";
+
+	private ConcurrentHashMap<String, DiscoveryListener> advertisementListeners;
+	// Hashmap of localListeners
+	private ConcurrentHashMap<String, ListenerWithParam> establisherServiceListeners;
 	
 	// Local listener (to be able to notify local users connected if this peer send an advertisement)
 	private class ListenerWithParam{
@@ -39,39 +42,40 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 		}
 	}
 	
-	private HashMap<String, DiscoveryListener> advertisementListeners;
-	// Hashmap of localListeners
-	private ConcurrentHashMap<String, ListenerWithParam> establisherServiceListeners;
 	
 	
-	public JxtaEstablisherService ()
-	{ 
+	public JxtaEstablisherService (){ 
 		this.name = NAME;
-		advertisementListeners = new HashMap<String, DiscoveryListener>();
+		advertisementListeners = new ConcurrentHashMap<String, DiscoveryListener>();
 		establisherServiceListeners = new ConcurrentHashMap<String, ListenerWithParam>();
 	}
 	
 
 
-	// Encapsulate contract sending, through Advertisement or Messages
-	// If uris == null & peer != null => Use Advertisements
-	// Else if uris != null => Use messages
+	/*
+	 *  Encapsulate contract sending, through Advertisement or Messages
+	 *  If uris == null & peer != null => Use Advertisements
+	 *  Else if uris != null => Use messages
+	 *  
+	 *  Careful, we send on the listener : title + receiverPublicKey
+	 *  If you use this system, you must set the listener according to this
+	 */
 	@Override
-	public void sendContract(String title, String data, String senderK, HashMap<AsymKey<?>, String> uris, Peer peer){
+	public <Key extends AsymKey<?>> void sendContract(String title, String data, String senderK, Peer peer, HashMap<Key,String> uris){
 		if (uris == null && peer != null){
 			this.sendContract(title, data, senderK, peer);
 		}
 		else if(uris != null){
-			Set<AsymKey<?>> keys = uris.keySet();
-			for (AsymKey<?> k : keys){
+			for (Key u : uris.keySet()){
 				this.sendContract(title,
-						title + k.getPublicKey().toString(), 
+						title + u.getPublicKey().toString(), 
 						senderK,
 						data,
-						uris.get(k));				
+						uris.get(u));				
 			}
 		}
 	}
+	
 	// Send a message
 	@Override
 	public EstablisherMessage sendContract(String title, String who, String sourceId, String contract, String... peerURIs) 
@@ -94,14 +98,14 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 		cadv.setContract(data);
 		cadv.setKey(sourceKey);
 		cadv.publish(peer);
-		
 		// Notify local listeners of an event
-		for (String k :  establisherServiceListeners.keySet()){
-			ListenerWithParam l = establisherServiceListeners.get(k);
+		for (ListenerWithParam l :  establisherServiceListeners.values()){
 			if (l.param == null || l.param.equals(title))
 				l.listener.notify(title, data, sourceKey);
 		}
 	}
+	
+	
 	
 	/**
 	 * Method called when a message is caught in the pipe
@@ -110,6 +114,7 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 	public void pipeMsgEvent(PipeMsgEvent event) {
 		super.pipeMsgEvent(event);
 	}
+	
 	
 	
 	/*
@@ -129,6 +134,8 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 			this.listens(field, value, listenerId, l);
 		}
 	}
+	
+	// Advertisement listener
 	@Override
 	public void listens(final String field, final String value, String listenerId, final EstablisherServiceListener l){
 		establisherServiceListeners.put(listenerId, new ListenerWithParam(value, l));
@@ -149,6 +156,7 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 				}
 			}
 		};
+		
 		// Add it in the hashmap to be able to delete it and enable it
 		advertisementListeners.put(listenerId, dl);
 		this.addAdvertisementListener(dl);
@@ -164,7 +172,7 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 		});
 	};
 
-
+	// Remove any listener (message and Advertisement) with the given id
 	@Override
 	public void removeListener(String listenerId){
 		if (advertisementListeners.containsKey(listenerId)){

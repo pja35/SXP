@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import controller.Application;
@@ -29,12 +30,11 @@ import util.TestInputGenerator;
 import util.TestUtils;
 
 public class SigmaEstablisherTest {
-	public static Application application;
-	public static final int restPort = 5601;
-	public static final int restPort2 = 5602;
-	
 	public static final boolean useMessages = true;
 	public static final int N = 2;
+	
+	public static Application application;
+	public static final int restPort = 5601;
 	
 	// Users
 	private static User[] u;
@@ -48,15 +48,17 @@ public class SigmaEstablisherTest {
 	// A contract entity
 	private static ContractEntity[] ce;
 	
+	@BeforeClass
+	public static void setup(){
+		application = new Application();
+		application.runForTests(restPort);
+	}
 
 	/*
 	 * Create the users, the application
 	 */
 	@Before
-	public void initialize(){
-		application = new Application();
-		application.runForTests(restPort);
-		
+	public void initialize(){		
 		// Initialize the users
 		u = new User[N];
 		for (int k=0; k<N; k++){
@@ -120,8 +122,8 @@ public class SigmaEstablisherTest {
 		new Trent(trentK);
 	}
 
-	@After
-	public void stopApp(){
+	@AfterClass
+	public static void stopApp(){
 		TestUtils.removeRecursively(new File(".db-" + restPort + "/"));
 		TestUtils.removePeerCache();
 		application.stop();
@@ -141,7 +143,7 @@ public class SigmaEstablisherTest {
 		
 		// Time to setup listeners
 		try{
-			Thread.sleep(1000);
+			Thread.sleep(100);
 		}catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -152,10 +154,12 @@ public class SigmaEstablisherTest {
 		}
 		
 		// Time to realize procedure
-		try{
-			Thread.sleep(5000);
-		}catch (InterruptedException e) {
-			e.printStackTrace();
+		for (int k=0; k<15; k++){
+			try{
+				Thread.sleep(1000);
+			}catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		boolean res = true;

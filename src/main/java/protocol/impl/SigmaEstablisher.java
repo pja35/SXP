@@ -157,7 +157,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 		String content = json.toJson(elGamalSigner.sign((STARTING_MESSAGE).getBytes()));
 
 		// Sending an advertisement
-		establisherService.sendContract(STARTING_MESSAGE+contractId, content, senPubK.toString(), uris, peer);
+		establisherService.sendContract(STARTING_MESSAGE+contractId, content, senPubK.toString(), peer, uris);
 		int i=0;
 		while (!(keys.get(i).getPublicKey().equals(senPubK))){i++;}
 		ready[i] = "";
@@ -279,7 +279,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 				}
 			}
 		}, uris != null);
-
+		
 		// Send the first round
 		sendRound(1);
 	}
@@ -330,7 +330,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 		System.out.println("--- Sending resolve request to Trent --- Round : " + (round-1));
 
 		// For Trent, use only Advertisement
-		establisherService.sendContract(FOR_TRENT_MESSAGE + trentK.getPublicKey().toString(), fullContent, senPubK.toString(), null, peer);
+		establisherService.sendContract(FOR_TRENT_MESSAGE + trentK.getPublicKey().toString(), fullContent, senPubK.toString(), peer, null);
 	}
 	
 	/*
@@ -339,8 +339,6 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	 * @param uris : the destination peers uris
 	 */
 	protected void sendRound(int round){
-		// Loop : send to every party the correct message
-
 		// Content of the message which will be sent
 		HashMap<String, String> content = new HashMap<String, String>();
 		
@@ -383,7 +381,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 		System.out.println("Sending Round : " + round + " : by " + i);
 		
 		// Sending an advertisement
-		establisherService.sendContract(SIGNING_MESSAGE + contractId, dataToBeSent, senPubK.toString(), uris, peer);
+		establisherService.sendContract(SIGNING_MESSAGE + contractId, dataToBeSent, senPubK.toString(), peer, uris);
 	}
 	
 	/*
@@ -395,7 +393,6 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	 * @return
 	 */
 	protected void verifyAndStoreSignature(String message, String pubK){
-		
 		// Get the keys of the sender of the message
 		BigInteger msgSenKey = new BigInteger(pubK);
 		int i = 0;
@@ -407,7 +404,6 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 		HashMap<String,String> content = json0.toEntity(message);
 		
 		int k= Integer.parseInt(content.get("ROUND"));
-		
 		// Don't do anything if the sender is the actual user (shouldn't happen though)
 		if (!(senderKey.getPublicKey().equals(senPubK))){
 			// If it's the last round, test the clear signature
@@ -426,7 +422,6 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 					if (contract.isFinalized()){
 						int j = 0;
 						while (!(keys.get(j).getPublicKey().equals(senPubK))){j++;}
-						System.out.println("--- CONTRACT FINALIZED -- on round : "+ round + "  -- id : " + j);
 						setStatus(Status.FINALIZED);
 					}
 				}

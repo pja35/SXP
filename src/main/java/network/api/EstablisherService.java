@@ -27,7 +27,7 @@ public interface EstablisherService extends Service
 	 * @param uris : receiving peers uris, if null : uses Advertisement, otherwise uses Messages
 	 * @param peer : the sending peer
 	 */
-	public void sendContract(String title, String data, String senderK, HashMap<AsymKey<?>, String> uris, Peer peer);
+	public <Key extends AsymKey<?>> void sendContract(String title, String data, String senderK, Peer peer, HashMap<Key,String> uris);
 	
 	/**
 	 * Send a "Message" (synchrone)

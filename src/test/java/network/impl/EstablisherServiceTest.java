@@ -1,23 +1,25 @@
 package network.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Enumeration;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.math.BigInteger;
+import java.util.HashMap;
+
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import controller.Application;
-import net.jxta.discovery.DiscoveryEvent;
-import net.jxta.discovery.DiscoveryListener;
+import crypt.api.key.AsymKey;
 import network.api.EstablisherService;
-import network.api.Messages;
+import network.api.EstablisherServiceListener;
 import network.api.Peer;
-import network.api.SearchListener;
-import network.api.ServiceListener;
-import network.api.advertisement.EstablisherAdvertisementInterface;
-import network.factories.AdvertisementFactory;
-import network.impl.advertisement.EstablisherAdvertisement;
-import network.impl.jxta.AdvertisementBridge;
+import network.factories.PeerFactory;
+import util.TestInputGenerator;
+import util.TestUtils;
 
 /**
  * !!!! This test cannot be launched as a junit test !!!!!
@@ -31,154 +33,179 @@ import network.impl.jxta.AdvertisementBridge;
 
 public class EstablisherServiceTest {
 	
+	private class Key implements AsymKey<BigInteger>{
+		private BigInteger pk;
+		private BigInteger pbk;
+		
+		@Override
+		public BigInteger getPublicKey() {
+			return pbk;
+		}
+		@Override
+		public BigInteger getPrivateKey() {
+			return pk;
+		}
+		@Override
+		public BigInteger getParam(String p) {
+			return null;
+		}
+		@Override
+		public void setPublicKey(BigInteger pbk) {
+			this.pbk = pbk;
+		}
+		@Override
+		public void setPrivateKey(BigInteger pk) {
+			this.pk = pk;
+		}
+		
+	}
+	private static Application application;
+	private static Peer[] peer;
+	private static EstablisherService[] es;
+	private final static int restPort = 8080;
+	
+	private Key[] key;
+	private String field, title, data;
+	private boolean isReceived;
 	
 	
-	////////// The first two methods are for message test ///////////////
-	/*
-	 * First launch, create a contract advertisement and set a listener for "test2" the other user
-	 * This should be the content of the "main"
-	 */ 
-	public void init1()
-	{
-		new Application();
-		Application.getInstance().runForTests(8081);
+	@BeforeClass
+	public static void initialize(){
+		application = new Application();
+		Application.getInstance().runForTests(restPort);
+		peer = new Peer[2];
+		peer[0] = Application.getInstance().getPeer();
+		peer[1] = PeerFactory.createDefaultAndStartPeerForTest(9801, Application.rdvPeerIds);
 		
-		final Peer peer=Application.getInstance().getPeer();
-		
-		// Sending an advertisement (trick to get the other peer URI)
-		EstablisherAdvertisementInterface cadv = AdvertisementFactory.createEstablisherAdvertisement();
-		cadv.setTitle("Un Contrat");
-		cadv.publish(peer);
-		
-		// Listener on establisher events
-		final EstablisherService establisher =(EstablisherService) peer.getService(EstablisherService.NAME);
-		establisher.addListener(new ServiceListener() {
-			@Override
-			public void notify(Messages messages) {
-				Integer m1 = new Integer(messages.getMessage("contract"));
-				System.out.println(m1 + " Contract : " + messages.getMessage("title"));
-				
-				String msg = String.valueOf(m1 + 1);
-				if (m1<6) {
-					establisher.sendContract("Contrat "+msg, "test", "test2", msg, messages.getMessage("source"));
-				}
-				try{
-					Thread.sleep(1000);
-				}catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-			
-		}, "test2");
+		es = new EstablisherService[2];
+		es[0] = (EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
+		es[1] = (EstablisherService) peer[1].getService(EstablisherService.NAME);
 	}
 	
+	@Before
+	public void instantiate(){
+		isReceived = false;
+
+		field = "title";
+		title = TestInputGenerator.getRandomIpsumText();
+		data = TestInputGenerator.getRandomIpsumText();
+		
+		key = new Key[2];
+		for (int k=0; k<2; k++){
+			key[k] = new Key();
+			key[k].setPrivateKey(TestInputGenerator.getRandomBigInteger(8));
+			key[k].setPublicKey(TestInputGenerator.getRandomBigInteger(8));
+		}
+	}
 	
-	/*
-	 * Second launch, this will find the advertisement created by the first launch and send him a message
-	 * Then there will be an exchange of messages
-	 * Note that the port isn't the same
-	 */
-	public void init2()
-	{
-		new Application();
-		Application.getInstance().runForTests(8080);
+	@Test
+	public void testAdvertisementListening(){
 		
-		final EstablisherService establisher =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
+		assertFalse(isReceived);
 		
-		establisher.addListener(new ServiceListener() {
+		es[0].setListener(field, title, title + key[0].getPublicKey().toString(),new EstablisherServiceListener(){
 			@Override
-			public void notify(Messages messages) {
-				Integer m1 = new Integer(messages.getMessage("contract"));
-				System.out.println(m1 + " Contract : " + messages.getMessage("title"));
-				
-				String msg = String.valueOf(m1 + 1);
-				if (m1<6) {
-					establisher.sendContract("Contract "+msg, "test2" , "test" , msg, messages.getMessage("source"));
-				}
-				try{
-					Thread.sleep(1000);
-				}catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+			public void notify(String title, String data, String key){
+				isReceived = true;
 			}
-			
-		}, "test");
+		}, false);
 		
+		es[1].sendContract(title, data, key[1].getPublicKey().toString(), peer[1], null);
+
+
 		try{
-			Thread.sleep(10000);
+			Thread.sleep(500);
 		}catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		establisher.search("title", null, new SearchListener<EstablisherAdvertisementInterface>() {
-			@Override
-			public void notify(Collection<EstablisherAdvertisementInterface> result) {
-				ArrayList<String> uids = new ArrayList<>();
-				for(EstablisherAdvertisementInterface i: result) {
-					uids.add(i.getSourceURI());
-				}
-				establisher.sendContract("Contract 1", "test2", "test", "1", uids.toArray(new String[1]));
-			}
-			
-		});
-	}
-	
-	
-	////////// The next method is for advertisement listener test, you shall start it on two peers ///////////////
-	// If the same machine is used, change the port of run for test
-	public void initAdvert(){
-		new Application();
-		Application.getInstance().runForTests(8081);
-
-		//Sending an advertisement
-		final Peer peer=Application.getInstance().getPeer();
-		EstablisherAdvertisementInterface cadv = AdvertisementFactory.createEstablisherAdvertisement();
-		cadv.setTitle("Contract");
-		cadv.setContract("1");
-		cadv.setKey("KEY1");
-		cadv.publish(peer);
 		
-		final EstablisherService establisher =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
-		
-		establisher.addAdvertisementListener(new DiscoveryListener(){
-			@Override
-			public void discoveryEvent(DiscoveryEvent event){
-				Enumeration<net.jxta.document.Advertisement> adverts = event.getResponse().getAdvertisements();
-				while (adverts.hasMoreElements()){
-					AdvertisementBridge adv = (AdvertisementBridge) adverts.nextElement();
-					if (adv.getAdvertisement().getClass().equals(EstablisherAdvertisement.class)){
-						EstablisherAdvertisement c = (EstablisherAdvertisement) adv.getAdvertisement();
-						System.out.println("\n" + adv.getAdvertisement().getClass().equals(EstablisherAdvertisement.class));
-						System.out.println(c.getTitle());
-						System.out.println(c.getContract() + "\n");
-						System.out.println(c.getKey() + "\n");
-						
-						Integer i = new Integer(c.getContract());
-						
-
-						try{
-							Thread.sleep(2000);
-						}catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						
-						if (i<3){
-							final Peer peer=Application.getInstance().getPeer();
-							
-							EstablisherAdvertisementInterface cadv = AdvertisementFactory.createEstablisherAdvertisement();
-							cadv.setTitle("Contract");
-							cadv.setContract(String.valueOf(i.intValue() + 1));
-							cadv.setKey("KEY2");
-							
-							cadv.publish(peer);
-						}
-					}
-				}
-			}
-		});
+		assertTrue(isReceived);
 	}
-	
 	
 	@Test
-	public void test() {
+	public void testMessage() {
+		
+		assertFalse(isReceived);
+		
+		HashMap<Key, String> uris = new HashMap<Key, String>();
+		for (int k=0; k<2; k++){
+			uris.put(key[k], peer[k].getUri());
+		}
+		
+		es[1].setListener(field, title, title+key[1].getPublicKey().toString(), new EstablisherServiceListener(){
+				@Override
+				public void notify(String title, String data, String key){
+					isReceived = true;
+				}
+		}, true);
+		
+		es[0].sendContract(title, data, key[0].getPublicKey().toString(), peer[0], uris);
+		
+
+		try{
+			Thread.sleep(500);
+		}catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		assertTrue(isReceived);
+	}
+	
+	// Sending before listener setup and trying to retrieve our own message
+	@Test
+	public void testAdvertAsync(){
+		
+		assertFalse(isReceived);
+
+		es[1].sendContract(title, data, key[1].getPublicKey().toString(), peer[1], null);
+		
+		es[0].setListener(field, title, title + key[0].getPublicKey().toString(),new EstablisherServiceListener(){
+			@Override
+			public void notify(String title, String data, String key){
+				isReceived = true;
+			}
+		}, false);
+		
+		try{
+			Thread.sleep(1000);
+		}catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		assertTrue(isReceived);
+		
+		
+		isReceived = false;
+		es[1].sendContract(title, data, key[1].getPublicKey().toString(), peer[1], null);
+		
+		try{
+			Thread.sleep(500);
+		}catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		assertTrue(isReceived);	
+		
+		
+		isReceived = false;
+		es[1].setListener(field, title, title + key[1].getPublicKey().toString(),new EstablisherServiceListener(){
+			@Override
+			public void notify(String title, String data, String key){
+				isReceived = true;
+			}
+		}, false);
+		try{
+			Thread.sleep(500);
+		}catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		assertTrue(isReceived);	
+		
+		
+	}
+
+	@AfterClass
+	public static void stopApp(){
+		TestUtils.removeRecursively(new File(".db-" + restPort + "/"));
+		TestUtils.removePeerCache();
+		application.stop();
 	}
 }
