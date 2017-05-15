@@ -5,7 +5,7 @@ package network.api;
 
 import java.util.HashMap;
 
-import model.entity.ElGamalKey;
+import crypt.api.key.AsymKey;
 import network.api.service.Service;
 import network.impl.messages.EstablisherMessage;
 
@@ -27,7 +27,7 @@ public interface EstablisherService extends Service
 	 * @param uris : receiving peers uris, if null : uses Advertisement, otherwise uses Messages
 	 * @param peer : the sending peer
 	 */
-	public void sendContract(String title, String data, String senderK, HashMap<ElGamalKey, String> uris, Peer peer);
+	public void sendContract(String title, String data, String senderK, HashMap<AsymKey<?>, String> uris, Peer peer);
 	
 	/**
 	 * Send a "Message" (synchrone)

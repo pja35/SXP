@@ -1,6 +1,3 @@
-/**
- * 
- */
 package network.impl.jxta;
 
 import java.util.Collection;
@@ -9,7 +6,7 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import model.entity.ElGamalKey;
+import crypt.api.key.AsymKey;
 import net.jxta.discovery.DiscoveryEvent;
 import net.jxta.discovery.DiscoveryListener;
 import net.jxta.pipe.PipeMsgEvent;
@@ -60,13 +57,13 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 	// If uris == null & peer != null => Use Advertisements
 	// Else if uris != null => Use messages
 	@Override
-	public void sendContract(String title, String data, String senderK, HashMap<ElGamalKey, String> uris, Peer peer){
+	public void sendContract(String title, String data, String senderK, HashMap<AsymKey<?>, String> uris, Peer peer){
 		if (uris == null && peer != null){
 			this.sendContract(title, data, senderK, peer);
 		}
 		else if(uris != null){
-			Set<ElGamalKey> keys = uris.keySet();
-			for (ElGamalKey k : keys){
+			Set<AsymKey<?>> keys = uris.keySet();
+			for (AsymKey<?> k : keys){
 				this.sendContract(title,
 						title + k.getPublicKey().toString(), 
 						senderK,
