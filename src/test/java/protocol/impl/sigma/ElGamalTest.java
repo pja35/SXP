@@ -122,7 +122,7 @@ public class ElGamalTest {
 		assertArrayEquals(message, elg.decryptWithPrivateKey(encrMess));
 	}
 
-	//@Test
+	@Test
 	public void encryptForContractTest(){
 		Application application = new Application();
 		application.runForTests(restPort);
