@@ -24,16 +24,18 @@ import util.TestUtils;
  */
 public class TrentTest {
 	public static Application application;
-	public static final int restPort = 5600;
-	
-	private byte[] msg;
-	ElGamalKey key;
-	Trent trent;
+	public static final int restPort = 5600;	
+	public static byte[] msg;
+	public static ElGamalKey key;
+	public static Trent trent;
 
 	@BeforeClass
 	public static void initialize(){
 		application = new Application();
 		application.runForTests(restPort);
+		msg = TestInputGenerator.getRandomBytes(50);
+		key = ElGamalAsymKeyFactory.create(false);
+		trent = new Trent(key);
 	}
 	
 	@AfterClass
@@ -42,14 +44,7 @@ public class TrentTest {
 		TestUtils.removePeerCache();
 		application.stop();
 	}
-	
-	@Before
-	public void instanciate(){
-		msg = TestInputGenerator.getRandomBytes(50);
-		key = ElGamalAsymKeyFactory.create(false);
-		trent = new Trent(key);
-	}
-	
+
 	@Test
 	public void getterTest(){
 		assertTrue(trent.getKey().getPublicKey() == key.getPublicKey());
