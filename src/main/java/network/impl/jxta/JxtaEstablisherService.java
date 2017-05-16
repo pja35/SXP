@@ -64,9 +64,11 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 	 */
 	@Override
 	public <Key extends AsymKey<?>> void sendContract(String title, String data, String senderK, Peer peer, HashMap<Key,String> uris){
+		// Using an Advertisement
 		if (uris == null && peer != null){
 			this.sendContract(title, data, senderK, peer);
 		}
+		// Using a Message
 		else if(uris != null){
 			for (Key u : uris.keySet()){
 				this.sendContract(title,
@@ -124,6 +126,7 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 	 */
 	public void setListener(final String field, final String value, String listenerId, final EstablisherServiceListener l, boolean useMessage){
 		if (useMessage){
+			// Set a Message listener
 			this.addListener(new ServiceListener() {
 				@Override
 				public void notify(Messages messages) {
@@ -133,6 +136,7 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 				}
 			}, listenerId);
 		}else{
+			// Set an Advertisement
 			this.listens(field, value, listenerId, l);
 		}
 	}
@@ -140,7 +144,6 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 	// Advertisement listener
 	@Override
 	public void listens(final String field, final String value, String listenerId, final EstablisherServiceListener l){
-		establisherServiceListeners.put(listenerId, new ListenerWithParam(value, l));
 		
 		// Create the synchrone listener
 		DiscoveryListener dl = new DiscoveryListener(){
@@ -158,12 +161,9 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 				}
 			}
 		};
-		
-		// Add it in the hashmap to be able to delete it and enable it
-		advertisementListeners.put(listenerId, dl);
 		this.addAdvertisementListener(dl);
 		
-		// Search in already sent received adverts
+		// Search in remote adverts
 		this.search(field, value, new SearchListener<EstablisherAdvertisementInterface>() {
 			@Override
 			public void notify(Collection<EstablisherAdvertisementInterface> adverts) {
@@ -172,7 +172,8 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 				}
 			}
 		});
-
+		
+		// Search in local adverts
 		try {
 			Enumeration<net.jxta.document.Advertisement> adverts = pg.getDiscoveryService().getLocalAdvertisements(DiscoveryService.ADV, field, value);
 			while (adverts.hasMoreElements()){
@@ -187,6 +188,10 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		// Add listeners in the hashmap to be able to delete it and enable it
+		establisherServiceListeners.put(listenerId, new ListenerWithParam(value, l));
+		advertisementListeners.put(listenerId, dl);
 	};
 
 	// Remove any listener (message and Advertisement) with the given id
