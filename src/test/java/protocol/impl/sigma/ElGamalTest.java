@@ -122,15 +122,17 @@ public class ElGamalTest {
 		assertArrayEquals(message, elg.decryptWithPrivateKey(encrMess));
 	}
 
-	@Test
+	//@Test
 	public void encryptForContractTest(){
 		Application application = new Application();
 		application.runForTests(restPort);
+		
 		Trent trent = new Trent(keys);
 		ElGamalEncrypt encrMess = elg.encryptForContract(message);
 		ResEncrypt res = new ResEncrypt(encrMess.getU(), encrMess.getV(), message);
 		ResponsesCCD response = trent.SendResponse(res);
 		assertTrue(response.Verifies(keys, res));
+		
 		TestUtils.removeRecursively(new File(".db-" + restPort + "/"));
 		TestUtils.removePeerCache();
 		application.stop();
