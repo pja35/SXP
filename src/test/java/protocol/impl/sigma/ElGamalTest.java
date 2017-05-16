@@ -3,6 +3,7 @@ package protocol.impl.sigma;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.math.BigInteger;
 
 import org.apache.log4j.LogManager;
@@ -20,6 +21,7 @@ import model.entity.ElGamalKey;
 import model.entity.sigma.ResEncrypt;
 import model.entity.sigma.ResponsesCCD;
 import util.TestInputGenerator;
+import util.TestUtils;
 
 
 /**
@@ -129,6 +131,8 @@ public class ElGamalTest {
 		ResEncrypt res = new ResEncrypt(encrMess.getU(), encrMess.getV(), message);
 		ResponsesCCD response = trent.SendResponse(res);
 		assertTrue(response.Verifies(keys, res));
+		TestUtils.removeRecursively(new File(".db-" + restPort + "/"));
+		TestUtils.removePeerCache();
 		application.stop();
 	}
 }

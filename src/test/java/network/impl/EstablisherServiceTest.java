@@ -81,6 +81,13 @@ public class EstablisherServiceTest {
 		es[0] = (EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
 		es[1] = (EstablisherService) peer[1].getService(EstablisherService.NAME);
 	}
+
+	@AfterClass
+	public static void stopApp(){
+		TestUtils.removeRecursively(new File(".db-" + restPort + "/"));
+		TestUtils.removePeerCache();
+		application.stop();
+	}
 	
 	@Before
 	public void instantiate(){
@@ -200,12 +207,5 @@ public class EstablisherServiceTest {
 		assertTrue(isReceived);	
 		
 		
-	}
-
-	@AfterClass
-	public static void stopApp(){
-		TestUtils.removeRecursively(new File(".db-" + restPort + "/"));
-		TestUtils.removePeerCache();
-		application.stop();
 	}
 }

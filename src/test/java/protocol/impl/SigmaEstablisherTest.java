@@ -54,6 +54,15 @@ public class SigmaEstablisherTest {
 		application.runForTests(restPort);
 	}
 
+
+	@AfterClass
+	public static void stopApp(){
+		TestUtils.removeRecursively(new File(".db-" + restPort + "/"));
+		TestUtils.removePeerCache();
+		application.stop();
+	}
+	
+	
 	/*
 	 * Create the users, the application
 	 */
@@ -119,13 +128,7 @@ public class SigmaEstablisherTest {
 			c[k] = new SigmaContract(ce[k]);
 		}
 	}
-
-	@AfterClass
-	public static void stopApp(){
-		TestUtils.removeRecursively(new File(".db-" + restPort + "/"));
-		TestUtils.removePeerCache();
-		application.stop();
-	}
+	
 	
 	// Test a simple signing protocol
 	@Test
