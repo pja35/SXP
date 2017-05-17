@@ -97,10 +97,6 @@ public class Search{
 					@Override
 					public void notify(Collection<User> results) {
 						
-						for (Iterator iterator = results.iterator(); iterator.hasNext();) {
-							User user = (User) iterator.next();
-						}
-						
 						JsonTools<Collection<User>> json = new JsonTools<>(new TypeReference<Collection<User>>(){});
 						try {
 							if(!results.isEmpty()) {

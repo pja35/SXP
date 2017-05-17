@@ -50,11 +50,11 @@ public class Items {
 		
 		em.begin();
 		//TODO VALIDATION
-		item.setCreatedAt(new Date());
 		item.setUsername(currentUser.getNick());
 		item.setPbkey(currentUser.getKey().getPublicKey());
 		item.setUserid(currentUser.getId());
 		item.setSignature(new ElGamalSignEntity());
+		item.setCreatedAt(new Date());
 		em.persist(item);
 		em.end();
 		em.close();
@@ -111,7 +111,6 @@ public class Items {
 		entityManager.begin();
 		it.setTitle(item.getTitle());
 		it.setDescription(item.getDescription());
-		
 		entityManager.end();
 		
 		entityManager.close();

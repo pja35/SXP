@@ -57,10 +57,12 @@
                     	$scope.errorLogin = true;
                     }
                     else {
+                    	console.log(obj);
                         $http.defaults.headers.common['Auth-Token'] = obj.token;
                         //Put the obtained authentification token in what is common to http headers
                         //so that it will always be sent with http requests from now on
                         $scope.app.userid = obj.userid;
+                        $scope.app.userNick = obj.login;
                         //remember userid
                         //affiche plus d'options dans le side-menu (ng-show="userLogged")
 						//$rootScope est "le $scope principal" de l'application il "voit" tous les scopes quelque soit le state/controller...
@@ -123,6 +125,7 @@
                 login: $scope.form.login,
                 password: $scope.form.password
             });
+            
             $http.post(RESTAPISERVER + "/api/users/subscribe", data).then(
             function(response) {
                 var data = response.data;

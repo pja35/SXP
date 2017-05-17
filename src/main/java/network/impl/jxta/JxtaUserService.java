@@ -12,7 +12,6 @@ public class JxtaUserService extends JxtaService implements UserService{
 	
 	@Override
 	public void search(String attribute, String value, SearchListener<?> sl) {
-		System.out.println("JxtaUserService search "+attribute+":"+value);
 		super.search(attribute, value, sl);
 	}
 	

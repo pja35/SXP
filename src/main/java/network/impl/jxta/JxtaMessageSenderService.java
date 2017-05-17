@@ -1,5 +1,6 @@
 package network.impl.jxta;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
 
@@ -26,9 +27,23 @@ public class JxtaMessageSenderService extends JxtaService implements MessageRequ
 	}
 	
 	@Override
-	public void sendRequest(String senderId, String receiverId, String who, String ...uris) {
+	public void sendRequest(String receiverId, String who, String ...uris) {
 		
-		System.out.println("JxtaMessageSenderService:sendRequest");
+		RequestMessageUserMessage m = new RequestMessageUserMessage();
+		
+		m.setSenderId(receiverId);
+		
+		m.setReceiverId(receiverId);
+		
+		m.setWho(who);
+		
+		m.setSource(this.peerUri);
+		
+		this.sendMessages(m, uris);
+	}
+	
+	@Override
+	public void sendRequest(String senderId, String receiverId, String who, String ...uris) {
 		
 		RequestMessageUserMessage m = new RequestMessageUserMessage();
 		
@@ -44,7 +59,7 @@ public class JxtaMessageSenderService extends JxtaService implements MessageRequ
 	}
 	
 	private Messages getResponseMessage(Messages msg) {
-		System.out.println("JxtaMessageSenderService:getResponseMessage");
+		
 		MessagesGeneric m = new MessagesGeneric();
 		
 		m.setWho(msg.getWho());
@@ -53,15 +68,16 @@ public class JxtaMessageSenderService extends JxtaService implements MessageRequ
 	
 		MessageSyncManager em = SyncManagerFactory.createMessageSyncManager();
 		
-		Collection<Message> messages =em.findAllByAttribute("receiverId", msg.getMessage("receiverId")); 
-			
-		//em.findAllByAttribute("senderId", msg.getMessage("senderId"));
+		ArrayList<Message> messages = new ArrayList<>();
 		
-		//messages.addAll(em.findAllByAttribute("receiverId", msg.getMessage("receiverId")));
+		messages.addAll(em.findAllByAttribute("senderId", msg.getMessage("senderId")));
+		messages.addAll(em.findAllByAttribute("receiverId", msg.getMessage("receiverId")));
 		
 		JsonTools<Collection<Message>> json = new JsonTools<>(new TypeReference<Collection<Message>>(){});
 		
 		m.addField("messages", json.toJson(messages));
+		
+		em.close();
 		
 		return m;
 	}
@@ -73,6 +89,7 @@ public class JxtaMessageSenderService extends JxtaService implements MessageRequ
 		Messages message = toMessages(event.getMessage());
 		
 		if(message.getMessage("type").equals("response")) {
+		
 			super.pipeMsgEvent(event);
 			return;
 		}

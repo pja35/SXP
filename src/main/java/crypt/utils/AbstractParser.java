@@ -21,6 +21,7 @@ import crypt.api.key.AsymKey;
 import crypt.factories.EncrypterFactory;
 import crypt.factories.HasherFactory;
 import crypt.impl.encryption.ElGamalEncrypter;
+import crypt.impl.encryption.ElGamalSerpentEncrypter;
 import model.entity.ElGamalKey;
 import model.entity.User;
 
@@ -234,4 +235,18 @@ public abstract class AbstractParser<Entity> implements ParserAnnotation<Entity>
 		
 		return new String(decrypter.decrypt(data.getBytes()));
     }
+	
+	
+	protected String encrypt(String data,ElGamalKey key,boolean isKeyPublic){
+		ElGamalSerpentEncrypter encrypter = EncrypterFactory.createElGamalSerpentEncrypter();
+		encrypter.setKey(getKey());
+		return new String(encrypter.encryptMsg(data.getBytes(),key).getBytes());
+    }
+	
+	protected String decrypt(String data,ElGamalKey key,boolean isKeyPublic){
+		ElGamalSerpentEncrypter decrypter = EncrypterFactory.createElGamalSerpentEncrypter();
+		decrypter.setKey(getKey());
+		return new String(decrypter.decryptMsg(new String(data.getBytes()),key));
+    }
+	
 }

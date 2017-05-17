@@ -71,14 +71,11 @@ public class PeerFactory {
 			Service usersSender = new JxtaUsersSenderService();
 			usersSender.initAndStart(p);
 			
-			
 			Service itemService = new JxtaItemService();
 			itemService.initAndStart(p);
 			
 			Service itemsSender = new JxtaItemsSenderService();
 			itemsSender.initAndStart(p);
-			
-			
 			
 			Service messageService = new JxtaMessageService();
 			messageService.initAndStart(p);
@@ -117,7 +114,7 @@ public class PeerFactory {
 		default: throw new RuntimeException(impl + "doesn't exist");
 		}
 		try {
-			peer.start(tmpFolder, port,"tcp://127.0.0.1:9802");
+			peer.start(tmpFolder, port /*,"tcp://127.0.0.1:9800"*/);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

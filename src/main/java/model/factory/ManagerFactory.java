@@ -83,18 +83,18 @@ public class ManagerFactory {
 	
 	/* ============================= MESSAGE  ============================= */
 	
-	public static Manager<Message> createCryptoMessageManager(User user) {
+	public static Manager<Message> createCryptoMessageManager(User receiver,User sender) {
 		
 		ManagerAdapter<Message> adapter = new ManagerAdapter<Message>(new MessageSyncManagerImpl());
-		CryptoMessageManagerDecorator messageManagerDecorator = new CryptoMessageManagerDecorator(adapter,null,user);
+		CryptoMessageManagerDecorator messageManagerDecorator = new CryptoMessageManagerDecorator(adapter,null,receiver,sender);
 		
 		return messageManagerDecorator;
 	}
 	
-	public static Manager<Message> createNetworkResilianceMessageManager(Peer peer, String who,User user){
+	public static Manager<Message> createNetworkResilianceMessageManager(Peer peer, String who,User receiver,User sender){
 		ManagerAdapter<Message> adapter = new ManagerAdapter<Message>(new MessageSyncManagerImpl());
 		NetworkMessageManagerDecorator networkD = new NetworkMessageManagerDecorator(adapter, peer, who);
-		CryptoMessageManagerDecorator messageManagerDecorator = new CryptoMessageManagerDecorator(networkD,who,user);
+		CryptoMessageManagerDecorator messageManagerDecorator = new CryptoMessageManagerDecorator(networkD,who,receiver,sender);
 		//TODO : resilience
 		//ResilienceUserManagerDecorator resiNetworkD = new ResilienceUserManagerDecorator(networkD, peer);
 		return messageManagerDecorator;

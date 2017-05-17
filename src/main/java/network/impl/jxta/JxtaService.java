@@ -69,13 +69,6 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 	 */
 	@Override
 	public void publishAdvertisement(Advertisement adv) {
-		
-		if(adv instanceof UserAdvertisement){
-			System.out.println("|publishAdvertisement| =====> "+((UserAdvertisement) adv).getNick());
-		}else if(adv instanceof ItemAdvertisement){
-			System.out.println("|publishAdvertisement| =====> "+((ItemAdvertisement) adv).getTitle());
-		}
-		
 		JxtaAdvertisement jxtaAdv = new JxtaAdvertisement((Advertisement) adv);
 		try {
 			pg.getDiscoveryService().publish(jxtaAdv.getJxtaAdvertisementBridge());
@@ -129,7 +122,6 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 	 */
 	@Override
 	public void discoveryEvent(DiscoveryEvent event) {
-		System.out.println("discoveryEvent");
 		Enumeration<net.jxta.document.Advertisement> advs = event.getResponse().getAdvertisements();
 		ArrayList<Advertisement> advertisements = new ArrayList<>();
 		while(advs.hasMoreElements()) {
@@ -229,7 +221,12 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 		listeners.put(who, l);
 	}
 
-
+	
+	@Override
+	public void addAdvertisementListener(DiscoveryListener l){
+		pg.getDiscoveryService().addDiscoveryListener(l);
+	}
+	
 	@Override
 	public void removeListener(String who) {
 		listeners.remove(who);

@@ -65,6 +65,7 @@ public class ElGamalSerpentEncrypter implements Encrypter<ElGamalKey> {
 
 		return json.toJson(content, true);
 	}
+	
 	/**
 	 * 	decrypt the password using ElGamal private key
 	 * 	decrypt the message with password
@@ -87,6 +88,53 @@ public class ElGamalSerpentEncrypter implements Encrypter<ElGamalKey> {
 		encrypter2.setKey(pwd);
 		return encrypter2.decrypt(content[1]);
 	}
+	
+	
+	public String encryptMsg(byte[] msg,ElGamalKey secondKey){
+
+		String pwd = createPwd(20);
+		
+		Encrypter<ElGamalKey> encrypter1 = EncrypterFactory.createElGamalEncrypter();
+		encrypter1.setKey(key);
+		
+		Encrypter<ElGamalKey> encrypter2 = EncrypterFactory.createElGamalEncrypter();
+		encrypter2.setKey(secondKey);
+		
+		Encrypter<byte[]> encrypter3 = EncrypterFactory.createSerpentEncrypter();
+		encrypter3.setKey(pwd.getBytes());
+		
+		JsonTools<byte[][]> json = new JsonTools<>(new TypeReference<byte[][]>(){});
+		byte[][] content = new byte[3][];
+		content[0] = encrypter1.encrypt(pwd.getBytes());
+		content[1] = encrypter2.encrypt(pwd.getBytes());
+		content[2] = encrypter3.encrypt(msg);
+
+		return json.toJson(content, true);
+	}
+	
+	
+	public byte[] decryptMsg(String msg,ElGamalKey secondKey){
+		
+		JsonTools<byte[][]> json = new JsonTools<>(new TypeReference<byte[][]>(){});
+		byte[][] content = json.toEntity(msg, true);
+		
+		byte[] pwd;
+		
+		Encrypter<ElGamalKey> encrypter1 = EncrypterFactory.createElGamalEncrypter();
+		encrypter1.setKey(key);
+		
+		if(key.getPublicKey().equals(secondKey.getPublicKey())){//sender
+			pwd= encrypter1.decrypt(content[1]);
+		}else{//receiver
+			pwd= encrypter1.decrypt(content[0]);
+		}
+		
+		Encrypter<byte[]> encrypter2 = EncrypterFactory.createSerpentEncrypter();
+		encrypter2.setKey(pwd);
+		return encrypter2.decrypt(content[2]);
+	}
+	
+	
 	
 	/**
 	 * Create a password using predefinite 

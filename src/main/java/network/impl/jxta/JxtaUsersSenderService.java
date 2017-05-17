@@ -102,11 +102,15 @@ public class JxtaUsersSenderService extends JxtaService implements UserRequestSe
 		
 		}else if(msg.getMessage("type").equals("requestById")){
 			
-			Hashtable<String, Object> query = new Hashtable<>();
-			query.put("nick", msg.getMessage("nick"));
-			query.put("id", msg.getMessage("attribute"));
+			Collection<User> tmpList=em.findAllByAttribute("nick", msg.getMessage("nick"));
 			
-			resultat.addAll(em.findAllByAttributes(query));
+			for (Iterator iterator = tmpList.iterator(); iterator.hasNext();) {
+				User user = (User) iterator.next();
+				
+				if(user.getId().equals(msg.getMessage("attribute"))){
+					resultat.add(user);
+				}
+			}
 			
 		}else if(msg.getMessage("type").equals("requestByPbkey")){
 			

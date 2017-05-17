@@ -150,7 +150,10 @@ public class MessageSyncManagerImplTest {
 		Set<Message> mss = (Set<Message>) msm.watchlist();
 		buff.append("\n**** Watchlist ****" + "\n");
 		for (Message m : mss){
-			buff.append(m.getString());
+			buff.append("{ message : senderName :"+m.getSenderName()+" ");
+			buff.append("senderId :"+m.getSenderId()+" ");
+			buff.append("receiverName :"+m.getReceiverName()+" ");
+			buff.append("receiverId :"+m.getReceiverId()+"  ....}");
 		}
 		buff.append("******************" + "\n");
 		return buff.toString();

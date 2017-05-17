@@ -99,7 +99,7 @@ public class CryptoMessageManagerDecoratorTest {
 		messageSyncManager = SyncManagerFactory.createMessageSyncManager();
 		ManagerAdapter<Message> adapterMessage = new ManagerAdapter<>(messageSyncManager);
 		
-		msm = new CryptoMessageManagerDecorator(adapterMessage,user_2);
+		msm = new CryptoMessageManagerDecorator(adapterMessage,null,user_2,user_1);
 	}
 	
 	@After
@@ -187,7 +187,7 @@ public class CryptoMessageManagerDecoratorTest {
 		message.setSender(user_1.getId(), user_1.getNick());
 		message.setReceiver(user_2.getId(), user_2.getNick()); // a message will be crypted by using user_2 public key, and it's the same to sign a message
 		message.setSendingDate(dt_message);
-		message.setPbkey(user_2.getKey().getPublicKey());
+		message.setPbkey(user_1.getKey().getPublicKey());
 		message.setStatus(status);
 		
 		//it's not required because we sign a message before we persist it.
@@ -211,7 +211,7 @@ public class CryptoMessageManagerDecoratorTest {
 		
 		assertTrue(m.getSendingDate().equals(dt_message));
 		assertTrue(m.getSenderId().equals(user_1.getId()));
-		assertTrue(m.getSendName().equals(user_1.getNick()));
+		assertTrue(m.getSenderName().equals(user_1.getNick()));
 		assertTrue(m.getReceiverId().equals(user_2.getId()));
 		assertTrue(m.getReceiverName().equals(user_2.getNick()));
 		
@@ -226,12 +226,12 @@ public class CryptoMessageManagerDecoratorTest {
 		sb.append(userName_1);
 		sb.append(user_2.getId());
 		sb.append(userName_2);
-		sb.append(user_2.getKey().getPublicKey());
+		sb.append(user_1.getKey().getPublicKey());
 		sb.append(messageContent);
 		
 		Signer<ElGamalSignature, ElGamalKey> signer = SignerFactory.createElGamalSigner();
 		
-		signer.setKey(user_2.getKey());
+		signer.setKey(user_1.getKey());
 		
 		ElGamalSignature signatureVerify = new ElGamalSignature(m.getSignature().getR(), m.getSignature().getS());
 		
@@ -263,7 +263,7 @@ public class CryptoMessageManagerDecoratorTest {
 		
 		decrypter.setKey(key);
 		
-		String messageDecrypted = new String(decrypter.decrypt(content[1]));
+		String messageDecrypted = new String(decrypter.decrypt(content[2]));
 		
 		assertTrue(messageContent.equals(messageDecrypted));
 	}

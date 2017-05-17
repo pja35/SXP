@@ -14,7 +14,7 @@ public class BigIntegerDeserializer extends JsonDeserializer<BigInteger>{
 	public BigInteger deserialize(JsonParser p, DeserializationContext ctxt)
 			throws IOException, JsonProcessingException {
 		// TODO Auto-generated method stub
-		return new BigInteger(p.getValueAsString());
+		return new BigInteger(p.getValueAsString(), 16);
 	}
 
 }

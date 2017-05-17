@@ -134,11 +134,34 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 
 				String valueOfField = String.valueOf(field.get(getEntity()));
 				
-				field.set(getEntity(), this.encrypt(valueOfField,annotation.isEncryptKeyPublic()));
+				if(annotation.isCryptBySecondKey()){
+					
+					ElGamalKey elgamalkey = AsymKeyFactory.createElGamalAsymKey(false);
+					
+					Field keyField = getEntity().getClass().getDeclaredField(annotation.secondKey());
+					
+					//key is BigInteger
+					keyField.setAccessible(true);
+					
+					if(! (keyField.get(getEntity()) instanceof BigInteger) ){ //not BigIntger throw exception
+						throw new RuntimeException("Check-key must be a BigInteger!");
+					}
+					
+					elgamalkey.setPublicKey((BigInteger) keyField.get(getEntity()));
+					
+					field.set(getEntity(), this.encrypt(valueOfField,elgamalkey,annotation.isEncryptKeyPublic()));
+					
+				}else{
+					field.set(getEntity(), this.encrypt(valueOfField,annotation.isEncryptKeyPublic()));	
+				}
 				
 			} catch (IllegalArgumentException e) {
 				LoggerUtilities.logStackTrace(e);
 			} catch (IllegalAccessException e) {
+				LoggerUtilities.logStackTrace(e);
+			} catch (NoSuchFieldException e) {
+				LoggerUtilities.logStackTrace(e);
+			} catch (SecurityException e) {
 				LoggerUtilities.logStackTrace(e);
 			}
 		}
@@ -163,11 +186,34 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 				
 				String valueOfField = String.valueOf(field.get(getEntity()));
 				
-				field.set(getEntity(), this.decrypt(valueOfField,annotation.isEncryptKeyPublic()));
+				if(annotation.isCryptBySecondKey()){
+					
+					ElGamalKey elgamalkey = AsymKeyFactory.createElGamalAsymKey(false);
+					
+					Field keyField = getEntity().getClass().getDeclaredField(annotation.secondKey());
+					
+					//key is BigInteger
+					keyField.setAccessible(true);
+					
+					if(! (keyField.get(getEntity()) instanceof BigInteger) ){
+						throw new RuntimeException("Check-key must be a BigInteger!");
+					}
+					
+					elgamalkey.setPublicKey((BigInteger) keyField.get(getEntity()));
+					
+					field.set(getEntity(), this.decrypt(valueOfField,elgamalkey,annotation.isEncryptKeyPublic()));
+					
+				}else{
+					field.set(getEntity(), this.decrypt(valueOfField,annotation.isEncryptKeyPublic()));	
+				}
 				
 			} catch (IllegalArgumentException e) {
 				LoggerUtilities.logStackTrace(e);
 			} catch (IllegalAccessException e) {
+				LoggerUtilities.logStackTrace(e);
+			} catch (NoSuchFieldException e) {
+				LoggerUtilities.logStackTrace(e);
+			} catch (SecurityException e) {
 				LoggerUtilities.logStackTrace(e);
 			}
 		}

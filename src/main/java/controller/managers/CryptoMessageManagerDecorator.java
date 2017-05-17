@@ -32,21 +32,26 @@ import model.entity.Message;
  */
 public class CryptoMessageManagerDecorator extends ManagerDecorator<Message>{
 	
-	private User user;
+	private User user,userSender;
 	private String who;
 	
-	public CryptoMessageManagerDecorator(Manager<Message> em,String who,User user) {
+	public CryptoMessageManagerDecorator(Manager<Message> em,String who,User reciever,User sender) {
 		super(em);
-		this.user = user;
+		this.user = reciever;
+		this.userSender = sender;
 		this.who = who;
 	}
 	
 	@Override
 	public boolean persist(Message entity) {
 		
-		ParserAnnotation parser = ParserFactory.createDefaultParser(entity, user.getKey());
+		ParserAnnotation parser = ParserFactory.createDefaultParser(entity, userSender.getKey());
 		
-		entity = (Message) parser.parseAnnotation(ParserAction.SigneAction,ParserAction.CryptAction);
+		entity = (Message) parser.parseAnnotation(ParserAction.SigneAction);
+		
+		parser.setKey(user.getKey());
+		
+		entity = (Message) parser.parseAnnotation(ParserAction.CryptAction);
 		
 		return super.persist(entity);
 	}
@@ -65,43 +70,20 @@ public class CryptoMessageManagerDecorator extends ManagerDecorator<Message>{
 					Message message = (Message) iterator.next();
 					
 					ParserAnnotation<Message> parser;
-					
-					final ArrayList<User> users = new ArrayList<>(); 
-					
-					if(message.getReceiverId() == user.getId()){
 						
-						users.add(user);
+					parser = ParserFactory.createDefaultParser(message, user.getKey());
+					
+					message = (Message) parser.parseAnnotation(ParserAction.DecryptAction,ParserAction.CheckAction);
+					
+					if(message != null){
+						
+						res.add(message);
 						
 					}else{
 						
-						Manager<User> em = ManagerFactory.createNetworkResilianceUserManager(Application.getInstance().getPeer(), who);
-						
-						Hashtable<String, Object> query = new Hashtable<>(); 
-					
-						query.put("nick", message.getReceiverName());
-						query.put("id", message.getReceiverId());
-						
-						em.findAllByAttributes(query, new ManagerListener<User>() {
-							
-							@Override
-							public void notify(Collection<User> results) {
-								User u = results.iterator().next();
-								users.add(u);
-							}
-						});
+						System.out.println("il y a un problem la !!!!!");
 						
 					}
-					
-					if(!users.isEmpty()){
-						
-						parser = ParserFactory.createDefaultParser(message, users.get(0).getKey());
-						message = (Message) parser.parseAnnotation(ParserAction.DecryptAction,ParserAction.CheckAction);
-						
-						if(message != null){
-							res.add(message);
-						}
-					}
-					
 				}
 				
 				l.notify(res);
@@ -111,16 +93,6 @@ public class CryptoMessageManagerDecorator extends ManagerDecorator<Message>{
 	
 	@Override
 	public boolean end() {
-		/*
-		Collection<Message> collection = this.changesInWatchlist();
-		
-		for (Message message : collection) {
-			
-				ParserAnnotation parser = ParserFactory.createDefaultParser(message, user.getKey());
-				
-				message = (Message) parser.parseAnnotation(ParserAction.SigneAction,ParserAction.CryptAction);			
-		}
-		*/
 		return super.end();
 	}
 }

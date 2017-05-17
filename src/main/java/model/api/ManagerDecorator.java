@@ -42,14 +42,6 @@ public abstract class ManagerDecorator<Entity> implements Manager<Entity>{
 	public void findOneByAttribute(String attribute, String value, ManagerListener<Entity> l) {
 		em.findOneByAttribute(attribute, value, l);
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void findAllByAttributes(Hashtable<String,Object> query, ManagerListener<Entity> l) {
-		em.findAllByAttributes(query, l);
-	}
 
 	/**
 	 * {@inheritDoc}

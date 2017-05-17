@@ -13,7 +13,7 @@ public class BigIntegerSerializer extends JsonSerializer<BigInteger>{
 	@Override
 	public void serialize(BigInteger value, JsonGenerator gen, SerializerProvider serializers)
 			throws IOException, JsonProcessingException {
-		gen.writeString(String.valueOf(value));
+		gen.writeString(value.toString(16));
 	}
 
 }

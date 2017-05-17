@@ -60,7 +60,7 @@ public class Message {
 	@NotNull
 	private String receiverName;
 	
-	@CryptCryptAnnotation(isEncryptKeyPublic=true)
+	@CryptCryptAnnotation(isCryptBySecondKey=true,secondKey="pbkey")
 	@Lob
 	@XmlElement(name="messageContent")
 	@NotNull
@@ -108,7 +108,7 @@ public class Message {
 	public String getSenderId(){
 		return this.senderId;
 	}
-	public String getSendName(){
+	public String getSenderName(){
 		return this.senderName;
 	}
 
@@ -157,27 +157,6 @@ public class Message {
 
 	public void setSignature(ElGamalSignEntity signature) {
 		this.signature = signature;
-	}
-	
-	
-	
-	
-	/**
-	 * @return a complete string with all attributes (mainly used for debug)
-	 */
-	public String getString(){
-		StringBuffer buff = new StringBuffer();		
-		buff.append("******************" + "\n");
-		buff.append("Message Id = " + getId() + "\n");
-		buff.append("Sender Id = " + getSenderId() + "\n");
-		buff.append("Sender Name = " + getSendName() + "\n");
-		buff.append("Sending date = " + getSendingDate() + "\n");
-		buff.append(getStatus() + "\n");
-		buff.append(getMessageContent() + "\n");
-		buff.append("Receiver Id = " + getReceiverId() + "\n");
-		buff.append("Receiver name = " + getReceiverName() + "\n");
-		buff.append("******************" + "\n");
-		return buff.toString();
 	}
 
 }

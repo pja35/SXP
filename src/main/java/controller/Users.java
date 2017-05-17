@@ -170,7 +170,6 @@ public class Users {
 		String passwordNew = credentials[1].split("=")[1];
 		String passwordNewConfirm = credentials[2].split("=")[1];
 		
-		
 		if(!passwordNew.equals(passwordNewConfirm)){
 			return "{\"error\": \"true\"}";
 		}
@@ -201,6 +200,7 @@ public class Users {
 				return json.toJson(newToken);
 			}
 		}
+		
 		decoratorUserMg.close();
 		return null;
 	}

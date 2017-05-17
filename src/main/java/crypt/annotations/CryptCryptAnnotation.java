@@ -18,11 +18,6 @@ public @interface CryptCryptAnnotation {
 	 */
 	public boolean isEncryptKeyPublic() default true;
 	
-	/*
-	 * get the field name that contain the key to decrypt data
-	 * @return String name of field
-	 */
-	//public String isDecryptByPublicKey() default "pbkey";
 	
 	/*
 	 * specify that the decrypt key is public or private key
@@ -31,5 +26,16 @@ public @interface CryptCryptAnnotation {
 	//public boolean isDecryptKeyPublic() default true;
 	
 	
+	/**
+	 * get the field name that contain the key to encrypt data
+	 * @return String name of field
+	 */
+	public String secondKey() default "pbkey";
+	
+	/**
+	 * 
+	 * @return Boolean  
+	 */
+	public boolean isCryptBySecondKey() default false;
 	
 }

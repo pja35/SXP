@@ -56,115 +56,168 @@ public class Messages {
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String add(final Message message, @HeaderParam(Authentifier.PARAM_NAME) final String token) {
+	public ChunkedOutput<String> add(final Message message, @HeaderParam(Authentifier.PARAM_NAME) final String token) {
 		
 		Authentifier auth = Application.getInstance().getAuth();
 		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
 		final User sender = users.getUser(auth.getLogin(token), auth.getPassword(token));	
-		
-		Manager<User> usem = ManagerFactory.createNetworkResilianceUserManager(Application.getInstance().getPeer(), token);
-		
-		final ArrayList<User> listUsers = new ArrayList<>();
-		
-		usem.findAllByAttribute("nick", message.getReceiverName(), new ManagerListener<User>() {
+
+		final ChunkedOutput<String> output = new ChunkedOutput<String>(String.class);
+		new Thread(new Runnable() {
+
 			@Override
-			public void notify(Collection<User> results) {
-				for (Iterator iterator = results.iterator(); iterator.hasNext();) {
-					User user = (User) iterator.next();
-					listUsers.add(user);
-					break;
-				}
-			}
-		});
-		
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		if(listUsers.size()>0){
-			System.out.println("user trouver");
-			System.out.println(listUsers.get(0).getNick()+" | pbkey :"+listUsers.get(0).getKey().getPublicKey());
-		}
-		
-		usem.close();
-		
-		User reciever = listUsers.size()!=0 ? listUsers.get(0) : null;
-		
-		if (reciever != null){
-			
-			message.setSendingDate(new Date());
-			message.setSender(sender.getId(), sender.getNick());
-			//message.setReceiver(reciever.getId(), reciever.getNick());
-			
-			message.setPbkey(reciever.getKey().getPublicKey());
-			
-			message.setReceiver(reciever.getId(), reciever.getNick());
-			
-			Manager<Message> em = ManagerFactory.createNetworkResilianceMessageManager(Application.getInstance().getPeer(), token,reciever); 
+			public void run() {
+				
+				final ArrayList<User> asyncResult = new ArrayList<>();
+				
+				Manager<User> usem = ManagerFactory.createNetworkResilianceUserManager(Application.getInstance().getPeer(), token);
+				
+				usem.findAllByAttribute("nick",message.getReceiverName(), new ManagerListener<User>() {
+					@Override
+					public void notify(Collection<User> results) {
 						
-			log.debug(message.getString());
-			boolean pushDbOk = em.begin();
-			pushDbOk &= em.persist(message);
-			pushDbOk &= em.end();
-			pushDbOk &= em.close();
-			if (!pushDbOk){
-				log.warn("Message might not have been sent.");
-				System.out.println("{\"error\": \"Message might not have been sent.\"}");
-				return "{\"error\": \"Message might not have been sent.\"}";
+						for (Iterator iterator = results.iterator(); iterator.hasNext();) {
+							User user = (User) iterator.next();
+							asyncResult.add(user);
+							break;
+						}
+					}
+				});
+				
+				try {
+					Thread.sleep(3000);
+					usem.close();
+				} catch (InterruptedException e) {
+					LoggerUtilities.logStackTrace(e);
+				}
+				
+				User reciever = asyncResult.size()>0? asyncResult.get(0):null;
+				
+				if (reciever != null &&  !(reciever.getId().equals(sender.getId())) ){
+					
+					message.setSendingDate(new Date());
+					message.setSender(sender.getId(), sender.getNick());
+					message.setPbkey(sender.getKey().getPublicKey());
+					message.setReceiver(reciever.getId(), reciever.getNick());
+					Manager<Message> em = ManagerFactory.createNetworkResilianceMessageManager(Application.getInstance().getPeer(), token,reciever,sender); 
+								
+					boolean pushDbOk = em.begin();
+					pushDbOk &= em.persist(message);
+					pushDbOk &= em.end();
+					pushDbOk &= em.close();
+					if (!pushDbOk){
+						log.warn("Message might not have been sent.");
+						try {
+							output.write("{\"error\": \"Message might not have been sent.\"}");
+						} catch (IOException e) {
+							LoggerUtilities.logStackTrace(e);
+						}
+					}
+					
+					em.close();
+					
+					JsonTools<Message> json = new JsonTools<>(new TypeReference<Message>(){});
+					try {
+						output.write(json.toJson(message));
+					} catch (IOException e) {
+						LoggerUtilities.logStackTrace(e);
+					}
+				
+				}else{
+					
+					try {
+						output.write("{\"error\": \"No receiver specified.\"}");
+					} catch (IOException e) {
+						LoggerUtilities.logStackTrace(e);
+					}
+				
+				}
+			
+				try {
+					output.write("[]");
+					output.close();
+				} catch (IOException e) {
+					LoggerUtilities.logStackTrace(e);
+				}
+				
 			}
-			
-			System.out.println("message has been sent!");
-			
-			JsonTools<Message> json = new JsonTools<>(new TypeReference<Message>(){});
-			return json.toJson(message);
-		}		
-		System.out.println("{\"error\": \"No receiver specified.\"}");
-		return "{\"error\": \"No receiver specified.\"}";
+		}).start();
+		
+		return output;
 	}
 
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String get(@HeaderParam(Authentifier.PARAM_NAME) String token) {
-		
+	public ChunkedOutput<String> get(@HeaderParam(Authentifier.PARAM_NAME) final String token) {
+
 		Authentifier auth = Application.getInstance().getAuth();
 		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
-		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
+		final User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		users.close();
 		
-		Manager<Message> em = ManagerFactory.createNetworkResilianceMessageManager(Application.getInstance().getPeer(), token, currentUser);
+		final ChunkedOutput<String> output = new ChunkedOutput<String>(String.class);
 		
-		JsonTools<Collection<Message>> json = new JsonTools<>(new TypeReference<Collection<Message>>(){});
-		
-		final ArrayList<Message> list = new ArrayList<>();
- 		
-		em.findAllByAttribute("receiverId", currentUser.getId(), new ManagerListener<Message> (){
+		new Thread(new Runnable() {
+
 			@Override
-			public void notify(Collection<Message> results) {
-				list.addAll(results);
+			public void run() {
+				
+				JsonTools<Collection<Message>> json = new JsonTools<>(new TypeReference<Collection<Message>>(){});
+				
+				Manager<Message> em = ManagerFactory.createNetworkResilianceMessageManager(Application.getInstance().getPeer(), token, currentUser,null);
+				
+				final Hashtable<String, Message> hashtableMessage = new Hashtable<>(); 
+				
+				em.findAllByAttribute("receiverId", currentUser.getId(), new ManagerListener<Message>() {
+					@Override
+					public void notify(Collection<Message> results) {
+						
+						for (Iterator iterator = results.iterator(); iterator.hasNext();) {
+							Message message = (Message) iterator.next();
+							if(hashtableMessage.get(message.getId())==null){
+								hashtableMessage.put(message.getId(), message);
+							}
+						}
+					}
+				});
+				
+				em.findAllByAttribute("senderId", currentUser.getId(), new ManagerListener<Message>() {
+					@Override
+					public void notify(Collection<Message> results) {
+						for (Iterator iterator = results.iterator(); iterator.hasNext();) {
+							Message message = (Message) iterator.next();
+							if(hashtableMessage.get(message.getId())==null){
+								hashtableMessage.put(message.getId(), message);
+							}
+						}
+					}
+				});
+				
+				try {
+					
+					Thread.sleep(3000);
+					
+					output.write(json.toJson(hashtableMessage.values()));
+					
+				} catch (InterruptedException e) {
+					LoggerUtilities.logStackTrace(e);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				finally {
+					try {
+						output.write("[]");
+						output.close();
+					} catch (IOException e) {
+						LoggerUtilities.logStackTrace(e);
+					}
+				}
+				em.close();
 			}
-		});
+		}).start();
 		
-		/*
-		em.findAllByAttribute("senderId", currentUser.getId(), new ManagerListener<Message> (){
-			@Override
-			public void notify(Collection<Message> results) {
-				list.addAll(results);
-			}
-		});
-		*/
-		
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		em.close();
-		return json.toJson(list);
+		return output;
 	}
 
 	@PUT
@@ -182,5 +235,7 @@ public class Messages {
 			@PathParam("id") long id) {
 		return null;
 	}
+	
+	
 		
 }

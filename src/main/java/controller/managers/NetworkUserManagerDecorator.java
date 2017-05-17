@@ -67,9 +67,7 @@ public class NetworkUserManagerDecorator extends ManagerDecorator<User>{
 				usersSender.sendRequest(value, who == null ? "test":who, uids.toArray(new String[1]));
 			}
 		});
-		
 	}
-
 
 	@Override
 	public void findAllByAttribute(String attribute, final String value, final ManagerListener<User> l) {
@@ -100,41 +98,6 @@ public class NetworkUserManagerDecorator extends ManagerDecorator<User>{
 			}
 		});
 	}
-	
-	@Override
-	public void findAllByAttributes(final Hashtable<String, Object> query, final ManagerListener<User> l) {
-		super.findAllByAttributes(query, l);
-		final UserRequestService usersSender = (UserRequestService) peer.getService(UserRequestService.NAME);
-		Service users = peer.getService(UserService.NAME);
-		
-		usersSender.removeListener(who);
-		usersSender.addListener(new ServiceListener() {
-			@Override
-			public void notify(Messages messages) {
-				JsonTools<ArrayList<User>> json = new JsonTools<>(new TypeReference<ArrayList<User>>(){});
-				Collection<User> collections = json.toEntity(messages.getMessage("users")); 
-				l.notify(collections);
-			}
-		}, who == null ? "test":who);
-		
-		users.search("nick", String.valueOf(query.get("nick")), new SearchListener<UserAdvertisementInterface>() {
-			@Override
-			public void notify(Collection<UserAdvertisementInterface> result) {
-				ArrayList<String> uids = new ArrayList<>();
-				for(UserAdvertisementInterface i: result) {
-					uids.add(i.getSourceURI());
-				}
-				
-				if(query.contains("id")){
-					usersSender.sendRequest(String.valueOf(query.get("id")),String.valueOf(query.get("nick")), who == null ? "test":who, uids.toArray(new String[1]));
-				}else{
-					usersSender.sendRequest(String.valueOf(query.get("nick")), who == null ? "test":who, uids.toArray(new String[1]));
-				}
-				
-			}
-		});
-	}
-	
 	
 	@Override
 	public boolean end() {

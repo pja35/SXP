@@ -55,10 +55,12 @@ public class NetworkMessageManagerDecorator extends ManagerDecorator<Message>{
 			@Override
 			public void notify(Messages messages) {
 				JsonTools<ArrayList<Message>> json = new JsonTools<>(new TypeReference<ArrayList<Message>>(){});
-				Collection<Message> collections = json.toEntity(messages.getMessage("messages")); 
+				
+				Collection<Message> collections = json.toEntity(messages.getMessage("messages"));
+				
 				l.notify(collections);
 			}
-		}, who == null ? "test":who);
+		}, who);
 		
 		messages.search(attribute, value, new SearchListener<MessageAdvertisementInterface>() {
 			@Override
@@ -67,8 +69,8 @@ public class NetworkMessageManagerDecorator extends ManagerDecorator<Message>{
 				for(MessageAdvertisementInterface i: result) {
 					uids.add(i.getSourceURI());
 				}
-				
-				messagesSender.sendRequest(value,value, who == null ? "test":who, uids.toArray(new String[1]));
+
+				messagesSender.sendRequest(value,value, who, uids.toArray(new String[1]));
 			}
 		});
 	}
