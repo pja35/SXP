@@ -3,7 +3,6 @@ package network.impl;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
 import java.math.BigInteger;
 import java.util.HashMap;
 
@@ -12,7 +11,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import controller.Application;
 import crypt.api.key.AsymKey;
 import network.api.EstablisherService;
 import network.api.EstablisherServiceListener;
@@ -59,10 +57,9 @@ public class EstablisherServiceTest {
 		}
 		
 	}
-	private static Application application;
 	private static Peer[] peer;
 	private static EstablisherService[] es;
-	private final static int restPort = 8080;
+	private static String[] rdvPeerIds = {"tcp://localhost:9800", "tcp://localhost:9801"};
 	
 	private Key[] key;
 	private String field, title, data;
@@ -71,22 +68,18 @@ public class EstablisherServiceTest {
 	
 	@BeforeClass
 	public static void initialize(){
-		application = new Application();
-		Application.getInstance().runForTests(restPort);
 		peer = new Peer[2];
-		peer[0] = Application.getInstance().getPeer();
-		peer[1] = PeerFactory.createDefaultAndStartPeerForTest(9801, Application.rdvPeerIds);
+		peer[0] = PeerFactory.createDefaultAndStartPeerForTest(9800, rdvPeerIds);
+		peer[1] = PeerFactory.createDefaultAndStartPeerForTest(9801, rdvPeerIds);
 		
 		es = new EstablisherService[2];
-		es[0] = (EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
+		es[0] = (EstablisherService) peer[0].getService(EstablisherService.NAME);
 		es[1] = (EstablisherService) peer[1].getService(EstablisherService.NAME);
 	}
 
 	@AfterClass
 	public static void stopApp(){
-		TestUtils.removeRecursively(new File(".db-" + restPort + "/"));
 		TestUtils.removePeerCache();
-		application.stop();
 	}
 	
 	@Before
@@ -107,7 +100,6 @@ public class EstablisherServiceTest {
 	
 	@Test
 	public void testAdvertisementListening(){
-		
 		assertFalse(isReceived);
 		
 		es[0].setListener(field, title, title + key[0].getPublicKey().toString(),new EstablisherServiceListener(){
@@ -185,7 +177,7 @@ public class EstablisherServiceTest {
 		es[1].sendContract(title, data, key[1].getPublicKey().toString(), peer[1], null);
 		
 		try{
-			Thread.sleep(500);
+			Thread.sleep(1000);
 		}catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -200,7 +192,7 @@ public class EstablisherServiceTest {
 			}
 		}, false);
 		try{
-			Thread.sleep(500);
+			Thread.sleep(1000);
 		}catch (InterruptedException e) {
 			e.printStackTrace();
 		}

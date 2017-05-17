@@ -3,15 +3,11 @@ package model.entity.sigma;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
 import java.util.HashMap;
 
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import controller.Application;
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
 import model.entity.sigma.And;
@@ -23,7 +19,6 @@ import model.entity.sigma.ResponsesSchnorr;
 import protocol.impl.sigma.Sender;
 import protocol.impl.sigma.Trent;
 import util.TestInputGenerator;
-import util.TestUtils;
 
 
 /**
@@ -32,36 +27,20 @@ import util.TestUtils;
  *
  */
 public class AndTest {
-	public static Application application;
-	public static final int restPort = 5600;
-	
 	private ResEncrypt resEncrypt;
 	private HashMap <Responses,ElGamalKey> rK  = new HashMap <>();
 	private byte[] message;
 	Trent trent;
 	private And and;
 	
-	@BeforeClass
-	public static void initialize(){
-		application = new Application();
-		application.runForTests(restPort);
-	}
-	
-	@AfterClass
-	public static void stop(){
-		TestUtils.removeRecursively(new File(".db-" + restPort + "/"));
-		TestUtils.removePeerCache();
-		application.stop();
-	}
-	
 	@Before
 	public void instantiate(){
 		ElGamalKey senderKey = ElGamalAsymKeyFactory.create(false);
 		ElGamalKey trentKey = ElGamalAsymKeyFactory.create(false);		
 		Sender sender = new Sender(senderKey);
+		trent = new Trent(trentKey);
 		message = TestInputGenerator.getRandomBytes(100);
 		resEncrypt = sender.Encryption(message, trentKey);
-		trent = new Trent(trentKey);
 		ResponsesSchnorr responseSchnorr = sender.SendResponseSchnorr(message);		
 		ResponsesCCE responseCCE = sender.SendResponseCCE(message, trentKey);
 		rK = new HashMap<Responses, ElGamalKey>();

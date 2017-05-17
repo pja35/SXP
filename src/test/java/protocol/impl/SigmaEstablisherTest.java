@@ -40,6 +40,7 @@ public class SigmaEstablisherTest {
 	private static User[] u;
 	private static ElGamalKey[] keysR;
 	private static ElGamalKey trentK = ElGamalAsymKeyFactory.create(false);
+	private static Trent trent;
 	// Map of URIS
 	private static HashMap<ElGamalKey, String> uris;
 
@@ -52,6 +53,8 @@ public class SigmaEstablisherTest {
 	public static void setup(){
 		application = new Application();
 		application.runForTests(restPort);
+		trent = new Trent(trentK);
+		trent.setListener();
 	}
 
 
@@ -197,18 +200,13 @@ public class SigmaEstablisherTest {
 	// Test an abort in protocol (Trent doesn't give the signature)
 	@Test
 	public void TestB(){
-		new Trent(trentK);
-		
 		resolveInitiator(1, uris);
 		
 		// Time to realize procedure
-		for (int k=0; k<3; k++){
-			try{
-				Thread.sleep(1000);
-			}catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
+		try{
+			Thread.sleep(4000);
+		}catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 		
 		boolean res = true;
@@ -223,18 +221,13 @@ public class SigmaEstablisherTest {
 	// Test a resolve in protocol (Trent gives the signature in the end)
 	@Test
 	public void TestC(){
-		new Trent(trentK);
-		
 		resolveInitiator(2, uris);
 		
 		// Time to realize procedure
-		for (int k=0; k<5; k++){
-			try{
-				Thread.sleep(1000);
-			}catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
+		try{
+			Thread.sleep(8000);
+		}catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 		
 		boolean res = true;

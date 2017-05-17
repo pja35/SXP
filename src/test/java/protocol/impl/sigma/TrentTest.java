@@ -2,47 +2,31 @@ package protocol.impl.sigma;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
 import java.math.BigInteger;
 
-import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import controller.Application;
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
 import model.entity.sigma.ResEncrypt;
 import model.entity.sigma.ResponsesCCD;
 import util.TestInputGenerator;
-import util.TestUtils;
 
 /**
  * Trent unit tests
  * @author denis.arrivault[@]univ-amu.fr
  */
 public class TrentTest {
-	public static Application application;
-	public static final int restPort = 5600;	
 	public static byte[] msg;
 	public static ElGamalKey key;
 	public static Trent trent;
 
 	@BeforeClass
 	public static void initialize(){
-		application = new Application();
-		application.runForTests(restPort);
 		msg = TestInputGenerator.getRandomBytes(50);
 		key = ElGamalAsymKeyFactory.create(false);
 		trent = new Trent(key);
-	}
-	
-	@AfterClass
-	public static void stop(){
-		TestUtils.removeRecursively(new File(".db-" + restPort + "/"));
-		TestUtils.removePeerCache();
-		application.stop();
 	}
 
 	@Test

@@ -54,7 +54,7 @@ import protocol.impl.SigmaEstablisher;
  */
 public class Trent {
 	
-	protected final EstablisherService establisherService =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
+	protected EstablisherService establisherService;
 	
 	protected final ElGamalKey keys;
 	private HashMap<Masks,BigInteger> eph = new HashMap<Masks, BigInteger>();
@@ -66,13 +66,15 @@ public class Trent {
 	/**
 	 * Constructor
 	 */
-	public  Trent(final ElGamalKey key){
-		
+	public Trent(final ElGamalKey key){
 		this.keys = key;
 		
 		encrypter = EncrypterFactory.createElGamalSerpentEncrypter();
 		encrypter.setKey(keys);
-		
+	 }
+	
+	public void setListener(){
+		 establisherService = (EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
 		// Add a listener in case someone ask to resolve
 		establisherService.setListener("title", SigmaEstablisher.FOR_TRENT_MESSAGE + this.keys.getPublicKey().toString(), "TRENT"+this.keys.getPublicKey().toString(),new EstablisherServiceListener() {
 			@Override
@@ -86,8 +88,7 @@ public class Trent {
 				resolve(content, senderK);
 			}
 		}, false);
-		
-	 }
+	}
 	
 	/*
 	 * Trent resolve function
