@@ -7,10 +7,10 @@ import java.util.Set;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
-import crypt.impl.signatures.SigmaSignature;
 import model.entity.sigma.Or;
 import model.entity.sigma.ResEncrypt;
 import model.entity.sigma.ResponsesCCD;
+import model.entity.sigma.SigmaSignature;
 
 public class TrentSolver {
 	

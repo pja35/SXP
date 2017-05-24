@@ -11,6 +11,7 @@ import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
 import model.entity.sigma.Or;
 import model.entity.sigma.Responses;
+import model.entity.sigma.SigmaSignature;
 import util.TestInputGenerator;
 
 public class SigmaSignatureTest {

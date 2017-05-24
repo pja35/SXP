@@ -11,7 +11,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import controller.Users;
 import controller.tools.JsonTools;
 import crypt.api.signatures.Signable;
-import crypt.impl.signatures.SigmaSignature;
 import crypt.impl.signatures.SigmaSigner;
 import model.api.EstablisherType;
 import model.api.Status;
@@ -19,6 +18,7 @@ import model.api.Wish;
 import model.entity.ContractEntity;
 import model.entity.ElGamalKey;
 import model.entity.User;
+import model.entity.sigma.SigmaSignature;
 import protocol.api.EstablisherContract;
 
 /**

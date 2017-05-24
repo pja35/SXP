@@ -22,10 +22,6 @@ import java.util.HashMap;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
-/*
- * TODO : Respect design pattern factory
- */
-import crypt.impl.signatures.SigmaSignature;
 import crypt.impl.signatures.SigmaSigner;
 
 import controller.Application;
@@ -40,10 +36,11 @@ import model.entity.sigma.Masks;
 import model.entity.sigma.Or;
 import model.entity.sigma.ResEncrypt;
 import model.entity.sigma.ResponsesCCD;
+import model.entity.sigma.SigmaSignature;
 import network.api.EstablisherService;
 import network.api.EstablisherServiceListener;
 import network.api.Peer;
-import protocol.impl.SigmaEstablisher;
+import protocol.impl.sigma.steps.ProtocolResolve;
 
 
 /**
@@ -53,6 +50,8 @@ import protocol.impl.SigmaEstablisher;
  *
  */
 public class Trent {
+	
+	public final static String TRENT_MESSAGE = "FROM_TRENT";
 	
 	protected EstablisherService establisherService;
 	
@@ -76,7 +75,7 @@ public class Trent {
 	public void setListener(){
 		 establisherService = (EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
 		// Add a listener in case someone ask to resolve
-		establisherService.setListener("title", SigmaEstablisher.FOR_TRENT_MESSAGE + this.keys.getPublicKey().toString(), "TRENT"+this.keys.getPublicKey().toString(),new EstablisherServiceListener() {
+		establisherService.setListener("title", ProtocolResolve.TITLE + this.keys.getPublicKey().toString(), "TRENT"+this.keys.getPublicKey().toString(),new EstablisherServiceListener() {
 			@Override
 			public void notify(String title, String content, String senderId) {
 				BigInteger msgSenKey = new BigInteger(senderId);
@@ -146,7 +145,7 @@ public class Trent {
 				ArrayList<String> resolved = ts.resolveT(m, round, senderK.getPublicKey().toString());
 
 				if (resolved == null){
-					establisherService.sendContract(SigmaEstablisher.TRENT_MESSAGE + new String(contract.getHashableData()), 
+					establisherService.sendContract(TRENT_MESSAGE + new String(contract.getHashableData()), 
 							"Dishonest",
 							this.keys.getPublicKey().toString(),
 							peer);
@@ -164,7 +163,7 @@ public class Trent {
 					JsonTools<ArrayList<String>> jsons = new JsonTools<>(new TypeReference<ArrayList<String>>(){});
 					String answer = jsons.toJson(resolved);
 
-					establisherService.sendContract(SigmaEstablisher.TRENT_MESSAGE + new String(contract.getHashableData()),
+					establisherService.sendContract(TRENT_MESSAGE + new String(contract.getHashableData()),
 							answer,
 							this.keys.getPublicKey().toString(),
 							peer);

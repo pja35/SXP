@@ -1,4 +1,4 @@
-package crypt.impl.signatures;
+package model.entity.sigma;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -7,8 +7,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import controller.tools.JsonTools;
 import crypt.base.BaseSignature;
 import model.entity.ElGamalKey;
-import model.entity.sigma.Or;
-import model.entity.sigma.Responses;
 
 /**
  * @author Nathanaël Eon

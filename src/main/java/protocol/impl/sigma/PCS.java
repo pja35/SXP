@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import java.util.HashMap;
 
 import crypt.factories.SignerFactory;
-import crypt.impl.signatures.SigmaSignature;
 import crypt.impl.signatures.SigmaSigner;
 import model.entity.ElGamalKey;
 import model.entity.sigma.And;
@@ -14,6 +13,7 @@ import model.entity.sigma.ResEncrypt;
 import model.entity.sigma.Responses;
 import model.entity.sigma.ResponsesCCE;
 import model.entity.sigma.ResponsesSchnorr;
+import model.entity.sigma.SigmaSignature;
 
 /**
  * 

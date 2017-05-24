@@ -172,10 +172,15 @@ public class SigmaEstablisherTest {
 		}
 		
 		assertTrue(res);
+		
+		for (int k=0; k<N; k++)
+			sigmaE[k].resolvingStep.stop();
 	}
 	
 	// resolveInitiater, limit is the failing round
-	public void resolveInitiator(int limit, HashMap<ElGamalKey, String> uris){SigmaEstablisher[] sigmaE = new SigmaEstablisher[N];
+	public void resolveInitiator(int limit, HashMap<ElGamalKey, String> uris){
+		
+		SigmaEstablisher[] sigmaE = new SigmaEstablisher[N];
 		
 		for (int k=1; k<N; k ++)
 			sigmaE[k] = new SigmaEstablisher(u[k].getKey(), trentK, uris);
@@ -195,19 +200,22 @@ public class SigmaEstablisherTest {
 		for (int k=0; k<N; k++){
 			sigmaE[k].start();
 		}
+		
+		// Time to realize procedure
+		try{
+			Thread.sleep(5000);
+		}catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		for (int k=0; k<N; k++)
+			sigmaE[k].resolvingStep.stop();
 	}
  
 	// Test an abort in protocol (Trent doesn't give the signature)
 	@Test
 	public void TestB(){
 		resolveInitiator(1, uris);
-		
-		// Time to realize procedure
-		try{
-			Thread.sleep(4000);
-		}catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		
 		boolean res = true;
 		for (int k=0; k<N; k++){
@@ -222,13 +230,6 @@ public class SigmaEstablisherTest {
 	@Test
 	public void TestC(){
 		resolveInitiator(2, uris);
-		
-		// Time to realize procedure
-		try{
-			Thread.sleep(8000);
-		}catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		
 		boolean res = true;
 		for (int k=0; k<N; k++){

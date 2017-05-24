@@ -7,6 +7,7 @@ import model.entity.ElGamalKey;
 import model.entity.sigma.Or;
 import model.entity.sigma.ResEncrypt;
 import model.entity.sigma.Responses;
+import model.entity.sigma.SigmaSignature;
 import protocol.impl.sigma.PCS;
 import protocol.impl.sigma.Sender;
 

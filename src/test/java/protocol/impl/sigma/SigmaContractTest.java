@@ -18,13 +18,13 @@ import controller.Users;
 import controller.tools.JsonTools;
 import crypt.api.signatures.Signable;
 import crypt.factories.ElGamalAsymKeyFactory;
-import crypt.impl.signatures.SigmaSignature;
 import crypt.impl.signatures.SigmaSigner;
 import model.api.Status;
 import model.api.Wish;
 import model.entity.ContractEntity;
 import model.entity.ElGamalKey;
 import model.entity.User;
+import model.entity.sigma.SigmaSignature;
 import protocol.impl.sigma.SigmaContract;
 import util.TestInputGenerator;
 

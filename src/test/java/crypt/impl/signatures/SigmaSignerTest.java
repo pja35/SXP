@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
+import model.entity.sigma.SigmaSignature;
 import util.TestInputGenerator;
 
 public class SigmaSignerTest {

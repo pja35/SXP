@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import crypt.impl.signatures.SigmaSignature;
+import model.entity.sigma.SigmaSignature;
 
 public class SigmaClausesTest {
 

@@ -181,8 +181,9 @@ public class JxtaEstablisherService extends JxtaService implements EstablisherSe
 				if (adv.getAdvertisement().getClass().equals(EstablisherAdvertisement.class)){
 					EstablisherAdvertisementInterface c = (EstablisherAdvertisementInterface) adv.getAdvertisement();
 					// If the field on which to listen is the title, then we check its validity 
-					if (!field.equals("title") || c.getTitle().equals(value))
+					if (!field.equals("title") || c.getTitle().equals(value)){
 						l.notify(c.getTitle(), c.getContract(), c.getKey());
+					}
 				}
 			}
 		} catch (IOException e) {

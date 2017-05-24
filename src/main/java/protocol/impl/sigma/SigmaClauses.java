@@ -3,7 +3,7 @@ package protocol.impl.sigma;
 import java.util.ArrayList;
 
 import crypt.api.signatures.Signable;
-import crypt.impl.signatures.SigmaSignature;
+import model.entity.sigma.SigmaSignature;
 
 public class SigmaClauses implements Signable<SigmaSignature>{
 
