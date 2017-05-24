@@ -25,7 +25,7 @@ public class ProtocolStart implements ProtocolStep{
 	private HashMap<ElGamalKey,String> uris;
 	private EstablisherService es;
 	private SigmaContract contract;
-	SigmaEstablisher sigmaE;
+	private SigmaEstablisher sigmaE;
 	
 	// Keeps track of who is ready
 	private String[] received;

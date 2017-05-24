@@ -16,8 +16,8 @@ public class SigmaEstablisherFailer extends SigmaEstablisher{
 
 	public int failingRound;
 	
-	public SigmaEstablisherFailer(ElGamalKey k, ElGamalKey t, HashMap<ElGamalKey, String> uris, int f, boolean liar) {
-		super(k, t, uris);
+	public SigmaEstablisherFailer(ElGamalKey k, HashMap<ElGamalKey, String> uris, int f, boolean liar) {
+		super(k, uris);
 		this.failingRound = f;
 	}
 	

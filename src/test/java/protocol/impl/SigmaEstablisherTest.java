@@ -26,6 +26,7 @@ import model.entity.User;
 import model.syncManager.UserSyncManagerImpl;
 import protocol.impl.sigma.SigmaContract;
 import protocol.impl.sigma.Trent;
+import protocol.impl.sigma.steps.ProtocolStep;
 import util.TestInputGenerator;
 import util.TestUtils;
 
@@ -35,12 +36,11 @@ public class SigmaEstablisherTest {
 	
 	public static Application application;
 	public static final int restPort = 5601;
+	public HashMap<ElGamalKey, Trent> trents = new HashMap<ElGamalKey, Trent>();
 	
 	// Users
 	private static User[] u;
 	private static ElGamalKey[] keysR;
-	private static ElGamalKey trentK = ElGamalAsymKeyFactory.create(false);
-	private static Trent trent;
 	// Map of URIS
 	private static HashMap<ElGamalKey, String> uris;
 
@@ -53,8 +53,6 @@ public class SigmaEstablisherTest {
 	public static void setup(){
 		application = new Application();
 		application.runForTests(restPort);
-		trent = new Trent(trentK);
-		trent.setListener();
 	}
 
 
@@ -72,8 +70,8 @@ public class SigmaEstablisherTest {
 	@Before
 	public void initialize(){		
 		// Initialize the users
-		u = new User[N];
-		for (int k=0; k<N; k++){
+		u = new User[N+1];
+		for (int k=0; k<N+1; k++){
 			String login = TestInputGenerator.getRandomAlphaWord(20);
 			String password = TestInputGenerator.getRandomPwd(20);
 			
@@ -89,12 +87,15 @@ public class SigmaEstablisherTest {
 			em.begin();
 			em.persist(u[k]);
 			em.end();
+			
+			trents.put(u[k].getKey(), new Trent(u[k].getKey()));
+			trents.get(u[k].getKey()).setListener();
 		}
 		
 		// Initialize the keys
 		ElGamalKey key;
-		keysR = new ElGamalKey[N];	
-		for (int k=0; k<N; k++){
+		keysR = new ElGamalKey[N+1];	
+		for (int k=0; k<N+1; k++){
 			key = u[k].getKey();
 			keysR[k] = new ElGamalKey();
 			keysR[k].setG(key.getG());
@@ -119,7 +120,7 @@ public class SigmaEstablisherTest {
 		
 
 		ArrayList<String> parties = new ArrayList<String>();
-		for(int i = 0; i<u.length; i++){
+		for(int i = 0; i<u.length-1; i++){
 			parties.add(u[i].getId());
 		}
 
@@ -138,23 +139,9 @@ public class SigmaEstablisherTest {
 	public void TestA(){
 		SigmaEstablisher[] sigmaE = new SigmaEstablisher[N];
 		for (int k=0; k<N; k++){
-				sigmaE[k] = new SigmaEstablisher(u[k].getKey(), trentK, uris);
-		}
-		
-		for (int k=0; k<N; k++){
+			sigmaE[k] = new SigmaEstablisher(u[k].getKey(), uris);
 			sigmaE[k].initialize(c[k]);
-		}
-		
-		// Time to setup listeners
-		try{
-			Thread.sleep(100);
-		}catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		
-		for (int k=0; k<N; k++){
-			sigmaE[k].start();
+		  	sigmaE[k].start();
 		}
 		
 		// Time to realize procedure
@@ -183,18 +170,12 @@ public class SigmaEstablisherTest {
 		SigmaEstablisher[] sigmaE = new SigmaEstablisher[N];
 		
 		for (int k=1; k<N; k ++)
-			sigmaE[k] = new SigmaEstablisher(u[k].getKey(), trentK, uris);
+			sigmaE[k] = new SigmaEstablisher(u[k].getKey(), uris);
 		
-		sigmaE[0] = new SigmaEstablisherFailer(u[0].getKey(), trentK, uris, limit, false);
+		sigmaE[0] = new SigmaEstablisherFailer(u[0].getKey(), uris, limit, false);
 		
 		for (int k=0; k<N; k++){
 			sigmaE[k].initialize(c[k]);
-		}
-
-		try{
-			Thread.sleep(1000);
-		}catch (InterruptedException e) {
-			e.printStackTrace();
 		}
 		
 		for (int k=0; k<N; k++){
