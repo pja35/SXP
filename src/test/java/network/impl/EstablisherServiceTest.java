@@ -100,8 +100,6 @@ public class EstablisherServiceTest {
 	
 	@Test
 	public void testAdvertisementListening(){
-		assertFalse(isReceived);
-		
 		es[0].setListener(field, title, title + key[0].getPublicKey().toString(),new EstablisherServiceListener(){
 			@Override
 			public void notify(String title, String data, String key){

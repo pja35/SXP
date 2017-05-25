@@ -112,7 +112,7 @@ public class SigmaContractTest {
 		}
 		contract.setParties(ids);
 		contract2.setParties(ids);
-		assertTrue(contract.getParties().toString().equals(keys.toString()));
+		assertTrue(contract.getParties().toString().equals(contract2.getParties().toString()));
 	}
 	
 	@Test

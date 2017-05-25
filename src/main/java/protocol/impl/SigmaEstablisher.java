@@ -56,6 +56,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 		
 		this.sigmaEstablisherData = new SigmaEstablisherData();
 		sigmaEstablisherData.setSenderKey(senderK);
+		sigmaEstablisherData.setTrentKey(null);
 	}
 	
 	/**

@@ -139,6 +139,7 @@ public class ProtocolResolve implements ProtocolStep {
 								sigmaEstablisher.setStatus(Status.CANCELLED);
 								System.out.println("Signature cancelled");
 								es.removeListener(step.getName()+contractId+senPubK.toString());
+								es.removeListener(TITLE+contractId+senPubK.toString()); 
 							}
 							
 							// If Trent solved the problem
@@ -165,6 +166,7 @@ public class ProtocolResolve implements ProtocolStep {
 									sigmaEstablisher.setStatus(Status.FINALIZED);
 									System.out.println("CONTRACT FINALIZED");
 									es.removeListener(step.getName()+contractId+senPubK.toString()); 
+									es.removeListener(TITLE+contractId+senPubK.toString()); 
 								}
 							}
 						}

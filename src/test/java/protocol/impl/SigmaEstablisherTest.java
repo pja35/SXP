@@ -26,7 +26,6 @@ import model.entity.User;
 import model.syncManager.UserSyncManagerImpl;
 import protocol.impl.sigma.SigmaContract;
 import protocol.impl.sigma.Trent;
-import protocol.impl.sigma.steps.ProtocolStep;
 import util.TestInputGenerator;
 import util.TestUtils;
 
@@ -65,13 +64,14 @@ public class SigmaEstablisherTest {
 	
 	
 	/*
-	 * Create the users, the application
+	 * Create the users
 	 */
 	@Before
-	public void initialize(){		
+	public void initialize(){	
+		
 		// Initialize the users
-		u = new User[N+1];
-		for (int k=0; k<N+1; k++){
+		u = new User[N+2];
+		for (int k=0; k<N+2; k++){
 			String login = TestInputGenerator.getRandomAlphaWord(20);
 			String password = TestInputGenerator.getRandomPwd(20);
 			
@@ -94,8 +94,8 @@ public class SigmaEstablisherTest {
 		
 		// Initialize the keys
 		ElGamalKey key;
-		keysR = new ElGamalKey[N+1];	
-		for (int k=0; k<N+1; k++){
+		keysR = new ElGamalKey[N];	
+		for (int k=0; k<N; k++){
 			key = u[k].getKey();
 			keysR[k] = new ElGamalKey();
 			keysR[k].setG(key.getG());
@@ -115,12 +115,12 @@ public class SigmaEstablisherTest {
 		
 		// Initialize the contracts 
 		ArrayList<String> cl = new ArrayList<String>();
-		cl.add(TestInputGenerator.getRandomIpsumText());
-		cl.add(TestInputGenerator.getRandomIpsumText());
+		cl.add(TestInputGenerator.getRandomIpsumText(100));
+		cl.add(TestInputGenerator.getRandomIpsumText(100));
 		
 
 		ArrayList<String> parties = new ArrayList<String>();
-		for(int i = 0; i<u.length-1; i++){
+		for(int i = 0; i<N; i++){
 			parties.add(u[i].getId());
 		}
 
@@ -145,12 +145,10 @@ public class SigmaEstablisherTest {
 		}
 		
 		// Time to realize procedure
-		for (int k=0; k<3; k++){
-			try{
-				Thread.sleep(1000);
-			}catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		try{
+			Thread.sleep(1000);
+		}catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 		
 		boolean res = true;
@@ -165,41 +163,40 @@ public class SigmaEstablisherTest {
 	}
 	
 	// resolveInitiater, limit is the failing round
-	public void resolveInitiator(int limit, HashMap<ElGamalKey, String> uris){
+	public void resolveInitiator(int N, int limit, HashMap<ElGamalKey, String> uris){
 		
-		SigmaEstablisher[] sigmaE = new SigmaEstablisher[N];
+		SigmaEstablisher[] sigmaEs = new SigmaEstablisher[N];
 		
 		for (int k=1; k<N; k ++)
-			sigmaE[k] = new SigmaEstablisher(u[k].getKey(), uris);
-		
-		sigmaE[0] = new SigmaEstablisherFailer(u[0].getKey(), uris, limit, false);
-		
-		for (int k=0; k<N; k++){
-			sigmaE[k].initialize(c[k]);
-		}
+			sigmaEs[k] = new SigmaEstablisher(u[k].getKey(), uris);
+		sigmaEs[0] = new SigmaEstablisherFailer(u[0].getKey(), uris, limit, false);
 		
 		for (int k=0; k<N; k++){
-			sigmaE[k].start();
+			sigmaEs[k].initialize(c[k]);
+			sigmaEs[k].start();
 		}
 		
 		// Time to realize procedure
 		try{
-			Thread.sleep(5000);
+			Thread.sleep(3000);
 		}catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
-		for (int k=0; k<N; k++)
-			sigmaE[k].resolvingStep.stop();
+		for (int k=0; k<N; k++){
+			if (sigmaEs[k].resolvingStep == null)
+				System.out.println("STEP : " + sigmaEs[k].sigmaEstablisherData.getProtocolStep().getRound());
+			sigmaEs[k].resolvingStep.stop();
+		}
 	}
  
 	// Test an abort in protocol (Trent doesn't give the signature)
 	@Test
 	public void TestB(){
-		resolveInitiator(1, uris);
+		resolveInitiator(2, 1, uris);
 		
 		boolean res = true;
-		for (int k=0; k<N; k++){
+		for (int k=0; k<2; k++){
 			res =  res && c[k].isFinalized();
 			assertTrue(c[k].getStatus().equals(Status.CANCELLED));
 		}
@@ -210,10 +207,10 @@ public class SigmaEstablisherTest {
 	// Test a resolve in protocol (Trent gives the signature in the end)
 	@Test
 	public void TestC(){
-		resolveInitiator(2, uris);
+		resolveInitiator(2, 2, uris);
 		
 		boolean res = true;
-		for (int k=0; k<N; k++){
+		for (int k=0; k<2; k++){
 			res =  res && c[k].isFinalized();
 			assertTrue(c[k].getStatus().equals(Status.FINALIZED));
 		}

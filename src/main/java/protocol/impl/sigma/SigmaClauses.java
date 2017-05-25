@@ -20,10 +20,10 @@ public class SigmaClauses implements Signable<SigmaSignature>{
 	
 	@Override
 	public byte[] getHashableData() {
-		String res = "";
+		StringBuffer buffer = new StringBuffer();
 		for (String c : clauses)
-			res = res.concat(c);
-		return res.getBytes();
+			buffer.append(c);
+		return buffer.toString().getBytes();
 	}
 
 	@Override

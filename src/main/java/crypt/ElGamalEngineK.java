@@ -140,10 +140,10 @@ public class ElGamalEngineK
         int maxLength = forEncryption
             ?   (bitSize - 1 + 7) / 8
             :   getInputBlockSize();
-
+        
         if (inLen > maxLength)
         {
-            throw new DataLengthException("input too large for ElGamal cipher.\n");
+            throw new DataLengthException("input too large for ElGamal cipher with " + inLen + " characters instead of  "+ maxLength +" total.\n");
         }
 
         BigInteger  p = key.getParameters().getP();

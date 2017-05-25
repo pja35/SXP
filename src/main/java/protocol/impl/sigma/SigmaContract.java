@@ -2,6 +2,7 @@ package protocol.impl.sigma;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import org.bouncycastle.util.Arrays;
@@ -121,6 +122,14 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
 			this.partiesId.put(user.getKey(), user.getId());
 		}
 		this.contract.setParties(s);
+		
+		// Order parties by publicKey (useful to get hashable data
+		this.parties.sort(new Comparator<ElGamalKey>(){
+			@Override
+			public int compare(ElGamalKey k1, ElGamalKey k2){
+				return k1.getPublicKey().compareTo(k2.getPublicKey());
+			}
+		});
 	}
 	/**
 	 * Set the parties from a list of ElGamalKey
@@ -177,18 +186,19 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
 		if (this.getTrentKey() == null){
 			return false;}
 		
+		
 		for(ElGamalKey k: parties) {
 			signer.setReceiverK(k);
 			if(signatures.get(k) == null){
 				return false;
 			}
 			
-			byte[] data = (new String(clauses.getHashableData())).getBytes();
+			byte[] data = (new String(this.getHashableData())).getBytes();
 			if (signer.verify(data, signatures.get(k)))
 				return true;
 			
 			for (int round=1; round<parties.size() + 2; round++){
-				data = (new String(clauses.getHashableData()) + round).getBytes();
+				data = (new String(this.getHashableData()) + round).getBytes();
 				if (signer.verify(data, signatures.get(k))){
 					result = true;
 					break;
@@ -222,30 +232,31 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
 		return Arrays.areEqual(this.getHashableData(), contract.getHashableData());
 	}
 	
-	/* TODO : Put the parties in hash
-	 * Here it leads to a problem in equals
-	 */
+	
 	@Override
 	public byte[] getHashableData() {
-//		StringBuffer buffer = new StringBuffer();
-//		for(ElGamalKey k: parties) {
-//			buffer.append(k.getPublicKey().toString());
-//		}
+		BigInteger sum = BigInteger.ZERO;
+		for(ElGamalKey k: parties) {
+			sum = sum.add(k.getPublicKey());
+		}
+
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(sum.toString());
 		byte[] signable = this.clauses.getHashableData();
-		return signable;
-//		int signableL = signable.length;
-//		int bufferL = buffer.toString().getBytes().length;
-//		byte[] concate = new byte[signableL + bufferL];
-//		System.arraycopy(new String(buffer).getBytes(), 0, concate, 0, bufferL);
-//		System.arraycopy(signable, 0, concate, bufferL, signableL);
 		
-//		return concate;
+		int signableL = signable.length;
+		int bufferL = buffer.toString().getBytes().length;
+		byte[] concate = new byte[signableL + bufferL];
+		System.arraycopy(new String(buffer).getBytes(), 0, concate, 0, bufferL);
+		System.arraycopy(signable, 0, concate, bufferL, signableL);
+		
+		return concate;
 	}
 	
 	@Override
 	public SigmaSignature sign(SigmaSigner signer, ElGamalKey k) {
 		signer.setKey(k);
-		return signer.sign(clauses);
+		return signer.sign(this.getHashableData());
 	}
 
 }

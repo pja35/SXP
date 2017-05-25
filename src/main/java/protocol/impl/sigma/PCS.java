@@ -49,11 +49,14 @@ public class PCS {
 	 * 
 	 */
 	public Or getPcs(byte[] m, ElGamalKey r, boolean changeEncrypter){
-
+		
+		// Encrypter is here for Trent to identify the sender
 		if (changeEncrypter){
 			byte[] b = Sender.getIdentificationData(sender.getPublicKeys());
 			res = sender.Encryption(b, this.trentK);
 		}
+		
+		// The message to be encrypted is m
 		createPcs(m, r);
 		return pcs;
 	}

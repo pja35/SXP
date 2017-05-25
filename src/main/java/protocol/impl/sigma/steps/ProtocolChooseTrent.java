@@ -13,6 +13,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.Users;
 import controller.tools.JsonTools;
+import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
 import model.entity.User;
 import network.api.EstablisherService;
@@ -35,6 +36,8 @@ public class ProtocolChooseTrent implements ProtocolStep {
 	final private JsonTools<String[]> jsonMessage = new JsonTools<>(new TypeReference<String[]>(){});
 	final private ArrayList<User> list;
 	
+	private BigInteger randomNumber = new BigInteger(100, new SecureRandom());
+	private BigInteger finalRandomNumber = randomNumber;
 	private String[][] hasSent = new String[3][];
 	private int senderKeyId;
 	
@@ -57,16 +60,14 @@ public class ProtocolChooseTrent implements ProtocolStep {
 			while(it.hasNext())
 				if (key.getPublicKey().equals(it.next().getKey().getPublicKey()))
 					it.remove();
-			
 		}
-		
 		
 		
 		int i=0;
 		String senPubK = sigmaE.sigmaEstablisherData.getSenderKey().getPublicKey().toString();
 		while (!(contract.getParties().get(i).getPublicKey().toString().equals(senPubK))){i++;}
 		for (int k=0; k<hasSent.length; k++)
-			hasSent[k] = new String[contract.getParties().size()];
+			hasSent[k] = new String[contract.getParties().size() + 1];
 		this.senderKeyId = i;
 	}
 	
@@ -77,7 +78,11 @@ public class ProtocolChooseTrent implements ProtocolStep {
 
 	@Override
 	public int getRound() {
-		return 0;
+		if (Arrays.asList(hasSent[0]).indexOf(null) != (-1))
+			return 0;
+		else if (Arrays.asList(hasSent[1]).indexOf(null) != (-1))
+			return 1;
+		return 2;
 	}
 
 	@Override
@@ -98,13 +103,12 @@ public class ProtocolChooseTrent implements ProtocolStep {
 	public void setupListener() {
 		final String contractId = new String(contract.getHashableData());
 		final String senPubK = sigmaE.sigmaEstablisherData.getSenderKey().getPublicKey().toString();
+		final int N = contract.getParties().size();
 		
 		es.removeListener(TITLE+contractId+senPubK);
 		es.setListener("title", TITLE+contractId, TITLE+contractId+senPubK, new EstablisherServiceListener() {
-			private BigInteger randomNumber = new BigInteger(100, new SecureRandom());
 			@Override
 			public void notify(String title, String msg, String senderId) {
-				
 				String[] content = jsonMessage.toEntity(msg);
 				int j = 0;
 				while (!(contract.getParties().get(j).getPublicKey().toString().equals(senderId))){j++;}
@@ -123,7 +127,8 @@ public class ProtocolChooseTrent implements ProtocolStep {
 					}
 					hasSent[0][j] = "";
 					
-					if (Arrays.asList(hasSent[0]).indexOf(null) == (-1)){
+					if (Arrays.asList(hasSent[0]).indexOf(null) == N){
+						hasSent[0][N] = "";
 						list.sort(new Comparator<User>(){
 							@Override
 							public int compare(User u1, User u2){
@@ -133,31 +138,41 @@ public class ProtocolChooseTrent implements ProtocolStep {
 						String[] toBeSent = new String[2];
 						toBeSent[0] = "1";
 						toBeSent[1] = randomNumber.toString();
-						es.sendContract(TITLE+contractId, jsonMessage.toJson(toBeSent), senPubK, peer, uris);
 						hasSent[1][senderKeyId] = "";
+						es.sendContract(TITLE+contractId, jsonMessage.toJson(toBeSent), senPubK, peer, uris);
 					}
 				}
 				// If we receive the others random number
 				else if (content[0].equals("1") && Arrays.asList(hasSent[1]).indexOf(null) != (-1)){
 					// Wait for everyone to have sent their number and setup Trent
 					if (hasSent[1][j] == null){
-						randomNumber = randomNumber.add(new BigInteger(content[1]));
+						finalRandomNumber = finalRandomNumber.add(new BigInteger(content[1]));
 						hasSent[1][j] = "";
+					}
 						
-						if (Arrays.asList(hasSent[1]).indexOf(null) == (-1)){
-							int N2 = (int) list.size();
-							if (N2 == 0){
-								System.out.println("Can't go on - there is no third party available");
-							}else{
-								User trentUser = list.get(randomNumber.mod(new BigInteger(String.valueOf(N2))).intValue());
-			
+					if (Arrays.asList(hasSent[1]).indexOf(null) == N){
+						hasSent[1][N] = "";
+						int N2 = (int) list.size();
+						if (N2 == 0){
+							System.out.println("Can't go on - there is no third party available");
+						}else{
+							User trentUser = list.get(finalRandomNumber.mod(new BigInteger(String.valueOf(N2))).intValue());
+							if (sigmaE.sigmaEstablisherData.getTrentKey() ==null){
 								sigmaE.setTrent(trentUser.getKey());
-								
-								String[] toBeSent = new String[2];
-								toBeSent[0] = "2";
-								toBeSent[1] = trentUser.getKey().getPublicKey().toString();
-								es.sendContract(TITLE+contractId, jsonMessage.toJson(toBeSent), senPubK, peer, uris);
-								hasSent[2][senderKeyId] = "";
+							}
+							
+							String[] toBeSent = new String[2];
+							toBeSent[0] = "2";
+							toBeSent[1] = trentUser.getKey().getPublicKey().toString();
+							es.sendContract(TITLE+contractId, jsonMessage.toJson(toBeSent), senPubK, peer, uris);
+							hasSent[2][senderKeyId] = "";
+							
+							if (sigmaE.sigmaEstablisherData.getTrentKey() !=null &&
+									!sigmaE.sigmaEstablisherData.getTrentKey().getPublicKey().equals(trentUser.getKey().getPublicKey())){
+								for (int k=0; k<hasSent.length; k++)
+									hasSent[k] = new String[contract.getParties().size()];
+								sigmaE.setTrent(null);
+								sendMessage();
 							}
 						}
 					}
@@ -165,10 +180,22 @@ public class ProtocolChooseTrent implements ProtocolStep {
 				// Check that we have the same Trent
 				else if (content[0].equals("2") && Arrays.asList(hasSent[2]).indexOf(null) != (-1)){
 					ElGamalKey key = sigmaE.sigmaEstablisherData.getTrentKey();
-					if (key==null || content[1].equals(key.getPublicKey().toString())){
+					if (key==null){
+						ElGamalKey trentK = ElGamalAsymKeyFactory.create(false);
+						trentK.setPublicKey(new BigInteger(content[1]));
+						sigmaE.setTrent(trentK);
 						hasSent[2][j] = "";
-						if (Arrays.asList(hasSent[2]).indexOf(null) == (-1))
+					}else if(content[1].equals(key.getPublicKey().toString())){
+						hasSent[2][j] = "";
+						if (Arrays.asList(hasSent[2]).indexOf(null) == (N)){
+							hasSent[2][N] = ""; 
 							sigmaE.setListenerOnTrent();
+						}
+					}else {
+						for (int k=0; k<hasSent.length; k++)
+							hasSent[k] = new String[contract.getParties().size()];
+						sigmaE.setTrent(null);
+						sendMessage();
 					}
 				}
 			}
