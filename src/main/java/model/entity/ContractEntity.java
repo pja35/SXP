@@ -37,6 +37,10 @@ public class ContractEntity {
 	@NotNull
 	private String userid;
 	
+	@XmlElement(name="modifierid")
+	@NotNull
+	private String modifierid;
+	
 	@XmlElement(name="createdAt")
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
@@ -84,6 +88,7 @@ public class ContractEntity {
 	private EstablisherType establisherType;
 	
 	@XmlElement(name="establishementData")
+	@Lob
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	private String establishementData;
 	
@@ -98,6 +103,14 @@ public class ContractEntity {
 	}
 	public void setUserid(String u) {
 		this.userid=u;
+	}
+	
+	
+	public String getModifierid() {
+		return modifierid;
+	}
+	public void setModifierid(String i) {
+		this.modifierid=i;
 	}
 	
 

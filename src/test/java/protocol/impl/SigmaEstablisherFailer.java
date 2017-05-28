@@ -23,7 +23,7 @@ public class SigmaEstablisherFailer extends SigmaEstablisher{
 	
 	@Override
 	protected void sign(){
-		sigmaEstablisherData.setProtocolStep(new ProtocolSignFailer(this, this.establisherService, peer, uris, this.contract));
+		sigmaEstablisherData.setProtocolStep(new ProtocolSignFailer(this, senderK, this.establisherService, peer, uris, this.contract));
 		sigmaEstablisherData.getProtocolStep().setupListener();
 		sigmaEstablisherData.getProtocolStep().sendMessage();
 	}

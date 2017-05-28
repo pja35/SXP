@@ -35,7 +35,7 @@ public interface SyncManager<Entity> {
 	 * @return
 	 */
 	public Collection<Entity> findAllByAttribute(String attribute, String value);
-
+	
 	/**
 	 * Return an object corresponding to the attribute/value
 	 * @param attribute

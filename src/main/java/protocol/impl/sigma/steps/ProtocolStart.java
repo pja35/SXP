@@ -3,6 +3,11 @@ package protocol.impl.sigma.steps;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.HashMap;
+
+import javax.xml.bind.annotation.XmlElement;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
@@ -20,33 +25,56 @@ public class ProtocolStart implements ProtocolStep{
 	
 	public final static String TITLE = "START";
 	
-	private ElGamalSigner signer;
-	private Peer peer;
-	private HashMap<ElGamalKey,String> uris;
-	private EstablisherService es;
-	private SigmaContract contract;
-	private SigmaEstablisher sigmaE;
+	@XmlElement(name="key")
+	private ElGamalKey key;
 	
 	// Keeps track of who is ready
+	@XmlElement(name="received")
 	private String[] received;
+
+	private SigmaEstablisher sigmaE;
+	private ElGamalSigner signer;
+	private Peer peer;
+	private EstablisherService es;
+	private SigmaContract contract;
+	private HashMap<ElGamalKey,String> uris;
 	
+	
+	@JsonCreator
+	public ProtocolStart(@JsonProperty("key") ElGamalKey key,
+			@JsonProperty("received") String[] received){
+		this.key = key;
+		this.signer = SignerFactory.createElGamalSigner();
+		this.signer.setKey(key);
+		this.received = received;
+	}
 	
 	
 	public ProtocolStart(SigmaEstablisher sigmaE,
-			ElGamalKey key, 
-			Peer peer, 
-			HashMap<ElGamalKey,String> uris, 
-			EstablisherService es,
-			SigmaContract contract){
+			ElGamalKey key){
+		this.sigmaE = sigmaE;
+		this.peer = sigmaE.peer;
+		this.es = sigmaE.establisherService;
+		this.uris = sigmaE.sigmaEstablisherData.getUris();
+		this.contract = sigmaE.sigmaEstablisherData.getContract();
+		
 		signer = SignerFactory.createElGamalSigner();
 		signer.setKey(key);
-		this.peer = peer;
-		this.uris = uris;
-		this.es = es;
-		this.contract = contract;
-		this.sigmaE = sigmaE;
-		
+		this.key = key;
 		this.received = new String[contract.getParties().size()];
+		
+		this.setupListener();
+	}
+	
+	@Override
+	public void restore(SigmaEstablisher sigmaE){
+		this.sigmaE = sigmaE;
+		this.peer = sigmaE.peer;
+		this.es = sigmaE.establisherService;
+		this.uris = sigmaE.sigmaEstablisherData.getUris();
+		this.contract = sigmaE.sigmaEstablisherData.getContract();
+		
+		this.setupListener();
 	}
 
 	

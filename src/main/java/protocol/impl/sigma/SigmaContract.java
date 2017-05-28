@@ -60,9 +60,9 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
 		this.signer = new SigmaSigner();
 		this.contract = new ContractEntity();
 		this.setClauses(clauses);
-		contract.setParties(new ArrayList<String>());
-		contract.setSignatures(new HashMap<String,String>());
-		contract.setEstablisherType(EstablisherType.Sigma);
+		this.contract.setParties(new ArrayList<String>());
+		this.contract.setSignatures(new HashMap<String,String>());
+		this.contract.setEstablisherType(EstablisherType.Sigma);
 	}
 	
 	// Constructor from a ContractEntity (what will be most used)
@@ -71,7 +71,7 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
 		this.contract=c;
 		this.signer = new SigmaSigner();
 		this.setClauses(contract.getClauses());
-		this.setParties(contract.getParties());		
+		this.setParties(contract.getParties());
 		this.contract.setEstablisherType(EstablisherType.Sigma);
 	}
 
@@ -82,19 +82,8 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
 	public ArrayList<ElGamalKey> getParties(){
 		return parties;
 	}
-	public HashMap<String,String> getEstablishementData(){
-		if (contract.getEstablishementData() == null){
-			return new HashMap<String, String>();
-		}			
-		JsonTools<HashMap<String, String>> json = new JsonTools<>(new TypeReference<HashMap<String,String>>(){});
-		return json.toEntity(contract.getEstablishementData());
-	}
 	public ElGamalKey getTrentKey(){
-		String k = this.getEstablishementData().get("trentKey");
-		if (k == null)
-			return null;
-		JsonTools<ElGamalKey> json = new JsonTools<>(new TypeReference<ElGamalKey>(){});
-		return json.toEntity(k);
+		return signer.getTrentK();
 	}
 	
 	/************* SETTERS ***********/
@@ -138,24 +127,12 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
 	public void setParties(ArrayList<ElGamalKey> p, boolean isSigmaParty){
 		this.parties = p;
 	}
-	
-	/**
-	 * Set the establishement data (with a name and a field)
-	 */
-	public void setEstablishementData(String name, String value){
-		HashMap<String, String> estData = this.getEstablishementData();
-		estData.put(name, value);
-		JsonTools<HashMap<String, String>> json = new JsonTools<>(new TypeReference<HashMap<String,String>>(){});
-		contract.setEstablishementData(json.toJson(estData));
-	}
 
 	/**
 	 * Set Trent key and store it into Establishement data
 	 */
 	public void setTrentKey (ElGamalKey k){
 		signer.setTrentK(k);
-		JsonTools<ElGamalKey> json = new JsonTools<>(new TypeReference<ElGamalKey>(){});
-		this.setEstablishementData("trentKey", json.toJson(k));
 	}
 	
 	/************* STATUS / WISH ***********/

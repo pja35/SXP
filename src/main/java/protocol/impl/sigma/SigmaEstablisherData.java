@@ -1,7 +1,14 @@
 package protocol.impl.sigma;
 
+import java.util.HashMap;
+
 import javax.xml.bind.annotation.XmlElement;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import controller.tools.MapKeyStringDeserializer;
+import controller.tools.MapSerializer;
 import model.entity.ElGamalKey;
 import model.entity.sigma.Or;
 import protocol.impl.sigma.steps.ProtocolStep;
@@ -10,9 +17,6 @@ public class SigmaEstablisherData {
 	
 	@XmlElement(name="trentkey")
 	private ElGamalKey trentKey;
-	
-	@XmlElement(name="senderKey")
-	private ElGamalKey senderKey;
 	
 	@XmlElement(name="protocolstep")
 	private ProtocolStep protocolStep;
@@ -23,6 +27,10 @@ public class SigmaEstablisherData {
 	@XmlElement(name="contract")
 	private SigmaContract contract;
 	
+	@XmlElement(name="uris")
+    @JsonSerialize(using = MapSerializer.class)
+    @JsonDeserialize(using = MapKeyStringDeserializer.class)
+	protected HashMap<ElGamalKey, String> uris;
 	
 	
 	public void setTrentKey(ElGamalKey t){
@@ -30,14 +38,6 @@ public class SigmaEstablisherData {
 	}
 	public ElGamalKey getTrentKey(){
 		return this.trentKey;
-	}
-	
-	
-	public void setSenderKey(ElGamalKey s){
-		this.senderKey = s;
-	}
-	public ElGamalKey getSenderKey(){
-		return this.senderKey;
 	}
 	
 	
@@ -62,5 +62,13 @@ public class SigmaEstablisherData {
 	}
 	public SigmaContract getContract(){
 		return this.contract;
+	}
+	
+	
+	public void setUris(HashMap<ElGamalKey, String> u){
+		this.uris = u;
+	}
+	public HashMap<ElGamalKey, String> getUris(){
+		return this.uris;
 	}
 }

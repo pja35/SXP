@@ -18,7 +18,7 @@ import rest.factories.RestServerFactory;
  */
 public class Application {
 	public final static int jxtaPort = 9800;
-	public final static int restPort = 8080;
+	public final static int restPort = 8081;
 	public final static String[] rdvPeerIds = {"tcp://176.132.64.68:9800", "tcp://localhost:9800", "tcp://localhost:9801"};
 	
 	private static Application instance = null;

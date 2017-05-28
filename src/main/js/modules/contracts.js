@@ -34,27 +34,38 @@
     	$scope.contracts = [];
     	$scope.contracts = Contract.query(); //Fetch contracts, thanks to restApi.js
     	//The bindings with contracts.html will display them automatically
-    	$scope.getclauses = function(c){
-    		c.clauses = JSON.parse(c.clauses);
-    	}
     });
     
     
     
     // 'View contract' state controller function
-    module.controller('viewContract',  function($scope, $stateParams, Contract, $state) {
+    module.controller('viewContract',  function($scope, $http, $stateParams, Contract, $state) {
 	  $scope.app.configHeader({back: true, title: 'View contract', contextButton: 'editContract', contextId: $stateParams.id});
+	  
 	  var contract = Contract.get({id: $stateParams.id}, function() {
 	    //Just load the contract and display it via the bindings with contract.html
 	    $scope.contract = contract;
 	    
 	    $scope.title = contract.title
-    	$scope.clauses = JSON.parse(contract.clauses);
-    	$scope.parties = JSON.parse(contract.parties);
+    	$scope.clauses = contract.clauses;
+	    
+	    // Get parties from the hashmap of names and id (to identify exactly a user)
+	    $scope.parties = [];
+	    pN = contract.partiesNames;
+	    for (i=0; i<pN.length; i++){
+	    	names = pN[i];
+	    	$scope.parties[i] = names["value"] + " - " + names["key"];
+	    }
 	  });
+	  
 	  $scope.modify = function(){
 		  $state.go("editContract", {id : contract.id});
+	  };
+	  
+	  $scope.sign = function(){
+		  $http.put(RESTAPISERVER + '/api/contracts/sign/:id', contract.id);
 	  }
+	  
 	});
     
     
@@ -66,12 +77,17 @@
 		$scope.form = {};
     	$scope.userList =[];
     	getUsers($http, $scope);
-		
+    	
+    	$scope.parties = [];
 		var contract = Contract.get({id: $stateParams.id}, function() {
 			//First, load the item and display it via the bindings with item-form.html
 			$scope.form.title = contract.title
-			$scope.clauses = JSON.parse(contract.clauses);
-			$scope.parties = JSON.parse(contract.parties);
+			$scope.clauses = contract.clauses;
+		    pN = contract.partiesNames;
+		    for (i=0; i<pN.length; i++){
+		    	names = pN[i];
+		    	$scope.parties[i] = names["value"] + " - " + names["key"];
+		    }
 		});
 		
 		
@@ -81,14 +97,22 @@
     	$scope.deleteParty = function(p){deleteParty($scope,p);};
     	$scope.deleteClause = function(c){deleteClause($scope,c);};
 
-    	
     	$scope.submit = function() {
+    		
+        	pN = $scope.parties;
+        	partiesId = [];
+    	    for (i=0; i<pN.length; i++){
+    	    	names = pN[i];
+    	    	partiesId[i] = names.split(" - ")[1];
+    	    };
+        	
+    	    
     		if ($scope.form.addParty != null && $scope.form.addParty.length>2){updateParties($scope);}
     		if ($scope.form.addClause != null && $scope.form.addClause.length>2){updateClauses($scope);}
     		//Contract is available thanks to restApi.js
     		contract.title = $scope.form.title;
-    		contract.clauses = JSON.stringify($scope.clauses);
-    		contract.parties = JSON.stringify($scope.parties);
+    		contract.clauses = $scope.clauses;
+    		contract.parties = partiesId;
 			
     		contract.$update(function() {
     			$state.go('viewContracts');
@@ -120,15 +144,24 @@
     	
     	$scope.deleteParty = function(p){deleteParty($scope,p);};
     	$scope.deleteClause = function(c){deleteClause($scope,c);};
-
+    	
     	$scope.submit = function() {
+
+        	pN = $scope.parties;
+        	partiesId = [];
+    	    for (i=0; i<pN.length; i++){
+    	    	names = pN[i];
+    	    	partiesId[i] = names.split(" - ")[1];
+    	    };
+    	    
     		if ($scope.form.addParty != null && $scope.form.addParty.length>2){updateParties($scope);}
     		if ($scope.form.addClause != null && $scope.form.addClause.length>2){updateClauses($scope);}
     		var contract = new Contract({
 	    		title : $scope.form.title,
-    			clauses: JSON.stringify($scope.clauses),
-	    		parties: JSON.stringify($scope.parties)
+    			clauses: $scope.clauses,
+	    		parties: partiesId
 			});
+    		
     		// Create the contract in the database thanks to restApi.js
     		contract.$save(function() {
 				$state.go('viewContracts');
@@ -175,20 +208,21 @@ function deleteClause($scope, clause){
 }
 
 function getUsers($http, $scope){
-	RESTAPISERVER = "https://localhost:8081";
 	$http.get(RESTAPISERVER + "/api/users/").then(
-			function(response){
-				var userList = response.data;
-				$scope.userList = [];
+		function(response){
+			var userList = response.data;
+			$scope.userList = [];
 
-				for(i=0; i<userList.length; i++){
-					if (userList[i].nick != ""){
-						$scope.userList[i] = { 'name' : userList[i].nick };
-					}
+			for(i=0; i<userList.length; i++){
+				if (userList[i].nick != ""){
+					$scope.userList[i] = { 'name' : userList[i].nick
+							, 'id' : userList[i].id };
 				}
 			}
-		);
+		}
+	);
 }
+
 function deleteParty($scope, p){
 	var index = $scope.parties.indexOf(p);
 	if (index > -1){

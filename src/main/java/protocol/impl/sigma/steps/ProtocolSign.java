@@ -4,6 +4,10 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.xml.bind.annotation.XmlElement;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
@@ -25,6 +29,12 @@ import protocol.impl.sigma.SigmaContract;
 public class ProtocolSign implements ProtocolStep {
 
 	public final static String TITLE = "SIGNING";
+
+	@XmlElement(name="round")
+	protected int round;
+	
+	@XmlElement(name="key")
+	protected ElGamalKey key;
 	
 	protected SigmaEstablisher sigmaEstablisher;
 	protected EstablisherService es;
@@ -32,27 +42,50 @@ public class ProtocolSign implements ProtocolStep {
 	protected HashMap<ElGamalKey,String> uris;
 	protected SigmaContract contract;
 	protected int N;
-	protected int round;
 	protected PCS pcs;
 	
 	
+	@JsonCreator
+	public ProtocolSign(@JsonProperty("key") ElGamalKey key, @JsonProperty("round") int round){
+		this.key = key;
+		this.round = round;
+
+		Sender sender = new Sender(key);
+		pcs = new PCS(sender, sigmaEstablisher.sigmaEstablisherData.getTrentKey());
+	}
+	
 	public ProtocolSign(SigmaEstablisher sigmaE, 
-			EstablisherService es,
-			Peer peer,
-			HashMap<ElGamalKey,String> uris,
-			SigmaContract contract){
+			ElGamalKey key){
 		this.sigmaEstablisher = sigmaE;
-		this.es = es;
-		this.peer = peer;
-		this.uris = uris;
-		this.contract = contract;
-		this.N = contract.getParties().size();
+		this.key = key;
+		
+		this.es = sigmaE.establisherService;
+		this.peer = sigmaE.peer;
+		this.uris = sigmaE.sigmaEstablisherData.getUris();
+		this.contract = sigmaE.sigmaEstablisherData.getContract();
+		this.N = this.contract.getParties().size();
 		sigmaEstablisher.sigmaEstablisherData.setRoundReceived(new Or[N+2][N]);
 		
-		Sender sender = new Sender(sigmaEstablisher.sigmaEstablisherData.getSenderKey());
+		Sender sender = new Sender(key);
 		pcs = new PCS(sender, sigmaEstablisher.sigmaEstablisherData.getTrentKey());
 		round = 1;
 		sigmaEstablisher.setStatus(Status.SIGNING);
+		
+		this.setupListener();
+	}
+	
+	
+	@Override
+	public void restore(SigmaEstablisher sigmaE){
+		this.sigmaEstablisher = sigmaE;
+		this.es = sigmaE.establisherService;
+		this.peer = sigmaE.peer;
+		this.uris = sigmaE.sigmaEstablisherData.getUris();
+		this.contract = sigmaE.sigmaEstablisherData.getContract();
+		this.N = this.contract.getParties().size();
+		sigmaEstablisher.setStatus(Status.SIGNING);
+		
+		this.setupListener();
 	}
 	
 	
@@ -70,7 +103,7 @@ public class ProtocolSign implements ProtocolStep {
 	public void sendMessage() {
 		// Content of the message which will be sent
 		HashMap<String, String> content = new HashMap<String, String>();
-		BigInteger senPubK = sigmaEstablisher.sigmaEstablisherData.getSenderKey().getPublicKey();
+		BigInteger senPubK = key.getPublicKey();
 		
 		for (int k=0; k<N; k++){
 
@@ -117,7 +150,7 @@ public class ProtocolSign implements ProtocolStep {
 	@Override
 	public void setupListener() {
 		String contractId = new String(contract.getHashableData());
-		String senPubK = sigmaEstablisher.sigmaEstablisherData.getSenderKey().getPublicKey().toString();
+		String senPubK = key.getPublicKey().toString();
 		es.removeListener(TITLE+contractId+senPubK);
 		es.setListener("title", TITLE+contractId, TITLE+contractId+senPubK, new EstablisherServiceListener() {
 			@Override
@@ -150,7 +183,7 @@ public class ProtocolSign implements ProtocolStep {
 	@Override
 	public void stop(){
 		String contractId = new String(contract.getHashableData());
-		String senPubK = sigmaEstablisher.sigmaEstablisherData.getSenderKey().getPublicKey().toString();
+		String senPubK = key.getPublicKey().toString();
 		es.removeListener(TITLE+contractId+senPubK);
 	}
 	
@@ -165,7 +198,7 @@ public class ProtocolSign implements ProtocolStep {
 	 * @return
 	 */
 	protected void verifyAndStoreSignature(String message, String pubK){
-		BigInteger senPubK = sigmaEstablisher.sigmaEstablisherData.getSenderKey().getPublicKey();		
+		BigInteger senPubK = key.getPublicKey();		
 		
 		// Get the keys of the sender of the message
 		BigInteger msgSenKey = new BigInteger(pubK);
@@ -204,7 +237,7 @@ public class ProtocolSign implements ProtocolStep {
 				}
 			// Otherwise, test if it is the correct PCS, if so : store it
 			}else if (sigmaEstablisher.sigmaEstablisherData.getRoundReceived()[k][i] == null){
-				String msg = decryptMsg(content.get(senPubK.toString()), sigmaEstablisher.sigmaEstablisherData.getSenderKey());
+				String msg = decryptMsg(content.get(senPubK.toString()), key);
 				byte[] data = (new String(contract.getHashableData()) + k).getBytes();
 				if (getPrivateCS(msg).Verifies(data)){
 					sigmaEstablisher.sigmaEstablisherData.getRoundReceived()[k][i]=getPrivateCS(msg);

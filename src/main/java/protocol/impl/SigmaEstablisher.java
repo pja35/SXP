@@ -4,11 +4,12 @@ package protocol.impl;
 import java.math.BigInteger;
 import java.util.HashMap;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import crypt.impl.signatures.SigmaSigner;
 
 import controller.Application;
-import crypt.factories.SignerFactory;
+import controller.tools.JsonTools;
 import model.api.Status;
 import model.entity.ElGamalKey;
 import model.entity.sigma.SigmaSignature;
@@ -28,8 +29,6 @@ import protocol.impl.sigma.steps.ProtocolStep;
  *	Establisher for sigma protocol
  *
  * @author Nathanaël EON
- *
- * TODO : Change the messaging system to an asymetric one
  */
 
 public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaSignature, SigmaSigner, SigmaContract> {
@@ -38,25 +37,33 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	
 	public SigmaEstablisherData sigmaEstablisherData;
 	
-	protected EstablisherService establisherService =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
-	protected Peer peer = Application.getInstance().getPeer();
+	public EstablisherService establisherService =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
+	public Peer peer = Application.getInstance().getPeer();
 	public ProtocolStep resolvingStep;
+	
+	protected ElGamalKey senderK;
 	
 	/**
 	 * Setup the signing protocol
 	 * @param <senderK> : elgamalkey (public and private) of the user
 	 * @param <uri> : parties matching uri
 	 */
-	// TODO : REMOVE trentK
 	public SigmaEstablisher(ElGamalKey senderK, HashMap<ElGamalKey,String> uris){
-		this.signer = SignerFactory.createSigmaSigner();
-		this.signer.setKey(senderK);
+		this.senderK = senderK;
 		
 		this.uris = uris;
-		
+			
 		this.sigmaEstablisherData = new SigmaEstablisherData();
-		sigmaEstablisherData.setSenderKey(senderK);
+		this.sigmaEstablisherData.setUris(uris);
 		sigmaEstablisherData.setTrentKey(null);
+	}
+	
+	public SigmaEstablisher(String establisherData, ElGamalKey senderK){
+		JsonTools<SigmaEstablisherData> json = new JsonTools<>(new TypeReference<SigmaEstablisherData>(){});
+		SigmaEstablisherData data = json.toEntity(establisherData);
+		this.contract = data.getContract();
+		this.uris = data.getUris();
+		this.sigmaEstablisherData = data;
 	}
 	
 	/**
@@ -64,13 +71,13 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	 */
 	@Override
 	public void initialize(SigmaContract c){
+		this.sigmaEstablisherData.setContract(c);
 		contract = c;
 		/*
 		 * Get ready to start
 		 * If an advertisement was or is received, we check the signature and it is stored and we wait until everyone has sent its starter
 		 */
-		sigmaEstablisherData.setProtocolStep(new ProtocolStart(this, signer.getKey(), peer, uris, establisherService, contract));
-		sigmaEstablisherData.getProtocolStep().setupListener();
+		sigmaEstablisherData.setProtocolStep(new ProtocolStart(this, senderK));
 	}
 	
 	/**
@@ -87,18 +94,11 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	public void chooseTrent(){
 		sigmaEstablisherData.getProtocolStep().stop();
 		
-		sigmaEstablisherData.setProtocolStep(
-			new ProtocolChooseTrent(this,
-				peer,
-				uris,
-				establisherService,
-				contract));
-		sigmaEstablisherData.getProtocolStep().setupListener();
+		sigmaEstablisherData.setProtocolStep( new ProtocolChooseTrent(this, senderK) );
 		sigmaEstablisherData.getProtocolStep().sendMessage();
 	}
 	public void setTrent(ElGamalKey trentK){
 		contract.setTrentKey(trentK);
-		signer.setTrentK(trentK);
 		sigmaEstablisherData.setTrentKey(trentK);
 	}
 
@@ -106,11 +106,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	// Put a listener on Trent in case something goes wrong
 	public void setListenerOnTrent(){
 		resolvingStep = new ProtocolResolve(this,
-				establisherService,
-				peer,
-				contract,
-				signer);
-		resolvingStep.setupListener();
+				senderK);
 		
 		if (getStatus() != Status.CANCELLED && getStatus() != Status.FINALIZED)
 			sign();
@@ -121,8 +117,7 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	 * TODO : Setup a timer that will trigger resolve()
 	 */
 	protected void sign(){
-		sigmaEstablisherData.setProtocolStep(new ProtocolSign(this, this.establisherService, peer, uris, this.contract));
-		sigmaEstablisherData.getProtocolStep().setupListener();
+		sigmaEstablisherData.setProtocolStep(new ProtocolSign(this, senderK));
 		sigmaEstablisherData.getProtocolStep().sendMessage();
 	}
 	

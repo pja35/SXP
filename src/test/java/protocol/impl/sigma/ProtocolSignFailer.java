@@ -14,16 +14,16 @@ public class ProtocolSignFailer extends ProtocolSign{
 	private boolean resolvedSent = false;
 	int failingRound;
 	
-	public ProtocolSignFailer(SigmaEstablisherFailer sigmaE, EstablisherService es, Peer peer,
+	public ProtocolSignFailer(SigmaEstablisherFailer sigmaE, ElGamalKey key, EstablisherService es, Peer peer,
 			HashMap<ElGamalKey, String> uris, SigmaContract contract) {
-		super(sigmaE, es, peer, uris, contract);
+		super(sigmaE, key);
 		failingRound = ((SigmaEstablisherFailer) sigmaEstablisher).failingRound;
 	}
 
 	@Override
 	public void setupListener() {
 		String contractId = new String(contract.getHashableData());
-		String senPubK = sigmaEstablisher.sigmaEstablisherData.getSenderKey().getPublicKey().toString();
+		String senPubK = key.getPublicKey().toString();
 		es.removeListener(TITLE+contractId+senPubK);
 		es.setListener("title", TITLE+contractId, TITLE+contractId+senPubK, new EstablisherServiceListener() {
 			@Override

@@ -4,11 +4,16 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.xml.bind.annotation.XmlElement;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
 import crypt.api.encryption.Encrypter;
 import crypt.factories.EncrypterFactory;
+import crypt.factories.SignerFactory;
 import crypt.impl.signatures.SigmaSigner;
 import model.api.Status;
 import model.entity.ContractEntity;
@@ -26,25 +31,54 @@ public class ProtocolResolve implements ProtocolStep {
 
 	public static final String TITLE = "RESOLVE";
 	
+	@XmlElement(name="key")
+	private ElGamalKey key;
+	@XmlElement(name="resolveSent")
+	private boolean resolveSent = false;
+	
 	private SigmaEstablisher sigmaEstablisher;
 	private EstablisherService es;
 	private Peer peer;
 	private SigmaContract contract;
 	private SigmaSigner signer;
-	private boolean resolveSent = false;
 	
 	
+	
+	@JsonCreator
+	public ProtocolResolve(@JsonProperty("key") ElGamalKey key,
+			@JsonProperty("resolveSent") boolean resolveSent){
+		this.key = key;
+		this.signer = SignerFactory.createSigmaSigner();
+		this.signer.setKey(key);
+		
+		this.resolveSent = resolveSent;
+	}
 	
 	public ProtocolResolve(SigmaEstablisher sigmaE, 
-			EstablisherService es,
-			Peer peer,
-			SigmaContract contract,
-			SigmaSigner signer){
+			ElGamalKey key){
+		this.key = key;
+		this.signer = SignerFactory.createSigmaSigner();
+		this.signer.setKey(key);
+		
+
 		this.sigmaEstablisher = sigmaE;
-		this.es = es;
-		this.peer = peer;
-		this.contract = contract;
-		this.signer = signer;
+		this.es = sigmaE.establisherService;
+		this.peer = sigmaE.peer;
+		this.contract = sigmaE.sigmaEstablisherData.getContract();
+		this.signer.setTrentK(sigmaE.sigmaEstablisherData.getTrentKey());
+		
+		this.setupListener();
+	}
+	
+	@Override
+	public void restore(SigmaEstablisher sigmaE){
+		this.sigmaEstablisher = sigmaE;
+		this.es = sigmaE.establisherService;
+		this.peer = sigmaE.peer;
+		this.contract = sigmaE.sigmaEstablisherData.getContract();
+		this.signer.setTrentK(sigmaE.sigmaEstablisherData.getTrentKey());
+		
+		this.setupListener();
 	}
 	
 	@Override
@@ -65,7 +99,7 @@ public class ProtocolResolve implements ProtocolStep {
 		ProtocolStep step = sigmaEstablisher.sigmaEstablisherData.getProtocolStep();
 		
 		int round = step.getRound();
-		BigInteger senPubK = sigmaEstablisher.sigmaEstablisherData.getSenderKey().getPublicKey();
+		BigInteger senPubK = key.getPublicKey();
 		ElGamalKey trentK = sigmaEstablisher.sigmaEstablisherData.getTrentKey();
 		
 		step.stop();
@@ -107,7 +141,7 @@ public class ProtocolResolve implements ProtocolStep {
 	@Override
 	public void setupListener() {
 		final String contractId = new String(contract.getHashableData());
-		final BigInteger senPubK = sigmaEstablisher.sigmaEstablisherData.getSenderKey().getPublicKey();
+		final BigInteger senPubK = key.getPublicKey();
 		
 		es.removeListener(Trent.TRENT_MESSAGE+contractId+senPubK.toString());
 		es.setListener("title", Trent.TRENT_MESSAGE + contractId, Trent.TRENT_MESSAGE+contractId+senPubK.toString(), new EstablisherServiceListener(){
@@ -180,7 +214,7 @@ public class ProtocolResolve implements ProtocolStep {
 	@Override
 	public void stop(){
 		String contractId = new String(contract.getHashableData());
-		String senPubK = sigmaEstablisher.sigmaEstablisherData.getSenderKey().getPublicKey().toString();
+		String senPubK = key.getPublicKey().toString();
 		es.removeListener(Trent.TRENT_MESSAGE+contractId+senPubK);
 	}
 

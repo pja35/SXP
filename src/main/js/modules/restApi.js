@@ -29,7 +29,7 @@ RESTAPISERVER = 'https://localhost:8081';
 
 
     module.factory('Item', function($resource) {
-        return $resource(RESTAPISERVER + '/api/items/:id', {
+    	return $resource(RESTAPISERVER + '/api/items/:id', {
             id: '@id'
         }, {
             update: {
