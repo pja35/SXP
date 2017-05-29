@@ -15,6 +15,7 @@ import crypt.api.encryption.Encrypter;
 import crypt.factories.EncrypterFactory;
 import crypt.impl.signatures.SigmaSigner;
 import model.api.Status;
+import model.api.Wish;
 import model.entity.ElGamalKey;
 import model.entity.sigma.Or;
 import model.entity.sigma.SigmaSignature;
@@ -69,7 +70,6 @@ public class ProtocolSign implements ProtocolStep {
 		Sender sender = new Sender(key);
 		pcs = new PCS(sender, sigmaEstablisher.sigmaEstablisherData.getTrentKey());
 		round = 1;
-		sigmaEstablisher.setStatus(Status.SIGNING);
 		
 		this.setupListener();
 	}
@@ -83,7 +83,6 @@ public class ProtocolSign implements ProtocolStep {
 		this.uris = sigmaE.sigmaEstablisherData.getUris();
 		this.contract = sigmaE.sigmaEstablisherData.getContract();
 		this.N = this.contract.getParties().size();
-		sigmaEstablisher.setStatus(Status.SIGNING);
 		
 		this.setupListener();
 	}
@@ -101,50 +100,55 @@ public class ProtocolSign implements ProtocolStep {
 	
 	@Override
 	public void sendMessage() {
-		// Content of the message which will be sent
-		HashMap<String, String> content = new HashMap<String, String>();
-		BigInteger senPubK = key.getPublicKey();
-		
-		for (int k=0; k<N; k++){
-
-			// Public key of the receiver
-			ElGamalKey receiverK = contract.getParties().get(k);
+		// Check the wish of the user each time we send a message
+		if (contract.getWish().equals(Wish.REFUSE)){
+			this.sigmaEstablisher.resolvingStep.sendMessage();
+		}else{
+			// Content of the message which will be sent
+			HashMap<String, String> content = new HashMap<String, String>();
+			BigInteger senPubK = key.getPublicKey();
 			
-			// If the receiver is the sender, isSender = true 
-			boolean isSender = receiverK.getPublicKey().equals(senPubK);
+			for (int k=0; k<N; k++){
+	
+				// Public key of the receiver
+				ElGamalKey receiverK = contract.getParties().get(k);
+				
+				// If the receiver is the sender, isSender = true 
+				boolean isSender = receiverK.getPublicKey().equals(senPubK);
+				
+				// On the last round, send the clear signature
+				if (round==(N+2)){
+					JsonTools<SigmaSignature> json = new JsonTools<>(new TypeReference<SigmaSignature>(){});
+					SigmaSignature signature = pcs.getClearSignature(contract, receiverK);
+					if (isSender)
+						contract.addSignature(contract.getParties().get(k), signature);
+					content.put(receiverK.getPublicKey().toString(), json.toJson(signature, true));
+				// Otherwise send round k
+				}else {
+					byte[] data = (new String(contract.getHashableData()) + round).getBytes();
+					Or p = pcs.getPcs(data, receiverK, true);
+					content.put(receiverK.getPublicKey().toString(), encryptMsg(getJson(p), receiverK));
+					if (isSender){
+						sigmaEstablisher.sigmaEstablisherData.getRoundReceived()[round][k] = p;
+					}
+				} 
+			}
 			
-			// On the last round, send the clear signature
-			if (round==(N+2)){
-				JsonTools<SigmaSignature> json = new JsonTools<>(new TypeReference<SigmaSignature>(){});
-				SigmaSignature signature = pcs.getClearSignature(contract, receiverK);
-				if (isSender)
-					contract.addSignature(contract.getParties().get(k), signature);
-				content.put(receiverK.getPublicKey().toString(), json.toJson(signature, true));
-			// Otherwise send round k
-			}else {
-				byte[] data = (new String(contract.getHashableData()) + round).getBytes();
-				Or p = pcs.getPcs(data, receiverK, true);
-				content.put(receiverK.getPublicKey().toString(), encryptMsg(getJson(p), receiverK));
-				if (isSender){
-					sigmaEstablisher.sigmaEstablisherData.getRoundReceived()[round][k] = p;
-				}
-			} 
+			// Adding the round to data sent
+			content.put("ROUND", String.valueOf(round));
+			
+			// Convert map to String
+			JsonTools<HashMap<String,String>> json2 = new JsonTools<>(new TypeReference<HashMap<String,String>>(){});
+			String dataToBeSent = json2.toJson(content);
+			
+			// Getting the sender public key index 
+			int i = 0;
+			while (!(contract.getParties().get(i).getPublicKey().equals(senPubK))){i++;}
+			System.out.println("Sending Round : " + round + " : by " + i);
+			
+			// Sending an advertisement
+			es.sendContract(TITLE+new String(contract.getHashableData()), dataToBeSent, senPubK.toString(), peer, uris);
 		}
-		
-		// Adding the round to data sent
-		content.put("ROUND", String.valueOf(round));
-		
-		// Convert map to String
-		JsonTools<HashMap<String,String>> json2 = new JsonTools<>(new TypeReference<HashMap<String,String>>(){});
-		String dataToBeSent = json2.toJson(content);
-		
-		// Getting the sender public key index 
-		int i = 0;
-		while (!(contract.getParties().get(i).getPublicKey().equals(senPubK))){i++;}
-		System.out.println("Sending Round : " + round + " : by " + i);
-		
-		// Sending an advertisement
-		es.sendContract(TITLE+new String(contract.getHashableData()), dataToBeSent, senPubK.toString(), peer, uris);
 	}
 
 	@Override

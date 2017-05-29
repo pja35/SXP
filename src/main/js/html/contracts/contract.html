@@ -7,9 +7,19 @@
 		<p><strong>Clauses : <span ng-repeat="clause in clauses"><br/>&nbsp;&nbsp;&nbsp;&nbsp;{{clause}}</span></strong></p>
 	</div>
 	
-	<div class="panel-footer">
+	<div class="panel-footer" ng-show="contract.status=='NOWHERE'">
 		<button class="btn btn-info" ng-click="sign()" type="button">Accept</button>
 		<button class="btn btn-warning" ng-click="modify()" type="button">Modify</button>
-		<button class="btn btn-danger" type="button">Decline</button>
+		<button class="btn btn-danger" ng-click="decline()" type="button">Decline</button>
+	</div>
+	<div class="panel-footer" ng-show="contract.status=='SIGNING'">
+		<p>Contract is being signed</p>
+		<button class="btn btn-danger" type="button">Try cancel (might not work)</button>
+	</div>
+	<div class="panel-footer" ng-show="contract.status=='CANCELLED'">
+		<p>CONTRACT CANCELLED</p>
+	</div>
+	<div class="panel-footer" ng-show="contract.status=='FINALIZED'">
+		<p>CONTRACT SIGNED !</p>
 	</div>
 </div></div>

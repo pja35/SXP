@@ -110,7 +110,12 @@ public class Contracts {
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
 		JsonTools<Collection<ContractEntity>> json = new JsonTools<>(new TypeReference<Collection<ContractEntity>>(){});
-		String ret = json.toJson(em.findAllByAttribute("userid", currentUser.getId()));
+		Collection<ContractEntity> contracts = em.findAllByAttribute("userid", currentUser.getId());
+		String ret = json.toJson(contracts);
+		for (ContractEntity contract : contracts){
+			if (contract.getWish()==Wish.ACCEPT)
+				this.sign(contract.getId(), token);
+		}
 		em.close();
 		users.close();
 		return ret;
@@ -139,11 +144,13 @@ public class Contracts {
 		Collection<ContractEntity> contracts = em.findAllByAttribute("title", c.getTitle());
 		for (ContractEntity contract : contracts){
 			if (contract.getParties().contains(c.getUserid())){
-				contract.setClauses(c.getClauses());
-				contract.setParties(parties);
-				contract.setTitle(c.getTitle());
-				contract.setPartiesNames(partiesNames);
-				contract.setModifierid(currentUser.getId());
+				if (contract.getWish().equals(Wish.ACCEPT)){
+					contract.setClauses(c.getClauses());
+					contract.setParties(parties);
+					contract.setTitle(c.getTitle());
+					contract.setPartiesNames(partiesNames);
+					contract.setModifierid(currentUser.getId());
+				}
 			}
 		}
 		em.end();
@@ -176,7 +183,6 @@ public class Contracts {
 	@PUT
 	@Path("/sign/{id}")
 	public void sign(String id, @HeaderParam(Authentifier.PARAM_NAME) String token){
-		System.out.println("\nICI : " + id + "\n");
 		
 		Authentifier auth = Application.getInstance().getAuth();
 		UserSyncManager users = new UserSyncManagerImpl();
@@ -186,16 +192,41 @@ public class Contracts {
 		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
 		em.begin();
 		ContractEntity c = em.findOneById(id);
-		if (c.getSignatures() == null){
-			c.setSignatures(new HashMap<String, String>());
+		
+		if (c.getStatus().equals(Status.NOWHERE)){
+			c.setWish(Wish.ACCEPT);
+			System.out.println("\nStarting protocol for : " + id + " on contract " + c.getTitle() + "\n");
+			if (c.getSignatures() == null){
+				c.setSignatures(new HashMap<String, String>());
+			}
+			
+			SigmaEstablisher s = new SigmaEstablisher(currentUser.getKey(), null);
+			s.initialize(new SigmaContract(c));
+			s.start();
+			JsonTools<SigmaEstablisherData> json = new JsonTools<>(new TypeReference<SigmaEstablisherData>(){});
+			c.setEstablishementData(json.toJson(s.sigmaEstablisherData));
+			c.setEstablisherType(EstablisherType.Sigma);
 		}
 		
-		SigmaEstablisher s = new SigmaEstablisher(currentUser.getKey(), null);
-		s.initialize(new SigmaContract(c));
-		s.start();
-		JsonTools<SigmaEstablisherData> json = new JsonTools<>(new TypeReference<SigmaEstablisherData>(){});
-		c.setEstablishementData(json.toJson(s.sigmaEstablisherData));
-		c.setEstablisherType(EstablisherType.Sigma);
+		em.end();
+		em.close();
+	}
+	
+	@PUT
+	@Path("/cancel/{id}")
+	public void cancel(String id){
+		UserSyncManager users = new UserSyncManagerImpl();
+		users.close();
+		
+		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
+		em.begin();
+		ContractEntity c = em.findOneById(id);
+		if (c.getStatus() == Status.NOWHERE){
+			c.setWish(Wish.REFUSE);
+			c.setStatus(Status.CANCELLED);
+		}else if (c.getStatus() == Status.SIGNING){
+			c.setWish(Wish.REFUSE);
+		}
 		
 		em.end();
 		em.close();

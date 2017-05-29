@@ -11,6 +11,7 @@ import crypt.impl.signatures.SigmaSigner;
 import controller.Application;
 import controller.tools.JsonTools;
 import model.api.Status;
+import model.api.Wish;
 import model.entity.ElGamalKey;
 import model.entity.sigma.SigmaSignature;
 import network.api.EstablisherService;
@@ -85,7 +86,8 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	 */
 	@Override
 	public void start(){
-		sigmaEstablisherData.getProtocolStep().sendMessage();
+		if (getStatus() != Status.CANCELLED && getStatus() != Status.FINALIZED && getWish() == Wish.ACCEPT)
+			sigmaEstablisherData.getProtocolStep().sendMessage();
 	}
 
 	/**
@@ -105,11 +107,10 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	
 	// Put a listener on Trent in case something goes wrong
 	public void setListenerOnTrent(){
+		setStatus(Status.SIGNING);
 		resolvingStep = new ProtocolResolve(this,
 				senderK);
-		
-		if (getStatus() != Status.CANCELLED && getStatus() != Status.FINALIZED)
-			sign();
+		sign();
 	}
 	
 	/**

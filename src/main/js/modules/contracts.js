@@ -64,10 +64,15 @@
 	  
 	  $scope.sign = function(){
 		  $http.put(RESTAPISERVER + '/api/contracts/sign/:id', contract.id);
+		  $state.go('viewContracts');
+	  }
+	  
+	  $scope.decline = function(){
+		  $http.put(RESTAPISERVER + '/api/contracts/cancel/:id', contract.id);
+		  $state.go('viewContracts');
 	  }
 	  
 	});
-    
     
     
     module.controller('editContract', function($scope, $stateParams, Contract, $state, $http){
