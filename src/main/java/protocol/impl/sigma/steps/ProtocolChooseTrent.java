@@ -26,6 +26,18 @@ import network.api.Peer;
 import protocol.impl.SigmaEstablisher;
 import protocol.impl.sigma.SigmaContract;
 
+/**
+ * Choose Trent with the other peers for this contract
+ * @author neon@ec-m.fr
+ * 
+ * The format of data sent here is a String[2] with
+ * 		data[0] = round
+ * 		data[1] = jsonSent
+ *
+ *	First round - setup a list of potential TTP
+ *	Second round - choose a random TTP
+ *	Third round - checks that everyone has same TTP
+ */
 public class ProtocolChooseTrent implements ProtocolStep {
 	
 	public static final String TITLE  = "CHOOSING_TRENT";
@@ -55,7 +67,9 @@ public class ProtocolChooseTrent implements ProtocolStep {
 	final private JsonTools<Collection<User>> json = new JsonTools<>(new TypeReference<Collection<User>>(){});
 	final private JsonTools<String[]> jsonMessage = new JsonTools<>(new TypeReference<String[]>(){});
 	
-	
+	/**
+	 * Used when the protocol stopped and need to be restarted from scratch where it stopped
+	 */
 	@JsonCreator
 	public ProtocolChooseTrent(@JsonProperty("list") ArrayList<User> list,
 			@JsonProperty("randomNumber") BigInteger randomNumber,
@@ -73,10 +87,15 @@ public class ProtocolChooseTrent implements ProtocolStep {
 		while (!(contract.getParties().get(this.senderKeyId).getPublicKey().toString().equals(senPubK))){this.senderKeyId++;}
 	}
 	
+	/**
+	 * Constructor for the step
+	 * @param sigmaE : the current sigmaEstablisher it is started from
+	 * @param key : signer key
+	 */
 	public ProtocolChooseTrent(SigmaEstablisher sigmaE,
 			ElGamalKey key){
+		
 		this.key = key;
-
 		this.sigmaE = sigmaE;
 		this.peer = sigmaE.peer;
 		this.uris = sigmaE.sigmaEstablisherData.getUris();
@@ -92,6 +111,10 @@ public class ProtocolChooseTrent implements ProtocolStep {
 					it.remove();
 		}
 		
+		// Setup the random number which will be sent
+		this.randomNumber = new BigInteger(100, new SecureRandom());
+		this.finalNumber = this.randomNumber;
+		
 		int i=0;
 		String senPubK = key.getPublicKey().toString();
 		while (!(contract.getParties().get(i).getPublicKey().toString().equals(senPubK))){i++;}
@@ -99,13 +122,14 @@ public class ProtocolChooseTrent implements ProtocolStep {
 			hasSent[k] = new String[contract.getParties().size() + 1];
 		this.senderKeyId = i;
 		
-		this.randomNumber = new BigInteger(100, new SecureRandom());
-		this.finalNumber = this.randomNumber;
-		
+		// Setup the listener on other peers
 		this.setupListener();
 	}
 	
 	@Override
+	/**
+	 * Called to start again
+	 */
 	public void restore(SigmaEstablisher sigmaE){
 		this.sigmaE = sigmaE;
 		this.peer = sigmaE.peer;
@@ -116,12 +140,20 @@ public class ProtocolChooseTrent implements ProtocolStep {
 		this.setupListener();
 	}
 	
+	
 	@Override
 	public String getName() {
 		return TITLE;
 	}
 
+	
 	@Override
+	/*
+	 * The round here is 
+	 * 		+ 0 if the list hasn't been setup with other peers
+	 * 		+ 1 if the random numbers aren't all recovered
+	 * 		+ 2 if Trent is already chosen
+	 */
 	public int getRound() {
 		if (Arrays.asList(hasSent[0]).indexOf(null) != (-1))
 			return 0;
@@ -130,9 +162,9 @@ public class ProtocolChooseTrent implements ProtocolStep {
 		return 2;
 	}
 
+	
 	@Override
 	public void sendMessage() {
-
 		String[] content = {"0", json.toJson(list)};
 		String senPubK = key.getPublicKey().toString();
 		
@@ -144,6 +176,7 @@ public class ProtocolChooseTrent implements ProtocolStep {
 		hasSent[0][senderKeyId] = "";
 	}
 
+	
 	@Override
 	public void setupListener() {
 		final String contractId = new String(contract.getHashableData());
@@ -234,7 +267,7 @@ public class ProtocolChooseTrent implements ProtocolStep {
 						hasSent[2][j] = "";
 						if (Arrays.asList(hasSent[2]).indexOf(null) == (N)){
 							hasSent[2][N] = ""; 
-							sigmaE.setListenerOnTrent();
+							nextStep();
 						}
 					}else {
 						for (int k=0; k<hasSent.length; k++)
@@ -253,6 +286,13 @@ public class ProtocolChooseTrent implements ProtocolStep {
 		String contractId = new String(contract.getHashableData());
 		String senPubK = key.getPublicKey().toString();
 		es.removeListener(TITLE+contractId+senPubK.toString());
+	}
+	
+	/**
+	 * Contains what needs to be done after this step
+	 */
+	private void nextStep(){
+		sigmaE.setListenerOnTrent();
 	}
 
 }

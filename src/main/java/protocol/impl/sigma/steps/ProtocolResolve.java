@@ -27,6 +27,16 @@ import protocol.impl.SigmaEstablisher;
 import protocol.impl.sigma.SigmaContract;
 import protocol.impl.sigma.Trent;
 
+/**
+ * This step is used if something goes wrong. It stop the protocol and contact the TTP
+ * @author Nathanaël Eon
+ *
+ * Format of data Sent : String[4]
+ * 		data[0] = round
+ * 		data[1] = contract
+ * 		data[2] = request (abort / encryptForTrent(claim)
+ * 		data[3] = Sigma Signature of the request
+ */
 public class ProtocolResolve implements ProtocolStep {
 
 	public static final String TITLE = "RESOLVE";
@@ -85,7 +95,10 @@ public class ProtocolResolve implements ProtocolStep {
 	public String getName() {
 		return TITLE;
 	}
-
+	
+	/**
+	 * Return -2 if the resolved has been sent; 0 otherwise
+	 */
 	@Override
 	public int getRound() {
 		if (resolveSent)

@@ -59,7 +59,7 @@ public class EstablisherServiceTest {
 	}
 	private static Peer[] peer;
 	private static EstablisherService[] es;
-	private static String[] rdvPeerIds = {"tcp://localhost:9800", "tcp://localhost:9801"};
+	private static String[] rdvPeerIds = {"tcp://localhost:9803", "tcp://localhost:9804"};
 	
 	private Key[] key;
 	private String field, title, data;
@@ -69,8 +69,8 @@ public class EstablisherServiceTest {
 	@BeforeClass
 	public static void initialize(){
 		peer = new Peer[2];
-		peer[0] = PeerFactory.createDefaultAndStartPeerForTest(9800, rdvPeerIds);
-		peer[1] = PeerFactory.createDefaultAndStartPeerForTest(9801, rdvPeerIds);
+		peer[0] = PeerFactory.createDefaultAndStartPeerForTest(9803, rdvPeerIds);
+		peer[1] = PeerFactory.createDefaultAndStartPeerForTest(9804, rdvPeerIds);
 		
 		es = new EstablisherService[2];
 		es[0] = (EstablisherService) peer[0].getService(EstablisherService.NAME);

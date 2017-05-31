@@ -22,7 +22,6 @@ import protocol.impl.sigma.SigmaEstablisherData;
 import protocol.impl.sigma.steps.ProtocolChooseTrent;
 import protocol.impl.sigma.steps.ProtocolResolve;
 import protocol.impl.sigma.steps.ProtocolSign;
-import protocol.impl.sigma.steps.ProtocolStart;
 import protocol.impl.sigma.steps.ProtocolStep;
 
 
@@ -34,20 +33,23 @@ import protocol.impl.sigma.steps.ProtocolStep;
 
 public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaSignature, SigmaSigner, SigmaContract> {
 	
-	public static final String TRENT_CHOOSING_MESSAGE = "CHOOSE_TRENT";
-	
+	// The service we'll use to send data
+	public EstablisherService establisherService =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
+	// The current peer
+	public Peer peer = Application.getInstance().getPeer();
+	// The step called if something goes wrong
+	public ProtocolStep resolvingStep;
+	// Data that need to be restored if there is a peer-disconnection
+	// TODO implement correctly the data saving
 	public SigmaEstablisherData sigmaEstablisherData;
 	
-	public EstablisherService establisherService =(EstablisherService) Application.getInstance().getPeer().getService(EstablisherService.NAME);
-	public Peer peer = Application.getInstance().getPeer();
-	public ProtocolStep resolvingStep;
-	
+	// The signer Key
 	protected ElGamalKey senderK;
 	
 	/**
 	 * Setup the signing protocol
 	 * @param <senderK> : elgamalkey (public and private) of the user
-	 * @param <uri> : parties matching uri
+	 * @param <uri> : parties matching uri, if null, the protocol will be asynchronous
 	 */
 	public SigmaEstablisher(ElGamalKey senderK, HashMap<ElGamalKey,String> uris){
 		this.senderK = senderK;
@@ -59,6 +61,11 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 		sigmaEstablisherData.setTrentKey(null);
 	}
 	
+	/**
+	 * Constructor which start back from where it were (using establisherData)
+	 * @param <establisherData> : data of the former establisher 
+	 * @param <senderK> : key we use to sign contract
+	 */
 	public SigmaEstablisher(String establisherData, ElGamalKey senderK){
 		JsonTools<SigmaEstablisherData> json = new JsonTools<>(new TypeReference<SigmaEstablisherData>(){});
 		SigmaEstablisherData data = json.toEntity(establisherData);
@@ -68,17 +75,16 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	}
 	
 	/**
+	 * Initialize the protocol when a contract comes
 	 * @param <c> : contract to be signed
 	 */
 	@Override
 	public void initialize(SigmaContract c){
 		this.sigmaEstablisherData.setContract(c);
 		contract = c;
-		/*
-		 * Get ready to start
-		 * If an advertisement was or is received, we check the signature and it is stored and we wait until everyone has sent its starter
-		 */
-		sigmaEstablisherData.setProtocolStep(new ProtocolStart(this, senderK));
+		
+		//Prepare the choosingTent step
+		sigmaEstablisherData.setProtocolStep( new ProtocolChooseTrent(this, senderK) );
 	}
 	
 	/**
@@ -86,19 +92,16 @@ public class SigmaEstablisher extends Establisher<BigInteger, ElGamalKey, SigmaS
 	 */
 	@Override
 	public void start(){
+		// Does only start if the status and the wish are ok
+		// It sends the list of users that can be TTP for us
 		if (getStatus() != Status.CANCELLED && getStatus() != Status.FINALIZED && getWish() == Wish.ACCEPT)
 			sigmaEstablisherData.getProtocolStep().sendMessage();
 	}
-
+	
 	/**
-	 * Choose Trent, put a listener for him, then start signing
+	 * Setup trent with correct Key
+	 * @param trentK
 	 */
-	public void chooseTrent(){
-		sigmaEstablisherData.getProtocolStep().stop();
-		
-		sigmaEstablisherData.setProtocolStep( new ProtocolChooseTrent(this, senderK) );
-		sigmaEstablisherData.getProtocolStep().sendMessage();
-	}
 	public void setTrent(ElGamalKey trentK){
 		contract.setTrentKey(trentK);
 		sigmaEstablisherData.setTrentKey(trentK);

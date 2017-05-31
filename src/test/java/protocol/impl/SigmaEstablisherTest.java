@@ -20,6 +20,7 @@ import crypt.factories.ElGamalAsymKeyFactory;
 import crypt.factories.HasherFactory;
 import model.api.Status;
 import model.api.SyncManager;
+import model.api.Wish;
 import model.entity.ContractEntity;
 import model.entity.ElGamalKey;
 import model.entity.User;
@@ -129,6 +130,7 @@ public class SigmaEstablisherTest {
 			ce[k].setParties(parties);
 			ce[k].setClauses(cl);
 			ce[k].setSignatures(new HashMap<String, String>());
+			ce[k].setWish(Wish.ACCEPT);
 			c[k] = new SigmaContract(ce[k]);
 		}
 	}

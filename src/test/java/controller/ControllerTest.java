@@ -477,11 +477,11 @@ public class ControllerTest {
 			for(int i=0; i<NbContracts; ++i){
 				HashMap<String, String> properties = new HashMap<String, String>();
 				properties.put("Auth-Token", token);
-				String data = "{\"title\":\"Object_"+ i + "\"}";
+				String data = "{\"title\":\"Object_"+ i + "\",\"parties\":[\""+ userid+"\"]}";
 				if (i==0)
-					data = "{\"title\":\"\"}";
+					data = "{\"title\":\"\",\"parties\":[\""+ userid+"\"]}";
 				JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
-				ContractEntity ct = json.toEntity(connectAction("POST", "api/contracts/", properties, data, false));
+				ContractEntity ct = json.toEntity(connectAction("POST", "api/contracts", properties, data, false));
 				//String createdDate = dateFormat.format(ct.getCreatedAt());
 				// TODO : set equal dates (problem on midnight here)
 				//assertTrue(createdDate.equals(TestInputGenerator.getFormatedTodayDate("dd-MM-yyyy")));
@@ -509,7 +509,7 @@ public class ControllerTest {
 			JsonTools<Collection<ContractEntity>> json = new JsonTools<>(new TypeReference<Collection<ContractEntity>>(){});
 			ArrayList<ContractEntity> ct = (ArrayList<ContractEntity>)json.toEntity(connectAction("GET", "api/contracts", properties, null, true));
 			assertTrue(ct.size() == NbContracts);
-			int n = TestInputGenerator.getRandomInt(0, 10);
+			int n = TestInputGenerator.getRandomInt(0, NbContracts);
 			contractId = ct.get(n).getId();
 			itemTitle = ct.get(n).getTitle();
 			log.debug(contractId + " --- " + contractTitle);
@@ -545,17 +545,19 @@ public class ControllerTest {
 	 */
 	@Test
 	public void testP(){
-		try{	
+		try{
 			HashMap<String, String> properties = new HashMap<String, String>();
 			properties.put("Auth-Token", token);
 			JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
 			String c = connectAction("GET", "api/contracts/" + contractId, properties, null, true);
 			ContractEntity ct = json.toEntity(c);
-			ct.setTitle("Second Title");
+			ArrayList<String> clauses = new ArrayList<String>();
+			clauses.add("Clause1");
+			ct.setClauses(clauses);
 			String c2 = connectAction("PUT", "api/contracts/" + contractId, properties, json.toJson(ct), false);
 			ContractEntity ct2 = json.toEntity(c2);
 			assertFalse(c2.equals(c));
-			assertTrue(ct2.getTitle().equals(ct.getTitle()));
+			assertTrue(ct2.getClauses().equals(ct.getClauses()));
 		}catch (Exception e){
 			fail(LoggerUtilities.logStackTrace(e));
 		}

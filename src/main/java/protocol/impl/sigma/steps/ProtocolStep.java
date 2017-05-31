@@ -2,6 +2,12 @@ package protocol.impl.sigma.steps;
 
 import protocol.impl.SigmaEstablisher;
 
+/**
+ * A step of the protocol is part of the SigmaEstablisher, to divide the code in different parts, executed successively or 
+ * 		concurrently (for the resolveStep)
+ * @author Nathanaël Eon
+ *
+ */
 public interface ProtocolStep {
 	
 	/**

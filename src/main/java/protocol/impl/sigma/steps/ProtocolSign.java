@@ -27,6 +27,14 @@ import protocol.impl.sigma.PCS;
 import protocol.impl.sigma.Sender;
 import protocol.impl.sigma.SigmaContract;
 
+/**
+ * The signing step, sigma protocol happens here
+ * @author Nathanaël Eon
+ *
+ *	Data format : HashMap<String,String>
+ *		It contains the round of the protocol (Map.get("round"))
+ *		It contains the different signatures, correctly encrypted for each receiver using publicKey as Map Key
+ */
 public class ProtocolSign implements ProtocolStep {
 
 	public final static String TITLE = "SIGNING";
