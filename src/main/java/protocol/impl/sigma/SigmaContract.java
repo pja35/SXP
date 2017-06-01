@@ -192,6 +192,9 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
 		}
 		signatures.put(k, s);
 		contract.getSignatures().put(this.partiesId.get(k), s.toString());
+		
+		if (this.isFinalized())
+			this.setStatus(Status.FINALIZED);
 	}
 	
 	@Override

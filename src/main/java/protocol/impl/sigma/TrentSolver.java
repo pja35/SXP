@@ -41,24 +41,22 @@ public class TrentSolver {
 		int N = contract.getParties().size();
 		// j was dishonest and i shows it
 		for (int k=0; k+1<round; k++){
-			try {
-				if (possiblyHonestClaims.get(k) != null){
-					HashMap<String,String> claims = possiblyHonestClaims.get(k);
-					Set<String> set = claims.keySet();
-					for (String s : set){
-						if (s != senderId){
-							String[] dishonestC = {claims.get(s), m};
-							dishonestClaims.put(s, dishonestC);
-							possiblyHonestClaims.get(k).remove(s);
-	
-							ArrayList<String> res =  new ArrayList<String>();
-							res.add("honestyToken");
-							res.add(honestyToken());
-							return res;
-						}
+			if (possiblyHonestClaims.get(k) != null){
+				HashMap<String,String> claims = possiblyHonestClaims.get(k);
+				Set<String> set = claims.keySet();
+				for (String s : set){
+					if (s != senderId){
+						String[] dishonestC = {claims.get(s), m};
+						dishonestClaims.put(s, dishonestC);
+						possiblyHonestClaims.get(k).remove(s);
+
+						ArrayList<String> res =  new ArrayList<String>();
+						res.add("honestyToken");
+						res.add(honestyToken());
+						return res;
 					}
 				}
-			} catch ( IndexOutOfBoundsException e ) {}
+			}
 		}
 
 		// i was dishonest and i shows it
@@ -74,7 +72,7 @@ public class TrentSolver {
 
 		// i was dishonest and j shows it
 		for (int k=round+1; k<N; k++){
-			try {
+			try{
 				if (possiblyHonestClaims.get(k) != null){
 					HashMap<String,String> claims = possiblyHonestClaims.get(k);
 					Set<String> set = claims.keySet();
@@ -87,7 +85,7 @@ public class TrentSolver {
 						}
 					}
 				}
-			} catch ( IndexOutOfBoundsException e ) {}
+			}catch (IndexOutOfBoundsException e){}
 		}
 
 		/***** Now the claim may be honest ****/
@@ -100,7 +98,7 @@ public class TrentSolver {
 			res.add(resolveToken(m, round));
 			return res;
 			
-		}else if ((!possiblyHonestClaims.isEmpty() || round <= 0) && optimistic){
+		}else{
 			HashMap<String, String> h = new HashMap<String, String>();
 			h.put(senderId, m);
 			possiblyHonestClaims.add(round, h);
@@ -110,8 +108,6 @@ public class TrentSolver {
 			res.add(honestyToken());
 			return res;
 		}
-		
-		return null;
 	}
 	
 	// This returns the full set of signatures

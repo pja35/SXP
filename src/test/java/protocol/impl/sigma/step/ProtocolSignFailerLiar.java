@@ -1,4 +1,4 @@
-package protocol.impl.sigma;
+package protocol.impl.sigma.step;
 
 import java.util.HashMap;
 
@@ -7,17 +7,19 @@ import network.api.EstablisherService;
 import network.api.EstablisherServiceListener;
 import network.api.Peer;
 import protocol.impl.SigmaEstablisherFailer;
+import protocol.impl.sigma.SigmaContract;
 import protocol.impl.sigma.steps.ProtocolSign;
 
-public class ProtocolSignFailer extends ProtocolSign{
+public class ProtocolSignFailerLiar extends ProtocolSign{
 
-	private boolean resolvedSent = false;
 	int failingRound;
+	int failingRound2;
 	
-	public ProtocolSignFailer(SigmaEstablisherFailer sigmaE, ElGamalKey key, EstablisherService es, Peer peer,
+	public ProtocolSignFailerLiar(SigmaEstablisherFailer sigmaE, ElGamalKey key, EstablisherService es, Peer peer,
 			HashMap<ElGamalKey, String> uris, SigmaContract contract) {
 		super(sigmaE, key);
 		failingRound = ((SigmaEstablisherFailer) sigmaEstablisher).failingRound;
+		failingRound2 = ((SigmaEstablisherFailer) sigmaEstablisher).failingRound2;
 	}
 
 	@Override
@@ -41,17 +43,15 @@ public class ProtocolSignFailer extends ProtocolSign{
 				/*	Send the rounds (if we have the claim needed):
 				 *  	We do a loop because sometimes, we receive the PCS for round+1 before the one for the current round
 				 */  
-				if (round == failingRound && !resolvedSent){
+				if (round == failingRound || round == failingRound2)
 					sigmaEstablisher.resolvingStep.sendMessage();
-					resolvedSent = true;
-				}
-				while (round<Math.min(N+2, failingRound) && claimFormed){
+				
+				while (round<N+2 && claimFormed){
 					round++;
 					sendMessage();
-					if (round == failingRound && !resolvedSent){
+					if (round == failingRound || round == failingRound2)
 						sigmaEstablisher.resolvingStep.sendMessage();
-						resolvedSent = true;
-					}else{
+					else{
 						for (int k=0; k<N; k++){
 							if (round < N+2 && sigmaEstablisher.sigmaEstablisherData.getRoundReceived()[round][k] == null)
 								claimFormed= false;
@@ -61,5 +61,6 @@ public class ProtocolSignFailer extends ProtocolSign{
 			}
 		}, uris != null);
 	}
+
 
 }

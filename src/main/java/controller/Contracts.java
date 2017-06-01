@@ -60,36 +60,28 @@ public class Contracts {
 		HashMap<String,String> partiesNames = new HashMap<String, String>();
 
 		em.begin();
+		JsonTools<User> json3 = new JsonTools<>(new TypeReference<User>(){});
+		Users us = new Users();
+		for (String id : parties){
+			User u = json3.toEntity(us.get(id));
+			partiesNames.put(id, u.getNick());
+		}
 		
-		if (parties == null){
-			contract.setUserid(currentUser.getId());
-			contract.setWish(Wish.NEUTRAL);
-			contract.setStatus(Status.NOWHERE);
-			em.persist(contract);
-		} else {
-			JsonTools<User> json3 = new JsonTools<>(new TypeReference<User>(){});
-			Users us = new Users();
-			for (String id : parties){
-				User u = json3.toEntity(us.get(id));
-				partiesNames.put(id, u.getNick());
-			}
-			
-			//TODO VALIDATION / VERIFICATION
-			for (int k=0; k<parties.size(); k++){
-				ContractEntity c = new ContractEntity();
-				c.setTitle(contract.getTitle());
-				c.setParties(parties);
-				c.setPartiesNames(partiesNames);
-				c.setClauses( contract.getClauses());
-				c.setCreatedAt(contract.getCreatedAt());
-				c.setUserid(parties.get(k));
-				c.setWish(Wish.NEUTRAL);
-				c.setStatus(Status.NOWHERE);
-				c.setSignatures(null);
-				em.persist(c);
-				if (parties.get(k).equals(currentUser.getId()))
-					contract = c;
-			}
+		//TODO VALIDATION / VERIFICATION
+		for (int k=0; k<parties.size(); k++){
+			ContractEntity c = new ContractEntity();
+			c.setTitle(contract.getTitle());
+			c.setParties(parties);
+			c.setPartiesNames(partiesNames);
+			c.setClauses( contract.getClauses());
+			c.setCreatedAt(contract.getCreatedAt());
+			c.setUserid(parties.get(k));
+			c.setWish(Wish.NEUTRAL);
+			c.setStatus(Status.NOWHERE);
+			c.setSignatures(null);
+			em.persist(c);
+			if (parties.get(k).equals(currentUser.getId()))
+				contract = c;
 		}
 
 		em.end();
@@ -193,17 +185,22 @@ public class Contracts {
 	
 	@PUT
 	@Path("/sign/{id}")
-	public void sign(String id, @HeaderParam(Authentifier.PARAM_NAME) String token){
+	public String sign(@PathParam("id")String id, @HeaderParam(Authentifier.PARAM_NAME) String token){
+		System.out.println("ICI !");
 		Authentifier auth = Application.getInstance().getAuth();
 		UserSyncManager users = new UserSyncManagerImpl();
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		users.close();
 		
+		String ret = "false";
+		
 		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
 		em.begin();
 		ContractEntity c = em.findOneById(id);
-		
+
+
 		if (c.getStatus().equals(Status.NOWHERE)){
+			ret = "true";
 			c.setWish(Wish.ACCEPT);
 			System.out.println("\nStarting protocol for : " + id + " on contract " + c.getTitle() + "\n");
 			if (c.getSignatures() == null){
@@ -212,6 +209,7 @@ public class Contracts {
 			SigmaEstablisher s = new SigmaEstablisher(currentUser.getKey(), null);
 			s.initialize(new SigmaContract(c));
 			s.start();
+			
 			JsonTools<SigmaEstablisherData> json = new JsonTools<>(new TypeReference<SigmaEstablisherData>(){});
 			c.setEstablishementData(json.toJson(s.sigmaEstablisherData));
 			c.setEstablisherType(EstablisherType.Sigma);
@@ -219,25 +217,32 @@ public class Contracts {
 		
 		em.end();
 		em.close();
+
+		return ret;
 	}
 	
 	@PUT
 	@Path("/cancel/{id}")
-	public void cancel(String id){
+	public String cancel(@PathParam("id")String id){
 		UserSyncManager users = new UserSyncManagerImpl();
 		users.close();
 		
+		String ret = "false";
 		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
 		em.begin();
 		ContractEntity c = em.findOneById(id);
 		if (c.getStatus() == Status.NOWHERE){
 			c.setWish(Wish.REFUSE);
 			c.setStatus(Status.CANCELLED);
+			ret="true";
 		}else if (c.getStatus() == Status.SIGNING){
 			c.setWish(Wish.REFUSE);
+			ret="true";
 		}
 		
 		em.end();
 		em.close();
+		
+		return ret;
 	}
 }

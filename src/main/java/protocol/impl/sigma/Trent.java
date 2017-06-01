@@ -146,7 +146,7 @@ public class Trent {
 
 				if (resolved == null){
 					establisherService.sendContract(TRENT_MESSAGE + new String(contract.getHashableData()), 
-							"Dishonest",
+							"dishonest " + senderK.getPublicKey().toString(),
 							this.keys.getPublicKey().toString(),
 							peer);
 				} else{

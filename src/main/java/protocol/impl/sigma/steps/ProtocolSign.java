@@ -180,7 +180,7 @@ public class ProtocolSign implements ProtocolStep {
 				/*	Send the rounds (if we have the claim needed):
 				 *  	We do a loop because sometimes, we receive the PCS for round+1 before the one for the current round
 				 */  
-				while (round<=(N+1) && claimFormed){
+				while (round<=(N+1) && claimFormed && contract.getStatus().equals(Status.SIGNING)){
 					round++;
 					sendMessage();
 					for (int k=0; k<N; k++){

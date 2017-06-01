@@ -17,10 +17,16 @@ import javax.net.ssl.HttpsURLConnection;
 import controller.Application;
 import controller.tools.JsonTools;
 import controller.tools.LoggerUtilities;
+import crypt.api.hashs.Hasher;
+import crypt.factories.ElGamalAsymKeyFactory;
+import crypt.factories.HasherFactory;
+import model.api.SyncManager;
+import model.api.Wish;
 import model.entity.ContractEntity;
 import model.entity.Item;
 import model.entity.LoginToken;
 import model.entity.User;
+import model.syncManager.UserSyncManagerImpl;
 import util.TestInputGenerator;
 import util.TestUtils;
 
@@ -475,11 +481,27 @@ public class ControllerTest {
 	public void testM(){
 		try {
 			for(int i=0; i<NbContracts; ++i){
+				String login = TestInputGenerator.getRandomAlphaWord(20);
+				String password = TestInputGenerator.getRandomPwd(20);
+				
+				User u = new User();
+				u.setNick(login);
+				Hasher hasher = HasherFactory.createDefaultHasher();
+				u.setSalt(HasherFactory.generateSalt());
+				hasher.setSalt(u.getSalt());
+				u.setPasswordHash(hasher.getHash(password.getBytes()));
+				u.setCreatedAt(new Date());
+				u.setKey(ElGamalAsymKeyFactory.create(false));
+				SyncManager<User> em = new UserSyncManagerImpl();
+				em.begin();
+				em.persist(u);
+				em.end();
+				
 				HashMap<String, String> properties = new HashMap<String, String>();
 				properties.put("Auth-Token", token);
-				String data = "{\"title\":\"Object_"+ i + "\",\"parties\":[\""+ userid+"\"]}";
+				String data = "{\"title\":\"Object_"+ i + "\",\"parties\":[\""+ userid+"\",\""+u.getId()+"\"]}";
 				if (i==0)
-					data = "{\"title\":\"\",\"parties\":[\""+ userid+"\"]}";
+					data = "{\"title\":\"\",\"parties\":[\""+ userid+"\",\""+u.getId()+"\"]}";
 				JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
 				ContractEntity ct = json.toEntity(connectAction("POST", "api/contracts", properties, data, false));
 				//String createdDate = dateFormat.format(ct.getCreatedAt());
@@ -564,10 +586,48 @@ public class ControllerTest {
 	}
 	
 	/**
-	 * Try to delete a contract with an undefined user
+	 * Start signing protocol
 	 */
 	@Test
 	public void testQ(){
+		try {
+			HashMap<String, String> properties = new HashMap<String, String>();
+			properties.put("Auth-Token", token);
+			JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
+			String ret = connectAction("PUT", "api/contracts/sign/" + contractId, properties, null, true);
+			assertTrue(ret.substring(0, 4).equals("true"));
+			String c = connectAction("GET", "api/contracts/" + contractId, properties, null, true);
+			ContractEntity ct = json.toEntity(c);
+			assertTrue(ct.getWish().equals(Wish.ACCEPT));
+		}catch (Exception e) {
+			fail(LoggerUtilities.logStackTrace(e));
+		}
+	}
+	
+	/**
+	 * Try to cancel a contract
+	 */
+	@Test
+	public void testR(){
+		try {
+			HashMap<String, String> properties = new HashMap<String, String>();
+			JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
+			properties.put("Auth-Token", token);
+			String ret = connectAction("PUT", "api/contracts/cancel/" + contractId, properties, null, true);
+			assertTrue(ret.substring(0, 4).equals("true"));
+			String c = connectAction("GET", "api/contracts/" + contractId, properties, null, true);
+			ContractEntity ct = json.toEntity(c);
+			assertTrue(ct.getWish().equals(Wish.REFUSE));
+		}catch (Exception e) {
+			fail(LoggerUtilities.logStackTrace(e));
+		}
+	}
+	
+	/**
+	 * Try to delete a contract with an undefined user
+	 */
+	@Test
+	public void testS(){
 		try {
 			HashMap<String, String> properties = new HashMap<String, String>();
 			properties.put("Auth-Token", token);
@@ -587,7 +647,7 @@ public class ControllerTest {
 	 * Try to delete with the wrong user
 	 */
 	@Test
-	public void testQa(){
+	public void testSa(){
 		try {
 			//Create user 2
 			String data = "login=" + username + "1";
@@ -615,7 +675,7 @@ public class ControllerTest {
 	 * Delete all contracts
 	 */
 	@Test
-	public void testQb(){
+	public void testSb(){
 		try {
 			HashMap<String, String> properties = new HashMap<String, String>();
 			properties.put("Auth-Token", token);
@@ -636,7 +696,7 @@ public class ControllerTest {
 	 * Delete the user
 	 */
 	@Test
-	public void testR(){
+	public void testT(){
 		try {
 			HashMap<String, String> properties = new HashMap<String, String>();
 			properties.put("Auth-Token", token);

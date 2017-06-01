@@ -42,15 +42,15 @@ public class ProtocolResolve implements ProtocolStep {
 	public static final String TITLE = "RESOLVE";
 	
 	@XmlElement(name="key")
-	private ElGamalKey key;
+	protected ElGamalKey key;
 	@XmlElement(name="resolveSent")
-	private boolean resolveSent = false;
+	protected boolean resolveSent = false;
 	
-	private SigmaEstablisher sigmaEstablisher;
-	private EstablisherService es;
-	private Peer peer;
-	private SigmaContract contract;
-	private SigmaSigner signer;
+	protected SigmaEstablisher sigmaEstablisher;
+	protected EstablisherService es;
+	protected Peer peer;
+	protected SigmaContract contract;
+	protected SigmaSigner signer;
 	
 	
 	
@@ -165,8 +165,8 @@ public class ProtocolResolve implements ProtocolStep {
 				// If the message is for another contract or by someone else thant Trent
 				if (senderId.equals(sigmaEstablisher.sigmaEstablisherData.getTrentKey().getPublicKey().toString())){
 					// If Trent found we were dishonest (second time a resolve sent)
-					if (data.equals("Dishonest")){
-						System.out.println("You were dishonest or request sent twice, third party didn't do nothing on this time");
+					if (data.substring(0, 9).equals("dishonest")){
+						System.out.println("Someone was dishonest : "+ data.substring(10) + "\nTrent decided not to do anything");
 					} 
 					
 					else{

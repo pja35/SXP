@@ -36,7 +36,7 @@ public class SigmaEstablisherTest {
 	
 	public static Application application;
 	public static final int restPort = 5601;
-	public HashMap<ElGamalKey, Trent> trents = new HashMap<ElGamalKey, Trent>();
+	public static HashMap<ElGamalKey, Trent> trents = new HashMap<ElGamalKey, Trent>();
 	
 	// Users
 	private static User[] u;
@@ -48,11 +48,34 @@ public class SigmaEstablisherTest {
 	private static SigmaContract[] c;
 	// A contract entity
 	private static ContractEntity[] ce;
+	// Clauses of contracts
+	private static ArrayList<String> cl = new ArrayList<String>();
 	
 	@BeforeClass
 	public static void setup(){
 		application = new Application();
 		application.runForTests(restPort);
+		
+		// Setup at least one Trent
+		String login = TestInputGenerator.getRandomAlphaWord(20);
+		String password = TestInputGenerator.getRandomPwd(20);
+		
+		User u = new User();
+		u.setNick(login);
+		Hasher hasher = HasherFactory.createDefaultHasher();
+		u.setSalt(HasherFactory.generateSalt());
+		hasher.setSalt(u.getSalt());
+		u.setPasswordHash(hasher.getHash(password.getBytes()));
+		u.setCreatedAt(new Date());
+		u.setKey(ElGamalAsymKeyFactory.create(false));
+		SyncManager<User> em = new UserSyncManagerImpl();
+		em.begin();
+		em.persist(u);
+		em.end();
+		
+		trents.put(u.getKey(), new Trent(u.getKey()));
+		trents.get(u.getKey()).setListener();
+		
 	}
 
 
@@ -71,8 +94,8 @@ public class SigmaEstablisherTest {
 	public void initialize(){	
 		
 		// Initialize the users
-		u = new User[N+2];
-		for (int k=0; k<N+2; k++){
+		u = new User[N];
+		for (int k=0; k<N; k++){
 			String login = TestInputGenerator.getRandomAlphaWord(20);
 			String password = TestInputGenerator.getRandomPwd(20);
 			
@@ -110,12 +133,16 @@ public class SigmaEstablisherTest {
 			for (int k=0; k<N; k++)
 				uris.put(keysR[k], uri);
 		}
-		
+	}
+	
+	/*
+	 * Function used to setup the contracts with different numbers of contract
+	 */
+	private void setupContracts(int N){
 		c = new SigmaContract[N];
 		ce = new ContractEntity[N];
 		
 		// Initialize the contracts 
-		ArrayList<String> cl = new ArrayList<String>();
 		cl.add(TestInputGenerator.getRandomIpsumText(100));
 		cl.add(TestInputGenerator.getRandomIpsumText(100));
 		
@@ -139,6 +166,7 @@ public class SigmaEstablisherTest {
 	// Test a simple signing protocol
 	@Test
 	public void TestA(){
+		setupContracts(N);
 		SigmaEstablisher[] sigmaE = new SigmaEstablisher[N];
 		for (int k=0; k<N; k++){
 			sigmaE[k] = new SigmaEstablisher(u[k].getKey(), uris);
@@ -165,13 +193,13 @@ public class SigmaEstablisherTest {
 	}
 	
 	// resolveInitiater, limit is the failing round
-	public void resolveInitiator(int N, int limit, HashMap<ElGamalKey, String> uris){
-		
+	private void resolveInitiator(int N, int limit, HashMap<ElGamalKey, String> uris){
+		setupContracts(N);
 		SigmaEstablisher[] sigmaEs = new SigmaEstablisher[N];
-		
+
+		sigmaEs[0] = new SigmaEstablisherFailer(u[0].getKey(), uris, limit, false);
 		for (int k=1; k<N; k ++)
 			sigmaEs[k] = new SigmaEstablisher(u[k].getKey(), uris);
-		sigmaEs[0] = new SigmaEstablisherFailer(u[0].getKey(), uris, limit, false);
 		
 		for (int k=0; k<N; k++){
 			sigmaEs[k].initialize(c[k]);
@@ -195,10 +223,10 @@ public class SigmaEstablisherTest {
 	// Test an abort in protocol (Trent doesn't give the signature)
 	@Test
 	public void TestB(){
-		resolveInitiator(2, 1, uris);
+		resolveInitiator(N, 1, uris);
 		
 		boolean res = true;
-		for (int k=0; k<2; k++){
+		for (int k=0; k<N; k++){
 			res =  res && c[k].isFinalized();
 			assertTrue(c[k].getStatus().equals(Status.CANCELLED));
 		}
@@ -209,14 +237,90 @@ public class SigmaEstablisherTest {
 	// Test a resolve in protocol (Trent gives the signature in the end)
 	@Test
 	public void TestC(){
-		resolveInitiator(2, 2, uris);
+		resolveInitiator(N, 2, uris);
 		
 		boolean res = true;
-		for (int k=0; k<2; k++){
+		for (int k=0; k<N; k++){
 			res =  res && c[k].isFinalized();
 			assertTrue(c[k].getStatus().equals(Status.FINALIZED));
 		}
 
+		assertTrue(res);
+	}
+	
+	/*
+	 * I dishonest and shows it
+	 */
+	@Test
+	public void TestD(){
+		int N = 2;
+		setupContracts(N);
+		SigmaEstablisher[] sigmaEs = new SigmaEstablisher[N];
+
+		sigmaEs[0] = new SigmaEstablisherFailer(u[0].getKey(), uris, 1, 2);
+		for (int k=1; k<N; k ++)
+			sigmaEs[k] = new SigmaEstablisherFailer(u[k].getKey(), uris, N+3, true);
+		
+		for (int k=0; k<N; k++){
+			sigmaEs[k].initialize(c[k]);
+			sigmaEs[k].start();
+		}
+		
+		// Time to realize procedure
+		try{
+			Thread.sleep(1000);
+		}catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		for (int k=0; k<N; k++)
+			sigmaEs[k].resolvingStep.stop();
+
+		boolean res = true;
+		for (int k=0; k<N; k++){
+			res =  res && c[k].isFinalized();
+			assertTrue(c[k].getStatus().equals(Status.FINALIZED));
+		}
+		
+		assertTrue(res);
+	}
+	
+	/*
+	 *  Test when everyone lie, and when the communication with Trent don't seem to work (worse scenario)
+	 *  Because everyone lie, the contract is signed in the end
+	 *  i dishonest j show it
+	 */
+	
+	@Test
+	public void TestE(){
+		int N = 2;
+		setupContracts(N);
+		SigmaEstablisher[] sigmaEs = new SigmaEstablisher[N];
+		
+		for (int k=0; k<N; k ++)
+			sigmaEs[k] = new SigmaEstablisherFailer(u[k].getKey(), uris, k+1, true);
+		
+		for (int k=0; k<N; k++){
+			sigmaEs[k].initialize(c[k]);
+			sigmaEs[k].start();
+		}
+		
+		// Time to realize procedure
+		try{
+			Thread.sleep(2000);
+		}catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		for (int k=0; k<N; k++)
+			sigmaEs[k].resolvingStep.stop();
+
+		boolean res = true;
+		for (int k=0; k<N; k++){
+			res =  res && c[k].isFinalized();
+			assertTrue(c[k].getStatus().equals(Status.FINALIZED));
+		}
+		
 		assertTrue(res);
 	}
 }
