@@ -145,10 +145,10 @@ public class ProtocolResolve implements ProtocolStep {
 		JsonTools<String[]> json = new JsonTools<>(new TypeReference<String[]>(){});
 		String fullContent = json.toJson(content, false);
 
-		System.out.println("--- Sending resolve request to Trent --- Round : " + (round-1));
-
 		// For Trent, use only Advertisement
 		es.sendContract(TITLE + trentK.getPublicKey().toString(), fullContent, senPubK.toString(), peer, null);
+
+		System.out.println("--- Sending resolve request to Trent --- Round : " + (round-1));
 	}
 
 	@Override

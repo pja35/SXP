@@ -137,6 +137,9 @@ public class ElGamalEngineK
             throw new IllegalStateException("ElGamal engine not initialised");
         }
 
+        BigInteger p = key.getParameters().getP();
+        bitSize = p.bitLength();
+        
         int maxLength = forEncryption
             ?   (bitSize - 1 + 7) / 8
             :   getInputBlockSize();
@@ -145,9 +148,7 @@ public class ElGamalEngineK
         {
             throw new DataLengthException("input too large for ElGamal cipher with " + inLen + " characters instead of  "+ maxLength +" total.\n");
         }
-
-        BigInteger  p = key.getParameters().getP();
-
+        
         if (key instanceof ElGamalPrivateKeyParameters) // decryption
         {
             byte[]  in1 = new byte[inLen / 2];
@@ -184,6 +185,7 @@ public class ElGamalEngineK
 
             if (input.compareTo(p) >= 0)
             {
+            	
                 throw new DataLengthException("input too large for ElGamal cipher.\n");
             }
 
