@@ -1,7 +1,6 @@
 package protocol.impl;
 
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -225,30 +224,22 @@ public class SigmaEstablisherTest {
 	public void TestB(){
 		resolveInitiator(N, 1, uris);
 		
-		boolean res = true;
-		for (int k=0; k<N; k++){
-			res =  res && c[k].isFinalized();
-			if (!c[k].getStatus().equals(Status.CANCELLED))
-				System.out.println("The contract is not officially cancelled but it is ok");
-		}
-		
-		assertFalse(res);
+		boolean res = false;
+		for (int k=0; k<N; k++)
+			if (c[k].getStatus().equals(Status.CANCELLED) || c[k].getStatus().equals(Status.RESOLVING))
+				res = true;
+		assertTrue(res);
 	}
 	
 	// Test a resolve in protocol (Trent gives the signature in the end)
 	@Test
 	public void TestC(){
 		resolveInitiator(N, 2, uris);
-		
-		boolean res = true;
-		for (int k=0; k<N; k++){
-			res =  res && c[k].isFinalized();
-			if (!c[k].getStatus().equals(Status.FINALIZED)){
-				System.out.println("There has been a problem with Trent communication");
-				res=true;
-			}
-		}
 
+		boolean res = false;
+		for (int k=0; k<N; k++)
+			if (c[k].getStatus().equals(Status.FINALIZED) || c[k].getStatus().equals(Status.RESOLVING))
+				res = true;
 		assertTrue(res);
 	}
 	

@@ -23,11 +23,11 @@ public interface EstablisherService extends Service
 	 * Encapsulate contract sending (using either Message or Advertisement)
 	 * @param title : event title
 	 * @param data : data sent
-	 * @param senderK : sender id 
+	 * @param senderId : sender id 
 	 * @param uris : receiving peers uris, if null : uses Advertisement, otherwise uses Messages
 	 * @param peer : the sending peer
 	 */
-	public <Key extends AsymKey<?>> void sendContract(String title, String data, String senderK, Peer peer, HashMap<Key,String> uris);
+	public <Key extends AsymKey<?>> void sendContract(String title, String data, String senderId, Peer peer, HashMap<Key,String> uris);
 	
 	/**
 	 * Send a "Message" (synchrone)

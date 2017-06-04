@@ -110,6 +110,7 @@ public class ProtocolResolve implements ProtocolStep {
 	@Override
 	public void sendMessage() {
 		ProtocolStep step = sigmaEstablisher.sigmaEstablisherData.getProtocolStep();
+		sigmaEstablisher.setStatus(Status.RESOLVING);
 		
 		int round = step.getRound();
 		BigInteger senPubK = key.getPublicKey();

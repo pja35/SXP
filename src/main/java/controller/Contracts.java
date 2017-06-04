@@ -186,7 +186,6 @@ public class Contracts {
 	@PUT
 	@Path("/sign/{id}")
 	public String sign(@PathParam("id")String id, @HeaderParam(Authentifier.PARAM_NAME) String token){
-		System.out.println("ICI !");
 		Authentifier auth = Application.getInstance().getAuth();
 		UserSyncManager users = new UserSyncManagerImpl();
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));

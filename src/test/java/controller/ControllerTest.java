@@ -27,6 +27,7 @@ import model.entity.Item;
 import model.entity.LoginToken;
 import model.entity.User;
 import model.syncManager.UserSyncManagerImpl;
+import protocol.impl.sigma.Trent;
 import util.TestInputGenerator;
 import util.TestUtils;
 
@@ -496,6 +497,7 @@ public class ControllerTest {
 				em.begin();
 				em.persist(u);
 				em.end();
+				(new Trent(u.getKey())).setListener();
 				
 				HashMap<String, String> properties = new HashMap<String, String>();
 				properties.put("Auth-Token", token);
