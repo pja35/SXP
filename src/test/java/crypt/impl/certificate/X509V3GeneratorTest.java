@@ -115,6 +115,7 @@ public class X509V3GeneratorTest {
 		assertNotNull(gen);
 	}
 
+	@SuppressWarnings("unused")
 	@Test
 	public void testGetKeysPairException() {
 		exception.expect(RuntimeException.class);

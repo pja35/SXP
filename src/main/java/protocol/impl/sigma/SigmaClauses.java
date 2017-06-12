@@ -3,14 +3,14 @@ package protocol.impl.sigma;
 import java.util.ArrayList;
 
 import crypt.api.signatures.Signable;
-import crypt.impl.signatures.ElGamalSignature;
+import model.entity.sigma.SigmaSignature;
 
-public class ElGamalClauses implements Signable<ElGamalSignature> {
+public class SigmaClauses implements Signable<SigmaSignature>{
 
-	private ElGamalSignature sign;
+	private SigmaSignature sign;
 	private ArrayList<String> clauses;
 	
-	public ElGamalClauses(ArrayList<String> s) {
+	public SigmaClauses(ArrayList<String> s) {
 		this.clauses = s;
 	}
 	
@@ -20,24 +20,25 @@ public class ElGamalClauses implements Signable<ElGamalSignature> {
 	
 	@Override
 	public byte[] getHashableData() {
-		String res = "";
+		StringBuffer buffer = new StringBuffer();
 		for (String c : clauses)
-			res = res.concat(c);
-		return res.getBytes();
+			buffer.append(c);
+		return buffer.toString().getBytes();
 	}
 
 	@Override
-	public void setSign(ElGamalSignature s) {
+	public void setSign(SigmaSignature s) {
 		this.sign = s;
 	}
 
 	@Override
-	public ElGamalSignature getSign() {
+	public SigmaSignature getSign() {
 		return this.sign;
 	}
 	
+	@Override
 	public boolean equals(Object o) {
-		ElGamalClauses s2 = (ElGamalClauses) o;
+		SigmaClauses s2 = (SigmaClauses) o;
 		if (s2.clauses.size() != this.clauses.size())
 			return false;
 		

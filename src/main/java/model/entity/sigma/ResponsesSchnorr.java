@@ -13,7 +13,7 @@
 
    You should have received a copy of the GNU Lesser General Public License along with SXP. 
    If not, see <http://www.gnu.org/licenses/>. */
-package protocol.impl.sigma;
+package model.entity.sigma;
 import java.math.BigInteger;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -23,11 +23,11 @@ import model.entity.ElGamalKey;
 
 
 /**
- * The CCD response
+ * The Schnorr response
  * @author sarah
  *
  */
-public class ResponsesCCD extends Responses {
+public class ResponsesSchnorr extends Responses{
 
 	/**
 	 * Constructor
@@ -36,40 +36,31 @@ public class ResponsesCCD extends Responses {
 	 * @param response
 	 */
 	@JsonCreator
-	public ResponsesCCD(@JsonProperty("masks") Masks mask, @JsonProperty("challenge") BigInteger challenge,@JsonProperty("response") BigInteger response) {
+	public ResponsesSchnorr(@JsonProperty("masks") Masks mask, @JsonProperty("challenge") BigInteger challenge,@JsonProperty("response") BigInteger response) {
 		super(mask, challenge, response);
 	}
 	
-	public ResponsesCCD(){
+	public ResponsesSchnorr(){
 		super();
 	}
 	
-	@Override
 	/**
 	 * Extends Responses
-	 * Verify if the CCD response is good or not 
+	 * Verify if the Schnorr response is good or not 
 	 */
-	public Boolean Verifies( ElGamalKey tKeys, ResEncrypt res) {
-		if (!tKeys.getG().modPow(getResponse(), tKeys.getP()).equals(((tKeys.getPublicKey().modPow(getChallenge(), tKeys.getP())).multiply(getMasks().getA())).mod(tKeys.getP())))
-		{
-			return false;
-		}
-		BigInteger M = new BigInteger (res.getM());
-		if(!res.getU().modPow(getResponse(),tKeys.getP() ).equals(res.getV().divide(M).modPow(getChallenge(), tKeys.getP()).multiply(getMasks().getaBis()).mod(tKeys.getP())))
-		{
-			return false;
-		}
-		
-		return true;
+	
+	@Override
+	public Boolean Verifies(ElGamalKey tKeys, ResEncrypt res) {
+		return (tKeys.getG().modPow(getResponse(), tKeys.getP()).equals(((tKeys.getPublicKey().modPow(getChallenge(), tKeys.getP())).multiply(getMasks().getA())).mod(tKeys.getP())));
 	}
-
-
+	
+	
 	/**
 	 * Override equals to be able to compare two responses
 	 */
 	@Override
 	public boolean equals(Object o){
-		if (! (o instanceof ResponsesCCD)){
+		if (! (o instanceof ResponsesSchnorr)){
 			return false;
 		}
 		return super.equals(o);
@@ -81,6 +72,6 @@ public class ResponsesCCD extends Responses {
 	@Override
 	public int hashCode(){
 		int hashS = super.hashCode();
-		return hashS + 2;
+		return hashS + 1;
 	}
 }

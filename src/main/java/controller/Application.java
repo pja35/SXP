@@ -17,11 +17,17 @@ import rest.factories.RestServerFactory;
  *
  */
 public class Application {
+	public final static int jxtaPort = 9800;
+	public final static int restPort = 8081;
+	public final static String[] rdvPeerIds = {"tcp://176.132.64.68:9800", "tcp://localhost:9800", "tcp://localhost:9801"};
+	
 	private static Application instance = null;
 	private static UserSyncManagerImpl umg;
 	private Peer peer;
 	private Authentifier auth;
 
+	
+	
 	public Application() {
 		if(instance != null) {
 			throw new RuntimeException("Application can be instanciate only once !");
@@ -36,7 +42,7 @@ public class Application {
 	public void run() {
 		setPeer(PeerFactory.createDefaultAndStartPeer());
 		setAuth(AuthentifierFactory.createDefaultAuthentifier());
-		RestServerFactory.createAndStartDefaultRestServer(8080); //start the rest api
+		RestServerFactory.createAndStartDefaultRestServer(restPort); //start the rest api
 	}
 
 	public void runForTests(int restPort) {
@@ -56,8 +62,7 @@ public class Application {
 
 	public static void main(String[] args) {
 		new Application();
-		Application.getInstance().runForTests(8081);
-
+		Application.getInstance().runForTests(restPort);
 	}
 	
 	public void stop(){

@@ -13,7 +13,7 @@
 
    You should have received a copy of the GNU Lesser General Public License along with SXP. 
    If not, see <http://www.gnu.org/licenses/>. */
-package protocol.impl.sigma;
+package model.entity.sigma;
 
 
 import java.math.BigInteger;
@@ -63,6 +63,7 @@ public class ResEncrypt {
 	 * Create a toString method
 	 * @return : representative Sting of the instance
 	 */
+	@Override
 	public String toString(){
 		StringBuffer s = new StringBuffer();
 		s.append("<" + this.getClass().getSimpleName().toLowerCase() + ">");

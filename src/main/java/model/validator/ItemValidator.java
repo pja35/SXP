@@ -7,6 +7,7 @@ import model.entity.Item;
 
 public class ItemValidator extends EntityValidator<Item>{
 
+	@SuppressWarnings("unused")
 	private Signer<ElGamalSignature, ElGamalAsymKey> signer = null;
 
 	public void setSigner(Signer<ElGamalSignature, ElGamalAsymKey> signer) {

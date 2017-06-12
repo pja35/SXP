@@ -1,4 +1,4 @@
-package protocol.impl.sigma;
+package model.entity.sigma;
 
 import static org.junit.Assert.assertTrue;
 
@@ -12,6 +12,7 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
+import model.entity.sigma.ResEncrypt;
 import util.TestInputGenerator;
 
 public class ResEncryptTest {
@@ -46,5 +47,14 @@ public class ResEncryptTest {
 		assertTrue(v.equals(res.getV()));
 		assertTrue(Arrays.equals(M, res.getM()));
 	}
-
+	
+	@Test
+	public void toStringTest(){
+		String str = "<" + res.getClass().getSimpleName().toLowerCase() + ">"
+				+ "<u>" + u.toString() + "</u>"
+				+ "<v>" + v.toString() + "</v>"
+				+ "<M>" + M.toString() + "</M>"
+				+ "</" + res.getClass().getSimpleName().toLowerCase() + ">";
+		assertTrue(str.equals(res.toString()));
+	}
 }

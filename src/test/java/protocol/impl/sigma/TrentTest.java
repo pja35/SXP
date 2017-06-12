@@ -1,13 +1,16 @@
 package protocol.impl.sigma;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-import org.junit.Before;
+import java.math.BigInteger;
+
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
+import model.entity.sigma.ResEncrypt;
+import model.entity.sigma.ResponsesCCD;
 import util.TestInputGenerator;
 
 /**
@@ -15,20 +18,20 @@ import util.TestInputGenerator;
  * @author denis.arrivault[@]univ-amu.fr
  */
 public class TrentTest {
-	private byte[] msg;
-	ElGamalKey key;
-	Trent trent;
-	
-	@Before
-	public void instanciate(){
+	public static byte[] msg;
+	public static ElGamalKey key;
+	public static Trent trent;
+
+	@BeforeClass
+	public static void initialize(){
 		msg = TestInputGenerator.getRandomBytes(50);
 		key = ElGamalAsymKeyFactory.create(false);
 		trent = new Trent(key);
 	}
-	
+
 	@Test
 	public void getterTest(){
-		assertTrue(trent.getKey() == key);
+		assertTrue(trent.getKey().getPublicKey() == key.getPublicKey());
 	}
 	
 	@Test
@@ -38,6 +41,17 @@ public class TrentTest {
 		ResponsesCCD response = trent.SendResponse(res);
 		assertTrue(response.Verifies(key, res));
 	}
+	
+	@Test
+	public void sendResponseTest2() {
+		ElGamalEncrypt encrypt = (new ElGamal(key)).encryptForContract(BigInteger.TEN.toByteArray());
+		ResEncrypt res = new ResEncrypt(encrypt.getU(), encrypt.getV(), BigInteger.TEN.toByteArray());
+		ResponsesCCD response = trent.SendResponse(res, msg);
+		assertFalse(response.Verifies(key, res, res.getM()));
+		assertTrue(response.Verifies(key, res, msg));
+	}
+	
+	// Signature test : see in SigmaEstablisherTest
 	
 	@Test
 	public void decryptionTest(){

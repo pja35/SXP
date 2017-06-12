@@ -25,6 +25,10 @@ public class JxtaPeer implements Peer{
 		node = new JxtaNode();
 		services = new HashMap<>();
 	}
+	public JxtaPeer(int port) {
+		node = new JxtaNode(port);
+		services = new HashMap<>();
+	}
 	
 	@Override
 	public void start(String cache, int port, String ...bootstrap) throws IOException, PeerGroupException, RuntimeException {

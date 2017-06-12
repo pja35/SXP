@@ -4,34 +4,41 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import controller.Users;
+import controller.tools.JsonTools;
 import crypt.api.signatures.Signable;
 import crypt.factories.ElGamalAsymKeyFactory;
-import crypt.impl.signatures.ElGamalSignature;
-import crypt.impl.signatures.ElGamalSigner;
+import crypt.impl.signatures.SigmaSigner;
+import model.api.Status;
 import model.api.Wish;
+import model.entity.ContractEntity;
 import model.entity.ElGamalKey;
+import model.entity.User;
+import model.entity.sigma.SigmaSignature;
 import protocol.impl.sigma.SigmaContract;
 import util.TestInputGenerator;
 
 /**
  * ElGamalContract unit test
  * @author denis.arrivault[@]univ-amu.fr
+ * @author nathanael.eon[@]lif.univ-mrs.fr
  *
  */
 public class SigmaContractTest {
-	private final static Logger log = LogManager.getLogger(SigmaContractTest.class);
 	@Rule public ExpectedException exception = ExpectedException.none();
 
-	class Clauses implements Signable<ElGamalSignature> {
-		private ElGamalSignature sign;
+	class Clauses implements Signable<SigmaSignature> {
+		private SigmaSignature sign;
 		private String text;
 
 		public Clauses(String text) {
@@ -44,44 +51,79 @@ public class SigmaContractTest {
 		}
 
 		@Override
-		public void setSign(ElGamalSignature s) {
+		public void setSign(SigmaSignature s) {
 			this.sign = s;
 		}
 
 		@Override
-		public ElGamalSignature getSign() {
+		public SigmaSignature getSign() {
 			return this.sign;
 		}
 	}
-
+	
 	private final int N = TestInputGenerator.getRandomInt(1, 20);
 	private SigmaContract contract;
+	private SigmaContract contract2;
+	private ContractEntity contractE;
 	private String text;
 	private Clauses clauses;
-
+	private ArrayList<String> cl = new ArrayList<String>();
+	private ArrayList<ElGamalKey> keys;
+	
 	@Before
 	public void instantiate(){
 		text = TestInputGenerator.getRandomIpsumText();
 		clauses = new Clauses(text);
 		contract = new SigmaContract(clauses);
+		contractE = new ContractEntity();
+		contractE.setParties(new ArrayList<String>());
+		contractE.setSignatures(new HashMap<String,String>());
+		contractE.setClauses(new ArrayList<String>());
+		contract2 = new SigmaContract(contractE);
 	}
 
 	@Test
+	public void equalsTest(){
+		SigmaContract contractBis = new SigmaContract();
+		assertFalse(contract.equals(contractBis));
+		contractBis.setClauses(clauses);
+		assertTrue(contract.equals(contractBis));
+	}
+	
+	@Test
 	public void clausesGetterTest(){
-		SigmaContract newContract = new SigmaContract();
-		newContract.setClauses(clauses);
-		assertArrayEquals(newContract.getClauses().getHashableData(), clauses.getHashableData());
-		assertArrayEquals(contract.getClauses().getHashableData(), clauses.getHashableData());
+		contract2.setClauses(clauses);
+		assertArrayEquals(contract2.getClauses().getHashableData(), clauses.getHashableData());
+		contract2.setClauses(cl);
+		contract.setClauses(cl);
+		assertArrayEquals(contract2.getClauses().getHashableData(), contract.getClauses().getHashableData());
 	}
 
+	@Test
+	public void setPartiesTest(){
+		JsonTools<Collection<User>> json = new JsonTools<>(new TypeReference<Collection<User>>(){});
+		Users users = new Users();
+		Collection<User> u = json.toEntity(users.get());
+		ArrayList<String> ids = new ArrayList<String>();
+		keys = new ArrayList<ElGamalKey>(); 
+		for (User user : u){
+			ids.add(user.getId());
+			keys.add(user.getKey());
+		}
+		contract.setParties(ids);
+		contract2.setParties(ids);
+		assertTrue(contract.getParties().toString().equals(contract2.getParties().toString()));
+	}
+	
 	@Test
 	public void addSignatureExceptionTest1(){
 		exception.expect(RuntimeException.class);
 		exception.expectMessage("invalid key");
 		ElGamalKey key = ElGamalAsymKeyFactory.create(false);
-		ElGamalSigner signer = new ElGamalSigner();
-		signer.setKey(key);
-		contract.addSignature(key, contract.sign(signer, null));
+		SigmaSigner signer = new SigmaSigner();
+		signer.setTrentK(ElGamalAsymKeyFactory.create(false));
+		signer.setReceiverK(ElGamalAsymKeyFactory.create(false));
+		contract.addSignature(key, contract.sign(signer, key));
 	}
 
 	@Test
@@ -89,9 +131,10 @@ public class SigmaContractTest {
 		exception.expect(RuntimeException.class);
 		exception.expectMessage("invalid key");
 		ElGamalKey key = ElGamalAsymKeyFactory.create(false);
-		ElGamalSigner signer = new ElGamalSigner();
-		signer.setKey(key);
-		contract.addSignature(null, contract.sign(signer, null));
+		SigmaSigner signer = new SigmaSigner();
+		signer.setTrentK(ElGamalAsymKeyFactory.create(false));
+		signer.setReceiverK(ElGamalAsymKeyFactory.create(false));
+		contract.addSignature(null, contract.sign(signer, key));
 	}
 
 	@Test
@@ -102,12 +145,16 @@ public class SigmaContractTest {
 			parties.add(key);
 		}
 		contract.setParties(parties, true);
+		SigmaSigner signer = new SigmaSigner();
+		signer.setTrentK(ElGamalAsymKeyFactory.create(false));
+		/* It doesn't matter who is the receiver (in signature protocol, we need it
+			to forge one part of the "OR" */
+		signer.setReceiverK(ElGamalAsymKeyFactory.create(false));
 		assertFalse(contract.isFinalized());
 		for(ElGamalKey key : contract.getParties()){
 			assertTrue(key.getClass().getName().equals("model.entity.ElGamalKey"));
-			ElGamalSigner signer = new ElGamalSigner();
-			signer.setKey(ElGamalAsymKeyFactory.create(false));
-			contract.addSignature(key, contract.sign(signer, null));
+			ElGamalKey k = ElGamalAsymKeyFactory.create(false);
+			contract.addSignature(key, contract.sign(signer, k));
 		}
 		assertFalse(contract.isFinalized());
 		assertFalse(contract.checkContrat(contract));
@@ -121,12 +168,20 @@ public class SigmaContractTest {
 			ElGamalKey key = ElGamalAsymKeyFactory.create(false);
 			parties.add(key);
 		}
+		ElGamalKey trentK = ElGamalAsymKeyFactory.create(false);
+		ElGamalKey receiverK = ElGamalAsymKeyFactory.create(false);
 		contract.setParties(parties, true);
+		contract.setTrentKey(trentK);
+		
+		SigmaSigner signer = new SigmaSigner();
+		signer.setTrentK(trentK);
+		/* It doesn't matter who is the receiver (in signature protocol, we need it
+			to forge one part of the "OR" */
+		signer.setReceiverK(receiverK);
+		
 		for(ElGamalKey key : contract.getParties()){
 			assertTrue(key.getClass().getName().equals("model.entity.ElGamalKey"));
-			ElGamalSigner signer = new ElGamalSigner();
-			signer.setKey(key);
-			contract.addSignature(key, contract.sign(signer, null));
+			contract.addSignature(key, contract.sign(signer, key));
 		}
 		assertTrue(contract.isFinalized());
 		assertTrue(contract.checkContrat(contract));
@@ -137,5 +192,11 @@ public class SigmaContractTest {
 	public void getSetWishTest(){
 		contract.setWish(Wish.ACCEPT);
 		assertTrue(contract.getWish().compareTo(Wish.ACCEPT) == 0);
+	}
+	
+	@Test
+	public void getSetStatusTest(){
+		contract.setStatus(Status.NOWHERE);
+		assertTrue(contract.getStatus().compareTo(Status.NOWHERE) == 0);
 	}
 }

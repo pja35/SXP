@@ -13,7 +13,7 @@
 
    You should have received a copy of the GNU Lesser General Public License along with SXP. 
    If not, see <http://www.gnu.org/licenses/>. */
-package protocol.impl.sigma;
+package model.entity.sigma;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import controller.tools.MapResponseKeyDeserializer;
 import controller.tools.MapSerializer;
 import model.entity.ElGamalKey;
+import protocol.impl.sigma.Receiver;
 
 
 /**
@@ -56,6 +57,7 @@ public class And {
 	 * Transform the And into a String
 	 * @return the string corresponding to the AND
 	 */
+	@Override
 	public String toString(){
 		StringBuffer andS = new StringBuffer();
 		andS.append("<" + this.getClass().getSimpleName().toLowerCase() + ">");
@@ -85,9 +87,9 @@ public class And {
 	 * @param responses (all responses to need verify)
 	 */
 	
-	public And (Receiver receiver, HashMap <Responses,ElGamalKey> rK,  ResEncrypt resEncrypt, Responses ... responses)
+	public And (HashMap <Responses,ElGamalKey> rK,  ResEncrypt resEncrypt, Responses ... responses)
 	{
-		this.receiver = receiver;
+		this.receiver = new Receiver();
 		this.rK  = rK;
 		this.resEncrypt= resEncrypt;
 		this.responses = responses;

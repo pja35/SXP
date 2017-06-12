@@ -13,7 +13,7 @@
 
    You should have received a copy of the GNU Lesser General Public License along with SXP. 
    If not, see <http://www.gnu.org/licenses/>. */
-package protocol.impl.sigma;
+package model.entity.sigma;
 
 import java.math.BigInteger;
 
@@ -107,10 +107,15 @@ public abstract class Responses{
 	 */
 	@Override
 	public boolean equals(Object o){
-		if (! (o instanceof Responses)){
+		if (!(o instanceof Responses))
 			return false;
-		}
+		
 		Responses r = (Responses) o;
+		if (r.getMasks() == null 
+				|| r.getResponse() == null 
+				|| r.getChallenge() == null)
+			return false;
+		
 		boolean okM = r.getMasks().equals(this.getMasks());
 		boolean okRes = r.getResponse().toString().equals(this.getResponse().toString());
 		boolean okCha = r.getChallenge().toString().equals(this.getChallenge().toString());

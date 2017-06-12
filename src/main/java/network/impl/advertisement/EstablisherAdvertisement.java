@@ -11,7 +11,12 @@ public class EstablisherAdvertisement extends AbstractAdvertisement implements E
 	@AdvertisementAttribute(indexed = true)
 	private String title;
 	
+
+	@AdvertisementAttribute(enabled = true)
 	private String contract;
+	
+	@AdvertisementAttribute(enabled = true)
+	private String key;
 	
 	// Sender userid
 	private String userid;
@@ -26,20 +31,34 @@ public class EstablisherAdvertisement extends AbstractAdvertisement implements E
 		return null;
 	}
 	
+	@Override
 	public String getTitle() {
 		return title;
 	}
 	
+	@Override
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
+	@Override
 	public String getContract() {
 		return contract;
 	}
 	
-	public void setContract(String prom) {
-		this.contract = prom;
+	@Override
+	public void setContract(String c) {
+		this.contract = c;
+	}
+
+	@Override
+	public String  getKey(){
+		return key;
+	}
+	
+	@Override
+	public void setKey(String publicKey){
+		this.key = publicKey;
 	}
 
 	public String getUserid() {

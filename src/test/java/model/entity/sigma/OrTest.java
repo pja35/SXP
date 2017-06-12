@@ -1,5 +1,6 @@
-package protocol.impl.sigma;
+package model.entity.sigma;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigInteger;
@@ -10,6 +11,15 @@ import org.junit.Test;
 
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
+import model.entity.sigma.And;
+import model.entity.sigma.Or;
+import model.entity.sigma.ResEncrypt;
+import model.entity.sigma.Responses;
+import model.entity.sigma.ResponsesCCD;
+import model.entity.sigma.ResponsesCCE;
+import model.entity.sigma.ResponsesSchnorr;
+import protocol.impl.sigma.Sender;
+import protocol.impl.sigma.Trent;
 import util.TestInputGenerator;
 
 /**
@@ -18,8 +28,6 @@ import util.TestInputGenerator;
  *
  */
 public class OrTest {
-	private Receiver receiver;
-	
 	private final int N = 1;
 	private ResEncrypt[] encryptMessages = new ResEncrypt[N];
 	private byte[][] messages  = new byte[N][];
@@ -27,10 +35,10 @@ public class OrTest {
 	
 	private BigInteger a;
 	private Or or;
-
+	
+	
 	@Before
 	public void instantiate(){
-		receiver = new Receiver();
 		a = TestInputGenerator.getRandomBigInteger(32);
 		
 		for(int i=0; i<N; i++){
@@ -46,21 +54,36 @@ public class OrTest {
 			
 			Trent trent = new Trent(trentKey);
 
-			ResponsesSchnorr responseSchnorr = sender.SendResponseSchnorr(messages[i]);
+			ResponsesSchnorr responseSchnorr;
 			
 			ResponsesCCE responseCCE = sender.SendResponseCCE(messages[i], trentKey);
 			
 			ResponsesCCD responseCCD = trent.SendResponse(encryptMessages[i]);
+			
+			if (i== N-1){
+				Masks mask = sender.SendMasksSchnorr();
+				BigInteger c = sender.SendChallenge(mask, messages[i]);
+				for (int k=0; k<N-1; k++)
+					for (Responses r : ands[k].responses)
+						c = c.xor(r.getChallenge());
+				c = c.xor(responseCCE.getChallenge());
+				c = c.xor(responseCCD.getChallenge());
+				responseSchnorr = sender.SendResponseSchnorr(mask, c);
+				a = mask.getA();
+			}
+			else{
+				responseSchnorr = sender.SendResponseSchnorr(messages[i]);
+			}
 			
 			HashMap<Responses, ElGamalKey> rK = new HashMap<Responses, ElGamalKey>();
 
 			rK.put(responseSchnorr, senderKey);
 			rK.put(responseCCE, trentKey);
 			rK.put(responseCCD, trentKey);
-			ands[i] = new And(receiver, rK, encryptMessages[i], responseSchnorr, responseCCE, responseCCD);
+			ands[i] = new And(rK, encryptMessages[i], responseSchnorr, responseCCE, responseCCD);
 		}
 				
-		or = new Or(receiver, a, ands);
+		or = new Or(a, ands);
 	}
 	
 	@Test
@@ -74,7 +97,7 @@ public class OrTest {
 	@Test
 	public void goodVerifyTest() {
 		for(int i=0; i<N; i++){
-			assertTrue(or.Verifies(encryptMessages[i]));
+			assertTrue(or.Verifies(encryptMessages[i].getM()));
 		}
 	}
 	
@@ -83,8 +106,7 @@ public class OrTest {
 		for(int i=0; i<N; i++){
 			ResEncrypt randomEncrypt = new ResEncrypt(TestInputGenerator.getRandomBigInteger(32),
 					TestInputGenerator.getRandomBigInteger(32), TestInputGenerator.getRandomBytes(100));
-			assertTrue(or.Verifies(randomEncrypt));
-			// Design Annotation : Is that the normal behavior ???
+			assertFalse(or.Verifies(randomEncrypt.getM()));
 		}
 	}
 }

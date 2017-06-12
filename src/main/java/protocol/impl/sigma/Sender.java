@@ -22,6 +22,10 @@ import java.util.HashMap;
 
 import controller.tools.LoggerUtilities;
 import model.entity.ElGamalKey;
+import model.entity.sigma.Masks;
+import model.entity.sigma.ResEncrypt;
+import model.entity.sigma.ResponsesCCE;
+import model.entity.sigma.ResponsesSchnorr;
 
 
 /**
@@ -39,6 +43,8 @@ public class Sender extends Fabric{
 	ElGamalKey keys;
 	private ElGamalEncrypt encrypt;
 	
+	private ResEncrypt resEncrypt;
+	
 	private HashMap<Masks,BigInteger> eph = new HashMap<Masks, BigInteger>();
 
 	/**
@@ -50,7 +56,7 @@ public class Sender extends Fabric{
 	public Sender (ElGamalKey bobK)
 	{
 		// TODO Keys verifications !
-		this.keys = bobK; 
+		this.keys = bobK;
 	}
 	
 	
@@ -197,6 +203,7 @@ public class Sender extends Fabric{
 		return challenge;
 	}
 	
+	
 	/**
 	 * Encryption
 	 * @param input
@@ -208,11 +215,30 @@ public class Sender extends Fabric{
 	{
 		ElGamal elGamal = new ElGamal(tKeys);
 		encrypt  = elGamal.encryptForContract(input);
-        ResEncrypt res = new ResEncrypt(encrypt.getU(),encrypt.getV(),input);
-        return res;
+        resEncrypt = new ResEncrypt(encrypt.getU(),encrypt.getV(), input);
+        return resEncrypt;
 	}
+	
+	public ResEncrypt getResEncrypt(){
+		return resEncrypt;
+	}
+	
 	
 	public ElGamalKey getKeys() {
 		return keys;
+	}
+	
+	public ElGamalKey getPublicKeys() {
+		ElGamalKey k = new ElGamalKey();
+		k.setG(keys.getG());
+		k.setP(keys.getP());
+		k.setPublicKey(keys.getPublicKey());
+		return k;
+	}
+	
+	// Returns a byte[] that is not too long for ElGamal
+	public static byte[] getIdentificationData(ElGamalKey k){
+		String data = k.getPublicKey().toString();
+		return data.substring(0, 125).getBytes();
 	}
 }

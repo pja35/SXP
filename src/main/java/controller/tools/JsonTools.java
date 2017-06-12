@@ -10,9 +10,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
-import model.entity.ElGamalKey;
-import protocol.impl.sigma.Responses;
-
 public class JsonTools<Entity> {
 	
 	private TypeReference<Entity> type;
@@ -45,17 +42,20 @@ public class JsonTools<Entity> {
 	
 	
 	/**
-	 * return a correct json string even if java objects contains Map<Responses,ElGamalKey>
+	 * return a correct json string even if java objects contains Map<>
 	 * @param entity
 	 * 		java entity to transform in json
 	 * @param containsMap
-	 * 		differentiate from former method
+	 * 		differentiate from former method (true or false will do the same thing)
 	 * @return
 	 */
 	public String toJson(Entity entity, boolean containsMap) {
+		if (!containsMap)
+			return toJson(entity);
+		
 		ObjectMapper mapper = new ObjectMapper();
 		SimpleModule simpleModule = new SimpleModule("SimpleModule");
-		simpleModule.addSerializer(new MapSerializer<Responses, ElGamalKey>());
+		simpleModule.addSerializer(new MapSerializer<>());
 		mapper.registerModule(simpleModule);
 		try {
 			return mapper.writeValueAsString(entity);
@@ -75,6 +75,9 @@ public class JsonTools<Entity> {
 	 */
 	@SuppressWarnings("unchecked")
 	public Entity toEntity(String json, boolean containsMap) {
+		if (!containsMap)
+			return toEntity(json);
+		
 		ObjectMapper mapper = new ObjectMapper();
 		SimpleModule simpleModule = new SimpleModule("SimpleModule");
 		simpleModule.addDeserializer(Map.class, new MapResponseKeyDeserializer());
@@ -84,10 +87,11 @@ public class JsonTools<Entity> {
 		} catch (JsonParseException ex) {
 			return null;
 		} catch (JsonMappingException ex){
+	        System.out.println(ex);
 			return null;
 		}catch (IOException e){
-		e.printStackTrace();
-		return null;
+			e.printStackTrace();
+			return null;
 		}
 	}
 }

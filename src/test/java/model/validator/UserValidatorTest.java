@@ -58,7 +58,7 @@ public class UserValidatorTest {
 		user.setPasswordHash(passwordHash);
 		user.setKey(keys);
 		factory = new ValidatorFactory();
-		validator = factory.createUserValidator();
+		validator = ValidatorFactory.createUserValidator();
 	}
 
 	@Test

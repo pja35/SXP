@@ -27,10 +27,12 @@ public class ItemAdvertisement extends AbstractAdvertisement implements ItemAdve
 		return null;
 	}
 	
+	@Override
 	public String getTitle() {
 		return title;
 	}
 	
+	@Override
 	public void setTitle(String title) {
 		this.title = title;
 	}

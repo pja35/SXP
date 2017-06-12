@@ -12,7 +12,7 @@ public class ItemSyncManagerImpl extends AbstractSyncManager<Item> implements It
 		this.initialisation("persistence", Item.class);
 	}
 	@Override
-	protected EntityValidator getAdaptedValidator() {
+	protected EntityValidator<?> getAdaptedValidator() {
 		return ValidatorFactory.createItemValidator();
 	}
 }

@@ -57,6 +57,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public Entity findOneByAttribute(String attribute, String value) {
 		Query q = em.createQuery("select t from " + theClass.getSimpleName() + " t where t."+ attribute + "=:value");
@@ -132,6 +133,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 			em.persist(entity);
 			return true;
 		}catch(Exception e){
+			System.out.println(e);
 			LoggerUtilities.logStackTrace(e);
 			return false;
 		}
@@ -163,7 +165,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 	@Override
 	public Collection<Entity> watchlist() {
 		UnitOfWorkImpl uow = (UnitOfWorkImpl) em.unwrap(UnitOfWork.class);
-		return (Collection<Entity>) uow.getCloneMapping().keySet();
+		return uow.getCloneMapping().keySet();
 	}
 
 	@Override

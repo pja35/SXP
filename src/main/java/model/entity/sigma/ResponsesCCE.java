@@ -13,7 +13,7 @@
 
    You should have received a copy of the GNU Lesser General Public License along with SXP. 
    If not, see <http://www.gnu.org/licenses/>. */
-package protocol.impl.sigma;
+package model.entity.sigma;
 import java.math.BigInteger;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -36,7 +36,9 @@ public class ResponsesCCE extends Responses {
 	 * @param response
 	 */
 	@JsonCreator
-	public ResponsesCCE(@JsonProperty("masks") Masks mask, @JsonProperty("challenge") BigInteger challenge,@JsonProperty("response") BigInteger response) {
+	public ResponsesCCE(@JsonProperty("masks") Masks mask,
+			@JsonProperty("challenge") BigInteger challenge,
+			@JsonProperty("response") BigInteger response) {
 		super(mask, challenge, response);
 	}
 	
@@ -59,7 +61,7 @@ public class ResponsesCCE extends Responses {
 		
 		if(!gPowr.equals(uPowcMulta))
 		{
-			System.out.println("you are a liar");
+			System.out.println("CCE verification failed on test 1");
 			return false;
 		}
 		
@@ -72,7 +74,7 @@ public class ResponsesCCE extends Responses {
 		
 		if (!pubPowr.equals(vDivMPowcMultaBis))
 		{
-			System.out.println("you are a liar !");
+			System.out.println("CCE verification failed on test 2");
 			return false;
 		}
 		

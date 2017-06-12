@@ -9,7 +9,9 @@ import javax.xml.bind.annotation.XmlElement;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 //import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import crypt.api.key.AsymKey;
 
@@ -22,27 +24,31 @@ public class ElGamalKey implements AsymKey<BigInteger>, Serializable{
 	private static final long serialVersionUID = -6531626985325397645L;
 
 	@NotNull
-//	@XmlElement(name="privateKey")
-//	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
+	@XmlElement(name="privateKey")
+	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
+	@JsonDeserialize(using=controller.tools.BigIntegerDeserializer.class)
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	@JsonIgnore
 	private BigInteger privateKey;
 	
 	@NotNull
 	@XmlElement(name="publicKey")
-//	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
+	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
+	@JsonDeserialize(using=controller.tools.BigIntegerDeserializer.class)
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	private BigInteger publicKey;
 	
 	@NotNull
 	@XmlElement(name="p")
-//	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
+	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
+	@JsonDeserialize(using=controller.tools.BigIntegerDeserializer.class)
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	private BigInteger p;
 	
 	@NotNull
 	@XmlElement(name="g")
-//	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
+	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
+	@JsonDeserialize(using=controller.tools.BigIntegerDeserializer.class)
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	private BigInteger g;
 	
@@ -87,6 +93,7 @@ public class ElGamalKey implements AsymKey<BigInteger>, Serializable{
 		return g;
 	}
 	
+	@Override
 	public String toString(){
 		StringBuffer s = new StringBuffer();
 		s.append("<" + this.getClass().getSimpleName().toLowerCase() + ">");
@@ -97,4 +104,27 @@ public class ElGamalKey implements AsymKey<BigInteger>, Serializable{
 		return s.toString();
 	}
 	
+	@Override
+	public boolean equals(Object o){
+		if (! (o instanceof ElGamalKey))
+			return false;
+		ElGamalKey k = (ElGamalKey) o;
+		return k.getP().equals(this.getP())
+				&& k.getG().equals(this.getG())
+				&& k.getPublicKey().equals(this.getPublicKey());
+	}
+	
+	@Override
+	public int hashCode(){
+		return this.getPublicKey().hashCode();
+	}
+	
+	public ElGamalKey copy(){
+		ElGamalKey copy = new ElGamalKey();
+		copy.setPrivateKey(this.getPrivateKey());
+		copy.setPublicKey(this.getPublicKey());
+		copy.setG(this.getG());
+		copy.setP(this.getP());
+		return copy;
+	}
 }

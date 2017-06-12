@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import controller.Application;
 import controller.tools.LoggerUtilities;
 import net.jxta.document.AdvertisementFactory;
 import network.api.Peer;
@@ -49,14 +50,18 @@ public class PeerFactory {
 		}
 		return p;
 	}
+
 	
 	public static Peer createDefaultAndStartPeerForTest() {
+		return createDefaultAndStartPeerForTest(Application.jxtaPort, Application.rdvPeerIds);
+	}
+	
+	public static Peer createDefaultAndStartPeerForTest(int port, String[] rdvPeerIds) {
 		Random r = new Random();
 		String cache = ".peer" + r.nextInt(10000);
 		//int port = 9800 + r.nextInt(100);
-		int port = 9800;
 		System.out.println("jxta will run on port " + port);
-		Peer p = createAndStartPeer("jxta", cache, port);
+		Peer p = createAndStartPeer("jxta", cache, port, rdvPeerIds);
 		
 		try {
 			Service itemService = new JxtaItemService();
@@ -75,25 +80,32 @@ public class PeerFactory {
 	 * Create a Jxta implementation of {@link Peer}
 	 * @return a {@link JxtaPeer}
 	 */
-	public static JxtaPeer createJxtaPeer() {
+	public static JxtaPeer createJxtaPeer(){
+		return createJxtaPeer(Application.jxtaPort);
+	}
+	public static JxtaPeer createJxtaPeer(int port) {
 		Logger.getLogger("net.jxta").setLevel(Level.SEVERE);
 		AdvertisementBridge i = new AdvertisementBridge();
 		AdvertisementFactory.registerAdvertisementInstance(i.getAdvType(), new AdvertisementInstanciator(i));
-		return new JxtaPeer();
+		return new JxtaPeer(port);
 	}
 	
+
+	public static Peer createAndStartPeer(String impl, String tmpFolder, int port){
+		return createAndStartPeer(impl, tmpFolder, port, Application.rdvPeerIds);
+	}
 	/**
 	 * Create, initialize, and start a {@link JxtaPeer}
 	 * @return an initialized and started {@link Peer}
 	 */
-	public static Peer createAndStartPeer(String impl, String tmpFolder, int port){
+	public static Peer createAndStartPeer(String impl, String tmpFolder, int port, String[] rdvPeerIds){
 		Peer peer;
 		switch(impl) {
-		case "jxta": peer = createJxtaPeer(); break;
+		case "jxta": peer = createJxtaPeer(port); break;
 		default: throw new RuntimeException(impl + "doesn't exist");
 		}
 		try {
-			peer.start(tmpFolder, port, "tcp://109.15.222.135:9800");
+			peer.start(tmpFolder, port, rdvPeerIds);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

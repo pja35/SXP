@@ -1,5 +1,6 @@
 package network.api.service;
 
+import net.jxta.discovery.DiscoveryListener;
 import network.api.Messages;
 import network.api.Peer;
 import network.api.SearchListener;
@@ -49,7 +50,18 @@ public interface Service {
 	 */
 	public void addListener(ServiceListener l, String who);
 	
+	
 	public void removeListener(String who);
+	
+	/**
+	 * Add a listener for advertisement on this service
+	 * @param l the listener
+	 */
+	public void addAdvertisementListener(DiscoveryListener l);
+	
+	public void removeAdvertisementListener(DiscoveryListener l);
+	
+	
 	/**
 	 * Send messages to several peer (uris)
 	 * @param messages

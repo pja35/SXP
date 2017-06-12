@@ -22,14 +22,13 @@ import util.TestInputGenerator;
 public class UtilsTest {
 	@Rule public ExpectedException exception = ExpectedException.none();
 	private final static Logger log = LogManager.getLogger(UtilsTest.class);
-	private Utils utils;
 	int bitLength;
 	BigInteger p;
 	byte[] b;
 	
 	@Before
 	public void instantiate(){
-		utils = new Utils();
+		new Utils();
 		bitLength = TestInputGenerator.getRandomInt(2, 10);
 		p = TestInputGenerator.getRandomNotNullBigInteger(bitLength);
 		b = TestInputGenerator.getRandomBytes(10);

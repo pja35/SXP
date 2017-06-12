@@ -51,6 +51,7 @@ public class MessagesImpl implements Messages{
 		this.who = who;
 	}
 	
+	@Override
 	public String getWho() {
 		return who;
 	}

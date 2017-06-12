@@ -45,6 +45,7 @@ import network.impl.MessagesGeneric;
  *
  */
 public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
+	@SuppressWarnings("unused")
 	private final static Logger log = LogManager.getLogger(JxtaService.class);
 
 	protected PeerGroup pg = null;
@@ -67,7 +68,7 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 	 */
 	@Override
 	public void publishAdvertisement(Advertisement adv) {
-		JxtaAdvertisement jxtaAdv = new JxtaAdvertisement((Advertisement) adv);
+		JxtaAdvertisement jxtaAdv = new JxtaAdvertisement(adv);
 		try {
 			pg.getDiscoveryService().publish(jxtaAdv.getJxtaAdvertisementBridge());
 			pg.getDiscoveryService().remotePublish(jxtaAdv.getJxtaAdvertisementBridge());
@@ -89,6 +90,7 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 		JxtaPeer jxtaPeer = (JxtaPeer) peer;
 		jxtaPeer.addService(this);
 		peerUri = peer.getUri();
+		
 		createInputPipe();
 	}
 
@@ -219,9 +221,21 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 		listeners.put(who, l);
 	}
 
-
 	@Override
 	public void removeListener(String who) {
 		listeners.remove(who);
 	}
+	
+	
+	@Override
+	public void addAdvertisementListener(DiscoveryListener l){
+		pg.getDiscoveryService().addDiscoveryListener(l);
+	}
+
+	@Override
+	public void removeAdvertisementListener(DiscoveryListener l){
+		pg.getDiscoveryService().removeDiscoveryListener(l);
+	}
+	
+	
 }

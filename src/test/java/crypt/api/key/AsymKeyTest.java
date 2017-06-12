@@ -42,6 +42,7 @@ public class AsymKeyTest {
 
 	@Test
 	public void testAsymKey() {
+		@SuppressWarnings("unchecked")
 		AsymKey<BigInteger> key = (AsymKey<BigInteger>) AsymKeyFactory.createDefaultAsymKey();
 
 		key.setPublicKey(publicKey);
