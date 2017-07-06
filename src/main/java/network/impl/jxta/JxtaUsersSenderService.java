@@ -33,6 +33,8 @@ public class JxtaUsersSenderService extends JxtaService implements UserRequestSe
 	@Override
 	public void sendRequest(String nick, String who, String ... peerURIs) {
 		
+		System.out.println("JxtaUsersSenderService sendRequest : {nick:"+nick+",who:"+who+"}");
+		
 		RequestUserMessage m = new RequestUserMessage();
 		
 		m.setNick(nick);
@@ -51,6 +53,8 @@ public class JxtaUsersSenderService extends JxtaService implements UserRequestSe
 	@Override
 	public void sendRequest(String id, String nick, String who, String... targetPeers) {
 		
+		System.out.println("JxtaUsersSenderService sendRequest : {id:"+id+",nick:"+nick+",who:"+who+"}");
+		
 		RequestUserMessage m = new RequestUserMessage();
 		
 		m.setNick(nick);
@@ -68,6 +72,8 @@ public class JxtaUsersSenderService extends JxtaService implements UserRequestSe
 	
 	@Override
 	public void sendRequest(String nick, BigInteger pbkey,String who, String ... peerURIs) {
+		
+		System.out.println("JxtaUsersSenderService sendRequest : {nick:"+nick+",pnkey:"+pbkey+",who:"+who+"}");
 		
 		RequestUserMessage m = new RequestUserMessage();
 		
@@ -132,6 +138,8 @@ public class JxtaUsersSenderService extends JxtaService implements UserRequestSe
 		
 		m.addField("users", json.toJson(resultat));
 		
+		System.out.println("JxtaUsersSenderService getResponseMessage  resultat.size():"+resultat.size());
+		
 		return m;
 	}
 	
@@ -139,12 +147,13 @@ public class JxtaUsersSenderService extends JxtaService implements UserRequestSe
 	@Override
 	public void pipeMsgEvent(PipeMsgEvent event) {
 		
+		System.out.println("JxtaUsersSenderService pipeMsgEvent  event PIPE : "+event.getPipeID());
+		
 		Messages message = toMessages(event.getMessage());
 		
 		if(message.getMessage("type").equals("response")) {			
 			super.pipeMsgEvent(event);
 			return;
-			
 		}
 
 		this.sendMessages(getResponseMessage(message), message.getMessage("source"));

@@ -73,16 +73,15 @@ public class CryptoMessageManagerDecorator extends ManagerDecorator<Message>{
 						
 					parser = ParserFactory.createDefaultParser(message, user.getKey());
 					
-					message = (Message) parser.parseAnnotation(ParserAction.DecryptAction,ParserAction.CheckAction);
+					message = (Message) parser.parseAnnotation(ParserAction.DecryptAction);
+					
+					parser.setKey(null);
+					
+					message = (Message) parser.parseAnnotation(ParserAction.CheckAction);
+					
 					
 					if(message != null){
-						
 						res.add(message);
-						
-					}else{
-						
-						System.out.println("il y a un problem la !!!!!");
-						
 					}
 				}
 				

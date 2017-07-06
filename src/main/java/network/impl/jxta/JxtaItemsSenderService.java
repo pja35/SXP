@@ -29,12 +29,14 @@ public class JxtaItemsSenderService extends JxtaService implements ItemRequestSe
 		Collection<Item> items = im.findAllByAttribute("title", msg.getMessage("title"));
 		JsonTools<Collection<Item>> json = new JsonTools<>(new TypeReference<Collection<Item>>(){});
 		m.addField("items", json.toJson(items));
-		
+		System.out.println("JxtaItemsSenderService getResponseMessage  items.size():"+items.size());
+		im.close();
 		return m;
 	}
 	
 	@Override
 	public void sendRequest(String title, String who, String ...peerURIs) {
+		System.out.println("JxtaItemsSenderService sendRequest : {title:"+title+",who:"+who+"}");
 		RequestItemMessage m = new RequestItemMessage();
 		m.setTitle(title);
 		m.setWho(who);
@@ -44,9 +46,10 @@ public class JxtaItemsSenderService extends JxtaService implements ItemRequestSe
 	
 	@Override
 	public void pipeMsgEvent(PipeMsgEvent event) {
-		Messages message = toMessages(event.getMessage());
 		
-		System.out.println("[JxtaItemsSenderService:pipeMsgEvent]===>"+message.getMessage("type")+" : "+message.getMessage("title"));
+		System.out.println("JxtaItemsSenderService pipeMsgEvent  event PIPE : "+event.getPipeID());
+		
+		Messages message = toMessages(event.getMessage());
 		
 		if(message.getMessage("type").equals("response")) {
 			super.pipeMsgEvent(event);

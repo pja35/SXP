@@ -16,13 +16,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import org.eclipse.persistence.annotations.UuidGenerator;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import crypt.annotations.CryptCryptAnnotation;
 import crypt.annotations.CryptSigneAnnotation;
 
@@ -39,7 +36,7 @@ public class Message {
 	@XmlElement(name="sendingDate")
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy HH:mm:ss") 
 	private Date sendingDate;
 
 	@XmlElement(name="senderId")

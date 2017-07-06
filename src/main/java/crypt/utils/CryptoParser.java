@@ -261,7 +261,7 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 			//elgamalkey.setPublicKey(null);
 			
 			signer.setKey(elgamalkey);
-			
+			//System.out.println("sign : { "+sb.toString()+" }");
 			ElGamalSignature elGamalSignature = signer.sign(sb.toString().getBytes());
 			
 			ElGamalSignEntity signatureEntity = new ElGamalSignEntity(); //save signature in entity Item as a ElGamalSignEntity object
@@ -348,14 +348,10 @@ public class CryptoParser<Entity> extends AbstractParser<Entity> {
 				ElGamalSignEntity signEntity = (ElGamalSignEntity) field.get(getEntity());
 				
 				ElGamalSignature signatue = new ElGamalSignature(signEntity.getR(), signEntity.getS());
-				
-				
+				//System.out.println("check : { "+sb.toString()+" }");
 				if(!signer.verify(sb.toString().getBytes(), signatue)){
-					
 					setEntityToNull();
-					
 					return;
-					
 				}
 			} catch (Exception e) {
 				LoggerUtilities.logStackTrace(e);

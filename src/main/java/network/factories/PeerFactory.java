@@ -56,7 +56,7 @@ public class PeerFactory {
 	
 	public static Peer createDefaultAndStartPeerForTest() {
 		Random r = new Random();
-		String cache = ".peer" + r.nextInt(10000);
+		String cache = ".peercache";// + r.nextInt(10000);
 		//int port = 9800 + r.nextInt(100);
 		int port = 9800;
 		System.out.println("jxta will run on port " + port);
@@ -114,7 +114,7 @@ public class PeerFactory {
 		default: throw new RuntimeException(impl + "doesn't exist");
 		}
 		try {
-			peer.start(tmpFolder, port /*,"tcp://127.0.0.1:9800"*/);
+			peer.start(tmpFolder, port,"tcp://145.239.76.112:9800");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

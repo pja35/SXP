@@ -151,6 +151,8 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
             adv.setType(PipeService.PropagateType); 
         else 
             adv.setType(PipeService.UnicastType); 
+        
+        
         adv.setName("Pipe_"+this.getName());
         adv.setDescription("...");
         return adv;
@@ -222,10 +224,10 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 	}
 
 	
-	@Override
-	public void addAdvertisementListener(DiscoveryListener l){
-		pg.getDiscoveryService().addDiscoveryListener(l);
-	}
+	//@Override
+	//public void addAdvertisementListener(DiscoveryListener l){
+	//	pg.getDiscoveryService().addDiscoveryListener(l);
+	//}
 	
 	@Override
 	public void removeListener(String who) {
