@@ -29,8 +29,6 @@ public class JxtaMessageSenderService extends JxtaService implements MessageRequ
 	@Override
 	public void sendRequest(String receiverId, String who, String ...uris) {
 		
-		System.out.println("JxtaMessageSenderService sendRequest : {receiverId:"+receiverId+"}");
-		
 		RequestMessageUserMessage m = new RequestMessageUserMessage();
 		
 		m.setSenderId(receiverId);
@@ -46,8 +44,6 @@ public class JxtaMessageSenderService extends JxtaService implements MessageRequ
 	
 	@Override
 	public void sendRequest(String senderId, String receiverId, String who, String ...uris) {
-		
-		System.out.println("JxtaMessageSenderService sendRequest : {senderId:"+senderId+",receiverId:"+receiverId+"}");
 		
 		RequestMessageUserMessage m = new RequestMessageUserMessage();
 		
@@ -82,15 +78,13 @@ public class JxtaMessageSenderService extends JxtaService implements MessageRequ
 		m.addField("messages", json.toJson(messages));
 		
 		em.close();
-		System.out.println("JxtaMessageSenderService getResponseMessage  messages.size():"+messages.size());
+		
 		return m;
 	}
 	
 	
 	@Override
 	public void pipeMsgEvent(PipeMsgEvent event) {
-		
-		System.out.println("JxtaMessageSenderService pipeMsgEvent  event PIPE : "+event.getPipeID());
 		
 		Messages message = toMessages(event.getMessage());
 		

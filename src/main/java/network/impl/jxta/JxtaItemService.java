@@ -10,7 +10,6 @@ public class JxtaItemService extends JxtaService implements ItemService{
 	}
 	@Override
 	public void search(String attribute, String value, SearchListener<?> sl) {
-		System.out.println("P2P search for items : {"+attribute+":"+value+"}");
 		super.search(attribute, value, sl);
 	}
 	
