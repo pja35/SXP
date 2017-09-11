@@ -1,7 +1,9 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -17,14 +19,16 @@ import javax.ws.rs.core.MediaType;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
+import controller.tools.LoggerUtilities;
+import model.api.ItemSyncManager;
 import model.api.Manager;
-import model.api.SyncManager;
+import model.api.ManagerListener;
 import model.api.UserSyncManager;
+import model.entity.ElGamalSignEntity;
 import model.entity.Item;
 import model.entity.User;
 import model.factory.ManagerFactory;
-import model.syncManager.ItemSyncManagerImpl;
-import model.syncManager.UserSyncManagerImpl;
+import model.factory.SyncManagerFactory;
 import rest.api.Authentifier;
 import rest.api.ServletPath;
 
@@ -37,25 +41,25 @@ public class Items {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public String add(Item item, @HeaderParam(Authentifier.PARAM_NAME) String token) {
+		
 		Authentifier auth = Application.getInstance().getAuth();
-		UserSyncManager users = new UserSyncManagerImpl();
+		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
-		Manager<Item> em = ManagerFactory.createNetworkResilianceItemManager(Application.getInstance().getPeer(), token);
-		//EntityManager<Item> em = new ItemManager();
+		
+		Manager<Item> em = ManagerFactory.createCryptoNetworkResilianceItemManager(Application.getInstance().getPeer(), token,currentUser);
+		
 		em.begin();
 		//TODO VALIDATION
-		item.setCreatedAt(new Date());
 		item.setUsername(currentUser.getNick());
 		item.setPbkey(currentUser.getKey().getPublicKey());
 		item.setUserid(currentUser.getId());
+		item.setSignature(new ElGamalSignEntity());
+		item.setCreatedAt(new Date());
 		em.persist(item);
 		em.end();
 		em.close();
 		users.close();
-		/*ItemAdvertisement iadv = new ItemAdvertisement();
-		iadv.setTitle(item.getTitle());
-		iadv.publish(Application.getInstance().getPeer()); */
-
+		
 		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
 		return json.toJson(item);
 	}
@@ -65,7 +69,7 @@ public class Items {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getId(
 			@PathParam("id")String id) {
-		SyncManager<Item> em = new ItemSyncManagerImpl();
+		ItemSyncManager em = SyncManagerFactory.createItemSyncManager();
 		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
 		String ret = json.toJson(em.findOneById(id));
 		em.close();
@@ -76,14 +80,15 @@ public class Items {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String get(@HeaderParam(Authentifier.PARAM_NAME) String token) {
+		
 		Authentifier auth = Application.getInstance().getAuth();
-		UserSyncManager users = new UserSyncManagerImpl();
-		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
-		SyncManager<Item> em = new ItemSyncManagerImpl();
+		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
+	    User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
+	    ItemSyncManager em = SyncManagerFactory.createItemSyncManager();
 		JsonTools<Collection<Item>> json = new JsonTools<>(new TypeReference<Collection<Item>>(){});
 		String ret = json.toJson(em.findAllByAttribute("userid", currentUser.getId()));
-		em.close();
 		users.close();
+		em.close();
 		return ret;
 	}
 
@@ -91,18 +96,31 @@ public class Items {
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String edit(Item item) {
-		SyncManager<Item> em = new ItemSyncManagerImpl();
-		em.begin();
-		Item item2 = em.findOneById(item.getId());
-		item2.setTitle(item.getTitle());
-		item2.setDescription(item.getDescription());
-		em.end();
-
-		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
-		String ret = json.toJson(item2);
+	public String edit(Item item,@HeaderParam(Authentifier.PARAM_NAME) String token) {
 		
-		em.close();
+		Authentifier auth = Application.getInstance().getAuth();
+		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
+		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
+		users.close();
+		
+		ItemSyncManager itmn = SyncManagerFactory.createItemSyncManager(); 
+		Manager<Item> entityManager = ManagerFactory.createCryptoNetworkResilianceItemManager(itmn,Application.getInstance().getPeer(), token,currentUser);
+		
+		Item it = itmn.findOneById(item.getId());
+		
+		entityManager.begin();
+		it.setTitle(item.getTitle());
+		it.setDescription(item.getDescription());
+		entityManager.end();
+		
+		entityManager.close();
+		
+		if (it==null)
+			return "{\"edit\": \"false\"}";
+		
+		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
+	    String ret = json.toJson(item);
+		
 		return ret;
 	}
 
@@ -118,13 +136,13 @@ public class Items {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String delete(@PathParam("id")String id, @HeaderParam(Authentifier.PARAM_NAME) String token) {
 		Authentifier auth = Application.getInstance().getAuth();
-		UserSyncManager users = new UserSyncManagerImpl();
+		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		users.close();
 		if (currentUser == null)
 			return "{\"deleted\": \"false\"}";
 		
-		SyncManager<Item> em = new ItemSyncManagerImpl();
+		ItemSyncManager em = SyncManagerFactory.createItemSyncManager();
 		boolean ret = em.begin();
 		Item it = em.findOneById(id);
 		if (it.getUserid() != currentUser.getId()){
@@ -134,5 +152,5 @@ public class Items {
 		}
 		return "{\"deleted\": \"" + (ret && em.remove(it) && em.end() && em.close()) + "\"}";
 	}
-
+	
 }

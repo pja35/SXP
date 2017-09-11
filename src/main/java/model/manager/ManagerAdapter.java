@@ -2,6 +2,9 @@ package model.manager;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Hashtable;
+
+import javax.persistence.EntityManager;
 
 import model.api.Manager;
 import model.api.ManagerListener;
@@ -26,7 +29,8 @@ public class ManagerAdapter<Entity> implements Manager<Entity>{
 	public void findAllByAttribute(String attribute, String value, ManagerListener<Entity> l) {
 		l.notify(em.findAllByAttribute(attribute, value));
 	}
-
+	
+	
 	@Override
 	public void findOneByAttribute(String attribute, String value, ManagerListener<Entity> l) {
 		ArrayList<Entity> r = new ArrayList<>();
@@ -74,5 +78,12 @@ public class ManagerAdapter<Entity> implements Manager<Entity>{
 	public boolean close(){
 		return em.close();
 	}
+
+	@Override
+	public Collection<Entity> changesInWatchlist() {
+		return em.changesInWatchlist();
+	}
+	
+	
 
 }

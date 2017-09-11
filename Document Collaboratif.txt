@@ -1,0 +1,104 @@
+## Généralités
+
+Ce qui vit sur le réseau :
+   * Item (les annonces)
+   * User (l'aspect résilience/persistance des données)
+   * Message (les messages que les utilisateurs s'envoient)
+   * Les échanges de messages pour la signature de contrats.
+
+Les grands principes :
+* On ne fait confiance à personne.
+* Si l'on a pas besoin de divulguer une information en clair, alors on
+ne la divulgue pas.
+
+## Règles générales
+
+Voici deux règles générales :
+* Tout message envoyé sur le réseau est signé par l'émetteur, et cette
+signature est systématiquement vérifiée lors de la réception d'un
+message.
+* Tout message envoyé à un destinataire particulier (pas en broadcast)
+est encrypté pour ce destinataire par l'émetteur, et bien entendu
+décrypté lors de la réception.
+
+Est-ce que ces règles sont utiles dans tous les cas ? Par exemple, les
+résultats d'une recherche doivent-ils être encryptés pour le
+destinataire qui a effectué la recherche ?
+
+## Class Item
+
+### Attribut
+
+   * id
+   * title
+   * description
+   * createdAt
+   * pbkey
+   * username
+   * userid
+
+### Crypto
+
+   * Un Item sur le réseau est toujours accompagné de sa signature (on
+signe un hash de l'objet entier) par l'utilisateur qui l'a créé.
+   * Dès que l'on reçoit un Item (résultat d'une recherche), on vérifie
+systématiquement la signature. Si la signature est mauvaise, alors on
+ignore l'Item.
+
+## Class User
+
+### Attribut
+
+   * id
+   * nick
+   * salt
+   * passwordHash
+   * createdAt
+   * keys
+
+### Crypto
+
+   * on ne conserve qu'un hashé du mot de passe (avec le salt).
+   * quand un utilisateur est envoyé sur le réseau (pour la résilience),
+id, nick, keys est encrypté avec le mot de passe, le reste (salt,
+passwordHash et createdAt) est encrypté pour la clé privée.
+   * l'objet utilisateur est signé par ledit utilisateur, et cette
+signature est systématiquement vérifiée par tous les peers qui reçoivent
+un objet utilisateur.
+
+## Class Message (!! à venir !!)
+
+### Attributs
+
+   * id émetteur
+   * id destinataire
+   * date (d'émission et/ou de péremption ?)
+   * contenu
+
+### Crypto
+
+   * On veut que soient en clair : émetteur, destinataire, date.
+   * On veut que soit crypté pour le destinataire : contenu.
+   * On veut que soit signé : un hash du message entier (c'est à dire de
+<émetteur,destinataire,date,contenu_crypté>).
+   * La signature est vérifiées par chaque peer qui fait rebondir le
+message.
+   * La signature est vérifiée par le destinataire, qui décrypte
+également le contenu.
+
+Pour plus tard :
+   * Les messages qui sont conservés avec le compte de l'utilisateur sont
+tous cryptés pour lui-même (on ne conserve aucune donnée en clair) et
+vont partie du compte (une liste de message est concaténée au compte,
+elle doit faire partie du hash signé avec le reste du compte).
+
+## Messages autour des contrats
+
+Ici il faudra voir précisément avec le protocole de signature de
+contrats, mais à priori on veut rajouter automatiquement une décoration
+pour encrypter pour son destinataire et signer chacun des messages.
+
+
+##############
+
+

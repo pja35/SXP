@@ -37,6 +37,8 @@ import network.api.advertisement.Advertisement;
 import network.api.service.InvalidServiceException;
 import network.api.service.Service;
 import network.impl.MessagesGeneric;
+import network.impl.advertisement.ItemAdvertisement;
+import network.impl.advertisement.UserAdvertisement;
 
 /**
  * This is the Jxta implementation of {@link Service}
@@ -126,7 +128,7 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 		ArrayList<Advertisement> advertisements = new ArrayList<>();
 		while(advs.hasMoreElements()) {
 			AdvertisementBridge adv = (AdvertisementBridge) advs.nextElement();
-			Advertisement fadv = adv.getAdvertisement(); 
+			Advertisement fadv = adv.getAdvertisement();
 			fadv.setSourceURI("urn:jxta:" + event.getSource().toString().substring(7));
 			
 			advertisements.add(adv.getAdvertisement());
@@ -151,7 +153,9 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
             adv.setType(PipeService.PropagateType); 
         else 
             adv.setType(PipeService.UnicastType); 
-        adv.setName("Pipe");
+        
+        
+        adv.setName("Pipe_"+this.getName());
         adv.setDescription("...");
         return adv;
     }
@@ -226,7 +230,6 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 		listeners.remove(who);
 	}
 	
-	
 	@Override
 	public void addAdvertisementListener(DiscoveryListener l){
 		pg.getDiscoveryService().addDiscoveryListener(l);
@@ -236,6 +239,5 @@ public class JxtaService implements Service, DiscoveryListener, PipeMsgListener{
 	public void removeAdvertisementListener(DiscoveryListener l){
 		pg.getDiscoveryService().removeDiscoveryListener(l);
 	}
-	
 	
 }

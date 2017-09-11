@@ -1,5 +1,6 @@
 package network.impl.advertisement;
 
+import network.api.Peer;
 import network.api.advertisement.ItemAdvertisementInterface;
 import network.api.annotation.AdvertisementAttribute;
 import network.api.annotation.ServiceName;

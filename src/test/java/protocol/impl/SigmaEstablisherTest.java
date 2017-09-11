@@ -22,12 +22,21 @@ import model.api.SyncManager;
 import model.api.Wish;
 import model.entity.ContractEntity;
 import model.entity.ElGamalKey;
+
+import model.entity.ElGamalSignEntity;
+import model.entity.LoginToken;
+
 import model.entity.User;
 import model.syncManager.UserSyncManagerImpl;
 import protocol.impl.sigma.SigmaContract;
+
+import rest.api.Authentifier;
+import util.TestInputGenerator;
+
 import protocol.impl.sigma.Trent;
 import util.TestInputGenerator;
 import util.TestUtils;
+
 
 public class SigmaEstablisherTest {
 	public static final boolean useMessages = false;
@@ -106,6 +115,12 @@ public class SigmaEstablisherTest {
 			u[k].setPasswordHash(hasher.getHash(password.getBytes()));
 			u[k].setCreatedAt(new Date());
 			u[k].setKey(ElGamalAsymKeyFactory.create(false));
+			
+			ElGamalSignEntity s = new ElGamalSignEntity();
+			s.setR(TestInputGenerator.getRandomBigInteger(100));
+			s.setS(TestInputGenerator.getRandomBigInteger(100));
+			u[k].setSignature(s);
+			
 			SyncManager<User> em = new UserSyncManagerImpl();
 			em.begin();
 			em.persist(u[k]);

@@ -65,7 +65,9 @@ public class JxtaNode implements Node{
 			PeerGroup pg = networkManager.startNetwork();
 			pg.startApp(new String[0]);
 			//Switch to rendez vous mode if possible, check every 60 secs
-			pg.getRendezVousService().setAutoStart(true,15*1000);
+			//pg.getRendezVousService().setAutoStart(true,15*1000);
+			pg.getRendezVousService().setAutoStart(true);
+
 		} catch (IOException e) {
 			throw(e);
 		} catch (PeerGroupException e) {
@@ -92,7 +94,7 @@ public class JxtaNode implements Node{
 	private NetworkManager initializeNetworkManager(File configFile, String peerName, boolean persistant) throws IOException {
 		NetworkManager manager = null;
 		NetworkConfigurator configurator = null;
-		manager = new NetworkManager(NetworkManager.ConfigMode.EDGE, peerName, configFile.toURI()); /* Setting network */
+		manager = new NetworkManager(NetworkManager.ConfigMode.RENDEZVOUS, peerName, configFile.toURI()); /* Setting network */
 		configurator = manager.getConfigurator(); /* Getting configurator for future tweaks */
         configurator.setTcpEnabled(true);
         configurator.setHttpEnabled(true);
@@ -100,24 +102,33 @@ public class JxtaNode implements Node{
         configurator.setHttpIncoming(true);
         configurator.setHttpOutgoing(true);
         configurator.setTcpOutgoing(true);
+        
         configurator.setUseMulticast(true);
 		configurator.setTcpInterfaceAddress("0.0.0.0");
 		configurator.setUseMulticast(true);
+		
 		try {
+
 			configurator.setTcpPublicAddress(IpChecker.getIp()+":" + this.port, false);
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			LoggerUtilities.logStackTrace(e);
 		}
 		configurator.setHttpInterfaceAddress("0.0.0.0");
 		try {
-			configurator.setHttpPublicAddress(IpChecker.getIp()+":" + this.port, false);
+
+			configurator.setHttpPublicAddress(IpChecker.getIp()+":" + (this.port+1), false);
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			LoggerUtilities.logStackTrace(e);
 		}
+		
         configurator.setTcpEndPort(-1);
         configurator.setTcpStartPort(-1);
+        
+        
         configurator.setName("SXPeerGroup");
         configurator.setDescription("SXP default peer group");
         configurator.setPrincipal("SXP peer group");
@@ -155,7 +166,10 @@ public class JxtaNode implements Node{
 			defaultPeerGroup = netpeerGroup.newGroup(this.generatePeerGroupID(netpeerGroup.getPeerGroupID(), "SXP group"),
 					madv, "SXP group", "SXP group", true);
 			defaultPeerGroup.startApp(new String[0]);
-			defaultPeerGroup.getRendezVousService().setAutoStart(true, 15*1000);
+
+			//defaultPeerGroup.getRendezVousService().setAutoStart(true, 15*1000);
+			defaultPeerGroup.getRendezVousService().setAutoStart(true);
+
 		} catch (PeerGroupException e) {
 			System.err.println("impossible to create default group");
 			LoggerUtilities.logStackTrace(e);
@@ -175,7 +189,8 @@ public class JxtaNode implements Node{
 			temp = defaultPeerGroup.newGroup(generatePeerGroupID(defaultPeerGroup.getPeerGroupID(), name), mAdv, name, name, true); /* creating & publishing the group */
 			getDefaultPeerGroup().getDiscoveryService().remotePublish(temp.getPeerGroupAdvertisement());
 			temp.startApp(new String[0]);
-			temp.getRendezVousService().setAutoStart(true, 60);
+			//temp.getRendezVousService().setAutoStart(true, 15*1000);
+			temp.getRendezVousService().setAutoStart(true);
 		} catch (Exception e) {
 			LoggerUtilities.logStackTrace(e);
 		} /* Getting the advertisement of implemented modules */

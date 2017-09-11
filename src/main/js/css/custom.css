@@ -34,7 +34,7 @@ nav ul li .linknodeco:focus {
 }
 
 nav ul li .linknodeco:active {
-	background-color: rgba(0, 0, 0, 0.05);
+	background-color: rgba(1, 1, 1, 0.5);
 }
 
 .transibutton {
@@ -136,6 +136,11 @@ img {
 	display: block;
 }
 
+.search-user{
+	margin-bottom: 4px !important;
+}
+
 #navbarbackground  {
 	background-color: #fff;
+
 }

@@ -1,6 +1,9 @@
 package model.api;
 
 import java.util.Collection;
+import java.util.Hashtable;
+
+import javax.persistence.EntityManager;
 
 /**
  * General interface for entity managers
@@ -84,6 +87,11 @@ public interface SyncManager<Entity> {
 	public Collection<Entity> watchlist();
 
 	/**
+	 * Returns a list of changed entities that currently in "managed" state.
+	 */
+	public Collection<Entity> changesInWatchlist();
+	
+	/**
 	 * Remove an entity from the DB
 	 * @param an entity
 	 * @return True if the entity has been removed, false otherwise
@@ -95,4 +103,5 @@ public interface SyncManager<Entity> {
 	 * @return false if the operation fails (exceptions are logged)
 	 */
 	public boolean close();
+	
 }

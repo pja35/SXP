@@ -15,7 +15,11 @@ import network.impl.jxta.AdvertisementInstanciator;
 import network.impl.jxta.JxtaEstablisherService;
 import network.impl.jxta.JxtaItemService;
 import network.impl.jxta.JxtaItemsSenderService;
+import network.impl.jxta.JxtaMessageSenderService;
+import network.impl.jxta.JxtaMessageService;
 import network.impl.jxta.JxtaPeer;
+import network.impl.jxta.JxtaUserService;
+import network.impl.jxta.JxtaUsersSenderService;
 
 /**
  * {@link Peer} factory
@@ -58,18 +62,35 @@ public class PeerFactory {
 	
 	public static Peer createDefaultAndStartPeerForTest(int port, String[] rdvPeerIds) {
 		Random r = new Random();
-		String cache = ".peer" + r.nextInt(10000);
+		String cache = ".peercache";// + r.nextInt(10000);
 		//int port = 9800 + r.nextInt(100);
 		System.out.println("jxta will run on port " + port);
 		Peer p = createAndStartPeer("jxta", cache, port, rdvPeerIds);
 		
 		try {
+			System.out.println("\n START Services \n");
+			
+			Service userService = new JxtaUserService();
+			userService.initAndStart(p);
+			
+			Service usersSender = new JxtaUsersSenderService();
+			usersSender.initAndStart(p);
+			
 			Service itemService = new JxtaItemService();
 			itemService.initAndStart(p);
+			
 			Service itemsSender = new JxtaItemsSenderService();
 			itemsSender.initAndStart(p);
+			
+			Service messageService = new JxtaMessageService();
+			messageService.initAndStart(p);
+			
+			Service messagesSender = new JxtaMessageSenderService();
+			messagesSender.initAndStart(p);
+			
 			Service establisherService = new JxtaEstablisherService();
 			establisherService.initAndStart(p);
+			
 		} catch (InvalidServiceException e) {
 			throw new RuntimeException(e);
 		}		
@@ -105,7 +126,9 @@ public class PeerFactory {
 		default: throw new RuntimeException(impl + "doesn't exist");
 		}
 		try {
+
 			peer.start(tmpFolder, port, rdvPeerIds);
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

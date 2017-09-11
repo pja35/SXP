@@ -15,7 +15,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import crypt.api.signatures.Signer;
 import model.entity.ElGamalKey;
+import model.entity.ElGamalSignEntity;
 import model.entity.User;
 import model.factory.ValidatorFactory;
 import util.TestInputGenerator;
@@ -37,7 +39,8 @@ public class UserValidatorTest {
 	ElGamalKey keys;
 	UserValidator validator;
 	ValidatorFactory factory;
-
+	ElGamalSignEntity signature;
+	
 	@Before
 	public void initialize(){
 		user = new User();
@@ -51,12 +54,20 @@ public class UserValidatorTest {
 		keys.setP(TestInputGenerator.getRandomBigInteger(100));
 		keys.setPrivateKey(TestInputGenerator.getRandomBigInteger(100));
 		keys.setPublicKey(TestInputGenerator.getRandomBigInteger(100));
+		
+		signature = new ElGamalSignEntity();
+		signature.setR(TestInputGenerator.getRandomBigInteger(100));
+		signature.setS(TestInputGenerator.getRandomBigInteger(100));
+		
 		user.setId(id);
 		user.setNick(nick);
 		user.setSalt(salt);
 		user.setCreatedAt(createdDate);
 		user.setPasswordHash(passwordHash);
 		user.setKey(keys);
+		
+		user.setSignature(signature);
+		
 		factory = new ValidatorFactory();
 		validator = ValidatorFactory.createUserValidator();
 	}

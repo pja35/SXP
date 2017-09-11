@@ -30,11 +30,13 @@ public class JxtaItemsSenderService extends JxtaService implements ItemRequestSe
 		JsonTools<Collection<Item>> json = new JsonTools<>(new TypeReference<Collection<Item>>(){});
 		m.addField("items", json.toJson(items));
 		
+		im.close();
 		return m;
 	}
 	
 	@Override
 	public void sendRequest(String title, String who, String ...peerURIs) {
+		
 		RequestItemMessage m = new RequestItemMessage();
 		m.setTitle(title);
 		m.setWho(who);
@@ -44,7 +46,9 @@ public class JxtaItemsSenderService extends JxtaService implements ItemRequestSe
 	
 	@Override
 	public void pipeMsgEvent(PipeMsgEvent event) {
+		
 		Messages message = toMessages(event.getMessage());
+		
 		if(message.getMessage("type").equals("response")) {
 			super.pipeMsgEvent(event);
 			return;

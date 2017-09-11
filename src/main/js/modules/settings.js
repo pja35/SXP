@@ -55,7 +55,9 @@
 			/*insert request/function to change the password in the DB*/
 			//RESTAPISERVER = $scope.form.server;
             var data = $.param({
-                passwordNew: $scope.form.pass1
+            	password : $scope.form.passPrevious,
+                passwordNew : $scope.form.pass1,
+                passwordConfirm : $scope.form.pass2
             });
             $http.post(RESTAPISERVER + "/api/users/password", data).then(
             	function(response) {

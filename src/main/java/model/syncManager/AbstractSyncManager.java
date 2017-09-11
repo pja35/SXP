@@ -1,6 +1,10 @@
 package model.syncManager;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Iterator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -8,8 +12,11 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.eclipse.persistence.internal.sessions.UnitOfWorkChangeSet;
 import org.eclipse.persistence.internal.sessions.UnitOfWorkImpl;
+import org.eclipse.persistence.jpa.JpaEntityManager;
 import org.eclipse.persistence.sessions.UnitOfWork;
+import org.eclipse.persistence.sessions.changesets.ObjectChangeSet;
 
 import controller.tools.LoggerUtilities;
 import model.validator.EntityValidator;
@@ -82,7 +89,7 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 			return null;
 		}
 	}
-
+	
 	@Override
 	public boolean begin() {
 		try
@@ -179,4 +186,32 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
 			return false;
 		}
 	}
+
+	@Override
+	public Collection<Entity> changesInWatchlist() {
+		
+		ArrayList<Entity> res = new ArrayList<>();
+		
+		UnitOfWorkImpl uow = (UnitOfWorkImpl) em.unwrap(UnitOfWork.class);
+		
+		final UnitOfWorkChangeSet changeSet = (UnitOfWorkChangeSet) uow.getCurrentChanges();
+		
+		Collection<Entity> collection = uow.getCloneMapping().keySet(); 
+		
+		for (Iterator<Entity> iterator = collection.iterator(); iterator.hasNext();) {
+			
+			Entity entity = iterator.next();
+			
+		    ObjectChangeSet objectChangeSet = changeSet.getObjectChangeSetForClone(entity);
+			
+			if(objectChangeSet.hasChanges()){
+				res.add(entity);
+			}
+			
+		}
+		
+		return res;
+	}
+	
+	
 }

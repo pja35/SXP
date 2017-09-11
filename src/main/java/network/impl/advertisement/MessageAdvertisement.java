@@ -2,6 +2,7 @@ package network.impl.advertisement;
 
 import network.api.advertisement.MessageAdvertisementInterface;
 import network.api.annotation.AdvertisementAttribute;
+import network.api.annotation.MessageElement;
 import network.api.annotation.ServiceName;
 import network.impl.AbstractAdvertisement;
 
@@ -14,9 +15,30 @@ import network.impl.AbstractAdvertisement;
 @ServiceName(name = "messages")
 public class MessageAdvertisement extends AbstractAdvertisement implements MessageAdvertisementInterface{
 
+
 	@AdvertisementAttribute(indexed = true)
-	private String title;
+	private String senderId;
 	
+	@AdvertisementAttribute(indexed = true)
+	private String receiverId;
+
+	
+	public String getSenderId() {
+		return senderId;
+	}
+
+	public void setSenderId(String senderId) {
+		this.senderId = senderId;
+	}
+
+	public String getReceiverId() {
+		return receiverId;
+	}
+
+	public void setReceiverId(String receiverId) {
+		this.receiverId = receiverId;
+	}
+
 	@Override
 	public String getName() {
 		return "message";
@@ -24,14 +46,12 @@ public class MessageAdvertisement extends AbstractAdvertisement implements Messa
 
 	@Override
 	public String getAdvertisementType() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	public String getTitle() {
-		return title;
-	}
 	
-	public void setTitle(String title) {
-		this.title = title;
-	}
+	
+	
+	
 }

@@ -9,11 +9,16 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.eclipse.persistence.annotations.UuidGenerator;
+
+import crypt.annotations.CryptHashAnnotation;
+import crypt.annotations.CryptSigneAnnotation;
+import crypt.annotations.CryptCryptAnnotation;
 
 @XmlRootElement
 @Entity
@@ -35,6 +40,7 @@ public class User {
 	@NotNull
 	private byte[] salt;
 	
+	@CryptHashAnnotation
 	@XmlElement(name="passwordHash")
 	@NotNull
 	private byte[] passwordHash;
@@ -48,6 +54,10 @@ public class User {
 	@XmlElement(name="keys")
 	private ElGamalKey keys;
 	
+	@CryptSigneAnnotation(signeWithFields={"nick","createdAt","passwordHash","salt"},checkByKey="keys") //,ownerAttribute="id")
+	@XmlElement(name="signature")
+	@NotNull
+	private ElGamalSignEntity signature;
 	
 	public void setId(String id) {
 		this.id = id;
@@ -95,5 +105,13 @@ public class User {
 
 	public void setKey(ElGamalKey key) {
 		this.keys = key;
+	}
+
+	public ElGamalSignEntity getSignature() {
+		return signature;
+	}
+
+	public void setSignature(ElGamalSignEntity signature) {
+		this.signature = signature;
 	}
 }

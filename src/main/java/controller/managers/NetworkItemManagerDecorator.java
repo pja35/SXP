@@ -6,6 +6,9 @@ import java.util.Collection;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import controller.tools.JsonTools;
+import crypt.api.annotation.ParserAction;
+import crypt.api.annotation.ParserAnnotation;
+import crypt.factories.ParserFactory;
 import model.api.Manager;
 import model.api.ManagerDecorator;
 import model.api.ManagerListener;
@@ -81,12 +84,12 @@ public class NetworkItemManagerDecorator extends ManagerDecorator<Item>{
 			@Override
 			public void notify(Messages messages) {
 				JsonTools<ArrayList<Item>> json = new JsonTools<>(new TypeReference<ArrayList<Item>>(){});
-				ArrayList<Item> items = json.toEntity(messages.getMessage("items"));
-				System.out.println("items found !");
-				System.out.println(messages.getMessage("items"));
-				for(Item i : items) {
-					System.out.println(i.getTitle());
-				}
+//				ArrayList<Item> items = json.toEntity(messages.getMessage("items"));
+//				System.out.println("items found !");
+//				System.out.println(messages.getMessage("items"));
+//				for(Item i : items) {
+//					System.out.println(i.getTitle());
+//				}
 				l.notify(json.toEntity(messages.getMessage("items")));
 			}
 			
@@ -114,9 +117,9 @@ public class NetworkItemManagerDecorator extends ManagerDecorator<Item>{
 	@Override
 	public boolean persist(Item entity) {
 		if (super.persist(entity)){
-		ItemAdvertisementInterface iadv = AdvertisementFactory.createItemAdvertisement();
-		iadv.setTitle(entity.getTitle());
-		iadv.publish(peer);
+		//ItemAdvertisementInterface iadv = AdvertisementFactory.createItemAdvertisement();
+		//iadv.setTitle(entity.getTitle());
+		//iadv.publish(peer);
 		return true;
 		}
 		return false;
@@ -129,6 +132,19 @@ public class NetworkItemManagerDecorator extends ManagerDecorator<Item>{
 
 	@Override
 	public boolean end() {
+			
+		Collection<Item> collection = this.changesInWatchlist();
+		
+		for (Item item : collection) {
+			
+			ItemAdvertisementInterface iadv = AdvertisementFactory.createItemAdvertisement();
+			
+			iadv.setTitle(item.getTitle());
+			
+			iadv.publish(peer);
+			
+		}
+		
 		return super.end();
 	}
 	

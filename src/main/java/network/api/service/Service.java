@@ -61,11 +61,17 @@ public interface Service {
 	
 	public void removeAdvertisementListener(DiscoveryListener l);
 	
-	
 	/**
 	 * Send messages to several peer (uris)
 	 * @param messages
 	 * @param uris
 	 */
 	public void sendMessages(Messages messages, String ...uris);
+
+
+	/*
+	 * Add a listener for advertisement on this service
+	 * @param l the listener
+	 */
+	//public void addAdvertisementListener(DiscoveryListener l);
 }

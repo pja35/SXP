@@ -12,4 +12,5 @@ public interface ItemRequestService extends Service{
 	public void sendRequest(String title, String who, String ...uris);
 	
 	public static final String NAME = "itemsSender";
+	
 }

@@ -20,9 +20,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import crypt.annotations.CryptSigneAnnotation;
+
+
 @XmlRootElement
 @Entity
 public class Item {
+	
 	@XmlElement(name="id")
 	@UuidGenerator(name="uuid")
     @Id
@@ -62,7 +66,12 @@ public class Item {
 	@XmlElement(name="userid")
 	@NotNull
 	private String userid;
-
+	
+	
+	@CryptSigneAnnotation(signeWithFields={"title","description","createdAt","username","userid","pbkey"},checkByKey="pbkey") //,ownerAttribute="userid")
+	@XmlElement(name="signature")
+	@NotNull
+	private ElGamalSignEntity signature;
 	
 	public String getId() {
 		return id;
@@ -114,5 +123,14 @@ public class Item {
 
 	public void setUserid(String userid) {
 		this.userid = userid;
+	}
+
+	
+	public ElGamalSignEntity getSignature() {
+		return signature;
+	}
+
+	public void setSignature(ElGamalSignEntity signature) {
+		this.signature = signature;
 	}
 }

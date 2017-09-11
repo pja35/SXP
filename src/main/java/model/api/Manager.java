@@ -1,6 +1,9 @@
 package model.api;
 
 import java.util.Collection;
+import java.util.Hashtable;
+
+import javax.persistence.EntityManager;
 
 /**
  * Asynchronous entity manager. Can handle network things
@@ -33,7 +36,6 @@ public interface Manager<Entity> {
 	 */
 	public void findOneByAttribute(String attribute, String value, ManagerListener<Entity> l);
 
-	
 	/**
 	 * Persist the entity in the manager
 	 * @param entity
@@ -72,7 +74,11 @@ public interface Manager<Entity> {
 	 */
 	public Collection<Entity> watchlist();
 
-
+	/**
+	 * Returns a list of changed entities that currently in "managed" state.
+	 */
+	public Collection<Entity> changesInWatchlist();
+	
 	/**
 	 * Checks if all the managed entities (i.e. the "watchlist") are valid entities.
 	 * If the validation at persist() call is activated (default) this will always return true.
@@ -86,5 +92,7 @@ public interface Manager<Entity> {
 	 * @return fails if the operation failed
 	 */
 	public boolean close();
-
+	
+	
+	
 }

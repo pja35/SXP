@@ -17,6 +17,9 @@ import javax.net.ssl.HttpsURLConnection;
 import controller.Application;
 import controller.tools.JsonTools;
 import controller.tools.LoggerUtilities;
+
+import model.syncManager.ItemSyncManagerImpl;
+
 import crypt.api.hashs.Hasher;
 import crypt.factories.ElGamalAsymKeyFactory;
 import crypt.factories.HasherFactory;
@@ -28,6 +31,7 @@ import model.entity.LoginToken;
 import model.entity.User;
 import model.syncManager.UserSyncManagerImpl;
 import protocol.impl.sigma.Trent;
+
 import util.TestInputGenerator;
 import util.TestUtils;
 
@@ -426,6 +430,7 @@ public class ControllerTest {
 			assertTrue(it.getUserid().equals(userid));
 			assertTrue(it.getUsername().equals(username));
 			assertTrue(it.getDescription().contains("Special"));
+			
 		} catch (Exception e) {
 			fail(LoggerUtilities.logStackTrace(e));
 		} 

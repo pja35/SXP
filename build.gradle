@@ -89,6 +89,13 @@ test{
  //exclude 'rest/**'
  //exclude 'util/**'
  
+   testLogging {
+       showStandardStreams = false
+       showExceptions = false
+       showStackTraces = false
+   }
+ 
+ 
  if (System.getProperty('DEBUG', 'false') == 'true') {
         jvmArgs '-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5006'
     }

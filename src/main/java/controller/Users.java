@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
@@ -19,15 +20,23 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import controller.managers.CryptoUserManagerDecorator;
 import controller.tools.JsonTools;
 import crypt.api.hashs.Hasher;
 import crypt.factories.ElGamalAsymKeyFactory;
 import crypt.factories.HasherFactory;
+import model.api.Manager;
 import model.api.SyncManager;
 import model.api.UserSyncManager;
+import model.entity.ElGamalSignEntity;
 import model.entity.LoginToken;
 import model.entity.User;
+import model.factory.ManagerFactory;
+import model.factory.SyncManagerFactory;
+import model.manager.ManagerAdapter;
 import model.syncManager.UserSyncManagerImpl;
+import network.api.advertisement.UserAdvertisementInterface;
+import network.factories.AdvertisementFactory;
 import rest.api.Authentifier;
 import rest.api.ServletPath;
 
@@ -41,18 +50,21 @@ public class Users {
 	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON)	
 	public String login(String jsonCredentials) {
+		
 		String[] credentials = jsonCredentials.split("&");
+		
 		String login = credentials[0].split("=")[1];
 		String password = credentials[1].split("=")[1];
-		/*	public String login(
-			@QueryParam("login") String login,
-			@QueryParam("password") String password) {*/
 
 		Authentifier auth = Application.getInstance().getAuth();
-		UserSyncManager em = new UserSyncManagerImpl();
+		
+		UserSyncManager em = SyncManagerFactory.createUserSyncManager();
+		
 		User u = em.getUser(login, password);
+		
 		log.info(login + " - " + password);
 		if(u != null) {
+			System.out.println("nick:"+u.getNick()+" | pbkey"+u.getKey().getPublicKey());
 			LoginToken token = new LoginToken();
 			token.setToken(auth.getToken(login, password));
 			token.setUserid(u.getId());
@@ -62,26 +74,6 @@ public class Users {
 		}
 		em.close();
 		return "{\"error\": \"true\"}";
-		/*EntityManager<User> em = new UserManager();
-		User u = em.findOneByAttribute("nick", login);
-		if(u == null) return "{\"error\": \"true\"}";
-		System.out.println("user trouve !");
-		Hasher hasher = HasherFactory.createDefaultHasher();
-		hasher.setSalt(u.getSalt());
-		//check if passwords are the sames
-		String hash1 = new String(u.getPasswordHash());
-		String hash2 = new String(hasher.getHash(password.getBytes()));
-
-		if(hash1.equals(hash2)) {
-			LoginToken token = new LoginToken();
-			token.setToken(auth.getToken(login, password));
-			token.setUserid(u.getId());
-			JsonTools<LoginToken> json = new JsonTools<>();
-			json.initialize(LoginToken.class);
-			return json.toJson(token);
-		}
-
-		return "{\"error\": \"true\"}";*/
 	}
 
 	@GET
@@ -100,28 +92,27 @@ public class Users {
 		String[] credentials = jsonCredentials.split("&");
 		String login = credentials[0].split("=")[1];
 		String password = credentials[1].split("=")[1];
-		/*public String subscribe(
-			@QueryParam("login") String login,
-			@QueryParam("password") String password) {*/
-
+		
 		User u = new User();
 		u.setNick(login);
-		Hasher hasher = HasherFactory.createDefaultHasher();
 		u.setSalt(HasherFactory.generateSalt());
-		hasher.setSalt(u.getSalt());
-		u.setPasswordHash(hasher.getHash(password.getBytes()));
+		u.setPasswordHash(password.getBytes());
 		u.setCreatedAt(new Date());
 		u.setKey(ElGamalAsymKeyFactory.create(false));
-
-		SyncManager<User> em = new UserSyncManagerImpl();
-		em.begin();
-		em.persist(u);
-		em.end();
-		em.close();
+		u.setSignature(new ElGamalSignEntity());
+		
+		Manager<User> hasherDecoratorManager = ManagerFactory.createCryptoNetworkUserManager(Application.getInstance().getPeer(), null, u);
+		
+		hasherDecoratorManager.begin();
+		hasherDecoratorManager.persist(u);
+		hasherDecoratorManager.end();
+		hasherDecoratorManager.close();
+		
 		Authentifier auth = Application.getInstance().getAuth();
 		LoginToken token = new LoginToken();
 		token.setToken(auth.getToken(login, password));
 		token.setUserid(u.getId());
+		
 		JsonTools<LoginToken> json = new JsonTools<>(new TypeReference<LoginToken>(){});
 		return json.toJson(token);
 	}
@@ -140,7 +131,9 @@ public class Users {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String get(
 			@PathParam("id") String id) {
-		SyncManager<User> em = new UserSyncManagerImpl();
+		
+		UserSyncManager em = SyncManagerFactory.createUserSyncManager();
+		
 		JsonTools<User> json = new JsonTools<>(new TypeReference<User>(){});
 		return json.toJson(em.findOneById(id));
 	}
@@ -149,7 +142,9 @@ public class Users {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String get() {
-		SyncManager<User> em = new UserSyncManagerImpl();
+		
+		UserSyncManager em = SyncManagerFactory.createUserSyncManager();
+		
 		JsonTools<Collection<User>> json = new JsonTools<>(new TypeReference<Collection<User>>(){});
 		return json.toJson(em.findAll());
 		//return JsonUtils.collectionStringify(em.findAll());
@@ -168,29 +163,44 @@ public class Users {
 	@Path("/password")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String changePassword(@HeaderParam(Authentifier.PARAM_NAME) String token, String jsonCredentials) {
+		
 		String[] credentials = jsonCredentials.split("&");
-		String passwordNew = credentials[0].split("=")[1];
-
+		String passwordOld = credentials[0].split("=")[1];
+		String passwordNew = credentials[1].split("=")[1];
+		String passwordNewConfirm = credentials[2].split("=")[1];
+		
+		if(!passwordNew.equals(passwordNewConfirm)){
+			return "{\"error\": \"true\"}";
+		}
+		
 		Authentifier auth = Application.getInstance().getAuth();
-		UserSyncManager em = new UserSyncManagerImpl();
-		User u = em.getUser(auth.getLogin(token), auth.getPassword(token));
+		
+		UserSyncManager em = SyncManagerFactory.createUserSyncManager();
+		
+		User u = em.getUser(auth.getLogin(token), passwordOld);  //search in local
+		
+		Manager<User> decoratorUserMg = ManagerFactory.createCryptoUserManager(em,u); // encapsulation of UserSyncManager to hash the new password using decorator pattern
+		
 		if(u != null) {
+			
+			decoratorUserMg.begin();
+			
 			LoginToken newToken = new LoginToken();
 			newToken.setToken(auth.getToken(u.getNick(), passwordNew));
 			newToken.setUserid(u.getId());		
 
 			Hasher hasher = HasherFactory.createDefaultHasher();
 			u.setSalt(HasherFactory.generateSalt());
-			hasher.setSalt(u.getSalt());
-			u.setPasswordHash(hasher.getHash(passwordNew.getBytes()));
-
-			if (em.begin() && em.persist(u) && em.end()){
-				em.close();
+			u.setPasswordHash(passwordNew.getBytes());
+			
+			if (decoratorUserMg.end()){
+				decoratorUserMg.close();
 				JsonTools<LoginToken> json = new JsonTools<>(new TypeReference<LoginToken>(){});
 				return json.toJson(newToken);
 			}
 		}
-		em.close();
+		
+		decoratorUserMg.close();
 		return null;
 	}
 
@@ -206,7 +216,9 @@ public class Users {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String delete(@PathParam("id") String id, @HeaderParam(Authentifier.PARAM_NAME) String token) {
 		Authentifier auth = Application.getInstance().getAuth();
-		UserSyncManager users = new UserSyncManagerImpl();
+		
+		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
+		
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		if (currentUser == null){
 			users.close();
@@ -216,5 +228,5 @@ public class Users {
 		User us = users.findOneById(id);
 		return "{\"deleted\": \"" + (ret && users.remove(us) && users.end() && users.close()) + "\"}";		
 	}
-
+	
 }

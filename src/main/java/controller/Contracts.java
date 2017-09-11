@@ -28,6 +28,7 @@ import model.api.Wish;
 import model.entity.ContractEntity;
 import model.entity.User;
 import model.factory.ManagerFactory;
+import model.factory.SyncManagerFactory;
 import model.syncManager.ContractSyncManagerImpl;
 import model.syncManager.UserSyncManagerImpl;
 import protocol.impl.SigmaEstablisher;
@@ -47,7 +48,7 @@ public class Contracts {
 	public String add(ContractEntity contract, @HeaderParam(Authentifier.PARAM_NAME) String token) {
 		Manager<ContractEntity> em = ManagerFactory.createNetworkResilianceContractManager(Application.getInstance().getPeer(), token);
 		Authentifier auth = Application.getInstance().getAuth();
-		UserSyncManager users = new UserSyncManagerImpl();
+		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		users.close();
 
@@ -95,7 +96,7 @@ public class Contracts {
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getId(@PathParam("id")String id) {
-		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
+		SyncManager<ContractEntity> em = SyncManagerFactory.createContractSyncManager();
 		JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
 		String ret = json.toJson(em.findOneById(id));
 		em.close();
@@ -107,7 +108,7 @@ public class Contracts {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String get(@HeaderParam(Authentifier.PARAM_NAME) String token) {
 		Authentifier auth = Application.getInstance().getAuth();
-		UserSyncManager users = new UserSyncManagerImpl();
+		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
 		JsonTools<Collection<ContractEntity>> json = new JsonTools<>(new TypeReference<Collection<ContractEntity>>(){});
@@ -124,6 +125,7 @@ public class Contracts {
 
 	@PUT
 	@Path("/{id}")
+
 	public String edit(ContractEntity c, @HeaderParam(Authentifier.PARAM_NAME) String token) {	
 		
 		ArrayList<String> parties = c.getParties();
@@ -139,6 +141,7 @@ public class Contracts {
 		}
 		
 		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
+
 		em.begin();
 		Collection<ContractEntity> contracts = em.findAllByAttribute("title", c.getTitle());
 		ContractEntity cRes = null;
@@ -165,6 +168,7 @@ public class Contracts {
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String delete(@PathParam("id")String id, @HeaderParam(Authentifier.PARAM_NAME) String token) {
+
 		Authentifier auth = Application.getInstance().getAuth();
 		UserSyncManager users = new UserSyncManagerImpl();
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));

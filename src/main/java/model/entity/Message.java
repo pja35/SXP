@@ -2,6 +2,7 @@ package model.entity;
 
 import static javax.persistence.EnumType.STRING;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -15,10 +16,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import org.eclipse.persistence.annotations.UuidGenerator;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import crypt.annotations.CryptCryptAnnotation;
+import crypt.annotations.CryptSigneAnnotation;
 
 @XmlRootElement
 @Entity
@@ -33,7 +36,7 @@ public class Message {
 	@XmlElement(name="sendingDate")
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy HH:mm:ss") 
 	private Date sendingDate;
 
 	@XmlElement(name="senderId")
@@ -53,22 +56,38 @@ public class Message {
 	@XmlElement(name="receiverName")
 	@NotNull
 	private String receiverName;
-
+	
+	@CryptCryptAnnotation(isCryptBySecondKey=true,secondKey="pbkey")
 	@Lob
 	@XmlElement(name="messageContent")
 	@NotNull
-	@Size(min = 1, max = 1024)
+	@Size(min = 1, max = 4096)
 	private String messageContent;
 
 	public static enum ReceptionStatus {DRAFT, SENT, RECEIVED}
 	@XmlElement(name="status")
 	@Enumerated(STRING)
 	public ReceptionStatus status = ReceptionStatus.DRAFT;   
-
+	
+	
+	@XmlElement(name="pbkey")
+	@NotNull
+	@Lob
+	@JsonSerialize(using=controller.tools.BigIntegerSerializer.class)
+	@JsonDeserialize(using=controller.tools.BigIntegerDeserializer.class)
+	@JsonFormat(shape=JsonFormat.Shape.STRING)
+	private BigInteger pbkey;
+	
+	@Lob
+	@CryptSigneAnnotation(signeWithFields={"sendingDate","senderId","senderName","receiverId","receiverName","pbkey","messageContent"},checkByKey="pbkey") //,ownerAttribute="senderId")
+	@XmlElement(name="signature")
+	@NotNull
+	private ElGamalSignEntity signature;
+	
+	
 	public String getId(){
 		return this.id;
 	}
-
 
 	public void setSendingDate(Date date){
 		this.sendingDate = date;
@@ -86,7 +105,7 @@ public class Message {
 	public String getSenderId(){
 		return this.senderId;
 	}
-	public String getSendName(){
+	public String getSenderName(){
 		return this.senderName;
 	}
 
@@ -119,23 +138,22 @@ public class Message {
 	public ReceptionStatus getStatus(){
 		return this.status;
 	}
+	
+	
+	public BigInteger getPbkey() {
+		return pbkey;
+	}
 
-	/**
-	 * @return a complete string with all attributes (mainly used for debug)
-	 */
-	public String getString(){
-		StringBuffer buff = new StringBuffer();		
-		buff.append("******************" + "\n");
-		buff.append("Message Id = " + getId() + "\n");
-		buff.append("Sender Id = " + getSenderId() + "\n");
-		buff.append("Sender Name = " + getSendName() + "\n");
-		buff.append("Sending date = " + getSendingDate() + "\n");
-		buff.append(getStatus() + "\n");
-		buff.append(getMessageContent() + "\n");
-		buff.append("Receiver Id = " + getReceiverId() + "\n");
-		buff.append("Receiver name = " + getReceiverName() + "\n");
-		buff.append("******************" + "\n");
-		return buff.toString();
+	public void setPbkey(BigInteger pbkey) {
+		this.pbkey = pbkey;
+	}
+
+	public ElGamalSignEntity getSignature() {
+		return signature;
+	}
+
+	public void setSignature(ElGamalSignEntity signature) {
+		this.signature = signature;
 	}
 
 }
