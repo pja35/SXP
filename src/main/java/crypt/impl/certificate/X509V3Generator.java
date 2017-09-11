@@ -43,7 +43,6 @@ public class X509V3Generator implements CertificateGenerator
 
 	private String keystore_password;  //Password for the keystore. can use toCharArray()
 	private String ks_alias;
-	private KeyStore ks;               //KeyStore that will contain the certificate.
 	private Certificate cert;          //The certificate.
 	private KeyPair key_pair;          //Generated keys for the certificate.
 
@@ -385,6 +384,7 @@ public class X509V3Generator implements CertificateGenerator
 	 * @param file_name The keystore file.
 	 * #Author Pelletier Sébastien
 	 */
+	@Override
 	public void StoreInKeystore(String file_name) throws Exception
 	{	
 		File file = new File(file_name);
@@ -395,7 +395,7 @@ public class X509V3Generator implements CertificateGenerator
 		}
 
 		char[] password = this.keystore_password.toCharArray();																				
-		KeyStore.PasswordProtection protected_password = new KeyStore.PasswordProtection(password);	
+		new KeyStore.PasswordProtection(password);	
 
 		//Keystore Creation																												
 		KeyStore ks = KeyStore.getInstance("jks");																						

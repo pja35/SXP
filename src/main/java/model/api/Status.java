@@ -4,5 +4,6 @@ public enum Status {
 	NOWHERE,
 	SIGNING, 
 	FINALIZED,
-	CANCELLED
+	CANCELLED,
+	RESOLVING,
 }

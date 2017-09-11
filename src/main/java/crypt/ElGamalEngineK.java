@@ -41,7 +41,8 @@ public class ElGamalEngineK
      * @param forEncryption true if we are encrypting, false otherwise.
      * @param param the necessary ElGamal key parameters.
      */
-    public void init(
+    @Override
+	public void init(
         boolean             forEncryption,
         CipherParameters    param)
     {
@@ -87,7 +88,8 @@ public class ElGamalEngineK
      *
      * @return maximum size for an input block.
      */
-    public int getInputBlockSize()
+    @Override
+	public int getInputBlockSize()
     {
         if (forEncryption)
         {
@@ -104,7 +106,8 @@ public class ElGamalEngineK
      *
      * @return maximum size for an output block.
      */
-    public int getOutputBlockSize()
+    @Override
+	public int getOutputBlockSize()
     {
         if (forEncryption)
         {
@@ -123,7 +126,8 @@ public class ElGamalEngineK
      * @return the result of the ElGamal process.
      * @exception DataLengthException the input block is too large.
      */
-    public byte[] processBlock(
+    @Override
+	public byte[] processBlock(
         byte[]  in,
         int     inOff,
         int     inLen)
@@ -133,17 +137,18 @@ public class ElGamalEngineK
             throw new IllegalStateException("ElGamal engine not initialised");
         }
 
+        BigInteger p = key.getParameters().getP();
+        bitSize = p.bitLength();
+        
         int maxLength = forEncryption
             ?   (bitSize - 1 + 7) / 8
             :   getInputBlockSize();
-
+        
         if (inLen > maxLength)
         {
-            throw new DataLengthException("input too large for ElGamal cipher.\n");
+            throw new DataLengthException("input too large for ElGamal cipher with " + inLen + " characters instead of  "+ maxLength +" total.\n");
         }
-
-        BigInteger  p = key.getParameters().getP();
-
+        
         if (key instanceof ElGamalPrivateKeyParameters) // decryption
         {
             byte[]  in1 = new byte[inLen / 2];
@@ -180,6 +185,7 @@ public class ElGamalEngineK
 
             if (input.compareTo(p) >= 0)
             {
+            	
                 throw new DataLengthException("input too large for ElGamal cipher.\n");
             }
 

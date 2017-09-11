@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 import model.entity.ElGamalKey;
-import protocol.impl.sigma.Responses;
+import model.entity.sigma.Responses;
 
 public class MapResponseKeyDeserializer extends StdDeserializer<Map<Responses, ElGamalKey>> {
     /**

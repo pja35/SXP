@@ -21,7 +21,7 @@
 			<div class="col-sm-10">
 				<select class="form-control" id="addParty" ng-model="form.addParty">
 	    			<option value="Choose a user" selected="selected" disabled>Choose a user<option/>
-					<option ng-repeat="user in userList">{{user.name}}</option>
+					<option ng-repeat="user in userList">{{user.name}} - {{user.id}}</option>
 				</select>
 			</div>
 		    <div class="col-sm-2">

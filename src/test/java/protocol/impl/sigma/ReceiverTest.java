@@ -1,5 +1,6 @@
 package protocol.impl.sigma;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigInteger;
@@ -10,6 +11,11 @@ import org.junit.Test;
 
 import crypt.factories.ElGamalAsymKeyFactory;
 import model.entity.ElGamalKey;
+import model.entity.sigma.And;
+import model.entity.sigma.ResEncrypt;
+import model.entity.sigma.Responses;
+import model.entity.sigma.ResponsesCCE;
+import model.entity.sigma.ResponsesSchnorr;
 import util.TestInputGenerator;
 
 /**
@@ -54,10 +60,10 @@ public class ReceiverTest {
 		rK.put(responseCCE, receiverKey);
 		assertTrue(receiver.Verifies(true, rK, encryptMessage, responseSchnorr, responseCCE));
 		
-		And and = new And(receiver, rK, encryptMessage, responseSchnorr, responseCCE);
+		And and = new And(rK, encryptMessage, responseSchnorr, responseCCE);
 		assertTrue(receiver.Verifies(and, false));
 		
-		assertTrue(receiver.Verifies(new BigInteger("1"), encryptMessage, and));
+		assertFalse(receiver.Verifies(new BigInteger("1"), encryptMessage, and));
 	}
 }
 

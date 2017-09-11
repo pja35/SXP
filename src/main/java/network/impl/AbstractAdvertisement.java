@@ -146,10 +146,12 @@ public abstract class AbstractAdvertisement implements Advertisement{
 		return indexes.toArray(new String[1]);
 	}
 
+	@Override
 	public String getSourceURI() {
 		return sourceURI;
 	}
 	
+	@Override
 	public void setSourceURI(String uri) {
 		this.sourceURI = uri;
 	}

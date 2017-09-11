@@ -14,7 +14,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import crypt.factories.ElGamalAsymKeyFactory;
+import crypt.impl.signatures.ElGamalSignature;
 import model.entity.ElGamalKey;
+import model.entity.sigma.ResEncrypt;
+import model.entity.sigma.ResponsesCCD;
 import util.TestInputGenerator;
 
 
@@ -25,6 +28,7 @@ import util.TestInputGenerator;
  */
 public class ElGamalTest {
 	private final static Logger log = LogManager.getLogger(ElGamalTest.class);
+	public static final int restPort = 5600;
 	@Rule public ExpectedException exception = ExpectedException.none();
 
 	private ElGamalKey keys;
@@ -63,21 +67,21 @@ public class ElGamalTest {
 
 	@Test
 	public void verifySignatureException1Test(){
-		ElGamalSign sign = new ElGamalSign(null, TestInputGenerator.getRandomBigInteger(20));
+		ElGamalSignature sign = new ElGamalSignature(null, TestInputGenerator.getRandomBigInteger(20));
 		exception.expect(NullPointerException.class);
 		elg.verifySignature(message, sign);
 	}
 
 	@Test
 	public void verifySignatureException2Test(){
-		ElGamalSign sign = new ElGamalSign(TestInputGenerator.getRandomBigInteger(20), null);
+		ElGamalSignature sign = new ElGamalSignature(TestInputGenerator.getRandomBigInteger(20), null);
 		exception.expect(NullPointerException.class);
 		elg.verifySignature(message, sign);
 	}
 
 	@Test
 	public void verifySignatureException3Test(){
-		ElGamalSign sign = elg.getMessageSignature(message);
+		ElGamalSignature sign = elg.getMessageSignature(message);
 		ElGamalKey keys2 = new ElGamalKey();
 		log.debug("-- verifySignatureException3Test --");
 		try{
@@ -105,7 +109,7 @@ public class ElGamalTest {
 
 	@Test
 	public void signatureVerifyTest(){
-		ElGamalSign sign = elg.getMessageSignature(message);
+		ElGamalSignature sign = elg.getMessageSignature(message);
 		assertTrue(elg.verifySignature(message, sign));		
 	}
 
@@ -116,8 +120,7 @@ public class ElGamalTest {
 	}
 
 	@Test
-	public void encryptForContractTest(){
-		Trent trent = new Trent(keys);
+	public void encryptForContractTest(){Trent trent = new Trent(keys);
 		ElGamalEncrypt encrMess = elg.encryptForContract(message);
 		ResEncrypt res = new ResEncrypt(encrMess.getU(), encrMess.getV(), message);
 		ResponsesCCD response = trent.SendResponse(res);

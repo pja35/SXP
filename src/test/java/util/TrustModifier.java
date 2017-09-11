@@ -49,7 +49,8 @@ public class TrustModifier {
 	   }
 
 	   private static final class TrustingHostnameVerifier implements HostnameVerifier {
-	      public boolean verify(String hostname, SSLSession session) {
+	      @Override
+		public boolean verify(String hostname, SSLSession session) {
 	         return true;
 	      }
 	   }

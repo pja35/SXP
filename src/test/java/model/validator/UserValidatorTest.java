@@ -69,7 +69,7 @@ public class UserValidatorTest {
 		user.setSignature(signature);
 		
 		factory = new ValidatorFactory();
-		validator = factory.createUserValidator();
+		validator = ValidatorFactory.createUserValidator();
 	}
 
 	@Test

@@ -25,6 +25,7 @@ import org.bouncycastle.crypto.params.ElGamalPublicKeyParameters;
 import controller.tools.LoggerUtilities;
 import crypt.ElGamalEngineK;
 import crypt.impl.hashs.SHA256Hasher;
+import crypt.impl.signatures.ElGamalSignature;
 import model.entity.ElGamalKey;
 
 /**
@@ -60,7 +61,7 @@ public class ElGamal  {
 	 * To sign a message
 	 * @param M - byte[]
 	 */
-	public ElGamalSign getMessageSignature(byte[] M)
+	public ElGamalSignature getMessageSignature(byte[] M)
 	{
 		if(keys.getPrivateKey() == null)
 			//try {
@@ -84,7 +85,7 @@ public class ElGamal  {
 		
 		r = keys.getG().modPow(k,keys.getP());
 		s = l.multiply(m.subtract(r.multiply(keys.getPrivateKey())).mod(keys.getP().subtract(BigInteger.ONE)));
-		return new ElGamalSign(r, s);
+		return new ElGamalSignature(r, s);
 	}
 	
 	/**
@@ -92,7 +93,7 @@ public class ElGamal  {
 	 * @param M - byte[]
 	 * @return true if the signature is from public Key, false else
 	 */
-	public boolean verifySignature(byte[] M, ElGamalSign sign){
+	public boolean verifySignature(byte[] M, ElGamalSignature sign){
 		try {
 			if(sign == null || sign.getR() == null || sign.getS() == null){
 				throw new Exception("R or S unknown");
@@ -132,7 +133,7 @@ public class ElGamal  {
 		byte[] m = e.processBlock(data, 0, data.length);
 		BigInteger k = e.getK();
         BigInteger u = keys.getG().modPow(k,keys.getP());
-        BigInteger v = (keys.getPublicKey().modPow(e.getK(), keys.getP()).multiply(new BigInteger(data)));
+        BigInteger v = (keys.getPublicKey().modPow(k, keys.getP()).multiply(new BigInteger(data)));
         return new ElGamalEncrypt (u,v,k, m);
 	}
 

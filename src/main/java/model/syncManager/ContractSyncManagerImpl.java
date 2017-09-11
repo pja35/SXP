@@ -11,7 +11,7 @@ public class ContractSyncManagerImpl extends AbstractSyncManager<ContractEntity>
 		this.initialisation("persistence", ContractEntity.class);
 	}
 	@Override
-	protected EntityValidator getAdaptedValidator() {
+	protected EntityValidator<?> getAdaptedValidator() {
 		return ValidatorFactory.createContractValidator();
 	}
 }

@@ -83,7 +83,7 @@
  
  module.controller('subItem', function($rootScope, $scope, $stateParams, Item, $state) {
   	isUserConnected($rootScope, $scope, $state);
-    $scope.app.configHeader({back:true, title: 'Add item'});
+    $scope.app.configHeader({back:true, title: 'Delete item'});
     $scope.action = 'sub'; //Specify to the template we are adding an item, since it the same template as the one for editing.
     var item = Item.get({id: $stateParams.id}, function() {
       //Just load the item and display it via the bindings with items.html

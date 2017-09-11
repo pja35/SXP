@@ -50,6 +50,7 @@ public class SeleniumTest {
 		driver.quit();
 	}
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void testLoginPage() {
 		driver.get(pageAcueil.toURI().toString());
@@ -82,6 +83,7 @@ public class SeleniumTest {
 		}catch(Exception e){fail("Home not found");}
 	}
 
+	@SuppressWarnings("unused")
 	@Test //2
 	public void testAddItemPage() {
 		String pathToHome = pageAcueil.toURI()+"#myitems/add";
@@ -110,6 +112,7 @@ public class SeleniumTest {
 			Items = driver.findElement(By.id("sidebar-wrapper"));
 		}catch(Exception e){fail("Items not found");}}
 
+	@SuppressWarnings("unused")
 	@Test //3
 	public void testSearchPage() {
 		String pathToHome = pageAcueil.toURI()+"#search";
@@ -131,6 +134,7 @@ public class SeleniumTest {
 	}
 
 
+	@SuppressWarnings("unused")
 	@Test //4
 	public void testMessagesPage() {
 		String pathToHome = pageAcueil.toURI()+"#messages";
@@ -152,6 +156,7 @@ public class SeleniumTest {
 	}
 
 
+	@SuppressWarnings("unused")
 	@Test //5
 	public void testSettingsPage() {
 		String pathToHome = pageAcueil.toURI()+"#settings";
@@ -168,6 +173,7 @@ public class SeleniumTest {
 	}
 
 
+	@SuppressWarnings("unused")
 	@Test //6
 	public void testAccountPage() {
 		String pathToHome = pageAcueil.toURI()+"#account";
@@ -185,6 +191,7 @@ public class SeleniumTest {
 	}
 
 
+	@SuppressWarnings("unused")
 	@Test //7
 	public void testLogoutPage() {
 		String pathToHome = pageAcueil.toURI()+"#logout";
@@ -197,6 +204,7 @@ public class SeleniumTest {
 	}
 
 
+	@SuppressWarnings("unused")
 	@Test //8
 	public void ContractPage() {
 		String pathToHome = pageAcueil.toURI()+"#contract";
@@ -209,6 +217,7 @@ public class SeleniumTest {
 	}
 
 
+	@SuppressWarnings("unused")
 	@Test //9
 	public void AboutPage() {
 		String pathToHome = pageAcueil.toURI()+"#about";

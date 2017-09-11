@@ -9,8 +9,11 @@ import javax.xml.bind.annotation.XmlElement;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-//import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+//import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import crypt.api.key.AsymKey;
@@ -93,6 +96,7 @@ public class ElGamalKey implements AsymKey<BigInteger>, Serializable{
 		return g;
 	}
 	
+	@Override
 	public String toString(){
 		StringBuffer s = new StringBuffer();
 		s.append("<" + this.getClass().getSimpleName().toLowerCase() + ">");
@@ -103,4 +107,27 @@ public class ElGamalKey implements AsymKey<BigInteger>, Serializable{
 		return s.toString();
 	}
 	
+	@Override
+	public boolean equals(Object o){
+		if (! (o instanceof ElGamalKey))
+			return false;
+		ElGamalKey k = (ElGamalKey) o;
+		return k.getP().equals(this.getP())
+				&& k.getG().equals(this.getG())
+				&& k.getPublicKey().equals(this.getPublicKey());
+	}
+	
+	@Override
+	public int hashCode(){
+		return this.getPublicKey().hashCode();
+	}
+	
+	public ElGamalKey copy(){
+		ElGamalKey copy = new ElGamalKey();
+		copy.setPrivateKey(this.getPrivateKey());
+		copy.setPublicKey(this.getPublicKey());
+		copy.setG(this.getG());
+		copy.setP(this.getP());
+		return copy;
+	}
 }

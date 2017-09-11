@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+<div class="page">
+  <ul class="tag_list_in_post">
+    {% for tag in page.tags %}<li class="inline tag_list_item"><a class="tag_list_link" href="/SXP/wiki/Category{{ tag | replace:' ','' }}">{{ tag }}</a></li>{% endfor %}
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+        inlineMath: [ ['$','$'] ],
+        displayMath: [ ['$$','$$'] ],
+        processEscapes: true,
+      }
+    });
+  </script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> </ul>
+  <h1 class="page-title">{{ page.title }}</h1>
+  {{ content }}
+</div>

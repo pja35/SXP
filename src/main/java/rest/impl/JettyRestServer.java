@@ -78,6 +78,7 @@ public class JettyRestServer implements RestServer{
 		server = new Server();
 		server.setHandler(context);
 
+		@SuppressWarnings("unused")
 		String signe_type = "self-signed";
 
 		/*if( signe_type == "CA-signed" )
@@ -127,6 +128,7 @@ public class JettyRestServer implements RestServer{
 		javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
 				new javax.net.ssl.HostnameVerifier(){
 
+					@Override
 					public boolean verify(String hostname,
 							javax.net.ssl.SSLSession sslSession) {
 						if (hostname.equals("localhost")) {

@@ -13,7 +13,7 @@ public class MessageSyncManagerImpl extends AbstractSyncManager<Message> impleme
 	}
 
 	@Override
-	protected EntityValidator getAdaptedValidator() {
+	protected EntityValidator<?> getAdaptedValidator() {
 		return ValidatorFactory.createMessageValidator();
 	}
 }

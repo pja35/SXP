@@ -35,7 +35,10 @@ public class ItemValidatorTest {
 	String userid;
 	ItemValidator validator;
 	ValidatorFactory factory;
+
 	ElGamalSignEntity signature;
+
+	@SuppressWarnings("rawtypes")
 	Signer signer;
 	
 	@Before
@@ -59,7 +62,7 @@ public class ItemValidatorTest {
 		item.setUserid(userid);
 		item.setSignature(signature);
 		factory = new ValidatorFactory();
-		validator = factory.createItemValidator();
+		validator = ValidatorFactory.createItemValidator();
 		signer = SignerFactory.createDefaultSigner();
 	}
 	
@@ -138,6 +141,7 @@ public class ItemValidatorTest {
 //		validator.validate();
 //	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void signatureValidationTest(){
 		validator.setEntity(item);

@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import model.api.EstablisherType;
 import model.api.Status;
 import model.api.Wish;
 
@@ -46,21 +47,18 @@ public class ContractEntity {
 	private String title;
 	
 	@XmlElement(name="clauses")
-	@NotNull
 	private ArrayList<String> clauses;
 	
 	// Id of the parties
 	@XmlElement(name="parties")
-	@NotNull
 	@Lob
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	private ArrayList<String> parties;
 	
 	// Maps the id with the name
 	@XmlElement(name="partiesNames")
-	@NotNull
 	@Lob
-	@JsonSerialize(using=controller.tools.MapStringSerializer.class)
+	@JsonSerialize(using=controller.tools.MapSerializer.class)
 	@JsonDeserialize(using=controller.tools.MapStringDeserializer.class)
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	private HashMap<String,String> partiesNames;
@@ -76,13 +74,17 @@ public class ContractEntity {
 	private Status status;
 
 	@XmlElement(name="signatures")
-	@JsonSerialize(using=controller.tools.MapStringSerializer.class)
+	@JsonSerialize(using=controller.tools.MapSerializer.class)
 	@JsonDeserialize(using=controller.tools.MapStringDeserializer.class)
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	private HashMap<String, String> signatures;
 
-
+	@XmlElement(name="establisherType")
+	@JsonFormat(shape=JsonFormat.Shape.STRING)
+	private EstablisherType establisherType;
+	
 	@XmlElement(name="establishementData")
+	@Lob
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	private String establishementData;
 	
@@ -162,6 +164,14 @@ public class ContractEntity {
 	}
 	public void setSignatures(HashMap<String,String> s) {
 		this.signatures=s;
+	}
+	
+	
+	public EstablisherType getEstablisherType() {
+		return establisherType;
+	}
+	public void setEstablisherType(EstablisherType e) {
+		this.establisherType = e;
 	}
 	
 	
