@@ -56,7 +56,7 @@ public class User {
 	
 	@CryptSigneAnnotation(signeWithFields={"nick","createdAt","passwordHash","salt"},checkByKey="keys") //,ownerAttribute="id")
 	@XmlElement(name="signature")
-	@NotNull
+//	@NotNull
 	private ElGamalSignEntity signature;
 	
 	public void setId(String id) {
