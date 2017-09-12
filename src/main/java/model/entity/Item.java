@@ -70,7 +70,7 @@ public class Item {
 	
 	@CryptSigneAnnotation(signeWithFields={"title","description","createdAt","username","userid","pbkey"},checkByKey="pbkey") //,ownerAttribute="userid")
 	@XmlElement(name="signature")
-	@NotNull
+	//@NotNull
 	private ElGamalSignEntity signature;
 	
 	public String getId() {
