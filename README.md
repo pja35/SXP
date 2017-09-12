@@ -1,8 +1,8 @@
-Protocol: https://pja35.github.io/SXP/wiki/
-
 # Secure Exchange Protocols (SXP)
 
-Below is a description of the idea behind the SXP project. For technical details the reader should refer to the wiki on github.
+Below is a description of the idea behind the SXP project. For technical details the reader should refer to the wiki on github.  
+* SXP protocol wiki: https://pja35.github.io/SXP/wiki/.  
+* SXP code wiki https://github.com/pja35/SXP/wiki/.
 
 ## Philosophy
 
