@@ -81,7 +81,7 @@ public class Message {
 	@Lob
 	@CryptSigneAnnotation(signeWithFields={"sendingDate","senderId","senderName","receiverId","receiverName","pbkey","messageContent"},checkByKey="pbkey") //,ownerAttribute="senderId")
 	@XmlElement(name="signature")
-	@NotNull
+	//@NotNull
 	private ElGamalSignEntity signature;
 	
 	
