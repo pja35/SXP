@@ -103,11 +103,11 @@ public class Items {
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		users.close();
 		
-		ItemSyncManager itmn = SyncManagerFactory.createItemSyncManager(); 
+		ItemSyncManager itmn = SyncManagerFactory.createItemSyncManager();
 		Manager<Item> entityManager = ManagerFactory.createCryptoNetworkResilianceItemManager(itmn,Application.getInstance().getPeer(), token,currentUser);
-		
+		 
 		Item it = itmn.findOneById(item.getId());
-		
+
 		entityManager.begin();
 		it.setTitle(item.getTitle());
 		it.setDescription(item.getDescription());
@@ -119,7 +119,7 @@ public class Items {
 			return "{\"edit\": \"false\"}";
 		
 		JsonTools<Item> json = new JsonTools<>(new TypeReference<Item>(){});
-	    String ret = json.toJson(item);
+	    String ret = json.toJson(it);
 		
 		return ret;
 	}

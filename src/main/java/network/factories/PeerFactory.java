@@ -42,16 +42,44 @@ public class PeerFactory {
 	 */
 	public static Peer createDefaultAndStartPeer() {
 		Peer p = createAndStartPeer("jxta", ".peercache", 9578);
-		Service itemService = new JxtaItemService();
-		Service establisherService = new JxtaEstablisherService();
-		
+
 		try {
+			System.out.println("\n START Services \n");
+			
+			Service userService = new JxtaUserService();
+			userService.initAndStart(p);
+			
+			Service usersSender = new JxtaUsersSenderService();
+			usersSender.initAndStart(p);
+			
+			Service itemService = new JxtaItemService();
 			itemService.initAndStart(p);
+			
+			Service itemsSender = new JxtaItemsSenderService();
+			itemsSender.initAndStart(p);
+			
+			Service messageService = new JxtaMessageService();
+			messageService.initAndStart(p);
+			
+			Service messagesSender = new JxtaMessageSenderService();
+			messagesSender.initAndStart(p);
+			
+			Service establisherService = new JxtaEstablisherService();
 			establisherService.initAndStart(p);
+			
 		} catch (InvalidServiceException e) {
-			// TODO manage the exception
-			LoggerUtilities.logStackTrace(e);
-		}
+			throw new RuntimeException(e);
+		}		
+//		Service itemService = new JxtaItemService();
+//		Service establisherService = new JxtaEstablisherService();
+//		
+//		try {
+//			itemService.initAndStart(p);
+//			establisherService.initAndStart(p);
+//		} catch (InvalidServiceException e) {
+//			// TODO manage the exception
+//			LoggerUtilities.logStackTrace(e);
+//		}
 		return p;
 	}
 
@@ -62,7 +90,7 @@ public class PeerFactory {
 	
 	public static Peer createDefaultAndStartPeerForTest(int port, String[] rdvPeerIds) {
 		Random r = new Random();
-		String cache = ".peercache";// + r.nextInt(10000);
+		String cache = ".peercache" + r.nextInt(10000);
 		//int port = 9800 + r.nextInt(100);
 		System.out.println("jxta will run on port " + port);
 		Peer p = createAndStartPeer("jxta", cache, port, rdvPeerIds);
