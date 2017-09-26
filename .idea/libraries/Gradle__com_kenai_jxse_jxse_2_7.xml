@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.kenai.jxse:jxse:2.7">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.kenai.jxse/jxse/2.7/22897c683b0ce1731e123d2c058700f2e351d279/jxse-2.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.kenai.jxse/jxse/2.7/6b692bc8b5456da367a9b42387dff0bbc9b68db4/jxse-2.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
