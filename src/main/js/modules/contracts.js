@@ -68,7 +68,7 @@
 	  }
 	  
 	  $scope.decline = function(){
-		  $http.put(RESTAPISERVER + '/api/contracts/cancel/'+contract.id, {});
+		  $http.put(RESTAPISERVER + '/api/contracts/cancel/'+contract.id,  {});
 		  $state.go('viewContracts');
 	  }
 	  
