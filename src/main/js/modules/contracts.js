@@ -29,6 +29,7 @@
     // 'contracts' state controller function
     module.controller('viewContracts', function($scope, Contract) {
     	//TODO: do some of this with configHeader:
+
     	$scope.app.configHeader({back: false, title: 'Contracts', contextButton: 'addContract'});
   	  
     	$scope.contracts = [];
@@ -46,7 +47,7 @@
 	    //Just load the contract and display it via the bindings with contract.html
 	    $scope.contract = contract;
 	    
-	    $scope.title = contract.title
+	    $scope.title = contract.title;
     	$scope.clauses = contract.clauses;
 	    
 	    // Get parties from the hashmap of names and id (to identify exactly a user)
@@ -63,12 +64,12 @@
 	  };
 	  
 	  $scope.sign = function(){
-		  $http.put(RESTAPISERVER + '/api/contracts/sign/:id', contract.id);
+		  $http.put(RESTAPISERVER + '/api/contracts/sign/'+contract.id,{});
 		  $state.go('viewContracts');
 	  }
 	  
 	  $scope.decline = function(){
-		  $http.put(RESTAPISERVER + '/api/contracts/cancel/:id', contract.id);
+		  $http.put(RESTAPISERVER + '/api/contracts/cancel/'+contract.id,  {});
 		  $state.go('viewContracts');
 	  }
 	  
@@ -86,7 +87,7 @@
     	$scope.parties = [];
 		var contract = Contract.get({id: $stateParams.id}, function() {
 			//First, load the item and display it via the bindings with item-form.html
-			$scope.form.title = contract.title
+			$scope.form.title = contract.title;
 			$scope.clauses = contract.clauses;
 		    pN = contract.partiesNames;
 		    for (i=0; i<pN.length; i++){
@@ -134,7 +135,7 @@
     
     
     module.controller('addContract', function($scope, Contract, $state, $http){
-    	
+        isUserConnected($scope, $scope, $state);
     	$scope.app.configHeader({back: true, title: 'Add contracts'});
     	$scope.action = 'add';
     	
