@@ -198,8 +198,8 @@ public class EstablisherServiceTest {
 		}catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		assertTrue(isReceived);	
+		assertTrue(isReceived);	*/
 		
 		
-	}*/
+	}
 }
