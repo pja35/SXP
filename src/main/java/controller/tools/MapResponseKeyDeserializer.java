@@ -1,30 +1,29 @@
 package controller.tools;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-
 import model.entity.ElGamalKey;
 import model.entity.sigma.Responses;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 public class MapResponseKeyDeserializer extends StdDeserializer<Map<Responses, ElGamalKey>> {
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	protected MapResponseKeyDeserializer() {
+    protected MapResponseKeyDeserializer() {
         super(Map.class);
     }
 
     @Override
     public Map<Responses, ElGamalKey> deserialize(JsonParser jsonParser,
-                                             DeserializationContext deserializationContext) throws IOException {
+                                                  DeserializationContext deserializationContext) throws IOException {
         Map<Responses, ElGamalKey> result = new HashMap<>();
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
         for (JsonNode element : node) {

@@ -1,7 +1,7 @@
 package model.api;
 
 public enum Wish {
-	NEUTRAL,
-	ACCEPT,
-	REFUSE
+    NEUTRAL,
+    ACCEPT,
+    REFUSE
 }

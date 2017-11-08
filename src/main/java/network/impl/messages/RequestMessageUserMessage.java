@@ -3,46 +3,46 @@ package network.impl.messages;
 import network.api.annotation.MessageElement;
 import network.impl.MessagesImpl;
 
-public class RequestMessageUserMessage extends MessagesImpl{
-	
-	@MessageElement("source")
-	private String sourceUri;
-	
-	@MessageElement("senderId")
-	private String senderId;
-	
-	@MessageElement("receiverId")
-	private String receiverId;
-	
-	@MessageElement("type")
-	private String type = "request";
-	
-	public String getSenderId() {
-		return senderId;
-	}
+public class RequestMessageUserMessage extends MessagesImpl {
 
-	public void setSenderId(String senderId) {
-		this.senderId = senderId;
-	}
-	
-	public String getReceiverId() {
-		return receiverId;
-	}
+    @MessageElement("source")
+    private String sourceUri;
 
-	public void setReceiverId(String receiverId) {
-		this.receiverId = receiverId;
-	}
+    @MessageElement("senderId")
+    private String senderId;
 
-	public void setSource(String source) {
-		this.sourceUri = source;
-	}
-	
-	public String getSource() {
-		return sourceUri;
-	}
+    @MessageElement("receiverId")
+    private String receiverId;
 
-	public String getType() {
-		return type;
-	}
+    @MessageElement("type")
+    private String type = "request";
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
+
+    public String getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
+    }
+
+    public String getSource() {
+        return sourceUri;
+    }
+
+    public void setSource(String source) {
+        this.sourceUri = source;
+    }
+
+    public String getType() {
+        return type;
+    }
 
 }
