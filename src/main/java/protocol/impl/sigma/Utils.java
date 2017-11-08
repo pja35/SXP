@@ -14,42 +14,43 @@
    You should have received a copy of the GNU Lesser General Public License along with SXP. 
    If not, see <http://www.gnu.org/licenses/>. */
 package protocol.impl.sigma;
+
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
 /**
  * this class is util class
- * @author sarah
  *
+ * @author sarah
  */
 public class Utils {
 
-	static SecureRandom  random = new SecureRandom();
-	
-	/**
-	 * random value
-	 * @param bitLength
-	 * @param object
-	 * @return
-	 */
-	static public BigInteger rand (int bitLength, BigInteger p)
-	{
-		if (p.compareTo(BigInteger.ZERO) <= 0 || bitLength <= 0){
-			return BigInteger.ZERO;
-		}
-		BigInteger s;
-		s = new BigInteger(bitLength,random);
-		// 0 < s < p
-		while(s.compareTo(BigInteger.ONE) < 0 || s.compareTo(p) > 0)
-			s = new BigInteger(bitLength,random);
-		
-		return s;
-	}
-    
-	public static String toHex(byte[] donnees) {
-	return javax.xml.bind.DatatypeConverter.printHexBinary(donnees);
+    static SecureRandom random = new SecureRandom();
+
+    /**
+     * random value
+     *
+     * @param bitLength
+     * @param object
+     * @return
+     */
+    static public BigInteger rand(int bitLength, BigInteger p) {
+        if (p.compareTo(BigInteger.ZERO) <= 0 || bitLength <= 0) {
+            return BigInteger.ZERO;
+        }
+        BigInteger s;
+        s = new BigInteger(bitLength, random);
+        // 0 < s < p
+        while (s.compareTo(BigInteger.ONE) < 0 || s.compareTo(p) > 0)
+            s = new BigInteger(bitLength, random);
+
+        return s;
     }
-	/*static public BigInteger randPrime(int bitLength)
+
+    public static String toHex(byte[] donnees) {
+        return javax.xml.bind.DatatypeConverter.printHexBinary(donnees);
+    }
+    /*static public BigInteger randPrime(int bitLength)
 	{
 		
 	}*/

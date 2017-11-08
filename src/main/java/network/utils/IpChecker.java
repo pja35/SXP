@@ -15,26 +15,27 @@
    If not, see <http://www.gnu.org/licenses/>. */
 package network.utils;
 
+import controller.tools.LoggerUtilities;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-import controller.tools.LoggerUtilities;
-
 
 /**
  * Retrieve net public IP address
- * @author Julien Prudhomme
  *
+ * @author Julien Prudhomme
  */
 public class IpChecker {
 
-	/**
-	 * Return public IP address.
-	 * @return a string containing an IPv4 adress
-	 * @throws Exception
-	 */
+    /**
+     * Return public IP address.
+     *
+     * @return a string containing an IPv4 adress
+     * @throws Exception
+     */
     public static String getIp() throws Exception {
         URL whatismyip = new URL("http://checkip.amazonaws.com");
         BufferedReader in = null;

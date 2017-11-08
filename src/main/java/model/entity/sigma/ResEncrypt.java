@@ -16,88 +16,87 @@
 package model.entity.sigma;
 
 
-import java.math.BigInteger;
-
 import javax.xml.bind.annotation.XmlElement;
+import java.math.BigInteger;
 
 
 /**
- * It's the result of encryption 
- * @author sarah
+ * It's the result of encryption
  *
+ * @author sarah
  */
 public class ResEncrypt {
 
-	@XmlElement(name="u")
-	private BigInteger u;
-	
-	@XmlElement(name="v")
-	private BigInteger v;
-	
-	@XmlElement(name="M")
-	private byte[] M;
-	
-	/**
-	 * Constructor
-	 * @param u
-	 * @param v
-	 * @param M
-	 */
-	public ResEncrypt(BigInteger u, BigInteger v, byte[] M)
-	{
-		super();
-		this.setU(u);
-		this.setV(v);
-		this.setM(M);
-	}
-	
-	/**
-	 * Constructor
-	 * used to transform json string to java
-	 */
-	public ResEncrypt(){
-		super();
-	}
-	
-	/**
-	 * Create a toString method
-	 * @return : representative Sting of the instance
-	 */
-	@Override
-	public String toString(){
-		StringBuffer s = new StringBuffer();
-		s.append("<" + this.getClass().getSimpleName().toLowerCase() + ">");
-		s.append("<u>" + u.toString() + "</u>");
-		s.append("<v>" + v.toString() + "</v>");
-		s.append("<M>" + M.toString() + "</M>");
-		s.append("</" + this.getClass().getSimpleName().toLowerCase() + ">");
-		return s.toString();
-	}
+    @XmlElement(name = "u")
+    private BigInteger u;
 
-	public BigInteger getU() {
-		return u;
-	}
+    @XmlElement(name = "v")
+    private BigInteger v;
 
-	public void setU(BigInteger u) {
-		this.u = u;
-	}
+    @XmlElement(name = "M")
+    private byte[] M;
 
-	public BigInteger getV() {
-		return v;
-	}
+    /**
+     * Constructor
+     *
+     * @param u
+     * @param v
+     * @param M
+     */
+    public ResEncrypt(BigInteger u, BigInteger v, byte[] M) {
+        super();
+        this.setU(u);
+        this.setV(v);
+        this.setM(M);
+    }
 
-	public void setV(BigInteger v) {
-		this.v = v;
-	}
+    /**
+     * Constructor
+     * used to transform json string to java
+     */
+    public ResEncrypt() {
+        super();
+    }
 
-	public byte[] getM() {
-		return M;
-	}
+    /**
+     * Create a toString method
+     *
+     * @return : representative Sting of the instance
+     */
+    @Override
+    public String toString() {
+        StringBuffer s = new StringBuffer();
+        s.append("<" + this.getClass().getSimpleName().toLowerCase() + ">");
+        s.append("<u>" + u.toString() + "</u>");
+        s.append("<v>" + v.toString() + "</v>");
+        s.append("<M>" + M.toString() + "</M>");
+        s.append("</" + this.getClass().getSimpleName().toLowerCase() + ">");
+        return s.toString();
+    }
 
-	public void setM(byte[] m) {
-		M = m;
-	}
+    public BigInteger getU() {
+        return u;
+    }
 
-	
-	
+    public void setU(BigInteger u) {
+        this.u = u;
+    }
+
+    public BigInteger getV() {
+        return v;
+    }
+
+    public void setV(BigInteger v) {
+        this.v = v;
+    }
+
+    public byte[] getM() {
+        return M;
+    }
+
+    public void setM(byte[] m) {
+        M = m;
+    }
+
+
 }
