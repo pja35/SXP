@@ -48,8 +48,24 @@ public class ContractEntity {
 	
 	@XmlElement(name="clauses")
 	private ArrayList<String> clauses;
-	
+
+   //clause Canceled
+	@XmlElement(name="canceled")
+	private ArrayList<String> canceled;
+
+	//clause Excution Modality
+	@XmlElement(name="modality")
+	private ArrayList<String> modality;
+
+    // clause Exchange
+
+	@XmlElement(name="exchange")
+	@Lob
+	@JsonFormat(shape=JsonFormat.Shape.STRING)
+	private ArrayList<String> exchange;
+
 	// Id of the parties
+
 	@XmlElement(name="parties")
 	@Lob
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
@@ -125,8 +141,22 @@ public class ContractEntity {
 	public void setClauses(ArrayList<String> c) {
 		this.clauses=c;
 	}
-	
-	
+
+	public ArrayList<String> getCanceled() {return canceled; }
+	public void setCanceled(ArrayList<String> c) {
+		this.canceled=c;
+	}
+
+	public ArrayList<String> getModality() {return modality; }
+	public void setModality(ArrayList<String> c) {
+		this.modality=c;
+	}
+
+	public ArrayList<String> getExchange() {return exchange; }
+	public void setExchange(ArrayList<String> e) {
+		this.exchange=e;
+	}
+
 	public ArrayList<String> getParties() {
 		return parties;
 	}

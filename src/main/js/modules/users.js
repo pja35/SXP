@@ -31,8 +31,14 @@
         $scope.app.configHeader({
             title: "Login"
         });
+
         $scope.form = {}; //create namespace form to hold attempted credentials
         $scope.form.server = RESTAPISERVER;
+
+     /****************Connexion**************/
+        $scope.form.login="test";
+        $scope.form.password="test";
+        /******************************/
 
         $scope.submit = function() {
             //gets called by login.html upon submit
