@@ -217,9 +217,21 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
         $scope.userList =[];
     	$scope.items = [];
         $scope.items = Item.query();
-        $scope.upCanCeled=false;
-        $scope.upModality=false;
+        /*********************************/
+        $scope.upCanCeled=false;// variable servant a affichez le bouton modify
+        $scope.upModality=false;// si Variable==false bouton Add est visible sion le bouton Modift
         $scope.upExchange=false;
+
+        /***********************************/
+         /* Ces variable Suivant nous permet de recupere l'indice
+         * de Modality quand veut change
+         *
+         */
+        $scope.IndexModality=-1;
+        $scope.IndexCanceled=-1;
+
+        /***********************************/
+
      	$scope.ModUpText="";
      	getUsers($http, $scope);
 
@@ -259,11 +271,13 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
     	$scope.updatemodality= function() {updateModality($scope)};
     	$scope.updateclausesExchange= function() {updateClausesExchange($scope)};
 
-        $scope.updateclausescanceledExist= function() {updateClausesCanceled($scope)};
+        $scope.updatecanceledExist= function() {updatecanceledExist($scope)};
     	$scope.updatemodalityExist= function() {updatemodalityExist($scope)};
     	$scope.updateclausesExchangeExist= function() {updateClausesExchange($scope)};
 
 
+        $scope.AnnulerCanceled = function() {AnnulerCanceled($scope)};
+        $scope.AnnulerModality = function() {AnnulerModality($scope)}
 
     	$scope.deleteParty = function(p){deleteParty($scope,p);};
     	$scope.deleteModality = function(m){deleteModality($scope,m);};
@@ -272,9 +286,34 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
     	$scope.deleteClause = function(c){deleteClause($scope,c);};
 
         $scope.updateActionModality=function(m){updateActionModality($scope,m)};
-        $scope.updateActionCan=function(c){updateActionCanceled($scope,c)};
+        $scope.updateActionCanceled=function(c){updateActionCanceled($scope,c)};
         $scope.updateActionEx=function(e){updateActionExchange($scope,e)};
-        console.log("T="+$scope.updateActionCanceled);
+
+        $scope.Exchange=[];
+        ex=$scope.exchangeClause;
+
+          for (i=0; i<ex.length; i++){
+          exchange=ex[i];
+          console.log("Ex="+exchange);
+        $scope.myarrays=[];
+        $scope.myarrays=exchange.split('*');
+        $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$scope.myarrays[2],'when':$scope.myarrays[3],'where':$scope.myarrays[4]});
+          }
+
+           $scope.Party=[];
+           part=$scope.parties;
+            for (i=0; i<part.length; i++){
+            Par=part[i];
+            console.log("Part="+Par);
+            $scope.myarrays=[];
+            $scope.myarrays=exchange.split(' - ');
+            $scope.Party.push({'key':$scope.myarrays[0],'value':$scope.myarrays[1]});
+
+            }
+
+            var newParty = {};
+            newParty.key = addParty[1];
+            newParty.value = addParty[0];
 
 
     	$scope.submit = function() {
@@ -355,19 +394,65 @@ function deleteClause($scope, clause){
 		$scope.clauses.splice(index, 1);
 	}
 }
+function AnnulerCanceled($scope){
+console.log("Annuler Canceled")
+
+   $scope.form.addCanceled="";
+   $scope.upCanCeled=false;
+
+
+   }
+ function AnnulerModality($scope){
+    console.log("Annuler Modality")
+
+    $scope.form.addModClause="";
+    $scope.upModality=false;
+
+
+    }
+
+   function updatemodalityExist($scope){
+   console.log("Update Modality")
+      var mod=$scope.form.addModClause;
+   	var index = $scope.IndexModality;
+      if(index!=-1)
+      {
+      $scope.modality[index]=mod;
+      $scope.form.addModClause="";
+      $scope.upModality=false;
+      }
+
+      }
 function updatemodalityExist($scope){
-
+console.log("Update Modality")
    var mod=$scope.form.addModClause;
-	var index = $scope.clauses.indexOf(mod);
-	console.log("UP MOD /"+mod+"/ "+index);
+	var index = $scope.IndexModality;
+   if(index!=-1)
+   {
+   $scope.modality[index]=mod;
+   $scope.form.addModClause="";
+   $scope.upModality=false;
+   }
+
+   }
+
+function updatecanceledExist($scope){
+console.log("Update Canceled")
+var can=$scope.form.addCanceled;
+var index = $scope.IndexCanceled;
 
 
-//	$scope.modality.push($scope.form.addModClause);
-	console.log("Up="+$scope.modality[index])
+   if(index!=-1)
+   {
+   $scope.canceled[index]=can;
+   $scope.form.addCanceled="";
+   $scope.upCanCeled=false;
+   }
 
 
-	}
 
+
+   }
 
 
 
@@ -384,7 +469,7 @@ console.log("Delete Modalite");
 function deleteCanceled($scope, cance){
 console.log("Delete Canceled");
 
-	var index = $scope.modality.indexOf(cance);
+	var index = $scope.canceled.indexOf(cance);
 	if (index > -1){
 		$scope.canceled.splice(index, 1);
 	}
@@ -395,6 +480,14 @@ console.log("Delete Modalite");
 	var index = $scope.modality.indexOf(exchange);
 	if (index > -1){
 		$scope.exchangeClause.splice(index, 1);
+	}
+}
+function updateParties($scope){
+  var addParty = $scope.form.addParty;
+	var index = $scope.parties.indexOf(addParty);
+	if (index == -1){
+    $scope.parties.push(addParty);
+		$scope.form.addParty="";
 	}
 }
 function updateClauses($scope){
@@ -436,18 +529,28 @@ console.log("Res="+Modality);
 }
 function updateActionModality($scope,m){
 
+$scope.form={};
+$scope.form.addModClause=m;
+var index=$scope.modality.indexOf(m);
 
- $scope.upModality=true;
- $scope.form.addModClause=m;
 
+
+$scope.upModality=true;
+
+$scope.IndexModality=index;
 	return false;
 }
 function updateActionCanceled($scope,c){
 
-console.log("Update Existe Canceled="+$scope.updateActionCan);
- $scope.upCanCeled=true;
- console.log("S="+$scope.upCanCeled);
-	return false;
+$scope.form={};
+$scope.form.addCanceled=c;
+var index=$scope.canceled.indexOf(c);
+$scope.upCanCeled=true;
+$scope.IndexCanceled=index;
+
+return false;
+
+
 }
 function updateActionExchange($scope,d){
 
@@ -507,6 +610,4 @@ function deleteParty($scope, p){
 	if (index > -1){
 		$scope.parties.splice(index, 1);
 	}
-}function updateParties($scope){
-
 }

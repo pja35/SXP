@@ -27,7 +27,9 @@
 		</div>
 		<div class="panel-body">
 			<div class="col-sm-8" ng-repeat="party in parties">
-
+                 <party/>
+			{{party}}
+				fsdfs
 			</div>
 			<div class="row">
 				<div class="col-sm-6">
@@ -51,9 +53,9 @@
 			</label>
 		</div>
 		<div class="panel-body">
-			<div class="col-sm-12 col-md-12" ng-repeat="exchangeclause in exchangeClause">
-
-				{{exchangeclause}}
+			<div class="col-sm-12 col-md-12" ng-repeat="exchange in Exchange">
+             <exchange/>
+             {{exchangeClause}}
 			</div>
 			<div class="col-sm-8">
 				<div class="row">
@@ -133,11 +135,12 @@
 				</table>
 			</div>
 			<div>
-				<textarea class="form-control" rows="5" cols="3" ng-model="form.addModClause" >{{ModUpText}}</textarea>
+				<textarea class="form-control" rows="5" cols="3" ng-model="form.addModClause" ></textarea>
 				<br>
 				<button type="button" class="btn btn-default" ng-click="updatemodality()" data-ng-show="!upModality">Add modality</button>
 
 				<button type="button" class="btn btn-default" ng-click="updatemodalityExist()" data-ng-show="upModality">Update modality</button>
+				<button type="button" class="btn btn-default" ng-click="AnnulerModality()" data-ng-show="upModality">Cancel</button>
 
 
 
@@ -164,19 +167,19 @@
 					<tbody>
 					<tr ng-repeat="annulation in canceled">
 						<td>{{annulation}}</td>
-						<td><button type="button" class="btn btn-danger" ng-click="updateActionCan(annulation)">Update</button></td>
-						<td>	<button type="button" class="btn btn-danger" ng-click="deleteTermModality(modality)">Delete</button></td>
+						<td><button type="button" class="btn btn-danger" ng-click="updateActionCanceled(annulation)">Update</button></td>
+						<td><button type="button" class="btn btn-danger" ng-click="deleteCanceled(annulation)">Delete</button></td>
 					</tr>
 					</tbody>
 				</table>
 			</div>
 			<div>
-				<textarea class="form-control" rows="5" cols="3" ng-model="form.addCanceled" >{{ModUpText}}</textarea>
+				<textarea class="form-control" rows="5" cols="3" ng-model="form.addCanceled" ></textarea>
 				<br>
 				<button type="button" class="btn btn-default" ng-click="updateclausescanceled()" data-ng-show="!upCanCeled">Add modality</button>
 
-				<button type="button" class="btn btn-default" ng-click="UpadateClauses()" data-ng-show="upCanCeled">Upadate modality</button>
-
+				<button type="button" class="btn btn-default" ng-click="updatecanceledExist()" data-ng-show="upCanCeled">Upadate modality</button>
+				<button type="button" class="btn btn-default" ng-click="AnnulerCanceled()" data-ng-show="upCanCeled">Cancel</button>
 			</div>
 		</div>
 	</div>
