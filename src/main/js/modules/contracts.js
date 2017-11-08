@@ -31,7 +31,23 @@
     	//TODO: do some of this with configHeader:
 
     	$scope.app.configHeader({back: false, title: 'Contracts', contextButton: 'addContract'});
-  	  
+  	  	$scope.checkClass = function ($status) {
+            switch ($status) {
+                case 'NOWHERE':
+                    return "panel-warning";
+                case 'SIGNING':
+                    return "panel-success";
+                case 'FINALIZED':
+                    return "panel-success";
+                case 'CANCELLED':
+                    return "panel-danger";
+                case 'RESOLVING':
+                    return "panel-default";
+				default:
+                    return "panel-warning";
+            }
+
+        };
     	$scope.contracts = [];
     	$scope.contracts = Contract.query(); //Fetch contracts, thanks to restApi.js
     	//The bindings with contracts.html will display them automatically
@@ -72,7 +88,23 @@
 		  $http.put(RESTAPISERVER + '/api/contracts/cancel/'+contract.id,  {});
 		  $state.go('viewContracts');
 	  }
-	  
+        $scope.checkClass = function () {
+            switch (contract.status) {
+                case 'NOWHERE':
+                    return "panel-warning";
+                case 'SIGNING':
+                    return "panel-success";
+                case 'FINALIZED':
+                    return "panel-success";
+                case 'CANCELLED':
+                    return "panel-danger";
+                case 'RESOLVING':
+                    return "panel-default";
+                default:
+                    return "panel-warning";
+            }
+
+        };
 	});
     
     

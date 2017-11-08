@@ -1,6 +1,21 @@
-<h1>My contracts</h1>
+<div class="container">
+	<h1 class="row col-sm-6">My contracts</h1>
+		<div class="form-group col-sm-4">
+			<div class="input-group">
+				<input type="text" class="form-control" ng-model="recherche">
+				<span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+			</div>
+		</div>
+</div>
+<div class="well">
+	<span class="label label-success">Contrat signé</span>
+	<span class="label label-info">Contrat modifié</span>
+	<span class="label label-warning">Nouveau Contrat</span>
+	<span class="label label-danger">Contrat refusé</span>
+	<span class="label label-default">état normal</span>
+</div>
 <div class="row">
-	<div class="col-sm-12 col-md-6" ng-repeat="contract in contracts">
+	<div class="col-sm-12 col-md-6" ng-repeat="contract in contracts | filter : recherche">
 		<contract></contract>
 	</div>
 </div>
