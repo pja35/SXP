@@ -27,16 +27,33 @@
 		</div>
 		<div class="panel-body">
 			<div class="col-sm-8" ng-repeat="party in parties">
-                 <party/>
-			{{party}}
-				fsdfs
+        <party/>
 			</div>
 			<div class="row">
 				<div class="col-sm-6">
-					<select class="form-control custom-select" id="addParty" ng-model="form.addParty">
+					<div class="input-group">
+					    <input type="text" class="form-control" placeholder="Write a user" ng-model="form.addParty" ng-keyup="userAutoComplete()">
+					    <input type="hidden" ng-model="receiverId">
+					    <input type="hidden" ng-model="receiverPbkey">
+					</div>
+					form.addParty : {{form.addParty}}
+					<div class="form-group" ng-show="form.addParty.length > 0">
+					  <div ng-show="hideAfterSelected">
+					  	<div class="alert alert-danger ng-clignotement" role="alert" ng-show="errorSearch">No user found</div>
+					  	<div class="alert" role="alert" ng-show="searchUser"><div class="loader"></div></div>
+					  	<div href ng-click="selectUser({receiver: user})" class="panel panel-default search-result search-user" ng-repeat="user in results" style="cursor: pointer;">
+					    	<div class="panel-heading">
+					      	<div class="panel-title">
+					        	<p><span> {{user.nick}} </span> &nbsp;&nbsp;&nbsp; <small>id : {{user.id}}</small></p>
+					      	</div>
+					    	</div>
+					  	</div>
+						</div>
+					</div>
+					<!--<select class="form-control custom-select" id="addParty" ng-model="form.addParty">
 						<option value="" selected disabled>Choose a user</option>
 						<option ng-repeat="user in userList">{{user.name}} - {{user.id}}</option>
-					</select>
+					</select>-->
 				</div>
 				<div class="col-sm-2">
 					<button type="button" class="btn btn-default" ng-click="updateparties()">Add party</button>
