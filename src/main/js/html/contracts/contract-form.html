@@ -15,6 +15,7 @@
 		<div class="panel-body">
 			<input type="hidden" id="id" ng-model="form.id">
 			<input type="text" class="form-control" id="title" placeholder="Name" ng-model="form.title">
+			<div ng-show="hasName"><font color="red"><em>You must fill out the contract name field</em></font></div>
 		</div>
 	</div>
 
@@ -54,6 +55,7 @@
 						<option value="" selected disabled>Choose a user</option>
 						<option ng-repeat="user in userList">{{user.name}} - {{user.id}}</option>
 					</select>
+					<div ng-show="hasParty"><font color="red"><em>You must add a party</em></font></div>
 				</div>
 				<div class="col-sm-2">
 					<button type="button" class="btn btn-default" ng-click="updateparties()">Add party</button>
@@ -128,6 +130,7 @@
 				<div class="row">
 					<button type="button" class="btn btn-default col-sm-offset-4 col-md-offset-5 btn btn-secondary col-sm-3 col-md-2" ng-click="updateclausesExchange()">Add Clause</button>
 				</div>
+				<div ng-show="hasExchanges"><font color="red"><em>You must add an exchange clause</em></font></div>
 			</div>
 		</div>
 	</div>
@@ -159,6 +162,7 @@
 			</div>
 			<div>
 				<textarea class="form-control" rows="5" cols="3" ng-model="form.addModClause" ></textarea>
+				<div ng-show="hasImpModality"><font color="red"><em>You must add an implementing modality</em></font></div>
 				<br>
 				<button type="button" class="btn btn-default" ng-click="updatemodality()" data-ng-show="!upModality">Add modality</button>
 
@@ -198,6 +202,7 @@
 			</div>
 			<div>
 				<textarea class="form-control" rows="5" cols="3" ng-model="form.addCanceled" ></textarea>
+				<div ng-show="hasTermModality"><font color="red"><em>You must add a termination modality</em></font></div>
 				<br>
 				<button type="button" class="btn btn-default" ng-click="updateclausescanceled()" data-ng-show="!upCanCeled">Add modality</button>
 
