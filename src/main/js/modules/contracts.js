@@ -214,29 +214,29 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
     	$scope.canceled=[];
     	$scope.modality=[];
     	$scope.exchangeClause=[];
-        $scope.userList =[];
+      $scope.userList =[];
     	$scope.items = [];
-        $scope.items = Item.query();
-        /*********************************/
-        $scope.upCanCeled=false;// variable servant a affichez le bouton modify
-        $scope.upModality=false;// si Variable==false bouton Add est visible sion le bouton Modift
-        $scope.upExchange=false;
+      $scope.items = Item.query();
+      /*********************************/
+      $scope.upCanCeled=false;// variable servant a affichez le bouton modify
+      $scope.upModality=false;// si Variable==false bouton Add est visible sion le bouton Modift
+      $scope.upExchange=false;
 
-        /***********************************/
-         /* Ces variable Suivant nous permet de recupere l'indice
-         * de Modality quand veut change
-         *
-         */
-        $scope.IndexModality=-1;
-        $scope.IndexCanceled=-1;
+      /***********************************/
+      /* Ces variable Suivant nous permet de recupere l'indice
+      * de Modality quand veut change
+      *
+      */
+      $scope.IndexModality=-1;
+      $scope.IndexCanceled=-1;
 
-        /***********************************/
+      /***********************************/
 
      	$scope.ModUpText="";
      	getUsers($http, $scope);
 
 
-/*Definition Par default des Modalite*/
+      /*Definition Par default des Modalite*/
       var Modality1= "Les parties s'engagent à préciser les détériorations et/ou modifications de l'objet depuis la signature du contrat 4 jours avant l'échange.";
       var Modality2="A effectuer ensemble une évaluation  des  objectes à l’échange.";
       var Modality3="Les parties reconnaissent avoir pris connaissance de toutes informations concernant les Objects "+
@@ -256,12 +256,11 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
 
 
 
-		$scope.modality.push(Modality5);
-		$scope.modality.push(Modality4);
+		  $scope.modality.push(Modality5);
+		  $scope.modality.push(Modality4);
 	    $scope.modality.push(Modality3);
 	    $scope.modality.push(Modality2);
 	    $scope.modality.push(Modality1);
-
 
 	    $scope.canceled.push(canceled1);
 
@@ -271,48 +270,126 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
     	$scope.updatemodality= function() {updateModality($scope)};
     	$scope.updateclausesExchange= function() {updateClausesExchange($scope)};
 
-        $scope.updatecanceledExist= function() {updatecanceledExist($scope)};
+      $scope.updatecanceledExist= function() {updatecanceledExist($scope)};
     	$scope.updatemodalityExist= function() {updatemodalityExist($scope)};
     	$scope.updateclausesExchangeExist= function() {updateClausesExchange($scope)};
 
-
-        $scope.AnnulerCanceled = function() {AnnulerCanceled($scope)};
-        $scope.AnnulerModality = function() {AnnulerModality($scope)}
+      $scope.AnnulerCanceled = function() {AnnulerCanceled($scope)};
+      $scope.AnnulerModality = function() {AnnulerModality($scope)}
 
     	$scope.deleteParty = function(p){deleteParty($scope,p);};
     	$scope.deleteModality = function(m){deleteModality($scope,m);};
     	$scope.deleteCanceled = function(c){deleteCanceled($scope,c);};
-        $scope.deleteExchange = function(e){deleteExchange($scope,e);};
+      $scope.deleteExchange = function(e){deleteExchange($scope,e);};
     	$scope.deleteClause = function(c){deleteClause($scope,c);};
 
-        $scope.updateActionModality=function(m){updateActionModality($scope,m)};
-        $scope.updateActionCanceled=function(c){updateActionCanceled($scope,c)};
-        $scope.updateActionEx=function(e){updateActionExchange($scope,e)};
+
 
         $scope.Exchange=[];
 
 
            $scope.Party=[];
 
+      $scope.updateActionModality=function(m){updateActionModality($scope,m)};
+      $scope.updateActionCanceled=function(c){updateActionCanceled($scope,c)};
+      $scope.updateActionEx=function(e){updateActionExchange($scope,e)};
 
-            var newParty = {};
-            newParty.key = addParty[1];
-            newParty.value = addParty[0];
+      //$scope.userAutoComplete = function(){userAutoComplete($scope)};
+			//$scope.selectUser = function(){selectUser($stateParams)};
 
+			$scope.userAutoComplete = function() {
+									$scope.results = [];
+									$scope.errorSearch = false;
+									$scope.searchUser = true;
+									$scope.hideAfterSelected = true;
+									$scope.errorFields = false;
+									$scope.receiverId = null;
+									$scope.receiverPbkey = null;
+
+									if ($scope.stream != null) {
+											$scope.stream.abort();
+									}
+									Oboe(
+										{
+											url: RESTAPISERVER + "/api/search/users?nick=" + $scope.form.addParty,
+											pattern: '!',
+											start: function(stream) {
+													// handle to the stream
+													$scope.stream = stream;
+													$scope.status = 'started';
+											},
+											done: function(parsedJSON) {
+													$scope.status = 'done';
+											}
+									}).then(function() {
+											// promise is resolved
+									}, function(error) {
+											// handle errors
+									}, function(node) { //A node is just a partial list of matches from the streamed search
+											// node received
+											if (node != null && node.length != 0) { // if not empty
+
+													for (var i = 0; i < node.length; i++) { // push it to results
+															console.log(node[i]);
+															$scope.pushResult(node[i]);
+													}
+											}
+
+											$scope.searchUser = false;
+											console.log($scope.results.length);
+											if($scope.results.length == 0)
+												$scope.errorSearch = true;
+											else
+												$scope.errorSearch = false;
+
+									});
+							};
+
+			$scope.selectUser = function($stateParams) {
+					$scope.hideAfterSelected = false;
+					$scope.receiverId = $stateParams.receiver.id;
+					$scope.receiverPbkey = $stateParams.receiver.key.publicKey;
+			};
+
+      $scope.Exchange=[];
+      ex=$scope.exchangeClause;
+
+      for (i=0; i<ex.length; i++){
+        exchange=ex[i];
+        console.log("Ex="+exchange);
+        $scope.myarrays=[];
+        $scope.myarrays=exchange.split('*');
+        $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$scope.myarrays[2],'when':$scope.myarrays[3],'where':$scope.myarrays[4]});
+      }
+
+
+      $scope.Party=[];
+      part=$scope.parties;
+      for (i=0; i<part.length; i++){
+        Par=part[i];
+        console.log("Part="+Par);
+        $scope.myarrays=[];
+        $scope.myarrays=exchange.split(' - ');
+        $scope.Party.push({'key':$scope.myarrays[0],'value':$scope.myarrays[1]});
+      }
+
+      var newParty = {};
+      newParty.key = addParty[1];
+      newParty.value = addParty[0];
 
     	$scope.submit = function() {
 
-        	pN = $scope.parties;
-        	partiesId = [];
-    	    for (i=0; i<pN.length; i++){
-    	    	names = pN[i];
-    	    	partiesId[i] = names.split(" - ")[1];
-    	    };
+      	pN = $scope.parties;
+        partiesId = [];
+    	  for (i=0; i<pN.length; i++){
+    	   	names = pN[i];
+    	   	partiesId[i] = names.split(" - ")[1];
+    	  };
 
     		if ($scope.form.addParty != null && $scope.form.addParty.length>2){updateParties($scope);}
     		if ($scope.form.addClause != null && $scope.form.addClause.length>2){updateClauses($scope);}
     		if ($scope.form.addCanceled != null && $scope.form.addCanceled.length>2){updateClausesCanceled($scope);}
-         	if ($scope.form.addModClause != null && $scope.form.addModClause.length>2){updateModality($scope);}
+        if ($scope.form.addModClause != null && $scope.form.addModClause.length>2){updateModality($scope);}
     		if ($scope.form.addExchangeClause!= null && $scope.form.addExchangeClause.length>2){updateClausesExchange($scope);}
 
     		var contract = new Contract({
@@ -322,14 +399,15 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
     			modality:$scope.modality,
     			exchange:$scope.exchangeClause,
 	    		parties: partiesId
-			});
-            console.log("Contrat=="+contract.exchange);
-    		// Create the contract in the database thanks to restApi.js
+				});
 
+      	console.log("Contrat=="+contract.exchange);
+
+      	// Create the contract in the database thanks to restApi.js
     		contract.$save(function() {
-    		 console.log("ContratSav=="+contract.exchange+"/"+contract.canceled);
-				$state.go('viewContracts');
-			});
+    			console.log("ContratSav=="+contract.exchange+"/"+contract.canceled);
+					$state.go('viewContracts');
+				});
     	};
     });
 
@@ -598,4 +676,58 @@ function deleteParty($scope, p){
 	if (index > -1){
 		$scope.parties.splice(index, 1);
 	}
+}
+
+function selectUser($stateParams){
+  $scope.hideAfterSelected = false;
+  $scope.receiverId = $stateParams.receiver.id;
+  $scope.receiverPbkey = $stateParams.receiver.key.publicKey;
+}
+
+function userAutoComplete($scope){
+  $scope.results = [];
+  $scope.errorSearch = false;
+  $scope.searchUser = true;
+  $scope.hideAfterSelected = true;
+  $scope.errorFields = false;
+  $scope.receiverId = null;
+  $scope.receiverPbkey = null;
+
+  if ($scope.stream != null) {
+      $scope.stream.abort();
+  }
+  Oboe(
+    {
+      url: RESTAPISERVER + "/api/search/users?nick=" + $scope.form.addParty,
+      pattern: '!',
+      start: function(stream) {
+          // handle to the stream
+          $scope.stream = stream;
+          $scope.status = 'started';
+      },
+      done: function(parsedJSON) {
+          $scope.status = 'done';
+      }
+  }).then(function() {
+      // promise is resolved
+  }, function(error) {
+      // handle errors
+  }, function(node) { //A node is just a partial list of matches from the streamed search
+      // node received
+      if (node != null && node.length != 0) { // if not empty
+
+          for (var i = 0; i < node.length; i++) { // push it to results
+              console.log(node[i]);
+              $scope.pushResult(node[i]);
+          }
+      }
+
+      $scope.searchUser = false;
+      console.log($scope.results.length);
+      if($scope.results.length == 0)
+        $scope.errorSearch = true;
+      else
+        $scope.errorSearch = false;
+
+  });
 }
