@@ -290,26 +290,10 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
         $scope.updateActionEx=function(e){updateActionExchange($scope,e)};
 
         $scope.Exchange=[];
-        ex=$scope.exchangeClause;
 
-          for (i=0; i<ex.length; i++){
-          exchange=ex[i];
-          console.log("Ex="+exchange);
-        $scope.myarrays=[];
-        $scope.myarrays=exchange.split('*');
-        $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$scope.myarrays[2],'when':$scope.myarrays[3],'where':$scope.myarrays[4]});
-          }
 
            $scope.Party=[];
-           part=$scope.parties;
-            for (i=0; i<part.length; i++){
-            Par=part[i];
-            console.log("Part="+Par);
-            $scope.myarrays=[];
-            $scope.myarrays=exchange.split(' - ');
-            $scope.Party.push({'key':$scope.myarrays[0],'value':$scope.myarrays[1]});
 
-            }
 
             var newParty = {};
             newParty.key = addParty[1];
@@ -488,8 +472,13 @@ function updateParties($scope){
 	if (index == -1){
     $scope.parties.push(addParty);
 		$scope.form.addParty="";
+
 	}
-}
+          $scope.Tampon=[];
+          $scope.Tampon=addParty.split(" - ");
+          $scope.Party.push({'key':$scope.Tampon[1],'value':$scope.Tampon[0]});
+
+                }
 function updateClauses($scope){
 	console.log("UPdateClause");
 	var clause = $scope.fromparty +" gives "+ $scope.form.addClause +" to "+ $scope.forparty;
@@ -579,12 +568,11 @@ var index = $scope.exchangeClause.indexOf(exchange);
 	    $scope.whatexchange="";
 		$scope.whenexhange="";
 		$scope.form.addExchangeClause="";
-
+        $scope.Exchange.push({'from':from,'to':to,'item':what,'when':when,'where':where});
 	}
 
-   console.log($scope.exchangeClause);
 
-
+console.log($scope.Exchange);
 	return false;
 }
 

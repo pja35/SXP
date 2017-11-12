@@ -26,10 +26,9 @@
 			</label>
 		</div>
 		<div class="panel-body">
-			<div class="col-sm-8" ng-repeat="party in parties">
+			<div class="col-sm-8" ng-repeat="party in Party">
                  <party/>
-			{{party}}
-				fsdfs
+
 			</div>
 			<div class="row">
 				<div class="col-sm-6">
@@ -53,16 +52,16 @@
 			</label>
 		</div>
 		<div class="panel-body">
-			<div class="col-sm-12 col-md-12" ng-repeat="exchange in Exchange">
-             <exchange/>
-             {{exchangeClause}}
+			<div class="col-sm-12 col-md-12" ng-repeat="clausse in Exchange">
+             <clausse/>
+				{{clausse}}
 			</div>
 			<div class="col-sm-8">
 				<div class="row">
 					<label for="selectfrom" class="col-sm-3 col-md-2">FROM</label>
 					<span class="col-sm-9 col-md-10"><select id="selectfrom" class="form-control" ng-model="fromexchange" title="From Party">
 		    		<option value="" selected="selected" disabled>Choose a user</option>
-		    		<option ng-repeat="party in parties">{{party}}}</option>
+		    		<option ng-repeat="party in parties">{{party}}</option>
 			    </select></span>
 				</div>
 				<br/>
