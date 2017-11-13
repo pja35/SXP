@@ -87,6 +87,7 @@ public class Items {
 	    ItemSyncManager em = SyncManagerFactory.createItemSyncManager();
 		JsonTools<Collection<Item>> json = new JsonTools<>(new TypeReference<Collection<Item>>(){});
 		String ret = json.toJson(em.findAllByAttribute("userid", currentUser.getId()));
+		System.err.println("USER="+currentUser.getId());
 		users.close();
 		em.close();
 		return ret;

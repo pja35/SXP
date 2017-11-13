@@ -138,6 +138,7 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
 
 
     module.controller('editContract', function($scope, $stateParams, Contract, $state, $http){
+
       	$scope.app.configHeader({back: true, title: 'Edit contracts', contextId: $stateParams.id});
       	$scope.action = 'edit';
 
@@ -204,8 +205,9 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
 
 
 
-    module.controller('addContract', function($scope, Contract,Item, $state, $http){
+    module.controller('addContract', function($rootScope, $scope, Contract, Item, $state, $http){
 
+       isUserConnected($rootScope, $scope, $state);
     	$scope.app.configHeader({back: true, title: 'Add contracts'});
     	$scope.action = 'add';
 
@@ -214,10 +216,19 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
     	$scope.canceled=[];
     	$scope.modality=[];
     	$scope.exchangeClause=[];
-      $scope.userList =[];
+        $scope.userList =[];
     	$scope.items = [];
-      $scope.items = Item.query();
-      /*********************************/
+		$scope.items = Item.query();
+
+
+
+
+		$scope.exchangeModes = [];
+			var itemsY = [];
+			//itemsY = Item.query();
+			console.log("Nombre d'items");
+			console.log($scope.items.length);
+			/*********************************/
       $scope.upCanCeled=false;// variable servant a affichez le bouton modify
       $scope.upModality=false;// si Variable==false bouton Add est visible sion le bouton Modift
       $scope.upExchange=false;
@@ -234,7 +245,11 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
 
      	$scope.ModUpText="";
      	getUsers($http, $scope);
+        getItems($http, $scope);
 
+			$scope.exchangeModes[0] = "electronically";
+			$scope.exchangeModes[1] = "delivery";
+			$scope.exchangeModes[2] = "in person";
 
       /*Definition Par default des Modalite*/
       var Modality1= "Les parties s'engagent à préciser les détériorations et/ou modifications de l'objet depuis la signature du contrat 4 jours avant l'échange.";
@@ -256,8 +271,8 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
 
 
 
-		  $scope.modality.push(Modality5);
-		  $scope.modality.push(Modality4);
+		$scope.modality.push(Modality5);
+		$scope.modality.push(Modality4);
 	    $scope.modality.push(Modality3);
 	    $scope.modality.push(Modality2);
 	    $scope.modality.push(Modality1);
@@ -293,6 +308,34 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
       $scope.updateActionModality=function(m){updateActionModality($scope,m)};
       $scope.updateActionCanceled=function(c){updateActionCanceled($scope,c)};
       $scope.updateActionEx=function(e){updateActionExchange($scope,e)};
+      $scope.update=function(){
+                                    	if($scope.fromexchange!="")
+                                    	{
+                                    	console.log("Mv exchange "+$scope.fromexchange);
+
+                                    	$scope.tap=$scope.fromexchange.split(" - ");
+                                    	$scope.actueluser=$scope.tap[1];
+                                    	console.log("actuel "+$scope.actueluser);
+                                      	//getItems($http, $scope);
+                                    	}
+                              };
+			//$scope.$watch('fromExchange', function(newFrom) {
+        //if (newFrom != undefined){
+          //var addFrom = newFrom.split(" - ");
+          //console.log("from user : " + addFrom[1]);
+					//$scope.items = [];
+					//items.push("oho");
+					//itemsY = Item.query();
+					//console.log(itemsY.length);
+					//forEach (item in items)
+					//{
+						//if (item.userid == addFrom[1])
+						//{
+							//$scope.items.push(item);
+						//}
+					//}
+        //}
+      //});
 
       //$scope.userAutoComplete = function(){userAutoComplete($scope)};
 			//$scope.selectUser = function(){selectUser($stateParams)};
@@ -372,6 +415,9 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
         $scope.myarrays=exchange.split(' - ');
         $scope.Party.push({'key':$scope.myarrays[0],'value':$scope.myarrays[1]});
       }
+      $scope.items=[];
+
+       console.log("Item="+$scope.parties+" "+$scope.Party);
 
       var newParty = {};
       newParty.key = addParty[1];
@@ -629,15 +675,15 @@ console.log("Update Existe Exchange "+Exchange);
 function updateClausesExchange($scope){
 	console.log("UPdate Exchange Clause From="+$scope.fromexchange+"/What="+$scope.whatexchange+"/For="+$scope.forexchange+"/When="+$scope.whenexhange+"/Where="+$scope.form.addExchangeClause);
 
-var from=$scope.fromexchange;
-var to=$scope.forexchange;
-var what=$scope.whatexchange;
-var when=""+$scope.whenexhange+" ";
-var where=$scope.form.addExchangeClause;
+	var from=$scope.fromExchange;
+	var to=$scope.toExchange;
+	var what=$scope.whatExchange;
+	var when=""+$scope.whenExchange+" ";
+	var how = $scope.form.howExchange;
+	var details = $scope.detailsExchange;
+	var exchange=from+"*"+to+"*"+what+"*"+when+"*"+where;
 
-var exchange=from+"*"+to+"*"+what+"*"+when+"*"+where;
-
-var index = $scope.exchangeClause.indexOf(exchange);
+	var index = $scope.exchangeClause.indexOf(exchange);
 	if (index == -1){
 
         $scope.exchangeClause.push(exchange);
@@ -647,6 +693,7 @@ var index = $scope.exchangeClause.indexOf(exchange);
 		$scope.whenexhange="";
 		$scope.form.addExchangeClause="";
         $scope.Exchange.push({'from':from,'to':to,'item':what,'when':when,'where':where});
+
 	}
 
 
@@ -671,6 +718,27 @@ function getUsers($http, $scope){
 	);
 }
 
+function getItems($http, $scope){
+	$http.get(RESTAPISERVER + "/api/items").then(
+		function(response){
+			var ItemList = response.data;
+		      console.log("ItemLis="+ItemList.length);
+			$scope.ItemList = [];
+				console.log("UserNv="+$scope.actueluser);
+			for(i=0; i<ItemList.length; i++){
+				if (ItemList[i].nick != ""){
+
+
+
+						$scope.ItemList[i] = ItemList[i].title;
+
+
+				}
+			}
+		console.log("ItemNv="+$scope.ItemList);
+		}
+	);
+}
 function deleteParty($scope, p){
 	var index = $scope.parties.indexOf(p);
 	if (index > -1){
