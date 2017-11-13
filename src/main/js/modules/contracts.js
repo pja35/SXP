@@ -146,6 +146,7 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
       	$scope.userList = [];
         getUsers($http, $scope);
         $scope.parties = [];
+				$scope.clauseExists = true;
 
   		  var contract = Contract.get({id: $stateParams.id}, function() {
   			//First, load the item and display it via the bindings with item-form.html
@@ -154,6 +155,8 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
         $scope.parties = contract.partiesNames;
         $scope.impModalities = contract.impModalities; //faut créer le truc derriere en java
         });
+
+				checkClauses($scope);
 
         // $scope.impModalities = [];
         // $scope.impModalities[0] = "Modalités par défaut";
@@ -175,23 +178,27 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
 
       	$scope.submit = function() {
 
-          partiesId = [];
-          $scope.parties.forEach(function(party) {
-            partiesId.push(party.key);
-          });
+					var isOK = checkClauses($scope);
+					if (isOK)
+					{
+	          partiesId = [];
+	          $scope.parties.forEach(function(party) {
+	            partiesId.push(party.key);
+	          });
 
-      		if ($scope.form.addParty != null && $scope.form.addParty.length>2){updateParties($scope);}
-      		if ($scope.form.addClause != null && $scope.form.addClause.length>2){updateClauses($scope);}
-          if ($scope.form.addImpModality != null && $scope.form.addImpModality.length>2){updateImpModalities($scope);}
-          if ($scope.form.addTermModality != null && $scope.form.addTermModality.length>2){updateTermModalities($scope);}
-          //Contract is available thanks to restApi.js
-      		contract.title = $scope.form.title;
-      		contract.clauses = $scope.clauses;
-      		contract.parties = partiesId;
+	      		if ($scope.form.addParty != null && $scope.form.addParty.length>2){updateParties($scope);}
+	      		if ($scope.form.addClause != null && $scope.form.addClause.length>2){updateClauses($scope);}
+	          if ($scope.form.addImpModality != null && $scope.form.addImpModality.length>2){updateImpModalities($scope);}
+	          if ($scope.form.addTermModality != null && $scope.form.addTermModality.length>2){updateTermModalities($scope);}
+	          //Contract is available thanks to restApi.js
+	      		contract.title = $scope.form.title;
+	      		contract.clauses = $scope.clauses;
+	      		contract.parties = partiesId;
 
-      		contract.$update(function() {
-      			$state.go('viewContracts');
-      	  });
+	      		contract.$update(function() {
+	      			$state.go('viewContracts');
+	      	  });
+					}
       	};
 
       	$scope.delete = function(){
@@ -424,36 +431,39 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
       newParty.value = addParty[0];
 
     	$scope.submit = function() {
+				var isOK = checkClauses($scope);
+				if (isOK)
+				{
+	      	pN = $scope.parties;
+	        partiesId = [];
+	    	  for (i=0; i<pN.length; i++){
+	    	   	names = pN[i];
+	    	   	partiesId[i] = names.split(" - ")[1];
+	    	  };
 
-      	pN = $scope.parties;
-        partiesId = [];
-    	  for (i=0; i<pN.length; i++){
-    	   	names = pN[i];
-    	   	partiesId[i] = names.split(" - ")[1];
-    	  };
+	    		if ($scope.form.addParty != null && $scope.form.addParty.length>2){updateParties($scope);}
+	    		if ($scope.form.addClause != null && $scope.form.addClause.length>2){updateClauses($scope);}
+	    		if ($scope.form.addCanceled != null && $scope.form.addCanceled.length>2){updateClausesCanceled($scope);}
+	        if ($scope.form.addModClause != null && $scope.form.addModClause.length>2){updateModality($scope);}
+	    		if ($scope.form.addExchangeClause!= null && $scope.form.addExchangeClause.length>2){updateClausesExchange($scope);}
 
-    		if ($scope.form.addParty != null && $scope.form.addParty.length>2){updateParties($scope);}
-    		if ($scope.form.addClause != null && $scope.form.addClause.length>2){updateClauses($scope);}
-    		if ($scope.form.addCanceled != null && $scope.form.addCanceled.length>2){updateClausesCanceled($scope);}
-        if ($scope.form.addModClause != null && $scope.form.addModClause.length>2){updateModality($scope);}
-    		if ($scope.form.addExchangeClause!= null && $scope.form.addExchangeClause.length>2){updateClausesExchange($scope);}
+	    		var contract = new Contract({
+		    		title : $scope.form.title,
+	    			clauses: $scope.clauses,
+	    			canceled:$scope.canceled,
+	    			modality:$scope.modality,
+	    			exchange:$scope.exchangeClause,
+		    		parties: partiesId
+					});
 
-    		var contract = new Contract({
-	    		title : $scope.form.title,
-    			clauses: $scope.clauses,
-    			canceled:$scope.canceled,
-    			modality:$scope.modality,
-    			exchange:$scope.exchangeClause,
-	    		parties: partiesId
-				});
+	      	console.log("Contrat=="+contract.exchange);
 
-      	console.log("Contrat=="+contract.exchange);
-
-      	// Create the contract in the database thanks to restApi.js
-    		contract.$save(function() {
-    			console.log("ContratSav=="+contract.exchange+"/"+contract.canceled);
-					$state.go('viewContracts');
-				});
+	      	// Create the contract in the database thanks to restApi.js
+	    		contract.$save(function() {
+	    			console.log("ContratSav=="+contract.exchange+"/"+contract.canceled);
+						$state.go('viewContracts');
+					});
+				}
     	};
     });
 
@@ -798,4 +808,61 @@ function userAutoComplete($scope){
         $scope.errorSearch = false;
 
   });
+}
+
+function checkClauses($scope){
+
+	var isOK = true;
+
+	if ($scope.form.title != null)
+	{
+		$scope.hasName = true;
+	}
+	else
+	{
+		$scope.hasName = false;
+		isOK = false;
+	}
+
+	if ($scope.parties.length > 0)
+	{
+		$scope.hasParty = true;
+	}
+	else
+	{
+		$scope.hasParty = false;
+		isOK = false;
+	}
+
+	if ($scope.Exchanges.length > 0)
+	{
+		$scope.hasExchanges = true;
+	}
+	else
+	{
+		$scope.hasExchanges = false;
+		isOK = false;
+	}
+
+	if ($scope.impModality.length > 0)
+	{
+		$scope.hasImpModality = true;
+	}
+	else
+	{
+		$scope.hasImpModality = false;
+		isOK = false;
+	}
+
+	if ($scope.termModality.length > 0)
+	{
+		$scope.hasTermModality = true;
+	}
+	else
+	{
+		$scope.hasTermModality = false;
+		isOK = false;
+	}
+
+	return isOK;
 }
