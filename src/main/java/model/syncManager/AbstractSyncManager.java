@@ -37,18 +37,16 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
         }
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public Collection<Entity> findAll() {
-        try {
-            Query q = em.createQuery("select t from " + theClass.getSimpleName() + " t");
-            return q.getResultList();
-        } catch (Exception e) {
-            LoggerUtilities.logStackTrace(e);
-            return null;
+    public Collection<Entity> findAllById(ArrayList<String> ids){
+        ArrayList<Entity> r = new ArrayList<>();
+        for(String id : ids){
+            r.add(findOneById(id));
         }
-
+        return r;
     }
+
+
 
     @Override
     @SuppressWarnings("unchecked")
@@ -58,6 +56,18 @@ public abstract class AbstractSyncManager<Entity> implements model.api.SyncManag
         try {
             return (Entity) q.getSingleResult();
         } catch (Exception e) {
+            LoggerUtilities.logStackTrace(e);
+            return null;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Collection<Entity> findAll(){
+        Query q = em.createQuery("select t from " + theClass.getSimpleName()+" t");
+        try{
+            return q.getResultList();
+        }catch ( Exception e){
             LoggerUtilities.logStackTrace(e);
             return null;
         }

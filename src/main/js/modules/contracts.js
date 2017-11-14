@@ -30,10 +30,10 @@
 
     module.controller('viewContracts', function ($http, $rootScope, $scope, $state, Contract, User) {
         isUserConnected($http, $rootScope, $scope, $state, User);
-    	//TODO: do some of this with configHeader:
+        //TODO: do some of this with configHeader:
 
-    	$scope.app.configHeader({back: false, title: 'Contracts', contextButton: 'addContract'});
-  	  	$scope.checkClass = function ($status) {
+        $scope.app.configHeader({back: false, title: 'Contracts', contextButton: 'addContract'});
+        $scope.checkClass = function ($status) {
             switch ($status) {
                 case 'NOWHERE':
                     return "panel-warning";
@@ -45,52 +45,64 @@
                     return "panel-danger";
                 case 'RESOLVING':
                     return "panel-default";
-				default:
+                default:
                     return "panel-warning";
             }
 
         };
-    	$scope.contracts = [];
-    	$scope.contracts = Contract.query(); //Fetch contracts, thanks to restApi.js
-    	//The bindings with contracts.html will display them automatically
+        $scope.contracts = [];
+        $scope.contracts = Contract.query(); //Fetch contracts, thanks to restApi.js
+        //The bindings with contracts.html will display them automatically
 
     });
 
 
     // 'View contract' state controller function
 
-    module.controller('viewContract',  function($scope, $http, $stateParams, Contract, $state) {
-	  $scope.app.configHeader({back: true, title: 'View contract', contextButton: 'editContract', contextId: $stateParams.id});
-	  
-	  var contract = Contract.get({id: $stateParams.id}, function() {
-	    //Just load the contract and display it via the bindings with contract.html
-	    $scope.contract = contract;
-	    
-	    $scope.title = contract.title;
-    	$scope.clauses = contract.clauses;
-	    
-	    // Get parties from the hashmap of names and id (to identify exactly a user)
-	    $scope.parties = [];
-	    pN = contract.partiesNames;
-	    for (i=0; i<pN.length; i++){
-	    	names = pN[i];
-	    	$scope.parties[i] = names["value"] + " - " + names["key"];
-	    }
-	  });
-	  
-	  $scope.modify = function(){
-		  $state.go("editContract", {id : contract.id});
-	  };
-	  
-	  $scope.sign = function(){
-		  $http.put(RESTAPISERVER + '/api/contracts/sign/'+contract.id,{});
-		  $state.go('viewContracts');
-	  }
-	  
-	  $scope.decline = function(){
-		  $http.put(RESTAPISERVER + '/api/contracts/cancel/'+contract.id,  {});
-		  $state.go('viewContracts');
-	  }
+    module.controller('viewContract', function ($scope, $http, $stateParams, Contract, $state,User,$rootScope) {
+        isUserConnected($http, $rootScope, $scope, $state, User);
+        $scope.app.configHeader({
+            back: true,
+            title: 'View contract',
+            contextButton: 'editContract',
+            contextId: $stateParams.id
+        });
+
+        var contract = Contract.get({id: $stateParams.id}, function () {
+            //Just load the contract and display it via the bindings with contract.html
+            $scope.contract = contract;
+
+            $scope.title = contract.title;
+            $scope.clauses = contract.clauses;
+
+            // Get parties from the hashmap of names and id (to identify exactly a user)
+            $scope.parties = [];
+            pN = contract.partiesNames;
+            for (i = 0; i < pN.length; i++) {
+                names = pN[i];
+                $scope.parties[i] = names["value"] + " - " + names["key"];
+            }
+            $scope.partiesw = [];
+            pW = contract.partiesWish;
+            for (i = 0; i < pW.length; i++) {
+                names = pW[i];
+                $scope.partiesw[i] = names["value"] + " - " + names["key"];
+            }
+        });
+
+        $scope.modify = function () {
+            $state.go("editContract", {id: contract.id});
+        };
+
+        $scope.sign = function () {
+            $http.put(RESTAPISERVER + '/api/contracts/sign/' + contract.id, {});
+            $state.go('viewContracts');
+        }
+
+        $scope.decline = function () {
+            $http.put(RESTAPISERVER + '/api/contracts/cancel/' + contract.id, {});
+            $state.go('viewContracts');
+        }
         $scope.checkClass = function () {
             switch (contract.status) {
                 case 'NOWHERE':
@@ -108,69 +120,86 @@
             }
 
         };
-	});
-    
-    
+        $scope.forum = function (){
+            console.log("FORUM!");
+            console.log(contract.partiesNames);
+        }
+    });
+
+
     module.controller('editContract', function ($rootScope, $scope, $http, $stateParams, Contract, $state, User) {
         isUserConnected($http, $rootScope, $scope, $state, User);
-    	$scope.app.configHeader({back: true, title: 'Edit contracts', contextId: $stateParams.id});
-    	$scope.action = 'edit';
+        $scope.app.configHeader({back: true, title: 'Edit contracts', contextId: $stateParams.id});
+        $scope.action = 'edit';
 
-		$scope.form = {};
-    	$scope.userList =[];
-    	getUsers($http, $scope);
-    	
-    	$scope.parties = [];
-		var contract = Contract.get({id: $stateParams.id}, function() {
-			//First, load the item and display it via the bindings with item-form.html
-			$scope.form.title = contract.title;
-			$scope.clauses = contract.clauses;
-		    pN = contract.partiesNames;
-		    for (i=0; i<pN.length; i++){
-		    	names = pN[i];
-		    	$scope.parties[i] = names["value"] + " - " + names["key"];
-		    }
-		});
-		
-		
-    	$scope.updateparties = function() {updateParties($scope)};
-    	$scope.updateclauses= function() {updateClauses($scope)};
+        $scope.form = {};
+        $scope.userList = [];
+        getUsers($http, $scope);
 
-    	$scope.deleteParty = function(p){deleteParty($scope,p);};
-    	$scope.deleteClause = function(c){deleteClause($scope,c);};
+        $scope.parties = [];
+        var contract = Contract.get({id: $stateParams.id}, function () {
+            //First, load the item and display it via the bindings with item-form.html
+            $scope.form.title = contract.title;
+            $scope.clauses = contract.clauses;
+            pN = contract.partiesNames;
+            for (i = 0; i < pN.length; i++) {
+                names = pN[i];
+                $scope.parties[i] = names["value"] + " - " + names["key"];
+            }
+        });
 
-    	$scope.submit = function() {
-    		
-        	pN = $scope.parties;
-                    pW = contract.partiesWish;
+
+        $scope.updateparties = function () {
+            updateParties($scope)
+        };
+        $scope.updateclauses = function () {
+            updateClauses($scope)
+        };
+
+        $scope.deleteParty = function (p) {
+            deleteParty($scope, p);
+        };
+        $scope.deleteClause = function (c) {
+            deleteClause($scope, c);
+        };
+
+        $scope.submit = function () {
+
+            pN = $scope.parties;
+            pW = contract.partiesWish;
             for (i = 0; i < pW.length; i++) {
                 names = pW[i];
                 $scope.partiesw[i] = names["value"] + " - " + names["key"];
             }
-        	partiesId = [];
-    	    for (i=0; i<pN.length; i++){
-    	    	names = pN[i];
-    	    	partiesId[i] = names.split(" - ")[1];
-    	    };
-        	
-    	    
-    		if ($scope.form.addParty != null && $scope.form.addParty.length>2){updateParties($scope);}
-    		if ($scope.form.addClause != null && $scope.form.addClause.length>2){updateClauses($scope);}
-    		//Contract is available thanks to restApi.js
-    		contract.title = $scope.form.title;
-    		contract.clauses = $scope.clauses;
-    		contract.parties = partiesId;
-			
-    		contract.$update(function() {
-    			$state.go('viewContracts');
-    	    });
-    	};
-    	
-    	$scope.delete = function(){
-    		contract.$delete(function(){
-    			 $state.go('viewContracts');
-    		})
-    	}
+            partiesId = [];
+            for (i = 0; i < pN.length; i++) {
+                names = pN[i];
+                partiesId[i] = names.split(" - ")[1];
+            }
+            ;
+
+
+            if ($scope.form.addParty != null && $scope.form.addParty.length > 2) {
+                updateParties($scope);
+            }
+            if ($scope.form.addClause != null && $scope.form.addClause.length > 2) {
+                updateClauses($scope);
+            }
+            //Contract is available thanks to restApi.js
+            contract.title = $scope.form.title;
+            contract.clauses = $scope.clauses;
+            contract.parties = partiesId;
+
+            contract.$update(function () {
+                $state.go('viewContracts');
+            });
+        };
+
+        $scope.delete = function () {
+            contract.$delete(function () {
+                $state.go('viewContracts');
+            })
+        }
     });
 
 
@@ -277,8 +306,8 @@
             for (i = 0; i < pN.length; i++) {
                 names = pN[i];
                 partiesId[i] = names.split(" - ")[1];
-            }
-            ;
+            };
+
 
             if ($scope.form.addParty != null && $scope.form.addParty.length > 2) {
                 updateParties($scope);
@@ -286,6 +315,7 @@
             if ($scope.form.addClause != null && $scope.form.addClause.length > 2) {
                 updateClauses($scope);
             }
+            console.log(partiesId);
             var contract = new Contract({
                 title: $scope.form.title,
                 clauses: $scope.clauses,

@@ -1,5 +1,6 @@
 package model.api;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Collection;
  */
 public abstract class ManagerDecorator<Entity> implements Manager<Entity> {
 
-    private Manager<Entity> em;
+    private Manager<Entity>  em;
 
     public ManagerDecorator(Manager<Entity> em) {
         this.em = em;
@@ -22,6 +23,14 @@ public abstract class ManagerDecorator<Entity> implements Manager<Entity> {
     @Override
     public void findOneById(String id, ManagerListener<Entity> l) {
         em.findOneById(id, l);
+    }
+
+
+
+    /**TODO**/
+    @Override
+    public void findAllById(ArrayList<String> id , ManagerListener<Entity> l){
+        em.findAllById(id,l);
     }
 
     /**
@@ -39,6 +48,15 @@ public abstract class ManagerDecorator<Entity> implements Manager<Entity> {
     public void findOneByAttribute(String attribute, String value, ManagerListener<Entity> l) {
         em.findOneByAttribute(attribute, value, l);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void findAll(ManagerListener<Entity> l) {
+        em.findAll(l);
+    }
+
 
     /**
      * {@inheritDoc}

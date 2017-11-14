@@ -61,6 +61,12 @@ public class NetworkUserManagerDecorator extends ManagerDecorator<User> {
         });
     }
 
+
+    @Override
+    public void findAll(final ManagerListener<User> l){
+        super.findAll(l);
+    }
+
     @Override
     public void findAllByAttribute(String attribute, final String value, final ManagerListener<User> l) {
 

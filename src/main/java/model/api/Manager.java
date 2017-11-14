@@ -1,5 +1,6 @@
 package model.api;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -18,6 +19,12 @@ public interface Manager<Entity> {
      */
     public void findOneById(String id, ManagerListener<Entity> l);
 
+
+
+
+    /**TODO**/
+    public void findAllById(ArrayList<String> id, ManagerListener<Entity> l);
+
     /**
      * Find all entity that match attribute
      *
@@ -35,6 +42,11 @@ public interface Manager<Entity> {
      * @param l
      */
     public void findOneByAttribute(String attribute, String value, ManagerListener<Entity> l);
+
+
+
+    /*TODO*/
+    public void findAll(ManagerListener<Entity> l);
 
     /**
      * Persist the entity in the manager

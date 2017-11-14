@@ -77,7 +77,7 @@ public class NetworkMessageManagerDecorator extends ManagerDecorator<Message> {
 
             madv.setSenderId(m.getSenderId());
 
-            madv.setReceiverId(m.getReceiverId());
+            //madv.setReceiverId(m.getReceiverId());
 
             madv.publish(peer);
             System.out.println("message publish");

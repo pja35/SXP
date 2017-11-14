@@ -22,6 +22,13 @@ public class ManagerAdapter<Entity> implements Manager<Entity> {
         l.notify(r);
     }
 
+
+    /**TODO**/
+    @Override
+    public void findAllById(ArrayList<String> id, ManagerListener<Entity> l){
+        l.notify(em.findAllById(id));
+    }
+
     @Override
     public void findAllByAttribute(String attribute, String value, ManagerListener<Entity> l) {
         l.notify(em.findAllByAttribute(attribute, value));
@@ -33,6 +40,11 @@ public class ManagerAdapter<Entity> implements Manager<Entity> {
         ArrayList<Entity> r = new ArrayList<>();
         r.add(em.findOneByAttribute(attribute, value));
         l.notify(r);
+    }
+
+    @Override
+    public void findAll(ManagerListener<Entity> l) {
+        l.notify(em.findAll());
     }
 
 

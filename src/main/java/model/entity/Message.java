@@ -13,13 +13,27 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigInteger;
-import java.util.Date;
+import java.util.*;
 
 import static javax.persistence.EnumType.STRING;
 
 @XmlRootElement
 @Entity
 public class Message {
+
+
+
+    @XmlElement(name = "chatGroup")
+    private Boolean chatGroup;
+
+
+    @XmlElement(name = "contractID")
+    private String contractID;
+
+
+    @XmlElement(name = "chatID")
+    private String chatID;
+
 
     @XmlElement(name = "status")
     @Enumerated(STRING)
@@ -42,12 +56,27 @@ public class Message {
     @NotNull
     @Size(min = 1, max = 128)
     private String senderName;
+
     @XmlElement(name = "receiverId")
     @NotNull
     private String receiverId;
+
     @XmlElement(name = "receiverName")
     @NotNull
     private String receiverName;
+
+    @XmlElement(name = "receivers")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private ArrayList<String> receivers;
+
+
+
+    @XmlElement(name = "receiversNicks")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private ArrayList<String> receiversNicks;
+
+
+
     @CryptCryptAnnotation(isCryptBySecondKey = true, secondKey = "pbkey")
     @Lob
     @XmlElement(name = "messageContent")
@@ -68,12 +97,58 @@ public class Message {
     //@NotNull
     private ElGamalSignEntity signature;
 
+
+    public ArrayList<String> getReceiversNicks() {
+        return receiversNicks;
+    }
+
+    public void setReceiversNicks(ArrayList<String> receiversNicks) {
+        this.receiversNicks = receiversNicks;
+    }
+
+    public String getChatID(){
+        return this.chatID;
+    }
+
+    public void setChatID(String uuid){
+        this.chatID = uuid;
+    }
+
+    public String getContractID(){
+        return this.contractID;
+    }
+
+    public Boolean getChatGroup() {
+        return this.chatGroup;
+    }
+
+    public void setChatGroup(Boolean chatGroup) {
+        this.chatGroup = chatGroup;
+    }
+
+    public void setContractID(String contractID) {
+        this.contractID = contractID;
+    }
+
     public String getId() {
         return this.id;
     }
 
     public Date getSendingDate() {
         return this.sendingDate;
+    }
+
+    public void setReceiver(String id, String name) {
+        this.receiverId = id;
+        this.receiverName = name;
+    }
+
+    public String getReceiverId() {
+        return this.receiverId;
+    }
+
+    public String getReceiverName() {
+        return this.receiverName;
     }
 
     public void setSendingDate(Date date) {
@@ -93,17 +168,12 @@ public class Message {
         return this.senderName;
     }
 
-    public void setReceiver(String id, String name) {
-        this.receiverId = id;
-        this.receiverName = name;
+    public void setReceivers(ArrayList<String> receivers) {
+       this.receivers = receivers;
     }
 
-    public String getReceiverId() {
-        return this.receiverId;
-    }
-
-    public String getReceiverName() {
-        return this.receiverName;
+    public ArrayList<String> getReceivers() {
+        return this.receivers;
     }
 
     public String getMessageContent() {
