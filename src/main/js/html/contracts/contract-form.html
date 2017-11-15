@@ -35,28 +35,12 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-6">
-					<!--<div class="input-group">
-					    <input type="text" class="form-control" placeholder="Write a user" ng-model="form.addParty" ng-keyup="userAutoComplete()">
-					    <input type="hidden" ng-model="receiverId">
-					    <input type="hidden" ng-model="receiverPbkey">
-					</div>
-					form.addParty : {{form.addParty}}
-					<div class="form-group" ng-show="form.addParty.length > 0">
-					  <div ng-show="hideAfterSelected">
-					  	<div class="alert alert-danger ng-clignotement" role="alert" ng-show="errorSearch">No user found</div>
-					  	<div class="alert" role="alert" ng-show="searchUser"><div class="loader"></div></div>
-					  	<div href ng-click="selectUser({receiver: user})" class="panel panel-default search-result search-user" ng-repeat="user in results" style="cursor: pointer;">
-					    	<div class="panel-heading">
-					      	<div class="panel-title">
-					        	<p><span> {{user.nick}} </span> &nbsp;&nbsp;&nbsp; <small>id : {{user.id}}</small></p>
-					      	</div>
-					    	</div>
-					  	</div>
-						</div>
-					</div>-->
-					<select class="form-control custom-select" id="addParty" ng-model="form.addParty">
+
+
+					<input type="text" ng-model="search"/>
+
+					<select class="form-control custom-select" id="addParty" ng-model="form.addParty" ng-options="user.name for user in userList | filter:search ">
 						<option value="" selected disabled>Choose a user</option>
-						<option ng-repeat="user in userList">{{user.name}} - {{user.id}}</option>
 					</select>
 					<div ng-show="hasParty"><font color="red"><em>You must add a party</em></font></div>
 				</div>
@@ -76,13 +60,24 @@
 		</div>
 		<div class="panel-body">
 			<div class="col-sm-12 col-md-12" ng-repeat="clausse in Exchange">
-             <clausse/>
 
+				<div class="well well-sm col-sm-10">
+					<p><strong>From:</strong> <i>{{clausse.from}}</i></p>
+					<p><strong>To:</strong> <i>{{clausse.to}}</i></p>
+					<p><strong>What:</strong> <i>{{clausse.item}}</i></p>
+					<p><strong>When</strong> <i>{{clausse.when}}</i></p>
+					<p><strong>How:</strong> <i>{{clausse.how}}</i></p>
+					<p><strong>Details:</strong> <i>{{clausse.details}}</i></p>
+
+				</div>
+				<div class="col-sm-2">
+					<a class="btn btn-danger" ng-click="deleteParty(party)" type="button">Delete</a>
+				</div>
 			</div>
 			<div class="col-sm-8">
 				<div class="row">
 					<label for="selectfrom" class="col-sm-3 col-md-2">FROM</label>
-					<span class="col-sm-9 col-md-10"><select id="selectfrom" class="form-control" ng-model="fromexchange" title="From Party" ng-change="update()">
+					<span class="col-sm-9 col-md-10"><select id="selectfrom" class="form-control" ng-model="fromExchange" title="From Party" ng-change="update()">
 		    		<option value="" selected="selected" disabled>Choose a user</option>
 
 		    		<option ng-repeat="party in parties">{{party}}</option>
@@ -94,14 +89,14 @@
 					<span class="col-sm-9 col-md-10">
 						   <select id="selectitem" class="form-control" ng-model="whatExchange" title="From Party">
 		    			<option value="" selected disabled>Choose an item<option/>
-		    			<option ng-repeat="item in ItemList">{{item}}</option>
+		    			<option ng-repeat="item in ItemListes">{{item}}</option>
 
 					</select></span>
 				</div>
 				<br/>
 				<div class="row">
 					<label for="selectfor" class="col-sm-3 col-md-2">TO</label>
-					<span class="col-sm-9 col-md-10"><select class="form-control" id="selectfor" ng-model="forExchange" title="For Party">
+					<span class="col-sm-9 col-md-10"><select class="form-control" id="selectfor" ng-model="toExchange" title="For Party">
 		    		<option value="" selected disabled>Choose a user</option>
 		    		<option ng-repeat="party in parties">{{party}} </option>
 			    </select></span>
@@ -113,13 +108,13 @@
 						<span class="input-group-addon">
 							<span class="glyphicon glyphicon-calendar"></span>
 						</span>
-						<input type='date' ng-model="whenExhange" class="form-control" />
+						<input type='date' ng-model="whenExchange" class="form-control" />
 					</div></span>
 				</div>
 				<br/>
 				<div class="row">
 					<label for="addClause" class="col-sm-3 col-md-2">HOW</label>
-					<span class="col-sm-9 col-md-10"><select class="form-control" id="selectfor" ng-model="howExchange" title="For Party">
+					<span class="col-sm-9 col-md-10"><select class="form-control" id="selectfor" ng-model="howExchange" title="For Party" >
 		    		<option value="" selected disabled>Choose an exchange mode</option>
 		    		<option ng-repeat="mode in exchangeModes">{{mode}} </option>
 			    </select></span>

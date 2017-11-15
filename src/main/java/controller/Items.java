@@ -93,6 +93,23 @@ public class Items {
 		return ret;
 	}
 
+
+	@GET
+	@Path("/all")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getAll(@HeaderParam(Authentifier.PARAM_NAME) String token) {
+
+		Authentifier auth = Application.getInstance().getAuth();
+		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
+		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
+		ItemSyncManager em = SyncManagerFactory.createItemSyncManager();
+		JsonTools<Collection<Item>> json = new JsonTools<>(new TypeReference<Collection<Item>>(){});
+		String ret = json.toJson(em.findAll());
+		System.err.println("USER="+currentUser.getId());
+		users.close();
+		em.close();
+		return ret;
+	}
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)

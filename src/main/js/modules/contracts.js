@@ -46,8 +46,7 @@
 	    //Just load the contract and display it via the bindings with contract.html
 	    $scope.contract = contract;
 
-	    console.log("Contrat="+contract);
-        console.log("Exchange=="+contract.exchange);
+	// this variable help to get all information about contract
 	    $scope.title = contract.title
     	$scope.clauses = contract.clauses;
 	    $scope.canceled = contract.canceled;
@@ -55,19 +54,23 @@
 	    $scope.exchangeClause=contract.exchange;
 
 
-$scope.Exchange=[];
-ex=contract.exchange;
+        /*
+        * Actually Exchange clauss is Array<String> content all information about this exchange with string
+        */
+        $scope.Exchange=[];
+        ex=contract.exchange;
 
-  for (i=0; i<ex.length; i++){
-  exchange=ex[i];
-  console.log("Ex="+exchange);
-$scope.myarrays=[];
-$scope.myarrays=exchange.split('*');
-$scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$scope.myarrays[2],'when':$scope.myarrays[3],'where':$scope.myarrays[4]});
-  }
+          for (i=0; i<ex.length; i++){
+          exchange=ex[i];
+          console.log("Ex="+exchange);
+          $scope.myarrays=[];
+          $scope.myarrays=exchange.split('*');
+          $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$scope.myarrays[2],'when':$scope.myarrays[3],'how':$scope.myarrays[4],'details':$scope.myarrays[5]});
+          }
 
 
-	    	    	    // Get parties from the hashmap of names and id (to identify exactly a user)
+
+	    // Get parties from the hashmap of names and id (to identify exactly a user)
 	    $scope.parties = [];
 	    $scope.nameParties=[];
 	    $scope.body=[];
@@ -99,6 +102,8 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
 		  $state.go('viewContracts');
 	  }
 
+
+// fonction to generate Pdf about one Contrat
 	  $scope.getPdf = function(){
 
 	  console.log($scope.body);
@@ -127,6 +132,8 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
                                                  },
                                   }
                                 };
+
+           //"pdfMake" create document pdf and opened
            pdfMake.createPdf(docDefinition).open();
             //   pdfMake.createPdf(docDefinition).download('optionalName.pdf');
 
@@ -158,14 +165,8 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
 
 				checkClauses($scope);
 
-        // $scope.impModalities = [];
-        // $scope.impModalities[0] = "Modalités par défaut";
-        // $scope.impModalities[1] = "Les parties s'engagent à préciser les détériorations et/ou modifications de l'objet depuis la signature du contrat 4 jours avant l'échange."
-        //
-        // $scope.termModalities = [];
-        // $scope.termModalities[0] = "Modalités par défaut";
-        // $scope.termModalities[1] = "Les parties s'engagent à préciser les détériorations et/ou modifications de l'objet depuis la signature du contrat 4 jours avant l'échange."
 
+/******All Fonction to add or Upadate information about contrat*******/
       	$scope.updateparties = function() {updateParties($scope)};
       	$scope.updateclauses = function() {updateClauses($scope)};
         $scope.updateImpModalities = function() {updateImpModalities($scope)};
@@ -175,6 +176,8 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
       	$scope.deleteClause = function(c){deleteClause($scope,c);};
         $scope.deleteImpModality = function(m) {deleteImpModality($scope, m)};
         $scope.deleteTermModality = function(m) {deleteTermModality($scope, m)};
+
+/*******************************************************************/
 
       	$scope.submit = function() {
 
@@ -214,13 +217,23 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
 
     module.controller('addContract', function($rootScope, $scope, Contract, Item, $state, $http){
 
+        //this function manages the disconnection because if the session expresses the return to the connection page
        isUserConnected($rootScope, $scope, $state);
+
+        //Add Title
     	$scope.app.configHeader({back: true, title: 'Add contracts'});
+
+
     	$scope.action = 'add';
+
+
+/***Initilize all variable we need to manages contract*******/
 
     	$scope.parties=[];
     	$scope.clauses=[];
     	$scope.canceled=[];
+    	$scope.Exchange=[];
+        $scope.Party=[];
     	$scope.modality=[];
     	$scope.exchangeClause=[];
         $scope.userList =[];
@@ -228,7 +241,7 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
 		$scope.items = Item.query();
 
 
-
+/***********************************************/
 
 		$scope.exchangeModes = [];
 			var itemsY = [];
@@ -241,9 +254,8 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
       $scope.upExchange=false;
 
       /***********************************/
-      /* Ces variable Suivant nous permet de recupere l'indice
-      * de Modality quand veut change
-      *
+      /* These Next variable allows us to recover the index
+      *  of Modality when wants change
       */
       $scope.IndexModality=-1;
       $scope.IndexCanceled=-1;
@@ -252,13 +264,12 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
 
      	$scope.ModUpText="";
      	getUsers($http, $scope);
-        getItems($http, $scope);
 
 			$scope.exchangeModes[0] = "electronically";
 			$scope.exchangeModes[1] = "delivery";
 			$scope.exchangeModes[2] = "in person";
 
-      /*Definition Par default des Modalite*/
+      /*Definition default  Modality*/
       var Modality1= "Les parties s'engagent à préciser les détériorations et/ou modifications de l'objet depuis la signature du contrat 4 jours avant l'échange.";
       var Modality2="A effectuer ensemble une évaluation  des  objectes à l’échange.";
       var Modality3="Les parties reconnaissent avoir pris connaissance de toutes informations concernant les Objects "+
@@ -277,165 +288,88 @@ $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$
 
 
 
-
+       /************Add these default to scope modality***********/
 		$scope.modality.push(Modality5);
 		$scope.modality.push(Modality4);
 	    $scope.modality.push(Modality3);
 	    $scope.modality.push(Modality2);
 	    $scope.modality.push(Modality1);
 
-	    $scope.canceled.push(canceled1);
+       /********************************************************/
 
+	    /************Add default clausse Termination **/
+	    $scope.canceled.push(canceled1);
+        /********************************************/
+
+
+        /************************there fonction Menage to adding **************************************/
     	$scope.updateparties = function() {updateParties($scope)};
     	$scope.updateclauses= function() {updateClauses($scope)};
     	$scope.updateclausescanceled= function() {updateClausesCanceled($scope)};
     	$scope.updatemodality= function() {updateModality($scope)};
     	$scope.updateclausesExchange= function() {updateClausesExchange($scope)};
 
-      $scope.updatecanceledExist= function() {updatecanceledExist($scope)};
+        /***********************there Menage to Update ***********************************************/
+        $scope.updatecanceledExist= function() {updatecanceledExist($scope)};
     	$scope.updatemodalityExist= function() {updatemodalityExist($scope)};
     	$scope.updateclausesExchangeExist= function() {updateClausesExchange($scope)};
 
-      $scope.AnnulerCanceled = function() {AnnulerCanceled($scope)};
-      $scope.AnnulerModality = function() {AnnulerModality($scope)}
+    	/***************There fonction menage front-end when user click Update*****************************************************************************/
 
+    	      $scope.updateActionModality=function(m){updateActionModality($scope,m)};
+              $scope.updateActionCanceled=function(c){updateActionCanceled($scope,c)};
+              $scope.updateActionEx=function(e){updateActionExchange($scope,e)};
+              $scope.update=function(){
+                                            	if($scope.fromexchange!="")
+                                            	{
+
+                                            	$scope.tap=$scope.fromExchange.split(" - ");
+                                            	$scope.actueluser=$scope.tap[1];
+                                              	getItems($http, $scope);
+                                            	}
+                                      };
+        /********************************************************************************************/
+
+
+        /**************Menage Canceled when to want update contract Modality or ***************************/
+
+        $scope.AnnulerCanceled = function() {AnnulerCanceled($scope)};
+        $scope.AnnulerModality = function() {AnnulerModality($scope)}
+
+        /****************************************/
     	$scope.deleteParty = function(p){deleteParty($scope,p);};
     	$scope.deleteModality = function(m){deleteModality($scope,m);};
     	$scope.deleteCanceled = function(c){deleteCanceled($scope,c);};
-      $scope.deleteExchange = function(e){deleteExchange($scope,e);};
+        $scope.deleteExchange = function(e){deleteExchange($scope,e);};
     	$scope.deleteClause = function(c){deleteClause($scope,c);};
 
 
 
-        $scope.Exchange=[];
 
 
-           $scope.Party=[];
-
-      $scope.updateActionModality=function(m){updateActionModality($scope,m)};
-      $scope.updateActionCanceled=function(c){updateActionCanceled($scope,c)};
-      $scope.updateActionEx=function(e){updateActionExchange($scope,e)};
-      $scope.update=function(){
-                                    	if($scope.fromexchange!="")
-                                    	{
-                                    	console.log("Mv exchange "+$scope.fromexchange);
-
-                                    	$scope.tap=$scope.fromexchange.split(" - ");
-                                    	$scope.actueluser=$scope.tap[1];
-                                    	console.log("actuel "+$scope.actueluser);
-                                      	//getItems($http, $scope);
-                                    	}
-                              };
-			//$scope.$watch('fromExchange', function(newFrom) {
-        //if (newFrom != undefined){
-          //var addFrom = newFrom.split(" - ");
-          //console.log("from user : " + addFrom[1]);
-					//$scope.items = [];
-					//items.push("oho");
-					//itemsY = Item.query();
-					//console.log(itemsY.length);
-					//forEach (item in items)
-					//{
-						//if (item.userid == addFrom[1])
-						//{
-							//$scope.items.push(item);
-						//}
-					//}
-        //}
-      //});
-
-      //$scope.userAutoComplete = function(){userAutoComplete($scope)};
-			//$scope.selectUser = function(){selectUser($stateParams)};
-
-			$scope.userAutoComplete = function() {
-									$scope.results = [];
-									$scope.errorSearch = false;
-									$scope.searchUser = true;
-									$scope.hideAfterSelected = true;
-									$scope.errorFields = false;
-									$scope.receiverId = null;
-									$scope.receiverPbkey = null;
-
-									if ($scope.stream != null) {
-											$scope.stream.abort();
-									}
-									Oboe(
-										{
-											url: RESTAPISERVER + "/api/search/users?nick=" + $scope.form.addParty,
-											pattern: '!',
-											start: function(stream) {
-													// handle to the stream
-													$scope.stream = stream;
-													$scope.status = 'started';
-											},
-											done: function(parsedJSON) {
-													$scope.status = 'done';
-											}
-									}).then(function() {
-											// promise is resolved
-									}, function(error) {
-											// handle errors
-									}, function(node) { //A node is just a partial list of matches from the streamed search
-											// node received
-											if (node != null && node.length != 0) { // if not empty
-
-													for (var i = 0; i < node.length; i++) { // push it to results
-															console.log(node[i]);
-															$scope.pushResult(node[i]);
-													}
-											}
-
-											$scope.searchUser = false;
-											console.log($scope.results.length);
-											if($scope.results.length == 0)
-												$scope.errorSearch = true;
-											else
-												$scope.errorSearch = false;
-
-									});
-							};
-
-			$scope.selectUser = function($stateParams) {
-					$scope.hideAfterSelected = false;
-					$scope.receiverId = $stateParams.receiver.id;
-					$scope.receiverPbkey = $stateParams.receiver.key.publicKey;
-			};
-
-      $scope.Exchange=[];
-      ex=$scope.exchangeClause;
-
-      for (i=0; i<ex.length; i++){
-        exchange=ex[i];
-        console.log("Ex="+exchange);
-        $scope.myarrays=[];
-        $scope.myarrays=exchange.split('*');
-        $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$scope.myarrays[2],'when':$scope.myarrays[3],'where':$scope.myarrays[4]});
-      }
 
 
-      $scope.Party=[];
-      part=$scope.parties;
-      for (i=0; i<part.length; i++){
-        Par=part[i];
-        console.log("Part="+Par);
-        $scope.myarrays=[];
-        $scope.myarrays=exchange.split(' - ');
-        $scope.Party.push({'key':$scope.myarrays[0],'value':$scope.myarrays[1]});
-      }
-      $scope.items=[];
 
-       console.log("Item="+$scope.parties+" "+$scope.Party);
+
+
+
+
 
       var newParty = {};
       newParty.key = addParty[1];
       newParty.value = addParty[0];
 
+
+
     	$scope.submit = function() {
+
+// variable isOk is boolean variable , this become true where user has entered all the mandatory information of a contract else become false */
 				var isOK = checkClauses($scope);
+				console.log("IsOK="+isOK)
 				if (isOK)
 				{
-	      	pN = $scope.parties;
-	        partiesId = [];
+	        	pN = $scope.parties;
+	            partiesId = [];
 	    	  for (i=0; i<pN.length; i++){
 	    	   	names = pN[i];
 	    	   	partiesId[i] = names.split(" - ")[1];
@@ -506,150 +440,24 @@ function buildTableBody(data, columns) {
 
     return body;
 }
-function deleteClause($scope, clause){
-	var index = $scope.clauses.indexOf(clause);
-	if (index > -1){
-		$scope.clauses.splice(index, 1);
-	}
-}
+/*******************there fonction menage the button Cancaled or Update on Front-End **********************/
 function AnnulerCanceled($scope){
-console.log("Annuler Canceled")
 
    $scope.form.addCanceled="";
+
+// this boolean variable to manage visibily ,button  Update or Add the clausse Canceled
    $scope.upCanCeled=false;
 
 
    }
  function AnnulerModality($scope){
-    console.log("Annuler Modality")
 
     $scope.form.addModClause="";
+    // this boolean variable to manage visibily ,button  Update or Add
     $scope.upModality=false;
 
 
     }
-
-   function updatemodalityExist($scope){
-   console.log("Update Modality")
-      var mod=$scope.form.addModClause;
-   	var index = $scope.IndexModality;
-      if(index!=-1)
-      {
-      $scope.modality[index]=mod;
-      $scope.form.addModClause="";
-      $scope.upModality=false;
-      }
-
-      }
-function updatemodalityExist($scope){
-console.log("Update Modality")
-   var mod=$scope.form.addModClause;
-	var index = $scope.IndexModality;
-   if(index!=-1)
-   {
-   $scope.modality[index]=mod;
-   $scope.form.addModClause="";
-   $scope.upModality=false;
-   }
-
-   }
-
-function updatecanceledExist($scope){
-console.log("Update Canceled")
-var can=$scope.form.addCanceled;
-var index = $scope.IndexCanceled;
-
-
-   if(index!=-1)
-   {
-   $scope.canceled[index]=can;
-   $scope.form.addCanceled="";
-   $scope.upCanCeled=false;
-   }
-
-
-
-
-   }
-
-
-
-
-function deleteModality($scope, mod){
-console.log("Delete Modalite");
-
-	var index = $scope.modality.indexOf(mod);
-	if (index > -1){
-		$scope.modality.splice(index, 1);
-	}
-}
-
-function deleteCanceled($scope, cance){
-console.log("Delete Canceled");
-
-	var index = $scope.canceled.indexOf(cance);
-	if (index > -1){
-		$scope.canceled.splice(index, 1);
-	}
-}
-function deleteExchange($scope, exchange){
-console.log("Delete Modalite");
-
-	var index = $scope.modality.indexOf(exchange);
-	if (index > -1){
-		$scope.exchangeClause.splice(index, 1);
-	}
-}
-function updateParties($scope){
-  var addParty = $scope.form.addParty;
-	var index = $scope.parties.indexOf(addParty);
-	if (index == -1){
-    $scope.parties.push(addParty);
-		$scope.form.addParty="";
-
-	}
-          $scope.Tampon=[];
-          $scope.Tampon=addParty.split(" - ");
-          $scope.Party.push({'key':$scope.Tampon[1],'value':$scope.Tampon[0]});
-
-                }
-function updateClauses($scope){
-	console.log("UPdateClause");
-	var clause = $scope.fromparty +" gives "+ $scope.form.addClause +" to "+ $scope.forparty;
-
-	var index = $scope.clauses.indexOf(clause);
-	if (index == -1){
-		$scope.clauses.push(clause);
-		$scope.form.addClause="";
-	}
-	return false;
-}
-function updateClausesCanceled($scope){
-	console.log("UPdate Canceled Clause");
-	var Canceled=$scope.form.addCanceled;
-
-
-	var index = $scope.canceled.indexOf(Canceled);
-	if (index == -1){
-		$scope.canceled.push(Canceled);
-		$scope.form.addCanceled="";
-	}
-	return false;
-}
-
-function updateModality($scope){
-	console.log("UPdate Modality Clause");
-
-var Modality=$scope.form.addModClause;
-
-console.log("Res="+Modality);
-	var index = $scope.modality.indexOf(Modality);
-	if (index == -1){
-		$scope.modality.push(Modality);
-		$scope.form.addModClause="";
-	}
-	return false;
-}
 function updateActionModality($scope,m){
 
 $scope.form={};
@@ -681,36 +489,147 @@ console.log("Update Existe Exchange "+Exchange);
 
 	return true;
 }
+/********************************************************************/
+
+ /*****************This variable menage to update information about clausse Modality,Termination*************/
+
+
+function updatemodalityExist($scope){
+console.log("Update Modality")
+   var mod=$scope.form.addModClause;
+	var index = $scope.IndexModality;
+   if(index!=-1)
+   {
+   $scope.modality[index]=mod;
+   $scope.form.addModClause="";
+   $scope.upModality=false;
+   }
+
+   }
+
+function updatecanceledExist($scope){
+console.log("Update Canceled")
+var can=$scope.form.addCanceled;
+var index = $scope.IndexCanceled;
+
+
+   if(index!=-1)
+   {
+   $scope.canceled[index]=can;
+   $scope.form.addCanceled="";
+   $scope.upCanCeled=false;
+   }
+
+
+
+
+   }
+
+/*****************************************************************************/
+
+/*********************There Fonction to menage deleting the information about clausse Modality,Canceled,Exchange ******/
+function deleteModality($scope, mod){
+console.log("Delete Modalite");
+
+	var index = $scope.modality.indexOf(mod);
+	if (index > -1){
+		$scope.modality.splice(index, 1);
+	}
+}
+
+function deleteCanceled($scope, cance){
+console.log("Delete Canceled");
+
+	var index = $scope.canceled.indexOf(cance);
+	if (index > -1){
+		$scope.canceled.splice(index, 1);
+	}
+}
+function deleteExchange($scope, exchange){
+console.log("Delete Modalite");
+
+	var index = $scope.modality.indexOf(exchange);
+	if (index > -1){
+		$scope.exchangeClause.splice(index, 1);
+	}
+}
+function deleteParty($scope, p){
+	var index = $scope.parties.indexOf(p);
+	if (index > -1){
+		$scope.parties.splice(index, 1);
+	}
+}
+/*****************************************************************************/
+
+/**************************there fontion Menage Adding All information when ****************************************************/
+function updateParties($scope){
+  var addParty = $scope.form.addParty;
+	var index = $scope.parties.indexOf(addParty);
+	if (index == -1){
+       $scope.parties.push(addParty.name+" - "+addParty.id);
+        $scope.Party.push(addParty);
+        $scope.form.addParty="";
+	}
+
+
+
+    }
+
+function updateClausesCanceled($scope){
+	var Canceled=$scope.form.addCanceled;
+
+
+	var index = $scope.canceled.indexOf(Canceled);
+	if (index == -1){
+		$scope.canceled.push(Canceled);
+		$scope.form.addCanceled="";
+	}
+	return false;
+}
+
+function updateModality($scope){
+
+var Modality=$scope.form.addModClause;
+
+console.log("Res="+Modality);
+	var index = $scope.modality.indexOf(Modality);
+	if (index == -1){
+		$scope.modality.push(Modality);
+		$scope.form.addModClause="";
+	}
+	return false;
+}
+
 
 function updateClausesExchange($scope){
-	console.log("UPdate Exchange Clause From="+$scope.fromexchange+"/What="+$scope.whatexchange+"/For="+$scope.forexchange+"/When="+$scope.whenexhange+"/Where="+$scope.form.addExchangeClause);
 
 	var from=$scope.fromExchange;
 	var to=$scope.toExchange;
 	var what=$scope.whatExchange;
 	var when=""+$scope.whenExchange+" ";
-	var how = $scope.form.howExchange;
+	var how = $scope.howExchange;
 	var details = $scope.detailsExchange;
-	var exchange=from+"*"+to+"*"+what+"*"+when+"*"+where;
-
+	var exchange=from+"*"+to+"*"+what+"*"+when+"*"+how+"*"+details;
 	var index = $scope.exchangeClause.indexOf(exchange);
 	if (index == -1){
 
         $scope.exchangeClause.push(exchange);
-		$scope.fromexchange="";
-		$scope.forexchange="";
-	    $scope.whatexchange="";
-		$scope.whenexhange="";
+		$scope.fromExchange="";
+		$scope.whatExchange="";
+	    $scope.whenExchange="";
+		$scope.howExchange="";
+		$scope.detailsExchange="";
 		$scope.form.addExchangeClause="";
-        $scope.Exchange.push({'from':from,'to':to,'item':what,'when':when,'where':where});
+        $scope.Exchange.push({'from':from,'to':to,'item':what,'when':when,'how':how,'details':details});
 
 	}
+
 
 
 console.log($scope.Exchange);
 	return false;
 }
-
+/************************Gette All user about Data Base*********************************/
 
 function getUsers($http, $scope){
 	$http.get(RESTAPISERVER + "/api/users/").then(
@@ -727,142 +646,90 @@ function getUsers($http, $scope){
 		}
 	);
 }
-
+/************************Gette All user about Data Base*********************************/
 function getItems($http, $scope){
-	$http.get(RESTAPISERVER + "/api/items").then(
+	$http.get(RESTAPISERVER + "/api/items/all").then(
 		function(response){
 			var ItemList = response.data;
-		      console.log("ItemLis="+ItemList.length);
-			$scope.ItemList = [];
-				console.log("UserNv="+$scope.actueluser);
+			$scope.ItemListes = [];
 			for(i=0; i<ItemList.length; i++){
-				if (ItemList[i].nick != ""){
+				if (ItemList[i].nick != "" & ItemList[i].userid==$scope.actueluser ){
 
 
-
-						$scope.ItemList[i] = ItemList[i].title;
+						$scope.ItemListes.push(ItemList[i].title);
 
 
 				}
 			}
-		console.log("ItemNv="+$scope.ItemList);
+		console.log("ItemNv="+$scope.ItemListes +" Taille="+$scope.ItemListes.length);
 		}
 	);
 }
-function deleteParty($scope, p){
-	var index = $scope.parties.indexOf(p);
-	if (index > -1){
-		$scope.parties.splice(index, 1);
-	}
-}
 
-function selectUser($stateParams){
-  $scope.hideAfterSelected = false;
-  $scope.receiverId = $stateParams.receiver.id;
-  $scope.receiverPbkey = $stateParams.receiver.key.publicKey;
-}
 
-function userAutoComplete($scope){
-  $scope.results = [];
-  $scope.errorSearch = false;
-  $scope.searchUser = true;
-  $scope.hideAfterSelected = true;
-  $scope.errorFields = false;
-  $scope.receiverId = null;
-  $scope.receiverPbkey = null;
 
-  if ($scope.stream != null) {
-      $scope.stream.abort();
-  }
-  Oboe(
-    {
-      url: RESTAPISERVER + "/api/search/users?nick=" + $scope.form.addParty,
-      pattern: '!',
-      start: function(stream) {
-          // handle to the stream
-          $scope.stream = stream;
-          $scope.status = 'started';
-      },
-      done: function(parsedJSON) {
-          $scope.status = 'done';
-      }
-  }).then(function() {
-      // promise is resolved
-  }, function(error) {
-      // handle errors
-  }, function(node) { //A node is just a partial list of matches from the streamed search
-      // node received
-      if (node != null && node.length != 0) { // if not empty
 
-          for (var i = 0; i < node.length; i++) { // push it to results
-              console.log(node[i]);
-              $scope.pushResult(node[i]);
-          }
-      }
 
-      $scope.searchUser = false;
-      console.log($scope.results.length);
-      if($scope.results.length == 0)
-        $scope.errorSearch = true;
-      else
-        $scope.errorSearch = false;
-
-  });
-}
-
+/****************this fonction verify user has entered all the mandatory information of a contract********************************************/
 function checkClauses($scope){
 
 	var isOK = true;
 
-	if ($scope.form.title != null)
+	if ($scope.form.title == null)
 	{
 		$scope.hasName = true;
+		isOK = false;
 	}
 	else
 	{
 		$scope.hasName = false;
-		isOK = false;
+
 	}
 
-	if ($scope.parties.length > 0)
+	if ($scope.parties.length < 0)
 	{
 		$scope.hasParty = true;
+				isOK = false;
 	}
 	else
 	{
 		$scope.hasParty = false;
-		isOK = false;
+
 	}
 
-	if ($scope.Exchanges.length > 0)
+	if ($scope.Exchange.length < 0)
 	{
 		$scope.hasExchanges = true;
+				isOK = false;
 	}
 	else
 	{
 		$scope.hasExchanges = false;
-		isOK = false;
+
 	}
 
-	if ($scope.impModality.length > 0)
+	if ($scope.modality.length < 0)
 	{
 		$scope.hasImpModality = true;
+				isOK = false;
 	}
 	else
 	{
 		$scope.hasImpModality = false;
-		isOK = false;
+
 	}
 
-	if ($scope.termModality.length > 0)
+	if ($scope.canceled.length < 0)
 	{
 		$scope.hasTermModality = true;
+				isOK = false;
 	}
 	else
 	{
 		$scope.hasTermModality = false;
-		isOK = false;
+
 	}
 
 	return isOK;
 }
+/************************************************************/
