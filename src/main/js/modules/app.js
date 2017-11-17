@@ -145,4 +145,3 @@ function isUserConnected($rootScope, $scope, $state){
 			$state.go('login');
 		}
 	}
-

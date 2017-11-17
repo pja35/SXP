@@ -15,10 +15,59 @@
 		<div class="panel-body">
 			<input type="hidden" id="id" ng-model="form.id">
 			<input type="text" class="form-control" id="title" placeholder="Name" ng-model="form.title">
-			<div ng-show="hasName"><font color="red"><em>You must fill out the contract name field</em></font></div>
+			<div ng-show="errorName"><font color="red"><em>You must fill out the contract name field</em></font></div>
 		</div>
 	</div>
-
+	<style type="text/css">
+.bs-example {
+	font-family: sans-serif;
+	position: relative;
+	margin: 100px;
+}
+.typeahead, .tt-query, .tt-hint {
+	border: 2px solid #CCCCCC;
+	border-radius: 8px;
+	font-size: 22px; /* Set input font size */
+	height: 30px;
+	line-height: 30px;
+	outline: medium none;
+	padding: 8px 12px;
+	width: 396px;
+}
+.typeahead {
+	background-color: #FFFFFF;
+}
+.typeahead:focus {
+	border: 2px solid #0097CF;
+}
+.tt-query {
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+.tt-hint {
+	color: #999999;
+}
+.tt-menu {
+	background-color: #FFFFFF;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 8px;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	margin-top: 12px;
+	padding: 8px 0;
+	width: 422px;
+}
+.tt-suggestion {
+	font-size: 22px;  /* Set suggestion dropdown font size */
+	padding: 3px 20px;
+}
+.tt-suggestion:hover {
+	cursor: pointer;
+	background-color: #0097CF;
+	color: #FFFFFF;
+}
+.tt-suggestion p {
+	margin: 0;
+}
+</style>
 	<!-- Parties field -->
 	<div class="form-group panel-success">
 		<div class="panel-heading">
@@ -27,25 +76,16 @@
 			</label>
 		</div>
 		<div class="panel-body">
-
-			<div class="col-sm-8" ng-repeat="party in Party">
-                 <party/>
-
-
+			<div class="col-sm-8" ng-repeat="party in parties">
+        <party/>
 			</div>
 			<div class="row">
 				<div class="col-sm-6">
-
-
-					<input type="text" ng-model="search"/>
-
-					<select class="form-control custom-select" id="addParty" ng-model="form.addParty" ng-options="user.name for user in userList | filter:search ">
-						<option value="" selected disabled>Choose a user</option>
-					</select>
-					<div ng-show="hasParty"><font color="red"><em>You must add a party</em></font></div>
+					<input name="states" id="states" type="text" placeholder="enter a state" ng-model="selected" typeahead="state for state in userList | filter:$viewValue | limitTo:8" class="form-control">
+					<div ng-show="errorParty"><font color="red"><em>You must add a party</em></font></div>
 				</div>
 				<div class="col-sm-2">
-					<button type="button" class="btn btn-default" ng-click="updateparties()">Add party</button>
+					<button type="button" class="btn btn-default" ng-click="updateParties()">Add party</button>
 				</div>
 			</div>
 		</div>
@@ -59,44 +99,29 @@
 			</label>
 		</div>
 		<div class="panel-body">
-			<div class="col-sm-12 col-md-12" ng-repeat="clausse in Exchange">
-
-				<div class="well well-sm col-sm-10">
-					<p><strong>From:</strong> <i>{{clausse.from}}</i></p>
-					<p><strong>To:</strong> <i>{{clausse.to}}</i></p>
-					<p><strong>What:</strong> <i>{{clausse.item}}</i></p>
-					<p><strong>When</strong> <i>{{clausse.when}}</i></p>
-					<p><strong>How:</strong> <i>{{clausse.how}}</i></p>
-					<p><strong>Details:</strong> <i>{{clausse.details}}</i></p>
-
-				</div>
-				<div class="col-sm-2">
-					<a class="btn btn-danger" ng-click="deleteParty(party)" type="button">Delete</a>
-				</div>
+			<div class="col-sm-12 col-md-12" ng-repeat="exchange in exchanges">
+				<exchange/>
 			</div>
 			<div class="col-sm-8">
 				<div class="row">
 					<label for="selectfrom" class="col-sm-3 col-md-2">FROM</label>
-					<span class="col-sm-9 col-md-10"><select id="selectfrom" class="form-control" ng-model="fromExchange" title="From Party" ng-change="update()">
-		    		<option value="" selected="selected" disabled>Choose a user</option>
-
+					<span class="col-sm-9 col-md-10"><select id="selectfrom" class="form-control" ng-model="form.addFrom" title="From Party" ng-change="updateItems()">
+		    		<option value="" selected disabled>Choose a user</option>
 		    		<option ng-repeat="party in parties">{{party}}</option>
 			    </select></span>
 				</div>
 				<br/>
 				<div class="row">
 					<label for="addClause" class="col-sm-3 col-md-2">WHAT</label>
-					<span class="col-sm-9 col-md-10">
-						   <select id="selectitem" class="form-control" ng-model="whatExchange" title="From Party">
-		    			<option value="" selected disabled>Choose an item<option/>
-		    			<option ng-repeat="item in ItemListes">{{item}}</option>
-
+					<span class="col-sm-9 col-md-10"><select id="selectitem" class="form-control" ng-model="form.addWhat" title="From Party">
+		    		<option value="" selected disabled>Choose an item<option/>
+		    		<option ng-repeat="item in items">{{item}}</option>
 					</select></span>
 				</div>
 				<br/>
 				<div class="row">
 					<label for="selectfor" class="col-sm-3 col-md-2">TO</label>
-					<span class="col-sm-9 col-md-10"><select class="form-control" id="selectfor" ng-model="toExchange" title="For Party">
+					<span class="col-sm-9 col-md-10"><select class="form-control" id="selectfor" ng-model="form.addTo" title="For Party">
 		    		<option value="" selected disabled>Choose a user</option>
 		    		<option ng-repeat="party in parties">{{party}} </option>
 			    </select></span>
@@ -108,13 +133,13 @@
 						<span class="input-group-addon">
 							<span class="glyphicon glyphicon-calendar"></span>
 						</span>
-						<input type='date' ng-model="whenExchange" class="form-control" />
+						<input type='date' ng-model="form.addWhen" class="form-control" />
 					</div></span>
 				</div>
 				<br/>
 				<div class="row">
 					<label for="addClause" class="col-sm-3 col-md-2">HOW</label>
-					<span class="col-sm-9 col-md-10"><select class="form-control" id="selectfor" ng-model="howExchange" title="For Party" >
+					<span class="col-sm-9 col-md-10"><select class="form-control" id="selectfor" ng-model="form.addHow" title="For Party" >
 		    		<option value="" selected disabled>Choose an exchange mode</option>
 		    		<option ng-repeat="mode in exchangeModes">{{mode}} </option>
 			    </select></span>
@@ -123,14 +148,14 @@
 				<div class="row">
 					<label for="addClause" class="col-sm-3 col-md-2">DETAILS</label>
 					<span class="col-sm-9 col-md-10">
-						<input type="text" class="form-control" placeholder="place, address, timelimit..." ng-model="detailsExchange">
+						<input type="text" class="form-control" placeholder="place, address, timelimit..." ng-model="form.addDetails">
 					</span>
 				</div>
 				<br/>
 				<div class="row">
-					<button type="button" class="btn btn-default col-sm-offset-4 col-md-offset-5 btn btn-secondary col-sm-3 col-md-2" ng-click="updateclausesExchange()">Add Clause</button>
+					<button type="button" class="btn btn-default col-sm-offset-4 col-md-offset-5 btn btn-secondary col-sm-3 col-md-2" ng-click="updateExchanges()">Add Clause</button>
 				</div>
-				<div ng-show="hasExchanges"><font color="red"><em>You must add an exchange clause</em></font></div>
+				<div ng-show="errorExchange"><font color="red"><em>You must add an exchange clause</em></font></div>
 			</div>
 		</div>
 	</div>
@@ -152,25 +177,21 @@
 					</tr>
 					</thead>
 					<tbody>
-					<tr ng-repeat="mod in modality">
-						<td>{{mod}}</td>
-						<td><button type="button" class="btn btn-danger" ng-click="updateActionModality(mod)">Update</button></td>
-						<td><button type="button" class="btn btn-danger" ng-click="deleteModality(mod)">Delete</button></td>
+					<tr ng-repeat="modality in impModalities">
+						<td>{{modality}}</td>
+						<td><button type="button" class="btn btn-danger" ng-click="modifyImpModality(modality)">Modify</button></td>
+						<td><button type="button" class="btn btn-danger" ng-click="deleteImpModality(modality)">Delete</button></td>
 					</tr>
 					</tbody>
 				</table>
 			</div>
 			<div>
-				<textarea class="form-control" rows="5" cols="3" ng-model="form.addModClause" ></textarea>
-				<div ng-show="hasImpModality"><font color="red"><em>You must add an implementing modality</em></font></div>
+				<textarea class="form-control" rows="5" cols="3" ng-model="form.addImpModality" ></textarea>
+				<div ng-show="errorImpModality"><font color="red"><em>You must add an implementing modality</em></font></div>
 				<br>
-				<button type="button" class="btn btn-default" ng-click="updatemodality()" data-ng-show="!upModality">Add modality</button>
-
-				<button type="button" class="btn btn-default" ng-click="updatemodalityExist()" data-ng-show="upModality">Update modality</button>
-				<button type="button" class="btn btn-default" ng-click="AnnulerModality()" data-ng-show="upModality">Cancel</button>
-
-
-
+				<button type="button" class="btn btn-default" ng-click="updateImpModalities()" data-ng-show="!modifImpMod.toModify">Add modality</button>
+				<button type="button" class="btn btn-default" ng-click="validateImpModality()" data-ng-show="modifImpMod.toModify">Validate</button>
+				<button type="button" class="btn btn-default" ng-click="cancelImpModality()" data-ng-show="modifImpMod.toModify">Cancel</button>
 			</div>
 		</div>
 	</div>
@@ -192,22 +213,21 @@
 					</tr>
 					</thead>
 					<tbody>
-					<tr ng-repeat="annulation in canceled">
-						<td>{{annulation}}</td>
-						<td><button type="button" class="btn btn-danger" ng-click="updateActionCanceled(annulation)">Update</button></td>
-						<td><button type="button" class="btn btn-danger" ng-click="deleteCanceled(annulation)">Delete</button></td>
+					<tr ng-repeat="modality in termModalities">
+						<td>{{modality}}</td>
+						<td><button type="button" class="btn btn-danger" ng-click="modifyTermModality(modality)">Update</button></td>
+						<td><button type="button" class="btn btn-danger" ng-click="deleteTermModality(modality)">Delete</button></td>
 					</tr>
 					</tbody>
 				</table>
 			</div>
 			<div>
-				<textarea class="form-control" rows="5" cols="3" ng-model="form.addCanceled" ></textarea>
-				<div ng-show="hasTermModality"><font color="red"><em>You must add a termination modality</em></font></div>
+				<textarea class="form-control" rows="5" cols="3" ng-model="form.addTermModality" ></textarea>
+				<div ng-show="errorTermModality"><font color="red"><em>You must add a termination modality</em></font></div>
 				<br>
-				<button type="button" class="btn btn-default" ng-click="updateclausescanceled()" data-ng-show="!upCanCeled">Add modality</button>
-
-				<button type="button" class="btn btn-default" ng-click="updatecanceledExist()" data-ng-show="upCanCeled">Upadate modality</button>
-				<button type="button" class="btn btn-default" ng-click="AnnulerCanceled()" data-ng-show="upCanCeled">Cancel</button>
+				<button type="button" class="btn btn-default" ng-click="updateTermModalities()" data-ng-show="!modifTermMod.toModify">Add modality</button>
+				<button type="button" class="btn btn-default" ng-click="validateTermModality()" data-ng-show="modifTermMod.toModify">Validate</button>
+				<button type="button" class="btn btn-default" ng-click="cancelTermModality()" data-ng-show="modifTermMod.toModify">Cancel</button>
 			</div>
 		</div>
 	</div>
