@@ -36,208 +36,236 @@
     	//The bindings with contracts.html will display them automatically
     });
 
-
-
     // 'View contract' state controller function
     module.controller('viewContract',  function($scope,$window, $http, $stateParams, Contract, $state) {
-	  $scope.app.configHeader({back: true, title: 'View contract', contextButton: 'editContract', contextId: $stateParams.id});
 
-	  var contract = Contract.get({id: $stateParams.id}, function() {
-	    //Just load the contract and display it via the bindings with contract.html
-	    $scope.contract = contract;
+			$scope.app.configHeader({back: true, title: 'View contract', contextButton: 'editContract', contextId: $stateParams.id});
 
-	// this variable help to get all information about contract
-	    $scope.title = contract.title
-    	$scope.clauses = contract.clauses;
-	    $scope.canceled = contract.canceled;
-	    $scope.modality = contract.modality;
-	    $scope.exchangeClause=contract.exchange;
+	  	var contract = Contract.get({id: $stateParams.id}, function() {
+	    	//Just load the contract and display it via the bindings with contract.html
+	    	$scope.contract = contract;
+				// this variable help to get all information about contract
+		    $scope.title = contract.title
+	    	$scope.clauses = contract.clauses;
+		    $scope.canceled = contract.canceled;
+		    $scope.modality = contract.modality;
+		    $scope.exchangeClause=contract.exchange;
 
-
-        /*
-        * Actually Exchange clauss is Array<String> content all information about this exchange with string
-        */
+        /** Actually Exchange clauss is Array<String> content all information about this exchange with string */
         $scope.Exchange=[];
         ex=contract.exchange;
 
-          for (i=0; i<ex.length; i++){
-          exchange=ex[i];
-          console.log("Ex="+exchange);
-          $scope.myarrays=[];
-          $scope.myarrays=exchange.split('*');
-          $scope.Exchange.push({'from':$scope.myarrays[0],'to':$scope.myarrays[1],'item':$scope.myarrays[2],'when':$scope.myarrays[3],'how':$scope.myarrays[4],'details':$scope.myarrays[5]});
+        for (i=0; i<ex.length; i++){
+        exchange=ex[i];
+        console.log("Ex="+exchange);
+        $scope.myarrays=[];
+        $scope.myarrays=exchange.split('*');
+        $scope.Exchange.push({
+					'from':$scope.myarrays[0],
+					'to':$scope.myarrays[1],
+					'item':$scope.myarrays[2],
+					'when':$scope.myarrays[3],
+					'how':$scope.myarrays[4],
+					'details':$scope.myarrays[5]});
+        }
+
+		    // Get parties from the hashmap of names and id (to identify exactly a user)
+		    $scope.parties = [];
+		    $scope.nameParties=[];
+		    $scope.body=[];
+		    pN = contract.partiesNames;
+
+		    for (i=0; i<pN.length; i++){
+		    	names = pN[i];
+		    	$scope.body[i]=[{ text:"Parti "+(i+1),style:'title'},names["value"]];
+		    	console.log(names["value"]);
+		    	$scope.parties[i] = names["value"] + " - " + names["key"];
+		    }
+	  	});
+
+	  	$scope.pdfMake = $window.pdfMake;
+
+	  	$scope.modify = function(){
+		  	$state.go("editContract", {id : contract.id});
+	  	};
+
+	  	$scope.sign = function(){
+		  	$http.put(RESTAPISERVER + '/api/contracts/sign/:id', contract.id);
+		  	$state.go('viewContracts');
+	  	};
+
+		  $scope.decline = function(){
+			  $http.put(RESTAPISERVER + '/api/contracts/cancel/:id', contract.id);
+			  $state.go('viewContracts');
+		  };
+
+			// fonction to generate Pdf about one Contrat
+	  	$scope.getPdf = function(){
+
+	  		console.log($scope.body);
+      	var pdfMake = $scope.pdfMake;
+
+      	var teste = $scope.test;
+      	var docDefinition = {
+          content: [
+            { text: "Contrat d'echange", style: 'header' },
+            { text:"1 . PREAMBULE :", style:'title' },
+          	"Le contrat d’échange des Objects est à but non lucratif. " +
+						"Il n’y a aucun échange d’argent entre les parties, chacune de " +
+						"celles-ci cédant à l’autre son Object définit ci-dessous " +
+						"à titre gratuit et définitivement." ,
+            { text:" 2 . CONTRAT D’ECHANGE ENTRE :", style:'title' },
+            $scope.body,
+          ],
+
+          styles: {
+	         	header: {
+	       			fontSize: 18,
+	       			bold: true,
+	       			margin: [200, 0, 0, 50]
+	         	},
+	         	title: {
+		          fontSize: 14,
+		          bold: true,
+		          margin: [10, 20, 0, 20]
+	          }
           }
+        };
 
+        //"pdfMake" create document pdf and opened
+        pdfMake.createPdf(docDefinition).open();
+        //   pdfMake.createPdf(docDefinition).download('optionalName.pdf');
 
-
-	    // Get parties from the hashmap of names and id (to identify exactly a user)
-	    $scope.parties = [];
-	    $scope.nameParties=[];
-	    $scope.body=[];
-	    pN = contract.partiesNames;
-
-
-	    for (i=0; i<pN.length; i++){
-	    	names = pN[i];
-
-	    	$scope.body[i]=[{ text:"Parti "+(i+1),style:'title'},names["value"]];
-	    	console.log(names["value"]);
-	    	$scope.parties[i] = names["value"] + " - " + names["key"];
-	    }
-	  });
-
-	  $scope.pdfMake = $window.pdfMake;
-
-	  $scope.modify = function(){
-		  $state.go("editContract", {id : contract.id});
-	  };
-
-	  $scope.sign = function(){
-		  $http.put(RESTAPISERVER + '/api/contracts/sign/:id', contract.id);
-		  $state.go('viewContracts');
-	  }
-
-	  $scope.decline = function(){
-		  $http.put(RESTAPISERVER + '/api/contracts/cancel/:id', contract.id);
-		  $state.go('viewContracts');
-	  }
-
-
-// fonction to generate Pdf about one Contrat
-	  $scope.getPdf = function(){
-
-	  console.log($scope.body);
-      var pdfMake = $scope.pdfMake;
-
-      var teste=$scope.test;
-      var docDefinition = {
-                                  content: [
-                                    { text: "Contrat d'echange", style: 'header' },
-                                    {text:"1 . PREAMBULE :",style:'title'},
-                                   "Le contrat d’échange des Objects est à but non lucratif. Il n’y a aucun échange d’argent entre les parties, chacune de celles-ci cédant à l’autre son Object définit ci-dessous à titre gratuit et définitivement." ,
-                                     {text:" 2 . CONTRAT D’ECHANGE ENTRE :",style:'title'},
-                                     $scope.body,
-                                  ],
-
-                                  styles: {
-                                 	header: {
-                                 			fontSize: 18,
-                                 			bold: true,
-                                 			margin: [200, 0, 0, 50]
-                                 		},
-                                 		title: {
-                                           fontSize: 14,
-                                           bold: true,
-                                           margin: [10, 20, 0, 20]
-                                                 },
-                                  }
-                                };
-
-           //"pdfMake" create document pdf and opened
-           pdfMake.createPdf(docDefinition).open();
-            //   pdfMake.createPdf(docDefinition).download('optionalName.pdf');
-
-
-
-      	  }
-
-	});
+    	}
+		});
 
 
     module.controller('editContract', function($scope, $stateParams, Contract, $state, $http){
 
-      	$scope.app.configHeader({back: true, title: 'Edit contracts', contextId: $stateParams.id});
-      	$scope.action = 'edit';
+			//this function manages the disconnection because if the session expresses the return to the connection page
+      isUserConnected($rootScope, $scope, $state);
 
-				/****** Initialising some scope variables necessary to deal with the contract ******/
-  		  $scope.form = {};
-      	$scope.userList = [];
-        $scope.parties = [];
-				getUsers($http, $scope);
-				checkClauses($scope);
-				/*******************************************************************/
+			$scope.app.configHeader({back: true, title: 'Edit contracts', contextId: $stateParams.id});
+			$scope.action = 'edit';
 
-				/****** Getting back the informations about the contract ******/
-  		  var contract = Contract.get({id: $stateParams.id}, function() {
-  			//First, load the item and display it via the bindings with item-form.html
-	  			$scope.form.title = contract.title;
-	  			$scope.exchanges = contract.clauses;
-	        $scope.parties = contract.partiesNames;
-	        $scope.impModalities = contract.impModalities;
-					$scope.termModalities = contract.termModalities;
-				});
-				/*******************************************************************/
+			/****** Initialising the scope variables necessary to deal with the contract ******/
+			$scope.form = {
+				title : "",
+				addParty : "",
+				addFrom : "",
+				addWhat : "",
+				addTo : "",
+				addWhen : "",
+				addHow : "",
+				addDetails : "",
+				addImpModality : "",
+				addTermModality : ""
+			};
+			$scope.partiesList = []; // object array
+			$scope.parties = []; // string array
+    	$scope.exchanges = []; // object array
+			$scope.exchangesStr = []; // string array
+      $scope.usersList = []; // object array
+			$scope.users = []; // string array
+			getUsers($http, $scope); // fill usersList and users
+			$scope.itemsList = []; // will be filled with the items of the "from" user
+			$scope.items = []; // string array
+			/***********************************************/
 
-				/****** All the functions to add or upadate informations about the contract ******/
-      	$scope.updateParties = function() {updateParties($scope)};
-      	$scope.updateExchanges = function() {updateExchanges($scope)};
-        $scope.updateImpModalities = function() {updateImpModalities($scope)};
-        $scope.updateTermModalities = function() {updateTermModalities($scope)};
+			/****** Getting back the informations about the contract ******/
+		  var contract = Contract.get({id: $stateParams.id}, function() {
+				//First, load the item and display it via the bindings with item-form.html
+  			$scope.form.title = contract.title;
+  			$scope.exchangesStr = contract.clauses;
+        $scope.parties = contract.partiesNames; //partiesNames is a hashmap
+        $scope.impModalities = contract.impModalities;
+				$scope.termModalities = contract.termModalities;
+			});
+			/*******************************************************************/
 
-      	$scope.deleteParty = function(p){deleteParty($scope,p);};
-      	$scope.deleteExchange = function(c){deleteExchange($scope,c);};
-        $scope.deleteImpModality = function(m) {deleteImpModality($scope, m)};
-        $scope.deleteTermModality = function(m) {deleteTermModality($scope, m)};
+			buildExchanges($scope); // build $scope.exchanges from $scope.exchangesStr
 
-				$scope.modifyImpModality = function(){modifyImpModality($scope)};
-				$scope.modifyTermModality = function(){modifyTermModality($scope)};
-				/*******************************************************************/
+			/****** Initialising the exchange modes ******/
+			$scope.exchangeModes = [];
+			$scope.exchangeModes[0] = "electronically";
+			$scope.exchangeModes[1] = "delivery";
+			$scope.exchangeModes[2] = "in person";
+			/***********************************************/
 
-				$scope.updateItems=function(){
-	      	if ($scope.fromExchange != "")
-	      	{
-	      		var currentFromUser = $scope.fromExchange.split(" - ")[1];
-	        	getItems($http, $scope, currentFromUser);
-	      	}
-	      };
+			/****** Indicators for the modification of an implementing and termination modality ******/
+			$scope.modifImpMod = {
+				toModify : false, // indicate wheter a modality has to be modified
+				index : -1 // modifying modality's index
+			};
+			$scope.modifTermMod = {
+				toModify : false, // indicate wheter a modality has to be modified
+				index : -1 // modifying modality's index
+			};
 
-				/****** Submit button function ******/
-      	$scope.submit = function() {
+			 /****** All the functions to add, delete or modify informations about the contract ******/
+			$scope.updateParties = function() {updateParties($scope)};
+			$scope.updateExchanges = function() {updateExchanges($scope)};
+			$scope.updateImpModalities = function() {updateImpModalities($scope)};
+			$scope.updateTermModalities = function() {updateTermModalities($scope)};
 
-					// isOK is a boolean indicating wether the user has entered all the mandatory informations about the contract
-					var isOK = checkClauses($scope);
-					if (isOK)
-					{
-	          partiesId = [];
-	          $scope.parties.forEach(function(party) {
-	            partiesId.push(party.key);
-	          });
+			$scope.deleteParty = function(p) {deleteParty($scope,p)};
+			$scope.deleteExchange = function(c) {deleteExchange($scope,c)};
+			$scope.deleteImpModality = function(m) {deleteImpModality($scope, m)};
+			$scope.deleteTermModality = function(m) {deleteTermModality($scope, m)};
 
-	      		if ($scope.form.addParty != null && $scope.form.addParty.length>2){updateParties($scope);}
-	      		if ($scope.form.addClause != null && $scope.form.addClause.length>2){updateClauses($scope);}
-	          if ($scope.form.addImpModality != null && $scope.form.addImpModality.length>2){updateImpModalities($scope);}
-	          if ($scope.form.addTermModality != null && $scope.form.addTermModality.length>2){updateTermModalities($scope);}
-	          //Contract is available thanks to restApi.js
-	      		contract.title = $scope.form.title;
-	      		contract.clauses = $scope.clauses;
-	      		contract.parties = partiesId;
+			$scope.modifyImpModality = function(m) {modifyImpModality($scope,m)};
+			$scope.modifyTermModality = function(c) {modifyTermModality($scope,c)};
+			$scope.cancelImpModality = function() {cancelImpModality($scope)};
+			$scope.cancelTermModality = function() {cancelTermModality($scope)};
+			$scope.validateImpModality = function() {validateImpModality($scope)};
+			$scope.validateTermModality = function() {validateTermModality($scope)};
 
-	      		contract.$update(function() {
-	      			$state.go('viewContracts');
-	      	  });
-					}
-      	};
-				/*******************************************************************/
+			$scope.updateItems = function() {updateItems($http, $scope)};
+			/*******************************************************************/
 
-				/****** Delete button function ******/
-      	$scope.delete = function(){
-      		contract.$delete(function(){
-      			 $state.go('viewContracts');
-      		})
-      	};
-				/*******************************************************************/
+			/****** Submit button function ******/
+    	$scope.submit = function() {
+
+				// isOK is a boolean indicating wether the user has entered all the mandatory informations about the contract
+				var isOK = checkClauses($scope);
+				if (isOK)
+				{
+          var partiesId = [];
+          $scope.parties.forEach(function(party) {
+            partiesId.push(party.key);
+          });
+
+					buildExchangesStr($scope);
+
+      		if ($scope.form.addParty != null && $scope.form.addParty.length>2){updateParties($scope);}
+          if ($scope.form.addImpModality != null && $scope.form.addImpModality.length>2){updateImpModalities($scope);}
+          if ($scope.form.addTermModality != null && $scope.form.addTermModality.length>2){updateTermModalities($scope);}
+
+					//Contract is available thanks to restApi.js
+      		contract.title = $scope.form.title;
+					contract.parties = partiesId;
+					contract.clauses = $scope.exchangesStr;
+					contract.implementing = $scope.impModalities;
+					contract.termination = $scope.termModalities;
+
+      		contract.$update(function() {
+      			$state.go('viewContracts');
+      	  });
+				}
+    	};
+			/*******************************************************************/
+
+			/****** Delete button function ******/
+    	$scope.delete = function(){
+    		contract.$delete(function(){
+    			 $state.go('viewContracts');
+    		})
+    	};
+			/*******************************************************************/
 
     });
 
-
-		module.factory("States", function(){
-		  var states = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Dakota", "North Carolina", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"];
-
-		  return states;
-
-		});
-
-    module.controller('addContract', function($rootScope, $scope, Contract, Item, $state, $http, States){
+    module.controller('addContract', function($rootScope, $scope, Contract, Item, $state, $http){
 
       //this function manages the disconnection because if the session expresses the return to the connection page
       isUserConnected($rootScope, $scope, $state);
@@ -246,16 +274,29 @@
     	$scope.action = 'add';
 
 			/****** Initialising the scope variables necessary to deal with the contract ******/
-			$scope.form = {};
-			$scope.parties = [];
-    	$scope.Exchange = [];
-      $scope.userList = ["siku", "test"];
-    	$scope.items = [];
-			//$scope.items = Item.query();
-			getUsers($http, $scope); // fill userList
+			$scope.form = {
+				title : "",
+				addParty : "",
+				addFrom : "",
+				addWhat : "",
+				addTo : "",
+				addWhen : "",
+				addHow : "",
+				addDetails : "",
+				addImpModality : "",
+				addTermModality : ""
+			};
+			$scope.partiesList = []; // object array
+			$scope.parties = []; // string array
+    	$scope.exchanges = []; // object array
+			$scope.exchangesStr = []; // string array
+			$scope.usersList = []; // object array
+			$scope.users = []; // string array
+			getUsers($http, $scope); // fill usersList and users
+			$scope.itemsList = []; // will be filled with the items of the "from" user
+			$scope.items = []; // string array
 			/***********************************************/
-			$scope.selected = undefined;
-			$scope.states = States;
+
 			/****** Initialising the exchange modes ******/
 			$scope.exchangeModes = [];
 			$scope.exchangeModes[0] = "electronically";
@@ -289,7 +330,6 @@
 				toModify : false, // indicate wheter a modality has to be modified
 				index : -1 // modifying modality's index
 			};
-      $scope.upExchange=false; //??
 
 			 /****** All the functions to add, delete or modify informations about the contract ******/
 			$scope.updateParties = function() {updateParties($scope)};
@@ -308,20 +348,9 @@
 			$scope.cancelTermModality = function() {cancelTermModality($scope)};
 			$scope.validateImpModality = function() {validateImpModality($scope)};
 			$scope.validateTermModality = function() {validateTermModality($scope)};
-			/*******************************************************************/
-			// not implemented yet
-			$scope.updateclausesExchangeExist = function() {updateClausesExchange($scope)};
-      $scope.updateActionEx = function(e){updateActionExchange($scope,e)};
 
-			/****** Function to update the items according to the user selected in the From field ******/
-			$scope.updateItems = function(){
-      	if ($scope.fromExchange != "")
-      	{
-      		var currentFromUser = $scope.fromExchange.split(" - ")[1];
-        	getItems($http, $scope, currentFromUser);
-      	}
-      };
-      /********************************************************************************************/
+			$scope.updateItems = function() {updateItems($http, $scope)};
+			/*******************************************************************/
 
 			/****** Submit button function ******/
     	$scope.submit = function() {
@@ -330,30 +359,27 @@
 				var isOK = checkClauses($scope);
 				if (isOK)
 				{
-					partiesId = [];
+					var partiesId = [];
 					$scope.parties.forEach(function(party) {
 						partiesId.push(party.key);
 					});
 
+					buildExchangesStr($scope);
+
 	    		if ($scope.form.addParty != null && $scope.form.addParty.length>2){updateParties($scope);}
-	    		if ($scope.form.addClause != null && $scope.form.addClause.length>2){updateClauses($scope);}
-	    		if ($scope.form.addTermModality != null && $scope.form.addCanceled.length>2){updateTermModalities($scope);}
-	        if ($scope.form.addImpModality != null && $scope.form.addModClause.length>2){updateImpModalities($scope);}
-	    		if ($scope.form.addExchangeClause!= null && $scope.form.addExchangeClause.length>2){updateClausesExchange($scope);}
+	    		if ($scope.form.addTermModality != null && $scope.form.addTermModality.length>2){updateTermModalities($scope);}
+	        if ($scope.form.addImpModality != null && $scope.form.addImpModality.length>2){updateImpModalities($scope);}
 
 	    		var contract = new Contract({
 		    		title : $scope.form.title,
 						parties : partiesId,
-						exchanges : $scope.exchangeClause,
-						termModalities : $scope.termModalities,
-	    			impModalities : $scope.impModalities
+						clauses : $scope.exchangesStr,
+						termination : $scope.termModalities,
+	    			implementing : $scope.impModalities
 					});
-
-	      	console.log("Contrat=="+contract.exchange);
 
 	      	// Create the contract in the database thanks to restApi.js
 	    		contract.$save(function() {
-	    			console.log("ContratSav=="+contract.exchange+"/"+contract.canceled);
 						$state.go('viewContracts');
 					});
 				}
@@ -374,39 +400,14 @@
       templateUrl: 'contracts/party.html'
     };
   });
-  module.directive('clause', function() {
+  module.directive('exchange', function() {
 	    return {
 	      restrict: 'E',
-	      templateUrl: 'contracts/clause.html'
+	      templateUrl: 'contracts/exchange.html'
 	    };
 	  });
 
 })();
-
-
-
-
-function buildTableBody(data, columns) {
-    var body = [];
-
-    body.push(columns);
-
-    data.forEach(function(row) {
-        var dataRow = [];
-
-        columns.forEach(function(column) {
-            dataRow.push(row[column].toString());
-        })
-
-        body.push(dataRow);
-    });
-
-    return body;
-}
-function updateActionExchange($scope,d){
-	console.log("Update Existe Exchange "+Exchange);
-	return true;
-}
 
 
 /****** Functions to handle the modification of an implementing or termination modality ******/
@@ -477,13 +478,13 @@ function deleteTermModality($scope, c){
 	}
 }
 function deleteExchange($scope, e){
-	var index = $scope.exchangeClause.indexOf(e);
+	var index = $scope.exchanges.indexOf(e);
 	if (index > -1){
-		$scope.exchangeClause.splice(index, 1);
+		$scope.exchanges.splice(index, 1);
 	}
 }
 function deleteParty($scope, p){
-	var index = $scope.parties.indexOf(p);
+	var index = $scope.parties.findIndex(party => party.key === newParty.key);
 	if (index > -1){
 		$scope.parties.splice(index, 1);
 	}
@@ -493,12 +494,11 @@ function deleteParty($scope, p){
 /****** Functions to handle the adding of a clause : party, exchange, implementing modality, termination modality ******/
 function updateParties($scope){
 	var addParty = $scope.form.addParty.split(" - ");
-  var newParty = {};
-  newParty.key = addParty[1];
-  newParty.value = addParty[0];
+  var newParty = {value : addParty[0], key : addParty[1]};
   var index = $scope.parties.findIndex(party => party.key === newParty.key);
 	if (newParty.key != undefined && index == -1){
-    $scope.parties.push(newParty);
+    $scope.partiesList.push(newParty);
+		$scope.parties.push(newParty.value + ' - ' + newParty.key);
 		$scope.form.addParty = "";
 	}
 }
@@ -523,28 +523,14 @@ function updateImpModalities($scope){
 }
 
 function updateExchanges($scope){
-
-	var from=$scope.fromExchange;
-	var to=$scope.toExchange;
-	var what=$scope.whatExchange;
-	var when=""+$scope.whenExchange+" ";
-	var how = $scope.howExchange;
-	var details = $scope.detailsExchange;
-	var exchange=from+"*"+to+"*"+what+"*"+when+"*"+how+"*"+details;
-	var index = $scope.exchangeClause.indexOf(exchange);
-	if (index == -1){
-
-    $scope.exchangeClause.push(exchange);
-		$scope.fromExchange="";
-		$scope.whatExchange="";
-	  $scope.whenExchange="";
-		$scope.howExchange="";
-		$scope.detailsExchange="";
-		$scope.form.addExchangeClause="";
-    $scope.Exchange.push({'from':from,'to':to,'item':what,'when':when,'how':how,'details':details});
-
-	}
-	return false;
+	$scope.exchanges.push({
+		from : $scope.form.addFrom,
+		what : $scope.form.addWhat,
+		to : $scope.form.addTo,
+		when : $scope.form.addWhen,
+		how : $scope.form.addHow,
+		details : $scope.form.addDetails
+	});
 }
 /*****************************************************************************/
 
@@ -552,32 +538,71 @@ function updateExchanges($scope){
 function getUsers($http, $scope){
 	$http.get(RESTAPISERVER + "/api/users/").then(
 		function(response){
-			var userList = response.data;
-			$scope.userList = [];
+			var allUsers = response.data; // users in the database
+			$scope.usersList = [];
+			for(i = 0; i < allUsers.length; i++){
+				if (allUsers[i].nick != ""){
+					$scope.usersList[i] = { 'name' : allUsers[i].nick
+							, 'id' : allUsers[i].id };
+					$scope.users[i] = allUsers[i].nick + ' - ' + allUsers[i].id;
+				}
+			}
+		}
+	);
+}
 
-			for(i=0; i<userList.length; i++){
-				if (userList[i].nick != ""){
-					$scope.userList[i] = { 'name' : userList[i].nick
-							, 'id' : userList[i].id };
+/****** Function to update the items according to the user selected in the From field ******/
+function updateItems($http, $scope){
+	$scope.items = []; // empty the items to then populate with only the new "From" user items
+	$scope.itemsList = [];
+	if ($scope.form.addFrom != undefined && $scope.form.addFrom != "")
+	{
+		var currentFromUser = $scope.form.addFrom.split(" - ")[1];
+		if (currentFromUser != undefined && currentFromUser != "")
+		{
+			$http.get(RESTAPISERVER + "/api/items/all").then(
+				function(response){
+					var allItems = response.data;
+					$scope.itemsList = [];
+					for(i = 0; i < allItems.length; i++){
+						if (allItems[i].nick != "" & allItems[i].userid == currentFromUser){
+							$scope.itemsList[i] = { 'name' : allItems[i].title, 'id' : allItems[i].id};
+							$scope.items[i] = allItems[i].title + ' - ' + allItems[i].id;
+						}
+					}
 				}
-			}
+			);
 		}
-	);
+	}
 }
-/****** Function to get all the items from the database ******/
-function getItems($http, $scope, currentFromUser){
-	$http.get(RESTAPISERVER + "/api/items/all").then(
-		function(response){
-			var allItems = response.data;
-			$scope.items = [];
-			for(i = 0; i < allItems.length; i++){
-				if (allItems[i].nick != "" & allItems[i].userid == currentFromUser){
-					$scope.items.push(allItems[i].title);
-				}
-			}
-		}
-	);
+
+/****** Functions to build the arrays containing the exchanges ******/
+function buildExchanges($scope){
+	$scope.exchangesStr.forEach(function(ex){
+		var splitedEx = ex.split('#'); // the separator used between parameters is #
+		$scope.exchanges.push({
+			from : splitedEx[0],
+			what : splitedEx[1],
+			to : splitedEx[2],
+			when : splitedEx[3],
+			how : splitedEx[4],
+			details : splitedEx[5]
+		});
+	});
 }
+function buildExchangesStr($scope){
+	$scope.exchanges.forEach(function(ex){
+		$scope.exchangesStr.push(
+			ex.from + "#" +
+			ex.what + "#" +
+			ex.to + "#" +
+			ex.when + "#" +
+			ex.how + "#" +
+			ex.details + "#"
+		);
+	});
+}
+/*****************************************************************************/
 
 /****** Function to check whether the user fill out all the mandatory information about the contract ******/
 function checkClauses($scope){
@@ -605,7 +630,7 @@ function checkClauses($scope){
 		$scope.errorParty = false;
 	}
 	// Exchanges
-	if ($scope.Exchange.length == 0)
+	if ($scope.exchanges.length == 0)
 	{
 		$scope.errorExchange = true;
 		isOK = false;

@@ -4,7 +4,6 @@
 <form ng-submit="submit()">
 
 	<br>
-	<h1>{{item.title}}</h1>
 	<!-- Contract name field -->
 	<div class="form-group panel-success">
 		<div class="panel-heading">
@@ -18,56 +17,7 @@
 			<div ng-show="errorName"><font color="red"><em>You must fill out the contract name field</em></font></div>
 		</div>
 	</div>
-	<style type="text/css">
-.bs-example {
-	font-family: sans-serif;
-	position: relative;
-	margin: 100px;
-}
-.typeahead, .tt-query, .tt-hint {
-	border: 2px solid #CCCCCC;
-	border-radius: 8px;
-	font-size: 22px; /* Set input font size */
-	height: 30px;
-	line-height: 30px;
-	outline: medium none;
-	padding: 8px 12px;
-	width: 396px;
-}
-.typeahead {
-	background-color: #FFFFFF;
-}
-.typeahead:focus {
-	border: 2px solid #0097CF;
-}
-.tt-query {
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-}
-.tt-hint {
-	color: #999999;
-}
-.tt-menu {
-	background-color: #FFFFFF;
-	border: 1px solid rgba(0, 0, 0, 0.2);
-	border-radius: 8px;
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-	margin-top: 12px;
-	padding: 8px 0;
-	width: 422px;
-}
-.tt-suggestion {
-	font-size: 22px;  /* Set suggestion dropdown font size */
-	padding: 3px 20px;
-}
-.tt-suggestion:hover {
-	cursor: pointer;
-	background-color: #0097CF;
-	color: #FFFFFF;
-}
-.tt-suggestion p {
-	margin: 0;
-}
-</style>
+
 	<!-- Parties field -->
 	<div class="form-group panel-success">
 		<div class="panel-heading">
@@ -76,12 +26,13 @@
 			</label>
 		</div>
 		<div class="panel-body">
-			<div class="col-sm-8" ng-repeat="party in parties">
+			<div class="col-sm-8" ng-repeat="party in partiesList">
         <party/>
 			</div>
 			<div class="row">
 				<div class="col-sm-6">
-					<input name="states" id="states" type="text" placeholder="enter a state" ng-model="selected" typeahead="state for state in userList | filter:$viewValue | limitTo:8" class="form-control">
+					<input type="text" class="form-control" placeholder="Choose a user" ng-model="form.addParty"
+					uib-typeahead="user for user in users | filter:$viewValue | limitTo:8">
 					<div ng-show="errorParty"><font color="red"><em>You must add a party</em></font></div>
 				</div>
 				<div class="col-sm-2">
@@ -99,36 +50,38 @@
 			</label>
 		</div>
 		<div class="panel-body">
-			<div class="col-sm-12 col-md-12" ng-repeat="exchange in exchanges">
+			<div class="col-sm-12" ng-repeat="exchange in exchanges">
 				<exchange/>
 			</div>
 			<div class="col-sm-8">
 				<div class="row">
 					<label for="selectfrom" class="col-sm-3 col-md-2">FROM</label>
-					<span class="col-sm-9 col-md-10"><select id="selectfrom" class="form-control" ng-model="form.addFrom" title="From Party" ng-change="updateItems()">
-		    		<option value="" selected disabled>Choose a user</option>
-		    		<option ng-repeat="party in parties">{{party}}</option>
-			    </select></span>
+					<span class="col-sm-9 col-md-10">
+						<input type="text" class="form-control" placeholder="Choose a party"
+							ng-model="form.addFrom" ng-change="updateItems()"
+							uib-typeahead="party for party in parties | filter:$viewValue | limitTo:8"
+							typeahead-on-select="updateItems()">
+					</span>
 				</div>
 				<br/>
 				<div class="row">
 					<label for="addClause" class="col-sm-3 col-md-2">WHAT</label>
-					<span class="col-sm-9 col-md-10"><select id="selectitem" class="form-control" ng-model="form.addWhat" title="From Party">
-		    		<option value="" selected disabled>Choose an item<option/>
-		    		<option ng-repeat="item in items">{{item}}</option>
-					</select></span>
+					<span class="col-sm-9 col-md-10">
+						<input type="text" class="form-control" placeholder="Choose an item" ng-model="form.addWhat"
+							uib-typeahead="item for item in items | filter:$viewValue | limitTo:8">
+					</span>
 				</div>
 				<br/>
 				<div class="row">
 					<label for="selectfor" class="col-sm-3 col-md-2">TO</label>
-					<span class="col-sm-9 col-md-10"><select class="form-control" id="selectfor" ng-model="form.addTo" title="For Party">
-		    		<option value="" selected disabled>Choose a user</option>
-		    		<option ng-repeat="party in parties">{{party}} </option>
-			    </select></span>
+					<span class="col-sm-9 col-md-10">
+						<input type="text" class="form-control" placeholder="Choose a party" ng-model="form.addTo"
+							uib-typeahead="party for party in parties | filter:$viewValue | limitTo:8">
+					</span>
 				</div>
 				<br/>
 				<div class="row">
-					<label for="selectfor"  class="col-sm-3 col-md-2">WHEN</label>
+					<label for="selectfor" class="col-sm-3 col-md-2">WHEN</label>
 					<span class="col-sm-9 col-md-10"><div class='input-group date' id='datetimepicker'>
 						<span class="input-group-addon">
 							<span class="glyphicon glyphicon-calendar"></span>

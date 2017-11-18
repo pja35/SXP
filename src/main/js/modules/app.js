@@ -1,6 +1,6 @@
 (function() {
 
-    var module = angular.module('app', ['ui.router', 'ngAnimate', 'ngResource', 'services.rest', 'app.myItems', 'search', 'app.messages', 'app.users', 'app.settings', 'ngOboe', 'app.contracts', 'app.contact']);
+    var module = angular.module('app', ['ui.router', 'ui.bootstrap', 'ngAnimate', 'ngResource', 'services.rest', 'app.myItems', 'search', 'app.messages', 'app.users', 'app.settings', 'ngOboe', 'app.contracts', 'app.contact']);
     //app is the name of this module, what follows are depencies
     //ui.router is standard, for routing
     //ngOboe is standard to stream the results of the searches
