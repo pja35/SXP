@@ -26,6 +26,7 @@
     });
 
 
+
     // 'contracts' state controller function
 
     module.controller('viewContracts', function ($http, $rootScope, $scope, $state, Contract, User) {
@@ -59,7 +60,7 @@
 
     // 'View contract' state controller function
 
-    module.controller('viewContract', function ($scope, $http, $stateParams, Contract, $state,User,$rootScope) {
+    module.controller('viewContract', function ($scope, $http, $stateParams, Contract,Message, $state,User,$rootScope,Oboe) {
         isUserConnected($http, $rootScope, $scope, $state, User);
         $scope.app.configHeader({
             back: true,
@@ -120,10 +121,68 @@
             }
 
         };
-        $scope.forum = function (){
-            console.log("FORUM!");
-            console.log(contract.partiesNames);
+        var currentUser = User.get({
+            id: $scope.app.userid
+        });
+        $scope.ajoutForum = function (contract,messageContent) {
+
+
+        };
+
+        $scope.addForum = function (contract,messageContent){
+            var ids = [];
+            var nicks = [];
+
+            for (var i = 0; i<contract.partiesNames.length;i++){
+                nicks.push(contract.partiesNames[i].value);
+            }
+
+            nicks.push(currentUser.nick);
+
+            var message = new Message({
+                receivers: contract.parties,
+                receiversNicks: nicks,
+                messageContent: messageContent,
+                chatGroup: true,
+                contractID : contract.id
+            });
+            console.log(message);
+            Oboe({
+                url: RESTAPISERVER + "/api/messages/",
+                method: 'POST',
+                body: message,
+                withCredentials: true,
+                headers: {'Auth-Token': $http.defaults.headers.common['Auth-Token']},
+                start: function (stream) {
+                    // handle to the stream
+                    $scope.stream = stream;
+                    $scope.status = 'started';
+                    $scope.sendMessage = true;
+                },
+                done: function (parsedJSON) {
+                    $scope.status = 'done';
+                    $scope.sendMessage = false;
+                }
+            }).then(function () {
+
+            }, function (error) {
+                $scope.sendMessage = false;
+                console.log("erreur lors de l'envoie du message");
+            }, function (node) {
+                if (node != null && node.length != 0) {
+                    $scope.sendMessage = false;
+                    console.log(node);
+                    $state.go('messages');
+                }
+            });
+
+
         }
+        $scope.form = false;
+        $scope.forum = function () {
+            $scope.form = !$scope.form;
+        }
+
     });
 
 
@@ -175,8 +234,7 @@
             for (i = 0; i < pN.length; i++) {
                 names = pN[i];
                 partiesId[i] = names.split(" - ")[1];
-            }
-            ;
+            };
 
 
             if ($scope.form.addParty != null && $scope.form.addParty.length > 2) {
@@ -193,6 +251,8 @@
             contract.$update(function () {
                 $state.go('viewContracts');
             });
+
+            $state.go('messages');
         };
 
         $scope.delete = function () {
