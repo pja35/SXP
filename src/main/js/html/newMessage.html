@@ -1,30 +1,45 @@
 <h2>New Message</h2>
 <div class="alert alert-danger ng-clignotement" role="alert" ng-show="errorUsername">Invalid login</div>
 <div class="alert alert-danger ng-clignotement" role="alert" ng-show="errorFields">Fields required</div>
-
 <div class="row">
-	<div class="alert" role="alert" ng-show="sendMessage"><div class="loader"></div></div>
+    <div class="alert" role="alert" ng-show="sendMessage">
+        <div class="loader"></div>
+    </div>
 </div>
+
 <form class="form-group" ng-submit="submit()">
+
+
     <div class="input-group">
         <span class="input-group-addon" id="basic-addon">@</span>
-        <input type="text" class="form-control" placeholder="type a username" ng-model="receiverName" aria-describedby="basic-addon" ng-keyup="userAutoComplete()">
+        <tags-input ng-model="tags"
+                    display-property="nick"
+                    placeholder="Add a User"
+                    add-on-paste="true">
+            <auto-complete source="findAll($query)"></auto-complete>
+        </tags-input>
         <input type="hidden" ng-model="receiverId">
         <input type="hidden" ng-model="receiverPbkey">
+
     </div>
     <div class="form-group" ng-show="receiverName.length > 0">
-    	<div ng-show="hideAfterSelected">
-			<div class="alert alert-danger ng-clignotement" role="alert" ng-show="errorSearch">No user found</div>
-			<div class="alert" role="alert" ng-show="searchUser"><div class="loader"></div></div>
-			<div href ng-click="selectUser({receiver: user})" class="panel panel-default search-result search-user" ng-repeat="user in results" style="cursor: pointer;">
-				<div class="panel-heading">
-					<div class="panel-title">
-						<p><span> {{user.nick}} </span> &nbsp;&nbsp;&nbsp; <small>id : {{user.id}}</small></p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+        <div ng-show="hideAfterSelected">
+            <div class="alert alert-danger ng-clignotement" role="alert" ng-show="errorSearch">No user found</div>
+            <div class="alert" role="alert" ng-show="searchUser">
+                <div class="loader"></div>
+            </div>
+            <div href ng-click="selectUser({receiver: user})" class="panel panel-default search-result search-user"
+                 ng-repeat="user in results" style="cursor: pointer;">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <p><span> {{user.nick}} </span> &nbsp;&nbsp;&nbsp;
+                            <small>id : {{user.id}}</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="form-group">
         <br>
         <textarea class="form-control" rows="3" placeholder="type your message" ng-model="messageContent"></textarea>
