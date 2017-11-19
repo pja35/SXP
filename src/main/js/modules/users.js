@@ -117,7 +117,7 @@
         $rootScope.userLogged = false;
     });
 
-    module.controller('subscribe', function($scope, $state, $http) {
+    module.controller('subscribe', function($rootScope,User,$scope, $state, $http) {
         $scope.app.configHeader({
             title: "Subscribe",
             back: true //display the back button
@@ -140,6 +140,9 @@
                 $scope.app.setCurrentUser(login);
                 $http.defaults.headers.common['Auth-Token'] = data.token;
                 $scope.app.userid = data.userid;
+                sessionStorage.setItem("token", data.token);
+                sessionStorage.setItem("curUser", data.userid);
+                isUserConnected($http, $rootScope, $scope, $state, User);
                 $state.go("myItemsView");
             }, function(response) {
 		$scope.errorServer = true;
