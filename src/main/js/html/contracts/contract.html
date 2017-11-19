@@ -1,49 +1,42 @@
 <div  class="col-sm-12 col-md-6 col-md-offset-3">
-<div class="panel" ng-class="checkClass()">
-	<div class="panel-heading"><h1>{{title}}</h1></div>
-	{{"les status est :" + contract.status + " le chek est : " + contact.status}}
+	<div class="panel panel-default">
+		<div class="panel-heading"><h1>{{title}}</h1></div>
 
-		<ul class="list-group">
-			<p class="list-group-item">
-				<h4 class="list-group-item-heading">Parties :</h4>
-				<p class="list-group-item-text">
-					<span ng-repeat="party in parties"><br/>&nbsp;&nbsp;&nbsp;&nbsp;{{party}}</span>
-				</p>
-			</p>
-			<p class="list-group-item">
-				<h4 class="list-group-item-heading">Clauses : </h4>
-				<p class="list-group-item-text">
-					<span ng-repeat="clause in clauses"><br/>&nbsp;&nbsp;&nbsp;&nbsp;{{clause}}</span>
-				</p>
-			</p>
-		</ul>
+		<div class="panel-body">
+			<p>Parties :<span ng-repeat="party in parties"><br/>&nbsp;&nbsp;&nbsp;&nbsp;{{party}}</span></p>
+			<p><strong>Clauses : <span ng-repeat="clause in clauses"><br/>&nbsp;&nbsp;&nbsp;&nbsp;{{clause}}</span></strong></p>
+			<p><strong>Modality : <span ng-repeat="mod in modality"><br/>&nbsp;&nbsp;&nbsp;&nbsp;{{mod}}</span></strong></p>
+			<p><strong>Canceled  : <span ng-repeat="cancel in canceled"><br/>&nbsp;&nbsp;&nbsp;&nbsp;{{cancel}}</span></strong></p>
 
-	
-	<div class="panel-footer" ng-show="contract.status=='NOWHERE'">
-		<button class="btn btn-info" ng-click="sign()" type="button">Accept</button>
-		<button class="btn btn-warning" ng-click="modify()" type="button">Modify</button>
-		<button class="btn btn-danger" ng-click="decline()" type="button">Decline</button>
-		<button class="btn btn-default" ng-click="forum()" type="button">Forum</button>
-		<div ng-show="form">
-			<div class="well input-group" >
-				<input type="text" class="form-control" ng-model="messageContent" placeholder="type your message here">
-				<span class="input-group-btn">
-				<button class="btn btn-default" type="button" ng-click="addForum(contract,messageContent)">Send</button>
-			</span>
-			</div>
-	</div>
-	<div class="panel-footer" ng-show="contract.status=='SIGNING'">
-		<p>Contract is being signed</p>
-		<button class="btn btn-danger" type="button">Try cancel (might not work)</button>
-	</div>
-	<div class="panel-footer" ng-show="contract.status=='CANCELLED'">
-		<p>CONTRACT CANCELLED</p>
-	</div>
-	<div class="panel-footer" ng-show="contract.status=='FINALIZED'">
-		<p>CONTRACT SIGNED !</p>
-	</div>
-    <div class="panel-footer">
-        <p><strong>Status of other parties: <span ng-repeat="wishes in partiesw"><br/>&nbsp;&nbsp;&nbsp;&nbsp;{{wishes}}</span></strong>
-        </p>
-    </div>
-</div></div>
+			<p><strong>exchange:<span ng-repeat="exchange in Exchange">
+             <br/><br/>
+		    from:{{exchange.from}}<br/>
+		    To:{{exchange.to}}<br/>
+			Item:{{exchange.item}}<br/>
+			Time:{{exchange.when}}<br/>
+				How:{{exchange.how}}<br/>
+				Details:{{exchange.details}}<br/>
+				<br/><br/>
+
+		</span>
+
+
+		</div>
+
+		<div class="panel-footer" ng-show="contract.status=='NOWHERE'">
+			<button class="btn btn-info" ng-click="sign()" type="button">Accept</button>
+			<button class="btn btn-warning" ng-click="modify()" type="button">Modify</button>
+			<button class="btn btn-danger" ng-click="decline()" type="button">Decline</button>
+			<button class="btn btn-primary" ng-click="getPdf()" type="button">Dowload</button>
+		</div>
+		<div class="panel-footer" ng-show="contract.status=='SIGNING'">
+			<p>Contract is being signed</p>
+			<button class="btn btn-danger" type="button">Try cancel (might not work)</button>
+		</div>
+		<div class="panel-footer" ng-show="contract.status=='CANCELLED'">
+			<p>CONTRACT CANCELLED</p>
+		</div>
+		<div class="panel-footer" ng-show="contract.status=='FINALIZED'">
+			<p>CONTRACT SIGNED !</p>
+		</div>
+	</div></div>

@@ -42,25 +42,26 @@
 
 </head>
 <body ng-controller="appController as app">
-<!-- Here goes the navbar, see directive in app.js -->
-<navbar></navbar>
-<div id="wrapper">
-    <!-- Here goes the sidemenu, see directive in app.js -->
-    <sidemenu></sidemenu>
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-        <div class="container-fluid specheight">
-            <div class="ui-view-container">
-                <!-- Here goes the html template that corresponds to the state of the app -->
-                <div ui-view></div>
+		<!-- Here goes the navbar, see directive in app.js -->
+    <navbar></navbar>
+    <div id="wrapper">
+				<!-- Here goes the sidemenu, see directive in app.js -->
+        <sidemenu></sidemenu>
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid specheight">
+                <div class="ui-view-container">
+										<!-- Here goes the html template that corresponds to the state of the app -->
+                    <div ui-view></div>
+                </div>
             </div>
-        </div>
-    </div><!-- /#page-content-wrapper -->
-</div><!-- #wrapper -->
+        </div><!-- /#page-content-wrapper -->
+    </div><!-- #wrapper -->
 
 
-<script>
-    <!-- technical detail: the specheight container needs to be made a bit smaller than the page -->
+
+	  <script>
+		<!-- technical detail: the specheight container needs to be made a bit smaller than the page -->
 
     //function fitHeight() {
     //    $(".specheight").height($(window).height() - 90);
@@ -73,6 +74,6 @@
     //$(window).resize(function() {
     //   fitHeight();
     //});
-</script>
+    </script>
 </body>
 </html>

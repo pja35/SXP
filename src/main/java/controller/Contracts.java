@@ -40,255 +40,218 @@ import rest.api.ServletPath;
 @ServletPath("/api/contracts/*")
 @Path("/")
 public class Contracts {
+	
+	@POST
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String add(ContractEntity contract, @HeaderParam(Authentifier.PARAM_NAME) String token) {
+		Manager<ContractEntity> em = ManagerFactory.createNetworkResilianceContractManager(Application.getInstance().getPeer(), token);
+		Authentifier auth = Application.getInstance().getAuth();
+		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
+		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
+		users.close();
 
-    @POST
-    @Path("/")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public String add(ContractEntity contract, @HeaderParam(Authentifier.PARAM_NAME) String token) {
-        Manager<ContractEntity> em = ManagerFactory.createNetworkResilianceContractManager(Application.getInstance().getPeer(), token);
-        Authentifier auth = Application.getInstance().getAuth();
-        UserSyncManager users = SyncManagerFactory.createUserSyncManager();
-        User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
-        users.close();
+		if (contract.getTitle() == "")
+			contract.setTitle("Secure Exchange Protocol Contract");
+		contract.setCreatedAt(new Date());
+		
+		
+		ArrayList<String> parties = contract.getParties();
+		HashMap<String,String> partiesNames = new HashMap<String, String>();
 
-        if (contract.getTitle() == "")
-            contract.setTitle("Secure Exchange Protocol Contract");
-        contract.setCreatedAt(new Date());
+		em.begin();
+		JsonTools<User> json3 = new JsonTools<>(new TypeReference<User>(){});
+		Users us = new Users();
+		for (String id : parties){
+			User u = json3.toEntity(us.get(id));
+			partiesNames.put(id, u.getNick());
+		}
+		
+		//TODO VALIDATION / VERIFICATION
+		for (int k=0; k<parties.size(); k++){
+			ContractEntity c = new ContractEntity();
+			c.setTitle(contract.getTitle());
+			c.setParties(parties);
+			c.setPartiesNames(partiesNames);
+			c.setClauses( contract.getClauses());
+			c.setCanceled(contract.getCanceled());
+			c.setModality(contract.getModality());
+			c.setExchange(contract.getExchange());
+			c.setCreatedAt(contract.getCreatedAt());
+			c.setUserid(parties.get(k));
+			c.setWish(Wish.NEUTRAL);
+			c.setStatus(Status.NOWHERE);
+			c.setSignatures(null);
+			em.persist(c);
+			if (parties.get(k).equals(currentUser.getId()))
+				contract = c;
+		}
 
+		em.end();
+		em.close();
 
-        ArrayList<String> parties = contract.getParties();
-        HashMap<String, Wish> partiesWish = new HashMap<>();
-        partiesWish.put(currentUser.getNick(), Wish.NEUTRAL);
-        HashMap<String, String> partiesNames = new HashMap<String, String>();
+		JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
+		return json.toJson(contract);
+	}
+	
+	@GET
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getId(@PathParam("id")String id) {
+		SyncManager<ContractEntity> em = SyncManagerFactory.createContractSyncManager();
+		JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
+		String ret = json.toJson(em.findOneById(id));
+		em.close();
+		return ret;
+	}
 
-        em.begin();
-        JsonTools<User> json3 = new JsonTools<>(new TypeReference<User>() {
-        });
-        Users us = new Users();
-        for (String id : parties) {
-            User u = json3.toEntity(us.get(id));
-            partiesNames.put(id, u.getNick());
-            partiesWish.put(u.getNick(), Wish.NEUTRAL);
-        }
+	@GET
+	@Path("/")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String get(@HeaderParam(Authentifier.PARAM_NAME) String token) {
+		Authentifier auth = Application.getInstance().getAuth();
+		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
+		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
+		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
+		JsonTools<Collection<ContractEntity>> json = new JsonTools<>(new TypeReference<Collection<ContractEntity>>(){});
+		Collection<ContractEntity> contracts = em.findAllByAttribute("userid", currentUser.getId());
+		String ret = json.toJson(contracts);
+		for (ContractEntity contract : contracts){
+			if (contract.getWish()==Wish.ACCEPT)
+				this.sign(contract.getId(), token);
+		}
+		em.close();
+		users.close();
+		return ret;
+	}
 
-        //TODO VALIDATION / VERIFICATION
-        for (int k = 0; k < parties.size(); k++) {
-            ContractEntity c = new ContractEntity();
-            c.setTitle(contract.getTitle());
-            c.setParties(parties);
-            c.setPartiesNames(partiesNames);
-            c.setClauses(contract.getClauses());
-            c.setCreatedAt(contract.getCreatedAt());
-            c.setpartiesWish(partiesWish);
-            c.setUserid(parties.get(k));
-            c.setWish(Wish.NEUTRAL);
-            c.setStatus(Status.NOWHERE);
-            c.setSignatures(null);
-            em.persist(c);
-            if (parties.get(k).equals(currentUser.getId()))
-                contract = c;
-        }
+	@PUT
+	@Path("/{id}")
 
-        em.end();
-        em.close();
+	public String edit(ContractEntity c, @HeaderParam(Authentifier.PARAM_NAME) String token) {	
+		
+		ArrayList<String> parties = c.getParties();
+		HashMap<String,String> partiesNames = new HashMap<String, String>();
+		
+		if (parties != null){
+			JsonTools<User> json3 = new JsonTools<>(new TypeReference<User>(){});
+			Users us = new Users();
+			for (String id : parties){
+				User u = json3.toEntity(us.get(id));
+				partiesNames.put(id, u.getNick());
+			}
+		}
+		
+		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
 
-        JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>() {
-        });
-        return json.toJson(contract);
-    }
+		em.begin();
+		Collection<ContractEntity> contracts = em.findAllByAttribute("title", c.getTitle());
+		ContractEntity cRes = null;
+		for (ContractEntity contract : contracts){
+			if (contract.getParties().contains(c.getUserid())){
+				if (contract.getWish().equals(Wish.NEUTRAL)){
+					contract.setClauses(c.getClauses());
+					c.setCanceled(contract.getCanceled());
+					c.setModality(contract.getModality());
+					c.setExchange(contract.getExchange());
+					contract.setParties(parties);
+					contract.setTitle(c.getTitle());
+					contract.setPartiesNames(partiesNames);
+				}
+			}
+			if (contract.getId().equals(c.getId()))
+				cRes = contract;
+		}
+		em.end();
+		em.close();
+		
+		JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
+		return json.toJson(cRes);
+	}
+	
+	@DELETE
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String delete(@PathParam("id")String id, @HeaderParam(Authentifier.PARAM_NAME) String token) {
 
-    @GET
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getId(@PathParam("id") String id) {
-        SyncManager<ContractEntity> em = SyncManagerFactory.createContractSyncManager();
-        JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>() {
-        });
-        String ret = json.toJson(em.findOneById(id));
-        em.close();
-        return ret;
-    }
-
-    @GET
-    @Path("/")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String get(@HeaderParam(Authentifier.PARAM_NAME) String token) {
-        Authentifier auth = Application.getInstance().getAuth();
-        UserSyncManager users = SyncManagerFactory.createUserSyncManager();
-        User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
-        SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
-        JsonTools<Collection<ContractEntity>> json = new JsonTools<>(new TypeReference<Collection<ContractEntity>>() {
-        });
-        Collection<ContractEntity> contracts = em.findAllByAttribute("userid", currentUser.getId());
-        String ret = json.toJson(contracts);
-        for (ContractEntity contract : contracts) {
-            if (contract.getWish() == Wish.ACCEPT) {
-                this.sign(contract.getId(), token);
-            }
-
-
-        }
-        em.close();
-        users.close();
-        return ret;
-    }
-
-    @PUT
-    @Path("/{id}")
-    public String edit(ContractEntity c, @HeaderParam(Authentifier.PARAM_NAME) String token) {
-
-        ArrayList<String> parties = c.getParties();
-        HashMap<String, String> partiesNames = new HashMap<String, String>();
-        SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
-
-        em.begin();
-        Collection<ContractEntity> contracts = em.findAllByAttribute("title", c.getTitle());
-        ContractEntity cRes = null;
-        for (ContractEntity contract : contracts) {
-            if (contract.getParties().contains(c.getUserid())) {
-                if (contract.getWish().equals(Wish.NEUTRAL)) {
-                    contract.setClauses(c.getClauses());
-                    contract.setParties(parties);
-                    contract.setTitle(c.getTitle());
-                    contract.setPartiesNames(partiesNames);
-                }
-            }
-            if (contract.getId().equals(c.getId()))
-                cRes = contract;
-        }
-        em.end();
-        em.close();
-
-        JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>() {
-        });
-        return json.toJson(cRes);
-    }
-
-    @DELETE
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String delete(@PathParam("id") String id, @HeaderParam(Authentifier.PARAM_NAME) String token) {
-
-        Authentifier auth = Application.getInstance().getAuth();
-        UserSyncManager users = new UserSyncManagerImpl();
-        User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
-        users.close();
-        if (currentUser == null)
-            return "{\"deleted\": \"false\"}";
-        SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
-        boolean ret = em.begin();
-        ContractEntity it = em.findOneById(id);
-        if (!it.getUserid().equals(currentUser.getId())) {
-            em.end();
-            em.close();
-            return "{\"deleted\": \"false\"}";
-        }
-        return "{\"deleted\": \"" + (ret && em.remove(it) && em.end() && em.close()) + "\"}";
-    }
-
-
-    @PUT
-    @Path("/sign/{id}")
-    public String sign(@PathParam("id") String id, @HeaderParam(Authentifier.PARAM_NAME) String token) {
-        Authentifier auth = Application.getInstance().getAuth();
-        UserSyncManager users = new UserSyncManagerImpl();
-        User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
-        users.close();
-
-        String ret = "false";
-
-        SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
-        em.begin();
-        ContractEntity c = em.findOneById(id);
-        if (c.getStatus().equals(Status.NOWHERE)) {
-
-            ret = "true";
-            c.setWish(Wish.ACCEPT);
-            System.out.println("\nStarting protocol for : " + id + " on contract " + c.getTitle() + "\n");
-            if (c.getSignatures() == null) {
-                c.setSignatures(new HashMap<String, String>());
-            }
-            SigmaEstablisher s = new SigmaEstablisher(currentUser.getKey(), null);
-            s.initialize(new SigmaContract(c));
-            s.start();
-
-            JsonTools<SigmaEstablisherData> json = new JsonTools<>(new TypeReference<SigmaEstablisherData>() {
-            });
-            c.setEstablishementData(json.toJson(s.sigmaEstablisherData));
-            c.setEstablisherType(EstablisherType.Sigma);
-        }
-        em.end();
-        em.close();
-        updateContract(token,id,Wish.ACCEPT);
-
-        return ret;
-    }
+		Authentifier auth = Application.getInstance().getAuth();
+		UserSyncManager users = new UserSyncManagerImpl();
+		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
+		users.close();
+		if (currentUser == null)
+			return "{\"deleted\": \"false\"}";
+		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
+		boolean ret = em.begin();
+		ContractEntity it = em.findOneById(id);
+		if (!it.getUserid().equals(currentUser.getId())){
+			em.end();
+			em.close();
+			return "{\"deleted\": \"false\"}";
+		}
+		return "{\"deleted\": \"" + (ret && em.remove(it) && em.end() && em.close()) + "\"}";
+	}
+	
+	
+	@PUT
+	@Path("/sign/{id}")
+	public String sign(@PathParam("id")String id, @HeaderParam(Authentifier.PARAM_NAME) String token){
+		Authentifier auth = Application.getInstance().getAuth();
+		UserSyncManager users = new UserSyncManagerImpl();
+		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
+		users.close();
+		
+		String ret = "false";
+		
+		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
+		em.begin();
+		ContractEntity c = em.findOneById(id);
 
 
+		if (c.getStatus().equals(Status.NOWHERE)){
+			ret = "true";
+			c.setWish(Wish.ACCEPT);
+			System.out.println("\nStarting protocol for : " + id + " on contract " + c.getTitle() + "\n");
+			if (c.getSignatures() == null){
+				c.setSignatures(new HashMap<String, String>());
+			}
+			SigmaEstablisher s = new SigmaEstablisher(currentUser.getKey(), null);
+			s.initialize(new SigmaContract(c));
+			s.start();
+			
+			JsonTools<SigmaEstablisherData> json = new JsonTools<>(new TypeReference<SigmaEstablisherData>(){});
+			c.setEstablishementData(json.toJson(s.sigmaEstablisherData));
+			c.setEstablisherType(EstablisherType.Sigma);
+		}
+		
+		em.end();
+		em.close();
 
-    private void updateContract(String token,String id,Wish aWish){
-        Authentifier auth = Application.getInstance().getAuth();
-        UserSyncManager users = new UserSyncManagerImpl();
-        User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
-        users.close();
-        SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
-        em.begin();
-        ContractEntity c = em.findOneById(id);
-        ArrayList<String> parties = c.getParties();
-        HashMap<String, String> partiesNames = new HashMap<String, String>();
-        if (parties != null) {
-            JsonTools<User> json3 = new JsonTools<>(new TypeReference<User>() {
-            });
-            Users us = new Users();
-            for (String id1 : parties) {
-                User u = json3.toEntity(us.get(id1));
-                partiesNames.put(id1, u.getNick());
-            }
-        }
-        HashMap<String, Wish> wishes = c.getpartiesWish();
-        wishes.put(currentUser.getNick(), aWish);
-        Collection<ContractEntity> contracts = em.findAllByAttribute("title", c.getTitle());
-        for (ContractEntity contract : contracts) {
-            if (contract.getParties().contains(c.getUserid())) {
-                if (contract.getWish().equals(Wish.NEUTRAL)) {
-                    contract.setClauses(c.getClauses());
-                    contract.setParties(parties);
-                    contract.setTitle(c.getTitle());
-                    contract.setPartiesNames(partiesNames);
-                    contract.setpartiesWish(wishes);
-                }
-            }
-        }
-
-        em.end();
-        em.close();
-
-    }
-
-    @PUT
-    @Path("/cancel/{id}")
-    public String cancel(@PathParam("id") String id,@HeaderParam(Authentifier.PARAM_NAME) String token) {
-        Authentifier auth = Application.getInstance().getAuth();
-        UserSyncManager users = new UserSyncManagerImpl();
-        users.close();
-
-        String ret = "false";
-        SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
-        em.begin();
-        ContractEntity c = em.findOneById(id);;
-
-        if (c.getStatus() == Status.NOWHERE) {
-            c.setWish(Wish.REFUSE);
-            c.setStatus(Status.CANCELLED);
-            ret = "true";
-        } else if (c.getStatus() == Status.SIGNING) {
-            c.setWish(Wish.REFUSE);
-            ret = "true";
-        }
-        em.end();
-        em.close();
-        updateContract(token,id,Wish.REFUSE);
-        return ret;
-    }
+		return ret;
+	}
+	
+	@PUT
+	@Path("/cancel/{id}")
+	public String cancel(@PathParam("id")String id){
+		UserSyncManager users = new UserSyncManagerImpl();
+		users.close();
+		
+		String ret = "false";
+		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
+		em.begin();
+		ContractEntity c = em.findOneById(id);
+		if (c.getStatus() == Status.NOWHERE){
+			c.setWish(Wish.REFUSE);
+			c.setStatus(Status.CANCELLED);
+			ret="true";
+		}else if (c.getStatus() == Status.SIGNING){
+			c.setWish(Wish.REFUSE);
+			ret="true";
+		}
+		
+		em.end();
+		em.close();
+		
+		return ret;
+	}
 }
