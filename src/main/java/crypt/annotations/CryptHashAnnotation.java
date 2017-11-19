@@ -7,18 +7,17 @@ import java.lang.annotation.Target;
 
 /**
  * Object that use annotation CryptHashAnnotation on fields can be hashed by the Parser.
- * Example : 
+ * Example :
  * <p>
- * 		@CryptHashAnnotation
- * 		FieldType fieldname;
- * </p>
- * 
- * fieldname will be hashed by parser. 
- * 
+ *
  * @author radoua abderrahim
+ * @CryptHashAnnotation FieldType fieldname;
+ * </p>
+ * <p>
+ * fieldname will be hashed by parser.
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CryptHashAnnotation {
-	
+
 }

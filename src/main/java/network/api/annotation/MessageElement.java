@@ -7,15 +7,16 @@ import java.lang.annotation.Target;
 
 /**
  * Declare a field that is a message field
- * @author Julien Prudhomme
  *
+ * @author Julien Prudhomme
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.FIELD })
+@Target({ElementType.FIELD})
 public @interface MessageElement {
-	/**
-	 * Name of the field
-	 * @return
-	 */
-	public String value(); 
+    /**
+     * Name of the field
+     *
+     * @return
+     */
+    public String value();
 }
