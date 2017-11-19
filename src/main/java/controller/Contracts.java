@@ -74,9 +74,8 @@ public class Contracts {
 			c.setTitle(contract.getTitle());
 			c.setParties(parties);
 			c.setPartiesNames(partiesNames);
-			c.setClauses( contract.getClauses());
-			c.setCanceled(contract.getCanceled());
-			c.setModality(contract.getModality());
+			c.setTermination(contract.getTermination());
+			c.setImplementing(contract.getImplementing());
 			c.setExchange(contract.getExchange());
 			c.setCreatedAt(contract.getCreatedAt());
 			c.setUserid(parties.get(k));
@@ -151,9 +150,8 @@ public class Contracts {
 		for (ContractEntity contract : contracts){
 			if (contract.getParties().contains(c.getUserid())){
 				if (contract.getWish().equals(Wish.NEUTRAL)){
-					contract.setClauses(c.getClauses());
-					c.setCanceled(contract.getCanceled());
-					c.setModality(contract.getModality());
+					c.setTermination(contract.getTermination());
+					c.setImplementing(contract.getImplementing());
 					c.setExchange(contract.getExchange());
 					contract.setParties(parties);
 					contract.setTitle(c.getTitle());

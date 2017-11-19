@@ -50,12 +50,12 @@ public class ContractEntity {
 	private ArrayList<String> clauses;
 
    //clause Canceled
-	@XmlElement(name="canceled")
-	private ArrayList<String> canceled;
+	@XmlElement(name="termination")
+	private ArrayList<String> termination;
 
 	//clause Excution Modality
-	@XmlElement(name="modality")
-	private ArrayList<String> modality;
+	@XmlElement(name="implementing")
+	private ArrayList<String> implementing;
 
     // clause Exchange
 
@@ -142,14 +142,14 @@ public class ContractEntity {
 		this.clauses=c;
 	}
 
-	public ArrayList<String> getCanceled() {return canceled; }
-	public void setCanceled(ArrayList<String> c) {
-		this.canceled=c;
+	public ArrayList<String> getTermination() {return termination; }
+	public void setTermination(ArrayList<String> termination) {
+		this.termination=termination;
 	}
 
-	public ArrayList<String> getModality() {return modality; }
-	public void setModality(ArrayList<String> c) {
-		this.modality=c;
+	public ArrayList<String> getImplementing() {return implementing; }
+	public void setImplementing(ArrayList<String> implementing) {
+		this.implementing=implementing;
 	}
 
 	public ArrayList<String> getExchange() {return exchange; }
