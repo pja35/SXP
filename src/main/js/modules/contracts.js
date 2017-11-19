@@ -140,10 +140,10 @@
 		});
 
 
-    module.controller('editContract', function($scope, $stateParams, Contract, $state, $http){
+    module.controller('editContract', function($scope, $stateParams, Contract, $state, $http,User){
 
 			//this function manages the disconnection because if the session expresses the return to the connection page
-      isUserConnected($rootScope, $scope, $state);
+        isUserConnected($http, $rootScope, $scope, $state, User);
 
 			$scope.app.configHeader({back: true, title: 'Edit contracts', contextId: $stateParams.id});
 			$scope.action = 'edit';
@@ -265,10 +265,10 @@
 
     });
 
-    module.controller('addContract', function($rootScope, $scope, Contract, Item, $state, $http){
+    module.controller('addContract', function($rootScope, $scope, Contract, Item, $state, $http,User){
 
       //this function manages the disconnection because if the session expresses the return to the connection page
-      isUserConnected($rootScope, $scope, $state);
+        isUserConnected($http, $rootScope, $scope, $state, User);
 
     	$scope.app.configHeader({back: true, title: 'Add contracts'}); //Add Title
     	$scope.action = 'add';
@@ -484,7 +484,7 @@ function deleteExchange($scope, e){
 	}
 }
 function deleteParty($scope, p){
-	var index = $scope.parties.findIndex(party => party.key === newParty.key);
+	var index = $scope.parties.findIndex(party >= party.key === newParty.key);
 	if (index > -1){
 		$scope.parties.splice(index, 1);
 	}
@@ -495,7 +495,7 @@ function deleteParty($scope, p){
 function updateParties($scope){
 	var addParty = $scope.form.addParty.split(" - ");
   var newParty = {value : addParty[0], key : addParty[1]};
-  var index = $scope.parties.findIndex(party => party.key === newParty.key);
+  var index = $scope.parties.findIndex(party >= party.key === newParty.key);
 	if (newParty.key != undefined && index == -1){
     $scope.partiesList.push(newParty);
 		$scope.parties.push(newParty.value + ' - ' + newParty.key);

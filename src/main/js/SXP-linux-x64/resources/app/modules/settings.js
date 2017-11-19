@@ -18,7 +18,7 @@
     });
 
     module.controller('settings', function ($rootScope, $scope, $state, User) {
-        isUserConnected($rootScope, $scope, $state);
+        isUserConnected($http, $rootScope, $scope, $state, User);
         $scope.app.configHeader({contextButton: '', title: 'Settings', back: null});
         var user = User.get({
             id: $scope.app.userid

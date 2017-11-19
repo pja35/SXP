@@ -7,7 +7,7 @@
 			url: '/messages',
 			templateUrl: 'messages.html',
 			controller: function($rootScope,$scope, $state,$stateParams, Message, User, $http,Oboe) {
-				isUserConnected($rootScope, $scope, $state);
+                isUserConnected($http, $rootScope, $scope, $state, User);
 				$scope.app.configHeader({contextButton:'addMessage', title: 'Messages'});
 
 				$scope.stream = null; //The stream of async results
@@ -128,7 +128,7 @@
 			url: '/messages/new',
 			templateUrl: 'newMessage.html',
 			controller: function($rootScope,$scope, $state,$stateParams, Message, User, $http,Oboe) {
-				isUserConnected($rootScope, $scope, $state);
+                isUserConnected($http, $rootScope, $scope, $state, User);
 				$scope.app.configHeader({contextButton:'', title: 'New message', back:'yes'});
 				$scope.action = 'add'; //Specify to the template we are adding a message, since it the same template as the one for editing.
 

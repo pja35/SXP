@@ -64,7 +64,7 @@
                         //remember userid
                         //affiche plus d'options dans le side-menu (ng-show="userLogged")
                         //$rootScope est "le $scope principal" de l'application il "voit" tous les scopes quelque soit le state/controller...
-                        isUserConnected($rootScope, $scope, $state);
+                        isUserConnected($http, $rootScope, $scope, $state, User);
                         $state.go('myItemsView');
                         //go to the state that shows items
                     }

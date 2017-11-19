@@ -153,7 +153,7 @@ function isUserConnected($http, $rootScope, $scope, $state, User) {
     else {
         $rootScope.userLogged = false;
         sessionStorage.clear();
-        console.log("user not connected " + $scope.app.userid + " redirect->login");
+        console.log("user not connected  redirect->login");
         $state.go('login');
     }
 }
