@@ -26,7 +26,7 @@
             });
     });
 
-    module.controller('login', function($rootScope, $scope, $state, $http) {
+    module.controller('login', function($rootScope, $scope, $state, $http, User) {
         //$http is to access the http services, to make GET requests.
         $scope.app.configHeader({
             title: "Login"
@@ -72,7 +72,9 @@
                         //remember userid
                         //affiche plus d'options dans le side-menu (ng-show="userLogged")
 						//$rootScope est "le $scope principal" de l'application il "voit" tous les scopes quelque soit le state/controller...
-                        isUserConnected($rootScope,$scope,$state);
+                        sessionStorage.setItem("token", obj.token);
+                        sessionStorage.setItem("curUser", obj.userid);
+                        isUserConnected($http, $rootScope, $scope, $state, User);
                         $state.go('myItemsView');
                         //go to the state that shows items
                     }
@@ -86,7 +88,7 @@
     });
 
     module.controller('account', function($rootScope, $scope, $state, $http, User) {
-    	isUserConnected($rootScope,$scope,$state);
+        isUserConnected($http, $rootScope, $scope, $state, User);
         $scope.app.configHeader({
             title: "Account"
         });
@@ -102,8 +104,8 @@
         //I can then save the result in scope.user
     });
 
-    module.controller('logout', function($rootScope, $scope, $state, $http) {
-    	isUserConnected($rootScope,$scope,$state);
+    module.controller('logout', function($rootScope, $scope, $state, $http,User) {
+        isUserConnected($http, $rootScope, $scope, $state, User);
         $scope.app.configHeader({
             title: "logout"
         });

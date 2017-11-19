@@ -6,8 +6,8 @@
             .state('messages', {
                 url: '/messages',
                 templateUrl: 'messages.html',
-                controller: function ($rootScope, $scope, $state, Message, User) {
-                    isUserConnected($rootScope, $scope, $state);
+                controller: function ($http,$rootScope, $scope, $state, Message, User) {
+                    isUserConnected($http, $rootScope, $scope, $state, User);
                     $scope.app.configHeader({contextButton: 'addMessage', title: 'Messages'});
                     refresh();
 
@@ -59,7 +59,7 @@
                 url: '/messages/new',
                 templateUrl: 'newMessage.html',
                 controller: function ($rootScope, $scope, $state, Message, User, $http) {
-                    isUserConnected($rootScope, $scope, $state);
+                    isUserConnected($http, $rootScope, $scope, $state, User);
                     $scope.app.configHeader({contextButton: '', title: 'New message', back: 'yes'});
                     $scope.action = 'add'; //Specify to the template we are adding a message, since it the same template as the one for editing.
                     //User is available thanks to restApi.js
