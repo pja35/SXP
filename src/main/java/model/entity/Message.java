@@ -208,6 +208,8 @@ public class Message {
         this.signature = signature;
     }
 
+
+
     public static enum ReceptionStatus {DRAFT, SENT, RECEIVED}
 
 }

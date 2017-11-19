@@ -158,7 +158,6 @@
                     });
                     $scope.submit = function () {
                         if (true) {
-
                             $scope.errorUsername = false;
                             $scope.errorFields = false;
                             $scope.sendMessage = true;
@@ -219,6 +218,8 @@
                             $scope.errorFields = true;
                         }
                     };
+
+
 
                     $scope.selectUser = function ($stateParams) {
                         $scope.hideAfterSelected = false;
