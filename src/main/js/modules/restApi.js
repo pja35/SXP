@@ -48,6 +48,15 @@ RESTAPISERVER = 'https://localhost:8081';
         });
     });
 
+
+    module.factory('Search', function($resource){
+        return $resource(RESTAPISERVER + '/api/users/',{
+            update: {
+                method: 'PUT'
+            }
+        });
+    });
+
     module.factory('Contract', function ($resource) {
         return $resource(RESTAPISERVER + '/api/contracts/:id', {
             id: '@id'

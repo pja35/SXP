@@ -23,7 +23,7 @@
 		<button class="btn btn-info" ng-click="sign()" type="button">Accept</button>
 		<button class="btn btn-warning" ng-click="modify()" type="button">Modify</button>
 		<button class="btn btn-danger" ng-click="decline()" type="button">Decline</button>
-		<button class="btn btn-default" ng-click="forum()" type="button">Forume</button>
+		<button class="btn btn-default" ng-click="forum()" type="button">Forum</button>
 	</div>
 	<div class="panel-footer" ng-show="contract.status=='SIGNING'">
 		<p>Contract is being signed</p>
@@ -35,5 +35,9 @@
 	<div class="panel-footer" ng-show="contract.status=='FINALIZED'">
 		<p>CONTRACT SIGNED !</p>
 	</div>
+    <div class="panel-footer">
+        <p><strong>Status of other parties: <span ng-repeat="wishes in partiesw"><br/>&nbsp;&nbsp;&nbsp;&nbsp;{{wishes}}</span></strong>
+        </p>
+    </div>
 </div></div>
 

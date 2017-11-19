@@ -28,14 +28,14 @@
                     }
 
                     $scope.addMessage = function (chatName, chatId, messageContent) {
-
                         if (messageContent) {
                             $scope.searchMessages = true;
                             //Message is available thanks to restApi.js
                             var message = new Message({
-                                receiverName: chatName,
-                                receiverId: chatId,
-                                messageContent: messageContent
+                                receivers: chatId.receivers,
+                                receiversNicks: chatId.receiversNicks,
+                                messageContent: messageContent,
+                                chatGroup: chatId.receivers.length > 1
                             });
                             console.log("add message");
                             console.log(message);
@@ -74,14 +74,20 @@
                         var tmp = {};
                         $scope.chats = [];
                         for (var i = 0; i < $scope.messages.length; i++) {
-                            if ($scope.messages[i].senderName != $scope.user.nick)
-                                tmp[$scope.messages[i].senderName] = $scope.messages[i].senderId;
-                            else
-                                tmp[$scope.messages[i].receiverName] = $scope.messages[i].receiverId;
+                            if($scope.messages[i].chatGroup){
+                                tmp[$scope.messages[i].receiversNicks] =$scope.messages[i];
+                            }else{
+                                if ($scope.messages[i].senderName != $scope.user.nick)
+                                    tmp[$scope.messages[i].senderName] = $scope.messages[i].senderId;
+                                else
+                                    tmp[$scope.messages[i].receiverName] = $scope.messages[i].receiverId;
+                            }
+
                         }
                         for (var j in tmp) {
                             $scope.chats.push({name: j, id: tmp[j]});
                         }
+
                     }
 
                     function loadMessages() {
@@ -129,6 +135,9 @@
                 templateUrl: 'newMessage.html',
                 controller: function ($rootScope, $scope, $state, $stateParams, Message, User, $http, Oboe) {
                     isUserConnected($http, $rootScope, $scope, $state, User);
+                    $scope.findAll = function(query){
+                        return $http.get(RESTAPISERVER+'/api/users/');
+                    }
                     $scope.app.configHeader({contextButton: '', title: 'New message', back: 'yes'});
                     $scope.action = 'add'; //Specify to the template we are adding a message, since it the same template as the one for editing.
 
@@ -148,14 +157,35 @@
                         id: $scope.app.userid
                     });
                     $scope.submit = function () {
-                        if ($scope.messageContent && $scope.receiverName && $scope.receiverId) {
+                        if (true) {
+
                             $scope.errorUsername = false;
                             $scope.errorFields = false;
                             $scope.sendMessage = true;
+                            var ids = [];
+                            angular.forEach($scope.tags,function(value,key){
+                                angular.forEach(value, function(value2,key2){
+                                   if(key2==="id"){
+                                       ids.push(value2);
+                                   }
+                               });
+                            });
+                            ids.push($scope.app.userid);
+                            var nicks = [];
+                            angular.forEach($scope.tags,function(value,key){
+                                angular.forEach(value, function(value2,key2){
+                                    if(key2==="nick"){
+                                        nicks.push(value2);
+                                    }
+                                });
+                            });
+                            nicks.push(currentUser.nick);
+                            var isChatGroup = ids.length>1;
                             var message = new Message({
-                                receiverName: $scope.receiverName,
-                                receiverId: $scope.receiverId,
-                                messageContent: $scope.messageContent
+                                receivers: ids,
+                                receiversNicks: nicks,
+                                messageContent: $scope.messageContent,
+                                chatGroup: isChatGroup
                             });
 
                             Oboe({
@@ -189,55 +219,6 @@
                             $scope.errorFields = true;
                         }
                     };
-
-                    $scope.userAutoComplete = function () {
-                        $scope.results = [];
-                        $scope.errorSearch = false;
-                        $scope.searchUser = true;
-                        $scope.hideAfterSelected = true;
-                        $scope.errorFields = false;
-                        $scope.receiverId = null;
-                        $scope.receiverPbkey = null;
-
-                        if ($scope.stream != null) {
-                            $scope.stream.abort();
-                        }
-                        Oboe(
-                            {
-                                url: RESTAPISERVER + "/api/search/users?nick=" + $scope.receiverName,
-                                pattern: '!',
-                                start: function (stream) {
-                                    // handle to the stream
-                                    $scope.stream = stream;
-                                    $scope.status = 'started';
-                                },
-                                done: function (parsedJSON) {
-                                    $scope.status = 'done';
-                                }
-                            }).then(function () {
-                            // promise is resolved
-                        }, function (error) {
-                            // handle errors
-                        }, function (node) { //A node is just a partial list of matches from the streamed search
-                            // node received
-                            if (node != null && node.length != 0) { // if not empty
-
-                                for (var i = 0; i < node.length; i++) { // push it to results
-                                    console.log(node[i]);
-                                    $scope.pushResult(node[i]);
-                                }
-                            }
-
-                            $scope.searchUser = false;
-                            console.log($scope.results.length);
-                            if ($scope.results.length == 0)
-                                $scope.errorSearch = true;
-                            else
-                                $scope.errorSearch = false;
-
-                        });
-                    };
-
 
                     $scope.selectUser = function ($stateParams) {
                         $scope.hideAfterSelected = false;

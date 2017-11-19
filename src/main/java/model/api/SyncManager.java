@@ -1,5 +1,6 @@
 package model.api;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -24,6 +25,9 @@ public interface SyncManager<Entity> {
      */
     public Entity findOneById(String id);
 
+
+    /**TODO**/
+    public Collection<Entity> findAllById(ArrayList<String> id);
     /**
      * Return the whole collection of stored entities
      *

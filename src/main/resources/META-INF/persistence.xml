@@ -8,6 +8,7 @@
         <class>model.entity.User</class>
         <class>model.entity.ContractEntity</class>
         <class>model.entity.Message</class>
+        <class>model.entity.StringToMap</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>

@@ -75,6 +75,52 @@ public class Search {
 
 
     @GET
+    @Path("/items")
+    public ChunkedOutput<String> getAll(@HeaderParam(Authentifier.PARAM_NAME) final String token){
+        final ChunkedOutput<String> output = new ChunkedOutput<>(String.class);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Manager<Item> em = ManagerFactory.createNetworkResilianceItemManager(Application.getInstance().getPeer(), token);
+                em.findAll(new ManagerListener<Item>() {
+                    @Override
+                    public void notify(Collection<Item> results) {
+
+                        JsonTools<Collection<Item>> json = new JsonTools<>(new TypeReference<Collection<Item>>() {
+                        });
+                        try {
+                            if (!results.isEmpty()) {
+                                output.write(json.toJson(results));
+                            }
+
+                        } catch (IOException e) {
+                            LoggerUtilities.logStackTrace(e);
+                        }
+                    }
+                });
+                try {
+                    Thread.sleep(2500);
+                } catch (InterruptedException e) {
+                    LoggerUtilities.logStackTrace(e);
+                } finally {
+                    try {
+                        output.write("[]");
+                        output.close();
+                    } catch (IOException e) {
+                        LoggerUtilities.logStackTrace(e);
+                    }
+                }
+                em.close();
+            }
+
+        }).start();
+
+        return output;
+
+    }
+
+    @GET
     @Path("/users")
     public ChunkedOutput<String> chunckedSearchUser(
             @QueryParam("nick") final String nick,

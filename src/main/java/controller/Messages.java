@@ -2,11 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.Iterator;
+import java.util.*;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -69,22 +65,20 @@ public class Messages {
             @Override
             public void run() {
 
-                final ArrayList<User> asyncResult = new ArrayList<>();
+                final ArrayList<User> usernames = new ArrayList<>();
 
-                Manager<User> usem = ManagerFactory.createNetworkResilianceUserManager(Application.getInstance().getPeer(), token);
+                final Manager<User> usem = ManagerFactory.createNetworkResilianceUserManager(Application.getInstance().getPeer(), token);
 
-                usem.findAllByAttribute("nick", message.getReceiverName(), new ManagerListener<User>() {
+
+                usem.findAllById(message.getReceivers(), new ManagerListener<User>() {
                     @Override
                     public void notify(Collection<User> results) {
-
                         for (Iterator iterator = results.iterator(); iterator.hasNext(); ) {
                             User user = (User) iterator.next();
-                            asyncResult.add(user);
-                            break;
+                            usernames.add(user);
                         }
                     }
                 });
-
                 try {
                     Thread.sleep(3000);
                     usem.close();
@@ -92,37 +86,55 @@ public class Messages {
                     LoggerUtilities.logStackTrace(e);
                 }
 
-                User reciever = asyncResult.size() > 0 ? asyncResult.get(0) : null;
 
-                if (reciever != null && !(reciever.getId().equals(sender.getId()))) {
-
-                    message.setSendingDate(new Date());
-                    message.setSender(sender.getId(), sender.getNick());
-                    message.setPbkey(sender.getKey().getPublicKey());
-                    message.setReceiver(reciever.getId(), reciever.getNick());
-                    Manager<Message> em = ManagerFactory.createNetworkResilianceMessageManager(Application.getInstance().getPeer(), token, reciever, sender);
-
-                    boolean pushDbOk = em.begin();
-                    pushDbOk &= em.persist(message);
-                    pushDbOk &= em.end();
-                    pushDbOk &= em.close();
-                    if (!pushDbOk) {
-                        log.warn("Message might not have been sent.");
-                        try {
-                            output.write("{\"error\": \"Message might not have been sent.\"}");
-                        } catch (IOException e) {
-                            LoggerUtilities.logStackTrace(e);
-                        }
+                if (usernames != null) {
+                    Date sendDate = new Date();
+                    String uuid ;
+                    if(message.getChatID()==null){
+                        uuid = UUID.randomUUID().toString();
+                    }else{
+                        uuid = message.getChatID();
                     }
 
-                    em.close();
+                    for(User user : usernames){
+                        if(!Objects.equals(user.getId(), sender.getId())){
+                            Message aMessage = new Message();
+                            aMessage.setSendingDate(sendDate);
+                            aMessage.setSender(sender.getId(), sender.getNick());
+                            aMessage.setPbkey(sender.getKey().getPublicKey());
+                            aMessage.setReceivers(message.getReceivers());
+                            aMessage.setMessageContent(message.getMessageContent());
+                            aMessage.setReceiver(user.getId(),user.getNick());
+                            aMessage.setChatGroup(message.getChatGroup());
+                            aMessage.setChatID(uuid);
+                            aMessage.setReceiversNicks(message.getReceiversNicks());
+                            Manager<Message> em = ManagerFactory.createNetworkResilianceMessageManager(Application.getInstance().getPeer(), token, user, sender);
+                            boolean pushDbOk = em.begin();
+                            pushDbOk &= em.persist(aMessage);
+                            pushDbOk &= em.end();
+                            pushDbOk &= em.close();
 
-                    JsonTools<Message> json = new JsonTools<>(new TypeReference<Message>() {
-                    });
-                    try {
-                        output.write(json.toJson(message));
-                    } catch (IOException e) {
-                        LoggerUtilities.logStackTrace(e);
+
+                            if (!pushDbOk) {
+                                log.warn("Message might not have been sent.");
+                                try {
+                                    output.write("{\"error\": \"Message might not have been sent.\"}");
+                                } catch (IOException e) {
+                                    LoggerUtilities.logStackTrace(e);
+                                }
+                            }
+
+                            em.close();
+
+                            JsonTools<Message> json = new JsonTools<>(new TypeReference<Message>() {
+                            });
+                            try {
+                                output.write(json.toJson(message));
+                            } catch (IOException e) {
+                                LoggerUtilities.logStackTrace(e);
+                            }
+                        }
+
                     }
 
                 } else {
@@ -190,8 +202,8 @@ public class Messages {
                     public void notify(Collection<Message> results) {
                         for (Iterator iterator = results.iterator(); iterator.hasNext(); ) {
                             Message message = (Message) iterator.next();
-                            if (hashtableMessage.get(message.getId()) == null) {
-                                hashtableMessage.put(message.getId(), message);
+                            if (hashtableMessage.get(message.getChatID()) == null) {
+                                hashtableMessage.put(message.getChatID(), message);
                             }
                         }
                     }
