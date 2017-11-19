@@ -103,9 +103,7 @@ public class UserSyncManagerImplTest {
 	
 	@Test
 	public final void testC() {
-        //TODO check why test fails
-        assertTrue(true);
-		/*Collection<User> users = usm.findAll();
+		Collection<User> users = usm.findAll();
 		int x = 0;
 		for(User u : users){
 			id = u.getId();
@@ -118,14 +116,13 @@ public class UserSyncManagerImplTest {
 			//assertTrue(u.getKey().equals(keys));
 			x++;
 		}
-
-		assertTrue(x == 1);
+		assertTrue(x == 1);		
 		User u = usm.findOneById(id);
-		assertTrue(u.getId().equals(id));
-		assertTrue(u.getNick().equals(nick));
-		assertTrue(u.getCreatedAt().equals(createdDate));
+		assertTrue(u.getId().equals(id));		
+		assertTrue(u.getNick().equals(nick));		
+		assertTrue(u.getCreatedAt().equals(createdDate));	
 		assertTrue(u.getSalt().equals(salt));
-		assertTrue(u.getPasswordHash().equals(passwordHash));	*/
+		assertTrue(u.getPasswordHash().equals(passwordHash));				
 		//assertTrue(u.getKey().equals(keys));
 	}
 	
