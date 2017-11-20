@@ -70,17 +70,51 @@
         }
 
 		    // Get parties from the hashmap of names and id (to identify exactly a user)
-		    $scope.parties = [];
-		    $scope.nameParties=[];
-		    $scope.body=[];
-		    pN = contract.partiesNames;
+		      $scope.nameParties=contract.partiesNames;
+          		    $scope.bodyparties=[];
 
-		    for (i=0; i<pN.length; i++){
-		    	names = pN[i];
-		    	$scope.body[i]=[{ text:"Parti "+(i+1),style:'title'},names["value"]];
-		    	console.log(names["value"]);
-		    	$scope.parties[i] = names["value"] + " - " + names["key"];
-		    }
+          		    $scope.Implementing=contract.implementing;
+          		    $scope.bodyImplementing=[];
+
+                      $scope.Termination=contract.termination;
+          		    $scope.bodyTermination=[];
+
+          		    	$scope.nameParties.forEach(function(ex){
+                              $scope.bodyparties.push(ex.value);
+          		    	});
+
+          		    	$scope.exchangeStrpdf=[];
+          		    	$scope.exchangepdf=[];
+          		    	$scope.exchangeStrpdf=contract.exchange;
+
+          		        $scope.exchangeStrpdf.forEach(
+          		        function(ex){
+          		      	var splitedEx = ex.split('#'); // the separator used between parameters is #
+               	        $scope.exchangepdf.push({
+                                         			from : splitedEx[0],
+                                         			what : splitedEx[1],
+                                         			to : splitedEx[2],
+                                         			when : splitedEx[3],
+                                         			how : splitedEx[4],
+                                         			details : splitedEx[5]
+          		        });
+                        console.log("RES="+$scope.exchangepdf);
+          		        });
+
+          		    	$scope.Implementing.forEach(function(ex){
+                                          $scope.bodyImplementing.push(ex);
+                      		    	});
+
+                         	$scope.Termination.forEach(function(ex){
+                                             $scope.bodyTermination.push(ex);
+                         		    	});
+
+
+
+
+
+
+
 	  	});
 
 	  	$scope.pdfMake = $window.pdfMake;
@@ -100,23 +134,33 @@
 		  };
 
 			// fonction to generate Pdf about one Contrat
-	  	$scope.getPdf = function(){
+		  	$scope.getPdf = function(){
 
-	  		console.log($scope.body);
-      	var pdfMake = $scope.pdfMake;
+    	  		console.log($scope.body);
+          	var pdfMake = $scope.pdfMake;
+             $scope.i=0;
+          	var teste = $scope.test;
+          	var docDefinition = {
+              content: [
+                { text: "Exchange Agreement", style: 'header' },
+                { text:"1 . PREAMBLE :", style:'title' },
+              	" The exchange agreement of Objects is non-profit."+" There is no exchange of money between "
+                 +" parties, each of them giving to the other his Object defnited below for free and défnitivement." ,
+                { text:" 2 . Exchange contract between:", style:'title' },
+                 $scope.bodyparties,
+                 { text:" 3 . TERMS OF THE CONTRACT ", style:'title' },
+                 { text:" 3.1 . The exchange ", style:'title' },
+                  table($scope.exchangepdf, ['from', 'to','what','when','how','details']),
+                 { text:" 3.2 . The Modality of execution ", style:'title' },
+                 $scope.Implementing,
+                 { text:" 3.3 . Cancellation of a contract ", style:'title' },
+                 $scope.Termination,
 
-      	var teste = $scope.test;
-      	var docDefinition = {
-          content: [
-            { text: "Contrat d'echange", style: 'header' },
-            { text:"1 . PREAMBULE :", style:'title' },
-          	"Le contrat d’échange des Objects est à but non lucratif. " +
-						"Il n’y a aucun échange d’argent entre les parties, chacune de " +
-						"celles-ci cédant à l’autre son Object définit ci-dessous " +
-						"à titre gratuit et définitivement." ,
-            { text:" 2 . CONTRAT D’ECHANGE ENTRE :", style:'title' },
-            $scope.body,
-          ],
+                { text:" Done on :"+1+"             at:"+3 },
+                { text:" 4 . signatory of the contract ", style:'title' },
+                   $scope.bodyparties,
+
+              ],
 
           styles: {
 	         	header: {
@@ -132,7 +176,8 @@
           }
         };
 
-        //"pdfMake" create document pdf and opened
+
+
         pdfMake.createPdf(docDefinition).open();
         //   pdfMake.createPdf(docDefinition).download('optionalName.pdf');
 
@@ -288,7 +333,7 @@
 			};
 			$scope.partiesList = []; // object array
 			$scope.parties = []; // string array
-    	$scope.exchanges = []; // object array
+    	    $scope.exchanges = []; // object array
 			$scope.exchangesStr = []; // string array
 			$scope.usersList = []; // object array
 			$scope.users = []; // string array
@@ -360,7 +405,7 @@
 				if (isOK)
 				{
 					var partiesId = [];
-					$scope.parties.forEach(function(party) {
+					$scope.partiesList.forEach(function(party) {
 						partiesId.push(party.key);
 					});
 
@@ -371,11 +416,11 @@
 	        if ($scope.form.addImpModality != null && $scope.form.addImpModality.length>2){updateImpModalities($scope);}
 
 	    		var contract = new Contract({
-		    		title : $scope.form.title,
+		    		    title : $scope.form.title,
 						parties : partiesId,
-						clauses : $scope.exchangesStr,
+						exchange : $scope.exchangesStr,
 						termination : $scope.termModalities,
-	    			implementing : $scope.impModalities
+	    			    implementing : $scope.impModalities
 					});
 
 	      	// Create the contract in the database thanks to restApi.js
@@ -494,13 +539,14 @@ function deleteParty($scope, p){
 /****** Functions to handle the adding of a clause : party, exchange, implementing modality, termination modality ******/
 function updateParties($scope){
 	var addParty = $scope.form.addParty.split(" - ");
-  var newParty = {value : addParty[0], key : addParty[1]};
-  var index = $scope.parties.findIndex(party >= party.key === newParty.key);
-	if (newParty.key != undefined && index == -1){
-    $scope.partiesList.push(newParty);
+    var newParty = {value : addParty[0], key : addParty[1]};
+    //var index = $scope.parties.findIndex(party >= party.key === newParty.key);
+//	if (newParty.key != undefined && index == -1){
+        $scope.partiesList.push(newParty);
 		$scope.parties.push(newParty.value + ' - ' + newParty.key);
+		console.log("Parties"+$scope.parties);
 		$scope.form.addParty = "";
-	}
+///	}
 }
 
 function updateTermModalities($scope){
@@ -602,8 +648,34 @@ function buildExchangesStr($scope){
 		);
 	});
 }
-/*****************************************************************************/
+/************************Fontion to use to Generate Pdf Contrat*****************************************************/
+function buildTableBody(data, columns) {
+    var body = [];
 
+    body.push(columns);
+
+    data.forEach(function(row) {
+        var dataRow = [];
+
+        columns.forEach(function(column) {
+            dataRow.push(row[column].toString());
+        })
+
+        body.push(dataRow);
+    });
+
+    return body;
+}
+
+function table(data, columns) {
+    return {
+        table: {
+            headerRows: 1,
+            body: buildTableBody(data, columns)
+        }
+    };
+}
+/*****************************************************************************/
 /****** Function to check whether the user fill out all the mandatory information about the contract ******/
 function checkClauses($scope){
 
