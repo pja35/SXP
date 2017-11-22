@@ -98,15 +98,13 @@
                         for (var i = 0; i < $scope.messages.length; i++) {
 
                         	if($scope.messages[i].contractID !== null){
-                                console.log($scope.messages[i]);
+
                                 tmpContract[$scope.messages[i].receiversNicks] =$scope.messages[i];
                             }else if($scope.messages[i].chatGroup){
+                                console.log($scope.messages[i]);
                                 tmpChat[$scope.messages[i].receiversNicks] =$scope.messages[i];
                             }else{
-                                if ($scope.messages[i].senderName != $scope.user.nick)
-                                    tmp[$scope.messages[i].senderName] = $scope.messages[i].senderId;
-                                else
-                                    tmp[$scope.messages[i].receiverName] = $scope.messages[i].receiverId;
+                                tmp[$scope.messages[i].receiverName] = $scope.messages[i].receiverId;
                             }
                         }
                         for (var j in tmp) {
@@ -208,6 +206,8 @@
                                 angular.forEach(value, function(value2,key2){
                                     if(key2==="id"){
                                         ids.push(value2);
+                                    }
+                                    if(key2==="nick"){
                                         nicks.push(value2);
                                     }
                                 });
