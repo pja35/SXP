@@ -108,6 +108,7 @@ public class Messages {
                             aMessage.setChatGroup(message.getChatGroup());
                             aMessage.setChatID(uuid);
                             aMessage.setReceiversNicks(message.getReceiversNicks());
+                            aMessage.setContractID(message.getContractID());
                             Manager<Message> em = ManagerFactory.createNetworkResilianceMessageManager(Application.getInstance().getPeer(), token, user, sender);
                             boolean pushDbOk = em.begin();
                             pushDbOk &= em.persist(aMessage);

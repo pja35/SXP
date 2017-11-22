@@ -96,7 +96,9 @@
                         $scope.msgsContract = [];
                        // console.log($scope.messages);
                         for (var i = 0; i < $scope.messages.length; i++) {
-                        	if($scope.messages.contractID != null){
+
+                        	if($scope.messages[i].contractID !== null){
+                                console.log($scope.messages[i]);
                                 tmpContract[$scope.messages[i].receiversNicks] =$scope.messages[i];
                             }else if($scope.messages[i].chatGroup){
                                 tmpChat[$scope.messages[i].receiversNicks] =$scope.messages[i];
@@ -116,6 +118,7 @@
                         for (var j in tmpContract) {
                             $scope.msgsContract.push({name: j, id: tmpContract[j]});
                         }
+                        console.log($scope.msgsContract);
 
                     }
 
@@ -151,8 +154,8 @@
                         }, function (node) {
                             if (node != null && node.length != 0) {
                                 for (var i = 0; i < node.length; i++) {
-                                    console.log(node[i]);
-                                    if(node[i].contractID != null){
+
+                                    if(node[i].contractID !== null){
                                     	$scope.messagesContract.push(node[i]);
                                     }else if(node[i].chatGroup){
                                         $scope.messagesChats.push(node[i]);
@@ -161,6 +164,7 @@
                                     }
                                     $scope.messages.push(node[i]);
                                 }
+
                             }
                             refresh();
                         });
