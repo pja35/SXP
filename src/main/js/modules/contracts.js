@@ -38,8 +38,10 @@
     });
 
     // 'View contract' state controller function
+
     module.controller('viewContract',  function($scope,$window, $http, $stateParams, Contract, $rootScope, $state, User) {
         isUserConnected($http, $rootScope, $scope, $state, User);
+
 			$scope.app.configHeader({back: true, title: 'View contract', contextButton: 'editContract', contextId: $stateParams.id});
 
 	  	var contract = Contract.get({id: $stateParams.id}, function() {
@@ -113,9 +115,6 @@
 
 
 
-
-
-
 	  	});
 
 	  	$scope.pdfMake = $window.pdfMake;
@@ -176,9 +175,6 @@
 	          }
           }
         };
-
-
-
         pdfMake.createPdf(docDefinition).open();
         //   pdfMake.createPdf(docDefinition).download('optionalName.pdf');
 
@@ -209,9 +205,9 @@
 			};
 			$scope.partiesList = []; // object array
 			$scope.parties = []; // string array
-    	$scope.exchanges = []; // object array
+    		$scope.exchanges = []; // object array
 			$scope.exchangesStr = []; // string array
-      $scope.usersList = []; // object array
+      		$scope.usersList = []; // object array
 			$scope.users = []; // string array
 			getUsers($http, $scope); // fill usersList and users
 			$scope.itemsList = []; // will be filled with the items of the "from" user
@@ -219,12 +215,12 @@
 			/***********************************************/
 
 			/****** Getting back the informations about the contract ******/
-		  var contract = Contract.get({id: $stateParams.id}, function() {
+			var contract = Contract.get({id: $stateParams.id}, function() {
 				//First, load the item and display it via the bindings with item-form.html
   			$scope.form.title = contract.title;
   			$scope.exchangesStr = contract.clauses;
-        $scope.parties = contract.partiesNames; //partiesNames is a hashmap
-        $scope.impModalities = contract.impModalities;
+			$scope.parties = contract.partiesNames; //partiesNames is a hashmap
+        	$scope.impModalities = contract.impModalities;
 				$scope.termModalities = contract.termModalities;
 			});
 			/*******************************************************************/
@@ -414,7 +410,7 @@
 
 	    		if ($scope.form.addParty != null && $scope.form.addParty.length>2){updateParties($scope);}
 	    		if ($scope.form.addTermModality != null && $scope.form.addTermModality.length>2){updateTermModalities($scope);}
-	        if ($scope.form.addImpModality != null && $scope.form.addImpModality.length>2){updateImpModalities($scope);}
+	       		if ($scope.form.addImpModality != null && $scope.form.addImpModality.length>2){updateImpModalities($scope);}
 
 	    		var contract = new Contract({
 		    		    title : $scope.form.title,

@@ -1,26 +1,20 @@
 <h2>New Message</h2>
 <div class="alert alert-danger ng-clignotement" role="alert" ng-show="errorUsername">Invalid login</div>
 <div class="alert alert-danger ng-clignotement" role="alert" ng-show="errorFields">Fields required</div>
-<div class="row">
-    <div class="alert" role="alert" ng-show="sendMessage">
-        <div class="loader"></div>
-    </div>
-</div>
 
 <form class="form-group" ng-submit="submit()">
 
 
-    <div class="input-group">
+    <div class="input-group input-group-lg">
         <span class="input-group-addon" id="basic-addon">@</span>
         <tags-input ng-model="tags"
                     display-property="nick"
                     placeholder="Add a User"
-                    add-on-paste="true">
+                    add-on-paste="true" class="">
             <auto-complete source="findAll($query)"></auto-complete>
         </tags-input>
         <input type="hidden" ng-model="receiverId">
         <input type="hidden" ng-model="receiverPbkey">
-
     </div>
     <div class="form-group" ng-show="receiverName.length > 0">
         <div ng-show="hideAfterSelected">
@@ -47,3 +41,8 @@
     <button type="submit" class="btn btn-default">Submit</button>
     <button type="submit" class="btn btn-warning" onclick="window.history.back();">Cancel</button>
 </form>
+<div class="row">
+    <div class="alert" role="alert" ng-show="sendMessage">
+        <div class="loader"></div>
+    </div>
+</div>
