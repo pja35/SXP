@@ -104,6 +104,12 @@ public class ContractEntity {
 	@JsonFormat(shape=JsonFormat.Shape.STRING)
 	private String establishementData;
 
+    @XmlElement(name = "partiesWish")
+    @Lob
+    @JsonSerialize(using = controller.tools.MapSerializer.class)
+    @JsonDeserialize(using = controller.tools.MapStringDeserializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private HashMap<String, Wish> partiesWish;
 
 	public String getId() {
 		return id;
@@ -211,4 +217,13 @@ public class ContractEntity {
 	public void setEstablishementData(String e) {
 		this.establishementData = e;
 	}
+
+    public HashMap<String, Wish> getpartiesWish() {
+        return partiesWish;
+    }
+
+    public void setpartiesWish(HashMap<String, Wish> n) {
+        this.partiesWish = n;
+    }
+
 }
