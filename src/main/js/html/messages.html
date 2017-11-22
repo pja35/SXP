@@ -38,7 +38,7 @@
                         </div>
                         <div ng-repeat="chat in chats" id="{{chat.name}}" class="tabcontent">
                             <div ng-repeat="message in messagesChats | orderBy: 'sendingDate'">
-                                <p ng-if="((message.senderName == user.nick && message.receiverName == chat.name) || (message.senderName == chat.name && message.receiverName == user.nick)) && (!message.chatGroup)">
+                                <p ng-if="((message.senderName == user.nick && message.receiverName == chat.name) || (message.senderName == chat.name && message.receiverName == user.nick)) && (message.chatGroup)">
                                     <b ng-if="message.senderName == user.nick">Me:</b>
                                     <b ng-if="message.senderName != user.nick">{{message.senderName}}:</b>
                                     {{message.messageContent}}<span class="pull-right"><em><small>{{message.sendingDate}}</small></em></span>
