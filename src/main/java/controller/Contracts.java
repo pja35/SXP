@@ -128,11 +128,11 @@ public class Contracts {
 	@PUT
 	@Path("/{id}")
 
-	public String edit(ContractEntity c, @HeaderParam(Authentifier.PARAM_NAME) String token) {	
-		
+	public String edit(ContractEntity c, @HeaderParam(Authentifier.PARAM_NAME) String token) {
+
 		ArrayList<String> parties = c.getParties();
 		HashMap<String,String> partiesNames = new HashMap<String, String>();
-		
+
 		if (parties != null){
 			JsonTools<User> json3 = new JsonTools<>(new TypeReference<User>(){});
 			Users us = new Users();
@@ -141,7 +141,7 @@ public class Contracts {
 				partiesNames.put(id, u.getNick());
 			}
 		}
-		
+
 		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
 
 		em.begin();
@@ -163,8 +163,9 @@ public class Contracts {
 		}
 		em.end();
 		em.close();
-		
+        updateContract(token,cRes.getId(),Wish.NEUTRAL);
 		JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
+
 		return json.toJson(cRes);
 	}
 	
@@ -224,13 +225,13 @@ public class Contracts {
 		
 		em.end();
 		em.close();
-
+        updateContract(token,id,Wish.ACCEPT);
 		return ret;
 	}
 	
 	@PUT
 	@Path("/cancel/{id}")
-	public String cancel(@PathParam("id")String id){
+	public String cancel(@PathParam("id")String id,@HeaderParam(Authentifier.PARAM_NAME) String token){
 		UserSyncManager users = new UserSyncManagerImpl();
 		users.close();
 		
@@ -249,7 +250,48 @@ public class Contracts {
 		
 		em.end();
 		em.close();
-		
+        updateContract(token,id,Wish.REFUSE);
 		return ret;
 	}
+    private void updateContract(String token,String id,Wish aWish){
+        Authentifier auth = Application.getInstance().getAuth();
+        UserSyncManager users = new UserSyncManagerImpl();
+        User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
+        users.close();
+        SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
+        em.begin();
+        ContractEntity c = em.findOneById(id);
+        ArrayList<String> parties = c.getParties();
+        HashMap<String, String> partiesNames = new HashMap<String, String>();
+        if (parties != null) {
+            JsonTools<User> json3 = new JsonTools<>(new TypeReference<User>() {
+            });
+            Users us = new Users();
+            for (String id1 : parties) {
+                User u = json3.toEntity(us.get(id1));
+                partiesNames.put(id1, u.getNick());
+            }
+        }
+        HashMap<String, Wish> wishes = c.getpartiesWish();
+        wishes.put(currentUser.getNick(), aWish);
+        Collection<ContractEntity> contracts = em.findAllByAttribute("title", c.getTitle());
+        for (ContractEntity contract : contracts) {
+            if (contract.getParties().contains(c.getUserid())) {
+                if (contract.getWish().equals(Wish.NEUTRAL)) {
+                    c.setTermination(contract.getTermination());
+                    c.setImplementing(contract.getImplementing());
+                    c.setExchange(contract.getExchange());
+                    contract.setParties(parties);
+                    contract.setTitle(c.getTitle());
+                    contract.setPartiesNames(partiesNames);
+                    contract.setpartiesWish(wishes);
+                }
+            }
+        }
+
+        em.end();
+        em.close();
+
+
+    }
 }
