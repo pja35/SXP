@@ -37,7 +37,7 @@
     });
 
     // 'View contract' state controller function
-    module.controller('viewContract',  function($scope,$window, $http, $stateParams, Contract, $state) {
+    module.controller('viewContract',  function($scope,$window, $http, $stateParams, Contract,Message, $state) {
 
 			$scope.app.configHeader({back: true, title: 'View contract', contextButton: 'editContract', contextId: $stateParams.id});
 
@@ -50,7 +50,23 @@
 		    $scope.canceled = contract.canceled;
 		    $scope.modality = contract.modality;
 		    $scope.exchangeClause=contract.exchange;
+            $scope.checkClass = function () {
+                switch (contract.status) {
+                    case 'NOWHERE':
+                        return "panel-warning";
+                    case 'SIGNING':
+                        return "panel-success";
+                    case 'FINALIZED':
+                        return "panel-success";
+                    case 'CANCELLED':
+                        return "panel-danger";
+                    case 'RESOLVING':
+                        return "panel-default";
+                    default:
+                        return "panel-warning";
+                }
 
+            };
         /** Actually Exchange clauss is Array<String> content all information about this exchange with string */
         $scope.Exchange=[];
         ex=contract.exchange;
@@ -113,7 +129,58 @@
 
 
 
+            $scope.addForum = function (contract,messageContent){
+                var nicks = [];
 
+                for (var i = 0; i<contract.partiesNames.length;i++){
+                    nicks.push(contract.partiesNames[i].value);
+                }
+
+                nicks.push(currentUser.nick);
+
+                var message = new Message({
+                    receivers: contract.parties,
+                    receiversNicks: nicks,
+                    messageContent: messageContent,
+                   // chatGroup: true,
+                    contractID : contract.id
+                });
+                console.log(message);
+                Oboe({
+                    url: RESTAPISERVER + "/api/messages/",
+                    method: 'POST',
+                    body: message,
+                    withCredentials: true,
+                    headers: {'Auth-Token': $http.defaults.headers.common['Auth-Token']},
+                    start: function (stream) {
+                        // handle to the stream
+                        $scope.stream = stream;
+                        $scope.status = 'started';
+                        $scope.sendMessage = true;
+                    },
+                    done: function (parsedJSON) {
+                        $scope.status = 'done';
+                        $scope.sendMessage = false;
+                    }
+                }).then(function () {
+
+                }, function (error) {
+                    $scope.sendMessage = false;
+                    console.log("erreur lors de l'envoie du message");
+                }, function (node) {
+                    if (node != null && node.length != 0) {
+                        $scope.sendMessage = false;
+                        console.log(node);
+                        $state.go('messages');
+                    }
+                });
+
+
+            }
+            $scope.form = false;
+            $scope.forum = function () {
+                $scope.form = !$scope.form;
+            }
 
 	  	});
 
@@ -175,9 +242,6 @@
 	          }
           }
         };
-
-
-
         pdfMake.createPdf(docDefinition).open();
         //   pdfMake.createPdf(docDefinition).download('optionalName.pdf');
 
@@ -208,9 +272,9 @@
 			};
 			$scope.partiesList = []; // object array
 			$scope.parties = []; // string array
-    	$scope.exchanges = []; // object array
+    		$scope.exchanges = []; // object array
 			$scope.exchangesStr = []; // string array
-      $scope.usersList = []; // object array
+      		$scope.usersList = []; // object array
 			$scope.users = []; // string array
 			getUsers($http, $scope); // fill usersList and users
 			$scope.itemsList = []; // will be filled with the items of the "from" user
@@ -218,12 +282,12 @@
 			/***********************************************/
 
 			/****** Getting back the informations about the contract ******/
-		  var contract = Contract.get({id: $stateParams.id}, function() {
+			var contract = Contract.get({id: $stateParams.id}, function() {
 				//First, load the item and display it via the bindings with item-form.html
   			$scope.form.title = contract.title;
   			$scope.exchangesStr = contract.clauses;
-        $scope.parties = contract.partiesNames; //partiesNames is a hashmap
-        $scope.impModalities = contract.impModalities;
+			$scope.parties = contract.partiesNames; //partiesNames is a hashmap
+        	$scope.impModalities = contract.impModalities;
 				$scope.termModalities = contract.termModalities;
 			});
 			/*******************************************************************/
@@ -413,7 +477,7 @@
 
 	    		if ($scope.form.addParty != null && $scope.form.addParty.length>2){updateParties($scope);}
 	    		if ($scope.form.addTermModality != null && $scope.form.addTermModality.length>2){updateTermModalities($scope);}
-	        if ($scope.form.addImpModality != null && $scope.form.addImpModality.length>2){updateImpModalities($scope);}
+	       		if ($scope.form.addImpModality != null && $scope.form.addImpModality.length>2){updateImpModalities($scope);}
 
 	    		var contract = new Contract({
 		    		    title : $scope.form.title,
