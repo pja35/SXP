@@ -27,7 +27,8 @@
 
 
     // 'contracts' state controller function
-    module.controller('viewContracts', function($scope, Contract) {
+    module.controller('viewContracts', function($scope, Contract,$http, $rootScope, $state, User) {
+        isUserConnected($http, $rootScope, $scope, $state, User);
     	//TODO: do some of this with configHeader:
     	$scope.app.configHeader({back: false, title: 'Contracts', contextButton: 'addContract'});
 
@@ -37,8 +38,8 @@
     });
 
     // 'View contract' state controller function
-    module.controller('viewContract',  function($scope,$window, $http, $stateParams, Contract, $state) {
-
+    module.controller('viewContract',  function($scope,$window, $http, $stateParams, Contract, $rootScope, $state, User) {
+        isUserConnected($http, $rootScope, $scope, $state, User);
 			$scope.app.configHeader({back: true, title: 'View contract', contextButton: 'editContract', contextId: $stateParams.id});
 
 	  	var contract = Contract.get({id: $stateParams.id}, function() {
