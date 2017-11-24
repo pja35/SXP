@@ -9,26 +9,46 @@
                 controller: function ($rootScope, $scope, $state, $stateParams, Message, User, $http, Oboe) {
                     isUserConnected($http, $rootScope, $scope, $state, User);
                     $scope.app.configHeader({contextButton: 'addMessage', title: 'Messages'});
-                    $scope.openMessage = function (evt, cityName) {
+
+                    $scope.openMessage = function (evt, messageName,id) { // when clik on tabs private message
                         // Declare all variables
                         var i, tabcontent, tablinks;
 
                         // Get all elements with class="tabcontent" and hide them
                         tabcontent = document.getElementsByClassName("tabcontent");
+                      /*  for (i = 0; i < tabcontent.length; i++) {
+                            tabcontent[i].style.display = "none";
+                        }
+*/
+                        // Get all elements with class="tablinks" and remove the class "active"
+                       // tablinks = document.getElementsByClassName("tablinks");
+                        /*for (i = 0; i < tablinks.length; i++) {
+                            tablinks[i].className = tablinks[i].className.replace(" active", "");
+                        }*/
+
+                        document.getElementById(id).style.display = "none";
+                        $scope.lastIdHidden = id;
+						console.log(messageName);
+                        // Show the current tab, and add an "active" class to the link that opened the tab
+                        document.getElementById(messageName).style.display = "block";
+                       // evt.currentTarget.className += " active";
+                    }
+
+                    $scope.back = function(msgTab){
+                        var i, tabcontent, tablinks;
+
+                        // Get all elements with class="tabcontent" and hide them
+                       /* tabcontent = document.getElementsByClassName("tabcontent");
                         for (i = 0; i < tabcontent.length; i++) {
                             tabcontent[i].style.display = "none";
                         }
-
-                        // Get all elements with class="tablinks" and remove the class "active"
-                        tablinks = document.getElementsByClassName("tablinks");
-                        for (i = 0; i < tablinks.length; i++) {
-                            tablinks[i].className = tablinks[i].className.replace(" active", "");
-                        }
-						console.log(cityName);
-                        // Show the current tab, and add an "active" class to the link that opened the tab
-                        document.getElementById(cityName).style.display = "block";
-                        evt.currentTarget.className += " active";
+*/
+                       // console.log(messageName);
+                        document.getElementById($scope.lastIdHidden).style.display = "block";
+                        document.getElementById(msgTab).style.display = "none";
+                        //evt.currentTarget.style.display = "none";
                     }
+
                     $scope.stream = null; //The stream of async results
 
                     $scope.user = User.get({
@@ -89,8 +109,10 @@
 
                     function refresh() { //Refresh request
                         var tmp = {};
-                        var tmpChat = {};
                         var tmpContract = {};
+                        var detailsContract = {};
+                        var detailsPrivate = {};
+
                         $scope.chats = [];
                         $scope.private = [];
                         $scope.msgsContract = [];
@@ -98,25 +120,25 @@
                         for (var i = 0; i < $scope.messages.length; i++) {
 
                         	if($scope.messages[i].contractID !== null){
-                                console.log($scope.messages[i]);
-                                tmpContract[$scope.messages[i].receiversNicks] =$scope.messages[i];
-                            }else if($scope.messages[i].chatGroup){
-                                tmpChat[$scope.messages[i].receiversNicks] =$scope.messages[i];
+                               // console.log($scope.messages[i]);
+                                detailsContract['date'] = $scope.messages[i].sendingDate;
+                                detailsContract['id'] = $scope.messages[i].contractID;
+                                detailsContract['content'] = $scope.messages[i].messageContent;
+                                tmpContract[$scope.messages[i].receiversNicks] = detailsContract;
+                                detailsContract = {};
                             }else{
-                                if ($scope.messages[i].senderName != $scope.user.nick)
-                                    tmp[$scope.messages[i].senderName] = $scope.messages[i].senderId;
-                                else
-                                    tmp[$scope.messages[i].receiverName] = $scope.messages[i].receiverId;
+                                detailsPrivate['date'] = $scope.messages[i].sendingDate;
+                                detailsPrivate['content'] = $scope.messages[i].messageContent;
+                                console.log($scope.messages[i]);
+                                //if($scope.messages[i].sender)
+                                tmp[$scope.messages[i].receiverName] = detailsPrivate;
                             }
                         }
                         for (var j in tmp) {
-                            $scope.private.push({name: j, id: tmp[j]});
-                        }
-                        for (var j in tmpChat) {
-                            $scope.chats.push({name: j, id: tmpChat[j]});
+                            $scope.private.push({name: j, details: tmp[j]});
                         }
                         for (var j in tmpContract) {
-                            $scope.msgsContract.push({name: j, id: tmpContract[j]});
+                            $scope.msgsContract.push({name: j, details: tmpContract[j]});
                         }
                         console.log($scope.msgsContract);
 
@@ -157,18 +179,17 @@
 
                                     if(node[i].contractID !== null){
                                     	$scope.messagesContract.push(node[i]);
-                                    }else if(node[i].chatGroup){
-                                        $scope.messagesChats.push(node[i]);
                                     }else{
                                         $scope.messagesPrivate.push(node[i]);
                                     }
                                     $scope.messages.push(node[i]);
                                 }
-
                             }
                             refresh();
                         });
                     }
+
+
                 }
             })
             .state('addMessage', {

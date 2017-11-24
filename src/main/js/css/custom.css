@@ -12,7 +12,7 @@ div.tab {
     height: 100%;
 
 }
-
+.list-group { margin-bottom : 0;}
 /* Style the buttons inside the tab */
 div.tab button {
     display: block;
@@ -42,7 +42,6 @@ div.tab button.active {
     float: left;
     padding: 0px 12px;
     border: 1px solid #ccc;
-    width: 70%;
     border-left: none;
     height: 100%;
     display: none;

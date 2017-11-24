@@ -182,17 +182,18 @@
         var currentUser = User.get({
             id: $scope.app.userid
         });
+		  	
         $scope.addForum = function (contract,messageContent){
             var ids = [];
             var nicks = [];
-
+			var present = false;
             for (var i = 0; i<contract.partiesNames.length;i++){
                 nicks.push(contract.partiesNames[i].value);
+            	if(contract.partiesNames[i].value === currentUser.nick) present = true;
             }
-
-            nicks.push(currentUser.nick);
-
-            var message = new Message({
+			if(!present)
+				nicks.push(currentUser.nick);
+			var message = new Message({
                 receivers: contract.parties,
                 receiversNicks: nicks,
                 messageContent: messageContent,
@@ -207,7 +208,6 @@
                 withCredentials: true,
                 headers: {'Auth-Token': $http.defaults.headers.common['Auth-Token']},
                 start: function (stream) {
-                    // handle to the stream
                     $scope.stream = stream;
                     $scope.status = 'started';
                     $scope.sendMessage = true;
@@ -217,10 +217,8 @@
                     $scope.sendMessage = false;
                 }
             }).then(function () {
-
             }, function (error) {
                 $scope.sendMessage = false;
-                console.log("erreur lors de l'envoie du message");
             }, function (node) {
                 if (node != null && node.length != 0) {
                     $scope.sendMessage = false;
@@ -228,8 +226,6 @@
                     $state.go('messages');
                 }
             });
-
-
         }
         $scope.form = false;
         $scope.forum = function () {
@@ -342,26 +338,24 @@
     	$scope.submit = function() {
 
 				// isOK is a boolean indicating wether the user has entered all the mandatory informations about the contract
-				var isOK = checkClauses($scope);
-				if (isOK)
-				{
+		var isOK = checkClauses($scope);
+		if (isOK){
           var partiesId = [];
           $scope.parties.forEach(function(party) {
             partiesId.push(party.key);
           });
-
-					buildExchangesStr($scope);
-
-      		if ($scope.form.addParty != null && $scope.form.addParty.length>2){updateParties($scope);}
+          buildExchangesStr($scope);
+          if ($scope.form.addParty != null && $scope.form.addParty.length>2){updateParties($scope);}
           if ($scope.form.addImpModality != null && $scope.form.addImpModality.length>2){updateImpModalities($scope);}
           if ($scope.form.addTermModality != null && $scope.form.addTermModality.length>2){updateTermModalities($scope);}
 
-					//Contract is available thanks to restApi.js
-      		contract.title = $scope.form.title;
-					contract.parties = partiesId;
-					contract.clauses = $scope.exchangesStr;
-					contract.implementing = $scope.impModalities;
-					contract.termination = $scope.termModalities;
+
+          //Contract is available thanks to restApi.js
+			contract.title = $scope.form.title;
+			contract.parties = partiesId;
+			contract.clauses = $scope.exchangesStr;
+			contract.implementing = $scope.impModalities;
+			contract.termination = $scope.termModalities;
 
       		contract.$update(function() {
       			$state.go('viewContracts');
