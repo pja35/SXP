@@ -1,6 +1,6 @@
 RESTAPISERVER = 'https://localhost:8081';
 
-(function() {
+(function () {
     var module = angular.module('services.rest', []);
 
     //This module creates other modules
@@ -11,7 +11,7 @@ RESTAPISERVER = 'https://localhost:8081';
     // see https://docs.angularjs.org/api/ngResource/service/$resource
 
 
-    module.factory('User', function($resource) {
+    module.factory('User', function ($resource) {
         return $resource(RESTAPISERVER + '/api/users/:id',
             //Just specified the route to access the resource.
             //The :id will become and id=... if a value for it is specified
@@ -28,8 +28,8 @@ RESTAPISERVER = 'https://localhost:8081';
     });
 
 
-    module.factory('Item', function($resource) {
-    	return $resource(RESTAPISERVER + '/api/items/:id', {
+    module.factory('Item', function ($resource) {
+        return $resource(RESTAPISERVER + '/api/items/:id', {
             id: '@id'
         }, {
             update: {
@@ -38,17 +38,26 @@ RESTAPISERVER = 'https://localhost:8081';
         });
     });
 
-    module.factory('Message', function($resource) {
+    module.factory('Message', function ($resource) {
         return $resource(RESTAPISERVER + '/api/messages/:id', {
             id: '@id'
-        },  {
-             update: {
+        }, {
+            update: {
                 method: 'PUT'
-             }
+            }
         });
     });
 
-    module.factory('Contract', function($resource) {
+
+    module.factory('Search', function($resource){
+        return $resource(RESTAPISERVER + '/api/users/',{
+            update: {
+                method: 'PUT'
+            }
+        });
+    });
+
+    module.factory('Contract', function ($resource) {
         return $resource(RESTAPISERVER + '/api/contracts/:id', {
             id: '@id'
         }, {

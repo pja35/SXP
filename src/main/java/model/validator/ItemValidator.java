@@ -5,23 +5,23 @@ import crypt.impl.key.ElGamalAsymKey;
 import crypt.impl.signatures.ElGamalSignature;
 import model.entity.Item;
 
-public class ItemValidator extends EntityValidator<Item>{
+public class ItemValidator extends EntityValidator<Item> {
 
-	@SuppressWarnings("unused")
-	private Signer<ElGamalSignature, ElGamalAsymKey> signer = null;
+    @SuppressWarnings("unused")
+    private Signer<ElGamalSignature, ElGamalAsymKey> signer = null;
 
-	public void setSigner(Signer<ElGamalSignature, ElGamalAsymKey> signer) {
-		this.signer = signer;
-	}
+    public void setSigner(Signer<ElGamalSignature, ElGamalAsymKey> signer) {
+        this.signer = signer;
+    }
 
-	@Override
-	public boolean validate() {
-		return super.validate() && validateSignature();
-	}
+    @Override
+    public boolean validate() {
+        return super.validate() && validateSignature();
+    }
 
-	private boolean validateSignature() {
-		/*if(signer == null) throw new RuntimeException("no signer were setteld");
+    private boolean validateSignature() {
+        /*if(signer == null) throw new RuntimeException("no signer were setteld");
 		               return false;*/
-		return true;
-	}
+        return true;
+    }
 }

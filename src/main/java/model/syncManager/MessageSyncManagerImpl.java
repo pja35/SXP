@@ -7,14 +7,14 @@ import model.validator.EntityValidator;
 
 public class MessageSyncManagerImpl extends AbstractSyncManager<Message> implements MessageSyncManager {
 
-	public MessageSyncManagerImpl() {
-		super();
-		this.initialisation("persistence", Message.class);
-	}
+    public MessageSyncManagerImpl() {
+        super();
+        this.initialisation("persistence", Message.class);
+    }
 
-	@Override
-	protected EntityValidator<?> getAdaptedValidator() {
-		return ValidatorFactory.createMessageValidator();
-	}
+    @Override
+    protected EntityValidator<?> getAdaptedValidator() {
+        return ValidatorFactory.createMessageValidator();
+    }
 }
 

@@ -1,51 +1,51 @@
 package protocol.impl.sigma;
 
-import java.util.ArrayList;
-
 import crypt.api.signatures.Signable;
 import model.entity.sigma.SigmaSignature;
 
-public class SigmaClauses implements Signable<SigmaSignature>{
+import java.util.ArrayList;
 
-	private SigmaSignature sign;
-	private ArrayList<String> clauses;
-	
-	public SigmaClauses(ArrayList<String> s) {
-		this.clauses = s;
-	}
-	
-	public ArrayList<String> getClauses(){
-		return clauses;
-	}
-	
-	@Override
-	public byte[] getHashableData() {
-		StringBuffer buffer = new StringBuffer();
-		for (String c : clauses)
-			buffer.append(c);
-		return buffer.toString().getBytes();
-	}
+public class SigmaClauses implements Signable<SigmaSignature> {
 
-	@Override
-	public void setSign(SigmaSignature s) {
-		this.sign = s;
-	}
+    private SigmaSignature sign;
+    private ArrayList<String> clauses;
 
-	@Override
-	public SigmaSignature getSign() {
-		return this.sign;
-	}
-	
-	@Override
-	public boolean equals(Object o) {
-		SigmaClauses s2 = (SigmaClauses) o;
-		if (s2.clauses.size() != this.clauses.size())
-			return false;
-		
-		boolean b = true;
-		int n = this.clauses.size();
-		for (int k =0; k<n; k++)
-			b = b && this.clauses.get(k).equals(s2.clauses.get(k));
-		return b;
-	}
+    public SigmaClauses(ArrayList<String> s) {
+        this.clauses = s;
+    }
+
+    public ArrayList<String> getClauses() {
+        return clauses;
+    }
+
+    @Override
+    public byte[] getHashableData() {
+        StringBuffer buffer = new StringBuffer();
+        for (String c : clauses)
+            buffer.append(c);
+        return buffer.toString().getBytes();
+    }
+
+    @Override
+    public SigmaSignature getSign() {
+        return this.sign;
+    }
+
+    @Override
+    public void setSign(SigmaSignature s) {
+        this.sign = s;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        SigmaClauses s2 = (SigmaClauses) o;
+        if (s2.clauses.size() != this.clauses.size())
+            return false;
+
+        boolean b = true;
+        int n = this.clauses.size();
+        for (int k = 0; k < n; k++)
+            b = b && this.clauses.get(k).equals(s2.clauses.get(k));
+        return b;
+    }
 }

@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ ElementType.TYPE })
+@Target({ElementType.TYPE})
 /**
  * Define which service use an advertisement
  * @author Julien Prudhomme
@@ -13,5 +13,5 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ServiceName {
-	String name();
+    String name();
 }

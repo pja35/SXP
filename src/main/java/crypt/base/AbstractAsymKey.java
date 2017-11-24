@@ -1,38 +1,38 @@
 package crypt.base;
 
-import java.util.HashMap;
-
 import crypt.api.key.AsymKey;
 
-public abstract class AbstractAsymKey<T> implements AsymKey<T>{
+import java.util.HashMap;
 
-	protected T publicKey = null;
-	protected T privateKey = null;
-	protected HashMap<String, T> params = new HashMap<>();
-	
-	@Override
-	public T getPublicKey() {
-		return publicKey;
-	}
+public abstract class AbstractAsymKey<T> implements AsymKey<T> {
 
-	@Override
-	public T getPrivateKey() {
-		return privateKey;
-	}
+    protected T publicKey = null;
+    protected T privateKey = null;
+    protected HashMap<String, T> params = new HashMap<>();
 
-	@Override
-	public T getParam(String p) {
-		return params.get(p);
-	}
+    @Override
+    public T getPublicKey() {
+        return publicKey;
+    }
 
-	@Override
-	public void setPublicKey(T pbk) {
-		this.publicKey = pbk;
-	}
+    @Override
+    public void setPublicKey(T pbk) {
+        this.publicKey = pbk;
+    }
 
-	@Override
-	public void setPrivateKey(T pk) {
-		this.privateKey = pk;
-	}
+    @Override
+    public T getPrivateKey() {
+        return privateKey;
+    }
+
+    @Override
+    public void setPrivateKey(T pk) {
+        this.privateKey = pk;
+    }
+
+    @Override
+    public T getParam(String p) {
+        return params.get(p);
+    }
 
 }
