@@ -4,14 +4,7 @@ body {
 
 /*Vertical Tabs*/
 /* Style the tab */
-div.tab {
-    float: left;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-    width: 30%;
-    height: 100%;
 
-}
 .list-group { margin-bottom : 0;}
 /* Style the buttons inside the tab */
 div.tab button {
@@ -45,6 +38,8 @@ div.tab button.active {
     border-left: none;
     height: 100%;
     display: none;
+    position: relative;
+    top: 0;
 }
 /**************************************************/
 .tabsdemoDynamicHeight md-content {

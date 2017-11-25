@@ -8,34 +8,39 @@
                 <div class="col-sm-9 col-md-10">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-target="#privateMessages" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Private messages</a></li>
-                        <li><a data-target="#messageContract" data-toggle="tab"><span class="glyphicon glyphicon-tags"></span> Form/Contract</a></li>
+                        <li class="active"><a data-target="#privateMessages" data-toggle="tab" ng-click="showMessage()"><span class="glyphicon glyphicon-user"></span> Private messages</a></li>
+                        <li><a data-target="#messageContract" data-toggle="tab" ng-click="showForm()"><span class="glyphicon glyphicon-tags"></span> Form/Contract</a></li>
                     </ul>
 
+                    <!-- show resume of private messages -->
                     <div class="tab-content">
-                        <div class="tab-pane fade in active" id="privateMessages">
-                            <div class="list-group" ng-repeat="msgPrivate in private" ng-click="openMessage($event, msgPrivate.name,'privateMessages')">
+                        <div class="tab-pane fade in active" id="privateMessages" ng-show="privateIsClicked">
+                            <div class="list-group" ng-repeat="msgPrivate in private" ng-click="openMessage($event, msgPrivate.details.id,'privateMessages')">
                                 <a  class="list-group-item">
                                     <span class="name" style="min-width: 120px; display: inline-block;">{{msgPrivate.name}}</span> <span class=""></span>
-                                    <span class="text-muted" style="font-size: 11px;">{{msgPrivate.details.content}}</span> <span class="badge">{{msgPrivate.details.date}}</span> </a>
+                                    <span class="text-muted" style="font-size: 11px; max-width: 200px; display: inline-block; overflow: hidden;">{{msgPrivate.details.content}}</span> <span class="badge">{{msgPrivate.details.date}}</span> </a>
                             </div>
                         </div>
 
-                        <div class="tab-pane fade in" id="messageContract">
-                            <div class="list-group" ng-repeat="msgContract in msgsContract" ng-click="openMessage($event, msgContract.name,'messageContract')">
+                        <!-- show resume of message on contract -->
+                        <div class="tab-pane fade in" id="messageContract" ng-show="!privateIsClicked">
+                            <div class="list-group" ng-repeat="msgContract in msgsContract" ng-click="openMessage($event, msgContract.details.id,'messageContract')">
                                 <a  class="list-group-item">
                                     <span class="name" style="min-width: 120px; display: inline-block;">{{msgContract.name}}</span> <strong class="">{{msgContract.details.id}}</strong>
-                                    <span class="text-muted" style="font-size: 11px;">{{msgContract.details.content}}</span> <span class="badge">{{msgContract.details.date}}</span> </a>
+                                    <span class="text-muted" style="font-size: 11px;">{{msgContract.details.content}}</span> <span class="badge">{{msgContract.details.date}}</span>
+                                </a>
 
                             </div>
+
                         </div>
 
-                        <div ng-repeat="msgPrivate in private" id="{{msgPrivate.name}}" class="tabcontent">
+                        <!-- Content of all private messages -->
+                        <div ng-repeat="msgPrivate in private" id="{{msgPrivate.details.id}}" class="tabcontent" ng-show="privateIsClicked">
                             <button class="btn btn-link btn-lg linknodeco" ng-click="back('privateMessages')">
                                 <span class="glyphicon glyphicon-chevron-left"></span> Back
                             </button>
                            <div ng-repeat="message in messagesPrivate | orderBy: 'sendingDate'">
-                                <p ng-if="((message.senderName == user.nick && message.receiverName == msgPrivate.name) || (message.senderName == msgPrivate.name && message.receiverName == user.nick)) && (!message.chatGroup)">
+                                <p ng-if="((message.senderName == user.nick && message.receiverName == msgPrivate.name) || (message.senderName == msgPrivate.name && message.receiverName == user.nick))">
                                     <b ng-if="message.senderName == user.nick">Me:</b>
                                     <b ng-if="message.senderName != user.nick">{{message.senderName}}:</b>
                                     {{message.messageContent}}<span class="pull-right"><em><small>{{message.sendingDate}}</small></em></span>
@@ -53,8 +58,10 @@
                             </span>
                             </div>
                         </div>
-                        <div ng-repeat="msgContract in msgsContract" id="{{msgContract.name}}" class="tabcontent">
-                            <button class="btn btn-link btn-lg linknodeco" ng-click="back($event,'messageContract')">
+
+                        <!-- Content of all  contract messages -->
+                        <div ng-repeat="msgContract in msgsContract" id="{{msgContract.details.id}}" class="tabcontent" ng-show="!privateIsClicked">
+                            <button class="btn btn-link btn-lg linknodeco" ng-click="back('messageContract')">
                                 <span class="glyphicon glyphicon-chevron-left"></span> Back
                             </button>
                             <div ng-repeat="message in messagesContract | orderBy: 'sendingDate'">
@@ -77,6 +84,7 @@
                                 </span>
                             </div>
                         </div>
+
                     </div>
                 </div>
 </div>

@@ -9,22 +9,25 @@
                 controller: function ($rootScope, $scope, $state, $stateParams, Message, User, $http, Oboe) {
                     isUserConnected($http, $rootScope, $scope, $state, User);
                     $scope.app.configHeader({contextButton: 'addMessage', title: 'Messages'});
-
+                    $scope.privateIsClicked = true;
+                    $scope.showMessage = function(){
+                        $scope.privateIsClicked = true;
+                        console.log($scope.privateIsClicked);
+                    }
+                    $scope.showForm = function(){
+                       // $scope.forumIsClicked = true;
+                        $scope.privateIsClicked = false;
+                        console.log($scope.privateIsClicked);
+                    }
                     $scope.openMessage = function (evt, messageName,id) { // when clik on tabs private message
                         // Declare all variables
                         var i, tabcontent, tablinks;
 
                         // Get all elements with class="tabcontent" and hide them
                         tabcontent = document.getElementsByClassName("tabcontent");
-                      /*  for (i = 0; i < tabcontent.length; i++) {
+                        for (i = 0; i < tabcontent.length; i++) {
                             tabcontent[i].style.display = "none";
                         }
-*/
-                        // Get all elements with class="tablinks" and remove the class "active"
-                       // tablinks = document.getElementsByClassName("tablinks");
-                        /*for (i = 0; i < tablinks.length; i++) {
-                            tablinks[i].className = tablinks[i].className.replace(" active", "");
-                        }*/
 
                         document.getElementById(id).style.display = "none";
                         $scope.lastIdHidden = id;
@@ -38,14 +41,14 @@
                         var i, tabcontent, tablinks;
 
                         // Get all elements with class="tabcontent" and hide them
-                       /* tabcontent = document.getElementsByClassName("tabcontent");
+                       tabcontent = document.getElementsByClassName("tabcontent");
                         for (i = 0; i < tabcontent.length; i++) {
                             tabcontent[i].style.display = "none";
                         }
-*/
+
                        // console.log(messageName);
-                        document.getElementById($scope.lastIdHidden).style.display = "block";
-                        document.getElementById(msgTab).style.display = "none";
+                        document.getElementById(msgTab).style.display = "block";
+                       // document.getElementById(msgTab).style.display = "none";
                         //evt.currentTarget.style.display = "none";
                     }
 
@@ -74,8 +77,8 @@
                                 messageContent: messageContent,
                                 chatGroup: chatId.receivers.length > 1
                             });
-                            console.log("add message");
-                            console.log(message);
+                           /* console.log("add message");
+                            console.log(message);*/
                             Oboe({
                                 url: RESTAPISERVER + "/api/messages/",
                                 method: 'POST',
@@ -122,16 +125,19 @@
                         	if($scope.messages[i].contractID !== null){
                                // console.log($scope.messages[i]);
                                 detailsContract['date'] = $scope.messages[i].sendingDate;
-                                detailsContract['id'] = $scope.messages[i].contractID;
+                                detailsContract['idC'] = $scope.messages[i].contractID;
+                                detailsContract['id'] = $scope.messages[i].id;
                                 detailsContract['content'] = $scope.messages[i].messageContent;
                                 tmpContract[$scope.messages[i].receiversNicks] = detailsContract;
                                 detailsContract = {};
                             }else{
                                 detailsPrivate['date'] = $scope.messages[i].sendingDate;
                                 detailsPrivate['content'] = $scope.messages[i].messageContent;
-                                console.log($scope.messages[i]);
+                                detailsPrivate['id'] = $scope.messages[i].id;
+                              //  console.log($scope.messages[i]);
                                 //if($scope.messages[i].sender)
                                 tmp[$scope.messages[i].receiverName] = detailsPrivate;
+                                detailsPrivate = {};
                             }
                         }
                         for (var j in tmp) {
@@ -140,7 +146,7 @@
                         for (var j in tmpContract) {
                             $scope.msgsContract.push({name: j, details: tmpContract[j]});
                         }
-                        console.log($scope.msgsContract);
+                        console.log($scope.private);
 
                     }
 
