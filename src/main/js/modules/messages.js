@@ -10,49 +10,40 @@
                     isUserConnected($http, $rootScope, $scope, $state, User);
                     $scope.app.configHeader({contextButton: 'addMessage', title: 'Messages'});
                     $scope.privateIsClicked = true;
+
+                    // function to know witch tabs currently clicked in messages
                     $scope.showMessage = function(){
                         $scope.privateIsClicked = true;
-                        console.log($scope.privateIsClicked);
                     }
                     $scope.showForm = function(){
-                       // $scope.forumIsClicked = true;
                         $scope.privateIsClicked = false;
-                        console.log($scope.privateIsClicked);
-                    }
-                    $scope.openMessage = function (evt, messageName,id) { // when clik on tabs private message
-                        // Declare all variables
-                        var i, tabcontent, tablinks;
-
-                        // Get all elements with class="tabcontent" and hide them
-                        tabcontent = document.getElementsByClassName("tabcontent");
-                        for (i = 0; i < tabcontent.length; i++) {
-                            tabcontent[i].style.display = "none";
-                        }
-
-                        document.getElementById(id).style.display = "none";
-                        $scope.lastIdHidden = id;
-                        // Show the current tab, and add an "active" class to the link that opened the tab
-                        document.getElementById(messageName.id).style.display = "block";
-                       // evt.currentTarget.className += " active";
                     }
 
-                    $scope.back = function(msgTab){
-                        var i, tabcontent, tablinks;
 
-                        // Get all elements with class="tabcontent" and hide them
-                       tabcontent = document.getElementsByClassName("tabcontent");
-                        for (i = 0; i < tabcontent.length; i++) {
-                            tabcontent[i].style.display = "none";
-                        }
-
-                       // console.log(messageName);
-                        document.getElementById(msgTab).style.display = "block";
-                       // document.getElementById(msgTab).style.display = "none";
-                        //evt.currentTarget.style.display = "none";
+                    /**
+                     * function to open a specific message
+                     * when click on message in tabs private message
+                     * @param messageName the id of message that we have to display
+                     * @param tabcontent the id of content that we have to hide
+                     */
+                    $scope.openMessage = function (messageName,tabcontent) {
+                        document.getElementById(tabcontent).style.display = "none";
+                        document.getElementById(messageName).style.display = "block";
+                    }
+                    /**
+                     * when we click to open message in tabs Forum/contract
+                     *
+                     * @param tabName the id of tab that we have to display
+                     * @param tabcontent the id of tab that we have to hide
+                     */
+                    $scope.back = function(tabName,tabcontent){
+                        document.getElementById(tabName).style.display = "block";
+                        document.getElementById(tabcontent).style.display = "none";
                     }
 
                     $scope.stream = null; //The stream of async results
 
+                    // get the current user with current id
                     $scope.user = User.get({
                         id: $scope.app.userid
                     });
@@ -123,8 +114,9 @@
                         $scope.msgsContract = [];
                        // console.log($scope.messages);
                         for (var i = 0; i < $scope.messages.length; i++) {
+                            console.log($scope.messages[i]);
                         	if($scope.messages[i].contractID != null){
-
+                               // console.log($scope.messages[i]);
 
                                 var detailsContract = {};
                                 detailsContract['date'] = $scope.messages[i].sendingDate;
@@ -135,7 +127,6 @@
                                 detailsContract['receiversNicks'] = $scope.messages[i].receiversNicks;
                                 detailsContract['contractTitle'] = $scope.messages[i].contractTitle;
                                 tmpContract[$scope.messages[i].contractID] = detailsContract;
-
 
                             }else{
                                 var detailsPrivate = {};
