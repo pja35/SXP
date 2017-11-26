@@ -23,8 +23,8 @@ public class Message {
 
 
 
-    @XmlElement(name = "chatGroup")
-    private Boolean chatGroup;
+    @XmlElement(name = "ContractTitle")
+    private String ContractTitle;
 
 
     @XmlElement(name = "contractID")
@@ -118,12 +118,12 @@ public class Message {
         return this.contractID;
     }
 
-    public Boolean getChatGroup() {
-        return this.chatGroup;
+    public String getContractTitle() {
+        return this.ContractTitle;
     }
 
-    public void setChatGroup(Boolean chatGroup) {
-        this.chatGroup = chatGroup;
+    public void setContractTitle(String ContractTitle) {
+        this.ContractTitle = ContractTitle;
     }
 
     public void setContractID(String contractID) {

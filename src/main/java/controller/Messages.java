@@ -111,7 +111,7 @@ public class Messages {
                             aMessage.setReceivers(message.getReceivers());
                             aMessage.setMessageContent(message.getMessageContent());
                             aMessage.setReceiver(user.getId(),user.getNick());
-                            aMessage.setChatGroup(message.getChatGroup());
+                            aMessage.setContractTitle(message.getContractTitle());
                             aMessage.setChatID(uuid);
                             aMessage.setReceiversNicks(message.getReceiversNicks());
                             aMessage.setContractID(message.getContractID());
