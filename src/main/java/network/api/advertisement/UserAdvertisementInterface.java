@@ -1,13 +1,13 @@
 package network.api.advertisement;
 
-public interface UserAdvertisementInterface extends Advertisement{
+public interface UserAdvertisementInterface extends Advertisement {
 
-	public String getNick();
+    public String getNick();
 
-	public void setNick(String nick);
+    public void setNick(String nick);
 
-	public String getPbkey();
+    public String getPbkey();
 
-	public void setPbkey(String pbkey);
-	
+    public void setPbkey(String pbkey);
+
 }

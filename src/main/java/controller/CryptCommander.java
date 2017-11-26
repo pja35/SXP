@@ -10,7 +10,7 @@ import rest.api.ServletPath;
 
 @ServletPath("/command/hash/*")  //url path. PREFIX WITH COMMAND/ !!!
 @Path("/")
-public class CryptCommander {   
+public class CryptCommander {
     @GET
     @Path("/{input}") //a way to name the pieces of the query
     public String hash(@PathParam("input") String input) { //this argument will be initialized with the piece of the query

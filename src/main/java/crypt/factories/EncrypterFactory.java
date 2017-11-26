@@ -7,48 +7,53 @@ import crypt.impl.encryption.SerpentEncrypter;
 
 /**
  * {@link Encrypter} factory
- * @author Julien Prudhomme
  *
+ * @author Julien Prudhomme
  */
 public class EncrypterFactory {
-	
-	/**
-	 * Create the default implementation of a symetric {@link Encrypter}
-	 * @return an {@link Encrypter}
-	 */
-	public static Encrypter<?> createDefaultSymetricEncrypter() {
-		return createSerpentEncrypter();
-	}
-	
-	/**
-	 * Create the default implementation of an asymetric {@link Encrypter}
-	 * @return an {@link Encrypter}
-	 */
-	public static Encrypter<?> createDefaultAsymetricEncrypter() {
-		return createElGamalEncrypter();
-	}
-	
-	/**
-	 * Create a Serpent implementation of {@link Encrypter}
-	 * @return a {@link SerpentEncrypter}
-	 */
-	public static SerpentEncrypter createSerpentEncrypter() {
-		return new SerpentEncrypter();
-	}
-	
-	/**
-	 * Create an ElGamal implementation of {@link Encrypter}
-	 * @return an {@link ElGamalEncrypter}
-	 */
-	public static ElGamalEncrypter createElGamalEncrypter() {
-		return new ElGamalEncrypter();
-	}
-	
-	/**
-	 * Create an ElGamalSerpent implementation of {@link Encrypter}
-	 * @return an {@link ElGamalSerpentEncrypter}
-	 */
-	public static ElGamalSerpentEncrypter createElGamalSerpentEncrypter() {
-		return new ElGamalSerpentEncrypter();
-	}
+
+    /**
+     * Create the default implementation of a symetric {@link Encrypter}
+     *
+     * @return an {@link Encrypter}
+     */
+    public static Encrypter<?> createDefaultSymetricEncrypter() {
+        return createSerpentEncrypter();
+    }
+
+    /**
+     * Create the default implementation of an asymetric {@link Encrypter}
+     *
+     * @return an {@link Encrypter}
+     */
+    public static Encrypter<?> createDefaultAsymetricEncrypter() {
+        return createElGamalEncrypter();
+    }
+
+    /**
+     * Create a Serpent implementation of {@link Encrypter}
+     *
+     * @return a {@link SerpentEncrypter}
+     */
+    public static SerpentEncrypter createSerpentEncrypter() {
+        return new SerpentEncrypter();
+    }
+
+    /**
+     * Create an ElGamal implementation of {@link Encrypter}
+     *
+     * @return an {@link ElGamalEncrypter}
+     */
+    public static ElGamalEncrypter createElGamalEncrypter() {
+        return new ElGamalEncrypter();
+    }
+
+    /**
+     * Create an ElGamalSerpent implementation of {@link Encrypter}
+     *
+     * @return an {@link ElGamalSerpentEncrypter}
+     */
+    public static ElGamalSerpentEncrypter createElGamalSerpentEncrypter() {
+        return new ElGamalSerpentEncrypter();
+    }
 }
