@@ -203,8 +203,8 @@
                 receivers: contract.parties,
                 receiversNicks: nicks,
                 messageContent: messageContent,
-                chatGroup: false,
-                contractID : contract.title
+                contractTitle: contract.title,
+                contractID : contract.id
             });
             Oboe({
                 url: RESTAPISERVER + "/api/messages/",

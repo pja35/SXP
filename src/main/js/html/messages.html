@@ -26,7 +26,7 @@
                         <div class="tab-pane fade in" id="messageContract" ng-show="!privateIsClicked">
                             <div class="list-group" ng-repeat="msgContract in msgsContract" ng-click="openMessage($event, msgContract.details,'messageContract')">
                                 <a  class="list-group-item">
-                                    <span class="name" style="min-width: 120px; display: inline-block;">{{msgContract.details.receiversNicks.toString()}}</span> <strong class="">{{msgContract.details.idC}}</strong>
+                                    <span class="name" style="min-width: 120px; display: inline-block;">{{msgContract.details.receiversNicks.toString()}}</span> <strong class="">{{msgContract.details.contractTitle}}</strong>
                                     <span class="text-muted" style="font-size: 11px;">{{msgContract.details.content}}</span> <span class="badge">{{msgContract.details.date}}</span>
                                 </a>
 
@@ -40,7 +40,8 @@
                                 <span class="glyphicon glyphicon-chevron-left"></span> Back
                             </button>
                            <div ng-repeat="message in messagesPrivate | orderBy: 'sendingDate'">
-                                <p ng-if="((message.senderName == user.nick && message.receiverName == msgPrivate.name) || (message.senderName == msgPrivate.name && message.receiverName == user.nick))">
+
+                                <p ng-if="(message.chatID ==  msgPrivate.details.chatID)">
                                     <b ng-if="message.senderName == user.nick">Me:</b>
                                     <b ng-if="message.senderName != user.nick">{{message.senderName}}:</b>
                                     {{message.messageContent}}<span class="pull-right"><em><small>{{message.sendingDate}}</small></em></span>
@@ -66,7 +67,7 @@
                             </button>
 
                             <div ng-repeat="message in messagesContract | orderBy: 'sendingDate'">
-                                <p ng-if="((message.senderName == user.nick && message.contractID == msgContract.details.idC) || (message.receiverName == user.nick  && message.contractID == msgContract.details.idC))  ">
+                                <p ng-if="(message.contractID == msgContract.details.idC)  ">
                                     <b ng-if="message.senderName == user.nick">Me:</b>
                                     <b ng-if="message.senderName != user.nick">{{message.senderName}}:</b>
                                     {{message.messageContent}}<span class="pull-right"><em><small>{{message.sendingDate}}</small></em></span>

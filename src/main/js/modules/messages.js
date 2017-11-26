@@ -70,14 +70,13 @@
                         if (messageContent) {
                             $scope.searchMessages = true;
                             //Message is available thanks to restApi.js
-                            console.log("CHATID");
-                            console.log(chatId);
                             var message = new Message({
                                 receivers: chatId.details.receivers,
                                 receiversNicks: chatId.details.receiversNicks,
                                 messageContent: messageContent,
-                                chatGroup: chatId.details.receivers.length > 1,
-                                contractID: chatId.details.idC
+                                contractTitle: chatId.details.contractTitle,
+                                contractID: chatId.details.idC,
+                                chatID: chatId.details.chatID
                             });
                            /* console.log("add message");
                             console.log(message);*/
@@ -134,6 +133,7 @@
                                 detailsContract['content'] = $scope.messages[i].messageContent;
                                 detailsContract['receivers']= $scope.messages[i].receivers;
                                 detailsContract['receiversNicks'] = $scope.messages[i].receiversNicks;
+                                detailsContract['contractTitle'] = $scope.messages[i].contractTitle;
                                 tmpContract[$scope.messages[i].contractID] = detailsContract;
 
 
@@ -142,6 +142,7 @@
                                 detailsPrivate['date'] = $scope.messages[i].sendingDate;
                                 detailsPrivate['content'] = $scope.messages[i].messageContent;
                                 detailsPrivate['id'] = $scope.messages[i].id;
+                                detailsPrivate['chatID'] = $scope.messages[i].chatID;
                                 detailsPrivate['receivers']= $scope.messages[i].receivers;
                                 detailsPrivate['receiversNicks'] = $scope.messages[i].receiversNicks;
                               //  console.log($scope.messages[i]);
@@ -253,12 +254,13 @@
                             ids.push($scope.app.userid);
                             nicks.push(currentUser.nick);
                             var isChatGroup = ids.length>2;
+                            console.log("SCOPE");
                             console.log($scope.messageContent);
                             var message = new Message({
                                 receivers: ids,
                                 receiversNicks: nicks,
-                                messageContent: $scope.messageContent,
-                                chatGroup: isChatGroup
+                                messageContent: $scope.messageContent
+
                             });
 
                             Oboe({
