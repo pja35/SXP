@@ -124,8 +124,6 @@
                         $scope.msgsContract = [];
                        // console.log($scope.messages);
                         for (var i = 0; i < $scope.messages.length; i++) {
-                            console.log($scope.messages[i]);
-                            console.log($scope.messages[i].contractID);
                         	if($scope.messages[i].contractID != null){
 
 
@@ -144,6 +142,8 @@
                                 detailsPrivate['date'] = $scope.messages[i].sendingDate;
                                 detailsPrivate['content'] = $scope.messages[i].messageContent;
                                 detailsPrivate['id'] = $scope.messages[i].id;
+                                detailsPrivate['receivers']= $scope.messages[i].receivers;
+                                detailsPrivate['receiversNicks'] = $scope.messages[i].receiversNicks;
                               //  console.log($scope.messages[i]);
                                 //if($scope.messages[i].sender)
                                 tmp[$scope.messages[i].receiverName] = detailsPrivate;
