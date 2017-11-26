@@ -66,8 +66,7 @@
                             </button>
 
                             <div ng-repeat="message in messagesContract | orderBy: 'sendingDate'">
-                               
-                                <p ng-if="((message.senderName == user.nick) || (message.receiverName == user.nick)) ">
+                                <p ng-if="((message.senderName == user.nick && message.contractID == msgContract.details.idC) || (message.receiverName == user.nick  && message.contractID == msgContract.details.idC))  ">
                                     <b ng-if="message.senderName == user.nick">Me:</b>
                                     <b ng-if="message.senderName != user.nick">{{message.senderName}}:</b>
                                     {{message.messageContent}}<span class="pull-right"><em><small>{{message.sendingDate}}</small></em></span>

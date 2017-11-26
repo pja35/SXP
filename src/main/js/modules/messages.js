@@ -125,13 +125,14 @@
                        // console.log($scope.messages);
                         for (var i = 0; i < $scope.messages.length; i++) {
                             console.log($scope.messages[i]);
+                            console.log($scope.messages[i].contractID);
                         	if($scope.messages[i].contractID != null){
-                               // console.log($scope.messages[i]);
+
 
                                 var detailsContract = {};
                                 detailsContract['date'] = $scope.messages[i].sendingDate;
                                 detailsContract['idC'] = $scope.messages[i].contractID;
-                                detailsContract['id'] = $scope.messages[i].id;
+                                detailsContract['id'] = $scope.messages[i].chatID;
                                 detailsContract['content'] = $scope.messages[i].messageContent;
                                 detailsContract['receivers']= $scope.messages[i].receivers;
                                 detailsContract['receiversNicks'] = $scope.messages[i].receiversNicks;
