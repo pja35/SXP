@@ -182,9 +182,15 @@
         var currentUser = User.get({
             id: $scope.app.userid
         });
-		  	
+
+        /***
+         *
+         * This is the creation of the forum related to to the contract. It lets users
+         * chat around it.
+         * @param contract The present contract
+         * @param messageContent the message the user pretends to send
+         */
         $scope.addForum = function (contract,messageContent){
-            var ids = [];
             var nicks = [];
 			var present = false;
             for (var i = 0; i<contract.partiesNames.length;i++){
@@ -198,9 +204,8 @@
                 receiversNicks: nicks,
                 messageContent: messageContent,
                 chatGroup: false,
-                contractID : contract.id
+                contractID : contract.title
             });
-            console.log(message);
             Oboe({
                 url: RESTAPISERVER + "/api/messages/",
                 method: 'POST',
@@ -231,6 +236,12 @@
         $scope.forum = function () {
             $scope.form = !$scope.form;
         }
+
+        /**
+         * This is the status of the contract. As we know there is 5 states of a signing process.
+         *
+         * @returns {*}
+         */
         $scope.checkClass = function () {
             switch (contract.status) {
                 case 'NOWHERE':

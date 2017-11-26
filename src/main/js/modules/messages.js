@@ -31,9 +31,8 @@
 
                         document.getElementById(id).style.display = "none";
                         $scope.lastIdHidden = id;
-						console.log(messageName);
                         // Show the current tab, and add an "active" class to the link that opened the tab
-                        document.getElementById(messageName).style.display = "block";
+                        document.getElementById(messageName.id).style.display = "block";
                        // evt.currentTarget.className += " active";
                     }
 
@@ -71,11 +70,14 @@
                         if (messageContent) {
                             $scope.searchMessages = true;
                             //Message is available thanks to restApi.js
+                            console.log("CHATID");
+                            console.log(chatId);
                             var message = new Message({
-                                receivers: chatId.receivers,
-                                receiversNicks: chatId.receiversNicks,
+                                receivers: chatId.details.receivers,
+                                receiversNicks: chatId.details.receiversNicks,
                                 messageContent: messageContent,
-                                chatGroup: chatId.receivers.length > 1
+                                chatGroup: chatId.details.receivers.length > 1,
+                                contractID: chatId.details.idC
                             });
                            /* console.log("add message");
                             console.log(message);*/
@@ -113,31 +115,39 @@
                     function refresh() { //Refresh request
                         var tmp = {};
                         var tmpContract = {};
-                        var detailsContract = {};
-                        var detailsPrivate = {};
+
+
+
 
                         $scope.chats = [];
                         $scope.private = [];
                         $scope.msgsContract = [];
                        // console.log($scope.messages);
                         for (var i = 0; i < $scope.messages.length; i++) {
-
-                        	if($scope.messages[i].contractID !== null){
+                            console.log($scope.messages[i]);
+                        	if($scope.messages[i].contractID != null){
                                // console.log($scope.messages[i]);
+
+                                var detailsContract = {};
                                 detailsContract['date'] = $scope.messages[i].sendingDate;
                                 detailsContract['idC'] = $scope.messages[i].contractID;
                                 detailsContract['id'] = $scope.messages[i].id;
                                 detailsContract['content'] = $scope.messages[i].messageContent;
-                                tmpContract[$scope.messages[i].receiversNicks] = detailsContract;
-                                detailsContract = {};
+                                detailsContract['receivers']= $scope.messages[i].receivers;
+                                detailsContract['receiversNicks'] = $scope.messages[i].receiversNicks;
+                                tmpContract[$scope.messages[i].contractID] = detailsContract;
+
+
                             }else{
+                                var detailsPrivate = {};
                                 detailsPrivate['date'] = $scope.messages[i].sendingDate;
                                 detailsPrivate['content'] = $scope.messages[i].messageContent;
                                 detailsPrivate['id'] = $scope.messages[i].id;
                               //  console.log($scope.messages[i]);
                                 //if($scope.messages[i].sender)
                                 tmp[$scope.messages[i].receiverName] = detailsPrivate;
-                                detailsPrivate = {};
+
+
                             }
                         }
                         for (var j in tmp) {
@@ -242,6 +252,7 @@
                             ids.push($scope.app.userid);
                             nicks.push(currentUser.nick);
                             var isChatGroup = ids.length>2;
+                            console.log($scope.messageContent);
                             var message = new Message({
                                 receivers: ids,
                                 receiversNicks: nicks,

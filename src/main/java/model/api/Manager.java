@@ -20,9 +20,13 @@ public interface Manager<Entity> {
     public void findOneById(String id, ManagerListener<Entity> l);
 
 
-
-
-    /**TODO**/
+    /**
+     * Because we have chats with several users
+     * This function lets us retrieve all the information at once without the need
+     * to call findOneById for each.
+     * @param id the concerning ID
+     * @param l
+     */
     public void findAllById(ArrayList<String> id, ManagerListener<Entity> l);
 
     /**
