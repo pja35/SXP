@@ -3,16 +3,45 @@
 <!-- Display the "active" conversation (prepare the others but don't show them) -->
 <div class="row">
     <div class="col-sm-12">
-        <div ng-cloak="" class="tabsdemoDynamicHeight" ng-app="MyApp">
-            <md-content>
-                <md-tabs md-dynamic-height="" md-border-bottom="">
-                    <md-tab label="private">
-                        <div class="tab">
-                            <button class="tablinks" ng-repeat="msgPrivate in private" ng-click="openMessage($event, msgPrivate.name )">{{msgPrivate.name}}</button>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 col-md-10">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-target="#privateMessages" data-toggle="tab" ng-click="showMessage()"><span class="glyphicon glyphicon-user"></span> Private messages</a></li>
+                        <li><a data-target="#messageContract" data-toggle="tab" ng-click="showForm()"><span class="glyphicon glyphicon-tags"></span> Form/Contract</a></li>
+                    </ul>
+
+                    <!-- show resume of private messages -->
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="privateMessages" ng-show="privateIsClicked">
+                            <div class="list-group" ng-repeat="msgPrivate in private" ng-click="openMessage(msgPrivate.details.id,'privateMessages')">
+                                <a  class="list-group-item">
+                                    <span class="name" style="min-width: 120px; display: inline-block;">{{msgPrivate.name}}</span> <span class=""></span>
+                                    <span class="text-muted" style="font-size: 11px; max-width: 200px; display: inline-block; overflow: hidden;">{{msgPrivate.details.content}}</span> <span class="badge">{{msgPrivate.details.date}}</span> </a>
+                            </div>
                         </div>
-                        <div ng-repeat="msgPrivate in private" id="{{msgPrivate.name}}" class="tabcontent">
-                            <div ng-repeat="message in messagesPrivate | orderBy: 'sendingDate'">
-                                <p ng-if="((message.senderName == user.nick && message.receiverName == msgPrivate.name) || (message.senderName == msgPrivate.name && message.receiverName == user.nick)) && (!message.chatGroup)">
+
+                        <!-- show resume of message on contract -->
+                        <div class="tab-pane fade in" id="messageContract" ng-show="!privateIsClicked">
+                            <div class="list-group" ng-repeat="msgContract in msgsContract" ng-click="openMessage(msgContract.details.id,'messageContract')">
+                                <a  class="list-group-item">
+                                    <span class="name" style="min-width: 120px; display: inline-block;">{{msgContract.details.receiversNicks.toString()}}</span> <strong class="">{{msgContract.details.contractTitle}}</strong>
+                                    <span class="text-muted" style="font-size: 11px;">{{msgContract.details.content}}</span> <span class="badge">{{msgContract.details.date}}</span>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Content of all private messages -->
+                        <div ng-repeat="msgPrivate in private" id="{{msgPrivate.details.id}}" class="tabcontent" ng-show="privateIsClicked">
+                            <button class="btn btn-link btn-lg linknodeco" ng-click="back('privateMessages',msgPrivate.details.id)">
+                                <span class="glyphicon glyphicon-chevron-left"></span> Back
+                            </button>
+                           <div ng-repeat="message in messagesPrivate | orderBy: 'sendingDate'">
+
+                                <p ng-if="(message.chatID ==  msgPrivate.details.chatID)">
                                     <b ng-if="message.senderName == user.nick">Me:</b>
                                     <b ng-if="message.senderName != user.nick">{{message.senderName}}:</b>
                                     {{message.messageContent}}<span class="pull-right"><em><small>{{message.sendingDate}}</small></em></span>
@@ -24,47 +53,21 @@
                                 </p>
                             </div>
                             <div class="input-group input-group-lg">
-                                <input type="text" class="form-control" ng-model="messageContent"
-                                       placeholder="type your message here">
+                                <input type="text" class="form-control" ng-model="messageContent" placeholder="type your message here">
                                 <span class="input-group-btn">
-			                        <button class="btn btn-default" type="button" ng-click="addMessage(msgPrivate.name,msgPrivate.id,messageContent)">Send</button>
-			                    </span>
+                                <button class="btn btn-default" type="button" ng-click="addMessage(msgPrivate.name,msgPrivate,messageContent)">Send</button>
+                            </span>
                             </div>
                         </div>
-                    </md-tab>
-                    <md-tab label="chat">
-                        <div class="tab">
-                            <button class="tablinks" ng-repeat="chat in chats" ng-click="openMessage($event, chat.name )">{{chat.name}}</button>
-                        </div>
-                        <div ng-repeat="chat in chats" id="{{chat.name}}" class="tabcontent">
-                            <div ng-repeat="message in messagesChats | orderBy: 'sendingDate'">
-                                <p ng-if="((message.senderName == user.nick && message.receiverName == chat.name) || (message.senderName == chat.name && message.receiverName == user.nick)) && (message.chatGroup)">
-                                    <b ng-if="message.senderName == user.nick">Me:</b>
-                                    <b ng-if="message.senderName != user.nick">{{message.senderName}}:</b>
-                                    {{message.messageContent}}<span class="pull-right"><em><small>{{message.sendingDate}}</small></em></span>
-                                </p>
-                                <p ng-if="(message.receiversNicks == chat.name)">
-                                    <b ng-if="message.senderName == user.nick">Me:</b>
-                                    <b ng-if="message.senderName != user.nick">{{message.senderName}}:</b>
-                                    {{message.messageContent}}<span class="pull-right"><em><small>{{message.sendingDate}}</small></em></span>
-                                </p>
-                            </div>
-                            <div class="input-group input-group-lg">
-                                <input type="text" class="form-control" ng-model="messageContent"
-                                       placeholder="type your message here">
-                                <span class="input-group-btn">
-			                    <button class="btn btn-default" type="button" ng-click="addMessage(chat.name,chat.id,messageContent)">Send</button>
-			                </span>
-                            </div>
-                        </div>
-                    </md-tab>
-                    <md-tab label="contract">
-                        <div class="tab">
-                            <button class="tablinks" ng-repeat="msgContract in msgsContract" ng-click="openMessage($event, msgContract.name )">{{msgContract.name}}</button>
-                        </div>
-                        <div ng-repeat="msgContract in msgsContract" id="{{msgContract.name}}" class="tabcontent">
+
+                        <!-- Content of all  contract messages -->
+                        <div ng-repeat="msgContract in msgsContract" id="{{msgContract.details.id}}" class="tabcontent" ng-show="!privateIsClicked">
+                            <button class="btn btn-link btn-lg linknodeco" ng-click="back('messageContract',msgContract.details.id)">
+                                <span class="glyphicon glyphicon-chevron-left"></span> Back
+                            </button>
+
                             <div ng-repeat="message in messagesContract | orderBy: 'sendingDate'">
-                                <p ng-if="((message.senderName == user.nick && message.receiverName == msgContract.name) || (message.senderName == msgContract.name && message.receiverName == user.nick)) ">
+                                <p ng-if="(message.contractID == msgContract.details.idC)  ">
                                     <b ng-if="message.senderName == user.nick">Me:</b>
                                     <b ng-if="message.senderName != user.nick">{{message.senderName}}:</b>
                                     {{message.messageContent}}<span class="pull-right"><em><small>{{message.sendingDate}}</small></em></span>
@@ -79,17 +82,13 @@
                                 <input type="text" class="form-control" ng-model="messageContent"
                                        placeholder="type your message here">
                                 <span class="input-group-btn">
-			                    <button class="btn btn-default" type="button"
-                                        ng-click="addMessage(msgContract.name,msgContract.id,messageContent)">Send</button>
+			                    <button class="btn btn-default" type="button" ng-click="addMessage(msgContract.name,msgContract,messageContent)">Send</button>
                                 </span>
                             </div>
                         </div>
-                    </md-tab>
-                </md-tabs>
-            </md-content>
 
-        </div>
-    </div>
+                    </div>
+                </div>
 </div>
 <div class="row">
     <div class="alert" role="alert" ng-show="searchMessages">

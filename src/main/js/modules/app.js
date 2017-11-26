@@ -134,6 +134,15 @@
 
 })();
 
+/**
+ * This function was udpated to save users session on sessionStorage. This way user can refresh the page without
+ * losing is session and being forced to loging again
+ * @param $http
+ * @param $rootScope
+ * @param $scope
+ * @param $state
+ * @param User
+ */
 function isUserConnected($http, $rootScope, $scope, $state, User) {
     if (sessionStorage.getItem("curUser") != null) {
         $http.defaults.headers.common['Auth-Token'] = sessionStorage.getItem("token");

@@ -27,7 +27,9 @@ public abstract class ManagerDecorator<Entity> implements Manager<Entity> {
 
 
 
-    /**TODO**/
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void findAllById(ArrayList<String> id , ManagerListener<Entity> l){
         em.findAllById(id,l);

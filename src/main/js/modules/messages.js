@@ -9,28 +9,41 @@
                 controller: function ($rootScope, $scope, $state, $stateParams, Message, User, $http, Oboe) {
                     isUserConnected($http, $rootScope, $scope, $state, User);
                     $scope.app.configHeader({contextButton: 'addMessage', title: 'Messages'});
-                    $scope.openMessage = function (evt, cityName) {
-                        // Declare all variables
-                        var i, tabcontent, tablinks;
+                    $scope.privateIsClicked = true;
 
-                        // Get all elements with class="tabcontent" and hide them
-                        tabcontent = document.getElementsByClassName("tabcontent");
-                        for (i = 0; i < tabcontent.length; i++) {
-                            tabcontent[i].style.display = "none";
-                        }
-
-                        // Get all elements with class="tablinks" and remove the class "active"
-                        tablinks = document.getElementsByClassName("tablinks");
-                        for (i = 0; i < tablinks.length; i++) {
-                            tablinks[i].className = tablinks[i].className.replace(" active", "");
-                        }
-						console.log(cityName);
-                        // Show the current tab, and add an "active" class to the link that opened the tab
-                        document.getElementById(cityName).style.display = "block";
-                        evt.currentTarget.className += " active";
+                    // function to know witch tabs currently clicked in messages
+                    $scope.showMessage = function(){
+                        $scope.privateIsClicked = true;
                     }
+                    $scope.showForm = function(){
+                        $scope.privateIsClicked = false;
+                    }
+
+
+                    /**
+                     * function to open a specific message
+                     * when click on message in tabs private message
+                     * @param messageName the id of message that we have to display
+                     * @param tabcontent the id of content that we have to hide
+                     */
+                    $scope.openMessage = function (messageName,tabcontent) {
+                        document.getElementById(tabcontent).style.display = "none";
+                        document.getElementById(messageName).style.display = "block";
+                    }
+                    /**
+                     * when we click to open message in tabs Forum/contract
+                     *
+                     * @param tabName the id of tab that we have to display
+                     * @param tabcontent the id of tab that we have to hide
+                     */
+                    $scope.back = function(tabName,tabcontent){
+                        document.getElementById(tabName).style.display = "block";
+                        document.getElementById(tabcontent).style.display = "none";
+                    }
+
                     $scope.stream = null; //The stream of async results
 
+                    // get the current user with current id
                     $scope.user = User.get({
                         id: $scope.app.userid
                     });
@@ -49,13 +62,15 @@
                             $scope.searchMessages = true;
                             //Message is available thanks to restApi.js
                             var message = new Message({
-                                receivers: chatId.receivers,
-                                receiversNicks: chatId.receiversNicks,
+                                receivers: chatId.details.receivers,
+                                receiversNicks: chatId.details.receiversNicks,
                                 messageContent: messageContent,
-                                chatGroup: chatId.receivers.length > 1
+                                contractTitle: chatId.details.contractTitle,
+                                contractID: chatId.details.idC,
+                                chatID: chatId.details.chatID
                             });
-                            console.log("add message");
-                            console.log(message);
+                           /* console.log("add message");
+                            console.log(message);*/
                             Oboe({
                                 url: RESTAPISERVER + "/api/messages/",
                                 method: 'POST',
@@ -89,34 +104,54 @@
 
                     function refresh() { //Refresh request
                         var tmp = {};
-                        var tmpChat = {};
                         var tmpContract = {};
+
+
+
+
                         $scope.chats = [];
                         $scope.private = [];
                         $scope.msgsContract = [];
                        // console.log($scope.messages);
                         for (var i = 0; i < $scope.messages.length; i++) {
+                            console.log($scope.messages[i]);
+                        	if($scope.messages[i].contractID != null){
+                               // console.log($scope.messages[i]);
 
-                        	if($scope.messages[i].contractID !== null){
+                                var detailsContract = {};
+                                detailsContract['date'] = $scope.messages[i].sendingDate;
+                                detailsContract['idC'] = $scope.messages[i].contractID;
+                                detailsContract['id'] = $scope.messages[i].chatID;
+                                detailsContract['content'] = $scope.messages[i].messageContent;
+                                detailsContract['receivers']= $scope.messages[i].receivers;
+                                detailsContract['receiversNicks'] = $scope.messages[i].receiversNicks;
+                                detailsContract['contractTitle'] = $scope.messages[i].contractTitle;
+                                tmpContract[$scope.messages[i].contractID] = detailsContract;
 
-                                tmpContract[$scope.messages[i].receiversNicks] =$scope.messages[i];
-                            }else if($scope.messages[i].chatGroup){
-                                console.log($scope.messages[i]);
-                                tmpChat[$scope.messages[i].receiversNicks] =$scope.messages[i];
+
                             }else{
-                                tmp[$scope.messages[i].receiverName] = $scope.messages[i].receiverId;
+                                var detailsPrivate = {};
+                                detailsPrivate['date'] = $scope.messages[i].sendingDate;
+                                detailsPrivate['content'] = $scope.messages[i].messageContent;
+                                detailsPrivate['id'] = $scope.messages[i].id;
+                                detailsPrivate['chatID'] = $scope.messages[i].chatID;
+                                detailsPrivate['receivers']= $scope.messages[i].receivers;
+                                detailsPrivate['receiversNicks'] = $scope.messages[i].receiversNicks;
+                              //  console.log($scope.messages[i]);
+                                //if($scope.messages[i].sender)
+                                tmp[$scope.messages[i].receiverName] = detailsPrivate;
+
+
+
                             }
                         }
                         for (var j in tmp) {
-                            $scope.private.push({name: j, id: tmp[j]});
-                        }
-                        for (var j in tmpChat) {
-                            $scope.chats.push({name: j, id: tmpChat[j]});
+                            $scope.private.push({name: j, details: tmp[j]});
                         }
                         for (var j in tmpContract) {
-                            $scope.msgsContract.push({name: j, id: tmpContract[j]});
+                            $scope.msgsContract.push({name: j, details: tmpContract[j]});
                         }
-                        console.log($scope.msgsContract);
+                        console.log($scope.private);
 
                     }
 
@@ -155,18 +190,17 @@
 
                                     if(node[i].contractID !== null){
                                     	$scope.messagesContract.push(node[i]);
-                                    }else if(node[i].chatGroup){
-                                        $scope.messagesChats.push(node[i]);
                                     }else{
                                         $scope.messagesPrivate.push(node[i]);
                                     }
                                     $scope.messages.push(node[i]);
                                 }
-
                             }
                             refresh();
                         });
                     }
+
+
                 }
             })
             .state('addMessage', {
@@ -215,11 +249,13 @@
                             ids.push($scope.app.userid);
                             nicks.push(currentUser.nick);
                             var isChatGroup = ids.length>2;
+                            console.log("SCOPE");
+                            console.log($scope.messageContent);
                             var message = new Message({
                                 receivers: ids,
                                 receiversNicks: nicks,
-                                messageContent: $scope.messageContent,
-                                chatGroup: isChatGroup
+                                messageContent: $scope.messageContent
+
                             });
 
                             Oboe({

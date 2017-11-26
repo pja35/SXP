@@ -87,6 +87,11 @@ public class Messages {
                 }
 
 
+                /**
+                 * Because we have to actually send a message to each member of a chat/forum we copy the message
+                 * And to keep track of each forum a new ID was put in place. the Chat ID.
+                 * This distinction could be use in the future to implement a read receipt like in fb/whatsapp
+                 */
                 if (usernames != null) {
                     Date sendDate = new Date();
                     String uuid ;
@@ -95,6 +100,7 @@ public class Messages {
                     }else{
                         uuid = message.getChatID();
                     }
+
 
                     for(User user : usernames){
                         if(!Objects.equals(user.getId(), sender.getId())){
@@ -105,7 +111,7 @@ public class Messages {
                             aMessage.setReceivers(message.getReceivers());
                             aMessage.setMessageContent(message.getMessageContent());
                             aMessage.setReceiver(user.getId(),user.getNick());
-                            aMessage.setChatGroup(message.getChatGroup());
+                            aMessage.setContractTitle(message.getContractTitle());
                             aMessage.setChatID(uuid);
                             aMessage.setReceiversNicks(message.getReceiversNicks());
                             aMessage.setContractID(message.getContractID());
