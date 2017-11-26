@@ -408,7 +408,7 @@
 			};
 			$scope.partiesList = []; // object array
 			$scope.parties = []; // string array
-    	    $scope.exchanges = []; // object array
+    	$scope.exchanges = []; // object array
 			$scope.exchangesStr = []; // string array
 			$scope.usersList = []; // object array
 			$scope.users = []; // string array
@@ -491,11 +491,11 @@
 	       		if ($scope.form.addImpModality != null && $scope.form.addImpModality.length>2){updateImpModalities($scope);}
 
 	    		var contract = new Contract({
-		    		    title : $scope.form.title,
+		    		title : $scope.form.title,
 						parties : partiesId,
 						exchange : $scope.exchangesStr,
 						termination : $scope.termModalities,
-	    			    implementing : $scope.impModalities
+	    			implementing : $scope.impModalities
 					});
 
 	      	// Create the contract in the database thanks to restApi.js
@@ -614,14 +614,13 @@ function deleteParty($scope, p){
 /****** Functions to handle the adding of a clause : party, exchange, implementing modality, termination modality ******/
 function updateParties($scope){
 	var addParty = $scope.form.addParty.split(" - ");
-    var newParty = {value : addParty[0], key : addParty[1]};
-    //var index = $scope.parties.findIndex(party >= party.key === newParty.key);
-//	if (newParty.key != undefined && index == -1){
-        $scope.partiesList.push(newParty);
+  var newParty = {value : addParty[0], key : addParty[1]};
+  var index = $scope.partiesList.findIndex(party => party.key === newParty.key);
+	if (newParty.key != undefined && index == -1){
+    $scope.partiesList.push(newParty);
 		$scope.parties.push(newParty.value + ' - ' + newParty.key);
-		console.log("Parties"+$scope.parties);
 		$scope.form.addParty = "";
-///	}
+	}
 }
 
 function updateTermModalities($scope){
@@ -723,7 +722,8 @@ function buildExchangesStr($scope){
 		);
 	});
 }
-/************************Fontion to use to Generate Pdf Contrat*****************************************************/
+
+/****** Function to generate PDF contrat ******/
 function buildTableBody(data, columns) {
     var body = [];
 
@@ -751,6 +751,7 @@ function table(data, columns) {
     };
 }
 /*****************************************************************************/
+
 /****** Function to check whether the user fill out all the mandatory information about the contract ******/
 function checkClauses($scope){
 

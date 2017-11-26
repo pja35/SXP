@@ -128,6 +128,7 @@
                                 detailsContract['contractTitle'] = $scope.messages[i].contractTitle;
                                 tmpContract[$scope.messages[i].contractID] = detailsContract;
 
+
                             }else{
                                 var detailsPrivate = {};
                                 detailsPrivate['date'] = $scope.messages[i].sendingDate;
@@ -139,6 +140,7 @@
                               //  console.log($scope.messages[i]);
                                 //if($scope.messages[i].sender)
                                 tmp[$scope.messages[i].receiverName] = detailsPrivate;
+
 
 
                             }
@@ -238,6 +240,8 @@
                                 angular.forEach(value, function(value2,key2){
                                     if(key2==="id"){
                                         ids.push(value2);
+                                    }
+                                    if(key2==="nick"){
                                         nicks.push(value2);
                                     }
                                 });
