@@ -137,8 +137,7 @@
 
                 $scope.submit = function () {
                     if (!checkNick($scope.form.login, obj)) {
-                        console.log(checkNick($scope.form.login, curUsers));
-                        console.log($scope.form.login);
+
                         $scope.error = false;
                         $scope.errorServer = false;
                         RESTAPISERVER = $scope.form.server;

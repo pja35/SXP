@@ -140,12 +140,12 @@
 	  	};
 
 	  	$scope.sign = function(){
-		  	$http.put(RESTAPISERVER + '/api/contracts/sign/:id', contract.id);
+            $http.put(RESTAPISERVER + '/api/contracts/sign/'+contract.id,{});
 		  	$state.go('viewContracts');
 	  	};
 
 		  $scope.decline = function(){
-			  $http.put(RESTAPISERVER + '/api/contracts/cancel/:id', contract.id);
+              $http.put(RESTAPISERVER + '/api/contracts/sign/'+contract.id,{});
 			  $state.go('viewContracts');
 		  };
 
