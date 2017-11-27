@@ -117,7 +117,7 @@
 
         /**
          * Given that /api/users/ is open for everyone we can implement a username check here
-         * to avoid users with the same username 
+         * to avoid users with the same username
          */
         $http.get(RESTAPISERVER + '/api/users/').then(
             function (response) {

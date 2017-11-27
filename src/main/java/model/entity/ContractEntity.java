@@ -26,7 +26,7 @@ import model.api.Wish;
 
 @XmlRootElement
 @Entity
-public class ContractwEntity {
+public class ContractEntity {
 	@XmlElement(name="id")
 	@UuidGenerator(name="uuid")
     @Id
