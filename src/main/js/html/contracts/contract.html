@@ -42,16 +42,40 @@
 			<button class="btn btn-danger" type="button">Try cancel (might not work)</button>
             <button class="btn btn-primary" ng-click="getPdf()" type="button">Dowload</button>
             <button class="btn btn-default" ng-click="forum()" type="button">Forum</button>
+            <div ng-show="form">
+                <div class="well input-group" >
+                    <input type="text" class="form-control" ng-model="messageContent" placeholder="type your message here">
+                    <span class="input-group-btn">
+				<button class="btn btn-default" type="button" ng-click="addForum(contract,messageContent)">Send</button>
+			</span>
+                </div>
+            </div>
 		</div>
 		<div class="panel-footer" ng-show="contract.status=='CANCELLED'">
 			<p>CONTRACT CANCELLED</p>
             <button class="btn btn-primary" ng-click="getPdf()" type="button">Dowload</button>
             <button class="btn btn-default" ng-click="forum()" type="button">Forum</button>
+            <div ng-show="form">
+                <div class="well input-group" >
+                    <input type="text" class="form-control" ng-model="messageContent" placeholder="type your message here">
+                    <span class="input-group-btn">
+				<button class="btn btn-default" type="button" ng-click="addForum(contract,messageContent)">Send</button>
+			</span>
+                </div>
+            </div>
 		</div>
 		<div class="panel-footer" ng-show="contract.status=='FINALIZED'">
 			<p>CONTRACT SIGNED !</p>
             <button class="btn btn-primary" ng-click="getPdf()" type="button">Dowload</button>
             <button class="btn btn-default" ng-click="forum()" type="button">Forum</button>
+            <div ng-show="form">
+                <div class="well input-group" >
+                    <input type="text" class="form-control" ng-model="messageContent" placeholder="type your message here">
+                    <span class="input-group-btn">
+				<button class="btn btn-default" type="button" ng-click="addForum(contract,messageContent)">Send</button>
+			</span>
+                </div>
+            </div>
 		</div>
         <div class="panel-footer" ng-show="contract.status=='MODIFIED'">
             <button class="btn btn-info" ng-click="sign()" type="button">Accept</button>
@@ -59,5 +83,13 @@
             <button class="btn btn-danger" ng-click="decline()" type="button">Decline</button>
             <button class="btn btn-primary" ng-click="getPdf()" type="button">Dowload</button>
             <button class="btn btn-default" ng-click="forum()" type="button">Forum</button>
+            <div ng-show="form">
+                <div class="well input-group" >
+                    <input type="text" class="form-control" ng-model="messageContent" placeholder="type your message here">
+                    <span class="input-group-btn">
+				<button class="btn btn-default" type="button" ng-click="addForum(contract,messageContent)">Send</button>
+			</span>
+                </div>
+            </div>
         </div>
 	</div></div>
