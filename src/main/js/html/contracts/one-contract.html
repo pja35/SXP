@@ -3,11 +3,9 @@
 	  	<div class="panel-heading ">
 	    	<h3 class="panel-title "> {{contract.title}}</h3>
 	  	</div>
-	  	{{getclauses(contract)}}
-		{{"les status est :" + contract.status + " le chek est : " + checkClass(contact.status)}}
 	  	<div class="panel-body">
-	  		<label for="cl">Clauses :</label>
-			<p id="cl" ng-repeat="clause in contract.clauses">&nbsp;&nbsp;&nbsp;&nbsp;{{clause}}</p>
+	  		<label for="cl">Parties :</label>
+            <ul><span id="cl" ng-repeat="party in contract.partiesNames"><li style="display: inline-block">{{party.value}}: {{party.key}}</li></span></ul>
 	  	</div>
 	</div>
 </a>

@@ -121,7 +121,7 @@ public class TrentSolver {
         Or[] orT = json3.toEntity(m);
         ArrayList<SigmaSignature> signatures = new ArrayList<SigmaSignature>();
 
-        byte[] data = (new String(contract.getClauses().getHashableData()) + String.valueOf(round)).getBytes();
+        byte[] data = (new String(contract.getTermination().getHashableData()) + String.valueOf(round)).getBytes();
         ResponsesCCD response;
         ResEncrypt res;
 

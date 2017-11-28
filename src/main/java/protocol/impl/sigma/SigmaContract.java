@@ -36,7 +36,15 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
     // Maps the keys with the signatures
     protected HashMap<ElGamalKey, SigmaSignature> signatures = new HashMap<ElGamalKey, SigmaSignature>();
     // Clauses in the format we need them
+    protected Signable<SigmaSignature> termination = null;
+
     protected Signable<SigmaSignature> clauses = null;
+
+    protected Signable<SigmaSignature> implementing = null;
+
+    protected Signable<SigmaSignature> exchange = null;
+
+
     // Signer object
     protected SigmaSigner signer;
 
@@ -52,36 +60,60 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
     }
 
     // Constructor from clauses (problem when resolve, because no partiesId set)
-    public SigmaContract(Signable<SigmaSignature> clauses) {
-        super();
-        this.signer = new SigmaSigner();
-        this.contract = new ContractEntity();
-        this.setClauses(clauses);
-        this.contract.setParties(new ArrayList<String>());
-        this.contract.setSignatures(new HashMap<String, String>());
-        this.contract.setEstablisherType(EstablisherType.Sigma);
-    }
+//    public SigmaContract(Signable<SigmaSignature> clauses) {
+//        super();
+//        this.signer = new SigmaSigner();
+//        this.contract = new ContractEntity();
+//        this.setClauses(clauses);
+//        this.contract.setParties(new ArrayList<String>());
+//        this.contract.setSignatures(new HashMap<String, String>());
+//        this.contract.setEstablisherType(EstablisherType.Sigma);
+//    }
 
     // Constructor from a ContractEntity (what will be most used)
     public SigmaContract(ContractEntity c) {
         super();
         this.contract = c;
         this.signer = new SigmaSigner();
-        this.setClauses(contract.getClauses());
+        this.setTermination(contract.getTermination());
+        this.setImplementing(contract.getImplementing());
+        this.setExchange(contract.getExchange());
         this.setParties(contract.getParties());
         this.contract.setEstablisherType(EstablisherType.Sigma);
     }
 
     /************* GETTERS ***********/
-    public Signable<SigmaSignature> getClauses() {
-        return clauses;
+    public Signable<SigmaSignature> getTermination() {
+        return termination;
     }
 
-    public void setClauses(Signable<SigmaSignature> c) {
-        this.clauses = c;
+    public void setTermination(Signable<SigmaSignature> c) {
+        this.termination = c;
         ArrayList<String> a = new ArrayList<String>();
         a.add(new String(c.getHashableData()));
-        this.contract.setClauses(a);
+        this.contract.setTermination(a);
+    }
+
+    public Signable<SigmaSignature> getImplementing() {
+        return implementing;
+    }
+
+    public void setImplementing(Signable<SigmaSignature> c) {
+        this.implementing = c;
+        ArrayList<String> a = new ArrayList<String>();
+        a.add(new String(c.getHashableData()));
+        this.contract.setImplementing(a);
+    }
+
+    public Signable<SigmaSignature> getExchange() {
+        return exchange;
+    }
+
+    public void setExchange(Signable<SigmaSignature> c) {
+        this.exchange = c;
+        ArrayList<String> a = new ArrayList<String>();
+        a.add(new String(c.getHashableData()));
+        this.contract.setExchange(a);
     }
 
     public ArrayList<ElGamalKey> getParties() {
@@ -128,6 +160,19 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
     public void setClauses(ArrayList<String> c) {
         this.clauses = new SigmaClauses(c);
         this.contract.setClauses(c);
+    }
+
+    public void setTermination(ArrayList<String> c) {
+        this.termination = new SigmaClauses(c);
+        this.contract.setTermination(c);
+    }
+    public void setImplementing(ArrayList<String> c) {
+        this.implementing = new SigmaClauses(c);
+        this.contract.setImplementing(c);
+    }
+    public void setExchange(ArrayList<String> c) {
+        this.exchange = new SigmaClauses(c);
+        this.contract.setExchange(c);
     }
 
     /**
@@ -228,13 +273,17 @@ public class SigmaContract extends EstablisherContract<BigInteger, ElGamalKey, S
 
         StringBuffer buffer = new StringBuffer();
         buffer.append(sum.toString());
-        byte[] signable = this.clauses.getHashableData();
+        byte[] implementing = this.implementing.getHashableData();
+        byte[] exchange = this.exchange.getHashableData();
+        byte[] termination = this.termination.getHashableData();
 
-        int signableL = signable.length;
+
         int bufferL = buffer.toString().getBytes().length;
-        byte[] concate = new byte[signableL + bufferL];
+        byte[] concate = new byte[implementing.length+exchange.length+termination.length + bufferL];
         System.arraycopy(new String(buffer).getBytes(), 0, concate, 0, bufferL);
-        System.arraycopy(signable, 0, concate, bufferL, signableL);
+        System.arraycopy(implementing, 0, concate, bufferL, implementing.length);
+        System.arraycopy(exchange, 0, concate, implementing.length+bufferL, exchange.length);
+        System.arraycopy(termination, 0, concate, implementing.length+exchange.length+bufferL, termination.length);
 
         return concate;
     }
