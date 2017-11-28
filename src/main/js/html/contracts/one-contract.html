@@ -5,7 +5,9 @@
 	  	</div>
 	  	<div class="panel-body">
 	  		<label for="cl">Parties :</label>
-            <ul><span id="cl" ng-repeat="party in contract.partiesNames"><li style="display: inline-block">{{party.value}}: {{party.key}}</li></span></ul>
+            <ul><span id="cl" ng-repeat="party in contract.partiesNames"><li>{{party.value}}: {{party.key}}</li></span></ul>
+            <label for="c2">Parties Wishes :</label>
+            <ul><span id="c2" ng-repeat="wish in contract.partiesWish"><li>{{wish.key}}: {{wish.value}}</li></span></ul>
 	  	</div>
 	</div>
 </a>
