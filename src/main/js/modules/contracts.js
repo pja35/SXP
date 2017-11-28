@@ -93,7 +93,7 @@
                 exchange=ex[i];
                 console.log("Ex="+exchange);
                 $scope.myarrays=[];
-                $scope.myarrays=exchange.split('*');
+                $scope.myarrays=exchange.split('#');
                 $scope.Exchange.push({
                     'from':$scope.myarrays[0],
                     'to':$scope.myarrays[1],
