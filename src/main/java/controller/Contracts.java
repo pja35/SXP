@@ -136,7 +136,6 @@ public class Contracts {
 
 		ArrayList<String> parties = c.getParties();
 		HashMap<String,String> partiesNames = new HashMap<String, String>();
-
 		if (parties != null){
 			JsonTools<User> json3 = new JsonTools<>(new TypeReference<User>(){});
 			Users us = new Users();
@@ -158,6 +157,7 @@ public class Contracts {
 					c.setImplementing(contract.getImplementing());
 
 					c.setExchange(contract.getExchange());
+					contract.setStatus(Status.MODIFIED);
 					contract.setParties(parties);
 					contract.setTitle(c.getTitle());
 					contract.setPartiesNames(partiesNames);
@@ -168,7 +168,7 @@ public class Contracts {
 		}
 		em.end();
 		em.close();
-        updateContract(token,cRes.getId(),Wish.NEUTRAL,Status.MODIFIED);
+        updateContract(token,cRes.getId(),Wish.NEUTRAL);
 		JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
 
 		return json.toJson(cRes);
@@ -230,7 +230,7 @@ public class Contracts {
 		
 		em.end();
 		em.close();
-        updateContract(token,id,Wish.ACCEPT,Status.SIGNING);
+        updateContract(token,id,Wish.ACCEPT);
 		return ret;
 	}
 	
@@ -254,10 +254,10 @@ public class Contracts {
 
 		em.end();
 		em.close();
-        updateContract(token,id,Wish.REFUSE,Status.CANCELLED);
+        updateContract(token,id,Wish.REFUSE);
 		return ret;
 	}
-    private void updateContract(String token,String id,Wish aWish,Status aStatus){
+    private void updateContract(String token,String id,Wish aWish){
         Authentifier auth = Application.getInstance().getAuth();
         UserSyncManager users = new UserSyncManagerImpl();
         User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
@@ -284,7 +284,6 @@ public class Contracts {
                     c.setTermination(contract.getTermination());
                     c.setImplementing(contract.getImplementing());
                     c.setExchange(contract.getExchange());
-                    c.setStatus(aStatus);
                     contract.setParties(parties);
                     contract.setTitle(c.getTitle());
                     contract.setPartiesNames(partiesNames);
