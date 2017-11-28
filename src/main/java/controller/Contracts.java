@@ -49,6 +49,7 @@ public class Contracts {
 		Manager<ContractEntity> em = ManagerFactory.createNetworkResilianceContractManager(Application.getInstance().getPeer(), token);
 		Authentifier auth = Application.getInstance().getAuth();
 		UserSyncManager users = SyncManagerFactory.createUserSyncManager();
+        HashMap<String, Wish> wishes = new HashMap<>();
 		User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
 		users.close();
 
@@ -66,7 +67,9 @@ public class Contracts {
 		for (String id : parties){
 			User u = json3.toEntity(us.get(id));
 			partiesNames.put(id, u.getNick());
+			wishes.put(u.getNick(),Wish.NEUTRAL);
 		}
+
 		
 		//TODO VALIDATION / VERIFICATION
 		for (int k=0; k<parties.size(); k++){
@@ -82,6 +85,7 @@ public class Contracts {
 			c.setWish(Wish.NEUTRAL);
 			c.setStatus(Status.NOWHERE);
 			c.setSignatures(null);
+			c.setpartiesWish(wishes);
 			em.persist(c);
 			if (parties.get(k).equals(currentUser.getId()))
 				contract = c;
@@ -152,6 +156,7 @@ public class Contracts {
 				if (contract.getWish().equals(Wish.NEUTRAL)){
 					c.setTermination(contract.getTermination());
 					c.setImplementing(contract.getImplementing());
+
 					c.setExchange(contract.getExchange());
 					contract.setParties(parties);
 					contract.setTitle(c.getTitle());
@@ -163,7 +168,7 @@ public class Contracts {
 		}
 		em.end();
 		em.close();
-        updateContract(token,cRes.getId(),Wish.NEUTRAL);
+        updateContract(token,cRes.getId(),Wish.NEUTRAL,Status.MODIFIED);
 		JsonTools<ContractEntity> json = new JsonTools<>(new TypeReference<ContractEntity>(){});
 
 		return json.toJson(cRes);
@@ -225,7 +230,7 @@ public class Contracts {
 		
 		em.end();
 		em.close();
-        updateContract(token,id,Wish.ACCEPT);
+        updateContract(token,id,Wish.ACCEPT,Status.SIGNING);
 		return ret;
 	}
 	
@@ -250,10 +255,10 @@ public class Contracts {
 		
 		em.end();
 		em.close();
-        updateContract(token,id,Wish.REFUSE);
+        updateContract(token,id,Wish.REFUSE,Status.CANCELLED);
 		return ret;
 	}
-    private void updateContract(String token,String id,Wish aWish){
+    private void updateContract(String token,String id,Wish aWish,Status aStatus){
         Authentifier auth = Application.getInstance().getAuth();
         UserSyncManager users = new UserSyncManagerImpl();
         User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
@@ -277,15 +282,15 @@ public class Contracts {
         Collection<ContractEntity> contracts = em.findAllByAttribute("title", c.getTitle());
         for (ContractEntity contract : contracts) {
             if (contract.getParties().contains(c.getUserid())) {
-                if (contract.getWish().equals(Wish.NEUTRAL)) {
                     c.setTermination(contract.getTermination());
                     c.setImplementing(contract.getImplementing());
                     c.setExchange(contract.getExchange());
+                    c.setStatus(aStatus);
                     contract.setParties(parties);
                     contract.setTitle(c.getTitle());
                     contract.setPartiesNames(partiesNames);
                     contract.setpartiesWish(wishes);
-                }
+
             }
         }
 
