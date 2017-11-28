@@ -239,20 +239,19 @@ public class Contracts {
 	public String cancel(@PathParam("id")String id,@HeaderParam(Authentifier.PARAM_NAME) String token){
 		UserSyncManager users = new UserSyncManagerImpl();
 		users.close();
-		
+
 		String ret = "false";
 		SyncManager<ContractEntity> em = new ContractSyncManagerImpl();
 		em.begin();
 		ContractEntity c = em.findOneById(id);
 		if (c.getStatus() == Status.NOWHERE){
-			c.setWish(Wish.REFUSE);
-			c.setStatus(Status.CANCELLED);
+			c.setWish(Wish.REFUSE);c.setStatus(Status.CANCELLED);
 			ret="true";
 		}else if (c.getStatus() == Status.SIGNING){
 			c.setWish(Wish.REFUSE);
 			ret="true";
 		}
-		
+
 		em.end();
 		em.close();
         updateContract(token,id,Wish.REFUSE,Status.CANCELLED);
