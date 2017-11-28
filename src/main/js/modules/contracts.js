@@ -61,7 +61,7 @@
     // 'View contract' state controller function
 
 
-    module.controller('viewContract',  function($scope,$window, $http,$rootScope,$stateParams, User,Contract, $state) {
+    module.controller('viewContract',  function($scope,$window, $http,$rootScope,$stateParams, User,Contract, $state,Message,Oboe) {
         isUserConnected($http, $rootScope, $scope, $state, User);
 
         $scope.app.configHeader({back: true, title: 'View contract', contextButton: 'editContract', contextId: $stateParams.id});
