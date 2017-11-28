@@ -42,7 +42,7 @@
                 case 'NOWHERE':
                     return "panel-warning";
                 case 'SIGNING':
-                    return "panel-success";
+                    return "panel-default";
                 case 'FINALIZED':
                     return "panel-success";
                 case 'CANCELLED':
