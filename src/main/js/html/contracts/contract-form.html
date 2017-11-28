@@ -106,7 +106,7 @@
 				</div>
 				<br/>
 				<div class="row">
-					<button type="button" class="btn btn-default col-sm-offset-4 col-md-offset-5 btn btn-secondary col-sm-3 col-md-2" ng-click="updateExchanges()">Add Clause</button>
+					<button type="button" class="btn btn-default col-sm-offset-4 col-md-offset-5" ng-click="updateExchanges()">Add Clause</button>
 				</div>
 				<div ng-show="errorExchange"><font color="red"><em>You must add an exchange clause</em></font></div>
 			</div>
@@ -132,7 +132,7 @@
 					<tbody>
 					<tr ng-repeat="modality in impModalities">
 						<td>{{modality}}</td>
-						<td><button type="button" class="btn btn-danger" ng-click="modifyImpModality(modality)">Modify</button></td>
+						<td><button type="button" class="btn btn-warning" ng-click="modifyImpModality(modality)">Modify</button></td>
 						<td><button type="button" class="btn btn-danger" ng-click="deleteImpModality(modality)">Delete</button></td>
 					</tr>
 					</tbody>
@@ -168,7 +168,7 @@
 					<tbody>
 					<tr ng-repeat="modality in termModalities">
 						<td>{{modality}}</td>
-						<td><button type="button" class="btn btn-danger" ng-click="modifyTermModality(modality)">Update</button></td>
+						<td><button type="button" class="btn btn-warning" ng-click="modifyTermModality(modality)">Update</button></td>
 						<td><button type="button" class="btn btn-danger" ng-click="deleteTermModality(modality)">Delete</button></td>
 					</tr>
 					</tbody>

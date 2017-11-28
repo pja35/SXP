@@ -50,7 +50,7 @@ tags-input .tags .tag-item {
   border: 1px solid #acacac;
   border-radius: 3px;
   background: -webkit-linear-gradient(top, #f0f9ff 0%, #cbebff 47%, #a1dbff 100%);
-  background: linear-gradient(to bottom, #f0f9ff 0%, #cbebff 47%, #a1dbff 100%);
+  background: linear-gradient(to bottom,#417db2 0,#417db2 47%,#417db2 100%);
 }
 tags-input .tags .tag-item.selected {
   background: -webkit-linear-gradient(top, #febbbb 0%, #fe9090 45%, #ff5c5c 100%);
