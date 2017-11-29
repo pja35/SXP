@@ -247,37 +247,68 @@
                 receiversNicks: nicks,
                 messageContent: messageContent,
                 contractID : contract.id,
-                ContractTitle : contract.title
+                ContractTitle : contract.title,
+                chatID: contract.chatID
             });
-            console.log(message);
-            Oboe({
-                url: RESTAPISERVER + "/api/messages/",
-                method: 'POST',
-                body: message,
-                withCredentials: true,
-                headers: {'Auth-Token': $http.defaults.headers.common['Auth-Token']},
-                start: function (stream) {
-                    // handle to the stream
-                    $scope.stream = stream;
-                    $scope.status = 'started';
-                    $scope.sendMessage = true;
-                },
-                done: function (parsedJSON) {
-                    $scope.status = 'done';
-                    $scope.sendMessage = false;
-                }
-            }).then(function () {
 
-            }, function (error) {
-                $scope.sendMessage = false;
-                console.log("erreur lors de l'envoie du message");
-            }, function (node) {
-                if (node != null && node.length != 0) {
-                    $scope.sendMessage = false;
-                    $rootScope.isForumMessage = contract.id;
-                    $state.go('messages');
-                }
-            });
+            Oboe(
+                {
+                    url: RESTAPISERVER + "/api/messages/"+contract.id,
+                    method:'GET',
+                    pattern: "!",
+                    withCredentials: true,
+                    headers: {'Auth-Token': $http.defaults.headers.common['Auth-Token']},
+                    start: function (stream) {
+                        // handle to the stream
+                        $scope.stream = stream;
+                        $scope.status = 'started';
+                        $scope.searchMessages = true;
+                    },
+                    done: function (parsedJSON) {
+                        console.log(parsedJSON);
+                        if(parsedJSON == null){
+                                Oboe({
+                                    url: RESTAPISERVER + "/api/messages/",
+                                    method: 'POST',
+                                    body: message,
+                                    withCredentials: true,
+                                    headers: {'Auth-Token': $http.defaults.headers.common['Auth-Token']},
+                                    start: function (stream) {
+                                        // handle to the stream
+                                        $scope.stream = stream;
+                                        $scope.status = 'started';
+                                        $scope.sendMessage = true;
+                                    },
+                                    done: function (parsedJSON) {
+                                        $scope.status = 'done';
+                                        $scope.sendMessage = false;
+                                    }
+                                }).then(function () {
+
+                                }, function (error) {
+                                    $scope.sendMessage = false;
+                                    console.log("erreur lors de l'envoie du message");
+                                }, function (node) {
+                                    if (node != null && node.length != 0) {
+                                        $scope.sendMessage = false;
+                                        $rootScope.isForumMessage = contract.id;
+
+                                        $state.go('messages');
+                                    }
+                                });
+                        }else{
+                            $rootScope.isForumMessage = contract.id;
+                            $state.go('messages');
+                        }
+
+                    }
+                });
+
+
+
+
+
+
 
         }
 
@@ -494,6 +525,7 @@
 
         $scope.app.configHeader({back: true, title: 'Add contracts'}); //Add Title
         $scope.action = 'add';
+
 
         /****** Initialising the scope variables necessary to deal with the contract ******/
         $scope.form = {
