@@ -8,14 +8,16 @@
 		</div>
 </div>
 <div class="well">
-	<span class="label label-success">Signed Contract</span>
-	<span class="label label-info">Modified Contract</span>
-	<span class="label label-warning">New Contract</span>
-	<span class="label label-danger">Contract Denied</span>
-	<span class="label label-default">Transition</span>
+	<span class="label label-success" ng-click="statusFilters.status='FINALIZED'">Signed Contract</span>
+	<span class="label label-info" ng-click="statusFilters.status='MODIFIED'">Modified Contract</span>
+	<span class="label label-warning" ng-click="statusFilters.status='NOWHERE'" >New Contract</span>
+	<span class="label label-danger" ng-click="statusFilters.status='CANCELED'">Contract Denied</span>
+	<span class="label label-primary" ng-click="statusFilters.status='RESOLVING'">RESOLVING</span>
+	<span class="label label-default" ng-click="statusFilters.status='SIGNING'">Signing</span>
+	<span class="label label-default"><span class="glyphicon glyphicon-remove" ng-click="statusFilters.status=''"></span></span>
 </div>
 <div class="row">
-	<div class="col-sm-12 col-md-6" ng-repeat="contract in contracts | filter : recherche">
+	<div class="col-sm-12 col-md-6" ng-repeat="contract in contracts | filter : statusFilters | filter : recherche">
 		<contract></contract>
 	</div>
 </div>

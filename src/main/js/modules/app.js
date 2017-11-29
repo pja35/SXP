@@ -155,7 +155,6 @@ function isUserConnected($http, $rootScope, $scope, $state, User) {
             $scope.app.setCurrentUser(user);
             $scope.app.nick = $scope.userNick;
 
-            console.log("User connected " + $scope.app.userid);
         });
 
     }

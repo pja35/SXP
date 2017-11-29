@@ -112,6 +112,7 @@ public class Messages {
                             aMessage.setMessageContent(message.getMessageContent());
                             aMessage.setReceiver(user.getId(),user.getNick());
                             aMessage.setContractTitle(message.getContractTitle());
+                            aMessage.setContractID(message.getContractID());
                             aMessage.setChatID(uuid);
                             aMessage.setReceiversNicks(message.getReceiversNicks());
                             aMessage.setContractID(message.getContractID());

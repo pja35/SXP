@@ -9,7 +9,7 @@
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-target="#privateMessages" data-toggle="tab" ng-click="showMessage()"><span class="glyphicon glyphicon-user"></span> Private messages</a></li>
-                        <li><a data-target="#messageContract" data-toggle="tab" ng-click="showForm()"><span class="glyphicon glyphicon-tags"></span> Form/Contract</a></li>
+                        <li><a data-target="#messageContract" data-toggle="tab" id="essai" ng-click="showForm()"><span class="glyphicon glyphicon-tags"></span> Form/Contract</a></li>
                     </ul>
 
                     <!-- show resume of private messages -->
@@ -24,7 +24,7 @@
 
                         <!-- show resume of message on contract -->
                         <div class="tab-pane fade in" id="messageContract" ng-show="!privateIsClicked">
-                            <div class="list-group" ng-repeat="msgContract in msgsContract" ng-click="openMessage(msgContract.details.id,'messageContract')">
+                            <div class="list-group" ng-repeat="msgContract in msgsContract" ng-click="openMessage(msgContract.details.idC,'messageContract')">
                                 <a  class="list-group-item">
                                     <span class="name" style="min-width: 120px; display: inline-block;">{{msgContract.details.receiversNicks.toString()}}</span> <strong class="">{{msgContract.details.contractTitle}}</strong>
                                     <span class="text-muted" style="font-size: 11px;">{{msgContract.details.content}}</span> <span class="badge">{{msgContract.details.date}}</span>
@@ -61,8 +61,8 @@
                         </div>
 
                         <!-- Content of all  contract messages -->
-                        <div ng-repeat="msgContract in msgsContract" id="{{msgContract.details.id}}" class="tabcontent" ng-show="!privateIsClicked">
-                            <button class="btn btn-link btn-lg linknodeco" ng-click="back('messageContract',msgContract.details.id)">
+                        <div ng-repeat="msgContract in msgsContract" id="{{msgContract.details.idC}}" ng-attr-id="{{msgContract.details.idC}}" class="tabcontent" ng-show="!privateIsClicked">
+                            <button class="btn btn-link btn-lg linknodeco" ng-click="back('messageContract',msgContract.details.idC)">
                                 <span class="glyphicon glyphicon-chevron-left"></span> Back
                             </button>
 
