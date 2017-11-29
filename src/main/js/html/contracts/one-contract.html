@@ -1,10 +1,11 @@
 <a href ui-sref="viewContract({id: contract.id})" style="text-decoration : none;">
 	<div class="panel" ng-class="checkClass(contract.status)">
 	  	<div class="panel-heading ">
-	    	<h3 class="panel-title "> {{contract.title}}</h3>
+	    	<h3 class="panel-title "> {{contract.status}}</h3>
 	  	</div>
 	  	<div class="panel-body">
-	  		<label for="cl">Parties :</label>
+           <h1>{{contract.title}}</h1>
+            <label for="cl">Parties :</label>
             <ul><span id="cl" ng-repeat="party in contract.partiesNames"><li>{{party.value}}: {{party.key}}</li></span></ul>
             <label for="c2">Parties Wishes :</label>
             <ul><span id="c2" ng-repeat="wish in contract.partiesWish"><li>{{wish.key}}: {{wish.value}}</li></span></ul>

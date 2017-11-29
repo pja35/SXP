@@ -61,7 +61,7 @@
     // 'View contract' state controller function
 
 
-    module.controller('viewContract',  function($scope,$window, $http,$rootScope,$stateParams, User,Contract, $state,Message,Oboe) {
+    module.controller('viewContract',  function($scope,$window, $http,$rootScope,$stateParams, User,Contract, $state,Message, Oboe) {
         isUserConnected($http, $rootScope, $scope, $state, User);
 
         $scope.app.configHeader({back: true, title: 'View contract', contextButton: 'editContract', contextId: $stateParams.id});
@@ -233,22 +233,21 @@
         var currentUser = User.get({
             id: $scope.app.userid
         });
-        $scope.addForum = function (contract,messageContent){
-            var ids = [];
+        $scope.addForum = function (contract){
             var nicks = [];
 
             for (var i = 0; i<contract.partiesNames.length;i++){
                 nicks.push(contract.partiesNames[i].value);
             }
 
-            nicks.push(currentUser.nick);
-
+            //nicks.push(currentUser.nick);
+            var messageContent = "The User '"+currentUser.nick+"' have created forum for the contract '"+contract.title+"'";
             var message = new Message({
                 receivers: contract.parties,
                 receiversNicks: nicks,
                 messageContent: messageContent,
-                chatGroup: false,
-                contractID : contract.id
+                contractID : contract.id,
+                ContractTitle : contract.title
             });
             console.log(message);
             Oboe({
@@ -275,22 +274,19 @@
             }, function (node) {
                 if (node != null && node.length != 0) {
                     $scope.sendMessage = false;
-                    console.log(node);
+                    $rootScope.isForumMessage = contract.id;
                     $state.go('messages');
                 }
             });
 
         }
-        $scope.form = false;
-        $scope.forum = function () {
-            $scope.form = !$scope.form;
-        }
+
         $scope.checkClass = function () {
             switch (contract.status) {
                 case 'NOWHERE':
                     return "panel-warning";
                 case 'SIGNING':
-                    return "panel-success";
+                    return "panel-default";
                 case 'FINALIZED':
                     return "panel-success";
                 case 'CANCELLED':
@@ -361,7 +357,8 @@
             $scope.impModalities = contract.implementing;
             $scope.termModalities = contract.termination;
 
-
+            $scope.status = contract.status;
+            console.log("status "+contract.status);
             $scope.partiesList.forEach(function(party) {
                 $scope.parties.push(party.value + " - " + party.key);
             }); // build $scope.parties from $scope.partiesList

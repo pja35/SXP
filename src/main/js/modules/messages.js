@@ -1,15 +1,17 @@
 (function () {
     var module = angular.module('app.messages', ['ui.directives', 'ui.filters']);
+
     module.config(function ($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise("/");
         $stateProvider
             .state('messages', {
                 url: '/messages',
                 templateUrl: 'messages.html',
-                controller: function ($rootScope, $scope, $state, $stateParams, Message, User, $http, Oboe) {
+                controller: function ($rootScope, $scope, $state, $stateParams, Message, User, $http, Oboe,$document) {
                     isUserConnected($http, $rootScope, $scope, $state, User);
                     $scope.app.configHeader({contextButton: 'addMessage', title: 'Messages'});
                     $scope.privateIsClicked = true;
+
 
                     // function to know witch tabs currently clicked in messages
                     $scope.showMessage = function(){
@@ -18,7 +20,6 @@
                     $scope.showForm = function(){
                         $scope.privateIsClicked = false;
                     }
-
 
                     /**
                      * function to open a specific message
@@ -40,7 +41,15 @@
                         document.getElementById(tabName).style.display = "block";
                         document.getElementById(tabcontent).style.display = "none";
                     }
+                    if($rootScope.isForumMessage != null){
+                        angular.element(document).ready(function() {
+                            angular.element("#essai").trigger("click");
+                        });
+                        $scope.showForm();
+                          //$scope.openMessage(isForumMessage,'messageContract');
+                           //angular.element('.isForumMessage').triggerHandler('click');
 
+                    }
                     $scope.stream = null; //The stream of async results
 
                     // get the current user with current id
@@ -114,7 +123,7 @@
                         $scope.msgsContract = [];
                        // console.log($scope.messages);
                         for (var i = 0; i < $scope.messages.length; i++) {
-                            console.log($scope.messages[i]);
+                            //console.log($scope.messages[i]);
                         	if($scope.messages[i].contractID != null){
                                // console.log($scope.messages[i]);
 
@@ -151,7 +160,7 @@
                         for (var j in tmpContract) {
                             $scope.msgsContract.push({name: j, details: tmpContract[j]});
                         }
-                        console.log($scope.private);
+                        //console.log($scope.private);
 
                     }
 
@@ -248,14 +257,11 @@
                             });
                             ids.push($scope.app.userid);
                             nicks.push(currentUser.nick);
-                            var isChatGroup = ids.length>2;
-                            console.log("SCOPE");
                             console.log($scope.messageContent);
                             var message = new Message({
                                 receivers: ids,
                                 receiversNicks: nicks,
                                 messageContent: $scope.messageContent
-
                             });
 
                             Oboe({
