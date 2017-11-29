@@ -155,7 +155,7 @@ public class Contracts {
 				if (contract.getWish().equals(Wish.NEUTRAL)){
 					contract.setImplementing(c.getImplementing());
 					contract.setExchange(c.getExchange());
-                    contract.setTermination(c.getTermination());
+                                        contract.setTermination(c.getTermination());
 					contract.setStatus(Status.MODIFIED);
 					contract.setParties(parties);
 					contract.setTitle(c.getTitle());
