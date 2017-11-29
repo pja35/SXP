@@ -49,6 +49,7 @@ RESTAPISERVER = 'https://localhost:8081';
     });
 
 
+
     module.factory('Search', function($resource){
         return $resource(RESTAPISERVER + '/api/users/',{
             update: {

@@ -196,59 +196,80 @@
         };
 
 
+
         pdfMake.createPdf(docDefinition).open();// to open Pdf on new browser window
 
 
     	}
 
-    	          var currentUser = User.get({
-                           id: $scope.app.userid
-                       });
-        	           $scope.addForum = function (contract){
-                               var nicks = [];
+    	                     //nicks.push(currentUser.nick);
+            var messageContent = "The User '"+currentUser.nick+"' have created forum for the contract '"+contract.title+"'";
+            var message = new Message({
+                receivers: contract.parties,
+                receiversNicks: nicks,
+                messageContent: messageContent,
+                contractID : contract.id,
+                ContractTitle : contract.title,
+                chatID: contract.chatID
+            });
 
-                               for (var i = 0; i<contract.partiesNames.length;i++){
-                                   nicks.push(contract.partiesNames[i].value);
-                               }
+            Oboe(
+                {
+                    url: RESTAPISERVER + "/api/messages/"+contract.id,
+                    method:'GET',
+                    pattern: "!",
+                    withCredentials: true,
+                    headers: {'Auth-Token': $http.defaults.headers.common['Auth-Token']},
+                    start: function (stream) {
+                        // handle to the stream
+                        $scope.stream = stream;
+                        $scope.status = 'started';
+                        $scope.searchMessages = true;
+                    },
+                    done: function (parsedJSON) {
+                        $scope.status = 'done';
+                        $scope.searchMessages = false;
+                    }
+                }).then(function () {
+            }, function (error) {
+            }, function (node) {
+                    console.log(node);
+                if (node.length === 0 || node == null ) {
+                    Oboe({
+                        url: RESTAPISERVER + "/api/messages/",
+                        method: 'POST',
+                        body: message,
+                        withCredentials: true,
+                        headers: {'Auth-Token': $http.defaults.headers.common['Auth-Token']},
+                        start: function (stream) {
+                            // handle to the stream
+                            $scope.stream = stream;
+                            $scope.status = 'started';
+                            $scope.sendMessage = true;
+                        },
+                        done: function (parsedJSON) {
+                            $scope.status = 'done';
+                            $scope.sendMessage = false;
+                        }
+                    }).then(function () {
 
-                               //nicks.push(currentUser.nick);
-                               var messageContent = "The User '"+currentUser.nick+"' have created forum for the contract '"+contract.title+"'";
-                               var message = new Message({
-                                   receivers: contract.parties,
-                                   receiversNicks: nicks,
-                                   messageContent: messageContent,
-                                   contractID : contract.id,
-                                   ContractTitle : contract.title
-                               });
-                               Oboe({
-                                   url: RESTAPISERVER + "/api/messages/",
-                                   method: 'POST',
-                                   body: message,
-                                   withCredentials: true,
-                                   headers: {'Auth-Token': $http.defaults.headers.common['Auth-Token']},
-                                   start: function (stream) {
-                                       // handle to the stream
-                                       $scope.stream = stream;
-                                       $scope.status = 'started';
-                                       $scope.sendMessage = true;
-                                   },
-                                   done: function (parsedJSON) {
-                                       $scope.status = 'done';
-                                       $scope.sendMessage = false;
-                                   }
-                               }).then(function () {
+                    }, function (error) {
+                        $scope.sendMessage = false;
+                        console.log("erreur lors de l'envoie du message");
+                    }, function (node) {
+                        if (node != null && node.length != 0) {
+                            $scope.sendMessage = false;
+                            $rootScope.isForumMessage = contract.id;
 
-                               }, function (error) {
-                                   $scope.sendMessage = false;
-                               }, function (node) {
-                                   if (node != null && node.length != 0) {
-                                       $scope.sendMessage = false;
-                                       $rootScope.isForumMessage = contract.id;
-                                       $state.go('messages');
-                                   }
-                               });
+                            $state.go('messages');
+                        }
+                    });
+                }else{
+                    $state.go('messages');
+                }
 
-                           }
+            });
+}
         	        $scope.form = false;
         	        $scope.forum = function () {
         	            $scope.form = !$scope.form;
@@ -478,149 +499,81 @@
         //this function manages the disconnection because if the session expresses the return to the connection page
         isUserConnected($http, $rootScope, $scope, $state, User);
 
-    	$scope.app.configHeader({back: true, title: 'Add contracts'}); //Add Title
-    	$scope.action = 'add';
 
-			/****** Initialising the scope variables necessary to deal with the contract ******/
-			$scope.form = {
-				title : "",
-				addParty : "",
-				addFrom : "",
-				addWhat : "",
-				addTo : "",
-				addWhen : "",
-				addHow : "",
-				addDetails : "",
-				addImpModality : "",
-				addTermModality : ""
-			};
-	        /*******************************************************************/
-			/* initialization of all the variables needed to add new contract */
-			/*******************************************************************/
-			$scope.partiesList = []; // object array
-			$scope.parties = []; // string array
-    	    $scope.exchanges = []; // object array
-			$scope.exchangesStr = []; // string array
-			$scope.usersList = []; // object array
-			$scope.users = []; // string array
-			getUsers($http, $scope); // fill usersList and users
-			$scope.itemsList = []; // will be filled with the items of the "from" user
-			$scope.items = []; // string array
-			/***********************************************/
-
-			/****** Initialising the exchange modes ******/
-			$scope.exchangeModes = [];
-			$scope.exchangeModes[0] = "electronically";
-			$scope.exchangeModes[1] = "delivery";
-			$scope.exchangeModes[2] = "in person";
-			/***********************************************/
-
-			/****** Initialising the Mode transmission package ******/
-        			$scope.exchangeModeTranmission = [];
-        			$scope.exchangeModeTranmission[0] = "Recommended";
-        			$scope.exchangeModeTranmission[1] = "Normal";
-            /***********************************************/
-             datetimepicker8
+        $scope.app.configHeader({back: true, title: 'Add contracts'}); //Add Title
+        $scope.action = 'add';
 
 
+        /****** Initialising the scope variables necessary to deal with the contract ******/
+        $scope.form = {
+            title : "",
+            addParty : "",
+            addFrom : "",
+            addWhat : "",
+            addTo : "",
+            addWhen : "",
+            addHow : "",
+            addDetails : "",
+            addImpModality : "",
+            addTermModality : ""
+        };
+        $scope.partiesList = []; // object array
+        $scope.parties = []; // string array
+        $scope.exchanges = []; // object array
+        $scope.exchangesStr = []; // string array
+        $scope.usersList = []; // object array
+        $scope.users = []; // string array
+        getUsers($http, $scope); // fill usersList and users
+        $scope.itemsList = []; // will be filled with the items of the "from" user
+        $scope.items = []; // string array
+        /***********************************************/
 
-			/****** Initialising the default implementing modalities ******/
-			$scope.impModalities = [];
-			$scope.impModalities[0] = "Parties must check the items before executing the exchange.";
-			$scope.impModalities[1] = "Parties must provide an item corresponding to the description.";
-			$scope.impModalities[2] = "Parties must inform the other signatories of any alterations ";
-				+ "or modifications of the item they possess making it different from the description.";
-			$scope.impModalities[3] = "Parties must provide a document as a proof of their identity.";
-			$scope.impModalities[4] = "Parties are not responsible for any malfunctions or non-conformity "
-				+ "of the item they gave for the execution of the contract.";
-			/***********************************************/
+        /****** Initialising the exchange modes ******/
+        $scope.exchangeModes = [];
+        $scope.exchangeModes[0] = "electronically";
+        $scope.exchangeModes[1] = "delivery";
+        $scope.exchangeModes[2] = "in person";
+        /***********************************************/
 
-			/****** Initialising the default termination modalities ******/
-			$scope.termModalities = [];
-			$scope.termModalities[0] = "Parties can refuse to execute the exchange at any time "
-				+ "before any items has been exchanged."
-			/***********************************************/
-
-			/****** Indicators for the modification of an implementing and termination modality ******/
-			$scope.modifExchMod = {
-        		 toModify : false, // indicate wheter a modality has to be modified
-        		 index : -1 // modifying modality's index
-        			};
-			$scope.modifImpMod = {
-				toModify : false, // indicate wheter a modality has to be modified
-				index : -1 // modifying modality's index
-			};
-			$scope.modifTermMod = {
-				toModify : false, // indicate wheter a modality has to be modified
-				index : -1 // modifying modality's index
-			};
-
-			 /****** All the functions to add, delete or modify informations about the contract ******/
-			$scope.updateParties = function() {updateParties($scope)};
-			$scope.updateExchanges = function() {updateExchanges($scope)};
-			$scope.updateImpModalities = function() {updateImpModalities($scope)};
-			$scope.updateTermModalities = function() {updateTermModalities($scope)};
-
-
-
-			$scope.deleteParty = function(p) {deleteParty($scope,p)};
-			$scope.deleteExchange = function(c) {deleteExchange($scope,c)};
-			$scope.deleteImpModality = function(m) {deleteImpModality($scope, m)};
-			$scope.deleteTermModality = function(m) {deleteTermModality($scope, m)};
-
-			$scope.modifyExchangeModality = function(m) {modifyExchangeModality($scope,m)};
-			$scope.modifyImpModality = function(m) {modifyImpModality($scope,m)};
-			$scope.modifyTermModality = function(c) {modifyTermModality($scope,c)};
-			$scope.cancelImpModality = function() {cancelImpModality($scope)};
-			$scope.cancelTermModality = function() {cancelTermModality($scope)};
-			$scope.cancelExchModality = function() {cancelExchModality($scope)};
-
-			$scope.validateImpModality = function() {validateImpModality($scope)};
-			$scope.validateTermModality = function() {validateTermModality($scope)};
-			$scope.validateExchangeModality = function(m) {validateExchangeModality($scope,m)};
-			$scope.updateItems = function() {updateItems($http, $scope)};
-            $scope.updatehow = function(choice) {updatehow($scope,choice)};
-
-			/*******************************************************************/
-
-			/****** Submit button function ******/
-    	$scope.submit = function() {
+        /****** Initialising the Mode transmission package ******/
+        $scope.exchangeModeTranmission = [];
+        $scope.exchangeModeTranmission[0] = "Recommended";
+        $scope.exchangeModeTranmission[1] = "Normal";
+        /***********************************************/
 
 
 
 
-				// isOK is a boolean indicating wether the user has entered all the mandatory informations about the contract
-				var isOK = checkClauses($scope);
-				if (isOK)
-				{
-					var partiesId = [];
-					$scope.partiesList.forEach(function(party) {
-						partiesId.push(party.key);
-					});
+        /****** Initialising the default implementing modalities ******/
+        $scope.impModalities = [];
+        $scope.impModalities[0] = "Parties must check the items before executing the exchange.";
+        $scope.impModalities[1] = "Parties must provide an item corresponding to the description.";
+        $scope.impModalities[2] = "Parties must inform the other signatories of any alterations ";
+        + "or modifications of the item they possess making it different from the description.";
+        $scope.impModalities[3] = "Parties must provide a document as a proof of their identity.";
+        $scope.impModalities[4] = "Parties are not responsible for any malfunctions or non-conformity "
+            + "of the item they gave for the execution of the contract.";
+        /***********************************************/
 
+        /****** Initialising the default termination modalities ******/
+        $scope.termModalities = [];
+        $scope.termModalities[0] = "Parties can refuse to execute the exchange at any time "
+            + "before any items has been exchanged."
+        /***********************************************/
 
-					buildExchangesStr($scope);
-
-
-	    		if ($scope.form.addParty != null && $scope.form.addParty.length>2){updateParties($scope);}
-	    		if ($scope.form.addTermModality != null && $scope.form.addTermModality.length>2){updateTermModalities($scope);}
-	            if ($scope.form.addImpModality != null && $scope.form.addImpModality.length>2){updateImpModalities($scope);}
-
-	    		var contract = new Contract({
-		    		    title : $scope.form.title,
-						parties : partiesId,
-						exchange : $scope.exchangesStr,
-						termination : $scope.termModalities,
-	    			    implementing : $scope.impModalities
-					});
-
-
-	      	// Create the contract in the database thanks to restApi.js
-	    		contract.$save(function() {
-						$state.go('viewContracts');
-					});
-				}
-    	};
+        /****** Indicators for the modification of an implementing and termination modality ******/
+        $scope.modifExchMod = {
+            toModify : false, // indicate wheter a modality has to be modified
+            index : -1 // modifying modality's index
+        };
+        $scope.modifImpMod = {
+            toModify : false, // indicate wheter a modality has to be modified
+            index : -1 // modifying modality's index
+        };
+        $scope.modifTermMod = {
+            toModify : false, // indicate wheter a modality has to be modified
+            index : -1 // modifying modality's index
+        };
 
     });
 

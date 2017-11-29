@@ -15,7 +15,7 @@
                     <!-- show resume of private messages -->
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="privateMessages" ng-show="privateIsClicked">
-                            <div class="list-group" ng-repeat="msgPrivate in private" ng-click="openMessage(msgPrivate.details.id,'privateMessages')">
+                            <div class="list-group" ng-repeat="msgPrivate in private | orderBy : '-details.date'" ng-click="openMessage(msgPrivate.details.id,'privateMessages')">
                                 <a  class="list-group-item">
                                     <span class="name" style="min-width: 120px; display: inline-block;">{{msgPrivate.name}}</span> <span class=""></span>
                                     <span class="text-muted" style="font-size: 11px; max-width: 200px; display: inline-block; overflow: hidden;">{{msgPrivate.details.content}}</span> <span class="badge">{{msgPrivate.details.date}}</span> </a>
@@ -24,7 +24,7 @@
 
                         <!-- show resume of message on contract -->
                         <div class="tab-pane fade in" id="messageContract" ng-show="!privateIsClicked">
-                            <div class="list-group" ng-repeat="msgContract in msgsContract" ng-click="openMessage(msgContract.details.idC,'messageContract')">
+                            <div class="list-group" ng-repeat="msgContract in msgsContract | orderBy : '-details.date'" ng-click="openMessage(msgContract.details.idC,'messageContract')">
                                 <a  class="list-group-item">
                                     <span class="name" style="min-width: 120px; display: inline-block;">{{msgContract.details.receiversNicks.toString()}}</span> <strong class="">{{msgContract.details.contractTitle}}</strong>
                                     <span class="text-muted" style="font-size: 11px;">{{msgContract.details.content}}</span> <span class="badge">{{msgContract.details.date}}</span>

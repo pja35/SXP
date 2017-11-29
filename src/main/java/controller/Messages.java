@@ -259,4 +259,68 @@ public class Messages {
     }
 
 
+    @GET
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ChunkedOutput<String> getByContractID(@HeaderParam(Authentifier.PARAM_NAME) final String token,@PathParam("id") final String id) {
+
+        Authentifier auth = Application.getInstance().getAuth();
+        UserSyncManager users = SyncManagerFactory.createUserSyncManager();
+        final User currentUser = users.getUser(auth.getLogin(token), auth.getPassword(token));
+        users.close();
+
+        final ChunkedOutput<String> output = new ChunkedOutput<String>(String.class);
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+
+                JsonTools<Collection<Message>> json = new JsonTools<>(new TypeReference<Collection<Message>>() {
+                });
+
+                Manager<Message> em = ManagerFactory.createNetworkResilianceMessageManager(Application.getInstance().getPeer(), token, currentUser, null);
+
+                final Hashtable<String, Message> hashtableMessage = new Hashtable<>();
+
+                em.findAllByAttribute("contractID", id, new ManagerListener<Message>() {
+                    @Override
+                    public void notify(Collection<Message> results) {
+
+                        for (Iterator iterator = results.iterator(); iterator.hasNext(); ) {
+                            Message message = (Message) iterator.next();
+                            if (hashtableMessage.get(message.getId()) == null) {
+                                hashtableMessage.put(message.getId(), message);
+                            }
+                        }
+                    }
+                });
+
+
+                try {
+
+                    Thread.sleep(3000);
+
+                    output.write(json.toJson(hashtableMessage.values()));
+
+                } catch (InterruptedException e) {
+                    LoggerUtilities.logStackTrace(e);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        output.write("[]");
+                        output.close();
+                    } catch (IOException e) {
+                        LoggerUtilities.logStackTrace(e);
+                    }
+                }
+                em.close();
+            }
+        }).start();
+
+        return output;
+    }
+
 }
