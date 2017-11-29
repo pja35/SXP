@@ -265,44 +265,51 @@
                         $scope.searchMessages = true;
                     },
                     done: function (parsedJSON) {
-                        console.log(parsedJSON);
-                        if(parsedJSON == null){
-                                Oboe({
-                                    url: RESTAPISERVER + "/api/messages/",
-                                    method: 'POST',
-                                    body: message,
-                                    withCredentials: true,
-                                    headers: {'Auth-Token': $http.defaults.headers.common['Auth-Token']},
-                                    start: function (stream) {
-                                        // handle to the stream
-                                        $scope.stream = stream;
-                                        $scope.status = 'started';
-                                        $scope.sendMessage = true;
-                                    },
-                                    done: function (parsedJSON) {
-                                        $scope.status = 'done';
-                                        $scope.sendMessage = false;
-                                    }
-                                }).then(function () {
+                        $scope.status = 'done';
+                        $scope.searchMessages = false;
+                    }
+                }).then(function () {
+            }, function (error) {
+            }, function (node) {
+                    console.log(node);
+                if (node.length === 0 || node == null ) {
+                    Oboe({
+                        url: RESTAPISERVER + "/api/messages/",
+                        method: 'POST',
+                        body: message,
+                        withCredentials: true,
+                        headers: {'Auth-Token': $http.defaults.headers.common['Auth-Token']},
+                        start: function (stream) {
+                            // handle to the stream
+                            $scope.stream = stream;
+                            $scope.status = 'started';
+                            $scope.sendMessage = true;
+                        },
+                        done: function (parsedJSON) {
+                            $scope.status = 'done';
+                            $scope.sendMessage = false;
+                        }
+                    }).then(function () {
 
-                                }, function (error) {
-                                    $scope.sendMessage = false;
-                                    console.log("erreur lors de l'envoie du message");
-                                }, function (node) {
-                                    if (node != null && node.length != 0) {
-                                        $scope.sendMessage = false;
-                                        $rootScope.isForumMessage = contract.id;
-
-                                        $state.go('messages');
-                                    }
-                                });
-                        }else{
+                    }, function (error) {
+                        $scope.sendMessage = false;
+                        console.log("erreur lors de l'envoie du message");
+                    }, function (node) {
+                        if (node != null && node.length != 0) {
+                            $scope.sendMessage = false;
                             $rootScope.isForumMessage = contract.id;
+
                             $state.go('messages');
                         }
+                    });
+                }else{
+                    $state.go('messages');
+                }
 
-                    }
-                });
+
+
+
+            });
 
 
 

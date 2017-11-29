@@ -165,6 +165,7 @@
                     }
 
                     function loadMessages() {
+
                         $scope.messagesPrivate = [];
                         $scope.messagesChats = [];
                         $scope.messagesContract = [];
@@ -311,6 +312,8 @@
 
 	module.controller('display', function($scope){
 		//user : person we are talking to
+
+
 
 		var currentUser=0;
 
