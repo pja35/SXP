@@ -390,7 +390,7 @@ public class X509V3Generator implements CertificateGenerator
 		File file = new File(file_name);
 		if( file.exists() )
 		{
-			System.out.println("Keystore already exist");
+			System.out.print("Keystore already exist");
 			return;
 		}
 
