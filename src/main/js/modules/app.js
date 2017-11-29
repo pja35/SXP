@@ -1,6 +1,6 @@
 (function() {
 
-    var module = angular.module('app', ['ui.router', 'ngAnimate', 'ngResource', 'services.rest', 'app.myItems', 'search', 'app.messages', 'app.users', 'app.settings', 'ngOboe', 'app.contracts', 'app.contact']);
+    var module = angular.module('app', ['ngMaterial', 'ngMessages','ngTagsInput','ui.router', 'ui.bootstrap', 'ngAnimate', 'ngResource', 'services.rest', 'app.myItems', 'search', 'app.messages', 'app.users', 'app.settings', 'ngOboe', 'app.contracts', 'app.contact']);
     //app is the name of this module, what follows are depencies
     //ui.router is standard, for routing
     //ngOboe is standard to stream the results of the searches
@@ -134,15 +134,34 @@
 
 })();
 
-function isUserConnected($rootScope, $scope, $state){
-		if ($scope.app.userid != undefined) {
-			$rootScope.userLogged = true;
-			console.log("user connected "+$scope.app.userid );
-		}
-		else{
-			$rootScope.userLogged = false;
-			console.log("user not connected "+$scope.app.userid +" redirect->login");
-			$state.go('login');
-		}
-	}
+/**
+ * This function was udpated to save users session on sessionStorage. This way user can refresh the page without
+ * losing is session and being forced to loging again
+ * @param $http
+ * @param $rootScope
+ * @param $scope
+ * @param $state
+ * @param User
+ */
+function isUserConnected($http, $rootScope, $scope, $state, User) {
+    if (sessionStorage.getItem("curUser") != null) {
+        $http.defaults.headers.common['Auth-Token'] = sessionStorage.getItem("token");
+        $rootScope.userLogged = true;
+        var user = User.get({
+            id: sessionStorage.getItem("curUser")
+        }, function () {
+            $scope.user = user;
+            $scope.app.userid = sessionStorage.getItem("curUser");
+            $scope.app.setCurrentUser(user);
+            $scope.app.nick = $scope.userNick;
 
+        });
+
+    }
+    else {
+        $rootScope.userLogged = false;
+        sessionStorage.clear();
+        console.log("user not connected  redirect->login");
+        $state.go('login');
+    }
+}

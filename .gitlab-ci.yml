@@ -51,7 +51,10 @@ tests:
   except:
     - master
  
- 
+ deploy:
+   stage: deploy
+   script:
+     - ./deploy
 #selenium:
 #  stage: test
 #  image: selenium/standalone-firefox

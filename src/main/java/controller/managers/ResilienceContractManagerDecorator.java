@@ -7,7 +7,7 @@ import network.api.Peer;
 
 public class ResilienceContractManagerDecorator extends ManagerDecorator<ContractEntity> {
 
-	public ResilienceContractManagerDecorator(Manager<ContractEntity> em, Peer peer) {
-		super(em);
-	}
+    public ResilienceContractManagerDecorator(Manager<ContractEntity> em, Peer peer) {
+        super(em);
+    }
 }

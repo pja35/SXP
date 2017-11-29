@@ -1,81 +1,378 @@
+
 <h2 ng-show="{{action === 'add'}}">Add a new contract</h2>
 <h2 ng-show="{{action === 'edit'}}">Edit a contract</h2>
 
-<form class="form-horizontal" ng-submit="submit()">
-	
-	<div class="row"><div class="form-group well well-sm col-sm-12 col-md-6">
-		<label for="title" class="col-sm-2 control-label">Title</label>
-	    <div class="col-sm-5">
-	    	<input type="hidden" id="id" ng-model="form.id">
-	    	<input type="text" class="form-control" id="title" placeholder="Un titre" ng-model="form.title">
-	    </div>
-	</div></div>
-	
-	<div class="row"><div class="form-group well well-sm col-sm-12 col-md-6">
-    	<label for="parties" class="col-sm-2 control-label">Parties</label>
-   		<div class="col-sm-10 form-group">
-    
-			<div class="col-sm-12" ng-repeat="party in parties">
+<form ng-submit="submit()">
+
+	<br>
+	<!-- Contract name field -->
+	<div class="form-group panel-success">
+		<div class="panel-heading">
+			<label for="title" class="control-label">
+				<span class="glyphicon glyphicon-file"></span> Contract name
+			</label>
+		</div>
+		<div class="panel-body">
+			<input type="hidden" id="id" ng-model="form.id">
+			<input type="text" class="form-control" id="title" placeholder="Name" ng-model="form.title">
+			<div ng-show="errorName"><font color="red"><em>You must fill out the contract name field</em></font></div>
+		</div>
+	</div>
+
+	<!-- Parties field -->
+	<div class="form-group panel-success">
+		<div class="panel-heading">
+			<label class="control-label">
+				<span class="glyphicon glyphicon-user"></span> Party
+			</label>
+		</div>
+		</br>
+		<div class="col-sm-offset-9 col-sm-10" data-ng-show="{{action=='edit'}}">
+
+			<button type="button" class="btn btn-success" ng-click="showformParty()"><span class="glyphicon glyphicon-plus"></span> Add</button>
+		</div>
+		<div class="panel-body">
+			<div class="col-sm-8" ng-repeat="party in partiesList">
 				<party/>
 			</div>
-			<div class="col-sm-10">
-				<select class="form-control" id="addParty" ng-model="form.addParty">
-	    			<option value="Choose a user" selected="selected" disabled>Choose a user<option/>
-					<option ng-repeat="user in userList">{{user.name}} - {{user.id}}</option>
-				</select>
-			</div>
-		    <div class="col-sm-2">
-		    	<button type="button" class="btn btn-default" ng-click="updateparties()">Add party</button>
-		    </div>
-	  </div>
-	</div></div>
-  
-  	<div class="row"><div class="form-group well well-sm col-sm-12 col-md-6">
-    	<label for="clauses" class="col-sm-2 control-label">Clauses</label>
-      
-      	<div class="col-sm-10 form-group">
-			<div class="col-sm-12 col-md-12" ng-repeat="clause in clauses">
-				<clause/>
-			</div>
-			
-			<div class="col-sm-12 well well-sm">
-				<div  class="row">
-			    	<label for="selectfrom"  class="col-sm-3 col-md-2">From : </label>
-			    	<span class="col-sm-9 col-md-10"><select id="selectfrom" class="form-control" ng-model="fromparty" title="From Party">
-		    			<option value="Choose a user" selected="selected" disabled>Choose a user<option/>
-		    			<option ng-repeat="party in parties">{{party}}</option>
-			    	</select></span>
-		    	</div>
-				<br/>
-				<div class="row">
-			    	<label for="addClause"  class="col-sm-3 col-md-2">Gives : </label>
-					<span class="col-sm-9 col-md-10">
-						<input type="text" class="form-control" id="addClause" placeholder=" give ... " ng-model="form.addClause"/>
-					</span>
+			<div class="row">
+				<div class="col-sm-6" data-ng-show="!showParty">
+					<input type="text" class="form-control" placeholder="Choose a user" ng-model="form.addParty"
+						   uib-typeahead="user for user in users | filter:$viewValue | limitTo:8">
+					<div ng-show="errorParty"><font color="red"><em>You must add a party</em></font></div>
 				</div>
-				<br/>
-				<div  class="row">
-			    	<label for="selectfor"  class="col-sm-3 col-md-2">For : </label>
-			    	<span class="col-sm-9 col-md-10"><select class="form-control col-sm-2" id="selectfor" ng-model="forparty" title="For Party">
-		    			<option value="Choose a user" selected="selected" disabled>Choose a user<option/>
-		    			<option ng-repeat="party in parties">{{party}}</option>
-			    	</select></span>
-		    	</div>
-				<br/>
-		    	<div class="row">
-		    		<button type="button" class="btn btn-default col-sm-offset-4 col-md-offset-5 btn btn-secondary col-sm-3 col-md-2" ng-click="updateclauses()">Add Clause</button>
-		    	</div>
-	    	</div>
-	  	</div>
-	</div></div>
-  
-  
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Submit</button>
-      <button class="btn btn-warning" type="button" onclick="window.history.back()">Cancel</button>
-      <button class="btn btn-danger" type="button" ng-click="delete()" ng-show="{{action === 'edit'}}">Delete</button>
-    </div>
-  </div>
-  
+				<div class="col-sm-2" data-ng-show="!showParty">
+					<button type="button" class="btn btn-default" ng-click="updateParties()">Add party</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Exchanges field -->
+	<div class="form-group panel-success">
+		<div class="panel-heading">
+			<label class="control-label">
+				<span class="glyphicon glyphicon-gift"></span> Exchange
+			</label>
+		</div>
+		</br>
+		<div class="col-sm-offset-9" data-ng-show="{{action=='edit'}}">
+			<button type="button"  class="btn btn-success" data-ng-click="showformExchange()"><span class="glyphicon glyphicon-plus"></span> Add</button>
+
+		</div>
+		<div class="panel-body">
+
+			<div class="table-responsive" data-ng-show="exchanges.length>0">
+				<table class="table table-striped">
+					<thead>
+					<tr>
+						<th>Modality</th>
+						<th>Action</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="exchange in exchanges">
+
+						<td>
+							The user:<strong>{{exchange.from}}</strong>
+							<br>
+							will give the item:<strong>{{exchange.what}}</strong>
+							<br>
+							to the user:<strong>{{exchange.to}}</strong>
+							<br>
+							How :<strong>{{exchange.how}}</strong>
+							<br>
+
+							<div data-ng-show="exchange.how.length == 10">
+								Place:<strong>{{exchange.place}}</strong>
+								<br>
+								When Exchange:<strong>{{exchange.when}}</strong>
+								<br>
+								Details:<strong>{{exchange.details}}</strong>
+								<br>
+							</div>
+							<div data-ng-show="exchange.how.length == 15">
+								Email From:<strong>{{exchange.emailfrom}}</strong>
+								<br>
+								Email to:<strong>{{exchange.emailto}}</strong>
+								<br>
+								When Sending:<strong>{{exchange.whenfrom}}</strong>
+								<br>
+								Details:<strong>{{exchange.details}}</strong>
+								<br>
+							</div>
+							<div data-ng-show="exchange.how.length == 9">
+								User 'from' address:<strong>{{exchange.userfrom}}</strong>
+								<br>
+								User 'to' address:<strong>{{exchange.userto}}</strong>
+								<br>
+								Date:<strong>{{exchange.datefrom}}</strong>
+								<br>
+								Send Mode:<strong>{{exchange.sendhowfrom}}</strong>
+								<br>
+
+								Details:<strong>{{exchange.details}}</strong>
+								<br>
+
+						</td>
+						<td>
+							<button type="button" class="btn btn-warning" ng-click="modifyExchangeModality(exchange)">
+								<span class="glyphicon glyphicon-edit"></span>
+								Edit
+							</button>
+						</td>
+						<td>
+							<button type="button" class="btn btn-danger" ng-click="deleteExchange(exchange)"><span class="glyphicon glyphicon-remove"></span> Delete
+							</button>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="col-sm-8">
+				<div class="row" data-ng-show="!showExchange">
+					<div class="row">
+
+
+						<label for="selectfrom" class="col-sm-3 col-md-2">FROM</label>
+						<span class="col-sm-9 col-md-10">
+						<input type="text" class="form-control" placeholder="Choose a party"
+							   ng-model="form.addFrom" ng-change="updateItems()"
+							   uib-typeahead="party for party in parties | filter:$viewValue | limitTo:8"
+							   typeahead-on-select="updateItems()">
+		              <div ng-show="errorFrom"><font color="red"><em>This user is not a party</em></font></div>
+
+					</span>
+					</div>
+					<br/>
+					<div class="row">
+						<label for="addClause" class="col-sm-3 col-md-2">WHAT</label>
+						<span class="col-sm-9 col-md-10">
+						<input type="text" class="form-control" placeholder="Choose an item" ng-model="form.addWhat"
+							   uib-typeahead="item for item in items | filter:$viewValue | limitTo:8">
+						<div ng-show="errorWhat"><font color="red"><em>This item doesn't exist</em></font></div>
+
+						</span>
+					</div>
+					<br/>
+					<div class="row">
+						<label for="selectfor" class="col-sm-3 col-md-2">TO</label>
+						<span class="col-sm-9 col-md-10">
+						<input type="text" class="form-control" placeholder="Choose a party" ng-model="form.addTo"
+							   uib-typeahead="party for party in parties | filter:$viewValue | limitTo:8">
+				   <div ng-show="errorTo"><font color="red"><em>This user is not a party</em></font></div>
+
+					</span>
+					</div>
+					<br/>
+
+					<div class="row">
+						<label for="addClause" class="col-sm-3 col-md-2">HOW</label>
+						<span class="col-sm-9 col-md-10"><select class="form-control" id="selectfor" ng-model="form.addHow"
+																 ng-change="updatehow(form.addHow)" title="For Party">
+
+		    		<option value="" selected disabled>Choose an exchange mode</option>
+		    		<option ng-repeat="mode in exchangeModes">{{mode}} </option>
+			    </select></span>
+					</div>
+					<br/>
+					<div class="row" ng-show="delivery">
+						<label for="addClause" class="col-sm-3 col-md-2">User 'from' address</label>
+						<span class="col-sm-9 col-md-10">
+						<input type="text" class="form-control" placeholder="Adress"
+							   ng-model="form.deliveryUserfrom">
+					</span><br/><br/><br/>
+					</div>
+					<div class="row" ng-show="delivery">
+						<label for="addClause" class="col-sm-3 col-md-2">User 'to' address</label>
+						<span class="col-sm-9 col-md-10">
+						<input type="text" class="form-control" placeholder="Adress"
+							   ng-model="form.deliveryUserto">
+					</span><br/><br/><br/>
+					</div>
+					<div class="row" ng-show="delivery">
+						<label for="addClause" class="col-sm-3 col-md-2">Date of sending  </label>
+						<span class="col-sm-9 col-md-10"><div class='input-group date' id='datetimepicker'>
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+						<input type='date' ng-model="form.deliveryDatefrom" class="form-control"/>
+					</div></span><br/><br/><br/>
+					</div>
+					<div class="row" ng-show="delivery">
+						<label for="addClause" class="col-sm-3 col-md-2">Send mode</label>
+						<span class="col-sm-9 col-md-10"><select class="form-control" id="selectfor"
+																 ng-model="form.deliverySendmodefrom"
+																 title="For Party">
+		    		<option value="" selected disabled>Choose an  mode tranmission package</option>
+		    		<option ng-repeat="mode in exchangeModeTranmission">{{mode}} </option>
+			    </select></span><br/><br/><br/>
+					</div>
+
+
+
+					<div class="row" ng-show="inperson">
+						<label for="addClause" class="col-sm-3 col-md-2">Place of exchange</label>
+						<span class="col-sm-9 col-md-10">
+						<input type="text" class="form-control" placeholder="Adress"
+							   ng-model="form.inpersonPlace">
+					</span><br/><br/><br/>
+					</div>
+					<div class="row" ng-show="inperson">
+						<label for="addClause" class="col-sm-3 col-md-2">When exchange  </label>
+						<span class="col-sm-9 col-md-10"><div class='input-group date' id='datetimepicker'>
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+						<input type='date' ng-model="form.inpersonWhen" class="form-control"/>
+					</div></span><br/><br/><br/>
+					</div>
+					<div class="row" ng-show="electronically">
+						<label for="addClause" class="col-sm-3 col-md-2">Email from:</label>
+						<span class="col-sm-9 col-md-10">
+						<input type="text" class="form-control" placeholder="Email"
+							   ng-model="form.electronicallyEmailfrom">
+					</span><br/><br/><br/>
+					</div>
+					<div class="row"  ng-show="electronically">
+						<label for="addClause" class="col-sm-3 col-md-2">Email to:</label>
+						<span class="col-sm-9 col-md-10">
+						<input type="text" class="form-control" placeholder="Email"
+							   ng-model="form.electronicallyEmailto">
+					</span><br/><br/><br/>
+					</div>
+					<div class="row" ng-show="electronically">
+						<label for="addClause" class="col-sm-3 col-md-2">When of sending  </label>
+						<span class="col-sm-9 col-md-10"><div class='input-group date' id='datetimepicker8' >
+
+						<input type='date' ng-model="form.electronicallyWhenfrom" class="form-control"/>
+					</div></span><br/><br/><br/>
+					</div>
+
+
+					<div class="row"  ng-show="detailhow">
+						<label for="addClause" class="col-sm-3 col-md-2">details</label>
+						<span class="col-sm-9 col-md-10">
+					<textarea class="form-control" rows="5" cols="3"
+							  ng-model="form.addDetails"></textarea>
+					</span> <br/><br/><br/>
+					</div>
+					<div class="row">
+						<button type="button"
+								class="btn btn-default col-sm-offset-4 col-md-offset-5 btn btn-secondary col-sm-3 col-md-2"
+								data-ng-show="!modifExchMod.toModify" ng-click="updateExchanges()">Add Clause
+						</button>
+
+						<button type="button" class="btn btn-default" ng-click="validateExchangeModality()"
+								data-ng-show="modifExchMod.toModify">Validate
+						</button>
+						<button type="button" class="btn btn-default" ng-click="cancelExchModality()"
+								data-ng-show="modifExchMod.toModify">Cancel
+						</button>
+
+					</div>
+
+				</div>
+				<div ng-show="errorExchange"><font color="red"><em>You must add an exchange clause</em></font></div>
+			</div>
+		</div>
+
+		<!-- Implementing modalities field -->
+		<div class="form-group panel-success">
+			<div class="panel-heading">
+				<label class="control-label">
+					<span class="glyphicon glyphicon-leaf"></span> Implementisg modalities
+				</label>
+			</div>
+			</br>
+			<div class="col-sm-offset-9" data-ng-show="{{action=='edit'}}">
+				<button type="button"  class="btn btn-success" data-ng-click="showformImplementing()"><span class="glyphicon glyphicon-plus"></span> Add</button>
+
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+						<tr>
+							<th>Modality</th>
+							<th>Action</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="modality in impModalities">
+							<td>{{modality}}</td>
+							<td><button type="button" class="btn btn-warning" ng-click="modifyImpModality(modality)"><span class="glyphicon glyphicon-edit"></span>Edit</button></td>
+							<td><button type="button" class="btn btn-danger" ng-click="deleteImpModality(modality)">Delete</button></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div data-ng-show="!showImplementing">
+					<textarea class="form-control" rows="5" cols="3" ng-model="form.addImpModality" ></textarea>
+					<div ng-show="errorImpModality"><font color="red"><em>You must add an implementing modality</em></font></div>
+					<br>
+					<button type="button" class="btn btn-default" ng-click="updateImpModalities()" data-ng-show="!modifImpMod.toModify">Add modality</button>
+					<button type="button" class="btn btn-default" ng-click="validateImpModality()" data-ng-show="modifImpMod.toModify">Validate</button>
+					<button type="button" class="btn btn-default" ng-click="cancelImpModality()" data-ng-show="modifImpMod.toModify">Cancel</button>
+				</div>
+			</div>
+		</div>
+		<!-- Termination modalities field -->
+		<div class="form-group panel-success">
+			<div class="panel-heading">
+				<label class="control-label">
+					<span class="glyphicon glyphicon-fire"></span> Termination modalities
+				</label>
+			</div>
+			</br>
+			<div class="col-sm-offset-9" data-ng-show="{{action=='edit'}}">
+				<button type="button"  class="btn btn-success" data-ng-click="showformTermination()"><span class="glyphicon glyphicon-plus"></span> Add</button>
+
+			</div>
+
+			<div class="panel-body">
+
+
+				<div class="table-responsive">
+
+					<table class="table table-striped">
+						<thead>
+						<tr>
+							<th>Modality</th>
+							<th>Action</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="modality in termModalities">
+							<td>{{modality}}</td>
+							<td><button type="button" class="btn btn-warning" ng-click="modifyTermModality(modality)"><span class="glyphicon glyphicon-edit"></span>Edit</button></td>
+							<td><button type="button" class="btn btn-danger" ng-click="deleteTermModality(modality)"><span class="glyphicon glyphicon-remove"></span> Delete</button></td>
+
+						</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div data-ng-show="!showTermincation">
+					<textarea class="form-control" rows="5" cols="3" ng-model="form.addTermModality" ></textarea>
+					<div ng-show="errorTermModality"><font color="red"><em>You must add a termination modality</em></font></div>
+					<br>
+					<button type="button" class="btn btn-default" ng-click="updateTermModalities()" data-ng-show="!modifTermMod.toModify">Add modality</button>
+					<button type="button" class="btn btn-default" ng-click="validateTermModality()" data-ng-show="modifTermMod.toModify">Validate</button>
+					<button type="button" class="btn btn-default" ng-click="cancelTermModality()" data-ng-show="modifTermMod.toModify">Cancel</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Actions field -->
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="submit" class="btn btn-default">Submit</button>
+				<button class="btn btn-warning" type="button" onclick="window.history.back()">Cancel</button>
+				<button class="btn btn-danger" type="button" ng-click="delete()" ng-show="{{action === 'edit'}}">Delete</button>
+			</div>
+		</div>
+
 </form>

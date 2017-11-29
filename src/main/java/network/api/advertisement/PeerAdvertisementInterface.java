@@ -1,5 +1,5 @@
 package network.api.advertisement;
 
-public interface PeerAdvertisementInterface extends Advertisement{
+public interface PeerAdvertisementInterface extends Advertisement {
 
 }

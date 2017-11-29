@@ -7,12 +7,13 @@ import model.validator.EntityValidator;
 
 public class ItemSyncManagerImpl extends AbstractSyncManager<Item> implements ItemSyncManager {
 
-	public ItemSyncManagerImpl() {
-		super();
-		this.initialisation("persistence", Item.class);
-	}
-	@Override
-	protected EntityValidator<?> getAdaptedValidator() {
-		return ValidatorFactory.createItemValidator();
-	}
+    public ItemSyncManagerImpl() {
+        super();
+        this.initialisation("persistence", Item.class);
+    }
+
+    @Override
+    protected EntityValidator<?> getAdaptedValidator() {
+        return ValidatorFactory.createItemValidator();
+    }
 }
