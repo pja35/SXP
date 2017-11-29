@@ -153,10 +153,9 @@ public class Contracts {
 		for (ContractEntity contract : contracts){
 			if (contract.getParties().contains(c.getUserid())){
 				if (contract.getWish().equals(Wish.NEUTRAL)){
-					c.setTermination(contract.getTermination());
-					c.setImplementing(contract.getImplementing());
-
-					c.setExchange(contract.getExchange());
+					contract.setImplementing(c.getImplementing());
+					contract.setExchange(c.getExchange());
+                    contract.setTermination(c.getTermination());
 					contract.setStatus(Status.MODIFIED);
 					contract.setParties(parties);
 					contract.setTitle(c.getTitle());

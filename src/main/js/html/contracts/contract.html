@@ -1,56 +1,127 @@
-<div  class="col-sm-12 col-md-6 col-md-offset-3">
-	<div class="panel" ng-class="checkClass()">
-		<div class="panel-heading"><h1>{{title}}</h1></div>
+<div class="col-sm-12 col-md-12">
+	<h1>{{title}}</h1>
 
-		<div class="panel-body">
+	<section class="row">
+		<h4><strong>Parties : </strong></h4>
+		<p class="col-sm-12" ng-repeat="party in parties">
+			<strong>{{party.value}}</strong> <i>{{party.key}}</i>
+		</p>
+	</section>
 
-            <p><strong>Parties :</strong><ul><span ng-repeat="party in parties"><br/><li style="display: inline-block">{{party.value}}: {{party.key}}</li></span></ul></p>
-            <p><strong>Implementing : </strong><ul>  <span ng-repeat="mod in Implementing"><br/><li style="display: inline-block">{{mod}}</li></span></ul></p>
-            <p><strong>Termination  :</strong><ul>   <span ng-repeat="cancel in Termination"><br/><li style="display: inline-block">{{cancel}}</li></span></ul></p>
+	<section class="row">
+		<h4><strong>Exchanges : </strong></h4>
+		<div class="table-responsive" data-ng-show="exchanges.length>0">
+			<table class="table table-striped">
+				<thead>
 
-            <p><strong>Exchange:</strong>
-                <span ng-repeat="exchange in Exchange">
-             <br/><br/>
-		        <strong>From: </strong>{{exchange.from}}<br/>
-		        <strong>To: </strong>{{exchange.to}}<br/>
-			    <strong>Item: </strong>{{exchange.item}}<br/>
-			    <strong>Time: </strong>{{exchange.when}}<br/>
-				<strong>How: </strong>{{exchange.how}}<br/>
-				<strong>Details: </strong>{{exchange.details}}<br/>
-				<br/><br/>
+				</thead>
+				<tbody>
+				<tr ng-repeat="exchange in exchanges"><td>
+					The user:<strong>{{exchange.from}}</strong>
+					<br>
+					will give the item:<strong>{{exchange.what}}</strong>
+					<br>
+					to the user:<strong>{{exchange.to}}</strong>
+					<br>
+					How :<strong>{{exchange.how}}</strong>
+					<br>
 
-                </span></p>
+					<div data-ng-show="exchange.how.length == 10">
+						Place:<strong>{{exchange.place}}</strong>
+						<br>
+						When Exchange:<strong>{{exchange.when}}</strong>
+						<br>
+						Details:<strong>{{exchange.details}}</strong>
+						<br>
+					</div>
+					<div data-ng-show="exchange.how.length == 15">
+						Email From:<strong>{{exchange.emailfrom}}</strong>
+						<br>
+						Email to:<strong>{{exchange.emailto}}</strong>
+						<br>
+						When Sending:<strong>{{exchange.whenfrom}}</strong>
+						<br>
+						Details:<strong>{{exchange.details}}</strong>
+						<br>
+					</div>
+					<div data-ng-show="exchange.how.length == 9">
+						User 'from' address:<strong>{{exchange.userfrom}}</strong>
+						<br>
+						User 'to' address:<strong>{{exchange.userto}}</strong>
+						<br>
+						Date:<strong>{{exchange.datefrom}}</strong>
+						<br>
+						Send Mode:<strong>{{exchange.sendhowfrom}}</strong>
+						<br>
+
+						Details:<strong>{{exchange.details}}</strong>
+						<br>
+
+				</td>
+
+				</tr>
+				</tbody>
+			</table>
 		</div>
+	</section>
 
-		<div class="panel-footer" ng-show="contract.status=='NOWHERE'">
-			<button class="btn btn-info" ng-click="sign()" type="button">Accept</button>
-			<button class="btn btn-warning" ng-click="modify()" type="button">Modify</button>
-			<button class="btn btn-danger" ng-click="decline()" type="button">Decline</button>
-			<button class="btn btn-primary" ng-click="getPdf()" type="button">Dowload</button>
-            <button class="btn btn-default" ng-click="addForum(contract)" type="button">Forum</button>
+	<section class="row">
+		<h4><strong>Implementing modalities : </strong></h4>
+		<p class="col-sm-12 table-responsive">
+		<table class="table table-striped">
+			<tbody>
+			<tr ng-repeat="modality in impModalities">
+				<td>{{modality}}</td>
+			</tr>
+			</tbody>
+		</table>
+		</p>
+	</section>
 
-		</div>
-		<div class="panel-footer" ng-show="contract.status=='SIGNING'">
-			<p>Contract is being signed</p>
-			<button class="btn btn-danger" type="button">Try cancel (might not work)</button>
-            <button class="btn btn-primary" ng-click="getPdf()" type="button">Dowload</button>
-            <button class="btn btn-default" ng-click="addForum(contract)" type="button">Forum</button>
-		</div>
-		<div class="panel-footer" ng-show="contract.status=='CANCELLED'">
-			<p>CONTRACT CANCELLED</p>
-            <button class="btn btn-primary" ng-click="getPdf()" type="button">Dowload</button>
-            <button class="btn btn-default" ng-click="addForum(contract)" type="button">Forum</button>
-		</div>
-		<div class="panel-footer" ng-show="contract.status=='FINALIZED'">
-			<p>CONTRACT SIGNED !</p>
-            <button class="btn btn-primary" ng-click="getPdf()" type="button">Dowload</button>
-            <button class="btn btn-default" ng-click="addForum(contract)" type="button">Forum</button>
-		</div>
-        <div class="panel-footer" ng-show="contract.status=='MODIFIED'">
-            <button class="btn btn-info" ng-click="sign()" type="button">Accept</button>
-            <button class="btn btn-warning" ng-click="modify()" type="button">Modify</button>
-            <button class="btn btn-danger" ng-click="decline()" type="button">Decline</button>
-            <button class="btn btn-primary" ng-click="getPdf()" type="button">Dowload</button>
-            <button class="btn btn-default" ng-click="addForum(contract)" type="button">Forum</button>
-        </div>
-	</div></div>
+	<section class="row">
+		<h4><strong>Termination modalities : </strong></h4>
+		<p class="col-sm-12 table-responsive">
+		<table class="table table-striped">
+			<tbody>
+			<tr ng-repeat="modality in termModalities">
+				<td>{{modality}}</td>
+			</tr>
+			</tbody>
+		</table>
+		</p>
+	</section>
+
+</div>
+
+<div class="panel-footer" ng-show="contract.status=='NOWHERE'">
+	<button class="btn btn-info" ng-click="sign()" type="button">Accept</button>
+	<button class="btn btn-warning" ng-click="modify()" type="button">Modify</button>
+	<button class="btn btn-danger" ng-click="decline()" type="button">Decline</button>
+	<button class="btn btn-primary" ng-click="getPdf()" type="button">Dowload</button>
+	<button class="btn btn-default" ng-click="addForum(contract)" type="button">Forum</button>
+
+</div>
+<div class="panel-footer" ng-show="contract.status=='SIGNING'">
+	<p>Contract is being signed</p>
+	<button class="btn btn-danger" type="button">Try cancel (might not work)</button>
+	<button class="btn btn-primary" ng-click="getPdf()" type="button">Dowload</button>
+	<button class="btn btn-default" ng-click="addForum(contract)" type="button">Forum</button>
+</div>
+<div class="panel-footer" ng-show="contract.status=='CANCELLED'">
+	<p>CONTRACT CANCELLED</p>
+	<button class="btn btn-primary" ng-click="getPdf()" type="button">Dowload</button>
+	<button class="btn btn-default" ng-click="addForum(contract)" type="button">Forum</button>
+</div>
+<div class="panel-footer" ng-show="contract.status=='FINALIZED'">
+	<p>CONTRACT SIGNED !</p>
+	<button class="btn btn-primary" ng-click="getPdf()" type="button">Dowload</button>
+	<button class="btn btn-default" ng-click="addForum(contract)" type="button">Forum</button>
+</div>
+<div class="panel-footer" ng-show="contract.status=='MODIFIED'">
+	<button class="btn btn-info" ng-click="sign()" type="button">Accept</button>
+	<button class="btn btn-warning" ng-click="modify()" type="button">Modify</button>
+	<button class="btn btn-danger" ng-click="decline()" type="button">Decline</button>
+	<button class="btn btn-primary" ng-click="getPdf()" type="button">Dowload</button>
+	<button class="btn btn-default" ng-click="addForum(contract)" type="button">Forum</button>
+</div>
+
