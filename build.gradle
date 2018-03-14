@@ -2,7 +2,10 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
 apply plugin: 'application'
-apply plugin: 'jetty'
+//apply plugin: 'jetty'
+apply plugin: 'war'
+apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
+
 apply plugin: 'jacoco'
 jacoco {
     toolVersion = "0.7.7.201606060606" //checked at http://www.eclemma.org/jacoco/
@@ -18,7 +21,7 @@ buildscript {
   dependencies {
     //classpath "gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:0.3.2"
      if(JavaVersion.current()>= JavaVersion.VERSION_1_8){
-    	classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.1"
+    	classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2"
 	}
 	classpath "com.netflix.nebula:nebula-ospackage-plugin:3.+"
   }
@@ -26,7 +29,7 @@ buildscript {
 
 //apply plugin: "com.github.sherter.google-java-format"
 if(JavaVersion.current()>= JavaVersion.VERSION_1_8){
-	apply plugin: "org.sonarqube"
+    apply plugin: "org.sonarqube"
 }
 
 
