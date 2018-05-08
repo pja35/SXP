@@ -3,8 +3,21 @@ apply plugin: 'eclipse'
 apply plugin: 'maven'
 apply plugin: 'application'
 //apply plugin: 'jetty'
+//apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
 apply plugin: 'war'
-apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
+apply plugin: 'org.akhikhl.gretty'
+
+buildscript {
+  repositories {
+    jcenter()
+  }
+
+  dependencies {
+    classpath 'org.akhikhl.gretty:gretty:1.4.0'
+  }
+}
+
+project.tasks.each { println it.name }
 
 apply plugin: 'jacoco'
 jacoco {
@@ -133,6 +146,7 @@ tasks.withType(Test) {
 }
 
 dependencies {
+	//compile 'org.akhikhl.gretty.AppStartTask'
 	
 	compile 'org.hibernate:hibernate-validator:5.2.4.Final'
 	
@@ -210,3 +224,7 @@ build.finalizedBy(libs)
 
 //Define jacoco report tasks
 test.finalizedBy(jacocoTestReport)
+
+
+
+
